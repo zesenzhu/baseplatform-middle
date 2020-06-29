@@ -1,0 +1,101 @@
+@import "~compass-mixins/lib/animate";
+@import "~compass-mixins/lib/compass/css3";
+$image-url:'../images';
+
+/*公共的mixin start*/
+@mixin textOverFlow() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@mixin flex{
+  display: flex;
+  display:-moz-flex;
+  display:-ms-flex;
+  display:-webkit-flex;
+  display:-ms-flexbox;
+}
+@mixin justify-content($dir){
+  justify-content: $dir;
+  -ms-flex-pack: $dir;
+}
+@mixin flex-direction($dir){
+  flex-direction:$dir;
+  -ms-flex-direction:$dir;
+}
+@mixin align-items($dir){
+  align-items: $dir;
+  -ms-flex-align: $dir;
+}
+/*公共的mixin end*/
+
+
+//root
+#root{
+  height:100%;
+
+  &>.ant-spin{
+
+    position: fixed;
+
+    left: 0;
+
+    top: 0;
+
+    bottom: 0;
+
+    right: 0;
+
+    z-index: 8888;
+
+    background-color: #ffffff;
+
+    @include flex;
+
+  }
+
+}
+
+
+//loading
+.ant-spin-nested-loading{
+  height:100%;
+}
+
+.frame-block-wrapper{
+
+  padding-left: 102px;
+
+  background-position: 32px 28px;
+
+}
+
+.frame-content-rightside{
+
+  position: relative;
+
+  border-top:1px solid #05e3f8;
+
+  @include border-radius(0 0 12px 12px);
+
+  margin-top:42px;
+
+}
+
+.ant-modal-footer{
+
+  .Button{
+
+    background-blend-mode: normal, normal;
+
+    border-radius: 2px;
+
+    color: #ffffff;
+
+    border:0;
+
+    outline:none;
+
+  }
+
+}

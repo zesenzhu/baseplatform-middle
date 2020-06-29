@@ -1,0 +1,231 @@
+@import "./base";
+.CourseClassDetails {
+    height: 100%;
+    width: 100%;
+    .details-tips {
+        height: 40px;
+        background-color: #eeeeee;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        padding: 0 20px;
+        .tips-content {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: #333;
+            font-size: 12px;
+            .tips {
+                color: #999;
+            }
+        }
+        .className {
+            padding-left: 25px;
+            font-size: 16px;
+            background: url(../images/inage-class.png) no-repeat left center;
+            background-size: 20px 13px;
+            display: inline-block;
+            max-width: 170px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            // vertical-align: bottom;
+        }
+        .classTeacher {
+            color: #0099ff;
+            cursor: pointer;
+            display: inline-block;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .subject {
+            display: inline-block;
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .grade {
+            display: inline-block;
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .studentCount {
+            display: inline-block;
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+    .table-head {
+        position: fixed;
+        z-index: 2;
+        // margin-bottom: 28px;
+        // ;
+        .table-head-th {
+            display: inline-block;
+            line-height: 28px;
+            padding: 0 10px;
+            &:first-of-type {
+                padding: 0 25px;
+                width: 90px;
+            }
+            &:nth-of-type(2) {
+                width: 164px;
+            }
+            &:nth-of-type(3) {
+                width: 164px;
+            }
+            &:nth-of-type(4) {
+                width: 70px;
+            }
+            &:nth-of-type(5) {
+                width: 230px;
+            }
+            text-align: center;
+            background-color: rgb(245, 245, 245);
+            .ant-table-column-title {
+                color: #647e86;
+                white-space: nowrap;
+            }
+        }
+    }
+    .table {
+        // margin-top: 28px;
+        overflow: auto;
+        .ant-table-thead {
+            position: fixed;
+            th {
+                padding: 0 10px;
+                &:first-of-type {
+                    padding: 0 25px;
+                    width: 90px;
+                }
+                &:nth-of-type(2) {
+                    width: 103px;
+                }
+                &:nth-of-type(3) {
+                    width: 225px;
+                }
+                &:nth-of-type(4) {
+                    width: 70px;
+                }
+                &:nth-of-type(5) {
+                    width: 229px;
+                }
+            }
+        }
+        // .ant-table-body {
+        //     &::-webkit-scrollbar {
+        //         height: 5px;
+        //         width: 6px;
+        //     }
+        //     &::-webkit-scrollbar-thumb {
+        //         border-radius: 3px;
+        //         -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        //         background: rgba(0, 0, 0, 0.2);
+        //         -webkit-border-radius: 3px;
+        //         -moz-border-radius: 3px;
+        //         -ms-border-radius: 3px;
+        //         -o-border-radius: 3px;
+        //     }
+        //     &::-webkit-scrollbar-track {
+        //         -webkit-box-shadow: 0;
+        //         border-radius: 0;
+        //         background: #fff;
+        //     }
+        // }
+        .ant-table-tbody>tr {
+            height: 48px;
+            td {
+                color: #999;
+            }
+            .StudentName-name,
+            .Grade-Class {
+                color: #333;
+            }
+
+            .key-content{
+
+                display: block;
+
+                width:90px;
+
+                @include textOverFlow;
+
+            }
+
+            .StudentName-name{
+
+                display: block;
+
+                width: 164px;
+
+                @include textOverFlow;
+
+                margin: 0 auto;
+
+            }
+
+            .StudentID{
+
+                display: block;
+
+                width: 164px;
+
+                @include textOverFlow;
+
+                margin: 0 auto;
+
+            }
+
+            .Gender{
+
+                display: block;
+
+                width: 70px;
+
+                @include textOverFlow;
+
+                margin: 0 auto;
+
+            }
+
+            .Grade-Class{
+
+                display: block;
+
+                width:230px;
+
+                @include textOverFlow;
+
+                margin: 0 auto;
+
+            }
+
+        }
+        .ant-table-row {
+            td {
+                padding: 0;
+                white-space: nowrap;
+                &:first-of-type {
+                    // padding: 10px 39px;
+                }
+                &:last-of-type {
+                    //width: 320px;
+                }
+            }
+        }
+        .ant-table-column-title {
+            white-space: nowrap;
+        }
+    }
+    // .ant-table-body {
+    //     height: 390px;
+    // }
+}

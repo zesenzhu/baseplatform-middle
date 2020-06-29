@@ -1,0 +1,44 @@
+@import "~compass-mixins/lib/compass/css3";
+
+@import "~compass-mixins/lib/animate";
+
+
+@mixin flex{
+  display: flex;
+  display:-moz-flex;
+  display:-ms-flex;
+  display:-webkit-flex;
+  display:-ms-flexbox;
+}
+@mixin justify-content($dir){
+  justify-content: $dir;
+  -ms-flex-pack: $dir;
+}
+@mixin flex-direction($dir){
+  flex-direction:$dir;
+  -ms-flex-direction:$dir;
+}
+@mixin align-items($dir){
+  align-items: $dir;
+  -ms-flex-align: $dir;
+}
+
+@mixin textOverFlow{
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+}
+
+$image-url:'../images';
+
+body{
+
+  color: #333333;
+
+  font-family: "Microsoft YaHei";
+
+}

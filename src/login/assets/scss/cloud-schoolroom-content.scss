@@ -1,0 +1,70 @@
+.cloud_schoolroom_left_introduce{
+
+  position: relative;
+
+  width: 532px;
+
+  height: 620px;
+
+  background:url("#{$cloudSchoolRoomUrl}/cloud-schoolroom-content-img.png") no-repeat center;
+
+  background-size: cover;
+
+}
+
+.cloud_schoolroom_sign_wrapper{
+
+  background-image: url("#{$cloudSchoolRoomUrl}/cloud-schoolroom-login-wrapper.png");
+
+  margin-left:200px;
+
+  width:446px;
+
+  height:466px;
+
+  padding: 18px 64px;
+
+  .normal-wrapper{
+
+    input{
+
+      width:320px;
+
+    }
+
+    .to-login{
+
+      width:324px;
+
+      height:64px;
+
+      background-size: cover;
+
+      background-position: center;
+
+      margin-left:0;
+
+    }
+
+  }
+
+  &:after{
+
+    position: absolute;
+
+    content:'';
+
+    width: 230px;
+
+    height: 20px;
+
+    top:0;
+
+    left:0;
+
+    background: url("#{$cloudSchoolRoomUrl}/cloud-schoolroom-light.png") no-repeat center;
+
+  }
+
+}
+

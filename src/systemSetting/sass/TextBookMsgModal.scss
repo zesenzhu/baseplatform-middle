@@ -1,0 +1,9 @@
+@import "./public-minx.scss";
+.TextBookMsgModal {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    .ant-tree {
+        margin-left: 20px;
+    }
+}

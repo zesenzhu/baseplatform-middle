@@ -1,0 +1,486 @@
+
+//深蓝的slider
+.dark_blue_slide{
+
+  .star-wrapper{
+
+    position: relative;
+
+    width: 1200px;
+
+    margin:0 auto;
+
+  }
+
+  .star{
+
+    position: absolute;
+
+    background: url("../images/star.png") no-repeat center;
+
+    @include background-size(cover);
+
+    @include animation(sparkle 1.2s infinite);
+
+    &.star1{
+
+      width:30px;
+
+      height: 30px;
+
+      right:400px;
+
+      top:108px;
+
+    }
+
+    &.star2{
+
+      width:30px;
+
+      height: 30px;
+
+      left:600px;
+
+      top:200px;
+
+      @include animation-delay(0.4s);
+
+    }
+
+    &.star3{
+
+      width:30px;
+
+      height: 30px;
+
+      left:0;
+
+      top:200px;
+
+      @include animation-delay(0.7s);
+
+    }
+
+    &.star4{
+
+      width:30px;
+
+      height:30px;
+
+      left:0;
+
+      top:300px;
+
+      @include animation-delay(1s);
+
+    }
+
+    &.star5{
+
+      width:30px;
+
+      height:30px;
+
+      left:600px;
+
+      top:450px;
+
+      @include animation-delay(0.2s);
+
+    }
+
+    &.star6{
+
+      width:20px;
+
+      height:20px;
+
+      right:30px;
+
+      top:300px;
+
+      @include animation-delay(0.8s);
+
+    }
+
+    &.star7{
+
+      width:20px;
+
+      height:20px;
+
+      left:300px;
+
+      top:600px;
+
+      @include animation-delay(1.2s);
+
+    }
+
+    &.star8{
+
+      width:20px;
+
+      height:20px;
+
+      left:300px;
+
+      top:120px;
+
+      @include animation-delay(1.3s);
+
+    }
+
+  }
+
+  .point-wrapper{
+
+      position: relative;
+
+      height: 100%;
+
+  }
+
+  .point{
+
+    position: absolute;
+
+    background-position: center;
+
+    background-repeat: no-repeat;
+
+    @include background-size(contain);
+
+    &.point1{
+
+      width: 262px;
+
+      height: 216px;
+
+      right:0;
+
+      bottom:0;
+
+      background-image: url("#{$darkBlueUrl}/dark-blue-point1.png");
+
+      @include animation(point1 24s linear infinite alternate);
+
+    }
+
+    &.point2{
+
+      width: 434px;
+
+      height: 424px;
+
+      right:0;
+
+      top:0;
+
+      background-image: url("#{$darkBlueUrl}/dark-blue-point2.png");
+
+      @include animation(point2 24s linear infinite alternate);
+
+    }
+
+    &.point3{
+
+      width: 354px;
+
+      height: 298px;
+
+      left:0;
+
+      top:0;
+
+      background-image: url("#{$darkBlueUrl}/dark-blue-point3.png");
+
+      @include animation(point3 20s linear infinite alternate);
+
+    }
+
+    &.point4{
+
+      width: 94px;
+
+      height: 148px;
+
+      left:0;
+
+      bottom:400px;
+
+      background-image: url("#{$darkBlueUrl}/dark-blue-point4.png");
+
+      @include animation(point4 18s linear infinite alternate);
+
+    }
+
+    &.point5{
+
+       width: 272px;
+
+       height:390px;
+
+       left:0;
+
+       bottom:80px;
+
+       background-image: url("#{$darkBlueUrl}/dark-blue-point5.png");
+
+      @include animation(point5 26s linear infinite alternate);
+
+     }
+
+    &.point6{
+
+      width: 236px;
+
+      height:176px;
+
+      left:40px;
+
+      bottom:160px;
+
+      background-image: url("#{$darkBlueUrl}/dark-blue-point6.png");
+
+      @include animation(point6 30s linear infinite alternate);
+
+    }
+
+  }
+
+  .cuboid-wrapper{
+
+    position: relative;
+
+    height: 100%;
+
+    width:1200px;
+
+    margin: 0 auto;
+
+  }
+
+  .cuboid{
+
+    position: absolute;
+
+    width: 64px;
+
+    height: 160px;
+
+    background: url("#{$darkBlueUrl}/dark-blue-cuboid.png") no-repeat center;
+
+    @include background-size(cover);
+
+    &.cuboid1{
+
+       left:10px;
+
+       top:20%;
+
+      @include animation(cuboidMove 8s linear infinite alternate);
+
+     }
+
+    &.cuboid2{
+
+       left:-100px;
+
+       top:50%;
+
+      @include animation(cuboidMove 10s 1s linear infinite alternate);
+
+     }
+
+    &.cuboid3{
+
+      left:540px;
+
+      bottom:10%;
+
+      @include animation(cuboidMove 10s 0.5s linear infinite alternate);
+
+    }
+
+    &.cuboid4{
+
+      left:1000px;
+
+      top:160px;
+
+      @include animation(cuboidMove 12s 1s linear infinite alternate);
+
+    }
+
+    &.cuboid5{
+
+      right:-100px;
+
+      top:50%;
+
+      @include animation(cuboidMove 9s 0.5s linear infinite alternate);
+
+    }
+
+  }
+
+}
+
+//黑科技的slider
+
+.dark_tech_bg{
+
+  position: absolute;
+
+  left: 0;
+
+  top:0;
+
+  width: 100%;
+
+  height: 100%;
+
+  background: url("#{$darkTechUrl}/dark-tech-bg.png") no-repeat bottom center;
+
+  @include background-size(cover);
+
+  .star-wrapper{
+
+    position: relative;
+
+    width: 1200px;
+
+    margin:0 auto;
+
+  }
+
+  .star{
+
+    position: absolute;
+
+    background: url("../images/star.png") no-repeat center;
+
+    @include background-size(cover);
+
+    @include animation(sparkle 2s infinite);
+
+    &.star1{
+
+      width:30px;
+
+      height: 30px;
+
+      right:400px;
+
+      top:108px;
+
+    }
+
+    &.star2{
+
+      width:30px;
+
+      height: 30px;
+
+      left:600px;
+
+      top:200px;
+
+      @include animation-delay(0.4s);
+
+    }
+
+    &.star3{
+
+      width:30px;
+
+      height: 30px;
+
+      left:0;
+
+      top:200px;
+
+      @include animation-delay(0.7s);
+
+    }
+
+    &.star4{
+
+      width:30px;
+
+      height:30px;
+
+      left:0;
+
+      top:300px;
+
+      @include animation-delay(1s);
+
+    }
+
+    &.star5{
+
+      width:30px;
+
+      height:30px;
+
+      left:600px;
+
+      top:200px;
+
+      @include animation-delay(0.2s);
+
+    }
+
+    &.star6{
+
+      width:20px;
+
+      height:20px;
+
+      right:30px;
+
+      top:300px;
+
+      @include animation-delay(0.8s);
+
+    }
+
+    &.star7{
+
+      width:20px;
+
+      height:20px;
+
+      left:456px;
+
+      top:160px;
+
+      @include animation-delay(1.2s);
+
+    }
+
+    &.star8{
+
+      width:20px;
+
+      height:20px;
+
+      left:300px;
+
+      top:120px;
+
+      @include animation-delay(1.3s);
+
+    }
+
+  }
+
+}
+
+
+
+
+

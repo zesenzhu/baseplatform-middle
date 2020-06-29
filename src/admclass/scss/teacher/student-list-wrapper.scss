@@ -1,0 +1,100 @@
+.teacher-stu-list-wrapper{
+
+  position: relative;
+
+  .emptyBox{
+
+    margin-left: 50%;
+
+    @include transform(translateX(-50%));
+
+  }
+
+  .person-tab-wrapper{
+
+    margin:24px 68px;
+
+    padding:24px 32px;
+
+    .person-item-wrapper:not(:nth-child(4n+1)){
+
+      margin-left: auto;
+
+    }
+
+    .person-item-wrapper:not(:nth-child(5n+1)){
+
+      margin-left:25px;
+
+    }
+
+    .line{
+
+      margin:6px 12px 0 12px;
+
+      width: 1px;
+
+      height: 16px;
+
+      background-color:#ffffff;
+
+    }
+
+    .set-monitor{
+
+      background: url("#{$image-url}/flag.png") no-repeat left center;
+
+      padding-left:20px;
+
+    }
+
+    .editor-stu{
+
+      background: url("#{$image-url}/reset.png") no-repeat left center;
+
+      padding-left:20px;
+
+    }
+
+    .person-adjust-btn{
+
+      background-image: linear-gradient(-90deg,
+              #ff593e 0%,
+              #ff1b10 100%),
+      linear-gradient(
+                      #0099ff,
+                      #0099ff);
+
+      &:hover{
+
+        opacity:0.8;
+
+      }
+
+    }
+
+  }
+
+  .search_container{
+
+    position: absolute;
+
+    top:0;
+
+    right:42px;
+
+  }
+
+  .ant-pagination{
+
+    &.center{
+
+      margin-right: 50%;
+
+      @include transform(translateX(50%));
+
+    }
+
+  }
+
+}

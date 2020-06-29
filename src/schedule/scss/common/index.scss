@@ -1,0 +1,57 @@
+body{
+
+  font-family: "Microsoft YaHei"!important;
+
+}
+
+//泡泡型链接标签
+@import "./change-tab";
+
+
+//double-single的表格
+@import "./double-single-table";
+
+
+//left-menu的样式
+@import "./left-menu";
+
+//学段tab
+@import "./period-tab";
+
+//左上角标签链接
+@import "./router-tab";
+
+@import './full-screen';
+
+//single-double的表格
+@import "./single-double-table";
+
+
+//学期选择
+@import "./term-pick";
+
+
+//走班详情弹窗
+@import "./optional-class-modal";
+
+//课程安排详情弹窗
+@import "./schedule-detail-modal";
+
+//课程安排情之后的调整时间弹窗
+@import "./component-change-time-modal";
+
+
+//调整教室
+@import "./component-adjust-classroom-modal";
+
+
+//找人代课
+@import "./component-replace-schedule-modal";
+
+
+
+//添加教学班弹窗
+@import "./add-class-modal";
+
+//选择学生弹窗
+@import "./select-student-modal";

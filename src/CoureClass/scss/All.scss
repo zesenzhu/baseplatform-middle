@@ -1,0 +1,107 @@
+.All {
+    position: relative;
+    padding: 22px 32px;
+    text-align: center;
+    //公用
+    .All-box {
+        position: relative;
+        text-align: left;
+        margin: 0 auto;
+        width: 858px;
+        .All-top {
+            position: relative;
+            margin: 0;
+            height: 37px;
+            .top-tips {
+                float: left;
+                .tips {
+                    font-size: 18px;
+                    line-height: 37px;
+                    color: #333333;
+                    padding-left: 21px;
+                    margin-left: -21px;
+                    background-size: 17px 17px;
+                    background-position: left center;
+                }
+            }
+        }
+        .All-hr {
+            position: relative;
+            border-top: 1px dashed #ccc;
+            width: 858px;
+            margin: 0 auto;
+        }
+        .All-content {
+            margin: 18px auto 0;
+            position: relative;
+            width: 858px;
+            .content-All-box {
+                position: relative;
+                height: 214px;
+                background: #f5f5f5;
+                margin-bottom: 26px;
+                .all {
+                    height: 147px;
+                    width: 120px;
+                    top: 50%;
+                    margin-top: -73px;
+                    position: absolute;
+                    .all-num {
+                        line-height: 120px;
+                        height: 120px;
+                        display: inline-block;
+                        width: 120px;
+                        text-align: center;
+                        font-size: 36px;
+                        //box-shadow: 0 0 12px 0 #000;
+                        color: #fff;
+                    }
+                    .all-tips {
+                        line-height: 27px;
+                        display: block;
+                        width: 120px;
+                        font-size: 16px;
+                        text-align: center;
+                        margin-top: -15px;
+                    }
+                }
+                .All-coureClass {
+                    // background: url(../images/image-green.png) no-repeat center top;
+                    // background-size: 120px 147px;
+                    left: 50%;
+                    margin-left: -290px;
+                }
+                .All-teacher {
+                    // background: url(../images/image-orange.png) no-repeat center top;
+                    // background-size: 120px 147px;
+                    left: 50%;
+                    margin-left: -60px;
+                }
+                .All-subject {
+                    // background: url(../images/image-blue.png) no-repeat center top;
+                    // background-size: 120px 147px;
+                    right: 50%;
+                    margin-right: -290px;
+                }
+            }
+            .content-subject-box {
+                position: relative;
+                width: 100%;
+                //   display: flex;
+                //   flex-flow: row wrap;
+                //   justify-content: space-between;
+                .ShowCard-box {
+                    float: left;
+                    margin-right: 27px;
+                    &:nth-of-type(3n) {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.ant-modal-body {
+    overflow: hidden!important;
+}

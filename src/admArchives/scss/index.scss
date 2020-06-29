@@ -1,0 +1,32 @@
+.frame-nav-content {
+    position: relative;
+}
+
+.frame-fluid {
+    position: relative;
+    //   padding: 0;
+    padding: 25px 42px !important;
+    background: #fff !important;
+}
+
+label {
+    cursor: pointer;
+}
+
+.mainFrame {
+    .frame-block-wrapper {
+        padding-left: 100px!important;
+    }
+}
+
+.Modal-1 .ant-modal-body {
+    overflow: visible;
+}
+
+.ant-tooltip {
+    z-index: 2002!important;
+}
+
+body {
+    font-family: '微软雅黑';
+}

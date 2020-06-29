@@ -1,0 +1,24 @@
+@import './images.scss';
+.frame_left_menu_container {
+    //height:880px;
+    overflow: auto;
+    background: #fff;
+}
+
+.Detail-laoding {
+    height: 425px;
+    ;
+}
+
+.handle-laoding {
+    height: 305px;
+    ;
+}
+
+label {
+    cursor: pointer;
+}
+
+body {
+    font-family: '微软雅黑';
+}

@@ -1,0 +1,164 @@
+.component-replace-schedule-wrapper{
+
+  color: #333333;
+
+  .ant-modal-body>.ant-spin-nested-loading{
+
+    position: absolute;
+
+    left: 0;
+
+    top:0;
+
+    width: 100%;
+
+  }
+
+  .content-wrapper{
+
+    position: absolute;
+
+    width: 100%;
+
+  }
+
+  .header-search{
+
+    height: 40px;
+
+    background-color: #eeeeee;
+
+    .search_container{
+
+      float: right;
+
+      margin-top: 6px;
+
+      margin-right:12px;
+
+    }
+
+  }
+
+  .list-wrapper{
+
+    padding:20px 30px 0 30px;
+
+  }
+
+  .teacher-item{
+
+    position: relative;
+
+    float: left;
+
+    width: 96px;
+
+    height: 32px;
+
+    line-height: 32px;
+
+    border: 1px solid #bac7d9;
+
+    padding: 0 4px;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    color: #5f6c7f;
+
+    font-size: 14px;
+
+    @include textOverFlow;
+
+    margin-bottom: 18px;
+
+    &:not(:nth-child(6n+1)){
+
+      margin-left:8px;
+
+    }
+
+    &.active{
+
+      border-color: #2ba500;
+
+      background-color: #e9ffe9;
+
+      color: #2ba500;
+
+      &:before{
+
+        position: absolute;
+
+        content: "";
+
+        width: 0;
+
+        height: 0;
+
+        right: -10px;
+
+        top: -10px;
+
+        border: 10px solid rgba(0,0,0,0);
+
+        border-bottom-color: #2ba500;
+
+        @include transform(rotate(45deg));
+
+      }
+
+      &:after{
+
+        position: absolute;
+
+        right: 3px;
+
+        top: 3px;
+
+        width: 4px;
+
+        height: 6px;
+
+        content: "";
+
+        display: table;
+
+        border: 1px solid #fff;
+
+        border-top: 0;
+
+        border-left: 0;
+
+        @include transform(rotate(45deg) scale(1) translate(-50%,-50%));
+
+      }
+
+    }
+
+  }
+
+
+  .origin-teacher{
+
+    position: absolute;
+
+    bottom:-40px;
+
+    left:28px;
+
+    font-size: 14px;
+
+    color: #333333;
+    
+    .title{
+
+      color: #ff6600;
+      
+    }
+
+  }
+
+}

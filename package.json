@@ -1,0 +1,204 @@
+{
+  "name": "smart-schoolv3.0",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@babel/core": "7.4.3",
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "^7.5.5",
+    "@lourenci/react-kanban": "^0.14.0",
+    "@svgr/webpack": "4.1.0",
+    "@typescript-eslint/eslint-plugin": "1.6.0",
+    "@typescript-eslint/parser": "1.6.0",
+    "antd": "^3.21.4",
+    "babel-eslint": "10.0.1",
+    "babel-jest": "^24.8.0",
+    "babel-loader": "8.0.5",
+    "babel-plugin-import": "^1.12.0",
+    "babel-plugin-named-asset-import": "^0.3.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-react-app": "^9.0.0",
+    "build": "^0.1.4",
+    "camelcase": "^5.2.0",
+    "case-sensitive-paths-webpack-plugin": "2.2.0",
+    "compass-mixins": "^0.12.10",
+    "core-js": "^3.2.1",
+    "cropperjs": "^1.5.6",
+    "crypto-js": "^3.1.9-1",
+    "css-loader": "2.1.1",
+    "dotenv": "6.2.0",
+    "dotenv-expand": "4.2.0",
+    "dynamic-file": "^0.2.1",
+    "echarts": "^4.2.1",
+    "es6-promise": "^4.2.8",
+    "es6-shim": "^0.35.5",
+    "eslint": "^5.16.0",
+    "eslint-config-react-app": "^4.0.1",
+    "eslint-loader": "2.1.2",
+    "eslint-plugin-flowtype": "2.50.1",
+    "eslint-plugin-import": "2.16.0",
+    "eslint-plugin-jsx-a11y": "6.2.1",
+    "eslint-plugin-react": "7.12.4",
+    "eslint-plugin-react-hooks": "^1.5.0",
+    "file-loader": "3.0.1",
+    "glob": "^7.1.4",
+    "globby": "^10.0.1",
+    "html-webpack-plugin": "4.0.0-beta.5",
+    "http-proxy-middleware": "^0.19.1",
+    "identity-obj-proxy": "3.0.0",
+    "is-wsl": "^1.1.0",
+    "jest": "24.7.1",
+    "jest-environment-jsdom-fourteen": "0.1.0",
+    "jest-resolve": "24.7.1",
+    "jest-watch-typeahead": "0.3.0",
+    "jquery": "^3.4.1",
+    "md5": "^2.2.1",
+    "mini-css-extract-plugin": "0.5.0",
+    "mockjs": "^1.0.1-beta3",
+    "node-sass": "^4.12.0",
+    "optimize-css-assets-webpack-plugin": "5.0.1",
+    "pnp-webpack-plugin": "1.2.1",
+    "postcss-flexbugs-fixes": "4.1.0",
+    "postcss-loader": "3.0.0",
+    "postcss-normalize": "7.0.1",
+    "postcss-preset-env": "6.6.0",
+    "postcss-safe-parser": "4.0.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-app-polyfill": "^1.0.1",
+    "react-beautiful-dnd": "^11.0.5",
+    "react-cropper": "^1.3.0",
+    "react-custom-scrollbars": "^4.2.1",
+    "react-dev-utils": "^9.0.1",
+    "react-document-title": "^2.0.3",
+    "react-dom": "^16.8.6",
+    "react-kanban": "^0.1.0",
+    "react-redux": "^7.1.0",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
+    "react-transition-group": "^4.3.0",
+    "redux": "^4.0.4",
+    "redux-devtools": "^3.5.0",
+    "redux-devtools-dock-monitor": "^1.1.3",
+    "redux-devtools-log-monitor": "^1.4.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "resolve": "1.10.0",
+    "run-script": "^0.1.1",
+    "sass-loader": "7.1.0",
+    "semver": "6.0.0",
+    "style-loader": "0.23.1",
+    "styled-components": "^4.4.0",
+    "terser-webpack-plugin": "1.2.3",
+    "ts-pnp": "1.1.2",
+    "url-loader": "1.1.2",
+    "webpack": "4.29.6",
+    "webpack-dev-server": "3.2.1",
+    "webpack-manifest-plugin": "2.0.4",
+    "whatwg-fetch": "^3.0.0",
+    "workbox-webpack-plugin": "4.2.0"
+  },
+  "scripts": {
+    "start": "node scripts/start.js",
+    "build": "node scripts/build.js",
+    "test": "node scripts/test.js"
+  },
+  "eslintConfig": {
+    "extends": "react-app",
+    "rules": {
+      "no-undef": "off",
+      "no-restricted-globals": "off",
+      "no-unused-vars": "off",
+      "jsx-a11y/anchor-is-valid": "off",
+      "jsx-a11y/anchor-has-content": "off",
+      "array-callback-return": "off",
+      "no-extend-native": "off",
+      "no-useless-escape": "off",
+      "no-unreachable": "off",
+      "no-useless-concat": "off",
+      "react/jsx-no-target-blank": "off",
+      "no-throw-literal": "off"
+    }
+  },
+  "browserslist": {
+    "production": [
+      "last 2 version",
+      ">0.2%",
+      "not dead",
+      "not op_mini all",
+      "ie 9"
+    ],
+    "development": [
+      "last 2 version",
+      ">0.2%",
+      "not dead",
+      "not op_mini all",
+      "ie 9"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts"
+    ],
+    "setupFiles": [
+      "react-app-polyfill/jsdom"
+    ],
+    "setupFilesAfterEnv": [],
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
+    ],
+    "testEnvironment": "jest-environment-jsdom-fourteen",
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
+      "^.+\\.module\\.(css|sass|scss)$"
+    ],
+    "modulePaths": [],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web",
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "web.ts",
+      "ts",
+      "web.tsx",
+      "tsx",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node"
+    ],
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ],
+    "plugins": [
+      [
+        "transform-class-properties"
+      ],
+      [
+        "import",
+        {
+          "libraryName": "antd",
+          "libraryDirectory": "es",
+          "style": "css"
+        },
+        "antd"
+      ]
+    ]
+  },
+  "homepage": "."
+}

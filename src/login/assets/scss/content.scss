@@ -1,0 +1,58 @@
+.content_wrapper{
+
+  @include flex;
+
+  @include alignItems(center);
+
+  width: 1200px;
+
+  margin:0 auto;
+
+  .ant-spin-nested-loading{
+
+    position: relative;
+
+    width: 100%;
+
+    height: 100%;
+
+  }
+
+}
+
+.content_right_wrapper{
+
+  .ant-spin-container{
+
+    background: transparent;
+
+  }
+
+}
+
+
+.author_modal{
+
+  .ant-spin-nested-loading{
+
+    position: absolute;
+
+    left: 0;
+
+    top:0;
+
+    width: 100%;
+
+    height: 100%;
+
+  }
+
+  .author_iframe{
+
+    width: 850px;
+
+    height: 456px;
+
+  }
+
+}

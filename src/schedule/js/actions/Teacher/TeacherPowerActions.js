@@ -1,0 +1,7 @@
+const TEACHER_POWER_CHANGE = 'TEACHER_POWER_CHANGE';
+
+export default {
+
+   TEACHER_POWER_CHANGE
+
+}

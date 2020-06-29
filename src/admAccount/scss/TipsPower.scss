@@ -1,0 +1,44 @@
+.tipsPower-Box{
+    padding: 0 16px;
+    width: 540px;
+    &:first-of-type{
+        padding: 10px 16px 0
+    }
+    &:last-of-type{
+        padding: 0 16px 10px
+    }
+
+    .box-top{
+        position: relative;
+
+        .top-tip{
+            font-size: 14px;
+	        line-height: 26px;
+	        color: #720000;
+        }
+    }
+
+    .box-content{
+        padding: 8px 0;
+        width: 500px;
+        white-space: normal;
+        .powerText{
+            display: inline-block;
+            color:#666666;
+            font-size:14px;
+            line-height: 22px;
+            white-space: nowrap;
+            &:nth-of-type(5){
+                .text-after{
+                    display: none;
+                }
+            }
+        }
+
+    }
+}
+
+.TipsPower{
+    max-height: 400px;
+    overflow: auto;
+}

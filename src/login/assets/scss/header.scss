@@ -1,0 +1,589 @@
+.header_wrapper{
+
+  min-width: 1200px;
+
+}
+
+
+.left_icon_wrapper{
+
+  float: left;
+
+  width:450px;
+
+  height: 60px;
+
+  margin:42px 0 0 42px;
+
+  &>*{
+
+    float: left;
+
+  }
+
+  .product-describe{
+
+    margin-left:14px;
+
+  }
+
+  .product-explain{
+
+    color: #cee7ff;
+
+    letter-spacing:9px;
+
+  }
+
+  &.dark_blue{
+
+    .product-icon{
+
+      width: 90px;
+
+      height: 60px;
+
+      background:url("#{$darkBlueUrl}/dark-blue-icon.png") no-repeat center;
+
+    }
+
+    .product-title{
+
+      display: block;
+
+      width: 330px;
+
+      height: 32px;
+
+      background:url("#{$darkBlueUrl}/dark-blue-title.png") no-repeat left center;
+
+    }
+
+  }
+
+  &.dark_tech{
+
+    width: 600px;
+
+    .product-icon{
+
+      width: 80px;
+
+      height: 68px;
+
+      background:url("#{$darkTechUrl}/dark-tech-icon.png") no-repeat center;
+
+    }
+
+    .product-title{
+
+      display: block;
+
+      width: 410px;
+
+      height: 40px;
+
+      background:url("#{$darkTechUrl}/dark-tech-title.png") no-repeat left center;
+
+      margin-top: 6px;
+
+    }
+
+    .product-explain{
+
+      font-size: 18px;
+
+    }
+
+  }
+
+  &.cloud_schoolroom{
+
+    width: 600px;
+
+    .product-icon{
+
+      width: 326px;
+
+      height: 68px;
+
+      background:url("#{$cloudSchoolRoomUrl}/cloud-schoolroom-icon.png") no-repeat center;
+
+    }
+
+  }
+
+  &.ai_school{
+
+    width: 600px;
+
+    .product-icon{
+
+      width: 400px;
+
+      height: 68px;
+
+      background:url("#{$aiSchoolRoomUrl}/ai-school-icon.png") no-repeat center;
+
+    }
+
+  }
+
+  &.ai_exam{
+
+    width:600px;
+
+    .product-icon{
+
+      width: 400px;
+
+      height: 68px;
+
+      background:url("#{$aiExamUrl}/ai-exam-logo.png") no-repeat center;
+
+    }
+
+  }
+
+}
+
+.right_download_wrapper{
+
+  position: relative;
+
+  float: right;
+
+  margin-top: 42px;
+
+  margin-right: 54px;
+
+  z-index: 100;
+
+  height:30px;
+
+  .dark_blue_top_right{
+
+    .down_load_icon{
+
+      font-size: 14px;
+
+      color:$darkBlueFontColor;
+
+      cursor: pointer;
+
+      padding-left: 16px;
+
+      background: url("#{$darkBlueUrl}/down-mobile.png") no-repeat left center;
+
+    }
+
+    .code-wrapper{
+
+      position: absolute;
+
+      display: none;
+
+      -ms-flex-pack:center;
+
+      @include justifyContent(center);
+
+      top:30px;
+
+      right: 0;
+
+      width:260px;
+
+      height:164px;
+
+      @include box-shadow(6px 10px 24px 0 rgba(0,19,142,0.42));
+
+      @include border-radius(8px);
+
+      background-color: #fff;
+
+      .code-inner{
+
+        @include flex;
+
+        -ms-flex-direction:column;
+
+        @include flexDirection(column);
+
+        -ms-flex-align: center;
+
+        -ms-flex-pack: center;
+
+        margin-top: 20px;
+
+        &:not(:first-child){
+
+          margin-left: 20px;
+
+        }
+
+      }
+
+      .code{
+
+        display: block;
+
+        width:100px;
+
+        height: 100px;
+
+        @include background-size(cover);
+
+        background-repeat: no-repeat;
+
+        background-position: center;
+
+        &.ios{
+
+          background-image: url("#{$darkBlueUrl}/dark-blue-ios.jpg");
+
+        }
+
+        &.android{
+
+          background-image: url("#{$darkBlueUrl}/dark-blue-android.jpg");
+
+        }
+
+      }
+
+      .code-title{
+
+        text-align:center;
+
+        margin-top:8px;
+
+        line-height:1;
+
+      }
+
+    }
+
+    &:hover{
+
+      .code-wrapper{
+
+        @include flex;
+
+      }
+
+    }
+
+  }
+
+  .dark_tech_top_right{
+
+    &>div{
+
+      float: left;
+
+      &:not(:last-child){
+
+        margin-right: 58px;
+
+      }
+
+    }
+
+    .app_down_load{
+
+      position: relative;
+
+      height: 30px;
+
+       .down_load_icon{
+
+         background: url("#{$darkTechUrl}/dark-tech-app.png") no-repeat left center;
+
+       }
+
+      .code-wrapper{
+
+        position: absolute;
+
+        display: none;
+
+        -ms-flex-pack:center;
+
+        @include justifyContent(center);
+
+        top:30px;
+
+        left: -20px;
+
+        width:150px;
+
+        height:150px;
+
+        @include box-shadow(6px 10px 24px 0 rgba(0,19,142,0.42));
+
+        @include border-radius(8px);
+
+        background-color: #fff;
+
+        .code-inner{
+
+          @include flex;
+
+          -ms-flex-direction:column;
+
+          @include flexDirection(column);
+
+          -ms-flex-align: center;
+
+          -ms-flex-align: center;
+
+          margin-top: 20px;
+
+          &:not(:first-child){
+
+            margin-left: 20px;
+
+          }
+
+        }
+
+        .code{
+
+          display: block;
+
+          width:100px;
+
+          height: 100px;
+
+          @include background-size(cover);
+
+          background-repeat: no-repeat;
+
+          background-position: center;
+
+          &.ios{
+
+            background-image: url("#{$darkTechUrl}/app-code.png");
+
+          }
+
+          /*&.android{
+
+            background-image: url("#{$darkBlueUrl}/dark-blue-android.jpg");
+
+          }*/
+
+        }
+
+        .code-title{
+
+          text-align:center;
+
+          margin-top:8px;
+
+          line-height:1;
+
+        }
+
+      }
+
+      &:hover{
+
+        .code-wrapper{
+
+          @include flex;
+
+        }
+
+      }
+
+    }
+
+
+    .win_down_load{
+
+      .down_load_icon{
+
+        background: url("#{$darkTechUrl}/dark-teach-win.png") no-repeat left center;
+
+      }
+
+    }
+
+
+    .options_introduce{
+
+      .down_load_icon{
+
+        background: url("#{$darkTechUrl}/dark-tech-operate-introduce.png") no-repeat left center;
+
+      }
+
+    }
+
+
+    .down_load_icon{
+
+      font-size: 14px;
+
+      color:$darkBlueFontColor;
+
+      cursor: pointer;
+
+      padding-left: 20px;
+
+    }
+
+  }
+
+  .ai_school_top_right{
+
+    &>div{
+
+      float: left;
+
+      padding-bottom: 10px;
+
+      &:not(:last-child){
+
+        margin-right: 58px;
+
+      }
+
+    }
+
+    .down_load_icon{
+
+      font-size: 14px;
+
+      color:$darkBlueFontColor;
+
+      cursor: pointer;
+
+      padding-left: 16px;
+
+      background: url("#{$darkBlueUrl}/down-mobile.png") no-repeat left center;
+
+    }
+
+    .code-wrapper{
+
+      position: absolute;
+
+      display: none;
+
+      -ms-flex-pack:center;
+
+      @include justifyContent(center);
+
+      top:30px;
+
+      right:-6px;
+
+      width:140px;
+
+      height:164px;
+
+      @include box-shadow(6px 10px 24px 0 rgba(0,19,142,0.42));
+
+      @include border-radius(8px);
+
+      background-color: #fff;
+
+      .code-inner{
+
+        @include flex;
+
+        -ms-flex-direction:column;
+
+        @include flexDirection(column);
+
+        -ms-flex-pack:center;
+
+        -ms-flex-align: center;
+
+        margin-top: 20px;
+
+        &:not(:first-child){
+
+          margin-left: 20px;
+
+        }
+
+      }
+
+      .code{
+
+        display: block;
+
+        width:100px;
+
+        height: 100px;
+
+        margin-left: 6px;
+
+        @include background-size(cover);
+
+        background-repeat: no-repeat;
+
+        background-position: center;
+
+        background-image: url("#{$aiSchoolRoomUrl}/ai-school-mini-code.png");
+
+      }
+
+      .code-title{
+
+        text-align:center;
+
+        margin-top:8px;
+
+        line-height:1;
+
+      }
+
+    }
+
+    &:hover{
+
+      .code-wrapper{
+
+        @include flex;
+
+      }
+
+    }
+
+  }
+
+  .ai_exam_top_right{
+
+    &>div{
+
+      float: left;
+
+    }
+
+    .down_load_icon {
+
+      font-size: 14px;
+
+      color: $darkBlueFontColor;
+
+      cursor: pointer;
+
+      padding-left: 16px;
+
+      background: url("#{$aiExamUrl}/ai-exam-pc.png") no-repeat left center;
+
+      &:hover{
+
+        opacity: 0.7;
+
+      }
+
+    }
+
+  }
+
+}

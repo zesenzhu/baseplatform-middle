@@ -1,0 +1,38 @@
+@import "~compass-mixins/lib/compass/css3";
+
+/*公共的mixin start*/
+@mixin textOverFlow() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@mixin flex{
+  display: flex;
+  display:-moz-flex;
+  display:-ms-flex;
+  display:-webkit-flex;
+  display:-ms-flexbox;
+}
+@mixin justifyContent($dir){
+  justify-content: $dir;
+  -ms-flex-pack: $dir;
+}
+@mixin flexDirection($dir){
+  flex-direction:$dir;
+  -ms-flex-direction:$dir;
+}
+@mixin alignItems($dir){
+  align-items: $dir;
+  -ms-flex-align: $dir;
+}
+
+html{
+
+  body{
+
+    background-color:transparent!important;
+
+  }
+
+}
+

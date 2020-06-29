@@ -1,0 +1,72 @@
+.ant-modal-mask{
+
+  z-index: 2000!important;
+
+}
+
+.ant-modal-wrap{
+
+  z-index: 2001!important;
+
+}
+
+.ant-tooltip{
+
+  z-index: 2002!important;
+
+}
+
+.ant-calendar-picker-container{
+
+  z-index:2003!important;
+
+}
+
+.ant-modal-wrap{
+
+/*  div.ant-modal{
+
+    position: absolute;
+
+    padding:0;
+
+  }*/
+
+
+
+}
+
+.ant-modal{
+
+  .ant-modal-footer{
+
+    button+button{
+
+      margin-left: 12px;
+
+    }
+
+  }
+
+}
+
+.ant-modal-close {
+
+  .ant-modal-close-x{
+
+    .anticon{
+
+      &:hover{
+
+        opacity: 0.7;
+
+      }
+
+    }
+
+  }
+
+}
+
+
+

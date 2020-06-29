@@ -1,0 +1,214 @@
+.component-change-schedule-wrapper{
+
+  color: #333333;
+
+  .ant-modal-body{
+
+    height: auto;
+
+  }
+
+  .modal-content-wrapper{
+
+    margin-top: -24px;
+
+  }
+
+  .week-no-wrapper{
+
+    text-align: center;
+
+    line-height: 30px;
+
+    margin-top:10px;
+
+    .prev,
+    .next{
+
+      color: #0099ff;
+
+      cursor: pointer;
+      
+      &:hover{
+
+        color: #ff6600;
+        
+      }
+
+      &.disabled{
+
+        color: #999999;
+
+        cursor: not-allowed;
+
+      }
+
+    }
+
+    .now-week{
+
+      font-size: 20px;
+
+      margin: 0 42px;
+
+    }
+
+  }
+
+  .content-table{
+
+    margin:10px auto;
+
+  }
+
+  .component-change-time-table{
+
+    margin:0 auto;
+
+  }
+
+  th,td{
+
+    border: 1px solid #96d4e3;
+
+    text-align: center;
+
+    width: 108px;
+
+    height: 48px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    color: #00728f;
+
+    background-image: linear-gradient(
+                    #e5f0f3,
+                    #e5f0f3),
+    linear-gradient(
+                    #ffffff,
+                    #ffffff);
+
+  }
+
+  .noon{
+
+    width: 56px;
+
+  }
+
+
+
+  .select{
+
+    width:108px;
+
+    height: 47px;
+
+    font-weight:normal;
+
+    background-image: linear-gradient(
+                    #ffffff,
+                    #ffffff),
+    linear-gradient(
+                    #fcfcfc,
+                    #fcfcfc);
+
+    color: #009900;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    &.active{
+
+      color: #ff6600;
+
+      background-color:#cccccc;
+
+      background-image:none;
+
+      line-height:48px;
+
+    }
+
+    &.disabled{
+
+      cursor: not-allowed;
+
+      background-color:#cccccc;
+
+      background-image: none;
+
+      color: #999999;
+
+    }
+
+
+    .chooise{
+
+      line-height:24px;
+
+    }
+
+    .disabled{
+
+      line-height:24px;
+
+      color: #999999;
+
+    }
+
+  }
+
+
+  .empty{
+
+    width:108px;
+
+  }
+
+  .footer-class-date{
+
+    color: #999999;
+
+  }
+
+  .footer-info{
+
+    height: 48px;
+
+    font-size: 14px;
+
+    font-weight: normal;
+
+    background-image: linear-gradient(
+                    #ffffff,
+                    #ffffff),
+    linear-gradient(
+                    #fcfcfc,
+                    #fcfcfc);
+
+    text-align:left;
+
+    color: #333333;
+
+  }
+
+  .dec{
+
+    color: #ff6600;
+
+    margin-left: 12px;
+    
+  }
+
+  .footer-class-date,
+  .footer-time{
+
+    color: #999999;
+
+  }
+
+}

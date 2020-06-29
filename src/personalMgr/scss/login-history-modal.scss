@@ -1,0 +1,33 @@
+.login-history-modal{
+
+  .ant-modal-body{
+
+    padding:0;
+
+  }
+
+
+  .login,
+  .logout{
+
+    color: #666666;
+
+  }
+
+  .method,
+  .device,
+  .ip{
+
+    color: #333333;
+
+  }
+
+  .ant-table-row>td{
+
+    height: 42px;
+
+    padding: 0;
+
+  }
+
+}

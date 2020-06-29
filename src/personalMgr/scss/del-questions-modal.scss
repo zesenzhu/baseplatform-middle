@@ -1,0 +1,70 @@
+.del-question-modal{
+
+  .del-question-wrapper{
+
+    margin-top:12px;
+
+  }
+
+
+  .props{
+
+    float: left;
+
+    width:64px;
+
+    margin-right:8px;
+
+    text-align: right;
+
+    color: #999999;
+
+  }
+
+  .del-answer-wrapper{
+
+    position: relative;
+
+    margin-top:20px;
+
+    .props{
+
+      padding-top: 4px;
+
+    }
+
+  }
+
+  .answer-content{
+
+    float: left;
+
+    width:320px;
+
+    height: 30px;
+
+    line-height: 30px;
+
+  }
+
+
+  .error-tips{
+
+    padding-left: 16px;
+
+    font-size: 14px;
+
+    color: #ff0000;
+
+    background: url("#{$image-url}/input-error.png") no-repeat left center;
+
+    position: absolute;
+
+    left: 74px;
+
+    bottom: -32px;
+
+  }
+
+}
+

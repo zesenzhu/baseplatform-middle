@@ -1,0 +1,39 @@
+.change-course-class-modal{
+
+  .box-top{
+
+    padding:16px 0;
+
+  }
+
+  .search_container{
+
+    float: right;
+
+  }
+
+  .ant-table-tbody{
+
+    &>tr>td{
+
+      padding:10px 0;
+
+    }
+
+    .ant-btn-primary{
+
+      background-color:#0099ff;
+
+      &.active{
+
+        background-color:#8ccbff;
+
+        border-color:transparent;
+
+      }
+
+    }
+
+  }
+
+}

@@ -1,0 +1,384 @@
+@mixin Vcenter {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.collector-content {
+    width: 868px;
+    height: 879px;
+    float: left;
+    padding-left: 32px;
+    padding-right: 32px;
+    position: relative;
+    // background-color:red;
+    .search_container {
+        float: right;
+        margin-top: 21px;
+    }
+    .current-path {
+        float: left;
+        margin-top: 27px;
+        max-width: 590px;
+        height: 20px;
+        font-family: MicrosoftYaHei;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        color: #000;
+        .fallback {
+            // float: left;
+            color: #999999;
+            text-decoration: underline;
+            cursor: not-allowed;
+            &.havenext {
+                color: #0099ff;
+                cursor: pointer;
+            }
+        }
+        .path {
+            //   float: left;
+            display: inline-block;
+            max-width: 70px;
+            color: #0099ff;
+            text-decoration: underline;
+            cursor: pointer;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            height: 20px;
+            line-height: 18px;
+            vertical-align: middle;
+        }
+    }
+    .splitline {
+        margin-top: 65px;
+        width: 804px;
+        height: 1px;
+        border-top: dashed 1px #cccccc;
+    }
+    .dropdown_container {
+        margin-top: 16px;
+        display: inline-block;
+        // float: left;
+    }
+    .rangeDate-picker {
+        display: inline-block;
+        // float: left;
+        margin-top: 15px;
+        margin-left: 30px;
+        vertical-align: top;
+        .ant-calendar-picker {
+            margin-left: 8px;
+        }
+        .ant-calendar-picker-input {
+            height: 29px;
+            width: 230px;
+            border: solid 1px #bac7d9;
+            .calender-logo {
+                display: inline-block;
+                width: 16px;
+                height: 16px;
+                background: url("../images/calendar_logo.png") no-repeat;
+            }
+            .ant-calendar-picker-clear {
+                display: inline-block;
+                width: 16px;
+                height: 14px;
+            }
+        }
+    }
+    .add-newfolder {
+        // float: right;
+        position: absolute;
+        right: 0;
+        width: 98px;
+        height: 28px;
+        background-color: #0099ff;
+        border-radius: 3px;
+        margin-top: 16px;
+        color: #fff;
+    }
+    .collector-header {
+        width: 806px;
+        height: 28px;
+        background-color: #f5f5f5;
+        margin-top: 16px;
+        padding-top: 4px;
+        span {
+            width: 29px;
+            height: 12px;
+            font-family: MicrosoftYaHei;
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            color: #647e86;
+            &:nth-child(1) {
+                margin-left: 104px;
+            }
+            &:nth-child(2) {
+                margin-left: 535px;
+            }
+        }
+    }
+    .collector-detail {
+        width: 806px;
+        .ant-spin-container {
+            overflow: auto;
+            width: 806px;
+            min-height: 620px;
+        }
+        .collector-type {
+            position: relative;
+            width: 806px;
+            height: 62px;
+            background-color: #ffffff;
+            // vertical-align: middle;
+            //   padding-left: 104px;
+            border-bottom: 1px solid #ebebeb;
+            cursor: pointer;
+            .selected-box {
+                @include Vcenter();
+                // display: inline-block;
+                left: 24px;
+                width: 12px;
+                height: 12px;
+                background: url("../images/unchecked_logo.png") no-repeat;
+                // margin-top: 25px;
+                // margin-left: 24px;
+                // margin: auto 24px;
+                &.checked {
+                    background: url("../images/checked_logo.png") no-repeat;
+                }
+            }
+            .typelogo {
+                @include Vcenter();
+                left: 56px;
+                width: 34px;
+                height: 30px;
+                // margin-top: 16px;
+                // margin-left: 20px;
+                // margin-right:14px ;
+                // margin: 0 auto;
+                &.folder {
+                    background: url("../images/folder_logo.png") no-repeat;
+                }
+                &.single {
+                    background: url("../images/single_collect.png") no-repeat;
+                }
+            }
+            .resource-name {
+                @include Vcenter();
+                left: 104px;
+                width: 200px;
+                height: 40px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                // border: 1px solid #000;
+                // line-height: 36px;
+                font-size: 15px;
+                color: #333333;
+                .resremark {
+                    position: absolute;
+                    left: 0;
+                    top: 22px;
+                    font-size: 14px;
+                    color: #999999;
+                }
+                &.folder {
+                    line-height: 36px;
+                }
+                &:hover {
+                    // color: #0099ff;
+                    color: #ff6600;
+                }
+            }
+            .option-logo {
+                transition: all 0.5s linear 0s;
+                opacity: 0;
+                @include Vcenter();
+                left: 522px;
+                span {
+                    width: 16px;
+                    height: 16px;
+                    float: left;
+                    &:nth-child(1) {
+                        background: url("../images/edit_logo.png") no-repeat;
+                    }
+                    &:nth-child(2) {
+                        margin-right: 12px;
+                        margin-left: 12px;
+                        background: url("../images/move_logo.png") no-repeat;
+                    }
+                    &:nth-child(3) {
+                        background: url("../images/delete_folder_logo.png") no-repeat;
+                    }
+                }
+                &.single {
+                    span {
+                        &:nth-child(3) {
+                            background: url("../images/cancel_collect.png") no-repeat;
+                        }
+                    }
+                }
+            }
+            &:hover {
+                .option-logo {
+                    opacity: 1;
+                }
+                background-color: rgba(245,
+                245,
+                245,
+                0.5);
+                // background-color: rgba(0,153,255,0.3);
+            }
+            .createtime {
+                @include Vcenter();
+                right: 53px;
+                color: #999999;
+            }
+        }
+        .emptyBox {
+            margin: 180px auto;
+            .initTitle {
+                font-size: 14px;
+            }
+        }
+    }
+    .collector-bottom {
+        width: 800px;
+        height: 38px;
+        // margin-top: 32px;
+        // margin-left: 24px;
+        position: absolute;
+        left: 48px;
+        // bottom: 50px;
+        // vertical-align: middle;
+        .select-all {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: url("../images/unchecked_logo.png") no-repeat;
+            margin-right: 4px;
+            &.checked {
+                background: url("../images/checked_logo.png");
+            }
+            cursor: pointer;
+        }
+        .batch-move {
+            width: 88px;
+            height: 28px;
+            background-color: #0099ff;
+            border-radius: 3px;
+            color: #fff;
+            margin-left: 8px;
+            margin-top: 10px;
+            //   text-align: center;
+        }
+    }
+    .ant-pagination {
+        position: absolute;
+        top: 50%;
+        right: 24px;
+        transform: translateY(-50%);
+    }
+}
+
+.ant-modal-content {
+    .ant-modal-body {
+        .modal-contain {
+            width: 490px;
+            height: 36px;
+            margin: 30px auto;
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            color: #999999;
+            .ant-input {
+                width: 420px;
+                height: 36px;
+                margin-left: 8px;
+            }
+        }
+    }
+}
+
+.moveModal {
+    .ant-modal-body {
+        // overflow-y: scroll;
+        padding: 0;
+        .ant-tree {
+            padding: 24px 36px;
+            li {
+                // vertical-align: middle;
+                &.ant-tree-treenode-switcher-close {
+                    .ant-tree-switcher_close {
+                        width: 16px;
+                        height: 16px;
+                        float: left;
+                        margin-right: 12px;
+                        background: url("../images/plus.png") no-repeat;
+                    }
+                    .ant-tree-switcher-noop {
+                        width: 16px;
+                        height: 16px;
+                        float: left;
+                        margin-right: 12px;
+                    }
+                }
+                &.ant-tree-treenode-switcher-open {
+                    .ant-tree-switcher_open {
+                        width: 16px;
+                        height: 16px;
+                        float: left;
+                        margin-right: 12px;
+                        background: url("../images/minus.png") no-repeat;
+                    }
+                    .ant-tree-switcher-noop {
+                        width: 16px;
+                        height: 16px;
+                        float: left;
+                        margin-right: 12px;
+                    }
+                }
+                .ant-tree-node-content-wrapper {
+                    line-height: 18px;
+                    .ant-tree-iconEle {
+                        float: left;
+                        width: 20px;
+                        height: 16px;
+                        // margin-left: 12px;
+                        margin-right: 12px;
+                        .folder {
+                            display: inline-block;
+                            width: 100%;
+                            height: 100%;
+                            background: url("../images/small-folder.png") no-repeat;
+                            //   z-index: 999;
+                        }
+                    }
+                    //   .ant-tree-title {
+                    //   }
+                }
+                ul {
+                    padding-left: 33px;
+                }
+            }
+        }
+    }
+}
+
+.frame-block-wrapper {
+    padding-left: 90px;
+}
+
+body {
+    font-family: '微软雅黑'!important;
+}

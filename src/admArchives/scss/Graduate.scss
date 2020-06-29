@@ -1,0 +1,262 @@
+.frame-fluid {
+    position: relative;
+    padding: 0;
+    background: #fff !important;
+}
+
+$image-url: "../images";
+@import "./images.scss";
+.Graduate {
+    position: relative;
+    // padding: 22px 33px;
+    text-align: center;
+    //公用
+    .Graduate-box {
+        position: relative;
+        text-align: left;
+        margin: 0 auto;
+        width: 1116px;
+        .Graduate-top {
+            position: relative;
+            margin: 0;
+            height: 40px;
+            .top-tips {
+                float: left;
+                line-height: 40px;
+                .tips {
+                    font-size: 18px;
+                    line-height: 28px;
+                    color: #333333;
+                    padding-left: 21px;
+                    //   margin-left: -21px;
+                    background-size: 17px 17px;
+                    background-position: left center;
+                }
+                .menu-location {
+                    background: url(../images/icon-location.png) no-repeat;
+                    background-size: 14px 19px;
+                    background-position: left center;
+                }
+            }
+            .btn-toGraduate {
+                float: right;
+                color: #fff;
+                height: 24px !important;
+                line-height: 24px !important;
+                font-size: 14px !important;
+                top: 50%;
+                transform: translateY(-50%);
+                border: none;
+                box-shadow: 0px 5px 10px -5px #1ca5fe;
+            }
+            .top-nav {
+                float: right;
+                .link {
+                    color: #0099ff;
+                    font-size: 14px;
+                    line-height: 37px;
+                    text-decoration: underline;
+                }
+                .divide {
+                    position: relative;
+                    font-size: 14px;
+                    color: #c9e1f0;
+                    top: -1px;
+                    margin: 0 12px;
+                }
+            }
+        }
+        .Graduate-hr {
+            position: relative;
+            margin-left: 20px;
+            border-top: 1px dashed #ccc;
+            width: 1090px;
+            //   margin: 0 auto;
+        }
+        .Graduate-content {
+            margin: 18px auto 0;
+            position: relative;
+            padding-left: 6px;
+            width: 1116px;
+            .content-top {
+                position: relative;
+                height: 30px;
+                border-bottom: none;
+                .dropdown_select_ul {
+                    z-index: 2;
+                }
+                .dropdown_wrapper:nth-of-type(2) {
+                    margin-left: 0;
+                    margin-right: 3px;
+                }
+                .dropdown_container {
+                    float: left;
+                }
+                .search-box {
+                    float: right;
+                    .search-tips {
+                        color: #000;
+                        font-size: 14px;
+                        text-align: right;
+                        float: left;
+                        line-height: 28px;
+                        margin-right: 10px;
+                        .Total {
+                            color: red;
+                            // font-weight: bold;
+                        }
+                    }
+                    .search_container {
+                        float: left;
+                    }
+                }
+            }
+            .content-render {
+                margin-top: 17px;
+                position: relative;
+                .table {
+                    .ant-table-thead {
+                        // th:nth-child(1),
+                        // th:nth-child(2),
+                        // th:nth-child(3) {
+                        //     padding: 0;
+                        // }
+                        th:nth-child(2) {
+                            // text-align: left;
+                            padding-left: 60px;
+                        }
+                        th {
+                            padding: 00;
+                        }
+                    }
+                    .ant-table-tbody {
+                        tr {
+                            td {
+                                padding: 16px 0;
+                            }
+                        }
+                    }
+                    .ant-table-row {
+                        td:nth-child(2),
+                        td:nth-child(3) {
+                            padding: 16px 0;
+                        }
+                        td:nth-child(1) {
+                            padding: 16px 0px;
+                        }
+                    }
+                    .key-content {
+                        font-size: 14px;
+                        line-height: 23px;
+                        color: #999;
+                        margin: 0 3px;
+                    }
+                    .name-key {
+                        font-size: 14px;
+                        line-height: 23px;
+                        color: #999;
+                        margin: 0 3px;
+                    }
+                    .name-img {
+                        margin: 0 6px;
+                        cursor: pointer;
+                        border-radius: 3px;
+                        border: 1px solid #999;
+                        object-fit: cover;
+                    }
+                    .name-UserName {
+                        text-decoration: underline;
+                        color: #333;
+                        font-size: 16px;
+                        cursor: pointer;
+                        display: inline-block;
+                        width: 90px;
+                        height: 20px;
+                        line-height: 20px;
+                        overflow: hidden; //超出一行文字自动隐藏
+                        text-overflow: ellipsis; //文字隐藏后添加省略号
+                        white-space: nowrap; //强制不换行
+                    }
+                    .UserID {
+                        font-size: 14px;
+                        color: #999;
+                        display: inline-block;
+                        width: 95px;
+                        overflow: hidden; //超出一行文字自动隐藏
+                        text-overflow: ellipsis; //文字隐藏后添加省略号
+                        white-space: nowrap; //强制不换行
+                    }
+                    .Grader {
+                        font-size: 14px;
+                        color: #999;
+                    }
+                    .GradeName {
+                        font-size: 14px;
+                        color: #333;
+                    }
+                    .ClassName {
+                        font-size: 14px;
+                        color: #666;
+                    }
+                    .ant-checkbox-gray .ant-checkbox {
+                        top: -3px;
+                    }
+                    .JobType-box {
+                        display: flex;
+                        flex-flow: column nowrap;
+                        justify-content: flex-start;
+                        span {
+                            text-align: center;
+                            font-size: 14px;
+                            line-height: 16px;
+                            color: #999;
+                        }
+                        .JobType {
+                            color: #002871;
+                            display: inline-block;
+                            width: 130px;
+                            overflow: hidden; //超出一行文字自动隐藏
+                            text-overflow: ellipsis; //文字隐藏后添加省略号
+                            white-space: nowrap; //强制不换行
+                        }
+                        .Discription {
+                            display: inline-block;
+                            width: 130px;
+                            overflow: hidden; //超出一行文字自动隐藏
+                            text-overflow: ellipsis; //文字隐藏后添加省略号
+                            white-space: nowrap; //强制不换行
+                        }
+                        .HasTrack {
+                            color: #999;
+                        }
+                    }
+                    .Telephone {
+                        color: #333;
+                    }
+                    .handle-content {
+                        display: flex;
+                        flex-flow: row nowrap;
+                        justify-content: center;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    .handle-btn {
+                        float: right;
+                        height: 24px;
+                        //width: 56px;
+                        line-height: 24px;
+                        font-size: 14px;
+                        padding: 0 14px;
+                        margin-right: 2px;
+                    }
+                }
+                .pagination-box {
+                    margin-top: 10px;
+                    display: flex;
+                    flex-flow: row nowrap;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}

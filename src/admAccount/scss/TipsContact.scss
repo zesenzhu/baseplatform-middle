@@ -1,0 +1,39 @@
+.tips-Box {
+    padding: 10px 16px;
+    .box-top {
+        position: relative;
+        .top-tip {
+            font-size: 14px;
+            line-height: 26px;
+            color: #720000;
+        }
+    }
+    .box-content {
+        padding: 8px 16px;
+        .content {
+            position: relative;
+            height: 28px;
+            width: 195px;
+            margin: 8px 0;
+            display: inline-block;
+            img {
+                float: left;
+            }
+            .content-text {
+                float: left;
+                line-height: 28px;
+                text-align: left;
+                margin-left: 9px;
+                color: #333;
+                font-size: 16px;
+                overflow: hidden;
+                max-width: 150px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .content-null {
+                color: #999;
+            }
+        }
+    }
+}

@@ -1,0 +1,56 @@
+//学段tab
+.schedule-period-tab{
+
+  float: left;
+
+  border: solid 1px #cccccc;
+
+  padding:0 10px;
+
+  @include border-radius(14px);
+
+  height:28px;
+
+  margin-top:11px;
+
+  margin-left: 16px;
+
+}
+.schedule-period-item{
+
+  float: left;
+
+  width: 46px;
+
+  height: 24px;
+
+  margin:1px 3px;
+
+  font-size: 14px;
+
+  color: #666666;
+
+  line-height:1;
+
+  padding-top:4px;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  @include border-radius(12px);
+
+  &.active{
+
+    background-image: linear-gradient(90deg,
+            #0fc1fc 0%,
+            #1da4fe 100%),
+    linear-gradient(
+                    #f69313,
+                    #f69313);
+
+    color: #ffffff;
+
+  }
+
+}

@@ -1,0 +1,59 @@
+//全屏按钮
+
+.full-screen-btn{
+
+    position: absolute;
+
+    z-index:5;
+
+    right:0;
+
+    top:-28px;
+
+    padding-right:22px;
+
+    font-size:16px;
+
+    color:#0099ff;
+
+    cursor: pointer;
+
+    @include background-size(contain);
+
+    background-repeat: no-repeat;
+
+    background-position: right center;
+
+    @include background-image(url('#{$image-url}/full-screen.png'));
+
+    &:hover{
+
+      @include background-image(url('#{$image-url}/full-screen-hover.png'));
+
+      color: #ff6600;
+
+    }
+
+}
+
+.full-screen-enter-done{
+
+    .full-screen-btn{
+
+        top: 30px;
+
+        right: 28px;
+
+        background-image: url("#{$image-url}/full-screen-exit.png");
+
+        &:hover{
+
+            background-image: url("#{$image-url}/full-screen-exit-hover.png");
+
+        }
+
+    }
+
+}
+
+

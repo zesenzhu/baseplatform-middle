@@ -1,0 +1,10 @@
+.Teacher{
+    padding: 42px 62px;
+
+    .ShowCard-box-Teacher{
+        margin: 0 28px 34px 0;
+        &:nth-of-type(4n){
+            margin-right:0;
+        }
+    }
+}

@@ -1,0 +1,35 @@
+/* 水平居中 */
+
+@mixin Hcenter {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+/* 垂直居中 */
+
+@mixin Vcenter {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+
+/* 垂直水平居中 */
+
+@mixin Center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// 省略
+@mixin TextOverflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

@@ -1,0 +1,313 @@
+.Main {
+    width: 1200px;
+    height: 680px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    position: relative;
+    margin: 0 auto;
+    padding: 24px 32px;
+    .Main-top {
+        position: relative;
+        width: 100%;
+        height: 30px;
+    }
+    .top-box {
+        height: 30px;
+        .box-tips {
+            display: inline-block;
+            font-size: 14px;
+            text-align: center;
+            line-height: 28px;
+            padding-left: 6px;
+            color: #999999;
+        }
+        .box-dropmenu {
+            vertical-align: top;
+            z-index: 2;
+        }
+    }
+    .top-left {
+        float: left;
+        margin-right: 20px;
+    }
+    .top-right {
+        float: right;
+    }
+    .self-box {
+        .check-box {
+            line-height: 28px;
+        }
+    }
+    .btn-box {
+        width: 108px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        background-image: linear-gradient(-90deg, #23a1fa 0%, #14b6f7 51%, #04caf4 100%), linear-gradient(#199aff, #199aff);
+        border-radius: 3px;
+        font-size: 14px;
+        color: #ffffff;
+        cursor: pointer;
+        .btn-title {
+            display: inline-block;
+            line-height: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #ffffff;
+            overflow: auto;
+        }
+        .btn-icon-add {
+            display: inline-block;
+            width: 12px;
+            height: 30px;
+            background: url(../images/icon-crop.png) no-repeat center;
+            background-size: 12px 13px;
+            margin-right: 5px;
+            overflow: auto;
+        }
+    }
+    .Main-hr {
+        width: 1136px;
+        border: dotted 0.5px #cccccc;
+        margin: 20px auto 4px;
+    }
+    .Main-hr-2 {
+        width: 1136px;
+        border: dotted 0.5px #cccccc;
+        margin: 4px auto 24px;
+    }
+    .Main-content {
+        width: 1136px;
+        // height: auto;
+        min-height: 492px;
+        margin: 0 auto;
+        .content-card {
+            position: relative;
+            display: inline-block;
+            width: 568px;
+            height: 123px;
+            padding: 24px 14px;
+            overflow: hidden;
+            &:hover {
+                background-color: #f5f5f5;
+                cursor: pointer;
+                .Edit-content {
+                    display: block;
+                }
+            }
+            .card-left {
+                float: left;
+                height: 42px;
+                width: 70px;
+                line-height: 42px;
+                .img-box {
+                    float: right;
+                    position: relative;
+                    border-radius: 3px;
+                    width: 42px;
+                    height: 42px;
+                    background: #fff;
+                    -webkit-border-radius: 3px;
+                    -moz-border-radius: 3px;
+                    -ms-border-radius: 3px;
+                    -o-border-radius: 3px;
+                }
+                .left-img {
+                    position: relative;
+                    top: 50%;
+                    left: 50%;
+                    transform: translateY(-50%);
+                    max-width: 38px;
+                    max-height: 38px;
+                    min-width: 25px;
+                    min-height: 25px;
+                    vertical-align: top;
+                    -webkit-transform: translateX(-50%) translateY(-50%);
+                    -moz-transform: translateX(-50%) translateY(-50%);
+                    -ms-transform: translateX(-50%) translateY(-50%);
+                    -o-transform: translateX(-50%) translateY(-50%);
+                }
+                .ImgError {
+                    float: right;
+                    border-radius: 3px;
+                    width: 42px;
+                    height: 42px;
+                    background: #009900;
+                    line-height: 42px;
+                    text-align: center;
+                    font-size: 25px;
+                    color: #fff;
+                }
+                .ImgError_0 {
+                    background-color: rgba($color: #009900, $alpha: 0.2);
+                }
+                .ImgError_1 {
+                    background-color: rgba($color: #480099, $alpha: 0.2);
+                }
+                .ImgError_2 {
+                    background-color: rgba($color: #007399, $alpha: 0.2);
+                }
+                .ImgError_3 {
+                    background-color: rgba($color: #990000, $alpha: 0.2);
+                }
+                .ImgError_4 {
+                    background-color: rgba($color: #993a00, $alpha: 0.2);
+                }
+                .ImgError_5 {
+                    background-color: rgba($color: #646f09, $alpha: 0.2);
+                }
+                .ImgError_6 {
+                    background-color: rgba($color: #001299, $alpha: 0.2);
+                }
+                .ImgError_7 {
+                    background-color: rgba($color: #995e00, $alpha: 0.2);
+                }
+            }
+            .card-rigth {
+                float: left;
+                height: 75px;
+                width: 458px;
+                overflow: hidden;
+                margin-left: 12px;
+                .rigth-content {
+                    line-height: 25px;
+                    text-align: left;
+                }
+                .webName-content {
+                    font-size: 18px;
+                    color: #333333;
+                    .webName {
+                        float: left;
+                        display: inline-block;
+                        max-width: 200px;
+                        overflow: hidden; //超出一行文字自动隐藏
+                        text-overflow: ellipsis; //文字隐藏后添加省略号
+                        white-space: nowrap; //强制不换行
+                    }
+                    .WebType {
+                        display: inline-block;
+                        margin-top: 3.5px;
+                        height: 18px;
+                        line-height: 18px;
+                        max-width: 200px;
+                        text-align: center;
+                        padding: 0 7px;
+                        margin-left: 5px;
+                        background-color: rgba($color: #009900, $alpha: 0.2);
+                        color: #009900;
+                        border-radius: 3px;
+                        font-size: 14px;
+                        overflow: hidden; //超出一行文字自动隐藏
+                        text-overflow: ellipsis; //文字隐藏后添加省略号
+                        white-space: nowrap; //强制不换行
+                    }
+                    .WebType_0 {
+                        background-color: rgba($color: #009900, $alpha: 0.2);
+                        color: #009900;
+                    }
+                    .WebType_1 {
+                        background-color: rgba($color: #480099, $alpha: 0.2);
+                        color: #480099;
+                    }
+                    .WebType_2 {
+                        background-color: rgba($color: #007399, $alpha: 0.2);
+                        color: #007399;
+                    }
+                    .WebType_3 {
+                        background-color: rgba($color: #990000, $alpha: 0.2);
+                        color: #990000;
+                    }
+                    .WebType_4 {
+                        background-color: rgba($color: #993a00, $alpha: 0.2);
+                        color: #993a00;
+                    }
+                    .WebType_5 {
+                        background-color: rgba($color: #646f09, $alpha: 0.2);
+                        color: #646f09;
+                    }
+                    .WebType_6 {
+                        background-color: rgba($color: #001299, $alpha: 0.2);
+                        color: #001299;
+                    }
+                    .WebType_7 {
+                        background-color: rgba($color: #995e00, $alpha: 0.2);
+                        color: #995e00;
+                    }
+                }
+                .webSubject {
+                    max-width: 450px;
+                    overflow: hidden; //超出一行文字自动隐藏
+                    text-overflow: ellipsis; //文字隐藏后添加省略号
+                    white-space: nowrap; //强制不换行
+                    font-size: 14px;
+                    color: #999999;
+                }
+                .webUrl {
+                    max-width: 450px;
+                    display: inline-block;
+                    overflow: hidden; //超出一行文字自动隐藏
+                    text-overflow: ellipsis; //文字隐藏后添加省略号
+                    white-space: nowrap; //强制不换行
+                    font-size: 14px;
+                    color: #0075c3;
+                    text-decoration: underline;
+                }
+            }
+            .Edit-content {
+                position: absolute;
+                display: none;
+                padding: 16px;
+                top: 0;
+                right: 0;
+                .card-btn {}
+                .btn-edit {
+                    float: right;
+                    width: 16px;
+                    height: 16px;
+                    background: url(../images/icon-edit.png) no-repeat center;
+                    background-size: contain;
+                }
+                .btn-delete {
+                    float: right;
+                    width: 13px;
+                    height: 16px;
+                    margin-left: 12px;
+                    background: url(../images/icon-delete.png) no-repeat center;
+                    background-size: contain;
+                }
+            }
+        }
+    }
+    .Main-event-box {
+        width: 1136px;
+        height: 30px;
+        padding-left: 12px;
+        margin: 0 auto;
+        .checkBox-All {
+            float: left;
+        }
+        .btn-delete-All {
+            float: left;
+            width: 92px;
+            height: 28px;
+            background-image: linear-gradient(-90deg, #23a1fa 0%, #14b6f7 51%, #04caf4 100%), linear-gradient(#0099ff, #0099ff);
+            line-height: 28px;
+            text-align: center;
+            font-size: 14px;
+            color: #ffffff;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .pagination {
+            float: right;
+        }
+    }
+}
+
+p {
+    margin: 0;
+}
+
+.frame-content-wrapper.barnerHide {
+    margin-top: 16px;
+}

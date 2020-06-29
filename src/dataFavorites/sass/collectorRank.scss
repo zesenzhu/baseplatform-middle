@@ -1,0 +1,162 @@
+@mixin Vcenter {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.collector-integration {
+    width: 332px;
+    height: 879px;
+    float: right;
+    border-left: 1px solid #e6e6e6;
+    .collector-tabChange {
+        width: 332px;
+        height: 58px;
+        li {
+            background-color: #f5f5f5;
+            border: solid 1px #e6e6e6;
+            width: 166px;
+            height: 58px;
+            float: left;
+            list-style: none;
+            text-align: center;
+            line-height: 58px;
+            font-family: MicrosoftYaHei;
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            color: #666666;
+            cursor: pointer;
+            &:nth-child(1) {
+                border-left: none;
+            }
+            &.selected {
+                background-color: #fff;
+                color: #0099ff;
+                font-size: 16px;
+                border: none;
+            }
+        }
+    }
+    .collector-content {
+        width: 332px;
+        // min-height: 600px;
+        // background-color: red;
+        list-style: none;
+        padding-left: 28px;
+        padding-right: 24px;
+        .ant-spin-container {
+            width: 280px;
+            min-height: 620px;
+            .emptyBox {
+                width: 283px;
+                margin: 154px 0px 0px 0px;
+                .initTitle {
+                    font-size: 14px;
+                }
+                .tips-error-3 {
+                    background-size: 282px 74px;
+                }
+                .empty {
+                    width: 299px;
+                }
+            }
+        }
+        li {
+            width: 280px;
+            height: 47px;
+            position: relative;
+            margin-top: 16px;
+            //   &:nth-child(1) {
+            //     margin-top: 0;
+            //   }
+            //   &:hover {
+            //     background-color: rgba(245, 245, 245, 0.5);
+            //   }
+            .ranklogo {
+                float: left;
+                width: 32px;
+                height: 24px;
+                margin-top: 5px;
+                background-color: #d2e4f0;
+                border-radius: 3px;
+                text-align: center;
+                font-size: 14px;
+                line-height: 24px;
+                font-weight: normal;
+                font-stretch: normal;
+                letter-spacing: 0px;
+                color: #6a9ec1;
+            }
+            .collector-detail {
+                float: left;
+                margin-left: 12px;
+                color: #333333;
+                font-size: 13px;
+                width: 220px;
+                height: 40px;
+                position: relative;
+                .top-wrap {
+                    display: inline-block;
+                    max-width: 160px;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    cursor: pointer;
+                    &:hover {
+                        // color: #0099ff;
+                        color: #ff6600;
+                    }
+                }
+                .bottom-wrap {
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    font-size: 11px;
+                    color: #b8b8b8;
+                    margin-top: 0;
+                }
+            }
+            .collect-logo {
+                position: absolute;
+                top: 9px;
+                right: 4px;
+                background: url("../images/collector_unchecked.png") no-repeat;
+                width: 16px;
+                height: 16px;
+                cursor: pointer;
+                &.checked {
+                    background: url("../images/collector_checked.png") no-repeat;
+                }
+            }
+            .splitline {
+                position: absolute;
+                left: 43px;
+                bottom: 0;
+                width: 237px;
+                height: 1px;
+                border-top: 1px dashed #cccccc;
+            }
+            &.rank {
+                &:nth-child(1) {
+                    .ranklogo {
+                        background-color: #ffe9e0;
+                        color: #fe4704;
+                    }
+                }
+                &:nth-child(2) {
+                    .ranklogo {
+                        background-color: #ffeee0;
+                        color: #fe7404;
+                    }
+                }
+                &:nth-child(3) {
+                    .ranklogo {
+                        background-color: #fff5e0;
+                        color: #feaf04;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,65 @@
+.add-class-hour-modal{
+
+  color: #333333;
+
+  .start-time-wrapper,.end-time-wrapper{
+
+    margin-left: 64px;
+
+  }
+
+  .start-time-wrapper{
+
+    margin-top:12px;
+
+  }
+
+  .end-time-wrapper{
+
+    margin-top: 16px;
+
+  }
+
+  .ant-input{
+
+    width: 56px;
+
+    height: 28px;
+
+    text-align: center;
+
+    color: #333333;
+
+    padding-right: 0;
+
+    &:nth-child(2){
+
+      margin-left: 8px;
+
+    }
+
+    &:nth-child(4){
+
+      margin-left: 12px;
+
+    }
+
+  }
+
+  .unit{
+
+    margin-left: 6px;
+
+  }
+
+  .tap{
+
+    margin-left: 64px;
+
+    margin-top: 16px;
+
+    color:red;
+
+  }
+
+}

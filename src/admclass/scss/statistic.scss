@@ -1,0 +1,46 @@
+//统计
+.statistic-wrapper{
+  height: 214px;
+  background-color: #f5f5f5;
+  margin-top:24px;
+  ul{
+    width: 552px;
+    height: 148px;
+    margin: 0 auto;
+  }
+  .statistic-item{
+    float: left;
+    margin-top: 30px;
+    &:not(:first-child){
+      margin-left:92px
+    }
+  }
+  .statistic-bg{
+    width: 122px;
+    height: 150px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin-top: 32px;
+    text-align: center;
+    &.statistic-blue{
+      background-image: url("#{$image-url}/statistic-blue.png");
+    }
+    &.statistic-orange{
+      background-image: url("#{$image-url}/statistic-orange.png");
+    }
+    &.statistic-green{
+      background-image: url("#{$image-url}/statistic-green.png");
+    }
+  }
+  .statistic-title{
+
+    text-align: center;
+    font-size: 16px;
+    color: #333333;
+  }
+  .statistic-num{
+    font-size: 36px;
+    color: #ffffff;
+    line-height: 118px;
+  }
+}

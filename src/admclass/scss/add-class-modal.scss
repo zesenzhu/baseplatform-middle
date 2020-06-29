@@ -1,0 +1,54 @@
+//添加班级模态框
+.addClassModal {
+    .addclass-select-grade {
+        position: relative;
+        z-index: 5;
+        margin-left: 38px;
+        margin-top: 20px;
+        height: 28px;
+        line-height: 28px;
+        .error-tips:nth-child(3) {
+            float: right;
+            margin-right: 64px;
+            margin-top: 2px;
+        }
+    }
+    .props {
+        color: #999999;
+        font-size: 14px;
+    }
+    .ant-input {
+        padding: 1px;
+        width: 265px;
+        margin-left: 8px;
+        text-indent: 12px;
+    }
+    .addclass-classname-wrapper {
+        position: relative;
+        z-index: 3;
+        margin-top: 20px;
+        margin-left: 38px;
+    }
+    .error-tips {
+        color: #ff0000;
+        padding-left: 17px;
+        background: url("#{$image-url}/error-tips.png") no-repeat left center;
+        margin-left: 8px;
+    }
+    .addclass-classname-wrapper {
+        .error-tips {
+            margin-left: 68px;
+            margin-top: 7px;
+        }
+    }
+    .reset-classname-wrapper {
+        .error-tips {
+            position: absolute;
+            bottom: 8px;
+            left: 94px;
+        }
+    }
+    .dropdown_container {
+        position: absolute;
+    }
+}

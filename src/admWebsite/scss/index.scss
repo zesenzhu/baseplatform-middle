@@ -1,0 +1,56 @@
+.resetName {
+    display: block;
+    height: 40px;
+    .left {
+        display: inline-block;
+        width: 30%;
+        line-height: 40px;
+        font-size: 14px;
+        text-align: right;
+    }
+    .right {
+        width: 60%;
+        line-height: 40px;
+        font-size: 14px;
+    }
+}
+
+.ant-modal-footer {
+    div {
+        padding: 0 30px;
+        .ant-btn {
+            &:nth-child(1) {
+                float: left;
+            }
+        }
+    }
+}
+
+.frame-content-rightside {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.Empty {
+    position: relative;
+    top: 250px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.box {
+    position: relative;
+    min-height: 626px;
+    width: 100%;
+    border-radius: 12px;
+}
+
+.myFrame {
+    .frame-block-wrapper {
+        padding-left: 102px;
+    }
+}
+
+body {
+    font-family: '微软雅黑';
+}

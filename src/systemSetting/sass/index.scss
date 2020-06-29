@@ -1,0 +1,28 @@
+@import "../sass/public-minx.scss";
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    background-color: #f5f5f5;
+}
+
+a {
+    text-align: center;
+    text-decoration: none;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+@import './SetTextBookModal.scss';
+@import './TextBookMsgModal.scss';
+@import './TextBookSet.scss';
+@import './PeriodTable.scss';
+@import './public.scss';

@@ -1,0 +1,208 @@
+#HandleCourseClass {
+    padding-top: 40px;
+    .row {
+        position: relative;
+        height: 28px;
+        margin-bottom: 18px;
+        width: 100%;
+        .row-column {
+            position: relative;
+            height: 28px;
+            display: inline-block;
+            width: 50%;
+            .left {
+                position: relative;
+                display: inline-block;
+                // width: 40%;
+                width: 30%;
+                line-height: 28px;
+                text-align: right;
+                font-size: 14px;
+                color: #666;
+            }
+            .right {
+                position: relative;
+                display: inline-block;
+                // width: 60%;
+                width: 70%;
+                height: 28px;
+                line-height: 28px;
+                .dropdown_container .dropdown_wrapper {
+                    margin-left: 0;
+                }
+                .ant-input {
+                    height: 28px;
+                    line-height: 1;
+                }
+                .dropdown_container {
+                    margin-top: -4px;
+                    z-index: 2;
+                }
+                .teacher-select {
+                    position: absolute;
+                    // right: 66px;
+                    right: 90px;
+                    line-height: 28px;
+                    color: #0066ff;
+                    text-decoration: underline;
+                    font-size: 12px;
+                    cursor: pointer;
+                }
+                .teacherName {
+                    padding-right: 36px;
+                    cursor: pointer;
+                    display: flex;
+                }
+                .noChange {
+                    font-size: 14px;
+                    padding-left: 11px;
+                    width: 100%;
+                    overflow: hidden; //超出一行文字自动隐藏
+                    text-overflow: ellipsis; //文字隐藏后添加省略号
+                    white-space: nowrap; //强制不换行
+                }
+            }
+            //学生名单
+            .right-2 {
+                width: 610px;
+                height: 390px;
+                .Student-box {
+                    width: 610px;
+                    height: 390px;
+                    background-color: #ffffff;
+                    border-radius: 3px;
+                    border: solid 1px #bac7d9;
+                    .box-top {
+                        position: relative;
+                        width: 100%;
+                        height: 30px;
+                        background-color: #e8eff7;
+                        .top-left {
+                            // position: absolute;
+                            // left: 0;
+                            line-height: 30px;
+                            height: 30px;
+                            color: #999999;
+                            font-size: 12px;
+                            // padding: 0 11px;
+                            .count {
+                                color: #ff6600;
+                            }
+                        }
+                        .top-left-1 {
+                            // position: absolute;
+                            padding: 0 4px 0 11px;
+                        }
+                        .top-left-add {
+                            line-height: 30px;
+                            height: 30px;
+                            color: #999999;
+                            font-size: 12px;
+                        }
+                        .top-left-2 {
+                            padding: 0 11px 0 4px;
+                        }
+                        .top-right {
+                            position: absolute;
+                            right: 0;
+                            line-height: 30px;
+                            padding: 0 11px;
+                            height: 30px;
+                            .handle {
+                                font-size: 12px;
+                                text-decoration: underline;
+                                text-align: center;
+                                margin-left: 11px;
+                                cursor: pointer;
+                                color: #0066ff;
+                            }
+                        }
+                    }
+                    .select-box {
+                        .box-title {
+                            margin: 0;
+                            padding-left: 4px;
+                        }
+                        .select-content-box {
+                            margin: 4px;
+                            height: 140px;
+                            border: 1px solid #cccccc;
+                            border-radius: 4px;
+                            padding: 4px;
+                        }
+                    }
+                    .box-content {
+                        width: 100%;
+                        height: calc(100% - 30px);
+                        //overflow: auto;
+                        // padding: 10px 12px 4px 12px;
+                        .content-card {
+                            display: inline-block;
+                            overflow: hidden;
+                            position: relative;
+                            padding: 0 9px;
+                            width: 140px;
+                            height: 30px;
+                            line-height: 28px;
+                            border-radius: 3px;
+                            border: solid 1px #cccccc;
+                            background-color: #fff;
+                            text-align: left;
+                            margin-right: 5px;
+                            margin-bottom: 8px;
+                            cursor: default;
+                            .icon-x {
+                                display: none;
+                                width: 7px;
+                                height: 28px;
+                                background: url(../images/icon-delete.png) no-repeat center center;
+                                background-size: 7px 7px;
+                                line-height: 28px;
+                                position: absolute;
+                                right: 9px;
+                                top: 0;
+                                cursor: pointer;
+                            }
+                            &:hover {
+                                background-color: #f4f9ff;
+                                border: solid 1px #0090ff;
+                                .icon-x {
+                                    display: inline-block;
+                                }
+                            }
+                            .card-id {
+                                display: inline-block;
+                                margin-left: 2px;
+                                color: #999999;
+                                font-size: 12px;
+                                max-width: 60px;
+                                overflow: hidden; //超出一行文字自动隐藏
+                                text-overflow: ellipsis; //文字隐藏后添加省略号
+                                white-space: nowrap; //强制不换行
+                            }
+                            .card-name {
+                                display: inline-block;
+                                max-width: 50px;
+                                color: #333333;
+                                font-size: 14px;
+                                overflow: hidden; //超出一行文字自动隐藏
+                                text-overflow: ellipsis; //文字隐藏后添加省略号
+                                white-space: nowrap; //强制不换行
+                            }
+                            .class-name {
+                                max-width: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .row-column-2 {
+            width: 100%;
+            .left {
+                width: 15%;
+                float: left;
+            }
+        }
+    }
+}

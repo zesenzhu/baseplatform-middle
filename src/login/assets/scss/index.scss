@@ -1,0 +1,171 @@
+@import "./base";
+
+
+//loading
+
+@import "./loading";
+
+//头部
+@import "./header";
+
+
+//中间内容区域
+@import "./content";
+
+
+//darkblue的内容区域
+@import "./dark-blue-content";
+
+
+//darktech的内容区域
+
+@import "./dark-tech-content";
+
+//网上课程
+@import "./cloud-schoolroom-content";
+
+//智慧校园
+@import "./ai-school-content";
+
+//智能考试
+@import "./ai-exam-content";
+
+//脚部
+@import "./footer";
+
+//alert
+@import "./alert";
+
+
+//底部背景轮播
+@import "./bottom";
+
+.top_wrapper{
+
+  position: relative;
+
+  //height: 100%;
+
+  min-height: 100%;
+
+  width: 100%;
+
+  z-index: 100;
+
+  .top_content_wrapper{
+
+    position: relative;
+
+    min-height: 100%;
+
+    padding-bottom:84px;
+
+    @include box-sizing(border-box);
+
+    .introduce-modal{
+
+      opacity:0;
+
+      display: none;
+
+      &.dark_tech{
+
+        position: fixed;
+
+        z-index: 1000;
+
+        width:900px;
+
+        height: 566px;
+
+        left:calc(50% - 450px);
+
+        top:calc(50% - 282px);
+
+        @include box-shadow(1px 1px 50px rgba(0,0,0,.3));
+
+        iframe{
+
+          display: block;
+
+          width: 100%;
+
+          height: 100%;
+
+          overflow: hidden;
+
+        }
+
+        .close-icon{
+
+          position: absolute;
+
+          cursor: pointer;
+
+          right: 44px;
+
+          top: 30px;
+
+          width: 16px;
+
+          height: 16px;
+
+          background-repeat:no-repeat;
+
+          background-position: center;
+
+          @include background-size(contain);
+
+          background-image: url("#{$darkTechUrl}/modal-close.png");
+
+          &:hover{
+
+            background-image: url("#{$darkTechUrl}/modal-close-hover.png");
+
+          }
+
+        }
+
+      }
+
+      &.introduce-modal-enter {
+        display: block;
+        opacity: 0;
+        transform: scale(1);
+      }
+      &.introduce-modal-enter-active {
+
+        opacity: 1;
+        transform:scale(1);
+        transition: opacity 300ms, transform 300ms;
+      }
+
+      &.introduce-modal-enter-done {
+        display: block;
+        opacity: 1;
+        transform:scale(1);
+      }
+
+      &.introduce-modal-exit{
+
+        opacity: 1;
+        transform:scale(1);
+      }
+      &.introduce-modal-exit-active {
+
+        opacity: 0;
+        transform: scale(0.7);
+        transition: opacity 300ms, transform 300ms;
+      }
+
+      &.introduce-modal-exit-done {
+        display: none;
+        opacity: 0;
+        transform: scale(0.7);
+      }
+
+    }
+
+  }
+
+}

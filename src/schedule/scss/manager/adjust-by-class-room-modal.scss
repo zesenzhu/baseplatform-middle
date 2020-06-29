@@ -1,0 +1,348 @@
+.adjust-by-class-room-modal {
+    color: #333333;
+    .error-tips {
+        padding-left: 16px;
+        font-size: 14px;
+        color: #ff0000;
+        background: url("#{$image-url}/input-error.png") no-repeat left center;
+        margin-top: 4px;
+        margin-left: 8px;
+    }
+    .ant-modal-body {
+        min-height: 308px;
+        height: auto;
+        &>.ant-spin-nested-loading {
+            min-height: 300px;
+        }
+    }
+    .modal-wrapper {
+        float: left;
+        width: 840px;
+        margin-left: -36px;
+        margin-top: -24px;
+    }
+    .ant-tabs-bar {
+        margin-bottom: 0;
+    }
+    .ant-tabs-tab {
+        position: relative;
+        width: 168px;
+        text-align: center;
+        color: #596675;
+        @include border-radius(0px !important);
+        border: 0!important;
+        &:not(.ant-tabs-tab-active) {
+            background-color: #e8eff7!important;
+        }
+        &:after {
+            position: absolute;
+            content: '';
+            width: 1px;
+            height: 18px;
+            background-color: #bfd0e3;
+            left: 0;
+            top: 50%;
+            @include transform(translateY(-50%));
+        }
+        &.ant-tabs-tab-active,
+        &.ant-tabs-tab-active+.ant-tabs-tab {
+            &:after {
+                width: 0;
+            }
+        }
+    }
+    .dropdown_container {
+        position: absolute;
+        margin-top: -2px;
+    }
+    .check-item {
+        float: left;
+        position: relative;
+        font-size: 14px;
+        height: 28px;
+        line-height: 28px;
+        border: solid 1px #bac7d9;
+        padding: 0 4px;
+        text-align: center;
+        @include textOverFlow;
+        cursor: pointer;
+        color: #79879b;
+        &.active {
+            border-color: #2ba500;
+            background-color: #e9ffe9;
+            color: #2ab500;
+            &:before {
+                position: absolute;
+                content: '';
+                width: 0;
+                height: 0;
+                right: -10px;
+                top: -10px;
+                border-color: transparent transparent #2ba500 transparent;
+                border-style: solid;
+                border-width: 10px;
+                @include transform(rotate(45deg));
+            }
+            &:after {
+                position: absolute;
+                right: 3px;
+                top: 3px;
+                width: 4px;
+                height: 6px;
+                content: '';
+                display: table;
+                border: 1px solid #fff;
+                border-top: 0;
+                border-left: 0;
+                transform: rotate(45deg) scale(1) translate(-50%, -50%);
+            }
+        }
+    }
+    //找人代课
+    &>div {
+        margin: 16px 0;
+    }
+    .teacher-wrapper,
+    .replace-teacher-wrapper {
+        .error-tips {
+            margin-left: 180px;
+            margin-top: 2px;
+        }
+    }
+    .props {
+        float: left;
+        font-size: 16px;
+        color: #666666;
+        width: 78px;
+        text-align: right;
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+    .subject-name {
+        margin-left: 8px;
+        &.unset {
+            color: #999999;
+        }
+    }
+    .class-pick-wrapper {
+        float: left;
+        margin-left: 8px;
+        max-width: 640px;
+        &.unset {
+            color: #999999;
+            &+.error-tips {
+                margin-top: 2px;
+            }
+        }
+    }
+    .class-item {
+        width: 112px;
+        margin-left: 20px;
+        margin-bottom: 10px;
+        &:nth-child(5n+1) {
+            margin-left: 0;
+        }
+    }
+    .class-wrapper {
+        .error-tips {
+            margin-left: 10px;
+            margin-top: 4px;
+        }
+    }
+    .radio-item {
+        padding-left: 20px;
+        margin-left: 30px;
+        background: url("#{$image-url}/radio.png") no-repeat left center;
+        cursor: pointer;
+        &:first-child {
+            margin-left: 8px;
+        }
+        &.active {
+            background-image: url('#{$image-url}/radio-checked.png');
+        }
+    }
+    .byMonth {
+        .trangle {
+            left: 91px;
+        }
+    }
+    .byWeek {
+        .trangle {
+            left: 197px;
+        }
+    }
+    .byDate {
+        .trangle {
+            left: 303px;
+        }
+    }
+    .byClassHour {
+        .trangle {
+            left: 409px;
+        }
+        .title {
+            margin-right: 16px;
+            color: #666666;
+        }
+        .ant-spin-nested-loading {
+            &:nth-last-child(3) {
+                display: inline-block;
+                vertical-align: middle;
+                margin-bottom: 6px;
+                //margin-left:10px;
+            }
+            .title {
+                display: inline-block;
+                vertical-align: top;
+                margin-top: 20px;
+            }
+        }
+        .week-date {
+            font-size: 12px;
+            color: #999999;
+        }
+        .error-tips {
+            margin-left: 20px;
+        }
+        .ant-calendar-picker+.ant-spin-nested-loading {
+            display: inline-block;
+        }
+    }
+    .date-wrapper {
+        position: absolute;
+        max-width: 580px;
+        @include textOverFlow;
+        min-height: 14px;
+        left: 24px;
+        top: 31px;
+        background-color: #ffffff;
+        font-size: 14px;
+        line-height: 1;
+        color: #999;
+        padding: 0 10px;
+    }
+    .classHour-wrapper {
+        display: inline-block;
+        min-height: 56px;
+        margin-top: 20px;
+        max-width: 520px;
+    }
+    .noon {
+        position: relative;
+        &:after {
+            position: absolute;
+            content: '';
+            width: 0;
+            height: 0;
+            right: -18px;
+            top: 10px;
+            border-width: 4px;
+            border-style: solid;
+            border-color: transparent transparent transparent #999999;
+        }
+    }
+    .class-hour-item-wrapper {
+        &>div {
+            float: left;
+        }
+    }
+    .class-hour-item {
+        width: 60px;
+        margin-left: 28px;
+        margin-bottom: 10px;
+        &:nth-child(5n+7) {
+            margin-left: 88px;
+        }
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+    .dateline-pick-wrapper {
+        position: relative;
+        width: 672px;
+        padding: 22px;
+        margin-top: 10px;
+        background-color: #f8f8f8;
+        border: 1px solid #d3d3c3;
+        margin-left: 104px;
+    }
+    .month-item {
+        width: 92px;
+        margin-left: 30px;
+        margin-bottom: 10px;
+        &:nth-child(5n+1) {
+            margin-left: 0;
+        }
+    }
+    .week-item {
+        width: 60px;
+        margin-left: 30px;
+        margin-bottom: 10px;
+        &:nth-child(7n+1) {
+            margin-left: 0;
+        }
+    }
+    .trangle {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        border-style: solid;
+        border-color: #d3d3d3 #d3d3d3 transparent transparent;
+        border-width: 1px;
+        top: -8px;
+        background-color: #f8f8f8;
+        @include transform(rotate(-45deg));
+    }
+    //新增
+    .footer-tips {
+        position: absolute;
+        left: 22px;
+        bottom: 22px;
+        font-size: 12px;
+        color: #666;
+    }
+    .arr-wrapper {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        color: #fff;
+        background-color: #1ba7fe;
+        font-size: 16px;
+        background-image: url('#{$image-url}/arr.png');
+        background-position: 50%;
+        background-repeat: no-repeat;
+        left: 51%;
+        top: -4px;
+        @include border-radius(50%);
+        @include transform(translate(-50%));
+    }
+    .class-room-wrapper {
+        float: left;
+        width: 250px;
+        margin-left: -8px;
+        height: 26px;
+        .error-tips {
+            margin-top: 28px;
+            margin-left: 8px;
+        }
+    }
+    .target-class-room-wrapper {
+        float: left;
+        width: 250px;
+        margin-left: -8px;
+        height: 26px;
+        .error-tips {
+            margin-top: 28px;
+            margin-left: 8px;
+        }
+    }
+    .arr-wrapper+.props {
+        margin-left: 80px;
+    }
+    .class-room-pick-wrapper {
+        margin-top: 20px;
+    }
+    .deadline-wrapper {
+        margin-top: 26px;
+    }
+}

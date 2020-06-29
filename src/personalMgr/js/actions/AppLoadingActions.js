@@ -1,0 +1,11 @@
+const APP_LOADING_SHOW = 'APP_LOADING_SHOW';
+
+const APP_LOADING_HIDE = 'APP_LOADING_HIDE';
+
+export default {
+
+    APP_LOADING_HIDE,
+
+    APP_LOADING_SHOW
+
+}

@@ -1,0 +1,195 @@
+.Search {
+    position: relative;
+    padding: 22px 32px;
+    text-align: center;
+    //公用
+    .Search-box {
+        position: relative;
+        text-align: left;
+        margin: 0 auto;
+        width: 858px;
+        .Search-top {
+            position: relative;
+            margin: 0;
+            height: 37px;
+            .top-tips {
+                float: left;
+                .tips {
+                    font-size: 14px;
+                    line-height: 37px;
+                    color: #999;
+                    padding-left: 21px;
+                    margin-left: -21px;
+                    background-size: 17px 17px;
+                    background-position: left center;
+                }
+                .tip-menu {
+                    background-image: url(../images/icon-location-small.png);
+                    background-repeat: no-repeat;
+                    background-size: 14px 19px;
+                }
+            }
+        }
+        .Search-hr {
+            position: relative;
+            border-top: 1px dashed #ccc;
+            width: 858px;
+            margin: 0 auto;
+        }
+        .Search-content {
+            margin: 18px auto 0;
+            position: relative;
+            width: 858px;
+            .ant-table-thead {
+                th {
+                    padding: 0;
+                    &:first-of-type {
+                        padding-left: 30px;
+                    }
+                }
+            }
+            .ant-table-tbody>tr {
+                height: 48px;
+            }
+            .ant-table-row {
+                td {
+                    padding: 10px 0;
+                    line-height: 1;
+                    white-space: nowrap;
+                    &:first-of-type {
+                        // padding: 10px 39px
+                        padding-left: 30px;
+                    }
+                    &:last-of-type {
+                        //width: 320px;
+                    }
+                }
+            }
+            .ant-table-column-title {
+                white-space: nowrap;
+            }
+            .ant-table-align-center:last-of-type {
+                width: 200px;
+            }
+            .CheckBox-content {
+                .key-content {
+                    vertical-align: bottom;
+                    margin-left: 10px;
+                }
+            }
+            .courseClass-name {
+                font-size: 14px;
+                color: #0099ff;
+                cursor: pointer;
+                display: inline-block;
+                width: 120px;
+                overflow: hidden; //超出一行文字自动隐藏
+                text-overflow: ellipsis; //文字隐藏后添加省略号
+                white-space: nowrap; //强制不换行
+            }
+            .Class-img {
+                width: 18px;
+                height: 18px;
+                border-radius: 50%;
+                vertical-align: text-bottom;
+                margin-right: 7px;
+                object-fit: cover;
+            }
+            .Class-name {
+                font-size: 14px;
+                color: #333333;
+                line-height: 18px;
+                margin-right: 3px;
+                display: inline-block;
+                max-width: 60px;
+                overflow: hidden; //超出一行文字自动隐藏
+                text-overflow: ellipsis; //文字隐藏后添加省略号
+                vertical-align: bottom;
+                white-space: nowrap; //强制不换行
+            }
+            .Class-id {
+                font-size: 12px;
+                line-height: 18px;
+                color: #999999;
+                vertical-align: text-top;
+                span {
+                    display: inline-block;
+                    max-width: 50px;
+                    overflow: hidden; //超出一行文字自动隐藏
+                    text-overflow: ellipsis; //文字隐藏后添加省略号
+                    vertical-align: bottom;
+                    white-space: nowrap; //强制不换行
+                }
+            }
+            .Grade {
+                font-size: 14px;
+                line-height: 18px;
+                color: #999999;
+                display: inline-block;
+                width: 90px;
+                overflow: hidden; //超出一行文字自动隐藏
+                text-overflow: ellipsis; //文字隐藏后添加省略号
+                white-space: nowrap; //强制不换行
+            }
+            .SubjectName {
+                font-size: 14px;
+                line-height: 18px;
+                color: #333333;
+                display: inline-block;
+                width: 90px;
+                overflow: hidden; //超出一行文字自动隐藏
+                text-overflow: ellipsis; //文字隐藏后添加省略号
+                white-space: nowrap; //强制不换行
+            }
+            .StudentCount {
+                font-size: 14px;
+                color: #333333;
+                line-height: 18px;
+            }
+            .handle-content {
+                width: 200px;
+                .handle-btn {
+                    height: 24px;
+                    line-height: 24px;
+                    text-align: center;
+                    padding: 0;
+                    width: 52px;
+                    //width: 52px;
+                    box-sizing: border-box;
+                    margin-right: 3px;
+                    font-size: 14px;
+                }
+            }
+            .checkAll-box {
+                margin-top: 10px;
+                margin-left: 30px;
+                .ant-checkbox {
+                    vertical-align: middle;
+                }
+                .checkAll-title {
+                    vertical-align: text-bottom;
+                    height: 28px;
+                    line-height: 28px;
+                }
+            }
+            .deleteAll {
+                color: #fff;
+                width: 56px;
+                line-height: 28px;
+                height: 28px;
+                padding: 0;
+                font-size: 14px;
+                text-align: center;
+                margin-left: 8px;
+                box-sizing: content-box;
+                span {
+                    vertical-align: baseline;
+                }
+            }
+        }
+        .pagination-box {
+            margin-top: 10px;
+            float: right;
+        }
+    }
+}

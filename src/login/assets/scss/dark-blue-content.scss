@@ -1,0 +1,382 @@
+.dark_blue_left_introduce,.ai_school_left_introduce{
+
+  position: relative;
+
+  width: 570px;
+
+  height: 448px;
+
+  background:url("#{$darkBlueUrl}/rader.png") no-repeat center center;
+
+  @include background-size(contain);
+
+  .introduce-wrapper{
+
+    position: absolute;
+
+    bottom:32px;
+
+    width: 100%;
+
+    left:0;
+
+    text-align: center;
+
+    opacity: 0;
+
+    &.introduce1{
+
+      @include animation(blueIntroduceAnimation 1.2s forwards);
+
+    }
+
+    &.introduce2{
+
+      @include animation(blueIntroduceAnimation 1.2s forwards);
+
+    }
+
+    &.introduce3{
+
+      @include animation(blueIntroduceAnimation 1.2s forwards);
+
+    }
+
+    &.introduce4{
+
+      @include animation(blueIntroduceAnimation 1.2s forwards);
+
+    }
+
+  }
+
+  .introduce-title{
+
+    margin-bottom: 20px;
+
+    font-size:30px;
+
+    color:$darkBlueFontColor;
+
+    text-shadow: 0 0 24px  rgba(0, 0, 0, 0.42);
+
+    line-height: 1;
+
+  }
+
+  .introduce-describe{
+
+    font-size:20px;
+
+    color:rgba(255,255,255,0.7);
+
+    text-shadow: 0 0 24px  rgba(0, 0, 0, 0.42);
+
+    line-height: 1;
+
+  }
+
+  .pic{
+
+    position: absolute;
+
+    top:20px;
+
+    left:34px;
+
+    width: 526px;
+
+    height: 318px;
+
+    background-repeat: no-repeat;
+
+    background-position: center;
+
+    @include background-size(contain);
+
+    opacity:0;
+
+    &.pic1{
+
+      background-image: url("#{$darkBlueUrl}/dark-blue-pic1.png");
+
+      @include animation(bluePicAnimation 1.5s forwards);
+
+    }
+
+    &.pic2{
+
+      background-image: url("#{$darkBlueUrl}/dark-blue-pic2.png");
+
+      @include animation(bluePicAnimation 1.5s forwards);
+
+    }
+
+    &.pic3{
+
+      background-image: url("#{$darkBlueUrl}/dark-blue-pic3.png");
+
+      @include animation(bluePicAnimation 1.5s forwards);
+
+    }
+
+    &.pic4{
+
+      background-image: url("#{$darkBlueUrl}/dark-blue-pic4.png");
+
+      @include animation(bluePicAnimation 1.5s forwards);
+
+    }
+
+  }
+
+}
+
+.dark_blue_sign_wrapper,.ai_school_sign_wrapper,.ai_exam_sign_wrapper{
+
+  position: relative;
+
+  width: 428px;
+
+  margin-left: 130px;
+
+  background-color: #ffffff;
+
+  padding:14px 34px 24px 34px;
+
+  @include box-shadow(0 0 24px 0 rgba(0, 0, 0, 0.42));
+
+  @include border-radius(20px);
+
+  .normal-wrapper{
+
+    .title{
+
+      font-size: 20px;
+
+      text-align: center;
+
+      padding:28px 0;
+
+    }
+
+    input{
+
+      width: 360px;
+
+      height: 48px;
+
+      border: solid 1px #e5e5e5;
+
+      padding-left: 44px;
+
+      padding-right:42px;
+
+      background-repeat: no-repeat;
+
+      background-position: 16px center;
+
+      &.account{
+
+        background-image: url('#{$darkBlueUrl}/dark-blue-account.png');
+
+      }
+
+      &.pwd{
+
+        background-image: url('#{$darkBlueUrl}/dark-blue-pwd.png');
+
+        margin-top:16px;
+
+      }
+
+    }
+
+    .forget_pwd_wrapper{
+
+      text-align: right;
+
+      margin:16px 0;
+
+      font-size: 14px;
+
+    }
+
+    .account_wrapper,.pwd_wrapper{
+
+      position: relative;
+
+    }
+
+    .input_clear{
+
+      position: absolute;
+
+      right:20px;
+
+      top:18px;
+
+      width: 14px;
+
+      height: 14px;
+
+      background: url("#{$darkBlueUrl}/dark-blue-del.png") no-repeat center;
+
+      @include background-size(cover);
+
+      cursor: pointer;
+
+      &:hover{
+
+        background-image: url("#{$darkBlueUrl}/dark-blue-del-hover.png");
+
+      }
+
+    }
+
+    .pwd_clear{
+
+      top:33px;
+
+    }
+
+    .forget_pwd{
+
+      text-decoration: underline;
+
+    }
+
+    .to-login{
+
+      width:360px;
+
+      height: 48px;
+
+      font-size: 18px;
+
+    }
+
+    .split_wrapper{
+
+      @include flex;
+
+      @include justifyContent(center);
+
+      @include alignItems(center);
+
+      -ms-flex-pack:center;
+
+      -ms-flex-align:center;
+
+      margin:24px 0;
+
+      color: #b8b8b8;
+
+      font-size: 12px;
+
+    }
+
+    .split_line{
+
+      width:106px;
+
+      height: 1px;
+
+      &.left_line{
+
+        background:linear-gradient(to right,rgba(204,204,204,0),rgba(204,204,204,1));
+
+      }
+
+      &.right_line{
+
+        background:linear-gradient(to left,rgba(204,204,204,0),rgba(204,204,204,1));
+
+      }
+
+    }
+
+    .split_text{
+
+      margin:0 6px;
+
+    }
+
+    .author_wrapper{
+
+      @include flex;
+
+      @include justifyContent(center);
+
+      -ms-flex-pack: center;
+
+      &>div{
+
+        outline: none;
+
+        border:0;
+
+        width: 30px;
+
+        height: 30px;
+
+        background-color:transparent;
+
+        background-repeat: no-repeat;
+
+        cursor: pointer;
+
+      }
+
+    }
+
+    .author_wrapper{
+
+      &>div:not(:first-child){
+
+        margin-left: 24px;
+
+      }
+
+    }
+
+    .wechat{
+
+      background-image:url("#{$darkBlueUrl}/dark-blue-wechat.png");
+
+    }
+
+    .qq{
+
+      background-image:url("#{$darkBlueUrl}/dark-blue-qq.png");
+
+    }
+
+    .weibo{
+
+      background-image:url("#{$darkBlueUrl}/dark-blue-weibo.png");
+
+    }
+
+    .sign_up_wrapper{
+
+      margin-top: 28px;
+
+      text-align: center;
+
+    }
+
+    .sign_up_link{
+
+      text-decoration: underline;
+
+    }
+
+  }
+
+}
+
+
+
+
+

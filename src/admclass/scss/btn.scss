@@ -1,0 +1,64 @@
+//按钮
+
+
+.ant-btn{
+  &.import-admteacher,
+  &.import-teacher,
+  &.import-class,
+  &.add-class{
+    padding:0 15px;
+    height:24px;
+    border-radius: 14px;
+    font-size: 14px;
+    border: none;
+    outline: none;
+    background-image: linear-gradient(90deg, #0fc1fc 0%, #1da4fe 100%), linear-gradient(#ffffff, #ffffff);
+    background-blend-mode: normal,normal;
+    @include box-shadow(0px 7px 22px -6px #5dcbfe);
+    color:#ffffff;
+    line-height: 24px;
+  }
+  &.addTeacher{
+    color: #ffffff;
+    background-color: #0099ff;
+    background-image: none;
+    @include border-radius(3px);
+    height:28px;
+    float: right;
+    @include box-shadow(none);
+    &:hover{
+      background-image: linear-gradient(90deg, #32ccff 0%, #3ab0ff 100%);
+      color: #fff;
+    }
+  }
+  &.person-adjust-btn{
+    color: #ffffff;
+    background-color: #0099ff;
+    background-image: none;
+    @include border-radius(3px);
+    height:28px;
+    @include box-shadow(none);
+    &:hover{
+      background-image: linear-gradient(90deg, #32ccff 0%, #3ab0ff 100%);
+      color: #fff;
+    }
+  }
+}
+div.frame-nav-content{
+
+
+
+  button{
+
+    font-family:"Microsoft YaHei";
+
+  }
+
+  .btn-blue{
+    float: right;
+    margin-top: 13px;
+    &:not(:nth-child(1)){
+      margin-right: 12px;
+    }
+  }
+}

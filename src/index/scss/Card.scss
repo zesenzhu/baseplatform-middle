@@ -1,0 +1,272 @@
+.Card {
+    display: inline-block;
+    position: relative;
+    width: 126px;
+    height: 156px;
+    overflow: hidden;
+    background-color: transparent;
+    padding: 12px 23px 0;
+    .img-box {
+        width: 80px;
+        height: 80px;
+        border-radius: 12px;
+        position: relative;
+        .inErrorText {
+            // font-size: 36px;
+            line-height: 80px;
+            font-size: 50px;
+            text-align: center;
+            display: inline-block;
+            width: 100%;
+        }
+        &.blue {
+            background-image: linear-gradient(0deg, #0088af 0%, #4aaed7 0%, #94d4ff 0%, #d7f6fe 100%), linear-gradient(#3cc24c, #3cc24c);
+            .inErrorText {
+                color: #3f9cd7;
+            }
+        }
+        &.green {
+            background-image: linear-gradient(0deg, #0088af 0%, #4db8ae 0%, #9ae8ad 0%, #cefcec 100%), linear-gradient(#3cc24c, #3cc24c);
+            .inErrorText {
+                color: #25c943;
+            }
+        }
+        &.orange {
+            background-image: linear-gradient(0deg, #ffc3a5 0%, #fef0d8 100%), linear-gradient(#3cc24c, #3cc24c);
+            .inErrorText {
+                color: #e3733b;
+            }
+        }
+        &.Website {
+            background-image: url(../images/Website.png);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 80px 80px;
+        }
+        &.App {
+            background-image: url(../images/App.png);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 80px 80px;
+        }
+        &.tool {
+            background-image: url(../images/tool.png);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 80px 80px;
+        }
+        &.database {
+            background-image: url(../images/database.png);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 80px 80px;
+        }
+    }
+    .CombineCard-box {
+        background: rgba($color: #f5f5f5, $alpha: 1.0);
+        width: 82px;
+        height: 82px;
+        overflow: hidden;
+        border-radius: 12px;
+        position: relative;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: start;
+        // box-sizing: content-box;
+        padding: 6px;
+        border: solid 1px #cccccc;
+        .img-box {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            margin: 3px;
+            position: relative;
+            border-radius: 3px;
+            overflow: hidden;
+            .inErrorText {
+                // font-size: 12px;
+                line-height: 28px;
+                font-size: 18px;
+                text-align: center;
+                display: inline-block;
+                width: 100%;
+            }
+            .card-img {
+                position: relative;
+                display: block;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                max-width: 24px;
+                max-height: 24px;
+            }
+            &.blue {
+                background-image: linear-gradient(0deg, #0088af 0%, #4aaed7 0%, #94d4ff 0%, #d7f6fe 100%), linear-gradient(#3cc24c, #3cc24c);
+                .inErrorText {
+                    color: #3f9cd7;
+                }
+            }
+            &.green {
+                background-image: linear-gradient(0deg, #0088af 0%, #4db8ae 0%, #9ae8ad 0%, #cefcec 100%), linear-gradient(#3cc24c, #3cc24c);
+                .inErrorText {
+                    color: #25c943;
+                }
+            }
+            &.orange {
+                background-image: linear-gradient(0deg, #ffc3a5 0%, #fef0d8 100%), linear-gradient(#3cc24c, #3cc24c);
+                .inErrorText {
+                    color: #e3733b;
+                }
+            }
+        }
+    }
+    .card-img {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 48px;
+        max-height: 48px;
+    }
+    .card-default {
+        position: relative;
+        display: block;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80px;
+        height: 80px;
+    }
+    .card-name {
+        position: relative;
+        font-size: 14px;
+        color: #333333;
+        line-height: 28px;
+        height: 28px;
+        margin-bottom: 0;
+        text-align: center;
+        overflow: hidden; //超出一行文字自动隐藏
+        text-overflow: ellipsis; //文字隐藏后添加省略号
+        white-space: nowrap; //强制不换行
+        .isSelf {
+            position: absolute;
+            display: inline-block;
+            width: 12px;
+            height: 28px;
+            background: url(../images/icon-self.png) no-repeat center;
+            background-size: 12px 14px;
+        }
+        span {
+            vertical-align: top;
+            line-height: 28px;
+            // padding-left: 12px;
+        }
+    }
+    .main-btn {
+        display: none;
+        position: relative;
+        width: 58px;
+        height: 20px;
+        left: 50%;
+        margin-left: -29px;
+        border-radius: 10px;
+        line-height: 20px;
+        text-align: center;
+        background-image: linear-gradient(90deg, #ff593e 0%, #ff1b10 100%), linear-gradient(#000000, #000000);
+        font-size: 14px;
+        color: #ffffff;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .alter-btn {
+        position: relative;
+        display: none;
+        width: 98px;
+        height: 20px;
+        left: 50%;
+        margin-left: -49px;
+        text-align: center;
+        line-height: 20px;
+        border-radius: 10px;
+        background-image: linear-gradient(90deg, #00e566 0%, #12d033 62%, #23ba00 100%), linear-gradient(#000000, #000000);
+        font-size: 14px;
+        color: #ffffff;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .handle-box {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: transparent;
+        width: 100%;
+        height: 32px;
+        .reset {
+            // display: inline-block;
+            float: right;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-image: url(../images/icon-edit.png), linear-gradient(180deg, #fe4504 0%, #ff6e02 60%, #ff9600 100%), linear-gradient(#ff0000, #ff0000);
+            background-blend-mode: normal, normal;
+            background-repeat: no-repeat;
+            background-size: 14px 14px, 24px 24px;
+            background-position: center;
+            border: solid 2px #ffffff;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        .delete {
+            // display: inline-block;
+            float: right;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            background-image: url(../images/icon-delete.png), linear-gradient(180deg, #fe4504 0%, #ff6e02 60%, #ff9600 100%), linear-gradient(#ff0000, #ff0000);
+            background-blend-mode: normal, normal;
+            background-repeat: no-repeat;
+            background-size: 13px 16px, 24px 24px;
+            background-position: center;
+            border: solid 2px #ffffff;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+    &:hover {
+        border: solid 1px #02e362!important;
+        // cursor: pointer;
+        .main-btn {
+            display: inline-block;
+            width: 58px;
+            height: 20px;
+            line-height: 20px;
+            background-image: linear-gradient(90deg, #ff593e 0%, #ff1b10 100%), linear-gradient(#000000, #000000);
+            font-size: 14px;
+            color: #ffffff;
+        }
+        .alter-btn {
+            display: inline-block;
+            width: 98px;
+            height: 20px;
+            background-image: linear-gradient(90deg, #00e566 0%, #12d033 62%, #23ba00 100%), linear-gradient(#000000, #000000);
+            font-size: 14px;
+            color: #ffffff;
+        }
+        .handle-box {
+            display: block;
+        }
+    }
+}
+
+.Card-alter {
+    border: solid 1px #f2f2f2!important;
+}
+
+.Card-other {
+    border: solid 1px #fff!important;
+}

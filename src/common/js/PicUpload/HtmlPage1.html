@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="http://192.168.129.1:10102/JS/jquery-1.7.2.min.js"></script>
+
+    <link href="./Cropper/cropper.css" rel="stylesheet" />
+    <link href="./photoUpload.css" rel="stylesheet" />
+
+    <script src="./Cropper/cropper.js"></script>
+
+    <script src="./juqery.cp.picUploader.js"></script>
+
+    <script>
+        $(function () {
+
+
+
+
+
+            var option = {
+                token: "8FB03B03-5D5F-41B9-AAF3-B896C3ADF7A3",
+                resWebUrl: "http://localhost:3542/", //资源站点地址
+                userType: "Student",   //用户类型，可选值Admin、Student、Teacher、SchoolLeader
+                userID: "", //新增时传空字符串、编辑时传相应UserID
+                curImgPath: "http://localhost:3542/UserInfo/Photo/Student/gamersky_03origin_05_20185241753BA5.jpg" //用户当前头像，新增时可不传
+
+            };
+
+
+            $("#picUpload").picUploader(option);//初始化
+
+
+            //option.curImgPath = "http://localhost:3542/UserInfo/Photo/Student/cb20c839b6003af3ab1741913f2ac65c1238b682.jpg";
+
+            $("#picUpload").picUploader.reset(option);  //重置头像上传插件（需要初始化传递参数）
+            $("#picUpload").picUploader.getCurImgPath();//获取当前头像url
+            $("#picUpload").picUploader.isChanged();    //用户判断当前是否修改过头像
+            $("#picUpload").picUploader.uploadSubmit(); //在确定新增、编辑用户时，调用该事件完成头像编辑操作
+            $("#picUpload").picUploader.setGender("男");//切换用户性别时，调用该函数，可选值:男、女、保密
+
+        });
+
+    </script>
+</head>
+<body>
+    <div id="picUpload">
+
+
+    </div>
+</body>
+</html>

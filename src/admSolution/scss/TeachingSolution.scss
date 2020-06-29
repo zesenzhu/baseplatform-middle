@@ -1,0 +1,59 @@
+#TeachingSolution {
+    position: relative;
+    // padding: 42px 62px;
+    text-align: center;
+    width: 1200px;
+    //   height: 754px;
+    //background: #fff;
+    border-radius: 12px;
+    //公用
+    .content-box {
+        position: relative;
+        text-align: left;
+        // margin: 0 auto;
+        // width: 1120px;
+        .box-top {
+            position: relative;
+            margin: 0;
+            height: 28px;
+            z-index: 2;
+            // height: 37px;
+            .top-period {
+                // display: inline-block;
+                float: left;
+                height: 28px;
+                .period-tips {
+                    display: inline-block;
+                    line-height: 1;
+                    font-size: 14px;
+                    color: #999999;
+                    text-align: center;
+                    width: 33px;
+                    vertical-align: middle;
+                }
+            }
+            .top-search {
+                float: right;
+            }
+        }
+        .box-content {
+            width: 100%;
+            padding-top: 20px;
+            // overflow: auto;
+            .ShowCard {
+                float: left;
+                margin-right: 29px;
+                margin-bottom: 29px;
+                &:nth-of-type(4n) {
+                    margin-right: 0;
+                }
+            }
+        }
+        .ant-pagination {
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+}

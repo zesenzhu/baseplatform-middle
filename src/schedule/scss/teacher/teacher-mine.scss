@@ -1,0 +1,53 @@
+.teacher-mine-wrapper{
+
+    padding-bottom:30px;
+
+    .teacher-top-btns{
+
+      height:72px;
+
+      margin: 0 36px;
+
+      border-bottom: 1px dashed #cccccc;
+
+    }
+
+    .teacher-btn.ant-btn{
+
+      color: #ffffff;
+
+      outline: none;
+
+      border:0;
+
+      padding: 8px 18px;
+
+      line-height: 1;
+
+      background-image: linear-gradient(90deg, #0fc1fc 0%, #1da4fe 100%), linear-gradient(#ffffff, #ffffff);
+
+      background-blend-mode: normal, normal;
+
+      @include border-radius(16px);
+
+      float: right;
+
+      margin:24px 6px 0 6px;
+
+      @include box-shadow(0 3px 6px 0 #9ce2fe)
+
+    }
+
+  .term-pick-wrapper{
+
+    margin:32px auto 20px auto;
+
+  }
+
+  .single-double-table{
+
+    margin: 0 auto 24px auto;
+
+  }
+
+}

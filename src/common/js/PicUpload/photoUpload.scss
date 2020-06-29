@@ -1,0 +1,614 @@
+﻿@import "~compass-mixins/lib/compass/css3";
+
+@import "~compass-mixins/lib/animate";
+
+.up_area
+{
+    position:relative;
+    width:132px;
+    height:auto;
+}
+
+.up_img_container
+{
+    position:relative;
+    margin-top: 0;
+    text-align: center;
+}
+.up_img_container img,.up_img_current,.up_img_preview
+{
+    float: none;
+    width: 130px;
+    height: 162px;
+    margin: 0 auto;
+    border:1px solid #9ebbc8 !important;
+    box-shadow:#9cbccc 1px 1px 1px;
+    border-radius:4px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.up_right
+{
+    float:left;
+    padding-left:12px;
+}
+.up_btn_container
+{
+    padding-top: 12px;
+    text-align: center;
+}
+.up_btn
+{
+    margin: 0;
+    margin-right: 3px;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    height: 22px;
+    border:0;
+    line-height: 20px;
+    color: #ffffff;
+    background-color:#05c305;
+    -webkit-appearance: button;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 4px;
+    float: none;
+    font-size: 14px;
+    width:110px;
+    margin-bottom: 6px;
+
+    &:hover{
+
+        background-color: #31da31;
+
+    }
+
+}
+.up_btn_del
+{
+    position:absolute;
+    top:-10px;
+    right:-8px;
+    height:20px;
+    width:20px;
+    border:none;
+    outline:none;
+    background-position: center;
+    background-repeat: repeat-x;
+    -webkit-appearance: button;
+    cursor: pointer;
+    background-image: url(./Images/delete.png);
+    background-color: transparent;
+
+    &:hover{
+        background-image: url(./Images/delete_hover.png);
+    }
+
+}
+
+.up_tip_container
+{
+    margin-top: 8px;
+    padding: 0 0px;
+    line-height: 21px;
+    font-size: 12px;
+    color: #999999;
+    word-break: break-all;
+}
+.up_loading {
+    position: absolute;
+    top: -8px;
+    left: 0px;
+    width: 133px;
+    height: 237px;
+    z-index: 9;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+.up_loading_img {
+    width: 100%;
+    height: 100%;
+    background: url('./Images/loading.gif') center no-repeat;
+    background-position: 43px 65px;
+}
+
+
+.crop_area_loading {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    z-index: 9;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+
+//2019-10-15添加
+
+.up_area{
+
+    &.small{
+
+        width:580px;
+
+        &>div{
+
+            display: inline-block;
+
+        }
+
+        .up_img_preview{
+
+            width: 100px;
+
+            height: 124px;
+
+        }
+
+        #UserPhoto_Current{
+
+            width: 100px;
+
+            height: 124px;
+
+        }
+
+        .up_btn{
+
+            display: block;
+
+            height: 28px;
+
+            line-height: 28px;
+
+            font-size: 14px;
+
+            &:nth-child(2){
+
+                margin-bottom:0;
+
+            }
+
+        }
+
+        #up_btn_container{
+
+           &>div{
+
+               float: left;
+
+           }
+
+        }
+
+        .up_btn_container{
+
+            margin-left: 10px;
+
+        }
+
+        .up_tip_container{
+
+            margin-top: 50px;
+
+            p{
+
+                margin-bottom:0;
+
+            }
+
+        }
+
+
+    }
+
+}
+
+
+#photoWrap {
+
+    padding: 28px 0 0px 36px;
+}
+
+
+#btn_select_pic
+{
+    margin-bottom:16px;
+    margin-right:12px;
+}
+#crop_area, #preview_area {
+    display: table-cell;
+}
+.crop_tips {
+    font-size:12px;
+    color:#999999;
+}
+#crop_area {
+    width: 300px;
+    height: 300px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    vertical-align: bottom;
+    background: url('./Cropper/pictureicon.png')  no-repeat center #f5f5f5;
+}
+
+#crop_img {
+    max-width: 300px;
+}
+
+#preview_area {
+    position:relative;
+    padding-left:36px;
+
+}
+
+#preview_small_wrap {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #b8b8b8 !important;
+    box-shadow: #cccccc 2px 2px;
+    overflow: hidden;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+#preview_small_img {
+}
+
+#preview_title {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    color:#666666;
+}
+
+#preview_large_wrap {
+    display: block;
+    position: relative;
+    width: 130px;
+    height: 162px;
+    border: 1px solid #ccc !important;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+#preview_large_img {
+}
+
+#crop_zoomIn,#crop_zoomOut {
+    width:24px;
+    height:24px;
+    border: none;
+    outline: none;
+}
+#crop_zoomIn {
+    position: absolute;
+    left: 24px;
+    bottom: 12px;
+    background: url('./Cropper/zoomin.png') no-repeat center;
+}
+#crop_zoomIn:hover {
+    background: url('./Cropper/zoomin-hover.png') no-repeat center;
+}
+#crop_zoomOut {
+    position: absolute;
+    left: 60px;
+    bottom: 12px;
+    background: url('./Cropper/zoomout.png') no-repeat center;
+}
+#crop_zoomOut:hover {
+    background: url('./Cropper/zoomout-hover.png') no-repeat center;
+}
+
+.frame_upload_pic_btn{
+        outline: none;
+    width: 112px;
+    height: 28px;
+    line-height: 28px;
+    background-image: -webkit-gradient(linear, left bottom, left top, from(#659e21), to(#85d12b)), -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#ffffff));
+    background-image: linear-gradient(0deg, #659e21 0%, #85d12b 100%), linear-gradient(#ffffff, #ffffff);
+    background-blend-mode: normal, normal;
+    -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    border: solid 1px #4f7c1a;
+    font-size: 16px;
+    color: #ffffff;
+}
+.frame_upload_pic_btn:hover {
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#61b103), to(#96d947)), -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#ffffff));
+  background-image: linear-gradient(0deg, #61b103 0%, #96d947 100%), linear-gradient(#ffffff, #ffffff);
+  background-blend-mode: normal, normal;
+  -webkit-box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.3);
+          box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  border: solid 1px #619820;
+}
+
+
+
+//弹出层
+
+#modal_photoCut{
+
+    position: fixed;
+
+    left: 0;
+
+    top:0;
+
+    right: 0;
+
+    bottom: 0;
+
+    z-index: 1050;
+
+    overflow-x: hidden;
+
+    overflow-y: hidden;
+
+    .modal_dialog{
+
+        position: absolute;
+
+        top:calc(50% - 250px);
+
+        left:calc(50% - 270px);
+
+        &.frame_modal_open{
+
+           @include animation(modalShow 0.3s forwards);
+
+            @at-root{
+
+                @include keyframes(modalShow){
+
+                    0% {
+
+                        @include transform(scale(0.5));
+
+                    }
+                    100% {
+
+                        @include transform(scale(1));
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        &.frame_modal_close{
+
+            @include animation(modalHide 0.3s forwards);
+
+            @at-root{
+
+                @include keyframes(modalHide){
+
+                    0% {
+
+                        @include transform(scale(1));
+
+                    }
+                    100% {
+
+                        @include transform(scale(0));
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    .modal_border{
+
+        position: absolute;
+
+        left: 0;
+
+        top: 0;
+
+        z-index: 1;
+
+        width: 100%;
+
+        height: 100%;
+
+        @include box-shadow(0 0 12px 0 rgba(0, 0, 0, 0.16));
+
+    }
+
+    .modal_content {
+        position: relative;
+        top: 0;
+        z-index: 2;
+        background-color: #ffffff;
+    }
+
+    .modal_content_header{
+
+        padding-right: 20px;
+
+        border-bottom: 1px solid #a0ccde;
+
+        height: 48px;
+
+        line-height: 48px;
+
+        background-blend-mode: normal, normal;
+
+        @include background-image(linear-gradient(-90deg, #05e4f8 0%, #03c3fc 62%, #00a1ff 100%), linear-gradient(#ffffff, #ffffff));
+
+    }
+
+    .modal_content_title {
+
+        padding-left: 20px;
+
+        font-size: 18px;
+
+        color: #ffffff;
+
+    }
+
+    .modal_blank_closebtn {
+
+        position: absolute;
+
+        right: 16px;
+
+        top: 16px;
+
+        z-index: 2;
+
+        width: 16px;
+
+        height: 16px;
+
+        line-height: 16px;
+
+        text-align: center;
+
+        font-size: 30px;
+
+        color: #f7fbfd;
+
+        cursor: pointer;
+
+        background: url('./Images/modal-close.png') no-repeat center;
+
+        &:hover{
+
+            background-image: url("./Images/modal-close-hover.png");
+
+        }
+
+    }
+
+    .modal_content_body{
+
+        position: relative;
+
+        height:396px;
+
+    }
+
+    #btn_select_pic{
+
+        cursor: pointer;
+
+        outline: none;
+
+        border: none;
+
+        width: 112px;
+
+        height: 28px;
+
+        line-height: 28px;
+
+        color: #ffffff;
+
+        background-color: #05c305;
+
+        border-radius: 3px;
+
+        background-image: none;
+
+        @include box-shadow(none);
+
+    }
+
+    .modal_content_footer {
+
+        height: 56px;
+
+        padding-right: 10px;
+
+        text-align: right;
+
+        background-color: #e8eff7;
+
+        .frame_popup_btn{
+
+            outline: none;
+
+            cursor: pointer;
+
+            border: none;
+
+            width: 80px;
+
+            height: 30px;
+
+            line-height: 30px;
+
+            color: #fff;
+
+            font-size: 16px;
+
+            @include background-image(linear-gradient(90deg, #00e566 0%, #12d033 62%, #23ba00 100%), linear-gradient(#f2f2f2, #f2f2f2));
+
+            background-blend-mode: normal, normal;
+
+            border-radius: 3px;
+
+            margin-top: 14px;
+
+            margin-right: 5px;
+
+            &:hover{
+
+                @include background-image(linear-gradient(90deg, #00f36d 0%, #14e037 62%, #27cd00 100%), linear-gradient(#f2f2f2, #f2f2f2));
+
+            }
+
+            &.frame_btn_cancel{
+
+                @include background-image(linear-gradient(90deg, #0fc1fc 0%, #1da4fe 100%), linear-gradient(#f2f2f2, #f2f2f2));
+
+                &:hover{
+
+                    @include background-image(linear-gradient(90deg, #32ccff 0%, #3ab0ff 100%), linear-gradient(#f2f2f2, #f2f2f2));
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+}
+
+.frame_mask {
+    position: fixed;
+
+    top: 0;
+
+    bottom: 0;
+
+    right: 0;
+
+    left: 0;
+
+    background-color: #333333;
+
+    z-index: 1000;
+
+    opacity: 0.25;
+
+}
+
+
+

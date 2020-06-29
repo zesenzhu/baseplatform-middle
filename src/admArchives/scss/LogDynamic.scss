@@ -1,0 +1,338 @@
+.frame-fluid {
+    position: relative;
+    //   padding: 0;
+    padding: 22px 33px;
+    background: #fff !important;
+}
+
+$image-url: "../images";
+@import "./images.scss";
+.LogDynamic {
+    position: relative;
+    //   padding: 22px 33px;
+    text-align: center;
+    //公用
+    .Graduate-box {
+        position: relative;
+        text-align: left;
+        margin: 0 auto;
+        width: 1114px;
+        .Graduate-top {
+            position: relative;
+            margin: 0;
+            height: 38px;
+            margin-left: -20px;
+            .top-tips {
+                float: left;
+                .tips {
+                    font-size: 18px;
+                    line-height: 38px;
+                    color: #333333;
+                    padding-left: 21px;
+                    //   margin-left: -21px;
+                    background-size: 17px 17px;
+                    background-position: left center;
+                }
+                .menu-location {
+                    background: url(../images/icon-location.png) no-repeat;
+                    background-size: 14px 19px;
+                    background-position: left center;
+                }
+            }
+            .link-record {
+                float: right;
+                text-decoration: underline;
+                font-size: 14px;
+                line-height: 38px;
+                color: #0099ff;
+                padding-left: 18px;
+                background: url(../images/icon-checkFile.png) no-repeat left center;
+                background-size: 14px 16px;
+                &:hover {
+                    color: #ff6600;
+                    background: url(../images/icon-checkFile-active.png) no-repeat left center;
+                    background-size: 14px 16px;
+                }
+            }
+            .top-nav {
+                float: right;
+                .link {
+                    color: #0099ff;
+                    font-size: 14px;
+                    line-height: 37px;
+                    text-decoration: underline;
+                }
+                .divide {
+                    position: relative;
+                    font-size: 14px;
+                    color: #c9e1f0;
+                    top: -1px;
+                    margin: 0 12px;
+                }
+            }
+        }
+        .Graduate-hr {
+            position: relative;
+            //   margin-left: 20px;
+            border-top: 1px dashed #ccc;
+            width: 1114px;
+            //   margin: 0 auto;
+        }
+        .Graduate-content {
+            margin: 16px auto 0;
+            position: relative;
+            padding-left: 6px;
+            width: 1114px;
+            .content-top {
+                position: relative;
+                // height: 30px;
+                border-bottom: none;
+                height: auto;
+                .top-tips {
+                    display: block;
+                    height: auto;
+                    line-height: 104px;
+                    font-size: 16px;
+                    text-align: center;
+                    color: #333333;
+                    margin: 0;
+                    .Total {
+                        font-size: 24px;
+                        color: #ff6600;
+                    }
+                    .Add,
+                    .Delete,
+                    .Edit {
+                        font-size: 24px;
+                        color: #009900;
+                    }
+                }
+                .dropMenu-box {
+                    // height: 28px;;
+                    .LogSignAllReaded {
+                        color: #0099ff;
+                        cursor: pointer;
+                        float: right;
+                        padding-left: 18px;
+                        background: url(../images/unSign.png) no-repeat left center;
+                        background-size: 14px 16px;
+                        text-decoration: underline;
+                        &:hover {
+                            color: #ff6600;
+                            background: url(../images/sign.png) no-repeat left center;
+                            background-size: 14px 16px;
+                        }
+                    }
+                }
+                .firstDropMenu {
+                    margin-right: 36px;
+                }
+                .dropdown_select_ul {
+                    z-index: 2;
+                }
+                .dropdown_wrapper:nth-of-type(2) {
+                    margin-left: 0;
+                    margin-right: 3px;
+                }
+                .dropdown_container {
+                    //   float: left;
+                }
+                .search_container {
+                    //   float: right;
+                }
+            }
+            .content-render {
+                margin-top: 17px;
+                position: relative;
+                .table {
+                    .ant-table-thead {
+                        th:nth-child(2) {
+                            // text-align: left;
+                            padding-left: 60px;
+                        }
+                        th {
+                            padding: 0;
+                        }
+                        th:nth-child(6) {
+                            // text-align: left;
+                            text-align: center !important;
+                        }
+                    }
+                    .ant-table-row {
+                        td:nth-child(2),
+                        td:nth-child(3) {
+                            padding: 16px 0;
+                        }
+                        td:nth-child(1) {
+                            padding-left: 24px;
+                        }
+                        td {
+                            padding: 16px 0;
+                            line-height: 1;
+                        }
+                    }
+                    .key-content {
+                        font-size: 14px;
+                        line-height: 23px;
+                        color: #999;
+                        margin: 0 3px;
+                    }
+                    .name-key {
+                        font-size: 14px;
+                        line-height: 23px;
+                        color: #999;
+                        margin: 0 3px;
+                    }
+                    .name-img {
+                        margin: 0 6px;
+                        cursor: pointer;
+                        border-radius: 3px;
+                        border: 1px solid #999;
+                        object-fit: cover;
+                    }
+                    .name-UserName {
+                        display: block;
+                        text-align: left;
+                        text-decoration: underline;
+                        color: #333;
+                        font-size: 14px;
+                        height: 20px;
+                        line-height: 1;
+                        cursor: pointer;
+                        display: inline-block;
+                        width: 90px;
+                        overflow: hidden; //超出一行文字自动隐藏
+                        text-overflow: ellipsis; //文字隐藏后添加省略号
+                        white-space: nowrap; //强制不换行
+                    }
+                    .UserID {
+                        display: block;
+                        text-align: left;
+                        font-size: 14px;
+                        height: 20px;
+                        line-height: 1;
+                        color: #999;
+                        display: inline-block;
+                        width: 90px;
+                        overflow: hidden; //超出一行文字自动隐藏
+                        text-overflow: ellipsis; //文字隐藏后添加省略号
+                        white-space: nowrap; //强制不换行
+                    }
+                    .UserType_Txt,
+                    .OperationCount {
+                        color: #333;
+                        font-size: 14px;
+                    }
+                    .OperationType_Txt {
+                        color: #999;
+                        font-size: 14px;
+                    }
+                    .Logs-box {
+                        .Logs-tips {
+                            color: #999;
+                            font-size: 14px;
+                            display: inline-block;
+                            width: 310px;
+                            line-height: 17px;
+                            overflow: hidden; //超出一行文字自动隐藏
+                            text-overflow: ellipsis; //文字隐藏后添加省略号
+                            white-space: nowrap; //强制不换行
+                            vertical-align: middle;
+                        }
+                        .Logs-more {
+                            margin-left: 3px;
+                            color: #0099ff;
+                            vertical-align: middle;
+                            cursor: pointer;
+                            font-size: 14px;
+                            text-decoration: underline;
+                        }
+                    }
+                    .Grader {
+                        font-size: 14px;
+                        color: #999;
+                    }
+                    .GradeName {
+                        font-size: 14px;
+                        color: #333;
+                    }
+                    .ClassName {
+                        font-size: 14px;
+                        color: #666;
+                    }
+                    .ant-checkbox-gray .ant-checkbox {
+                        top: -3px;
+                    }
+                    .JobType-box {
+                        display: flex;
+                        flex-flow: column nowrap;
+                        justify-content: flex-start;
+                        span {
+                            text-align: center;
+                            font-size: 14px;
+                            line-height: 16px;
+                            color: #999;
+                        }
+                        .JobType {
+                            color: #002871;
+                        }
+                        .HasTrack {
+                            color: #999;
+                        }
+                    }
+                    .Telephone {
+                        color: #333;
+                    }
+                    .handle-content {
+                        display: flex;
+                        flex-flow: row nowrap;
+                        justify-content: center;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    .handle-btn {
+                        float: right;
+                        height: 24px;
+                        color: #fff;
+                        //width: 56px;
+                        line-height: 24px;
+                        font-size: 14px;
+                        padding: 0 14px;
+                        margin-right: 2px;
+                        border: none;
+                    }
+                }
+                .checkAll-box {
+                    margin-top: 10px;
+                    margin-left: 24px;
+                    .checkAll-title {
+                        vertical-align: text-bottom;
+                        height: 28px;
+                        line-height: 28px;
+                    }
+                }
+                .deleteAll {
+                    color: #fff;
+                    // width: 56px;
+                    line-height: 28px;
+                    height: 28px;
+                    padding: 0 16px;
+                    text-align: center;
+                    font-size: 14px;
+                    margin-left: 8px;
+                    border: none; // box-sizing: content-box;
+                    span {
+                        vertical-align: baseline;
+                    }
+                }
+                .pagination-box {
+                    margin-top: 10px;
+                    float: right;
+                    display: flex;
+                    flex-flow: row nowrap;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}

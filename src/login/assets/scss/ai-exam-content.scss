@@ -1,0 +1,466 @@
+.ai_exam_left_introduce{
+
+  position: relative;
+
+  width: 570px;
+
+  height: 448px;
+
+  .ai_exam_bg{
+
+    position: relative;
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-repeat: no-repeat;
+
+    width: 100%;
+
+    height: 100%;
+
+    &.bg1{
+
+      background-image: url("#{$aiExamUrl}/ai-exam-wave.png");
+
+    }
+
+    .title{
+
+      position: absolute;
+
+      width: 100%;
+
+      bottom: 0;
+
+      left: 0;
+
+      background-repeat: no-repeat;
+
+      background-position: center;
+
+      background-size: contain;
+
+      height: 42px;
+
+
+
+      &.title1{
+
+        background-image:url("#{$aiExamUrl}/ai-exam-title1.png");
+
+        animation:aiExamTitleAppear 1s;
+
+        animation-fill-mode: forwards;
+
+      }
+
+      &.title2{
+
+        background-image:url("#{$aiExamUrl}/ai-exam-title2.png");
+
+        animation:aiExamTitleAppear 1s;
+
+        animation-fill-mode: forwards;
+
+      }
+
+      &.title3{
+
+        background-image:url("#{$aiExamUrl}/ai-exam-title3.png");
+
+        animation:aiExamTitleAppear 1s;
+
+        animation-fill-mode: forwards;
+
+      }
+
+    }
+
+    .animate-center{
+
+      position:relative;
+      
+
+
+      background-position: center;
+
+      background-repeat: no-repeat;
+
+      background-size: cover;
+
+      margin: 0 auto;
+
+      &.center1{
+
+        width: 490px;
+
+        height: 346px;
+
+        background-image: url("#{$aiExamUrl}/ai-exam-content1.png");
+
+        animation: aiExamFigureAppear 1s;
+
+      }
+
+      &.center2{
+
+        width:570px;
+
+        height: 312px;
+
+        background-image: url("#{$aiExamUrl}/ai-exam-content2.png");
+
+        animation: aiExamFigureAppear 1s;
+
+      }
+
+      &.center3{
+
+        width:620px;
+
+        height: 310px;
+
+        background-image: url("#{$aiExamUrl}/ai-exam-content3.png");
+
+        background-size: contain;
+
+        animation: aiExamFigureAppear 1s;
+
+      }
+      
+    }
+
+    .robot{
+
+      position: absolute;
+
+      width: 54px;
+
+      height: 72px;
+
+      right: 132px;
+
+      top: 146px;
+
+      background: url("#{$aiExamUrl}/ai-exam-robot.png") no-repeat center;
+
+      animation: roobotUpDown 2s ease-out infinite;
+
+    }
+
+    .card{
+
+      position: absolute;
+
+      opacity: 0;
+
+      width: 30px;
+
+      height: 34px;
+
+      right: 106px;
+
+      bottom: 114px;
+
+      background: url("#{$aiExamUrl}/ai-exam-card.png") no-repeat center;
+
+      &.card1{
+
+        animation: cardWave 3s  linear infinite;
+
+      }
+
+      &.card2{
+
+        animation: cardWave 3s 1s linear infinite;
+
+      }
+
+      &.card3{
+
+        animation: cardWave 3s 2s linear infinite;
+
+      }
+
+    }
+
+    .arrow{
+
+      position: absolute;
+
+      width: 70px;
+
+      height: 90px;
+
+      right: 0;
+
+      top: 200px;
+
+      background: url("#{$aiExamUrl}/ai-exam-arrow.png") no-repeat center;
+
+      animation: aiExamArrowUpDown 2s ease-out infinite;
+
+    }
+
+    .exam-paper{
+
+      position: absolute;
+
+      opacity:0;
+
+      width: 68px;
+
+      height: 100px;
+
+      right: 144px;
+
+      top: 144px;
+
+      background: url("#{$aiExamUrl}/ai-exam-paper.png") no-repeat center;
+
+      animation: aiExamPaper 1s 0.6s ease-in-out;
+
+      animation-fill-mode: forwards;
+
+    }
+
+    .success-wrapper{
+
+      position: absolute;
+
+      left: 320px;
+
+      top: 20px;
+
+      width: 64px;
+
+      height: 146px;
+
+      overflow: hidden;
+
+      .success{
+
+        position: absolute;
+
+        top:0;
+
+        left: -56px;
+
+        width: 54px;
+
+        height: 44px;
+
+        background:url("#{$aiExamUrl}/ai-exam-success.png") no-repeat center;
+
+        animation: aiExamSuccess 0.7s 0.7s linear;
+
+        animation-fill-mode: forwards;
+
+      }
+
+    }
+
+    .board{
+
+      position: absolute;
+
+      left: 152px;
+
+      top: 0;
+
+      width: 118px;
+
+      height: 144px;
+
+      background: url("#{$aiExamUrl}/ai-exam-bord.png") no-repeat center;
+
+      background-size: contain;
+
+      animation: aiExamBord 2.4s 0.7s ease-out infinite;
+
+    }
+
+  }
+
+}
+
+
+
+@keyframes roobotUpDown {
+
+  0%{
+
+    transform: translateY(-8px);
+
+  }
+
+  50%{
+
+    transform: translateY(8px);
+
+  }
+
+  100%{
+
+    transform: translateY(-8px);
+
+  }
+
+}
+
+
+@keyframes cardWave {
+
+  0%{
+
+    opacity:1;
+
+    transform: scale(1) translate(0,0);
+
+  }
+
+  100%{
+
+    transform:translate(-60px,38px) scale(0.7);
+
+  }
+
+}
+
+@keyframes aiExamFigureAppear {
+
+  from{
+
+    opacity:0;
+
+    transform: scale(0.5);
+
+  }
+
+  to{
+
+    opacity: 1;
+
+    transform: scale(1);
+
+  }
+
+}
+
+
+@keyframes aiExamTitleAppear {
+
+   from{
+
+     opacity:0;
+
+     bottom:0;
+
+   }
+
+   to{
+
+     opacity: 1;
+
+     bottom: 60px;
+
+   }
+
+ }
+
+
+@keyframes aiExamArrowUpDown {
+
+  0%{
+
+    transform: translateY(-10px);
+
+  }
+
+  50%{
+
+    transform: translateY(10px);
+
+  }
+
+  100%{
+
+    transform: translateY(-10px);
+
+  }
+
+}
+
+
+@keyframes aiExamPaper{
+
+  0%{
+
+    transform: translate(0,0);
+
+    opacity: 0.3;
+
+  }
+
+  100%{
+
+    transform: translate(-10px, 8px);
+
+    opacity: 1;
+
+  }
+
+}
+
+
+
+@keyframes aiExamSuccess{
+
+  0%{
+
+    /*top: 0;
+
+    left: -56px;*/
+
+    transform: translate(0,0);
+
+  }
+
+  100%{
+
+    /*left:4px;
+
+    top:20px;*/
+
+  transform:translate(62px, 28px);
+
+  }
+
+}
+
+@keyframes aiExamBord{
+
+  0%{
+
+    transform: translateY(-10px);
+
+  }
+
+  50%{
+
+    transform: translateY(10px);
+
+  }
+
+  100%{
+
+    transform: translateY(-10px);
+
+  }
+
+}
+
+
+

@@ -1,0 +1,157 @@
+.again-select-course-modal{
+
+  .box-top{
+
+    margin-bottom:24px;
+
+    &>*{
+
+      float: left;
+
+    }
+
+  }
+
+
+  .box-content{
+
+    &>*{
+
+      float: left;
+
+    }
+
+    .props{
+
+      line-height: 32px;
+
+    }
+
+    .course-select-wrapper{
+
+      margin-left: 8px;
+
+    }
+
+    .btns-wrapper{
+
+      .ant-btn{
+
+        border-bottom-left-radius:0;
+
+        border-bottom-right-radius:0;
+
+      }
+
+    }
+
+    .course-class-wrapper{
+
+      border: 1px solid #cccccc;
+
+      border-radius: 4px;
+
+      border-top-left-radius:0;
+
+      width: 420px;
+
+      .top-search{
+
+        padding: 10px 0;
+
+        .search_container{
+
+          float: right;
+
+          margin-right:10px;
+
+        }
+
+      }
+
+      li{
+
+        height: 30px;
+
+        line-height: 30px;
+
+        &:hover{
+
+          background-color: #cccccc;
+
+        }
+
+        &>*{
+
+          float: left;
+
+          text-align: center;
+
+        }
+
+        .class-name{
+
+          width:140px;
+
+          padding: 0 8px;
+
+          @include textOverFlow;
+
+        }
+
+        .teacher-name{
+
+          width:140px;
+
+          padding: 0 8px;
+
+          @include textOverFlow;
+
+        }
+
+        .count{
+
+          width:60px;
+
+          @include textOverFlow;
+
+        }
+
+        .opreate{
+
+          width: 78px;
+
+          .ant-btn-primary{
+
+            background-color:#0099ff;
+
+            &.active{
+
+              background-color:#8ccbff;
+
+              border-color:transparent;
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+  .props{
+
+    width: 22%;
+
+    text-align: right;
+
+    line-height: 28px;
+
+  }
+
+}

@@ -1,0 +1,47 @@
+.Tab{
+    position: relative;
+    height: 48px;
+
+    .Tab-btn{
+        float: left;
+        
+        margin-top:8px;
+        width: 160px;
+        height: 40px;
+        background: #c9dcec;
+        border-radius: 12px 12px 0 0;
+        line-height: 40px;
+        font-size: 16px;
+        color: #285478;
+        text-align: center;
+        margin-right: 3px; 
+        cursor:  pointer;
+    }
+    .btn-select{
+        margin-top:0;
+        height: 48px;
+        line-height: 48px;
+        font-size: 18px;
+        background: #fff;
+        color: #333;
+        text-align: center;
+
+    }
+}
+.frame-fluid{
+    position: relative;
+    padding: 0;
+    background: #fff;
+}
+.content-box{
+    position: relative;
+    height: calc( 100% - 48px );
+    width: 1200px;
+    background: #fff;
+    border-radius: 0 0 12px 12px;
+}
+.box{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}

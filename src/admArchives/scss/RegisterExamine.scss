@@ -1,0 +1,345 @@
+.frame-fluid {
+    padding: 25px 42px;
+    .content-top {
+        position: relative;
+        width: 100%;
+        height: 40px;
+        border-bottom: 1px dashed #ccc;
+        .top-tips {
+            position: relative;
+            display: inline-block;
+            line-height: 40px;
+            text-align: left;
+            color: #333;
+            font-size: 18px;
+            .top-icon {
+                width: 14px;
+                height: 40px;
+                position: absolute;
+                left: -20px;
+                background: url(../images/icon-location.png) no-repeat center center;
+                background-size: 14px 19px;
+            }
+        }
+    }
+    .content-main {
+        position: relative;
+        width: 100%;
+        height: auto;
+        .main-handle {
+            position: relative;
+            width: 280px;
+            margin: 28px auto;
+            height: 36px;
+            .handle-btn {
+                width: 128px;
+                height: 36px;
+                font-size: 16px;
+                line-height: 36px;
+                background: #fff;
+                text-align: center;
+                border: solid 1px #0e95ed;
+                color: #0e95ed;
+                position: relative;
+                border-image-slice: 1;
+                border-radius: 18px;
+                cursor: pointer;
+                &:first-of-type {
+                    float: left;
+                }
+                &:last-of-type {
+                    float: right;
+                }
+                &:focus {
+                    outline: none;
+                }
+                &.active {
+                    background-image: url(../images/btn-select.png), url(../images/icon-btn-light.png);
+                    background-repeat: no-repeat, no-repeat;
+                    border: none;
+                    background-position: center center, 16px 3px;
+                    background-size: 100% 100%, 18px 4px;
+                    box-shadow: inset 0px -2px 5px 0px rgba(0, 156, 255, 0.56);
+                    z-index: 2;
+                    color: #fff;
+                    &::after {
+                        content: " ";
+                        width: 0;
+                        height: 0;
+                        z-index: 2;
+                        position: absolute;
+                        left: 50%;
+                        margin-left: -7px;
+                        bottom: -14px;
+                        border-width: 7px;
+                        border-style: solid;
+                        border-color: #0bb6ff transparent transparent transparent;
+                    }
+                }
+            }
+        }
+        .main-select {
+            position: relative;
+            height: 28px;
+            .dropdown_select_ul {
+                z-index: 2;
+            }
+            .dropdown_wrapper:nth-of-type(2) {
+                margin-left: 0;
+                margin-right: 3px;
+            }
+            .dropdown_container {
+                float: left;
+            }
+            .Search {
+                float: right;
+                .search-tips {
+                    color: #000;
+                    font-size: 14px;
+                    text-align: right;
+                    float: left;
+                    line-height: 28px;
+                    margin-right: 10px;
+                    .Total {
+                        color: red;
+                        // font-weight: bold;
+                    }
+                }
+                .search_container {
+                    float: left;
+                }
+            }
+        }
+        .content-render {
+            margin-top: 16px;
+            position: relative;
+            .table {
+                .ant-table-thead {
+                    // th:nth-child(3) {
+                    //     // text-align: left;
+                    //     padding-left: 60px;
+                    // }
+                    th {
+                        padding: 0;
+                    }
+                }
+                .ant-table-row {
+                    td:nth-child(2),
+                    td:nth-child(3),
+                    td:nth-child(4) {
+                        padding: 16px 0;
+                    }
+                    td:nth-child(1) {
+                        padding-left: 24px;
+                    }
+                    td {
+                        padding: 16px 0;
+                        line-height: 1;
+                    }
+                }
+                .key-content {
+                    font-size: 14px;
+                    line-height: 23px;
+                    color: #999;
+                    margin: 0 0 0 3px;
+                }
+                .registerTime {
+                    font-size: 14px;
+                    color: #333;
+                    display: inline-block;
+                    width: 200px;
+                    overflow: hidden; //超出一行文字自动隐藏
+                    text-overflow: ellipsis; //文字隐藏后添加省略号
+                    white-space: nowrap; //强制不换行
+                }
+                .name-img {
+                    margin: 0 6px;
+                    cursor: pointer;
+                    object-fit: cover;
+                }
+                .name-UserName {
+                    text-decoration: underline;
+                    color: #333;
+                    font-size: 16px;
+                    display: inline-block;
+                    cursor: pointer;
+                    width: 90px;
+                    height: 20px;
+                    line-height: 20px;
+                    overflow: hidden; //超出一行文字自动隐藏
+                    text-overflow: ellipsis; //文字隐藏后添加省略号
+                    white-space: nowrap; //强制不换行
+                }
+                .UserID {
+                    font-size: 14px;
+                    color: #999;
+                    display: inline-block;
+                    width: 200px;
+                    line-height: 18px;
+                    overflow: hidden; //超出一行文字自动隐藏
+                    text-overflow: ellipsis; //文字隐藏后添加省略号
+                    white-space: nowrap; //强制不换行
+                }
+                .Grader {
+                    font-size: 14px;
+                    color: #999;
+                }
+                .GradeName {
+                    font-size: 14px;
+                    color: #333;
+                    display: inline-block;
+                    width: 90px;
+                    overflow: hidden; //超出一行文字自动隐藏
+                    text-overflow: ellipsis; //文字隐藏后添加省略号
+                    white-space: nowrap; //强制不换行
+                }
+                .ClassName {
+                    font-size: 14px;
+                    color: #666;
+                    display: inline-block;
+                    width: 145px;
+                    overflow: hidden; //超出一行文字自动隐藏
+                    text-overflow: ellipsis; //文字隐藏后添加省略号
+                    white-space: nowrap; //强制不换行
+                }
+                .ant-checkbox-gray .ant-checkbox {
+                    top: -3px;
+                }
+                .handle-content {
+                    display: flex;
+                    flex-flow: column nowrap;
+                    justify-content: center;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .handle-btn {
+                    float: right;
+                    height: 24px;
+                    line-height: 24px;
+                    width: 56px;
+                    font-size: 14px;
+                    padding: 0;
+                    margin-right: 2px;
+                }
+                .handle-tips {
+                    text-align: center;
+                    line-height: 24px;
+                    font-size: 14px;
+                }
+            }
+            .didTable {
+                .ant-table-row {
+                    td:nth-child(1) {
+                        padding-left: 0;
+                    }
+                }
+            }
+            .checkAll-box {
+                margin-top: 10px;
+                margin-left: 24px;
+            }
+            .agreeAll {
+                color: #fff;
+                width: 64px;
+                line-height: 28px;
+                height: 28px;
+                padding: 0;
+                border: none;
+                text-align: center;
+                font-size: 14px;
+                margin-left: 8px;
+                // box-sizing: content-box;
+                border: none
+            }
+            .refuseAll {
+                color: #fff;
+                width: 64px;
+                line-height: 28px;
+                font-size: 14px;
+                height: 28px;
+                border: none;
+                padding: 0;
+                text-align: center;
+                margin-left: 8px;
+                box-sizing: content-box;
+            }
+            .pagination-box {
+                margin-top: 10px;
+                float: right;
+            }
+        }
+        .will {
+            .table {
+                .ant-table-thead {
+                    th:nth-child(3) {
+                        // text-align: left;
+                        padding-left: 60px;
+                    }
+                }
+            }
+        }
+        .did {
+            .table {
+                .ant-table-thead {
+                    th:nth-child(2) {
+                        // text-align: left;
+                        padding-left: 60px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.ant-modal {
+    .modal-studentChange {
+        position: relative;
+        padding: 42px 0 42px 42px;
+        height: 100%;
+        box-sizing: border-box;
+        .content-top {
+            width: 100%;
+            height: 40px;
+            .top-text {
+                font-size: 18px;
+                color: #333333;
+                line-height: 40px;
+                margin-left: 16px;
+            }
+        }
+        .content {
+            height: 100%;
+            overflow: auto;
+            padding-bottom: 40px;
+        }
+    }
+}
+
+.single {}
+
+.newCount {
+    position: absolute;
+    right: 2px;
+    top: -8px;
+    transform: translateX(100%);
+    height: 15px;
+    line-height: 15px;
+    font-size: 12px;
+    color: #fff;
+    background: red;
+    border-radius: 3px;
+    padding: 0 8px;
+    text-align: center;
+}
+
+.adminFrame {
+    .frame-block-wrapper {
+        padding-left: 100px;
+    }
+}
+
+.teacherFrame {
+    .frame-block-wrapper {
+        padding-left: 110px;
+    }
+}

@@ -1,0 +1,30 @@
+.component-Radio {
+    display: inline-block;
+    height: 12px;
+    line-height: 12px;
+    .Radio-new {
+        float: left;
+        width: 24px;
+        height: 12px;
+        cursor: pointer;
+        overflow: hidden;
+        margin-right: 10px;
+        .Radio-old {
+            opacity: 0;
+            cursor: pointer;
+        }
+    }
+    .open {
+        background: url(../images/img-open.png) no-repeat center center;
+        background-size: contain;
+    }
+    .close {
+        background: url(../images/img-close.png) no-repeat center center;
+        background-size: contain;
+    }
+    .Radio-tips {
+        font-size: 14px;
+        line-height: 12px;
+        color: #333333;
+    }
+}

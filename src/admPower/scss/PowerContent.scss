@@ -1,0 +1,98 @@
+#powerContent {
+    position: relative;
+    padding: 24px 42px;
+    text-align: center;
+    width: 1200px;
+    min-height: 810px;
+    .power-box {
+        position: relative;
+        text-align: left;
+        margin: 0 auto;
+        width: 1122px;
+        .power-top {
+            position: relative;
+            margin: 0;
+            height: 37px;
+            .top-tips {
+                float: left;
+                .tips {
+                    font-size: 18px;
+                    line-height: 37px;
+                    color: #333333;
+                    padding-left: 21px;
+                    margin-left: -21px;
+                    background-size: 17px 17px;
+                    background-position: left center;
+                }
+                .tip-menu {
+                    background-image: url(../images/icon-location-small.png);
+                    background-repeat: no-repeat;
+                    background-size: 14px 19px;
+                }
+            }
+            .top-to {
+                position: absolute;
+                top: 0;
+                right: 0;
+                font-size: 14px;
+                line-height: 37px;
+                color: #0099ff;
+            }
+        }
+        .power-hr {
+            position: relative;
+            border-top: 1px dashed #ccc;
+            width: 1122px;
+            margin: 0 auto;
+        }
+    }
+    .power-content {
+        position: relative;
+        margin-top: 10px;
+        .content-row {
+            // height: 165px;
+            position: relative;
+            width: 100%;
+            .left {
+                float: left;
+                height: 100%;
+                width: 186px;
+                padding: 26px 32px 25px 35px;
+            }
+            .right {
+                float: left;
+                border-bottom: 0.5px dashed #ccc;
+                min-height: 165px;
+                width: 909px;
+                padding: 26px 32px 25px 0;
+                display: flex;
+                flex-flow: column nowrap;
+                //align-items: space-between;
+                justify-content: center;
+                .radio {
+                    margin: 10px 0;
+                    width: 100%;
+                }
+                .ant-radio-group {
+                    line-height: 1;
+                }
+                .radio-2 {
+                    margin: 10px 0;
+                    width: 100%;
+                    padding-left: 38px;
+                    .radio-tips-1 {
+                        color: #333333;
+                        font-size: 14px;
+                        line-height: 14px;
+                        margin: 0 10px 0 8px;
+                    }
+                    .radio-tips-2 {
+                        color: #999999;
+                        font-size: 14px;
+                        line-height: 14px;
+                    }
+                }
+            }
+        }
+    }
+}

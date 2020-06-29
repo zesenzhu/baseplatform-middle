@@ -1,0 +1,802 @@
+.schedule-setting-wrapper{
+
+  color: #333333;
+
+  .title-bar{
+
+    height: 36px;
+
+    margin-top: 22px;
+
+    padding: 0 32px 0 54px;
+
+    line-height: 36px;
+
+    background: url('#{$image-url}/title-icon.png') no-repeat 26px;
+
+    &-name{
+
+      font-size: 18px;
+
+      color: #333;
+
+      border-bottom: 1px dashed #ccc;
+
+    }
+
+  }
+
+
+  .setting-content-wrapper{
+
+    padding: 0 52px;
+
+  }
+
+  .setting-type-wrapper{
+
+    margin:20px 0;
+
+    @include flex;
+
+    line-height: 30px;
+
+  }
+
+  .setting-type-switch{
+
+    width: 156px;
+
+    height: 30px;
+
+    background-color: #e0e0e0;
+
+    border-radius: 15px;
+
+    margin-left: 16px;
+
+  }
+
+  .setting-type-tab{
+
+    width: 74px;
+
+    height: 24px;
+
+    color: #6c6969;
+
+    border-radius: 12px;
+
+    text-align: center;
+
+    line-height: 24px;
+
+    font-size: 12px;
+
+    cursor:pointer;
+
+    &.left{
+
+      float: left;
+
+      margin:3px 0 3px 3px;
+
+    }
+
+    &.right{
+
+      float: left;
+
+      margin:3px 3px 3px 0;
+
+    }
+
+    &.active{
+
+      background-color: #17b119;
+
+      color: #fefefe;
+
+    }
+
+  }
+
+  .class-hour-setting-wrapper{
+
+    border: solid 1px #dcdcdc;
+
+    margin-bottom: 18px;
+
+    .period-tab{
+
+      position: relative;
+
+      background-color: #f5f5f5;
+
+      height: 36px;
+
+      .title{
+
+        position: relative;
+
+        float: left;
+
+        height:36px;
+
+        line-height: 36px;
+
+        padding-left: 42px;
+
+        font-size: 16px;
+
+        font-weight: bold;
+
+       /* background-image: linear-gradient(to bottom,rgba(0,206,255,0.89),rgba(0,88,250,0.89));
+*/
+        @include background-clip(text);
+
+        color: rgba(0, 88, 250, 0.89);
+
+        &:after{
+
+          position: absolute;
+
+          content: '';
+
+          width:16px;
+
+          height: 16px;
+
+          left: 18px;
+
+          top: 10px;
+
+          background: url("#{$image-url}/period-icon.png") no-repeat center;
+
+        }
+
+      }
+
+      &.down{
+
+        cursor: pointer;
+
+        &:after,
+        &:before{
+
+          position: absolute;
+
+          content: '';
+
+          width: 10px;
+
+          height: 10px;
+
+          right:18px;
+
+          border-right: 1px solid #999999;
+
+          border-bottom: 1px solid #999999;
+
+          background-color: transparent;
+
+          @include transform(rotate(45deg));
+
+        }
+
+        &:before{
+
+          top: 6px;
+
+        }
+
+        &:after{
+
+          top: 12px;
+
+        }
+
+        &:hover{
+
+          background-color: #dce8f0;
+
+          &:after,
+          &:before{
+
+            border-color:#648aa4;
+
+          }
+
+        }
+
+      }
+
+      &.up{
+
+        cursor: pointer;
+
+        &:after,
+        &:before{
+
+          position: absolute;
+
+          content: '';
+
+          width: 10px;
+
+          height: 10px;
+
+          right:18px;
+
+          border-left: 1px solid #999999;
+
+          border-top: 1px solid #999999;
+
+          border-bottom: 0;
+
+          border-right:0 ;
+
+          background-color: transparent;
+
+          @include transform(rotate(45deg));
+
+        }
+
+        &:before{
+
+          top: 12px;
+
+        }
+
+        &:after{
+
+          top: 18px;
+
+        }
+
+        &:hover{
+
+          background-color: #dce8f0;
+
+          &:after,
+          &:before{
+
+            border-color:#648aa4;
+
+          }
+
+        }
+
+      }
+
+    }
+
+    .adjust-class-hour{
+
+      float: right;
+
+      display: none;
+
+      height: 100%;
+
+      line-height:36px;
+
+      text-decoration: underline;
+
+      margin-right:50px;
+
+    }
+
+    .setting-content{
+
+      display: none;
+
+      padding: 24px 36px 34px 36px;
+
+     /* overflow-y: hidden;
+
+      max-height:0;
+
+      padding: {
+
+        left: 36px;
+
+        right: 36px;
+
+        top:0;
+
+        bottom: 0;
+
+      };*/
+
+
+
+      &>div{
+
+        position: relative;
+
+        background-color: #f5f5f5;
+
+        padding: 76px 76px 0 48px;
+
+        border-radius: 3px;
+
+        &:after{
+
+          position: absolute;
+
+          width:176px;
+
+          height: 42px;
+
+          content:'';
+
+          top: 16px;
+
+          left: -10px;
+
+          background-position: center;
+
+          background-repeat: no-repeat;
+
+          @include background-size(cover);
+
+        }
+
+      }
+
+      /*&.show{
+
+        display: block;
+
+        padding: 24px 36px 34px 36px;
+
+      }*/
+
+    /*  &.open{
+
+        display: block;
+
+        max-height: 1000px;
+
+        padding-top: 24px;
+
+        padding-bottom: 34px;
+
+        !* 最大高度 *!
+
+        @include transition-property(all);
+
+        @include transition-duration(0.5s);
+
+        @include transition-timing-function(cubic-bezier(1, 0, 1, 0.5));
+
+      }
+
+      &.close{
+
+        display: block;
+
+        max-height: 0;
+
+        padding-top: 0;
+
+        padding-bottom: 0;
+        !* 最大高度 *!
+
+        @include transition-property(all);
+
+        @include transition-duration(0.5s);
+
+        @include transition-timing-function(cubic-bezier(0, 1, 0.5, 1));
+
+      }*/
+
+    }
+
+    .class-hour-item-wrapper{
+
+      float: left;
+
+      width: 160px;
+
+      height: 128px;
+
+      @include border-radius(2px);
+
+      padding:5px;
+
+      margin-bottom: 24px;
+
+      &.add{
+
+        cursor: pointer;
+
+        .class-hour-item{
+
+          position: relative;
+
+        }
+
+        .class-hour-item>div{
+
+          position: absolute;
+
+          border-radius:3px;
+
+        }
+
+        .col{
+
+          top: 27px;
+
+          left: 72px;
+
+          width: 6px;
+
+          height: 64px;
+
+        }
+
+        .row{
+
+          left: 43px;
+
+          top: 56px;
+
+          width: 64px;
+
+          height: 6px;
+
+        }
+
+      }
+
+      &:not(:nth-child(5n+1)){
+
+        margin-left: 24px;
+
+      }
+
+    }
+
+    .class-hour-item{
+
+      width:150px;
+
+      height:118px;
+
+      text-align: center;
+
+      button{
+
+        width: 16px;
+
+        height: 16px;
+
+        margin-top: 14px;
+
+        outline: none;
+
+        cursor: pointer;
+
+        border: 0;
+
+        background-repeat: no-repeat;
+
+        background-position: center;
+
+        @include background-size(cover);
+
+        background-color: transparent;
+
+        &.class-hour-edit{
+
+          background-image: url("#{$image-url}/class-hour-edit.png");
+
+          &:hover{
+
+            background-image: url("#{$image-url}/class-hour-edit-hover.png");
+
+          }
+
+        }
+
+        &.class-hour-del{
+
+          height: 20px;
+
+          margin-left: 12px;
+
+          background-image: url("#{$image-url}/class-hour-del.png");
+
+          &:hover{
+
+            background-image: url("#{$image-url}/class-hour-del-hover.png");
+
+          }
+
+        }
+
+      }
+
+    }
+
+    .class-hour-name{
+
+      font-size: 24px;
+
+      line-height: 1;
+
+      padding-top: 24px;
+
+    }
+
+    .class-hour-time{
+
+      font-size: 14px;
+
+      color: #999999;
+
+      line-height: 1;
+
+      margin-top: 8px;
+
+    }
+
+    .morning-wrapper{
+
+      margin-bottom: 28px;
+
+      .class-hour-item-wrapper{
+
+        background-color: #cfe6d0;
+
+        &.add{
+
+          .row,.col{
+
+            background-color:#8ee293;
+
+          }
+
+          &:hover{
+
+            background-color:#b1e6b4;
+
+            .row,.col{
+
+              background-color: #60ea69;
+
+            }
+
+          }
+
+        }
+
+      }
+
+      .class-hour-item{
+
+        background-color:#f5fff6;
+
+      }
+
+      &:after{
+
+        background-image: url("#{$image-url}/morning-tab.png");
+
+      }
+
+    }
+
+    .afternoon-wrapper{
+
+      .class-hour-item-wrapper{
+
+        background-color: #afd8ea;
+
+        &.add{
+
+          .row,.col{
+
+            background-color:#8bc3dc;
+
+          }
+
+          &:hover{
+
+            background-color:#8bd2f1;
+
+            .row,.col{
+
+              background-color: #71c7ed;
+
+            }
+
+          }
+
+        }
+
+      }
+
+      .class-hour-item{
+
+        background-color:#f5fcff;
+
+      }
+
+      &:after{
+
+        background-image: url("#{$image-url}/afternoon-tab.png");
+
+      }
+
+    }
+
+  }
+
+  .linkage-setting-wrapper{
+
+    margin: 26px 0 38px 0;
+
+    line-height:32px;
+
+    padding-left:52px;
+
+    .title{
+
+      float: left;
+
+      height: 32px;
+
+      color: #666666;
+
+      font-size: 16px;
+
+      &:nth-child(3){
+
+        margin-left: 64px;
+
+      }
+
+    }
+
+    .linkage-switch{
+
+      float: left;
+
+      font-size: 14px;
+
+      width: 96px;
+
+      height: 32px;
+
+      outline: none;
+
+      cursor: pointer;
+
+      border: 0;
+
+      color: #999999;
+
+      text-align: left;
+
+      text-indent: 36px;
+
+      margin-left: 12px;
+
+      background-repeat: no-repeat;
+
+      background-position: center bottom;
+
+      @include background-size(cover);
+
+      background-color: transparent;
+
+      background-image: url("#{$image-url}/linkage-switch-close.png");
+
+
+      &.on{
+
+        color: #333333;
+
+        text-indent:16px;
+        
+        background-image: url("#{$image-url}/likeage-switch-open.png");
+
+      }
+
+    }
+
+    .min-text{
+
+      float: left;
+
+      min-width:18px;
+
+      padding:0 4px;
+
+      height:24px;
+
+      line-height: 24px;
+
+      /*border: 1px solid #98ccd7;
+
+      @include border-radius(4px);*/
+
+      text-align: center;
+
+      font-size: 16px;
+
+      margin-top: 4px;
+
+    }
+
+    .edit,.save,.cancel{
+
+      width:60px;
+
+      height:24px;
+
+      line-height:24px;
+
+      outline: none;
+
+      border:0;
+
+      color: #ffffff;
+
+      margin-left: 12px;
+
+      cursor: pointer;
+
+      @include border-radius(12px);
+
+    }
+
+    .edit,.save{
+
+      background-image: linear-gradient(90deg,#00e566,#12d033 62%,#23ba00),linear-gradient(#fff,#fff);
+
+      @include box-shadow(0 2px 16px -6px #23ba00);
+
+    }
+
+    .cancel{
+
+      background-image: linear-gradient(90deg,#ff593e,#ff1b10),linear-gradient(#fff,#fff);
+
+      @include box-shadow(0 2px 16px -6px #ff8178);
+
+    }
+
+    .ant-input{
+
+      width: 56px;
+
+      height: 28px;
+
+      line-height: 1;
+
+      float: left;
+
+      margin: 2px 4px 0 4px;
+
+      text-align: center;
+
+      /*padding-right: 0;*/
+
+    }
+
+  }
+
+}
+
+.schedule-setting-type-tips{
+
+  margin-top: 8px;
+
+  color: #ff6600;
+
+}

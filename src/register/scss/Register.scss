@@ -1,0 +1,262 @@
+.Register {
+    position: relative;
+    left: 50%;
+    overflow: visible;
+    width: 450px;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    .top-tips {
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 30px;
+        color: #000;
+        font-weight: bold;
+        margin: 40px 0 30px;
+    }
+    .select-role-box {
+        left: 50%;
+        width: 200px;
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        height: 40px;
+        line-height: 40px;
+        font-size: 16px;
+        color: #000;
+        position: relative;
+        // font-weight: bold;
+        margin: 10px 0 30px;
+        .no-select {
+            width: 50%;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            height: 100%;
+            cursor: pointer;
+        }
+        .select {
+            background-color: #ddd;
+        }
+    }
+    .isRegister {
+        position: relative;
+        font-size: 14px;
+        color: #000;
+        line-height: 20px;
+        height: 20px;
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+        .LoginIn {
+            color: #0099ff;
+            cursor: pointer;
+            &:hover {
+                color: #ff6600;
+            }
+        }
+    }
+    .input-content {
+        position: relative;
+        .row {
+            width: 100%;
+            //   height: 30px;
+            margin: 5px 0;
+            position: relative;
+            min-height: 35px;
+            .left {
+                // position: relative;
+                float: left;
+                // display: inline-block;
+                width: 30%;
+                height: 30px;
+                line-height: 30px;
+                text-align: right;
+                .must {
+                    color: red;
+                    font-size: 14px;
+                    margin-right: 3px;
+                    // display: inline-block;
+                    line-height: 30px;
+                }
+            }
+            .right {
+                float: right;
+                width: 69%;
+                min-height: 30px;
+                line-height: 30px;
+                .input {
+                    width: 200px;
+                }
+                .dropdown_wrapper {
+                    margin-left: 0;
+                    height: 30px;
+                }
+                .dropdown_container .dropdown_wrapper .dropdown_default_span {
+                    vertical-align: super;
+                }
+                .Scrollbars {
+                    max-height: 107px;
+                    min-height: 33px;
+                    &>div:first-of-type {
+                        max-height: 107px;
+                        // width: 110%;
+                        // min-height: 33px;
+                        min-width: 100px;
+                        display: inline-block!important;
+                        overflow-x: hidden!important; // min-height: 33px;
+                        overflow-y: scroll!important; // min-height: 33px;
+                        position: relative!important;
+                        // overflow: initial!important;
+                    }
+                }
+                .ant-checkbox-group {
+                    // width: 100%;
+                }
+            }
+            .checkedBox {
+                margin-left: 125px;
+            }
+            .checkedBox-title {
+                font-size: 14px;
+                color: #000;
+                text-align: left;
+                vertical-align: middle;
+                margin-left: 5px;
+                .agree {
+                    color: #0099ff;
+                    cursor: pointer;
+                    vertical-align: baseline;
+                }
+            }
+            .subject-right {
+                // min-height: 30px;
+                max-height: 100px;
+                .checkedBoxMap {
+                    height: 33px;
+                    width: 100px;
+                    vertical-align: middle;
+                    .checkedBoxMap-title {
+                        width: 68px;
+                        overflow: hidden; //超出一行文字自动隐藏
+                        text-overflow: ellipsis; //文字隐藏后添加省略号
+                        white-space: nowrap; //强制不换行
+                    }
+                    &:nth-of-type(n) {
+                        margin-left: 0;
+                    }
+                    .ant-checkbox {
+                        vertical-align: sub;
+                    }
+                }
+                .no-subject {
+                    font-size: 15px;
+                }
+            }
+        }
+        .PwdStrong {
+            position: relative;
+            left: 140px;
+            // top: 100px;
+            height: 20px;
+            line-height: 16px;
+            .strongTips {
+                display: inline-block;
+                color: #999999;
+                font-size: 12px;
+                vertical-align: middle;
+            }
+            .pwd-box {
+                display: inline-block;
+                width: 120px;
+                height: 12px;
+                margin: 0 5px;
+                background-color: #ddd;
+                vertical-align: middle;
+                .box-first {
+                    display: inline-block;
+                    width: 40px;
+                    height: 12px;
+                    border-right: 1px solid #999;
+                    vertical-align: top;
+                }
+                .color-first-1 {
+                    background-color: #ff3e3e;
+                }
+                .color-second-2 {
+                    background-color: #f1a62f;
+                }
+                .color-first-2 {
+                    background-color: #f1a62f;
+                }
+                .color-third-3 {
+                    background-color: #33c130;
+                }
+                .color-first-3 {
+                    background-color: #33c130;
+                }
+                .color-second-3 {
+                    background-color: #33c130;
+                }
+                .box-second {
+                    display: inline-block;
+                    width: 40px;
+                    height: 12px;
+                    vertical-align: top;
+                    border-right: 1px solid #999;
+                }
+                .box-third {
+                    display: inline-block;
+                    width: 40px;
+                    vertical-align: top;
+                    height: 12px;
+                }
+            }
+            .tips-color-1 {
+                color: #ff3e3e;
+            }
+            .tips-color-2 {
+                color: #f1a62f;
+            }
+            .tips-color-3 {
+                color: #33c130;
+            }
+        }
+        .pwd-row {
+            // height: 60px;
+        }
+        .submitBox {
+            .btn-submit {
+                left: 50%;
+                color: #fff;
+                width: 200px;
+                transform: translateX(-50%);
+                -webkit-transform: translateX(-50%);
+                -moz-transform: translateX(-50%);
+                -ms-transform: translateX(-50%);
+                -o-transform: translateX(-50%);
+            }
+        }
+        .subject-row {
+            max-height: 100px;
+        }
+    }
+}
+
+p {
+    margin: 0;
+}
+
+.frame-content-wrapper.barnerHide {
+    margin-top: 16px;
+}
+
+.ant-modal-body {
+    height: 600px !important;
+}

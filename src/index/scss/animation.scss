@@ -1,0 +1,81 @@
+@import "~compass-mixins/lib/animate";
+
+
+//头部圆形动画
+@include keyframes("circle-animation1"){
+  from {
+    top: 30px;
+    left:0;
+  }
+  25% {
+    top: 60px;
+    left:8%;
+  }
+
+  50%{
+
+    top:30px;
+    left:16%;
+
+  }
+
+  75%{
+
+    top:0;
+    left:8%;
+
+  }
+
+  to {
+    top: 30px;
+    left:0;
+  }
+}
+@include keyframes("circle-animation2"){
+  from {
+    top:0;
+    right:0;
+  }
+  25% {
+    top: 80px;
+    right:5%;
+  }
+  50% {
+    top: 0;
+    right:10%;
+  }
+  75% {
+    top: 80px;
+    right:5%;
+  }
+  to {
+    top:0;
+    right:0;
+  }
+}
+@include keyframes("circle-animation3"){
+  from {
+    top: -80px;
+    left:20%;
+  }
+
+  25% {
+    top:50px;
+    left:40%;
+  }
+
+  50% {
+    top:-80px;
+    left:60%;
+  }
+
+  75% {
+    top:50px;
+    left:40%;
+  }
+
+  to {
+    top: -80px;
+    left:20%;
+  }
+}

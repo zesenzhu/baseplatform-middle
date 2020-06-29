@@ -1,0 +1,354 @@
+//星星闪烁动画
+@include keyframes(sparkle){
+
+  0%{
+
+    @include transform(scale(0.5));
+
+  }
+
+  50%{
+
+    @include transform(scale(1));
+
+  }
+
+  100%{
+
+    @include transform(scale(0.5));
+
+  }
+
+}
+
+//点线随机移动动画
+@include keyframes(point1){
+
+  0%{
+
+    right:0;
+
+    bottom:0;
+
+  }
+
+  50%{
+
+    right:25px;
+
+    bottom:8%;
+
+    @include transform(rotate(45deg));
+
+  }
+
+  100%{
+
+    right:100px;
+
+    bottom:30%;
+
+  }
+
+}
+
+@include keyframes(point2){
+
+  0%{
+
+    right:0;
+
+    top:0;
+
+  }
+
+  50%{
+
+    right:15%;
+
+    top:8%;
+
+    @include transform(rotate(45deg));
+
+  }
+
+  100%{
+
+    right:30%;
+
+    bottom:30%;
+
+  }
+
+}
+
+@include keyframes(point3){
+
+  0%{
+
+    left:0;
+
+    top:0;
+
+  }
+
+  50%{
+
+    left:15%;
+
+    top:30%;
+
+    @include transform(rotate(45deg));
+
+  }
+
+  100%{
+
+    left:50%;
+
+    top:50%;
+
+    @include transform(rotate(-45deg));
+
+  }
+
+}
+
+@include keyframes(point4){
+
+  0%{
+
+    left:0;
+
+    bottom:400px;
+
+  }
+
+  50%{
+
+    left:15%;
+
+    bottom:300px;
+
+    @include transform(rotate(-30deg));
+
+  }
+
+  100%{
+
+    left:30%;
+
+    bottom:500px;
+
+    @include transform(rotate(-90deg));
+
+  }
+
+}
+
+@include keyframes(point5){
+
+  0%{
+
+    left:0;
+
+    bottom:80px;
+
+  }
+
+  50%{
+
+    left:20%;
+
+    bottom:60px;
+
+    @include transform(rotate(-45deg));
+
+  }
+
+  100%{
+
+    left:50%;
+
+    bottom:120px;
+
+    @include transform(rotate(30deg));
+
+  }
+
+}
+
+@include keyframes(point6){
+
+  0%{
+
+    left:40px;
+
+    bottom:160px;
+
+  }
+
+  50%{
+
+    left:60px;
+
+    bottom:300px;
+
+    @include transform(rotate(-30deg));
+
+  }
+
+  100%{
+
+    left:100px;
+
+    bottom:500px;
+
+    @include transform(rotate(-90deg));
+
+  }
+
+}
+
+
+//长方体上下移动
+@include keyframes(cuboidMove){
+
+  0%{
+
+    @include transform(translateY(0));
+
+  }
+
+  25%{
+
+    @include transform(translateY(-50px));
+
+  }
+
+  50%{
+
+    @include transform(translateY(0));
+
+  }
+
+  75%{
+
+    @include transform(translateY(-50px));
+
+  }
+
+  100%{
+
+    @include transform(translateY(0));
+
+  }
+
+}
+
+
+//darkblue介绍部分的图片的动画
+@include keyframes(bluePicAnimation){
+
+  from{
+
+    opacity:0;
+
+    transform: scale(0.7);
+
+  }
+
+  to{
+
+    opacity:1;
+
+    transform: scale(1);
+
+  }
+
+}
+
+
+//darkblue介绍部分的文字的动画
+@include keyframes(blueIntroduceAnimation){
+
+  from{
+
+    opacity:0;
+
+    bottom:-30px;
+
+  }
+
+  to{
+
+    opacity:1;
+
+    bottom:30px;
+
+  }
+
+}
+
+
+//aiSchool介绍部分的文字的动画
+@include keyframes(aiSchoolIntroduceAnimation){
+
+  from{
+
+    opacity:0;
+
+    top:400px;
+
+  }
+
+  to{
+
+    opacity:1;
+
+    top:340px;
+
+  }
+
+}
+
+//darktech介绍部分的图片的动画
+@include keyframes(techPicAnimation){
+
+  from{
+
+    @include transform(scale(0.5));
+
+    opacity:0;
+
+  }
+
+  to{
+
+    @include transform(scale(1));
+
+    opacity:1;
+
+  }
+
+}
+//darktech介绍部分的文字的动画
+@include keyframes(techIntroduceAnimation){
+
+  from{
+
+    opacity:0;
+
+    top:500px;
+
+  }
+
+  to{
+
+    opacity:1;
+
+    bottom:450px;
+
+  }
+
+}

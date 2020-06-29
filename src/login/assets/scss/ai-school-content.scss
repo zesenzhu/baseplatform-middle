@@ -1,0 +1,68 @@
+.ai_school_left_introduce{
+
+
+  .pic{
+
+    &.pic1{
+
+      background-image: url("#{$aiSchoolRoomUrl}/ai-school-pic1.png");
+
+      @include animation(bluePicAnimation 1.5s forwards);
+
+    }
+
+    &.pic2{
+
+      background-image: url("#{$darkBlueUrl}/dark-blue-pic1.png");
+
+      @include animation(bluePicAnimation 1.5s forwards);
+
+    }
+
+    &.pic3{
+
+      background-image: url("#{$darkBlueUrl}/dark-blue-pic4.png");
+
+      @include animation(bluePicAnimation 1.5s forwards);
+
+    }
+
+
+
+  }
+
+
+  .introduce-wrapper{
+
+    &.introduce1{
+
+      @include animation(aiSchoolIntroduceAnimation 1.2s forwards);
+
+    }
+
+    &.introduce2{
+
+      @include animation(aiSchoolIntroduceAnimation 1.2s forwards);
+
+    }
+
+    &.introduce3{
+
+      @include animation(aiSchoolIntroduceAnimation 1.2s forwards);
+
+    }
+
+    &.introduce4{
+
+      @include animation(aiSchoolIntroduceAnimation 1.2s forwards);
+
+    }
+
+  }
+
+}
+
+
+
+
+

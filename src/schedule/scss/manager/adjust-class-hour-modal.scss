@@ -1,0 +1,67 @@
+.adjust-class-hour-modal{
+
+  .title{
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    color: #333333;
+
+    height: 36px;
+
+    line-height: 36px;
+
+  }
+
+  .ant-input{
+
+    width: 56px;
+
+    height:28px;
+
+    margin-top: 4px;
+
+    text-align: center;
+
+  }
+
+  .ant-radio-group{
+
+    margin-top: 4px;
+
+    margin-left: 12px;
+
+  }
+
+  .setting-line{
+
+    margin-top:10px;
+
+    margin-left: 36px;
+
+    height: 36px;
+
+    &>*{
+
+      float: left;
+
+    }
+
+    &:first-child{
+
+      margin-top:20px;
+
+    }
+
+  }
+
+  span.ant-radio+*{
+
+    padding-right:0;
+
+    padding-left: 4px;
+
+  }
+
+}

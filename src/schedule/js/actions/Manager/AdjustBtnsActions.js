@@ -1,0 +1,11 @@
+const ADJUST_BTNS_TOGGLE = 'ADJUST_BTNS_TOGGLE';
+
+const ADJUST_BTNS_HIDE = 'ADJUST_BTNS_HIDE';
+
+export default {
+
+    ADJUST_BTNS_TOGGLE,
+
+    ADJUST_BTNS_HIDE
+
+}

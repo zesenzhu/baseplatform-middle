@@ -1,0 +1,121 @@
+@import "./slider";
+
+.bottom_wrapper{
+
+  position:absolute;
+
+  height: 100%;
+
+  min-width: 1200px;
+
+  width: 100%;
+
+  z-index:10;
+
+  left: 0;
+
+  top:0;
+
+  .swiper-container,.swiper-wrapper{
+
+    height: 100%;
+
+  }
+
+  .ant-carousel{
+
+    height: 100%;
+
+    .slick-slider,.slick-list,.slick-track,.animate-wrapper{
+
+      height: 100%;
+
+    }
+
+    .slick-slide{
+
+      &>div {
+
+        height: 100%;
+
+      }
+
+    }
+
+  }
+
+  .swiper-slide{
+
+    width: 100%;
+
+    height: 100%;
+
+    background-repeat: no-repeat;
+
+    background-position: bottom center;
+
+    @include background-size(cover);
+
+    &.dark_blue_slide{
+
+      &.slider1{
+
+        background-image: url("#{$darkBlueUrl}/dark-blue-slider1.png");
+
+      }
+
+      &.slider2{
+
+        background-image: url("#{$darkBlueUrl}/dark-blue-slider2.png");
+
+      }
+
+      &.slider3{
+
+        background-image: url("#{$darkBlueUrl}/dark-blue-slider3.png");
+
+      }
+
+      &.slider4{
+
+        background-image: url("#{$darkBlueUrl}/dark-blue-slider4.png");
+
+      }
+
+    }
+
+    &.ai_exam_slide{
+
+      &.slider1{
+
+        background-image: url("#{$aiExamUrl}/ai-exam-slider1.png");
+
+      }
+
+      &.slider2{
+
+        background-image: url("#{$aiExamUrl}/ai-exam-slider2.png");
+
+      }
+
+      &.slider3{
+
+        background-image: url("#{$aiExamUrl}/ai-exam-slider3.png");
+
+      }
+
+    }
+
+  }
+
+  .cloud_schoolroom_bg{
+
+    height: 100%;
+
+    background:url("#{$cloudSchoolRoomUrl}/cloud-schoolroom-bg.png") no-repeat bottom center;
+
+    background-size: cover;
+
+  }
+
+}

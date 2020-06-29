@@ -1,0 +1,125 @@
+.UserInfo {
+    .ant-modal-close {
+        width: 36px;
+        height: 36px;
+        .ant-modal-close-x {
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            path {
+                color: #fff;
+            }
+        }
+    }
+    // .icon-close {
+    //     width: 36px;
+    //     height: 36px;
+    //     line-height: 36px;
+    //     background: url(./images/icon-close.png) no-repeat center center;
+    //     background-size: 12px 12opx;
+    // }
+    .modal-top {
+        width: 100%;
+        position: relative;
+        height: 200px;
+        background: url(../images/detailsModalTop.png) no-repeat center top;
+        background-size: contain;
+        .top-img {
+            position: relative;
+            display: inline-block;
+            margin-top: 42px;
+            width: 80px;
+            height: 80px;
+            border: #00a1ff 2px solid;
+            border-radius: 50%;
+            margin-left: -40px;
+            overflow: hidden;
+            left: 50%;
+            img {
+                object-fit: cover;
+            }
+        }
+        .top-userName {
+            position: relative;
+            line-height: 25px;
+            text-align: center;
+            color: #fff;
+            font-size: 18px;
+            margin: 8px 0;
+        }
+        .top-userText {
+            position: relative;
+            line-height: 20px;
+            text-align: center;
+            color: #fff;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            opacity: 0.8;
+            width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            -webkit-transform: translateX(-50%);
+            -moz-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+            -o-transform: translateX(-50%);
+        }
+    }
+    .modal-content {
+        width: 100%;
+        position: relative;
+        height: 300px;
+        overflow: auto;
+        .content-box {
+            width: 100%;
+            padding-top: 30px;
+            .row {
+                width: 100%;
+                min-height: 30px;
+                //overflow: hidden;
+                &.row-adress {
+                    height: 40px;
+                    margin-top: 5px;
+                    span {
+                        line-height: 20px;
+                    }
+                }
+                .col-left {
+                    float: left;
+                    width: 30%;
+                    margin-right: 3%;
+                    line-height: 30px;
+                    text-align: right;
+                    color: #999;
+                    font-size: 14px;
+                }
+                .col-right {
+                    float: left;
+                    width: 60%;
+                    line-height: 30px;
+                    text-align: left;
+                    color: #333;
+                    font-size: 14px;
+                    // max-width: 240px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    .text {
+                        // display: inline-block;
+                        // max-width: 240px;
+                        // overflow: hidden;
+                        // text-overflow: ellipsis;
+                        // white-space: nowrap;
+                    }
+                    .content-null {
+                        color: #999;
+                        font-size: 14px;
+                        line-height: 20px;
+                        text-align: left;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,119 @@
+#SelectStudent {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .box-top {
+        position: relative;
+        height: 40px;
+        background-color: #eeeeee;
+        .top-search {
+            position: absolute;
+            right: 13px;
+            top: 50%;
+            width: 250px;
+            transform: translateY(-50%);
+        }
+    }
+    .ant-checkbox-group {
+        width: 100%;
+        height: 437px;
+    }
+    .box-content {
+        //padding: 30px 17px;
+        background: #fff;
+        .selectClassBox {
+            position: absolute;
+            left: 0;
+            background-color: #e7e7e7;
+            .selectContent {
+                display: block;
+                width: 177px;
+                height: 50px;
+                padding-left: 30px;
+                background-color: #e7e7e7;
+                line-height: 50px;
+                text-align: left;
+                font-size: 14px;
+                color: #666666;
+                overflow: hidden; //超出一行文字自动隐藏
+                text-overflow: ellipsis; //文字隐藏后添加省略号
+                white-space: nowrap; //强制不换行
+                cursor: pointer;
+                // &::before {
+                //     content: "";
+                //     display: inline-block;
+                //     width: 4px;
+                //     left: 22px;
+                //     position: absolute;
+                //     height: 50px;
+                //     background: url(../images/icon-default.png) no-repeat center center;
+                //     background-size: contain;
+                // }
+            }
+            .active {
+                background-color: #ffffff;
+                color: #0083e8;
+                // &::before {
+                //     content: "";
+                //     display: inline-block;
+                //     width: 4px;
+                //     left: 22px;
+                //     position: absolute;
+                //     height: 50px;
+                //     background: url(../images/icon-active.png) no-repeat center center;
+                //     background-size: contain;
+                // }
+            }
+            .ClassName {
+                margin-left: 5px;
+                vertical-align: middle;
+            }
+        }
+        .selectStudent {
+            position: absolute;
+            right: 0;
+            li {
+                height: 48px;
+                line-height: 48px;
+                padding-left: 18px;
+                width: 100%;
+                display: inline-block;
+                color: #333333;
+                background-color: #fafafa;
+                border-bottom: 1px #ebebeb solid;
+                // &:nth-of-type(2n+1) {
+                //   background-color: #fafafa;
+                // }
+                // &:nth-of-type(2n) {
+                //   background-color: #ffffff;
+                // }
+                &:nth-of-type(2n) {
+                    background-color: #fff;
+                }
+                &:last-of-type {
+                    border-bottom: none;
+                }
+            }
+            .selectContent {
+                .studentName {
+                    font-size: 14px;
+                    color: #333333;
+                }
+                .studentID {
+                    color: #999999;
+                }
+                .ant-checkbox-inner {
+                    vertical-align: text-bottom;
+                }
+            }
+            .selectAllBox {
+                background-color: #ffffff !important;
+                border-bottom: 1px #ebebeb solid !important;
+                .selectAll {
+                    font-size: 14px;
+                    color: #666666;
+                }
+            }
+        }
+    }
+}

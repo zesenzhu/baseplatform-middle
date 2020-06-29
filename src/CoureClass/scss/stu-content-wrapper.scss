@@ -1,0 +1,141 @@
+.stu-content-wrapper{
+
+  .list-wrapper{
+
+    padding: 42px 62px;
+
+  }
+
+  .card-box-student{
+
+    width: 248px;
+    position: relative;
+    display: inline-block;
+    height: 145px;
+    margin:0 28px 34px 0;
+    margin-bottom: 27px;
+    cursor: pointer;
+
+    &:nth-child(4n){
+
+      margin-right:0;
+
+    }
+
+    &:hover {
+      .box-3 {
+        box-shadow: 0 1px 20px #207aff;
+      }
+    }
+
+    .box-main {
+      width: 248px;
+      display: inline-block;
+      position: absolute;
+      height: 145px;
+      background: url(../images/image-student-2.png) no-repeat right bottom;
+      background-size: contain;
+      .main-content {
+        position: relative;
+        margin: 0 auto;
+        width: 210px;
+        .content-tips {
+          font-size: 16px;
+          height: 43px;
+          text-align: center;
+          color: #000000;
+          margin-bottom: 0;
+          line-height: 43px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .content-hr {
+          border-top: 1px dashed #1790e5;
+          opacity: 0.5;
+          width: 100%;
+        }
+        .content-details {
+          width: 100%;
+          margin-top: 12px;
+          .details-row {
+            height:24px;
+            width: 100%;
+            .left {
+              float: left;
+              width: 32%;
+              line-height: 24px;
+              font-size: 12px;
+              color: #999999;
+              text-align: right;
+            }
+            .right {
+              float: right;
+              width: 68%;
+              text-align: left;
+              line-height: 24px;
+              font-size: 14px;
+              color: #333333;
+
+              @include textOverFlow;
+
+              .ant-btn-link{
+
+                padding:0 4px;
+
+                line-height:22px;
+
+                height:24px;
+
+              }
+
+              &>*{
+
+                float: left;
+
+                &:first-child{
+
+                  max-width: 100px;
+
+                  @include textOverFlow;
+
+                }
+
+              }
+
+            }
+
+          }
+        }
+        }
+      }
+
+    .box-2 {
+      display: inline-block;
+      width: 239px;
+      position: absolute;
+      height: 36px;
+      bottom: -3px;
+      left: 50%;
+      margin-left: -119.5px;
+      background-color: #ffffff;
+      border-radius: 6px;
+      border: solid 1px #207aff;
+    }
+
+    .box-3 {
+      display: inline-block;
+      position: absolute;
+      bottom: -6px;
+      width: 229px;
+      height: 36px;
+      left: 50%;
+      margin-left: -114.5px;
+      background-color: #ffffff;
+      border-radius: 6px;
+      border: solid 1px #207aff;
+    }
+
+  }
+
+}

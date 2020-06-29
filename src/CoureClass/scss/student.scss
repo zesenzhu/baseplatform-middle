@@ -1,0 +1,20 @@
+@import "./base";
+
+@import "./title-bar";
+
+@import "./stu-content-wrapper";
+
+@import "./change-course-class-modal";
+
+@import "./again-select-course-modal";
+
+
+.stu-course-class-wrapper{
+
+  &>.emptyBox{
+
+    margin-top: 200px;
+
+  }
+
+}

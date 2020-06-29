@@ -1,0 +1,30 @@
+//title
+.title-bar{
+  height: 36px;
+  margin-top: 22px;
+  padding: 0 32px 0 54px;
+  line-height: 36px;
+  background: url('#{$image-url}/title-icon1.png') no-repeat 32px center;
+  &.icon1{
+    background-image: url("#{$image-url}/title-icon1.png");
+  }
+  &.icon2{
+    background-image: url("#{$image-url}/title-icon2.png");
+  }
+
+  &.icon3{
+    background-image: url("#{$image-url}/title-icon3.png");
+  }
+}
+.title-word{
+  font-size:18px;
+  border-bottom:1px dashed #cccccc;
+  color: #333333;
+}
+.title-abstract{
+  font-size: 16px;
+  color: #999999;
+  padding-left:4px;
+}
+
+

@@ -1,0 +1,49 @@
+.timeBanner_tips {
+    height: 14px;
+    display: inline-block;
+    right: 0;
+    font-size: 14px;
+    line-height: 1;
+    color: #666;
+    margin-top: 25px;
+    padding-left: 15px;
+    background: url(../images/logo-lange.png) no-repeat left center;
+    background-size: 13px 13px;
+    transform: translateY(-50%);
+    .tips_num {
+        color: #ff0000;
+    }
+    .tips_handle {
+        color: #0099ff;
+        text-decoration: underline;
+        &:hover {
+            color: #ff6600;
+        }
+    }
+}
+
+.handle-content {
+    float: right;
+    height: 100%;
+    .divide {
+        position: relative;
+        font-size: 14px;
+        color: #c9e1f0;
+        top: -1px;
+        //margin: 0 12px;
+    }
+    .content-button {
+        color: #fff;
+        height: 24px;
+        line-height: 24px;
+        font-size: 14px;
+        border: none;
+        box-shadow: 0px 5px 10px -5px #1ca5fe;
+    }
+    .content {
+        margin-left: 16px;
+    }
+    .search {
+        transform: translateY(-2px)
+    }
+}

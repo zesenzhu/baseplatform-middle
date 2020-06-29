@@ -1,0 +1,101 @@
+@import "./base";
+
+.alert_dialog_tab{
+
+  &.dark_tech,&.cloud_schoolroom{
+
+    #alert_dialog_wrapper{
+
+      min-height: 260px;
+
+      min-width: 440px;
+
+      max-width: 500px;
+
+      background-image: url("#{$darkTechUrl}/dark-tech-alert-bg.png");
+
+      background-color: transparent;
+
+      background-size:100% 100%;
+
+      background-repeat: no-repeat;
+
+    }
+
+    .alert_dialog_msg{
+
+      color: #ffffff;
+
+      max-width: 400px;
+
+    }
+
+    .alert_dialog_content{
+
+      padding-top:40px;
+
+    }
+
+    .alert_close_btn{
+
+      right: 28px;
+
+      top: 24px;
+
+    }
+
+    .alert_dialog_footer{
+
+      margin-top: 42px;
+
+      input[type='button']{
+
+       &.ok,&.cancel{
+
+         height: 42px;
+
+         line-height:42px;
+
+         width: 104px;
+
+         @include box-shadow(none);
+
+         color: #ffffff;
+
+         background:linear-gradient(to top,#54cdff,#bee9ff);
+
+         background-image: url("#{$darkTechUrl}/dark-tech-alert-btn.png");
+
+         background-repeat: no-repeat;
+
+         background-size: 100% 100%;
+
+         background-color: transparent;
+
+         &:hover{
+
+           opacity: 0.8;
+
+           background-image: url("#{$darkTechUrl}/dark-tech-alert-btn-hover.png");
+
+         }
+
+       }
+
+      }
+
+    }
+
+  }
+
+}
+
+.alert_dialog_mask{
+
+  &.dark_tech{
+
+    background-color: rgba(0, 0, 0, 0.5);
+
+  }
+
+}

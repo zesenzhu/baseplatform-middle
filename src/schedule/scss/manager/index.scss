@@ -1,0 +1,50 @@
+//添加临时课程的弹窗
+@import "./add-schedule-modal";
+
+
+//按教师调整课程弹窗
+@import "./adjust-by-teacher-modal";
+
+//按教师调整课程弹窗
+@import "./adjust-by-class-room-modal";
+
+//按时间时间调整课程弹窗
+@import "adjust-by-time-modal";
+
+
+//调整课表的按钮
+@import "./adjust-shedule-btns";
+
+
+//删除课程弹窗
+@import "./del-schedule-modal";
+
+
+
+//停课弹窗
+@import "./stop-schedule-modal";
+
+
+//管理员学科教师课表
+@import "./subject-teacher";
+
+
+//班级总课表
+@import "./class-total";
+
+//课表设置
+@import "./schedule-setting";
+
+//调整课时弹窗
+@import "./adjust-class-hour-modal";
+
+
+
+//添加课时弹窗
+@import "./add-class-hour-modal";
+
+//修改课时弹窗
+@import "./edit-class-hour-modal";
+
+//调课日志
+@import "./adjust-log";

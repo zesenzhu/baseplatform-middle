@@ -1,0 +1,161 @@
+.SetSubjectTeacher {
+    position: relative;
+    width: 100%;
+    .row:nth-of-type(1) {
+        margin-top: 5px;
+    }
+    .row-subject {
+        .culonm-2 {
+            height: auto !important;
+            .ant-checkbox-wrapper+.ant-checkbox-wrapper {
+                margin-left: 0;
+            }
+        }
+    }
+    .row {
+        position: relative;
+        width: 100%;
+        margin: 3px 0;
+        //height: 40px;
+        .culonm-1 {
+            width: 25%;
+            float: left;
+            line-height: 40px;
+            text-align: right;
+            font-size: 16px;
+            color: #333;
+            .must-icon {
+                color: red;
+                font-size: 16px;
+                text-align: right;
+                margin-right: 5px;
+            }
+        }
+        .culonm-2 {
+            float: left;
+            width: 72%;
+            height: 40px;
+            padding-left: 5px;
+            vertical-align: middle;
+            position: relative;
+            .UserID-text {
+                line-height: 40px;
+                text-align: left;
+                font-size: 16px;
+                color: #333;
+            }
+            .subjectName {
+                line-height: 40px;
+                text-align: left;
+                font-size: 16px;
+                color: #333;
+            }
+            .input {
+                width: 300px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            .UserName-input {
+                width: 300px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            .dropdown_container {
+                position: relative;
+                width: 300px;
+                //margin-top: 50%;
+                transform: translateY(-15%);
+            }
+            .dropdown_wrapper {
+                margin-left: 0;
+            }
+            .inputarea {
+                width: 400px;
+                top: 50%;
+                padding: 0 6px;
+                line-height: 28px;
+                transform: translateY(-16px);
+            }
+            .checkedBoxGroupMap {
+                width: 450px;
+                height: 90px;
+                .checkedBoxMap {
+                    width: 90px;
+                    height: 28px;
+                    line-height: 28px;
+                }
+            }
+            .checkBoxGroup {
+                position: relative;
+                .checkAll {
+                    display: block;
+                    height: 25px;
+                }
+                .checkBox {
+                    display: inline-block;
+                    width: 60px;
+                    height: 50px;
+                }
+            }
+        }
+        .dropMenuBox {
+            .DropMenu {
+                float: left;
+                width: 120px;
+                height: 28px;
+                margin-right: 10px;
+            }
+            .box-input {
+                top: 50%;
+                transform: translateY(-50%);
+                width: 120px;
+                height: 28px;
+                line-height: 28px;
+                font-size: 12px;
+            }
+        }
+        .culonm-3 {
+            height: auto;
+            margin-top: 9px;
+            .checkBoxTips {
+                color: #333;
+                font-size: 14px;
+                line-height: 23px;
+                .checkTips {
+                    color: #666666;
+                }
+            }
+            .checkChild {
+                color: #666;
+                font-size: 14px;
+                line-height: 23px;
+                margin-left: 26px;
+            }
+            .editModal-hr {
+                position: relative;
+                border: 0.5px dashed #ccc;
+                width: 100%;
+                margin: 10px auto;
+            }
+            .DropMenu {
+                float: left;
+                width: 120px;
+                height: 28px;
+                margin-right: 10px;
+            }
+            .TeacherChange {
+                display: inline-block;
+                //margin-left: 140px;
+                font-size: 14px;
+                color: #ff6600;
+                line-height: 28px;
+                text-align: center;
+                transform: translateY(-15%);
+                -webkit-transform: translateY(-15%);
+                -moz-transform: translateY(-15%);
+                -ms-transform: translateY(-15%);
+                -o-transform: translateY(-15%);
+            }
+        }
+    }
+}
