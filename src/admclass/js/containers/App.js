@@ -59,7 +59,7 @@ class App extends Component{
 
         const hash = location.hash;
 
-        if(publicJS.IEVersion()){
+        /*if(publicJS.IEVersion()){
 
             TokenCheck_Connect(false,()=>{
 
@@ -191,7 +191,7 @@ class App extends Component{
     
                             }
     
-                            /*dispatch({type:ModuleActions.MODULE_SETTING_INFO_UPDATE,data:{
+                            /!*dispatch({type:ModuleActions.MODULE_SETTING_INFO_UPDATE,data:{
     
                                     ShowLeftMenu:false,
     
@@ -209,7 +209,7 @@ class App extends Component{
     
                                 }});
     
-                            dispatch(UpDataState.getPageInit());*/
+                            dispatch(UpDataState.getPageInit());*!/
     
                         }else if (parseInt(UserType)===7&&UserClass==='2'){//判断是否是教务主任
     
@@ -286,7 +286,7 @@ class App extends Component{
     
                     }
     
-                    /* if (hash.includes('Import')){//导入界面
+                    /!* if (hash.includes('Import')){//导入界面
     
                          dispatch({type:RouterSetActions.ROUTER_SET_TO_IMPORT});
     
@@ -384,7 +384,7 @@ class App extends Component{
                          dispatch(UpDataState.getPageInit());
     
                      }
-         */
+         *!/
     
                 }else{
     
@@ -398,7 +398,7 @@ class App extends Component{
     
                             dispatch({type:UpDataState.GET_LOGIN_USER_INFO,data:UserInfo});
     
-                            /*  if (hash.includes('Import')){//导入界面
+                            /!*  if (hash.includes('Import')){//导入界面
     
                                   dispatch({type:RouterSetActions.ROUTER_SET_TO_IMPORT});
     
@@ -493,7 +493,7 @@ class App extends Component{
     
                                   dispatch(UpDataState.getPageInit());
     
-                              }*/
+                              }*!/
     
                             //是管理员的情况下
                             if (parseInt(UserType)===0){
@@ -614,7 +614,7 @@ class App extends Component{
     
                                     }
     
-                                    /* dispatch({type:ModuleActions.MODULE_SETTING_INFO_UPDATE,data:{
+                                    /!* dispatch({type:ModuleActions.MODULE_SETTING_INFO_UPDATE,data:{
     
                                              ShowLeftMenu:false,
     
@@ -632,7 +632,7 @@ class App extends Component{
     
                                          }});
     
-                                     dispatch(UpDataState.getPageInit());*/
+                                     dispatch(UpDataState.getPageInit());*!/
     
                                 }else if (parseInt(UserType)===7&&UserClass==='2'){//判断是否是教务主任
     
@@ -719,8 +719,238 @@ class App extends Component{
     
             });
 
-        }
+        }*/
    
+
+    }
+
+
+    pageInit(){
+
+        const { dispatch } = this.props;
+
+        const hash = location.hash;
+
+        let UserInfo = JSON.parse(sessionStorage.getItem('UserInfo'));
+
+        const {UserType,UserClass} = UserInfo;
+
+        dispatch({type:UpDataState.GET_LOGIN_USER_INFO,data:UserInfo});
+
+        //判断用户权限
+
+        //是管理员的情况下
+        if (parseInt(UserType)===0){
+
+            QueryPower({UserInfo:UserInfo,ModuleID:'000-2-0-06'}).then(data=>{
+
+                if (data){
+
+                    if (hash.includes('Import')){//导入界面
+
+                        dispatch({type:RouterSetActions.ROUTER_SET_TO_IMPORT});
+
+                        //判断用户类型
+
+                        dispatch({type:ModuleActions.MODULE_SETTING_INFO_UPDATE,data:{
+
+                                ShowLeftMenu:false,
+
+                                ShowBarner:false,
+
+                                ModuleInfo:{
+
+                                    cnname:'行政班管理',
+
+                                    enname:"Administration class management",
+
+                                    image:logo
+
+                                }
+
+                            }});
+
+
+                    }else{//非导入界面
+
+                        dispatch({type:RouterSetActions.ROUTER_SET_TO_DEFAULT});
+
+                        let UserInfo = JSON.parse(sessionStorage.getItem('UserInfo'));
+
+                        dispatch({type:ModuleActions.MODULE_SETTING_INFO_UPDATE,data:{
+
+                                ShowLeftMenu:true,
+
+                                ShowBarner:true,
+
+                                ModuleInfo:{
+
+                                    cnname:'行政班管理',
+
+                                    enname:"Administration class management",
+
+                                    image:logo
+
+                                }
+
+                            }});
+
+                        dispatch(UpDataState.getPageInit());
+
+                    }
+
+                }else{
+
+                    window.location.href='/Error.aspx?errcode=E011';
+
+                }
+
+            });
+
+        }else{//是非管理员的情况下
+
+            //判断是否是教师账号
+
+            if (parseInt(UserType)===1&&UserClass[2]==='1'){
+
+                if (hash.includes('Import')){//导入界面
+
+                    dispatch({type:RouterSetActions.ROUTER_SET_TO_IMPORT});
+
+                    dispatch({type:ModuleActions.MODULE_SETTING_INFO_UPDATE,data:{
+
+                            ShowLeftMenu:false,
+
+                            ShowBarner:false,
+
+                            ModuleInfo:{
+
+                                cnname:'班级管理',
+
+                                enname:"Class management",
+
+                                image:TeacherLogo
+
+                            }
+
+                        }});
+
+                }else{
+
+                    dispatch({type:ModuleActions.MODULE_SETTING_INFO_UPDATE,data:{
+
+                            ShowLeftMenu:false,
+
+                            ShowBarner:true,
+
+                            ModuleInfo:{
+
+                                cnname:'班级管理',
+
+                                enname:"Class management",
+
+                                image:TeacherLogo
+
+                            }
+
+                        }});
+
+                }
+
+                /*dispatch({type:ModuleActions.MODULE_SETTING_INFO_UPDATE,data:{
+
+                        ShowLeftMenu:false,
+
+                        ShowBarner:false,
+
+                        ModuleInfo:{
+
+                            cnname:'班级管理',
+
+                            enname:"Class management",
+
+                            image:TeacherLogo
+
+                        }
+
+                    }});
+
+                dispatch(UpDataState.getPageInit());*/
+
+            }else if (parseInt(UserType)===7&&UserClass==='2'){//判断是否是教务主任
+
+                QueryOtherPower({SchoolID:UserInfo.SchoolID,ModuleID:'000-2-0-06',Power:'Dean_Class_CURD',UserType:UserType}).then(data=>{
+
+                    if (data){//有权限的教务主任
+
+                        if (hash.includes('Import')){//导入界面
+
+                            dispatch({type:RouterSetActions.ROUTER_SET_TO_IMPORT});
+
+                            //判断用户类型
+
+                            dispatch({type:ModuleActions.MODULE_SETTING_INFO_UPDATE,data:{
+
+                                    ShowLeftMenu:false,
+
+                                    ShowBarner:false,
+
+                                    ModuleInfo:{
+
+                                        cnname:'行政班管理',
+
+                                        enname:"Administration class management",
+
+                                        image:logo
+
+                                    }
+
+                                }});
+
+
+                        }else{//非导入界面
+
+                            dispatch({type:RouterSetActions.ROUTER_SET_TO_DEFAULT});
+
+                            let UserInfo = JSON.parse(sessionStorage.getItem('UserInfo'));
+
+                            dispatch({type:ModuleActions.MODULE_SETTING_INFO_UPDATE,data:{
+
+                                    ShowLeftMenu:true,
+
+                                    ShowBarner:true,
+
+                                    ModuleInfo:{
+
+                                        cnname:'行政班管理',
+
+                                        enname:"Administration class management",
+
+                                        image:logo
+
+                                    }
+
+                                }});
+
+                            dispatch(UpDataState.getPageInit());
+
+                        }
+
+                    }else{//没有权限的教务主任
+
+                        window.location.href='/Error.aspx?errcode=E011';
+
+                    }
+
+                })
+
+            }else {//既不是教务主任，也不是班主任也不是管理员的情况下
+
+                window.location.href='/Error.aspx?errcode=E011';
+
+            }
+
+        }
 
     }
 
@@ -1106,8 +1336,10 @@ class App extends Component{
                                showLeftMenu={ModuleSetting.ShowLeftMenu}
                                showBarner={ModuleSetting.ShowBarner}
                                style={{display:`${UIState.AppLoading.show?'none':'block'}`}}
-                               userInfo={{name:DataState.LoginUser.UserName,image:DataState.LoginUser.PhotoPath}}
+                               //userInfo={{name:DataState.LoginUser.UserName,image:DataState.LoginUser.PhotoPath}}
                                module={ModuleSetting.ModuleInfo}
+                               pageInit={this.pageInit.bind(this)}
+
                         >
                             {/*banner*/}
 

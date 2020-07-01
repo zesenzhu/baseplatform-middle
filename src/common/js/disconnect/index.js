@@ -538,3 +538,344 @@ export function LogOut(SysID="000",IsPersonnal) {
     }
   });
 }
+
+
+
+//分离之前的登录，在线相关的函数
+
+const loginApi = ({token,method,params}) => {
+
+    const {WebRootUrl=''} = sessionStorage.getItem('LgBasePlatformInfo')?JSON.parse(sessionStorage.getItem('LgBasePlatformInfo')):{};
+
+    const ajax =  $.ajax({
+        url:`${WebRootUrl}/UserMgr/Login/Api/Login.ashx?method=${method}&params=${params}${token?'&token='+token:''}`,
+        type: "GET",
+        dataType: "jsonp",
+        jsonp: "jsoncallback" //这里的值需要和回调函数名一样
+    });
+
+    return ajax;
+
+};
+
+
+//一次性检查token是否在线
+
+export const checkTokenOnce = (func=()=>{}) =>{
+
+    const session_token = sessionStorage.getItem("token");
+
+    const url_token = getQueryVariable("lg_tk"); //lg_tk为链接上带的token
+
+    const local_token = localStorage.getItem("token");
+
+    const preUrl = encodeURIComponent(Public.getLg_tk(window.location.href));
+
+    const url = window.location.href;
+
+    if (!session_token && !url_token && !local_token) {
+
+        if (!url.includes("html/admDisconnect")&&!getQueryVariable("lg_preurl")) {
+
+            sessionStorage.clear();
+
+            localStorage.removeItem('LgBaseUserInfo');
+
+            localStorage.removeItem('token');
+
+            window.location.href = config.HashPrevProxy+"/html/admDisconnect?lg_preurl=" + preUrl;
+
+        }
+
+    }else{
+
+        const token = url_token||local_token||session_token;
+
+        loginApi({token,method:"tokenCheck",params:'000'}).then(res=>{ //如果有返回值
+
+            if (!(parseInt(res.error)===0&&res.data.result)){
+
+                sessionStorage.clear();
+
+                localStorage.removeItem('LgBaseUserInfo');
+
+                localStorage.removeItem('token');
+
+                window.location.href = config.HashPrevProxy+"/html/admDisconnect?lg_preurl=" + preUrl;
+
+            }else{
+
+                loginApi({token,method:"GetUserInfo",params:'000'}).then(res=>{
+
+                    if (parseInt(res.error)===0&&res.data){
+
+                        let UserInfo = {};
+
+                        for (let [key, value] of Object.entries(res.data)) {
+                            if (key === "PhotoPath") {
+                                let date = new Date();
+                                let time = date.getTime();
+                                value = value + "?T=" + time;
+                            }
+                            UserInfo[key] = decodeURIComponent(value);
+                        }
+
+                        sessionStorage.setItem("UserInfo", JSON.stringify(UserInfo));
+
+                    }
+
+                });
+
+            }
+
+        },err=>{//错误的情况下
+
+            sessionStorage.clear();
+
+            localStorage.removeItem('LgBaseUserInfo');
+
+            localStorage.removeItem('token');
+
+            window.location.href = config.HashPrevProxy+"/html/admDisconnect?lg_preurl=" + preUrl;
+
+        })
+
+    }
+
+};
+
+
+//循环查询token
+export const checkTokenRepeat = () =>{
+
+    setInterval(()=>{
+
+        const session_token = sessionStorage.getItem("token");
+
+        const url_token = getQueryVariable("lg_tk"); //lg_tk为链接上带的token
+
+        const local_token = localStorage.getItem("token");
+
+        const preUrl = encodeURIComponent(Public.getLg_tk(window.location.href));
+
+        const url = window.location.href;
+
+        if (!session_token && !url_token && !local_token) {
+
+            if (!url.includes("html/admDisconnect")&&!getQueryVariable("lg_preurl")) {
+
+                sessionStorage.clear();
+
+                localStorage.removeItem('LgBaseUserInfo');
+
+                localStorage.removeItem('token');
+
+                window.location.href =config.HashPrevProxy+ "/html/admDisconnect?lg_preurl=" + preUrl;
+
+            }
+
+        }else{
+
+            const token = url_token||local_token||session_token;
+
+            loginApi({token,method:"tokenCheck",params:'000'}).then(res=>{ //如果有返回值
+
+                if (!(parseInt(res.error)===0&&res.data.result)){
+
+                    sessionStorage.clear();
+
+                    localStorage.removeItem('LgBaseUserInfo');
+
+                    localStorage.removeItem('token');
+
+                    window.location.href = config.HashPrevProxy+"/html/admDisconnect?lg_preurl=" + preUrl;
+
+                }
+
+            },err=>{//错误的情况下
+
+                sessionStorage.clear();
+
+                localStorage.removeItem('LgBaseUserInfo');
+
+                localStorage.removeItem('token');
+
+                window.location.href = config.HashPrevProxy+"/html/admDisconnect?lg_preurl=" + preUrl;
+
+            })
+
+        }
+
+    },60000);
+
+
+};
+
+
+//先查询用户名，再查询是否在线
+export const checkIsOnline = () => {
+
+    setInterval(()=>{
+
+        const lastTime = localStorage.getItem('LgBaseCheckTime');
+
+        const UserInfo = sessionStorage.getItem("UserInfo");
+
+        if (!UserInfo){
+
+            checkTokenOnce();
+
+        }
+
+    },500)
+
+};
+
+
+//定时获取最新的用户信息5分钟
+export const updateUserInfo = () => {
+
+    setInterval(()=>{
+
+        const token = localStorage.getItem("token");
+
+        loginApi({token,method:"GetUserInfo",params:'000'}).then(res=>{
+
+            if (parseInt(res.error)===0&&res.data){
+
+                let UserInfo = {};
+
+                for (let [key, value] of Object.entries(res.data)) {
+                    if (key === "PhotoPath") {
+                        let date = new Date();
+                        let time = date.getTime();
+                        value = value + "?T=" + time;
+                    }
+                    UserInfo[key] = decodeURIComponent(value);
+                }
+
+                sessionStorage.setItem("UserInfo", JSON.stringify(UserInfo));
+
+            }
+
+        });
+
+    },300000);
+
+};
+
+//界面初次加载获取用户信息和验证token
+export const firstPageLoad = (func=()=>{}) => {
+
+    const session_token = sessionStorage.getItem("token");
+
+    const {WebRootUrl=''} = sessionStorage.getItem("LgBasePlatformInfo")?JSON.parse(sessionStorage.getItem("LgBasePlatformInfo")):{};
+
+    const url_token = getQueryVariable("lg_tk"); //lg_tk为链接上带的token
+
+    const local_token = localStorage.getItem("token");
+
+    const preUrl = encodeURIComponent(Public.getLg_tk(window.location.href));
+
+    const url = window.location.href;
+
+
+    if (!session_token && !url_token && !local_token) {
+
+        if (!url.includes("html/admDisconnect")&&!getQueryVariable("lg_preurl")) {
+
+            sessionStorage.clear();
+
+            localStorage.removeItem('token');
+
+            window.location.href = WebRootUrl+"/UserMgr/Login/Login.aspx?lg_preurl="+preUrl;
+
+        }
+
+    }else{
+
+        const token = url_token||local_token||session_token;
+
+        loginApi({token,method:"tokenCheck",params:'300'}).then(res=>{ //如果有返回值
+
+            if (!(parseInt(res.error)===0&&res.data.result)){
+
+                sessionStorage.clear();
+
+                localStorage.removeItem('token');
+
+                window.location.href = WebRootUrl+"/UserMgr/Login/Login.aspx?lg_preurl="+preUrl;
+
+            }else{//token没问题的情况下
+
+
+
+                loginApi({token,method:"GetUserInfo",params:'300'}).then(res=>{
+
+                    if (parseInt(res.error)===0&&res.data){
+
+                        if (parseInt(res.data.LockerState)===1){
+
+                            let UserInfo = {};
+
+                            for (let [key, value] of Object.entries(res.data)) {
+                                if (key === "PhotoPath") {
+                                    let date = new Date();
+                                    let time = date.getTime();
+                                    value = value + "?T=" + time;
+                                }
+                                UserInfo[key] = decodeURIComponent(value);
+                            }
+
+                            sessionStorage.setItem("token",token);
+
+                            localStorage.setItem("token",token);
+
+                            sessionStorage.setItem("UserInfo", JSON.stringify(UserInfo));
+
+
+                            updateUserInfo();
+
+                            checkTokenRepeat();
+
+                            checkIsOnline();
+
+                            func();
+
+                        }else{
+
+                            const {WebRootUrl=''} = sessionStorage.getItem("LgBasePlatformInfo")?JSON.parse(sessionStorage.getItem("LgBasePlatformInfo")):{};
+
+                            window.location.href = WebRootUrl+'LockerMgr/ErrorTips.aspx?ErrorCode='+res.data.LockerState;
+
+                        }
+
+                    }else{//获取用户信息失败
+
+                        LogOut()
+
+                    }
+
+                },err=>{
+
+                    LogOut()
+
+                });
+
+            }
+
+        },err=>{//错误的情况下
+
+            sessionStorage.clear();
+
+            localStorage.removeItem('LgBaseUserInfo');
+
+            localStorage.removeItem('token');
+
+            window.location.href = LoginServerRootUrl+"/UserMgr/Login/Login.aspx?lg_preurl="+preUrl;
+
+        });
+
+    }
+
+};

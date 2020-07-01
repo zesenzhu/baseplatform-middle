@@ -2053,11 +2053,11 @@ const getManagerDesk = async ({UserID,dispatch}) => {
 
 const GetMsgWebServerAddress = async ({dispatch}) => {
 
-    const res = await Method.getGetData('/Base/GetSingleSubsystemServer?SysID=200',1);
+    const res = await Method.getGetData('BaseApi/Global/GetSubSystemsMainServerBySubjectID?appid=000&access_token=4d39af1bff534514e24948568b750f6c&sysIDs=200&subjectID=',1);
 
     if (res.StatusCode===200){
 
-        return res.Data;
+        return res.Data[0];
 
     }else{
 

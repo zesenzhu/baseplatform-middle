@@ -10,7 +10,9 @@ import CONFIG from './js/config';
 
 import dynamicFile from 'dynamic-file';
 
+import {firstPageLoad} from '../common/js/disconnect/index';
 
+import publicJS from '../common/js/public';
 
 class FrameContainer extends Component{
 
@@ -28,6 +30,8 @@ class FrameContainer extends Component{
 
             WebIndexUrl:'/',
 
+            WebRootUrl:'/',
+
             messageShow:true,
 
             showBarner:parseInt(getQueryVariable('showBarner'))===0?false:true,
@@ -36,7 +40,15 @@ class FrameContainer extends Component{
 
             showBottom:parseInt(getQueryVariable('showBottom'))===0?false:true,
 
-            showLeftMenu:parseInt(getQueryVariable('showLeftMenu'))===0?false:true
+            showLeftMenu:parseInt(getQueryVariable('showLeftMenu'))===0?false:true,
+
+            UserInfo:{
+
+                name:'',
+
+                image:''
+
+            }
 
         }
 
@@ -44,39 +56,84 @@ class FrameContainer extends Component{
 
     componentDidMount(){
 
-        const {register} = this.props;
+        const {register,pageInit} = this.props;
 
-        if (register){//是注册界面直接去获取产品名称
+        if (publicJS.IEVersion()){
 
-            this.GetProduct().then(data=>{
+            if (register){//是注册界面直接去获取产品名称
 
-                if (data){
+                this.GetProduct().then(data=>{
 
-                    this.setState({WebIndexUrl:data.WebIndexUrl,ProVersion:data.ProVersion,ProductName:data.ProductName});
+                    if (data){
 
-                }
+                        sessionStorage.setItem("LgBasePlatformInfo",JSON.stringify(data));
 
-            });
-
-        }else{
-
-            if (sessionStorage.getItem('UserInfo')){
-
-                this.IntegrateMsg();
-
-            }else{
-
-                let WaitUserInfo = setInterval(()=>{
-
-                    if (sessionStorage.getItem('UserInfo')){
-
-                        this.IntegrateMsg();
-
-                        clearInterval(WaitUserInfo);
+                        this.setState({WebIndexUrl:data.WebIndexUrl,ProVersion:data.ProVersion,ProductName:data.ProductName});
 
                     }
 
-                },20);
+                });
+
+            }else{
+
+                if (sessionStorage.getItem("LgBasePlatformInfo")){
+
+                    const {WebIndexUrl,ProductName,ProVersion,WebRootUrl} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+
+                    const rootUrl = WebRootUrl[WebRootUrl.length-1]==='/'?WebRootUrl.substring(0,WebRootUrl.length-1):WebRootUrl;
+
+                    this.setState({WebIndexUrl,ProVersion,ProductName,WebRootUrl:rootUrl});
+
+                    firstPageLoad(()=>{
+
+                        this.IntegrateMsg();
+
+                        const { UserName,PhotoPath } = JSON.parse(sessionStorage.getItem("UserInfo"));
+
+                        this.setState({UserInfo:{name:UserName,image:PhotoPath}});
+
+                        if (pageInit){
+
+                            pageInit();
+
+                        }
+
+                    });
+
+                }else{
+
+                    this.GetProduct().then(data=>{
+
+                        if (data){
+
+                            sessionStorage.setItem("LgBasePlatformInfo",JSON.stringify(data));
+
+                            const rootUrl = data.WebRootUrl[data.WebRootUrl.length-1]==='/'?data.WebRootUrl.substring(0,data.WebRootUrl.length-1):data.WebRootUrl;
+
+
+                            this.setState({WebRootUrl:rootUrl,WebIndexUrl:data.WebIndexUrl,ProVersion:data.ProVersion,ProductName:data.ProductName});
+
+                            firstPageLoad(()=>{
+
+                                this.IntegrateMsg();
+
+                                const { UserName,PhotoPath } = JSON.parse(sessionStorage.getItem("UserInfo"));
+
+                                this.setState({UserInfo:{name:UserName,image:PhotoPath}});
+
+                                if (pageInit){
+
+                                    pageInit();
+
+                                }
+
+                            });
+
+                        }
+
+                    });
+
+                }
 
             }
 
@@ -89,55 +146,49 @@ class FrameContainer extends Component{
 
         let token = sessionStorage.getItem('token');
 
+        const {WebRootUrl} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+
         let { UserType,UserClass } = JSON.parse(sessionStorage.getItem('UserInfo'));
-
-        let host = `http://${window.location.host}/`;
-
-        this.GetProduct().then(data=>{
-
-            if (data){
-
-                this.setState({WebIndexUrl:data.WebIndexUrl,ProVersion:data.ProVersion,ProductName:data.ProductName});
-
-            }
-
-        });
 
         if (!(parseInt(UserType)===0&&parseInt(UserClass)===2)){
 
-            this.GetMethod().then(data=>{
+                this.GetMessage().then(data=>{
 
-                if (data){
+                    if (data){
 
-                    let PsnMgrLgAssistantAddr = data.WebSvrAddr;
+                        let PsnMgrLgAssistantAddr = data.WebSvrAddr;
 
-                    sessionStorage.setItem('PsnMgrToken',token);//用户Token
+                        sessionStorage.setItem('PsnMgrToken',token);//用户Token
 
-                    sessionStorage.setItem('PsnMgrMainServerAddr', host); //基础平台IP地址和端口号 形如：http://192.168.129.1:30103/
+                        sessionStorage.setItem('PsnMgrMainServerAddr',WebRootUrl); //基础平台IP地址和端口号 形如：http://192.168.129.1:30103/
 
-                    sessionStorage.setItem('PsnMgrLgAssistantAddr',PsnMgrLgAssistantAddr);
-
-                    dynamicFile([
-
-                        `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/css/lancoo.cp.assistantInfoCenter.css`,
-
-                        `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/jquery-1.7.2.min.js`
-
-                    ]).then(()=>{
+                        sessionStorage.setItem('PsnMgrLgAssistantAddr',PsnMgrLgAssistantAddr);
 
                         dynamicFile([
 
-                            `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/assets/jquery.pagination.js`,
+                            `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/css/lancoo.cp.assistantInfoCenter.css`,
 
-                            `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/lancoo.cp.assistantInfoCenter.js`
+                            `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/jquery-1.7.2.min.js`
 
-                        ])
+                        ]).then(()=>{
 
-                    })
+                            dynamicFile([
 
-                }
+                                `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/assets/jquery.pagination.js`,
 
-            });
+                                `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/lancoo.cp.assistantInfoCenter.js`
+
+                            ])
+
+                        });
+
+                    }else{
+
+                        this.setState({messageShow:false});
+
+                    }
+
+                })
 
         }else{
 
@@ -190,9 +241,9 @@ class FrameContainer extends Component{
     }
 
     //获取消息中心地址和路径
-    async GetMethod(){
+    async GetMessage(){
 
-        const result = await getData(CONFIG.Import+'/Base/GetSingleSubsystemServer?SysID=200',1);
+        const result = await getData(CONFIG.Import+'/Base/GetSingleSubsystemServer?SysID=200&SubjectID=',1);
 
         const res = await result.json();
 
@@ -205,9 +256,11 @@ class FrameContainer extends Component{
     }
 
 
+
+
     render() {
 
-        const { children, type,register,showBarner,showTop, showBottom, module, userInfo, msg, showLeftMenu,contentShow,onLogOut, ...reset } = this.props;
+        const { children, pageInit,type,register,showBarner,showTop, showBottom, module, userInfo, msg, showLeftMenu,contentShow,onLogOut, ...reset } = this.props;
 
         return (
 
@@ -219,7 +272,7 @@ class FrameContainer extends Component{
 
                     module={module}
 
-                    userInfo={userInfo}
+                    userInfo={userInfo?userInfo:this.state.UserInfo}
 
                     showLeftMenu={showLeftMenu===false?false:this.state.showLeftMenu}
 
@@ -238,6 +291,8 @@ class FrameContainer extends Component{
                     ProVersion={this.state.ProVersion}
 
                     WebIndexUrl={this.state.WebIndexUrl}
+
+                    WebRootUrl={this.state.WebRootUrl}
 
                     MessageShow={this.state.messageShow}
 

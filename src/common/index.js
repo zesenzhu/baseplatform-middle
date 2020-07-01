@@ -2673,6 +2673,7 @@ class Frame extends React.Component {
       children,
       register,
       WebIndexUrl,
+      WebRootUrl,
       ProductName = "",
       ProVersion = "",
       type,
@@ -2797,7 +2798,7 @@ class Frame extends React.Component {
                       value=""
                     />
                     <a
-                      href="/html/personalMgr"
+                      href={`${WebRootUrl}/html/personalMgr`}
                       target="_blank"
                       className="frame-home-username"
                       title={userInfo && userInfo.name ? userInfo.name : ""}
@@ -2805,7 +2806,7 @@ class Frame extends React.Component {
                       {userInfo && userInfo.name ? userInfo.name : ""}
                     </a>
                     <a
-                      href="/html/personalMgr"
+                      href={`${WebRootUrl}/html/personalMgr`}
                       target="_blank"
                       className="frame-home-userpic"
                       style={{

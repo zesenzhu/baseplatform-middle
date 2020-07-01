@@ -2,6 +2,33 @@ import logo from '../images/frame/logo.png';
 
 let config = {};
 
+const host = window.location.origin;
+
+const pathName = window.location.pathname;
+
+let pathFolder = '';
+
+if (pathName.includes('/html/')) {
+
+    pathFolder = pathName.split('/html/')[0];
+
+} else if (pathName.includes('.html')) {
+
+    let strArr = window.location.pathname.split('.html')[0].split('/');
+
+    strArr.pop();
+
+    pathFolder = strArr.join('/');
+
+} else {
+
+    pathFolder = pathName;
+
+}
+
+const RootUrl = host + pathFolder;
+
+
 if (process.env.NODE_ENV === 'development'){
 
     config = {
@@ -51,6 +78,8 @@ if (process.env.NODE_ENV === 'development'){
         TextBookProxy:'http://192.168.129.1:30103/SubjectResMgr/TextBookMgr',
         TextBookProxy_2:'http://192.168.2.202:7300/mock/5d7726e0ed0ccd1564c8df05/webCloudDev',
 
+        HashPrevProxy: RootUrl,
+
     }
 
 }
@@ -96,7 +125,7 @@ if (process.env.NODE_ENV === 'production'){
         TextBookProxy:'/SubjectResMgr/TextBookMgr',
         TextBookProxy_2:'/TextBook',
 
-
+        HashPrevProxy: RootUrl
 
     }
 

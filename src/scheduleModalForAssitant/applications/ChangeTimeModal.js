@@ -58,9 +58,10 @@ function ChangeTimeModal(props) {
 
     const { SchoolID,UserID,UserType } = UserInfo;
 
-    const { ItemSchedule=[],NowDate='',NowClassHourNO=0,ItemWeek=[],ItemClassHour=[],ItemClassHourCount=[] } = ScheduleInfo;
+    const { ItemSchedule=[],NowClassDate='',NowClassHourNO=0,ItemWeek=[],ItemClassHour=[],ItemClassHourCount=[] } = ScheduleInfo;
 
     const { WeekNO='',WeekDay='',ClassID='',CourseClassID='',ScheduleType='',ClassRoomID='',ClassRoomName='',ScheduleID,TeacherID='',ClassDate='',ClassHourNO=1 } = ItemSchedule.length>0?ItemSchedule[0]:{};
+
 
     useEffect(()=>{
 
@@ -80,7 +81,7 @@ function ChangeTimeModal(props) {
 
                 setNowClassHour(NowClassHourNO);
 
-                setNowDate(NowDate);
+                setNowDate(NowClassDate);
 
             });
 
@@ -146,7 +147,6 @@ function ChangeTimeModal(props) {
 
     },[ItemWeek]);
 
-
     const TimeList = useMemo(()=>{
 
         let list = [];
@@ -184,7 +184,6 @@ function ChangeTimeModal(props) {
         return list;
 
     },[ItemWeek,weekNO]);
-
 
     const ths = useMemo(()=>{
 
@@ -644,8 +643,6 @@ function ChangeTimeModal(props) {
                                                                 return findDay&&findClassHour;
 
                                                             });
-
-                                                            console.log(findItem);
 
                                                             if (findItem){//当前的课时是否有课程存在
 

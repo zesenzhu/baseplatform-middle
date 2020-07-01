@@ -72,7 +72,7 @@ import SDActions from "../actions/ScheduleDetailActions";
 
 class App extends Component{
 
-    constructor(props) {
+    /*constructor(props) {
 
         super(props);
 
@@ -247,7 +247,90 @@ class App extends Component{
 
         }
 
+    }*/
+
+
+    pageInit(){
+
+        const {dispatch} = this.props;
+
+        const Hash = location.hash;
+
+        //获取公共的信息
+
+        let UserInfo = JSON.parse(sessionStorage.getItem('UserInfo'));
+
+        const { UserType,UserClass } = UserInfo;
+
+        //判断权限
+
+        if (parseInt(UserType)===0||parseInt(UserType)===1||parseInt(UserType)===2){
+
+            if (parseInt(UserType)===0){//判断管理员权限
+
+                QueryPower({UserInfo,ModuleID:'000-2-0-07'}).then(data=>{
+
+                    if (data){
+
+                        dispatch(ModuleCommonActions.getCommonInfo());
+
+                        if (Hash.includes('Import')){
+
+                            dispatch({type:RouterSetActions.ROUTER_SET_TO_IMPORT})
+
+                        }else{
+
+                            dispatch({type:RouterSetActions.ROUTER_SET_TO_DEFAULT})
+
+                        }
+
+                    }else{
+
+                        window.location.href='/Error.aspx?errcode=E011';
+
+                    }
+
+                });
+
+            }else if (parseInt(UserType)===1) {
+
+                let GetAdjustPower =  QueryOtherPower({UserType,SchoolID:UserInfo.SchoolID,Power:'Teacher_Schedule_U'});
+
+                let GetImportPower = QueryOtherPower({UserType,SchoolID:UserInfo.SchoolID,Power:'Teacher_Schedule_C'});
+
+                Promise.all([GetAdjustPower,GetImportPower]).then(res=>{
+
+                    dispatch({type:TeacherPowerActions.TEACHER_POWER_CHANGE,data:{Adjust:res[0],AddImport:res[1]}});
+
+                    dispatch(ModuleCommonActions.getCommonInfo());
+
+                    if (Hash.includes('Import')){
+
+                        dispatch({type:RouterSetActions.ROUTER_SET_TO_IMPORT})
+
+                    }else{
+
+                        dispatch({type:RouterSetActions.ROUTER_SET_TO_DEFAULT})
+
+                    }
+
+                });
+
+            }else{
+
+                dispatch(ModuleCommonActions.getCommonInfo());
+
+            }
+
+        }else{//无权限角色
+
+            window.location.href='/Error.aspx?errcode=E011';
+
+        }
+
     }
+
+
 
     periodChange(key) {
 
@@ -685,12 +768,12 @@ class App extends Component{
                                 enname:ModuleSetting.moduleEnName,
                                 image:ModuleSetting.logo
                             }}
-                            userInfo={{
-                                name:LoginUser.UserName,
-                                image:LoginUser.PhotoPath
-                            }}
+                            // userInfo={{
+                            //     name:LoginUser.UserName,
+                            //     image:LoginUser.PhotoPath
+                            // }}
                             showBarner={RouterSet.router==='/'?ModuleSetting.timeBar:false}
-
+                            pageInit={this.pageInit.bind(this)}
                             type="circle"
 
                         >

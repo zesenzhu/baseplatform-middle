@@ -28,7 +28,7 @@ import logo from "../../images/logo.png";
 
 class App extends Component{
 
-    constructor(props) {
+    /*constructor(props) {
 
         super(props);
 
@@ -72,7 +72,7 @@ class App extends Component{
 
         }
 
-    }
+    }*/
     //点击menu
     menuClick(e){
 
@@ -82,7 +82,17 @@ class App extends Component{
 
     }
 
+    pageInit(){
 
+        const { dispatch } = this.props;
+
+        let UserInfo = JSON.parse(sessionStorage.getItem('UserInfo'));
+
+        dispatch({type:LoginUserActions.UPDATE_LOGIN_USER,data:UserInfo});
+
+        dispatch({type:MCIActions.MODULE_COMMON_INFO_MENU_CHANGE,data:"base"});
+
+    }
 
 
     render() {
@@ -123,13 +133,14 @@ class App extends Component{
                     enname: "Personal Account Management",
                     image: logo
                 }}
-                userInfo={{
+                /*userInfo={{
                     name:LoginUser.UserName,
                     image:BaseSettings.PhotoPath_NoCache?BaseSettings.PhotoPath_NoCache:LoginUser.PhotoPath_NoCache
-                }}
+                }}*/
                 type="triangle"
                 showBarner={false}
                 showLeftMenu={true}
+                pageInit={this.pageInit.bind(this)}
                 >
 
                 <div ref="frame-left-menu">
