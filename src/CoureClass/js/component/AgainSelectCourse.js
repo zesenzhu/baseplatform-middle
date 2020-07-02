@@ -76,7 +76,7 @@ function AgainSelectCourse(props) {
     const { SchoolID,UserID,UserType } = LoginUser;
 
     //function
-    const { modalOk,modalCancel } = props;
+    const { modalOk,modalCancel,lookClassDetail } = props;
 
 
     //ref
@@ -374,9 +374,9 @@ function AgainSelectCourse(props) {
         <Modal
             className="again-select-course-modal"
 
-            bodyStyle={{padding:20}}
+            bodyStyle={{height:400,padding:30}}
 
-            width={640}
+            width={680}
 
             type="1"
 
@@ -437,7 +437,7 @@ function AgainSelectCourse(props) {
 
                                             return(
 
-                                                <Button key={k} type={subList.activeID===i.SubjectID?'primary':''} onClick={e=>subChange(i.SubjectID)}>{i.SubjectName}</Button>
+                                                <Button key={k} className={subList.activeID===i.SubjectID?'active':''} onClick={e=>subChange(i.SubjectID)}>{i.SubjectName}</Button>
 
                                             )
 
@@ -479,7 +479,7 @@ function AgainSelectCourse(props) {
 
                                     <ul className={"course-class-list-wrapper"}>
 
-                                        <Scrollbars style={{height:260}}>
+                                        <Scrollbars style={{height:210}}>
 
                                             {
 
@@ -489,9 +489,13 @@ function AgainSelectCourse(props) {
 
                                                         const activeClassID = activeCourseClass.find(item=>item.SubjectID===subList.activeID)?activeCourseClass.find(item=>item.SubjectID===subList.activeID).CourseClassID:'';
 
-                                                        return <li key={k} className={"clearfix"}>
+                                                        return <li key={i.CourseClassID} className={"clearfix"}>
 
-                                                            <div className={"class-name"} title={i.CourseClassName}>{i.CourseClassName}</div>
+                                                            <div className={"class-name"} >
+
+                                                                <span onClick={e=>lookClassDetail(i.CourseClassID)} title={i.CourseClassName}>{i.CourseClassName}</span>
+
+                                                            </div>
 
                                                             <div className={"teacher-name"} title={i.TeacherName}>{i.TeacherName}</div>
 

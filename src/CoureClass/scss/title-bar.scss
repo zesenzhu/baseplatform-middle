@@ -2,29 +2,79 @@
 
   .title-bar{
 
-    height: 36px;
+    position: relative;
 
-    margin: 22px 32px 0 54px;
+    height: 48px;
+
+    margin: 24px 32px 0 52px;
 
     line-height: 36px;
 
     border-bottom: 1px dashed #cccccc;
 
-    .title-word{
+    &.icon1{
 
-        font-size: 18px;
+      &:after{
 
-        color: #333333;
+        position: absolute;
 
-        font-weight: bold;
+        content: '';
+
+        width: 14px;
+
+        height: 20px;
+
+        background: url('../images/icon-location-small copy.png') no-repeat center;
+
+        left: -20px;
+
+        top: 18px;
+
+      }
 
     }
 
-    .ant-btn-link{
+    .title-word{
+
+      float: left;
+
+      margin-top: 10px;
+
+      font-size: 16px;
+
+      color: #333333;
+
+    }
+
+    .ant-btn{
 
       float: right;
 
       font-size: 16px;
+
+      width: 118px;
+
+      height: 32px;
+
+      background-image: linear-gradient(90deg, #23a1fa 0%, #04caf4 100%), linear-gradient(#ffffff, #ffffff);
+
+      box-shadow: 0 7px 22px -6px #5dcbfe;
+
+      border:0;
+
+      border-radius: 16px;
+
+      outline: none;
+
+      color: #ffffff;
+
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.56);
+
+      &:hover{
+
+        opacity: 0.7;
+
+      }
 
     }
 

@@ -257,13 +257,13 @@ function ChangeCourseClass(props) {
 
             {
 
-                align:'center',
+                align:'left',
 
                 dataIndex:'CourseClassName',
 
                 title:"班级名称",
 
-                width:200,
+                width:260,
 
                 render:(i,k)=>{
 
@@ -281,7 +281,7 @@ function ChangeCourseClass(props) {
 
                 title:"教师姓名",
 
-                width:200,
+                width:160,
 
                 render:(i,k)=>{
 
@@ -299,11 +299,11 @@ function ChangeCourseClass(props) {
 
                 title:"上课人数",
 
-                width:140,
+                width:120,
 
                 render:(i,k)=>{
 
-                    return <div className={"stu-count"}>{i}</div>
+                    return <div className={"stu-count"}>{i}人</div>
 
                 }
 
@@ -319,7 +319,7 @@ function ChangeCourseClass(props) {
 
                 render:(i,k)=>{
 
-                    return <Button type={"primary"} onClick={i.CourseClassID!==activeID?e=>courseSelect(i):()=>{}} className={i.CourseClassID===activeID?'active':''} size={"small"}>{i.CourseClassID===activeID?'已选择':'选择'}</Button>
+                    return <a   onClick={i.CourseClassID!==activeID?e=>courseSelect(i):()=>{}} className={`select ${i.CourseClassID===activeID?'active':''}`} size={"small"}>{i.CourseClassID===activeID?'已选择':'选择'}</a>
 
                 }
 
@@ -334,15 +334,15 @@ function ChangeCourseClass(props) {
         <Modal
             className="change-course-class-modal"
 
-            bodyStyle={{padding:`0 20px`}}
+            bodyStyle={{height:452,padding:0}}
 
-            width={720}
+            width={680}
 
             type="1"
 
             destroyOnClose={true}
 
-            title={`换班-${subjectName}`}
+            title={<span className={"big-title"}>换班 <span className={"little-title"}>-${subjectName}</span></span>}
 
             visible={show}
 

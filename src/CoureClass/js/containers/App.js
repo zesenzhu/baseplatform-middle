@@ -926,6 +926,11 @@ class App extends Component {
     if (route[1] === "Teacher"||(route[1] === "ImportFile"&&DataState.LoginUser.UserType==='1')) {
       cnname = "我的教学班管理";
       enname = "My class Management";
+    }else if (route[1] === "Student") {
+        cnname = "我的教学班";
+        enname = "My CourseClass";
+        
+        
     }
      
     return (

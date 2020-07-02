@@ -2,7 +2,7 @@
 
   .box-top{
 
-    margin-bottom:24px;
+    margin-bottom:16px;
 
     &>*{
 
@@ -35,13 +35,93 @@
 
     .btns-wrapper{
 
+      margin-bottom: -1px;
+
       .ant-btn{
+
+        position: relative;
 
         border-bottom-left-radius:0;
 
         border-bottom-right-radius:0;
 
+        height:28px;
+
+        width: 64px;
+
+        color: #333333;
+
+        background-color: #f1f3f6;
+
+        border:1px solid #f1f3f6;
+
+        border-bottom-color:#bac7d9;
+
+        box-shadow:none;
+
+        &:hover{
+
+          opacity: 0.8;
+
+        }
+
+        &:after{
+
+          position: absolute;
+
+          content: '';
+
+          width: 1px;
+
+          height: 10px;
+
+          background-color: #bac7d9;
+
+          right:1px;
+
+          top: 50%;
+
+          transform: translateY(-50%);
+
+        }
+
+        &:first-child{
+
+          border-top-left-radius:3px;
+
+        }
+
+        &:last-child{
+
+          border-top-right-radius:3px;
+
+          &:after{
+
+            display: none;
+
+          }
+
+        }
+
+        &.active{
+
+          border:1px solid #bac7d9;
+
+          border-bottom:1px solid #ffffff;
+
+          background-color: #ffffff;
+
+          &:after{
+
+            display: none;
+
+          }
+
+        }
+
       }
+
+
 
     }
 
@@ -71,13 +151,17 @@
 
       li{
 
-        height: 30px;
+        margin: 0 22px;
 
-        line-height: 30px;
+        height: 42px;
+
+        line-height: 42px;
+
+        border-bottom: 1px solid #ebebeb;
 
         &:hover{
 
-          background-color: #cccccc;
+          background-color:#efefef;
 
         }
 
@@ -91,19 +175,61 @@
 
         .class-name{
 
-          width:140px;
+          position: relative;
 
-          padding: 0 8px;
+          text-align: left;
+
+          width:160px;
+
+          padding: 0 4px 0 18px;
 
           @include textOverFlow;
+
+          &:after{
+
+            position: absolute;
+
+            content:'';
+
+            left:0;
+
+            top:50%;
+
+            transform: translateY(-50%);
+
+            width: 6px;
+
+            height: 6px;
+
+            border-radius: 50%;
+
+            background-color: #bcced6;
+
+          }
+
+          span{
+
+            color: #0099ff;
+
+            text-decoration: underline;
+            
+            cursor: pointer;
+            
+            &:hover{
+
+              color: #ff6600;
+              
+            }
+
+          }
 
         }
 
         .teacher-name{
 
-          width:140px;
+          width:90px;
 
-          padding: 0 8px;
+          padding: 0 4px;
 
           @include textOverFlow;
 
@@ -111,7 +237,7 @@
 
         .count{
 
-          width:60px;
+          width:46px;
 
           @include textOverFlow;
 
@@ -123,19 +249,30 @@
 
           .ant-btn-primary{
 
-            background-color:#0099ff;
+            background-color:#ffffff;
+
+            border: 1px solid #40cbff;
+
+            color: #0099ff;
+
+            width: 56px;
+
+            font-size: 14px;
 
             &.active{
 
-              background-color:#8ccbff;
+              background-color: #dce7ee;
 
               border-color:transparent;
+
+              color: #5687a8;
 
             }
 
           }
 
         }
+
 
       }
 
@@ -146,7 +283,7 @@
 
   .props{
 
-    width: 22%;
+    width:126px;
 
     text-align: right;
 

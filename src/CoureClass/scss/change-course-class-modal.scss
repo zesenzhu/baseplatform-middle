@@ -10,6 +10,8 @@
 
     float: right;
 
+    margin-right: 20px;
+
   }
 
   .ant-table-tbody{
@@ -18,7 +20,10 @@
 
       padding:10px 0;
 
+      height: 56px;
+
     }
+
 
     .ant-btn-primary{
 
@@ -31,6 +36,84 @@
         border-color:transparent;
 
       }
+
+    }
+
+  }
+
+  .ant-table-thead tr th{
+
+    height: 32px;
+
+    border-top:1px solid #dedede;
+
+    border-bottom:1px solid #dedede;
+
+    .ant-table-column-title{
+
+      line-height: 32px;
+
+      color: #b8b8b8;
+
+    }
+
+    &:first-child{
+
+      .ant-table-header-column{
+
+        text-indent: 48px;
+
+      }
+
+    }
+
+  }
+
+  .course-class-name{
+
+    color: #0249a5;
+    
+    margin-left: 28px;
+
+    padding-left:20px;
+
+    background: url("../images/img-class-icon.png") no-repeat left center;
+
+    background-size: 16px 16px;
+
+    &:hover{
+
+      color: #ff6600;
+      
+      background-image: url("../images/img-class-icon-hover.png");
+      
+    }
+
+  }
+
+  .stu-count{
+
+    color: #999999;
+
+  }
+
+  .select{
+
+    text-decoration: underline;
+
+    color: #0249a5;
+
+    padding-left:18px;
+
+    background: url("../images/img-select-icon.png") no-repeat left center;
+
+    background-size: 16px 16px;
+
+    &:hover{
+
+      background-image:url("../images/img-select-icon-hover.png");
+
+      color: #ff6600;
 
     }
 

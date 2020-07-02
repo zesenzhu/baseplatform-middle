@@ -198,13 +198,13 @@ function Student(props) {
 
                             <span className="title-word">已选课程</span>
 
-                            <Button type={"link"} icon={"plus-circle"} onClick={e=>setAgainSelectCourse(true)}>重新选课</Button>
+                            <Button onClick={e=>setAgainSelectCourse(true)}>重新选课</Button>
 
                         </div>
 
                         <div className={"stu-content-wrapper"}>
 
-                            <Loading spinning={loading} title={"加载中，请稍候..."}>
+                            <Loading spinning={loading} tip={"加载中，请稍候..."}>
 
                                 <ul className={"list-wrapper"}>
 
@@ -215,10 +215,6 @@ function Student(props) {
                                             return(
 
                                                 <div key={k} className="card-box-student">
-
-                                                    <div className="box-3"></div>
-
-                                                    <div className="box-2"></div>
 
                                                     <div className="box-main">
 
@@ -315,6 +311,8 @@ function Student(props) {
                 modalOk={againSelectOk}
 
                 modalCancel={againSelectCancel}
+
+                lookClassDetail={lookClassDetail}
 
             >
 
