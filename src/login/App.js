@@ -107,6 +107,8 @@ function App(props){
 
                         skin = 'cloud_schoolroom';
 
+                        break;
+
                     case 5:
 
                         skin = 'ai_exam';

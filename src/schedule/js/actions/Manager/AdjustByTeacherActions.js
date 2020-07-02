@@ -432,7 +432,7 @@ const teacherDropChange = (info) => {
 
                     if (data.ItemSubject.length===1){
 
-                        const TeacherList = teacherList.filter(item=>item.id===subject.SubjectID)[0].list;
+                        const TeacherList = teacherList.find(item=>item.id===subject.SubjectID)?teacherList.find(item=>item.id===subject.SubjectID).list:[];
 
                         const ReplaceTeacherList = TeacherList.map(item=>{
 
@@ -657,7 +657,7 @@ const TSChange = (e) => {
 
         });
 
-        const TeacherList = teacherList.filter(item=>item.id===SubjectID)[0].list;
+        const TeacherList = teacherList.find(item=>item.id===SubjectID)?teacherList.find(item=>item.id===SubjectID).list:[];
 
         const ReplaceTeacherList = TeacherList.map(item=>{
 
