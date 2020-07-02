@@ -125,6 +125,26 @@
 
     }
 
+    &.active{
+
+      background-image: none;
+
+      color: #999999;
+
+      padding:0;
+
+      cursor: default;
+
+      &:hover{
+
+        background-image: none;
+
+        color: #999999;
+
+      }
+
+    }
+
   }
 
 }
