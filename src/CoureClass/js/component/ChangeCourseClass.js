@@ -342,7 +342,7 @@ function ChangeCourseClass(props) {
 
             destroyOnClose={true}
 
-            title={<span className={"big-title"}>换班 <span className={"little-title"}>-${subjectName}</span></span>}
+            title={<span className={"big-title"}>换班 <span className={"little-title"}>- {subjectName}</span></span>}
 
             visible={show}
 
