@@ -485,6 +485,102 @@ function Content(props) {
 
                         <div className="cloud_schoolroom_left_introduce">
 
+                            <div className={"setting"}>
+
+                                <i className={"icon"}></i>
+
+                                <div className={"point-wrapper"}>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                </div>
+
+                            </div>
+
+                            <div className={"video"}>
+
+                                <i className={"icon"}></i>
+
+                                <div className={"point-wrapper"}>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                </div>
+
+                            </div>
+
+                            <div className={"cap"}>
+
+                                <i className={"icon"}></i>
+
+                                <div className={"point-wrapper"}>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                </div>
+
+                            </div>
+
+                            <div className={"book"}>
+
+                                <i className={"icon"}></i>
+
+                                <div className={"point-wrapper"}>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                    <i className={"point"}></i>
+
+                                </div>
+
+                            </div>
+
 
 
                         </div>
