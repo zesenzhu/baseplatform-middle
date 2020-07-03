@@ -2,13 +2,209 @@
 
   position: relative;
 
-  width: 532px;
+  width: 450px;
 
-  height: 620px;
+  height: 528px;
 
   background:url("#{$cloudSchoolRoomUrl}/cloud-schoolroom-content-img.png") no-repeat center;
 
   background-size: cover;
+
+
+  &>div{
+
+    position: absolute;
+
+    background: url("#{$cloudSchoolRoomUrl}/cloud-schoolroom-light-bottom.png") no-repeat center;
+
+    width: 72px;
+
+    height: 98px;
+
+  }
+
+  .setting{
+
+    left: 22px;
+
+    top: 130px;
+
+    .icon{
+
+      width: 48px;
+
+      height: 48px;
+
+      background-image: url("#{$cloudSchoolRoomUrl}/cloud-schoolroom-setting.png");
+
+    }
+
+  }
+
+  .video{
+
+    right: 48px;
+    top: 128px;
+
+    .icon{
+
+      width: 52px;
+
+      height: 50px;
+
+      background-image: url("#{$cloudSchoolRoomUrl}/cloud-schoolroom-video.png");
+
+    }
+
+  }
+
+  .cap{
+
+    right: 48px;
+
+    bottom: 130px;
+
+    .icon{
+
+      width: 70px;
+
+      height: 48px;
+
+      background-image: url("#{$cloudSchoolRoomUrl}/cloud-schoolroom-cap.png");
+
+    }
+
+  }
+
+  .book{
+
+    left: 22px;
+
+    bottom: 130px;
+
+    .icon{
+
+      width: 46px;
+
+      height: 52px;
+
+      background-image: url("#{$cloudSchoolRoomUrl}/cloud-schoolroom-book.png");
+
+    }
+
+  }
+
+  .icon{
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 20px;
+
+    z-index: 1;
+
+    transform: translateX(-50%);
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-repeat: no-repeat;
+
+    animation: cloud-classroom-icon-move 2s ease-out infinite alternate;
+
+  }
+
+  .point-wrapper{
+
+    position: absolute;
+
+    width: 100%;
+
+    height: 100%;
+
+    left: 0;
+
+    top:0;
+
+    z-index: 2;
+
+  }
+
+  .point{
+
+    position: absolute;
+
+    width: 4px;
+
+    height: 4px;
+
+    bottom:0;
+
+    opacity:0;
+
+    background: url("#{$cloudSchoolRoomUrl}/cloud-schoolroom-point.png") no-repeat center;
+
+    background-size: cover;
+
+    &:nth-child(1){
+
+      left: 8px;
+
+      animation: cloud-classroom-point-move 1.6s linear infinite;
+
+    }
+
+    &:nth-child(2){
+
+      left: 16px;
+
+      animation: cloud-classroom-point-move 1.6s 0.5s linear infinite;
+
+    }
+
+    &:nth-child(3){
+
+      left: 24px;
+
+      animation: cloud-classroom-point-move 1.6s 1s linear infinite;
+
+    }
+
+    &:nth-child(4){
+
+      left: 32px;
+
+      animation: cloud-classroom-point-move 1.6s 1.5s linear infinite;
+
+    }
+
+    &:nth-child(5){
+
+      left: 40px;
+
+      animation: cloud-classroom-point-move 1.6s 2s linear infinite;
+
+    }
+
+    &:nth-child(6){
+
+      left: 48px;
+
+      animation: cloud-classroom-point-move 1.6s 2.5s linear infinite;
+
+    }
+
+    &:nth-child(7){
+
+      left: 56px;
+
+      animation: cloud-classroom-point-move 1.6s 3s linear infinite;
+
+    }
+
+  }
 
 }
 
@@ -16,11 +212,11 @@
 
   background-image: url("#{$cloudSchoolRoomUrl}/cloud-schoolroom-login-wrapper.png");
 
-  margin-left:200px;
+  margin-left:290px;
 
   width:446px;
 
-  height:466px;
+  height:472px;
 
   padding: 18px 64px;
 
@@ -64,7 +260,102 @@
 
     background: url("#{$cloudSchoolRoomUrl}/cloud-schoolroom-light.png") no-repeat center;
 
+    animation:cloud-classroom-light-move 20s linear infinite alternate;
+
+  }
+
+  .normal-wrapper{
+
+    &>.title{
+
+      padding-top:30px;
+
+    }
+
+  }
+
+  .ant-input::-webkit-input-placeholder {
+    color:rgba(255,255,255,0.6);
+  }
+  .ant-input:-moz-placeholder {
+    /* Firefox 18- */
+    color:rgba(255,255,255,0.6);
+  }
+  .ant-input::-moz-placeholder {
+    /* Firefox 19+ */
+    color:rgba(255,255,255,0.6);
+  }
+  .ant-input:-ms-input-placeholder {
+    color:rgba(255,255,255,0.6);
   }
 
 }
 
+
+//图标上下浮动
+@keyframes cloud-classroom-icon-move {
+
+
+  from{
+
+    transform: translate(-50%,0px);
+
+  }
+
+  to{
+
+    transform: translate(-50%,-16px);
+
+  }
+
+}
+
+
+//光点粒子
+@keyframes cloud-classroom-point-move {
+
+
+  0%{
+
+    transform: translateY(0px);
+
+    opacity: 0;
+
+  }
+
+  40%{
+
+    transform: translateY(-24px);
+
+    opacity: 1;
+
+  }
+
+  100%{
+
+    transform: translateY(-60px);
+
+    opacity: 0;
+
+  }
+
+}
+
+//光源移动
+@keyframes cloud-classroom-light-move {
+
+
+  0%{
+
+    transform: translateX(0px);
+
+  }
+
+
+  100%{
+
+    transform: translateX(206px);
+
+  }
+
+}
