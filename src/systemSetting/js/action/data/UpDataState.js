@@ -209,7 +209,7 @@ const GetNodeInfoData = ({ upId, func = () => {} }) => {
       })
     );
     // let url = TextBookProxy_2 + "/GetNodeInfo?upId=" + upId;
-    let url = TextBookProxy + "/GetNodeInfo?upId=" + upId;
+    let url = TextBookProxy + "/GetChildNodes?upId=" + upId;
     getData(url, 2)
       .then((res) => {
         return res.json();
