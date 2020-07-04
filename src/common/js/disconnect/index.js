@@ -796,7 +796,7 @@ export const firstPageLoad = (func=()=>{}) => {
 
         const token = url_token||local_token||session_token;
 
-        loginApi({token,method:"tokenCheck",params:'300'}).then(res=>{ //如果有返回值
+        loginApi({token,method:"tokenCheck",params:'000'}).then(res=>{ //如果有返回值
 
             if (!(parseInt(res.error)===0&&res.data.result)){
 
@@ -810,7 +810,7 @@ export const firstPageLoad = (func=()=>{}) => {
 
 
 
-                loginApi({token,method:"GetUserInfo",params:'300'}).then(res=>{
+                loginApi({token,method:"GetUserInfo",params:'000'}).then(res=>{
 
                     if (parseInt(res.error)===0&&res.data){
 
