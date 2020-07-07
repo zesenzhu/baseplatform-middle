@@ -146,50 +146,6 @@ class StudentContent extends Component{
 
             const ThisClassID = info.id;
 
-            /*let stuIDList = StudentsCheckList.map((item) => { return JSON.parse(item).id});
-
-            UpDataState.adjustClass({ClassID:AdjustClassModal.classChecked.value,UserIDs:stuIDList.join(','),dispatch}).then(data=>{
-
-                if (data ===0 ){
-
-                    dispatch({type:UpDataState.STUDENT_WRAPPER_LOADING_SHOW});
-
-                    dispatch({type:UpUIState.ADJUST_CLASS_MODAL_HIDE});
-
-                    /!*dispatch(AppAlertActions.alertSuccess({title:"调班成功"}));*!/
-
-                    dispatch(AASActions.AlertSuccess({title:"调班成功！"}));
-
-                    dispatch({type:UpDataState.STUDENTS_CHECK_LIST_CHANGE,list:[]});
-
-                    dispatch({type:UpDataState.STUDENTS_CHECKED_NONE});
-
-                    UpDataState.getStudents({ClassID:info.id,PageIndex:0,PageSize:12,dispatch}).then(data=>{
-
-                        if (data){
-
-                            const PlainList = data.List.map(item =>{return JSON.stringify({id:item.UserID,name:item.UserName})})
-
-                            dispatch({type:UpDataState.GET_THE_CLASS_STUDENTS,data:data});
-
-                            dispatch({type:UpDataState.INIT_STUDEUNT_PLAIN_OPTIONS,data:PlainList});
-
-                            dispatch({type:PaginationActions.STUDENT_PAGINATION_CURRENT_UPDATE,data:1});
-
-                            dispatch({type:PaginationActions.STUDENT_PAGINATION_TOTAL_UPDATE,data:data.Total});
-
-                        }
-
-                        dispatch({type:UpDataState.STUDENT_WRAPPER_LOADING_HIDE});
-
-
-                    })
-
-                }
-
-            })
-*/
-
             dispatch(AppAlertActions.alertQuery({title:"确定进行调班吗？",ok:e=>this.adjustClassSure.bind(this,{AdjustClassID,UserIDs,ThisClassID})}));
 
         }

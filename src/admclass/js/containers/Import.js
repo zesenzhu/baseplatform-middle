@@ -64,7 +64,7 @@ class Import extends Component{
 
     }
 
-    componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props) {
 
         const {ModuleSetting, UIState,dispatch} = props;
 

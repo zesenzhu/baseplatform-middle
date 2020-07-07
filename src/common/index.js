@@ -389,7 +389,7 @@ class Empty extends React.Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
 
         const { style } = nextProps;
 
@@ -522,7 +522,7 @@ class Modal extends React.Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
 
         const { title } = nextProps;
 
@@ -1250,7 +1250,7 @@ class DropDown extends React.Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
 
         const { dropSelectd } = nextProps;
 
@@ -2327,7 +2327,7 @@ class Menu extends React.Component {
         });
         this.paramsDeconstruction(this.props)
     }
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
 
         this.paramsDeconstruction(nextProps)//props有变化时执行
 
@@ -2658,7 +2658,7 @@ class Frame extends React.Component {
 
     }
 
-    componentDidUpdate(){
+    UNSAFE_componentWillReceiveProps(){
 
         if(window.AppRightContentChange){
 

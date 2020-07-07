@@ -83,7 +83,7 @@ class ClassContent extends Component{
 
         dispatch({type:UpUIState.CHANGE_CLASS_ACTIVE,info:{id,name,preName:info.name,preId:info.id}});
 
-        $('.frame_leftmenu_mainitem').removeClass('active');
+        /*$('.frame_leftmenu_mainitem').removeClass('active');
 
         $('.frame_leftmenu_mainitem').removeClass('selected');
 
@@ -99,7 +99,7 @@ class ClassContent extends Component{
 
             }
 
-        })
+        })*/
 
     }
 
