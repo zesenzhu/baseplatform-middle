@@ -865,16 +865,18 @@ class EditModal extends React.Component {
     let SubjectListChange =
       DataState.SubjectTeacherMsg.returnData.SubjectListChange;
     let TeacherChangeMsg = {};
-    let Options = SubjectListChange.map((child, index) => {
+    let Options = []
+    SubjectListChange instanceof Array&&SubjectListChange.map((child, index) => {
       TeacherChangeMsg[child.value] = child.title;
-      return child.value;
+      Options.push(child.value) ;
     });
 
-    let map = Options.map((opt, index) => {
+    let map = []
+    Options.map((opt, index) => {
       // if(index>2){
       //   return ''
       // }
-      return (
+      map.push(
         <CheckBox
           type="gray"
           className={"checkedBoxMap"}
