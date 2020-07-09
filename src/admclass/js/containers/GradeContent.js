@@ -82,7 +82,7 @@ class GradeContent extends Component{
         dispatch({type: UpUIState.CHANGE_GRADE_ACTIVE, info: {id: id, name: name}});
 
 
-        $('.frame_leftmenu_mainitem').removeClass('active');
+        /*$('.frame_leftmenu_mainitem').removeClass('active');
 
         $('.frame_leftmenu_mainitem').removeClass('selected');
 
@@ -94,7 +94,7 @@ class GradeContent extends Component{
 
             }
 
-        })
+        })*/
 
     }
 
@@ -102,7 +102,7 @@ class GradeContent extends Component{
 
         const { dispatch} = this.props;
 
-        $('.frame_leftmenu_mainitem').removeClass('active');
+        /*$('.frame_leftmenu_mainitem').removeClass('active');
 
         $('.frame_leftmenu_mainitem').removeClass('selected');
 
@@ -126,7 +126,7 @@ class GradeContent extends Component{
 
             }
 
-        })
+        })*/
 
     }
 

@@ -952,6 +952,9 @@ class App extends Component{
 
         }
 
+
+        console.log("查找循环1");
+
     }
 
 
@@ -1260,6 +1263,8 @@ class App extends Component{
 
         }
         //初始化所有的教师和学科的数据
+
+        console.log(111);
 
 
     }

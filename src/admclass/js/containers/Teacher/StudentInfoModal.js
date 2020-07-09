@@ -67,7 +67,7 @@ class StudentInfoModal extends Component {
 
     }*/
 
-   /* componentWillReceiveProps(nextProps) {
+   /* UNSAFE_componentWillReceiveProps(nextProps) {
         const { DataState } = nextProps
         if (DataState.GetPicUrl.picUrl && DataState.GetPicUrl.picUrl !== this.state.option.resWebUrl) {
             let option = this.state.option;
