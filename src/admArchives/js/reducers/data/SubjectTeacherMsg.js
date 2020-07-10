@@ -16,7 +16,9 @@ function handleData(data) {
     
     return {SubjectList:newSubject,SubjectListChange:SubjectListChange}
 }
-const SubjectTeacherMsg = (state={},actions)=>{
+const SubjectTeacherMsg = (state={
+    returnData:{SubjectListChange:[]}
+},actions)=>{
     let returnData = {grades:null};
     switch (actions.type) {
         case UpDataState.GET_SUBJECT_TEACHER_MSG:
