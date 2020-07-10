@@ -1,14 +1,14 @@
-import React,{useEffect,useState} from 'react';
+import React,{useEffect,useState,useCallback} from 'react';
 
 import { connect } from 'react-redux';
 
 import './assets/scss/index.scss';
 
-import { Loading,Alert } from "../common";
+import { Loading,Alert,CheckBox } from "../common";
 
 import {getQueryVariable} from "../common/js/disconnect";
 
-import {getNewTkUrl,goToNextPage,decodeObjValue} from "./api/utils";
+import {getNewTkUrl,goToNextPage,decodeObjValue,removeSlashUrl} from "./api/utils";
 
 import { GetBaseInfo,loginApi,GetSystemsMainServer } from './api/index';
 
@@ -27,6 +27,21 @@ import BottomFloor from './application/BottomFloor';
 function App(props){
 
     const [AppLoading,setAppLoading] = useState(true);
+
+    //智慧校园的链接
+    const [aiSchoolLink,setAiSchoolLink] = useState({
+
+       schoolWeb:'',
+
+       education:'',
+
+       downLoad:''
+
+    });
+
+    //默认不选择不再提示
+
+    const [unCheckedTips,setUnCheckedTips] = useState(false);
 
     const { commSetting,slider,appAlert,dispatch } = props;
 
@@ -97,9 +112,13 @@ function App(props){
 
                         break;
 
+                    case 0:
+
                     case 3:
 
                         skin = 'ai_school';
+
+                        getAiSchoolLink();
 
                         break;
 
@@ -116,6 +135,7 @@ function App(props){
                         break;
 
                 }
+
 
 
                 if (parseInt(data.ProductType)===2||parseInt(data.ProductType)===5){
@@ -398,7 +418,6 @@ function App(props){
 
         }
 
-
     };
 
 
@@ -437,7 +456,29 @@ function App(props){
 
             if (!result) {
 
-                dispatch(showWarnAlert({title: '检测到未安装基础插件包，为确保功能正常，请先下载安装', ok: e=>downLoadBase({ClinetDownUrl,dispatch}),okTitle:"确定下载"}));
+                const NoCheck = localStorage.getItem("LgBasePluginsNoCheck");
+
+                if (NoCheck!=='true'){
+
+                    dispatch(showWarnAlert({title:<div className={"prompt"}>
+
+                            <div className={"title"}>检测到未安装基础插件包，为确保功能正常，请先下载安装</div>
+
+                            <div className={"no-check-tips"}>
+
+                                <CheckBox checked={unCheckedTips} onClick={e=>baseCheckChange(ClinetDownUrl)}>不再提示</CheckBox>
+
+                            </div>
+
+                        </div>,
+
+                        ok: e=>downLoadBase({ClinetDownUrl,dispatch}),
+
+                        okTitle:"确定下载"
+
+                    }));
+
+                }
 
                 dispatch(changePluginStatus(false));
 
@@ -524,6 +565,82 @@ function App(props){
     };
 
 
+    //获取智慧校园的右上角产品地址
+
+    const getAiSchoolLink = ()=>{
+
+        GetSystemsMainServer({appid:'000',access_token:'4d39af1bff534514e24948568b750f6c',sysIDs:'E46,E34,260',dispatch}).then(res=>{
+
+            const list = res&&res.length>0?res:[];
+
+            let downLoad='',education='',schoolWeb='';
+
+            list.map(i=>{
+                
+               switch (i.SysID) {
+
+                   case "260":
+
+                       downLoad = removeSlashUrl(i.WebSvrAddr?i.WebSvrAddr:'');
+
+                       break;
+
+                   case "E46":
+
+                       schoolWeb = removeSlashUrl(i.WebSvrAddr?i.WebSvrAddr:'');
+
+                       break;
+
+                   case "E34":
+
+                       education = removeSlashUrl(i.WebSvrAddr?i.WebSvrAddr:'');
+
+                       break;
+
+               } 
+                
+            });
+
+            setAiSchoolLink(d=>({...d,downLoad,education,schoolWeb}));
+
+        })
+
+    };
+
+
+    //切换是否提示的按钮
+
+    const baseCheckChange = (ClinetDownUrl)=> {
+
+        setUnCheckedTips(d => {
+
+            localStorage.setItem("LgBasePluginsNoCheck", !d);
+
+            dispatch(showWarnAlert({
+
+                title: <div className={"prompt"}>
+
+                    <div className={"title"}>检测到未安装基础插件包，为确保功能正常，请先下载安装</div>
+
+                    <div className={"no-check-tips"}>
+
+                        <CheckBox checked={!d} onClick={e=>baseCheckChange(ClinetDownUrl)}>不再提示</CheckBox>
+
+                    </div>
+
+                </div>,
+
+                ok: e => downLoadBase({ClinetDownUrl,dispatch}),
+
+                okTitle: "确定下载"
+
+            }));
+
+            return !d;
+
+        });
+
+    };
 
 
 
@@ -564,9 +681,9 @@ function App(props){
 
                     <>
 
-                        <TopFloor picChange={slideChange}></TopFloor>
+                        <TopFloor  aiSchoolLink={aiSchoolLink} picChange={slideChange}></TopFloor>
 
-                        <BottomFloor slideChange={slideChange} slider={slider} skin={skin}></BottomFloor>
+                        <BottomFloor  slideChange={slideChange} slider={slider} skin={skin}></BottomFloor>
 
                     </>
 

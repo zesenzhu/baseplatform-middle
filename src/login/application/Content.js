@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useRef,Fragment} from 'react';
+import React,{useState,useEffect,useRef,Fragment,useCallback,useMemo} from 'react';
 
 import { Input,Button } from "antd";
 
@@ -8,7 +8,9 @@ import {loginApi} from "../api";
 
 import {getQueryVariable} from "../../common/js/disconnect";
 
-import {Modal,Loading} from "../../common";
+import {Modal, Loading, CheckBox} from "../../common";
+
+import {removeSlashUrl} from "../api/utils";
 
 import {connect} from 'react-redux';
 
@@ -22,7 +24,7 @@ function Content(props) {
     const [bluePicList,setBluePicList] = useState([0,1,2,3]);
 
     //aibPic
-    const [aiPicList,setAiPicList] = useState([0,1,2]);
+    const [aiPicList,setAiPicList] = useState([0,1,2,3]);
 
     const [techPicList,setTechPicList] = useState([0,1,2]);
 
@@ -56,17 +58,32 @@ function Content(props) {
 
     });
 
+
+
+    //默认不选择不再提示
+
+    const [unCheckedTips,setUnCheckedTips] = useState(false);
+
+
+    //是否展示登录title
+
+    const [showSchoolLogo,setShowSchoolLogo] = useState(false);
+
+
     const [delPwdBtn,setDelPwd] = useState(false);
 
     const accountInput = useRef();
 
     const pwdInput = useRef();
 
+    //不再提示的选择
+
+    const unCheckedTipsRef = useRef();
 
 
     const { introduce,commSetting,picChange,dispatch } = props;
 
-    const { skin,OpenSetInfo,basePlugin,WebIndexUrl,ClinetDownUrl,WebRootUrl } = commSetting;
+    const { skin,OpenSetInfo,basePlugin,WebIndexUrl,ClinetDownUrl,WebRootUrl,ResHttpRootUrl } = commSetting;
 
     let { active } = introduce[skin]?introduce[skin]:{};
 
@@ -76,7 +93,28 @@ function Content(props) {
 
         if (skin!=='ai_school'&&skin!=='dark_tech'&&skin!=='ai_exam') return;
 
-        let timer = setTimeout(()=>{
+        let timer = null;
+
+        if (skin==='ai_school'){
+
+            timer = setTimeout(()=>{
+
+                if (active===3){
+
+                    picChange(0)
+
+                }else{
+
+                    picChange(active+1);
+
+                }
+
+
+            },4000);
+
+        }else{
+
+            timer = setTimeout(()=>{
 
                 if (active===2){
 
@@ -90,6 +128,8 @@ function Content(props) {
 
 
             },4000);
+
+        }
         
         return ()=>{
 
@@ -113,17 +153,41 @@ function Content(props) {
 
             if (pwd){
 
-                if (basePlugin){//如果是已安装插件包就不需要提示直接进行
+                const NoCheck = localStorage.getItem("LgBasePluginsNoCheck");
 
-                    loginFnc();
+                if (NoCheck!=='true'){
+
+                    if (basePlugin){//如果是已安装插件包就不需要提示直接进行
+
+                        loginFnc();
+
+                    }else{
+
+                        dispatch(showWarnAlert({
+
+                            title:<div className={"prompt"}>
+
+                                <div className={"title"}>检测到未安装基础插件包，为确保功能正常，请先下载安装</div>
+
+                                <div className={"no-check-tips"}>
+
+                                    <CheckBox checked={unCheckedTips} onClick={baseCheckChange}>不再提示</CheckBox>
+
+                                </div>
+
+                            </div>,
+
+                            okTitle:'确定下载',cancelTitle:'直接登录',okShow:'y',cancelShow:'y',ok:downLoadBase,cancel:()=>{
+
+                                loginFnc();
+
+                        }}));
+
+                     }
 
                 }else{
 
-                    dispatch(showWarnAlert({title:"检测到未安装基础插件包，为确保功能正常，请先下载安装",okTitle:'确定下载',cancelTitle:'直接登录',okShow:'y',cancelShow:'y',ok:downLoadBase,cancel:()=>{
-
-                            loginFnc();
-
-                        }}))
+                    loginFnc();
 
                 }
 
@@ -380,6 +444,69 @@ function Content(props) {
         pwdInput.current.focus();
 
     };
+
+
+    //切换是否提示的按钮
+
+    const baseCheckChange = ()=>{
+
+        setUnCheckedTips(d => {
+
+            localStorage.setItem("LgBasePluginsNoCheck",!d);
+
+            unCheckedTipsRef.current = !d;
+
+            dispatch(showWarnAlert({
+
+                title:<div className={"prompt"}>
+
+                    <div className={"title"}>检测到未安装基础插件包，为确保功能正常，请先下载安装</div>
+
+                    <div className={"no-check-tips"}>
+
+                        <CheckBox checked={unCheckedTipsRef.current} onClick={baseCheckChange}>不再提示</CheckBox>
+
+                    </div>
+
+                </div>,
+
+                okTitle:'确定下载',cancelTitle:'直接登录',okShow:'y',cancelShow:'y',ok:downLoadBase,cancel:()=>{
+
+                    loginFnc();
+
+                }}));
+
+            return !d;
+
+        });
+
+    };
+
+
+    //智慧校园图片加载成功 loaded
+
+    const imgLoaded = useCallback((e)=>{
+
+        setShowSchoolLogo(true);
+
+    },[]);
+
+    //智慧校园图片加载失败 fail
+
+    const imgFail = useCallback((e)=>{
+
+        setShowSchoolLogo(false);
+
+    },[]);
+
+
+    //学校图标
+    const schoolLogoUrl = useMemo(()=>{
+
+        return `${removeSlashUrl(ResHttpRootUrl)}/Base/Product/SchoolLogo.png`
+
+    },[ResHttpRootUrl]);
+
 
 
     return(
@@ -745,7 +872,28 @@ function Content(props) {
 
                         <div className={"normal-wrapper"}>
 
-                            <div className="title">欢迎您，请登录</div>
+                            {
+
+                                showSchoolLogo?
+
+                                    <i className={"ai_school_logo"} style={{backgroundImage:`url(${schoolLogoUrl})`}}></i>
+
+                                    :
+
+                                    <div className="title">欢迎您，请登录</div>
+
+                            }
+
+
+                            {
+
+                                skin==='ai_school'?
+
+                                    <img style={{display:'none'}} onError={imgFail} onLoad={imgLoaded} src={schoolLogoUrl}/>
+
+                                    :null
+
+                            }
 
                             <div className={"account_wrapper"}>
 
@@ -764,6 +912,8 @@ function Content(props) {
                             </div>
 
                             <div className={"forget_pwd_wrapper"}>
+
+                                <a href={ClinetDownUrl} target="_blank" className={"download_client"}>下载基础插件包</a>
 
                                 <a className={"forget_pwd link"} target={"_blank"} target={"_blank"} href={`${WebRootUrl}/UserMgr/Login/GetPwdBack/CheckUserID.aspx`} >忘记密码?</a>
 

@@ -150,6 +150,31 @@ function BottomFloor (props){
 
                     <Carousel effect="fade" autoplay={true} dots={false} afterChange={slideChange} easing={"easy-in-out"}>
 
+
+                        <div className={"swiper-slide dark_blue_slide slider1"} >
+
+                            <div className={"star-wrapper"}>
+
+                                <i className={"star1 star"}></i>
+
+                                <i className={"star2 star"}></i>
+
+                                <i className={"star3 star"}></i>
+
+                                <i className={"star4 star"}></i>
+
+                                <i className={"star5 star"}></i>
+
+                                <i className={"star6 star"}></i>
+
+                                <i className={"star7 star"}></i>
+
+                                <i className={"star8 star"}></i>
+
+                            </div>
+
+                        </div>
+
                         <div className={"animate-wrapper"}>
 
                             <div className={"swiper-slide dark_blue_slide slider3"}>

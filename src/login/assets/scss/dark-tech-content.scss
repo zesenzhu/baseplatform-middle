@@ -302,6 +302,22 @@
 
     }
 
+    .download_client{
+
+      color:rgba(255,255,255,0.8);
+
+      background-image: url("../images/download-icon2.png");
+
+      &:hover{
+
+        color:rgba(255,255,255,0.6);
+
+        background-image: url("../images/download-icon2-hover.png");
+
+      }
+
+    }
+
     .to-login{
 
       width:328px;
