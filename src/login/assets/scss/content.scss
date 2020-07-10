@@ -34,19 +34,27 @@
 
     text-decoration: underline;
 
-    padding-left:20px;
-
-    background: url("../images/download-icon.png") no-repeat left center;
-
     &:hover{
-
-      background-image: url("../images/download-icon-hover.png");
 
       color: #ff6600;
 
     }
 
-    animation:downLoadSparkle 0.5s ease-in-out alternate infinite;
+    &.sparkle{
+
+      padding-left:20px;
+
+      background: url("../images/download-icon.png") no-repeat left center;
+
+      animation:downLoadSparkle 0.5s ease-in-out alternate infinite;
+
+      &:hover{
+
+        background-image: url("../images/download-icon-hover.png");
+
+      }
+
+    }
 
   }
 
@@ -80,7 +88,7 @@
 }
 
 
-//下载闪烁动画
+
 @keyframes downLoadSparkle {
 
   from{
