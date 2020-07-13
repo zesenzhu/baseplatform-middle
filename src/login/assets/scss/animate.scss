@@ -284,11 +284,12 @@
 
     opacity:1;
 
-    bottom:30px;
+    bottom:0;
 
   }
 
 }
+
 
 
 //aiSchool介绍部分的文字的动画
@@ -298,7 +299,7 @@
 
     opacity:0;
 
-    top:400px;
+    bottom:-30px;
 
   }
 
@@ -306,7 +307,7 @@
 
     opacity:1;
 
-    top:340px;
+    bottom:0;
 
   }
 

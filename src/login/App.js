@@ -136,10 +136,7 @@ function App(props){
 
                 }
 
-
-
                 if (parseInt(data.ProductType)===2||parseInt(data.ProductType)===5){
-
 
                     const appid = '000';
 
@@ -183,8 +180,12 @@ function App(props){
 
         dispatch(changeSetting({skin,...data,footer:data.ProVersion}));
 
+        setAppLoading(false);
+
         //判断锁控是否正常
+
         if (parseInt(data.LockerState)===1&&data.ClinetDownUrl){
+
 
             const token = sessionStorage.getItem('token')?sessionStorage.getItem('token'):localStorage.getItem('token');
 

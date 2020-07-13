@@ -13,9 +13,11 @@
 
     &.pic2{
 
-      background-image: url("#{$darkBlueUrl}/dark-blue-pic1.png");
+      background-image: url("#{$aiSchoolRoomUrl}/ai-school-pic2.png");
 
       @include animation(bluePicAnimation 1.5s forwards);
+
+
 
     }
 
@@ -27,7 +29,13 @@
 
     }
 
+    &.pic4{
 
+      background-image: url("#{$darkBlueUrl}/dark-blue-pic2.png");
+
+      @include animation(bluePicAnimation 1.5s forwards);
+
+    }
 
   }
 

@@ -2,7 +2,7 @@
 
   position: relative;
 
-  width: 570px;
+  width: 690px;
 
   height: 448px;
 
@@ -14,7 +14,7 @@
 
     position: absolute;
 
-    bottom:32px;
+    bottom:0;
 
     width: 100%;
 
@@ -80,13 +80,13 @@
 
     position: absolute;
 
-    top:20px;
+    top:-20px;
 
-    left:34px;
+    left:76px;
 
-    width: 526px;
+    width: 560px;
 
-    height: 318px;
+    height: 400px;
 
     background-repeat: no-repeat;
 
@@ -130,6 +130,7 @@
 
   }
 
+
 }
 
 .dark_blue_sign_wrapper,.ai_school_sign_wrapper,.ai_exam_sign_wrapper{
@@ -138,7 +139,7 @@
 
   width: 428px;
 
-  margin-left: 130px;
+  margin-left:80px;
 
   background-color: #ffffff;
 

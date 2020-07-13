@@ -48,7 +48,7 @@ function Content(props) {
 
     const [modalUrl,setModalUrl] = useState('');
 
-    const [loginLoading,setLoginLoading] = useState(false);
+    const [loginLoading,setLoginLoading] = useState(true);
 
     const [delAccountBtn,setDelAccount] = useState(()=>{
 
@@ -83,7 +83,7 @@ function Content(props) {
 
     const { introduce,commSetting,picChange,dispatch } = props;
 
-    const { skin,OpenSetInfo,basePlugin,WebIndexUrl,ClinetDownUrl,WebRootUrl,ResHttpRootUrl } = commSetting;
+    const { skin,OpenSetInfo,basePlugin,isCheckBasePlugin,WebIndexUrl,ClinetDownUrl,WebRootUrl,ResHttpRootUrl } = commSetting;
 
     let { active } = introduce[skin]?introduce[skin]:{};
 
@@ -138,6 +138,16 @@ function Content(props) {
         }
 
     },[active]);
+
+    useEffect(()=>{
+
+        if (isCheckBasePlugin){
+
+            setLoginLoading(false);
+
+        }
+
+    },[isCheckBasePlugin]);
 
     useEffect(()=>{
 
@@ -206,7 +216,6 @@ function Content(props) {
 
 
     };
-
 
 
     //下载基础插件包
@@ -553,7 +562,7 @@ function Content(props) {
 
                         </div>
 
-                        :''
+                        :null
 
                 }
 
@@ -601,7 +610,7 @@ function Content(props) {
 
                         </div>
 
-                        :''
+                        :null
 
                 }
 
@@ -712,7 +721,7 @@ function Content(props) {
 
                         </div>
 
-                        :''
+                        :null
 
                 }
 
@@ -754,7 +763,7 @@ function Content(props) {
 
                         </div>
 
-                        :''
+                        :null
 
                 }
 
@@ -853,7 +862,7 @@ function Content(props) {
 
                         </div>
 
-                        :''
+                        :null
 
                 }
 
@@ -864,7 +873,7 @@ function Content(props) {
 
                 <div className={`${skin}_sign_wrapper`}>
 
-                    <Loading spinning={loginLoading} opacity={true}>
+                    <Loading spinning={loginLoading} opacity={true} tip={"检测中,请稍候..."}>
 
                         <div className="locked-wrapper">
 

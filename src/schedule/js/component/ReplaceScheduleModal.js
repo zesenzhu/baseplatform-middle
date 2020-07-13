@@ -147,7 +147,7 @@ class ReplaceScheduleModal extends Component{
 
                         </div>
 
-                        :''
+                        :null
 
                 }
 
