@@ -19,6 +19,8 @@
 
     float: left;
 
+    cursor: pointer;
+
   }
 
   .product-describe{
@@ -51,7 +53,7 @@
 
       display: block;
 
-      width: 330px;
+      width: 242px;
 
       height: 32px;
 
@@ -135,11 +137,11 @@
 
     .product-icon{
 
-      width: 400px;
+      width: 320px;
 
       height: 68px;
 
-      background:url("#{$aiExamUrl}/ai-exam-logo.png") no-repeat center;
+      background:url("#{$aiExamUrl}/ai-exam-logo.png") no-repeat left center;
 
     }
 

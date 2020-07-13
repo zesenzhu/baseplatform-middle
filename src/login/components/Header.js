@@ -25,6 +25,13 @@ function Header(props) {
     };
 
 
+    const reSetLocation = () =>{
+
+        window.location.href='/login.html';
+
+    };
+
+
     return(
 
         <>
@@ -39,9 +46,9 @@ function Header(props) {
 
                         <>
 
-                            <i className={"product-icon"}></i>
+                            <i className={"product-icon"} onClick={reSetLocation}></i>
 
-                            <div className={"product-describe"}>
+                            <div className={"product-describe"} onClick={reSetLocation}>
 
                                 <i className={"product-title"}></i>
 
@@ -53,7 +60,7 @@ function Header(props) {
 
                         :
 
-                        <i className={"product-icon"}></i>
+                        <i className={"product-icon"} onClick={reSetLocation}></i>
 
                 }
 
