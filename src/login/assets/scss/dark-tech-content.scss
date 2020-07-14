@@ -302,6 +302,30 @@
 
     }
 
+    .download_client{
+
+      color:rgba(255,255,255,0.8);
+
+      &:hover{
+
+        color:rgba(255,255,255,0.6);
+
+      }
+
+      &.sparkle{
+
+        background-image: url("../images/download-icon2.png");
+
+        &:hover{
+
+          background-image: url("../images/download-icon2-hover.png");
+
+        }
+
+      }
+
+    }
+
     .to-login{
 
       width:328px;

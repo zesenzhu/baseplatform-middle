@@ -21,6 +21,16 @@
       background-repeat: no-repeat;
 
     }
+    
+    .no-check-tips{
+
+      .ant-checkbox+span{
+
+        color: #ffffff;
+
+      }
+      
+    }
 
     .alert_dialog_msg{
 
@@ -95,6 +105,13 @@
   &.dark_tech{
 
     background-color: rgba(0, 0, 0, 0.5);
+
+  }
+
+
+  .alert_dialog_msg{
+
+    max-width: 400px;
 
   }
 

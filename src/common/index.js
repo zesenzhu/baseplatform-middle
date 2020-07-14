@@ -1,5 +1,7 @@
+import React,{memo} from 'react';
+
 import 'es6-shim';
-import React from 'react';
+
 import 'antd/dist/antd.min.css';
 import './index.scss'
 import './scss/_left_menu.scss';
@@ -1697,7 +1699,7 @@ class Loading extends React.Component {
 
 
 
-class Alert extends React.Component {
+class AppAlert extends React.Component {
 
     constructor(props) {
 
@@ -1982,6 +1984,8 @@ class Alert extends React.Component {
       contentMaxWidth,
       className
     } = this.props;
+
+    console.log(this.props.title);
 
     let { cancelShow, okShow } = this.props;
 
@@ -3119,6 +3123,8 @@ class Tips extends React.Component {
 }
 
 const LeftMenu = withRouter(MenuLeft);
+
+const Alert = memo(AppAlert);
 
 export {
     Radio,

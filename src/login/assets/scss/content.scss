@@ -28,6 +28,36 @@
 
   }
 
+  .download_client{
+
+    float: left;
+
+    text-decoration: underline;
+
+    &:hover{
+
+      color: #ff6600;
+
+    }
+
+    &.sparkle{
+
+      padding-left:20px;
+
+      background: url("../images/download-icon.png") no-repeat left center;
+
+      animation:downLoadSparkle 0.5s ease-in-out alternate infinite;
+
+      &:hover{
+
+        background-image: url("../images/download-icon-hover.png");
+
+      }
+
+    }
+
+  }
+
 }
 
 
@@ -52,6 +82,24 @@
     width: 850px;
 
     height: 456px;
+
+  }
+
+}
+
+
+
+@keyframes downLoadSparkle {
+
+  from{
+
+    opacity: 1;
+
+  }
+
+  to{
+
+    opacity:0.5;
 
   }
 

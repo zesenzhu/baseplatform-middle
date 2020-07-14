@@ -26,6 +26,9 @@ class ReplaceScheduleModal extends Component{
 
         } = Params;
 
+        const TeacherListRemove = TeacherList.filter(i=>i.ID!==TeacherID);
+
+        const SearchListRemove = SearchList.filter(i=>i.ID!==TeacherID);
 
         return (
 
@@ -90,28 +93,28 @@ class ReplaceScheduleModal extends Component{
 
                                     SearchWrapperShow?
 
-                                        SearchList.length>0?SearchList.map((item,key)=> {
+                                        SearchListRemove.length>0?SearchListRemove.map((item,key)=> {
 
-                                            if (item.ID !== TeacherID) {
+                                           /* if (item.ID !== TeacherID) {*/
 
                                                 return <div key={key}
                                                             className={`teacher-item ${ActiveTeacherID === item.ID ? 'active' : ''}`}
                                                             title={`${item.Name}[${item.ID}]`}
                                                             onClick={e => ReplaceTeacherPick(item.ID)}>{item.Name}</div>
 
-                                            }
+                                           /* }*/
 
                                         }):<Empty type="5" title="没有搜索到内容,请换个搜索词试试"></Empty>
 
                                         :
 
-                                        TeacherList.length>0?TeacherList.map((item,key)=>{
+                                        TeacherListRemove.length>0?TeacherListRemove.map((item,key)=>{
 
-                                            if (item.ID !== TeacherID) {
+                                            /*if (item.ID !== TeacherID) {*/
 
                                                 return <div key={key} className={`teacher-item ${ActiveTeacherID===item.ID?'active':''}`} title={`${item.Name}[${item.ID}]`} onClick={e=>ReplaceTeacherPick(item.ID)}>{item.Name}</div>
 
-                                            }
+                                            /*}*/
 
                                         })
 
@@ -144,7 +147,7 @@ class ReplaceScheduleModal extends Component{
 
                         </div>
 
-                        :''
+                        :null
 
                 }
 

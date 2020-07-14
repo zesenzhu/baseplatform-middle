@@ -28,6 +28,9 @@ export const GetBaseInfo = async ({dispatch})=>{
 };
 
 
+
+
+
 //获取最初的配置信息
 export const GetSystemsMainServer = async ({appid,access_token,sysIDs,subjectID='',dispatch})=>{
 
@@ -47,8 +50,6 @@ export const GetSystemsMainServer = async ({appid,access_token,sysIDs,subjectID=
 
 
 export const loginApi = ({token,method,params}) => {
-
-    console.log(`${config.Login}/UserMgr/Login/Api/Login.ashx?method=${method}&params=${params}${token?'&token='+token:''}`);
 
    const ajax =  $.ajax({
         url:`${config.Login}/UserMgr/Login/Api/Login.ashx?method=${method}&params=${params}${token?'&token='+token:''}`,

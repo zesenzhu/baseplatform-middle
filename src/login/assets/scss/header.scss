@@ -19,6 +19,8 @@
 
     float: left;
 
+    cursor: pointer;
+
   }
 
   .product-describe{
@@ -51,7 +53,7 @@
 
       display: block;
 
-      width: 330px;
+      width: 242px;
 
       height: 32px;
 
@@ -135,11 +137,11 @@
 
     .product-icon{
 
-      width: 400px;
+      width: 320px;
 
       height: 68px;
 
-      background:url("#{$aiExamUrl}/ai-exam-logo.png") no-repeat center;
+      background:url("#{$aiExamUrl}/ai-exam-logo.png") no-repeat left center;
 
     }
 
@@ -442,11 +444,21 @@
 
       float: left;
 
-      padding-bottom: 10px;
-
       &:not(:last-child){
 
-        margin-right: 58px;
+        margin-right:24px;
+
+      }
+
+      &>a{
+
+        color: #ffffff;
+
+        &:hover{
+
+          opacity: 0.8;
+
+        }
 
       }
 
@@ -498,6 +510,8 @@
 
         @include flexDirection(column);
 
+        align-items: center;
+
         -ms-flex-pack:center;
 
         -ms-flex-align: center;
@@ -544,11 +558,67 @@
 
     }
 
-    &:hover{
 
-      .code-wrapper{
 
-        @include flex;
+
+
+    .app_down_load{
+
+      padding-bottom: 10px;
+
+      &:hover{
+
+        .code-wrapper{
+
+          @include flex;
+
+        }
+
+      }
+
+    }
+
+    .pc_download{
+
+      &>a{
+
+        padding-left:20px;
+
+        background: url("#{$aiSchoolRoomUrl}/ai-school-pc-icon.png") no-repeat left center;
+
+      }
+
+    }
+
+    .official_wrapper{
+
+      margin-right: 20px;
+
+      position: relative;
+
+      &:after{
+
+        position: absolute;
+
+        content: '';
+
+        width: 1px;
+
+        height: 12px;
+
+        right: 0;
+
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        background-color:rgba(255,255,255,0.8);
+
+      }
+
+      &>a{
+
+        margin-right: 20px;
 
       }
 

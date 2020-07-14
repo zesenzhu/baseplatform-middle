@@ -13,9 +13,11 @@
 
     &.pic2{
 
-      background-image: url("#{$darkBlueUrl}/dark-blue-pic1.png");
+      background-image: url("#{$aiSchoolRoomUrl}/ai-school-pic2.png");
 
       @include animation(bluePicAnimation 1.5s forwards);
+
+
 
     }
 
@@ -27,7 +29,13 @@
 
     }
 
+    &.pic4{
 
+      background-image: url("#{$darkBlueUrl}/dark-blue-pic2.png");
+
+      @include animation(bluePicAnimation 1.5s forwards);
+
+    }
 
   }
 
@@ -61,6 +69,29 @@
   }
 
 }
+
+.ai_school_sign_wrapper{
+
+  .ai_school_logo{
+
+    display: block;
+
+    background-repeat: no-repeat;
+
+    background-position: center;
+
+    background-size: contain;
+
+    height: 32px;
+
+    margin: 18px 0 24px auto;
+
+  }
+
+}
+
+
+
 
 
 

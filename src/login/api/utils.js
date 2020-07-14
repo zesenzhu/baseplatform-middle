@@ -177,6 +177,25 @@ export const decodeObjValue = (obj) => {
 };
 
 
+export const removeSlashUrl = (url)=>{
+
+  const urlArr = url.split('');
+
+  if (urlArr[urlArr.length-1]==='/'){
+
+      return url.substr(0,urlArr.length-1);
+
+  }else{
+
+      return url;
+
+  }
+
+};
+
+
+
+
 export {
 
     getPostData,

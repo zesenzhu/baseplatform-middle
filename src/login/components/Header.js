@@ -16,11 +16,21 @@ function Header(props) {
     });
 
 
+    const {aiSchoolLink} = props;
+
     const introduceToggle = () => {
 
         setIntroduceModal(data=>!data);
 
     };
+
+
+    const reSetLocation = () =>{
+
+        window.location.href='/login.html';
+
+    };
+
 
     return(
 
@@ -36,9 +46,9 @@ function Header(props) {
 
                         <>
 
-                            <i className={"product-icon"}></i>
+                            <i className={"product-icon"} onClick={reSetLocation}></i>
 
-                            <div className={"product-describe"}>
+                            <div className={"product-describe"} onClick={reSetLocation}>
 
                                 <i className={"product-title"}></i>
 
@@ -50,7 +60,7 @@ function Header(props) {
 
                         :
 
-                        <i className={"product-icon"}></i>
+                        <i className={"product-icon"} onClick={reSetLocation}></i>
 
                 }
 
@@ -135,9 +145,55 @@ function Header(props) {
 
                 {
 
-                    props.skin==='ai_school'?
+                    props.skin==='ai_school'&&(parseInt(props.ProductType)!==0)?
 
                         <div className={"ai_school_top_right"}>
+
+                            {
+
+                                aiSchoolLink.schoolWeb||aiSchoolLink.education?
+
+                                    <div className={"official_wrapper"}>
+
+                                        {
+
+                                            aiSchoolLink.schoolWeb?
+
+                                                <a className={"school_web"} target="_blank" href={aiSchoolLink.schoolWeb}>学校官网</a>
+
+                                                :null
+
+                                        }
+
+                                        {
+
+                                            aiSchoolLink.education?
+
+                                                <a className={"academic"} target="_blank"  href={aiSchoolLink.education}>教务通知</a>
+
+                                                :null
+
+                                        }
+
+                                    </div>
+
+                                    :null
+
+                            }
+
+                            {
+
+                                aiSchoolLink.downLoad?
+
+                                    <div className={"pc_download"}>
+
+                                        <a target="_blank"  href={`${aiSchoolLink.downLoad}/html/download?type=1`}>软件下载</a>
+
+                                    </div>
+
+                                    :null
+
+                            }
 
                             <div className={"app_down_load"}>
 
@@ -159,7 +215,7 @@ function Header(props) {
 
                         </div>
 
-                        :''
+                        :null
 
                 }
 

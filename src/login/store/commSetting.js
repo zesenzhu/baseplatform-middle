@@ -5,6 +5,7 @@ const CHANGE_COMMON_SETTINGS = 'CHANGE_COMMON_SETTINGS';
 
 const BASE_PLUGINS_CHANGE = 'BASE_PLUGINS_CHANGE';
 
+const BASE_PLUGINS_CHECKED_OK = 'BASE_PLUGINS_CHECKED_OK';
 
 const defaultSetting = {
 
@@ -27,6 +28,8 @@ const defaultSetting = {
     OpenSetInfo:[],
 
     basePlugin:false,
+
+    isCheckBasePlugin:false,
 
     WebIndexUrl:'',
 
@@ -55,7 +58,11 @@ const commSetting = (state = defaultSetting,actions) => {
 
         case BASE_PLUGINS_CHANGE:
 
-            return { ...state,basePlugin:actions.data};
+            return { ...state,basePlugin:actions.data,isCheckBasePlugin:true};
+
+        case BASE_PLUGINS_CHECKED_OK:
+
+            return { ...state,isCheckBasePlugin:true};
 
         default:
 
@@ -82,6 +89,13 @@ export const changePluginStatus = (status) =>{
     return { type:BASE_PLUGINS_CHANGE,data:status };
 
 };
+
+export const basePluginChecked = ()=>{
+
+    return { type:BASE_PLUGINS_CHECKED_OK };
+
+};
+
 
 
 

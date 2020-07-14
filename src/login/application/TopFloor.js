@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 
 function TopFloor(props) {
 
-    const { footer,skin,hasDownLoad,topTitle,WebSvrAddr } = props;
+    const { footer,skin,hasDownLoad,topTitle,WebSvrAddr,aiSchoolLink,ProductType } = props;
 
     const { picChange } = props;
 
@@ -20,7 +20,7 @@ function TopFloor(props) {
 
             <div className="top_content_wrapper">
 
-                <Header topTitle={topTitle} WebSvrAddr={WebSvrAddr} skin={skin} hasDownLoad={hasDownLoad}></Header>
+                <Header ProductType={ProductType} aiSchoolLink={aiSchoolLink} topTitle={topTitle} WebSvrAddr={WebSvrAddr} skin={skin} hasDownLoad={hasDownLoad}></Header>
 
                 <Content picChange={picChange}></Content>
 
