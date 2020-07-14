@@ -1,10 +1,10 @@
-import ManagerPageActions from '../../actions/Manager/ManagerPageActions';
+import PageActions from '../../actions/PageActions';
 
 const Modules = (state=[],actions) => {
 
     switch (actions.type) {
 
-        case ManagerPageActions.MODULES_INFO_UPDATE:
+        case PageActions.MODULES_INFO_UPDATE:
 
             return [
 

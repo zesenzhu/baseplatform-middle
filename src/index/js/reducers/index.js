@@ -8,10 +8,6 @@ import AppLoading from  './AppLoading';
 
 import Manager from './Manager/Index';
 
-import Teacher from './Teacher/Index';
-
-import Student from './Student/Index';
-
 import BsToCs from './BsToCs';
 
 import ProductInfo from './ProductInfo';
@@ -27,10 +23,6 @@ const Index = combineReducers({
     AppLoading,
 
     Manager,
-
-    Teacher,
-
-    Student,
 
     BsToCs,
 

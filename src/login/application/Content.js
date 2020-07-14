@@ -10,7 +10,7 @@ import {getQueryVariable} from "../../common/js/disconnect";
 
 import {Modal, Loading, CheckBox} from "../../common";
 
-import {removeSlashUrl} from "../api/utils";
+import {removeSlashUrl,downLoadFile} from "../api/utils";
 
 import {connect} from 'react-redux';
 
@@ -223,7 +223,9 @@ function Content(props) {
 
         dispatch(hideAlert(dispatch));
 
-        window.open(ClinetDownUrl);
+        //window.open(ClinetDownUrl);
+
+        downLoadFile(ClinetDownUrl);
 
     };
 
@@ -922,7 +924,7 @@ function Content(props) {
 
                             <div className={"forget_pwd_wrapper"}>
 
-                                <a href={ClinetDownUrl} target="_blank" title={!basePlugin?'检测到未安装基础插件包，为确保功能正常，请先下载安装':null} className={`download_client ${!basePlugin?'sparkle':''}`}>下载基础插件包</a>
+                                <a onClick={downLoadBase} target="_blank" title={!basePlugin?'检测到未安装基础插件包，为确保功能正常，请先下载安装':null} className={`download_client ${!basePlugin?'sparkle':''}`}>下载基础插件包</a>
 
                                 <a className={"forget_pwd link"} target={"_blank"} target={"_blank"} href={`${WebRootUrl}/UserMgr/Login/GetPwdBack/CheckUserID.aspx`} >忘记密码?</a>
 

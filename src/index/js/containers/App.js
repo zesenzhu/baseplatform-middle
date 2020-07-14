@@ -4,7 +4,7 @@ import { Loading,Alert } from "../../../common";
 
 import publicJS from '../../../common/js/public';
 
-import {TokenCheck_Connect, LogOut, firstPageLoad} from "../../../common/js/disconnect";
+import {TokenCheck_Connect,LogOut,firstPageLoad} from "../../../common/js/disconnect";
 
 import LoginUserActions from '../actions/LoginUserActions';
 
@@ -12,19 +12,17 @@ import AppAlertActions from '../actions/AppAlertActions';
 
 import { connect } from 'react-redux';
 
-import TeacherDeskTop from './Teacher/Index';
-
-import ManagerDeskTop from './Manager/Index';
-
-import StudentDeskTop from './Student/Index';
-
-import Bs2CsCommon from "../actions/Bs2CsCommon";
-
-import BTCActions from '../actions/BsToCsActions';
+import DeskTop from './DeskTop';
 
 import {getData} from "../../../common/js/fetch";
 
 import CONFIG from "../../../common/js/config";
+
+import {productInfoChange} from "../reducers/ProductInfo";
+
+import apiActions from '../actions/ApiActions';
+
+import dynamicFile from 'dynamic-file';
 
 class App extends Component {
 
@@ -56,7 +54,6 @@ class App extends Component {
 
                         sessionStorage.setItem("LgBasePlatformInfo",JSON.stringify(data));
 
-
                         firstPageLoad(()=>{
 
                             this.pageInit();
@@ -69,84 +66,6 @@ class App extends Component {
 
             }
 
-           /* TokenCheck_Connect(true,()=>{
-
-                if (sessionStorage.getItem('UserInfo')){
-
-                    let UserInfo = JSON.parse(sessionStorage.getItem('UserInfo'));
-
-                    const {UserType,SubjectIDs} = UserInfo;
-
-                    if (parseInt(UserType)===0||parseInt(UserType)===1||parseInt(UserType)===2){
-
-                        if (parseInt(UserType)===1&&SubjectIDs===''){
-
-                            window.location.href='/Error.aspx?errcode=E011';
-
-                        }else{
-
-                            dispatch({type:LoginUserActions.LOGIN_USER_INFO_UPDATE,data:UserInfo});
-
-                        }
-
-                        window.BsToCs = new Bs2CsCommon((e)=>dispatch(that.BsToCsCallBack(e)));
-
-                    }else if(parseInt(UserType)===6){
-
-                        window.location.href = '/html/admSchoolSetting/';
-
-                    }else{
-
-                        dispatch(AppAlertActions.alertTips({title:'目前只对管理员和教师以及学生开放，其他用户敬请期待',cancel:()=>{ return this.Logout }}));
-
-                    }
-
-                }else{
-
-                    let getUserInfo = setInterval(()=>{
-
-                        if (sessionStorage.getItem('UserInfo')){
-
-                            let UserInfo = JSON.parse(sessionStorage.getItem('UserInfo'));
-
-                            const {UserType,SubjectIDs} = UserInfo;
-
-                            if (parseInt(UserType)===0||parseInt(UserType)===1||parseInt(UserType)===2){
-
-                                if (parseInt(UserType)===1&&SubjectIDs===''){
-
-                                    window.location.href='/Error.aspx?errcode=E011';
-
-                                }else{
-
-                                    dispatch({type:LoginUserActions.LOGIN_USER_INFO_UPDATE,data:UserInfo});
-
-                                }
-
-                                window.BsToCs = new Bs2CsCommon((e)=>dispatch(that.BsToCsCallBack(e)));
-
-                            }else if(parseInt(UserType)===6){
-
-                                window.location.href = '/html/admSchoolSetting/';
-
-                            }else{
-
-
-                                dispatch(AppAlertActions.alertTips({title:'目前只对管理员和教师以及学生开放，其他用户敬请期待',cancel:()=>{ return this.Logout }}));
-
-
-                            }
-
-                            clearInterval(getUserInfo);
-
-                        }
-
-                    },20)
-
-                }
-
-            });*/
-
         }
 
     }
@@ -158,23 +77,71 @@ class App extends Component {
 
         const that = this;
 
-        let UserInfo = JSON.parse(sessionStorage.getItem('UserInfo'));
+        const UserInfo = JSON.parse(sessionStorage.getItem('UserInfo'));
 
-        const {UserType,SubjectIDs} = UserInfo;
+        const token = sessionStorage.getItem("token");
 
-        if (parseInt(UserType)===0||parseInt(UserType)===1||parseInt(UserType)===2){
+        const {UserType,UserClass} = UserInfo;
 
-            if (parseInt(UserType)===1&&SubjectIDs===''){
+        const ProductInfo = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
-                window.location.href='/Error.aspx?errcode=E011';
+        //填充产品信息
 
-            }else{
 
-                dispatch({type:LoginUserActions.LOGIN_USER_INFO_UPDATE,data:UserInfo});
+        if (parseInt(UserType)===1&&parseInt(UserClass)===2){
 
-            }
+            ProductInfo['MessageShow'] = false;
 
-            window.BsToCs = new Bs2CsCommon((e)=>dispatch(that.BsToCsCallBack(e)));
+        }else{
+
+            ProductInfo['MessageShow'] = true;
+
+            apiActions.GetMsgWebServerAddress({dispatch}).then(data=>{
+
+                if (data){
+
+                    let PsnMgrLgAssistantAddr = data.WebSvrAddr;
+
+                    sessionStorage.setItem('PsnMgrToken',token);//用户Token
+
+                    sessionStorage.setItem('PsnMgrMainServerAddr',ProductInfo.WebRootUrl); //基础平台IP地址和端口号 形如：http://192.168.129.1:30103/
+
+                    sessionStorage.setItem('PsnMgrLgAssistantAddr',PsnMgrLgAssistantAddr);
+
+                    dynamicFile([
+
+                        `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/css/lancoo.cp.assistantInfoCenter.css`,
+
+                        `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/jquery-1.7.2.min.js`
+
+                    ]).then(()=>{
+
+                        dynamicFile([
+
+                            `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/assets/jquery.pagination.js`,
+
+                            `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/lancoo.cp.assistantInfoCenter.js`
+
+                        ])
+
+                    })
+
+                }
+
+            });
+
+        }
+
+        document.title = ProductInfo.ProductName;
+
+        dispatch(productInfoChange(ProductInfo));
+
+
+        //判断用户信息
+
+        if ([0,1,2,3,7,10].includes(parseInt(UserType))){
+
+            dispatch({type:LoginUserActions.LOGIN_USER_INFO_UPDATE,data:UserInfo});
 
         }else if(parseInt(UserType)===6){
 
@@ -209,29 +176,13 @@ class App extends Component {
 
     }
 
-    //判断是否有基础平台的插件
-     BsToCsCallBack(data){
 
-        return dispatch=>{
-
-            if (data){
-
-                dispatch({type:BTCActions.BTC_TO_TRUE});
-
-            }else{
-
-                dispatch({type:BTCActions.BTC_TO_FALSE});
-
-            }
-
-        }
-
-    }
 
 
     render() {
 
         const { AppAlert,LoginUser,AppLoading } = this.props;
+
 
         return (
 
@@ -247,35 +198,18 @@ class App extends Component {
 
                 }
 
-                {
 
-                    LoginUser.UserType === "0"?
-
-                        <ManagerDeskTop></ManagerDeskTop>
-
-                        :''
-
-                }
 
                 {
 
-                    LoginUser.UserType === "1"?
+                    Object.keys(LoginUser).length>0?
 
-                    <TeacherDeskTop></TeacherDeskTop>
+                        <DeskTop></DeskTop>
 
-                    :''
-
-                }
-
-                {
-
-                    LoginUser.UserType === "2"?
-
-                        <StudentDeskTop></StudentDeskTop>
-
-                        :''
+                        :null
 
                 }
+
 
                 <Alert
                     type={AppAlert.type}

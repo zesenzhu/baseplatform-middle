@@ -8,7 +8,7 @@ import { Loading,Alert,CheckBox } from "../common";
 
 import {getQueryVariable} from "../common/js/disconnect";
 
-import {getNewTkUrl,goToNextPage,decodeObjValue,removeSlashUrl} from "./api/utils";
+import {getNewTkUrl,goToNextPage,decodeObjValue,removeSlashUrl,downLoadFile} from "./api/utils";
 
 import { GetBaseInfo,loginApi,GetSystemsMainServer } from './api/index';
 
@@ -443,7 +443,9 @@ function App(props){
 
         dispatch(hideAlert(dispatch));
 
-       window.open(ClinetDownUrl);
+       /*window.open(ClinetDownUrl);*/
+
+        downLoadFile(ClinetDownUrl);
 
     };
 

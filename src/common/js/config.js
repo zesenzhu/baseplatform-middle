@@ -2,9 +2,11 @@ import logo from '../images/frame/logo.png';
 
 let config = {};
 
-const host = window.location.origin;
+const host = window.location.host;
 
 const pathName = window.location.pathname;
+
+const protocol = window.location.protocol;
 
 let pathFolder = '';
 
@@ -26,7 +28,7 @@ if (pathName.includes('/html/')) {
 
 }
 
-const RootUrl = host + pathFolder;
+const RootUrl = protocol+'//'+host + pathFolder;
 
 
 if (process.env.NODE_ENV === 'development'){
