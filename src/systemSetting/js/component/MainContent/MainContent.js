@@ -50,12 +50,12 @@ class MainContent extends Component {
                         icon: "menu44",
                         onTitleClick: this.handleClick.bind(this.key)
                     },
-                    // {
-                    //     key: "TextBookSetting",
-                    //     title: "教材设置",
-                    //     icon: "menu41",
-                    //     onTitleClick: this.handleClick.bind(this.key)
-                    // },
+                    {
+                        key: "TextBookSetting",
+                        title: "教材设置",
+                        icon: "menu41",
+                        onTitleClick: this.handleClick.bind(this.key)
+                    },
                     {
                         
                         key: "Subsystem",
