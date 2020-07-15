@@ -198,7 +198,7 @@ function Header(props) {
 
                                     <div className={"pc_download"}>
 
-                                        <a onClick={e=>downLoad(`${aiSchoolLink.downLoad}/html/download?type=1`)}>软件下载</a>
+                                        <a href={`${aiSchoolLink.downLoad}/html/download?type=1`} target={'_blank'}>软件下载</a>
 
                                     </div>
 
@@ -239,7 +239,7 @@ function Header(props) {
 
                             <div className={"app_down_load"}>
 
-                                <a className="down_load_icon"   onClick={e=>downLoad(`${props.WebSvrAddr}/download.html`)}>下载PC客户端</a>
+                                <a className="down_load_icon"   href={`${props.WebSvrAddr}/download.html`} target={"_blank"}>下载PC客户端</a>
 
                             </div>
 
