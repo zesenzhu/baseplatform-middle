@@ -2,23 +2,7 @@
 
   margin:72px auto 0 auto;
 
-}
-
-.modules-row{
-
-  &:nth-child(even){
-
-    background-color: #ffffff;
-
-  }
-
-  .modules-wrapper{
-
-    width: 1200px;
-
-    margin: 0 auto;
-
-  }
+  width: 1200px;
 
   .module-item{
 
@@ -64,6 +48,24 @@
 
   }
 
+
+
+  .title{
+
+    text-align: center;
+
+    font-size: 14px;
+
+    color: #333333;
+
+    margin-top: 8px;
+
+    width:176px;
+
+    @include textOverFlow;
+
+  }
+
   .module-icon{
 
     position: absolute;
@@ -90,23 +92,87 @@
 
     }
 
+
+    &.userManager{
+
+      background-image: url("../images/module/userManager.png");
+
+    }
+
+    &.admClass{
+
+      background-image: url("../images/module/admClass.png");
+
+    }
+
+    &.admAccount{
+
+      background-image: url("../images/module/admAccount.png");
+
+    }
+
+    &.admPower{
+
+      background-image: url("../images/module/admPower.png");
+
+    }
+
+    &.admSubject{
+
+      background-image: url("../images/module/admSubject.png");
+
+    }
+
+    &.courseClass{
+
+      background-image: url("../images/module/courseClass.png");
+
+    }
+
+    &.schedule{
+
+      background-image: url("../images/module/schedule.png");
+
+    }
+
+    &.onlineUser{
+
+      background-image: url("../images/module/onlineUser.png");
+
+    }
+
+    &.visitTotal{
+
+      background-image: url("../images/module/visitTotal.png");
+
+    }
+
+    &.sysSetting{
+
+      background-image: url("../images/module/sysSetting.png");
+
+    }
+
+
   }
 
-  .title{
+}
 
-    text-align: center;
+.modules-row{
 
-    font-size: 14px;
+  &:nth-child(even){
 
-    color: #333333;
-
-    margin-top: 8px;
-
-    width:176px;
-
-    @include textOverFlow;
+    background-color: #ffffff;
 
   }
+
+  .modules-wrapper{
+
+    margin: 0 auto;
+
+  }
+
+
 
 }
 

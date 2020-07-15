@@ -4,6 +4,8 @@ import config from '../api/config';
 
 import {CSSTransition} from 'react-transition-group';
 
+import {downLoadFile} from '../api/utils';
+
 
 function Header(props) {
 
@@ -28,6 +30,15 @@ function Header(props) {
     const reSetLocation = () =>{
 
         window.location.href='/login.html';
+
+    };
+
+
+    //下载
+
+    const downLoad = (url) =>{
+
+        downLoadFile(url);
 
     };
 
@@ -187,7 +198,7 @@ function Header(props) {
 
                                     <div className={"pc_download"}>
 
-                                        <a target="_blank"  href={`${aiSchoolLink.downLoad}/html/download?type=1`}>软件下载</a>
+                                        <a href={`${aiSchoolLink.downLoad}/html/download?type=1`} target={'_blank'}>软件下载</a>
 
                                     </div>
 
@@ -228,7 +239,7 @@ function Header(props) {
 
                             <div className={"app_down_load"}>
 
-                                <a className="down_load_icon" target={"_blank"} href={`${props.WebSvrAddr}/download.html`}>下载PC客户端</a>
+                                <a className="down_load_icon"   href={`${props.WebSvrAddr}/download.html`} target={"_blank"}>下载PC客户端</a>
 
                             </div>
 
