@@ -277,7 +277,7 @@ class App extends Component {
               }
             } else if (handleRoute === "Teacher") {
               // console.log("Teacher：" + DataState.SubjectTeacherMsg.returnData);
-              if (!DataState.SubjectTeacherMsg.returnData || ID !== "all") {
+              // if (!DataState.SubjectTeacherMsg.returnData || ID !== "all") {
                 //学科信息
                 console.log(ID);
                 dispatch(
@@ -286,7 +286,7 @@ class App extends Component {
                     ID
                   )
                 );
-              }
+              // }
               if (!DataState.TeacherTitleMsg.returnData) {
                 //职称
                 dispatch(
