@@ -91,7 +91,7 @@ const GetOnlineStatistics =  async ({dispatch})=>{
 
     const token = sessionStorage.getItem('token');
 
-    const res = await Method.getGetData(`/BaseApi/Login/GetOnlineStatistics?appid=000&access_token=4d39af1bff534514e24948568b750f6c&token=${token}`,1,);
+    const res = await Method.getGetData(`/BaseApi/Login/GetOnlineStatistics?appid=000&access_token=4d39af1bff534514e24948568b750f6c&token=${token}`,1);
 
     if (res.StatusCode===200){
 

@@ -158,7 +158,7 @@ const PageInit = () => {
 
                                 formatter:(params)=>{
 
-                                    return `{c|${params.data.value}}{d|人}`;
+                                    return `{c|${params.data.text}}{d|人}`;
 
                                 },
 
