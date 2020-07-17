@@ -477,10 +477,6 @@ class App extends Component{
 
         dispatch({type:SDActions.COMPONENT_SCHEDULE_DETAIL_MODAL_HIDE});
 
-        /*ComPageRefresh.ComPageUpdate(dispatch);*/
-
-        /*dispatch(SDActions.STSPageUpdate());*/
-
     }
 
     //调整时间弹窗

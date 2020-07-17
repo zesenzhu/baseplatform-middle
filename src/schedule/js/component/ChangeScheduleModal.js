@@ -73,9 +73,11 @@ function ChangeScheduleModal(props) {
 
         ItemClassHour=[],ItemWeek=[],ItemClassHourCount=[],NowDate='',WeekDay='',
 
-        ClassHourNO='',StartEndTime='', ClassID='',TeacherID='',ScheduleID=''
+        ClassHourNO='',StartEndTime='', ClassID='',CourseClassID='',TeacherID='',ScheduleID=''
 
     } = ChangeSchedule;
+
+    console.log(ChangeSchedule);
 
 
 
@@ -95,7 +97,7 @@ function ChangeScheduleModal(props) {
 
         if (Show){
 
-            apiActions.GetScheduleOfClassOne({SchoolID,ClassID,WeekNO,dispatch}).then(data=>{
+            apiActions.GetScheduleOfClassOne({SchoolID,ClassID:ClassID?ClassID:CourseClassID,WeekNO,dispatch}).then(data=>{
 
                 const list = data.ItemSchedule&&data.ItemSchedule.length>0?data.ItemSchedule:[];
 
