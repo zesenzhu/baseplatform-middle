@@ -1260,7 +1260,7 @@ class DropComponent extends React.Component {
 
     const { dropList } = this.props;
 
-      const { simpleSearchChange } = this.props;
+     // const { simpleSearchChange } = this.props;
 
     if(e.target.value){
 
@@ -1274,7 +1274,7 @@ class DropComponent extends React.Component {
 
         }else{
 
-            simpleSearchChange(e.target.value);
+            //simpleSearchChange(e.target.value);
 
         }
 
@@ -3222,7 +3222,7 @@ DropDown.defaultProps = {
 
   dropSimpleSearch:false,
 
-  simpleSearchChange:()=>{}
+  //simpleSearchChange:()=>{}
 
 };
 
