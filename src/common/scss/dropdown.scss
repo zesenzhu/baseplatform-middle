@@ -241,5 +241,51 @@
 
   }
 
+
+  .dropdown_select_search{
+
+    position: relative;
+
+    .dropdown_search_close{
+
+      position: absolute;
+
+      right: 4px;
+
+      top: 50%;
+
+      width: 12px;
+
+      height: 12px;
+
+      transform: translateY(-50%);
+
+      cursor: pointer;
+
+      background:url("#{$image_url}/search/search-close-icon.png") no-repeat center;
+
+      &:hover{
+
+        background-image:url("#{$image_url}/search/search-close-icon.png");
+
+      }
+
+      &.hide{
+
+        display: none;
+
+      }
+
+    }
+
+
+    .ant-input{
+
+      margin: 0;
+
+    }
+
+  }
+
 }
 /*组件：下拉 end*/
