@@ -125,9 +125,9 @@ const GetTermAndPeriodAndWeekNOInfo = async ({SchoolID,UserID,UserType,dispatch}
 
         2,
 
-        'http://192.168.2.202:7300/mock/5d7726e0ed0ccd1564c8df05/webCloudDev');
+        // 'http://192.168.2.202:7300/mock/5d7726e0ed0ccd1564c8df05/webCloudDev');
 
-        // CONFIG.ScheduleProxy);
+        CONFIG.ScheduleProxy);
 
     if (res.StatusCode === 200){
 
