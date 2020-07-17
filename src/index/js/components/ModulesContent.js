@@ -59,7 +59,7 @@ function ModulesContent(props){
 
                     {Url:'/html/CoureClass',Name:'我的教学班管理',ClassName:'courseClass'},
 
-                    {Url:'/html/schedule',Name:'我的课程安排管理',ClassName:'schedule'},
+                    {Url:'/html/schedule#/teacher/mine',Name:'我的课程安排管理',ClassName:'schedule'},
 
                 ]
 
@@ -71,7 +71,7 @@ function ModulesContent(props){
 
                     {Url:'/html/CoureClass',Name:'更换选课',ClassName:'courseClass'},
 
-                    {Url:'/html/schedule',Name:'我的课程安排',ClassName:'schedule'},
+                    {Url:'/html/schedule#/student/mine',Name:'我的课程安排',ClassName:'schedule'},
 
                 ]
 

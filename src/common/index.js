@@ -1117,16 +1117,7 @@ class DropComponent extends React.Component {
       dropSelectd: props.dropSelectd ? props.dropSelectd : "",
       dropListShow: false,
       range2ListShow: "",
-      range2ListActive: "",
-
-      tmpDropList:[],
-
-       searchCloseBtn:false,
-
-       searchValue:'',
-
-       isAllString:false
-
+      range2ListActive: ""
     };
   }
 
@@ -1134,23 +1125,7 @@ class DropComponent extends React.Component {
 
     const { dropSelectd,dropList } = nextProps;
 
-    let isAllString = true;
-
-    for (let i =0;i<=dropList.length-1;i++){
-
-       const type =  typeof dropList[i].title;
-
-       if(type!=='string'){
-
-         isAllString = false;
-
-         break;
-
-       }
-
-    }
-
-    this.setState({ searchValue:'',dropSelectd: dropSelectd,isAllString,tmpDropList:dropList,searchCloseBtn:false});
+    this.setState({ dropSelectd: dropSelectd});
 
   }
 
@@ -1219,14 +1194,12 @@ class DropComponent extends React.Component {
 
   outDropClick(e) {
 
-    const { dropList=[] } = this.props;
-
     const { that, target, ulDom, spanDom } = e;
 
     if (ulDom && spanDom) {
       //在该界面上已有该组件才这样展示
       if (!spanDom.contains(target) && !ulDom.contains(target)) {
-        that.setState({  searchValue:'',tmpDropList:dropList,searchCloseBtn:false,dropListShow:false }, () => {
+        that.setState({ dropListShow:false }, () => {
           $(ulDom).hide();
         });
       }
@@ -1253,52 +1226,6 @@ class DropComponent extends React.Component {
   }
 
 
-
-
-  //输入框变化
-  searchChange(e){
-
-    const { dropList } = this.props;
-
-     // const { simpleSearchChange } = this.props;
-
-    if(e.target.value){
-
-        this.setState({searchCloseBtn:true});
-
-        if(this.state.isAllString){
-
-          const newList = dropList.filter(i=>i.title.includes(e.target.value));
-
-          this.setState({tmpDropList:newList});
-
-        }else{
-
-            //simpleSearchChange(e.target.value);
-
-        }
-
-    }else{
-
-        this.setState({searchCloseBtn:false});
-
-        this.setState({tmpDropList:dropList});
-
-    }
-
-    this.setState({searchValue:e.target.value});
-
-  }
-
-  //关闭简单搜索
-
-    closeSimpleSearch() {
-
-        const {dropList} = this.props;
-
-        this.setState({searchValue: '', tmpDropList: dropList, searchCloseBtn: false});
-
-    }
 
 
 
@@ -1544,6 +1471,7 @@ class DropComponent extends React.Component {
             </Scrollbars>
           </div>
         </div>
+
       );
     } else {
 
@@ -1554,26 +1482,6 @@ class DropComponent extends React.Component {
           ref="dropdown_select_ul"
           style={{ width:width, overflow: "initial" }}
         >
-
-          {
-
-            this.state.isAllString||(!this.state.isAllString&&dropSimpleSearch)?
-
-            dropList.length>12?
-
-                <li className={"dropdown_select_search"}>
-
-                  <AntdInput placeholder={"输入关键词搜索"} style={{width:width}} value={this.state.searchValue} onChange={this.searchChange.bind(this)}/>
-
-                  <i onClick={this.closeSimpleSearch.bind(this)} className={`dropdown_search_close ${!this.state.searchCloseBtn?'hide':''}`}></i>
-
-                </li>
-
-                :null
-
-                :null
-
-          }
 
           <Loading
             opacity={false}
@@ -1589,7 +1497,7 @@ class DropComponent extends React.Component {
             >
               {
 
-                  this.state.tmpDropList.map(item => {
+                  dropList.map(item => {
 
                    return (
 
@@ -2051,8 +1959,6 @@ class AppAlert extends React.Component {
       contentMaxWidth,
       className
     } = this.props;
-
-    console.log(this.props.title);
 
     let { cancelShow, okShow } = this.props;
 

@@ -780,23 +780,32 @@ class App extends Component{
 
                             <div ref="frame-time-barner">
 
-                                <div className="schedule-period-tab clearfix">
+                                {
 
-                                    {
+                                    PeriodWeekTerm.ItemPeriod&&PeriodWeekTerm.ItemPeriod.length>1?
 
-                                        (PeriodWeekTerm.ItemPeriod&&PeriodWeekTerm.ItemPeriod.length>1)&&PeriodWeekTerm.ItemPeriod.map((item,key) => {
+                                        <div className="schedule-period-tab clearfix">
 
-                                            return <div key={key} onClick={this.periodChange.bind(this,key)} className={`schedule-period-item ${PeriodWeekTerm.defaultPeriodIndex===key?'active':''}`}>
+                                            {
+
+                                                PeriodWeekTerm.ItemPeriod.map((item,key) => {
+
+                                                    return <div key={item.PeriodID} onClick={this.periodChange.bind(this,key)} className={`schedule-period-item ${PeriodWeekTerm.defaultPeriodIndex===key?'active':''}`}>
 
                                                         {item.PeriodName}
 
                                                     </div>
 
-                                        })
+                                                })
 
-                                    }
+                                            }
 
-                                </div>
+                                        </div>
+
+                                        :null
+
+                                }
+
 
                                 {
 

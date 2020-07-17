@@ -305,7 +305,7 @@ class ReplaceSchedule extends Component{
 
                                     :
 
-                                    <span className={`subject-name ${teacherSubject.name?'':'unset'}`}>{teacherSubject.name?teacherSubject.name:"暂无课程安排"}</span>
+                                    <span className={`subject-name ${teacherSubject.name?'':'unset'}`}>{teacherSubject.name?teacherSubject.name:"暂无可调整的课程"}</span>
 
                             }
 
@@ -339,7 +339,7 @@ class ReplaceSchedule extends Component{
 
                                 })
 
-                                    :'暂无课程安排'
+                                    :'暂无可调整的课程'
 
                             }
 
