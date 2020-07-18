@@ -358,7 +358,9 @@ const teacherDropChange = (info) => {
 
                     }).filter(i => i!==undefined);
 
-                    const TeacherList = teacherList.filter(item=>item.id===list[0].value)[0].list;
+                    const tmpList = teacherList.filter(item=>item.id===list[0].value);
+
+                    const TeacherList = tmpList.length>0?tmpList[0].list:[];
 
                     const ReplaceTeacherList = TeacherList.map(item=>{
 
