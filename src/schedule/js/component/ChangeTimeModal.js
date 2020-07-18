@@ -77,12 +77,36 @@ function ChangeTimeModal(props){
     },[WeekNO,NowClassHourNO,NowDate,ClassDate,ClassHourNO]);
 
 
+    //初始化
+    useEffect(()=>{
+
+        if (Show){
+
+            ApiActons.GetScheduleForChangeTime({ClassID,TeacherID,CourseClassID,ClassRoomID:NowClassRoomID,WeekNO,dispatch}).then(data=>{
+
+                if (data){
+
+                    const list = data.Item&&data.Item.length>0?data.Item:[];
+
+                    setSchedule(list);
+
+                }
+
+                setLoading(false);
+
+            });
+
+        }
+
+    },[Show]);
+
+
 
     const weekPick = (num) =>{
 
         setLoading(true);
 
-        ApiActons.GetScheduleForChangeTime({ClassID,TeacherID,CourseClassID,ClassRoomID:NowClassRoomID,WeekNO,dispatch}).then(data=>{
+        ApiActons.GetScheduleForChangeTime({ClassID,TeacherID,CourseClassID,ClassRoomID:NowClassRoomID,WeekNO:num,dispatch}).then(data=>{
 
             if (data){
 
@@ -99,32 +123,6 @@ function ChangeTimeModal(props){
         WeekPick(num);
 
     };
-
-
-    //初始化
-    useEffect(()=>{
-
-         if (loading&&Show){
-
-            ApiActons.GetScheduleForChangeTime({ClassID,TeacherID,CourseClassID,ClassRoomID:NowClassRoomID,WeekNO,dispatch}).then(data=>{
-
-               if (data){
-
-                   const list = data.Item&&data.Item.length>0?data.Item:[];
-
-                   setSchedule(list);
-
-               }
-
-               setLoading(false);
-
-            });
-
-        }
-
-    },[NowClassRoomID,ClassID,CourseClassID,TeacherID]);
-
-
 
 
 

@@ -1497,12 +1497,12 @@ class DropComponent extends React.Component {
             >
               {
 
-                  dropList.map(item => {
+                  dropList.map((item,key) => {
 
                    return (
 
                           <li
-                          key={item.value}
+                          key={key}
                           className={`dropdown_select_li ${
                             activeValue && activeValue === item.value
                               ? "active"
@@ -3098,7 +3098,9 @@ class Tips extends React.Component {
 const LeftMenu = withRouter(MenuLeft);
 
 const PagiNation = memo(PageComponent);
+
 const Alert = memo(AppAlert);
+
 const DropDown = memo(DropComponent);
 
 

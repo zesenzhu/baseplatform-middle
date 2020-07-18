@@ -77,7 +77,6 @@ function ChangeScheduleModal(props) {
 
     } = ChangeSchedule;
 
-    console.log(ChangeSchedule);
 
 
 
@@ -217,8 +216,6 @@ function ChangeScheduleModal(props) {
             apiActions.ExchangeTeacherSchedule({UserID:userID,UserType:userType,ScheduleID1:scheduleID,ScheduleID2:selectScheduleRef.current.scheduleID,dispatch}).then(errCode=>{
 
                 if (errCode===0){
-
-
 
                     dispatch({type:SDActions.COMPONENT_CHANGE_SCHEDULE_MODAL_HIDE});
 

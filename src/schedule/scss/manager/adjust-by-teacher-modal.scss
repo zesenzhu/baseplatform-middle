@@ -101,6 +101,11 @@
         padding: 30px 0 0 40px;
         .teacher-wrapper {
             position: relative;
+            z-index: 6;
+        }
+
+        .subject-wrapper {
+            position: relative;
             z-index: 5;
         }
         .class-wrapper {
