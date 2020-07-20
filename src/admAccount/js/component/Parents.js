@@ -1116,7 +1116,7 @@ class Parents extends React.Component {
                 height={240}
                 style={{ display: this.state.DropMenuShow ? "block" : "none" }}
                 dropSelectd={this.state.secondSelect}
-                dropList={this.state.secondDropList}
+                dropList={this.state.secondDropList?this.state.secondDropList:[{ value: 0, title: "全部班级" }]}
                 onChange={this.ParentsDropMenuSecond}
               ></DropDown>
               <Search

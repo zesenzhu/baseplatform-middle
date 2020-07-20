@@ -20,8 +20,8 @@ function handleData(data) {
     
     return {grades:GradeArr,AllClasses:AllClasses}
 }
-const GradeClassMsg = (state={returnData:{grades:null}},actions)=>{
-    let returnData = {grades:null};
+const GradeClassMsg = (state={returnData:{grades:[]}},actions)=>{
+    let returnData = {grades:[]};
     switch (actions.type) {
         case UpDataState.GET_GRADE_CLASS_MSG:
             returnData = handleData(actions.data);
