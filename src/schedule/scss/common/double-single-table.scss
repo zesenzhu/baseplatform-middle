@@ -116,6 +116,7 @@
             th {
                 border-right: 1px solid #aaddea;
                 border-bottom: 1px solid #aaddea;
+                border-top: 1px solid #aaddea;
                 background-image: linear-gradient( #e5f0f3, #e5f0f3), linear-gradient( #ffffff, #ffffff);
             }
         }
@@ -144,13 +145,13 @@
     }*/
 
     .blank-tab {
-        width: 136px;
-        height: 82px;
-        line-height: 82px;
+        width: 120px;
+        height: 83px;
+        line-height:83px;
     }
     .double-single-left-col {
         position: relative;
-        width: 136px;
+        width: 120px;
         text-align: center;
         height: 90px;
         line-height: 90px;
@@ -189,7 +190,7 @@
         }
     }
     .course-time-th {
-        width: 128px;
+        width: 124px;
         height: 52px;
         .course {
             color: #00728f;
@@ -210,7 +211,7 @@
     }
     .schedule-wrapper {
         position: relative;
-        width: 128px;
+        width: 124px;
         height: 90px;
         .title {
             font-size: 16px;

@@ -12,8 +12,12 @@ const MANAGER_CT_SCHEDULE_LIST_UPDATE = 'MANAGER_CT_SCHEDULE_LIST_UPDATE';
 
 const  MANAGER_CLASS_TOTAL_GRADE_UPDATE = 'MANAGER_CLASS_TOTAL_GRADE_UPDATE';
 
+//时间变化
+const MANAGER_CT_NOW_WEEK_NO_CHANGE = 'MANAGER_CT_NOW_WEEK_NO_CHANGE';
 
-const MANAGER_CLASS_TOTAL_WEEK_CHANGE = 'MANAGER_CLASS_TOTAL_WEEK_CHANGE';
+const MANAGER_CT_NOW_WEEK_DAY_CHANGE = 'MANAGER_CT_NOW_WEEK_DAY_CHANGE';
+
+const MANAGER_CT_NOW_CLASS_DATE_CHANGE = 'MANAGER_CT_NOW_CLASS_DATE_CHANGE';
 
 
 const MANAGER_CLASS_TOTAL_SCHEDULE_UPDATE = 'MANAGER_CLASS_TOTAL_SCHEDULE_UPDATE';
@@ -136,7 +140,7 @@ const ClassTotalPageUpdate = (opt) =>{
 
         let PeriodID = PeriodWeekTerm.ItemPeriod[PeriodWeekTerm.defaultPeriodIndex].PeriodID;
 
-        let { WeekNO,GradeDropSelectd,Schedule,ScheduleList,PageIndex} = Manager.ClassTotal;
+        let { NowClassDate,GradeDropSelectd,Schedule,ScheduleList,PageIndex} = Manager.ClassTotal;
 
         let GradeID = '';
 
@@ -154,7 +158,9 @@ const ClassTotalPageUpdate = (opt) =>{
 
         }
 
-        ApiActions.GetAllScheduleOfClassByGradeIDForPage({
+
+        //旧代码
+       /* ApiActions.GetAllScheduleOfClassByGradeIDForPage({
 
             PeriodID,SchoolID,WeekNO:WeekNO,PageIndex:NextPageIndex,PageSize:10,GradeID
 
@@ -251,7 +257,106 @@ const ClassTotalPageUpdate = (opt) =>{
 
             }
 
-        });
+        });*/
+
+         ApiActions.GetAllScheduleOfClassOneDayForPage({
+
+             SchoolID,GradeID,PeriodID,ClassDate:NowClassDate,PageIndex:NextPageIndex,dispatch
+
+         }).then(data => {
+
+             if (data){
+
+                 let NextSchedule = [];
+
+                 NextSchedule =  data.ItemClass.map((item) => {
+
+                     let classObj = {
+
+                         id:item.ClassID,
+
+                         name:item.ClassName,
+
+                         active:false
+
+                     };
+
+                     let list = utils.ScheduleRemoveRepeat(data.ItemSchedule.map((i) => {
+
+                         if (i.ClassID === item.ClassID){
+
+                             return {
+
+                                 ...i,
+
+                                 type:i.ScheduleType,
+
+                                 title:i.SubjectName,
+
+                                 titleID:i.SubjectName,
+
+                                 secondTitle:i.TeacherName,
+
+                                 secondTitleID:i.TeacherID,
+
+                                 thirdTitle:i.ClassRoomName,
+
+                                 thirdTitleID:i.ClassRoomID,
+
+                                 WeekDay:i.WeekDay,
+
+                                 ClassHourNO:i.ClassHourNO
+
+                             };
+
+                         }else {
+
+                             return ;
+
+                         }
+
+                     }).filter(i => {return i!==undefined}));
+
+                     classObj['list'] = list;
+
+                     return classObj;
+
+                 });
+
+                 let scheduleList = [];
+
+                 //判断操作是否是下一页操作
+                 if (opt&&opt.nextPage){
+
+                     Schedule.push(...NextSchedule);
+
+                     scheduleList = Array.from(ScheduleList);
+
+                     dispatch({type:MANAGER_CLASS_TOTAL_SCHEDULE_UPDATE,data:Schedule});
+
+                     dispatch({type:MANAGER_CLASS_TOTAL_PAGE_ADD});
+
+                 }else{
+
+                     $('#tb').find('div.ant-table-body').scrollTop(0);
+
+                     dispatch({type:MANAGER_CLASS_TOTAL_SCHEDULE_UPDATE,data:NextSchedule});
+
+                     dispatch({type:MANAGER_CLASS_TOTAL_PAGE_UPDATE,data:1});
+
+                 }
+
+                 scheduleList.push(Array.from(NextSchedule));
+
+                 dispatch({type:MANAGER_CT_SCHEDULE_LIST_UPDATE,data:scheduleList});
+
+                 dispatch({type:MANAGER_CLASS_TOTAL_CLASS_COUNT,data:data.ClassCout});
+
+                 dispatch({type:MANAGER_CLASS_TOTAL_LOADING_HIDE});
+
+             }
+
+         });
 
     }
 
@@ -271,7 +376,7 @@ const ScheduleListUpdate = (PageIndex) =>{
 
         let PeriodID = PeriodWeekTerm.ItemPeriod[PeriodWeekTerm.defaultPeriodIndex].PeriodID;
 
-        let { WeekNO,GradeDropSelectd,Schedule,ScheduleList,PageIndex} = Manager.ClassTotal;
+        let { NowClassDate,GradeDropSelectd,Schedule,ScheduleList,PageIndex} = Manager.ClassTotal;
 
         let GradeID = '';
         //判断已选中的学科是否为全部学科
@@ -281,10 +386,96 @@ const ScheduleListUpdate = (PageIndex) =>{
 
         }
 
-
-        ApiActions.GetAllScheduleOfClassByGradeIDForPage({
+        //旧代码
+        /*ApiActions.GetAllScheduleOfClassByGradeIDForPage({
 
             PeriodID,SchoolID,WeekNO:WeekNO,PageIndex,PageSize:10,GradeID
+
+        }).then(data => {
+
+            if (data){
+
+                let NextSchedule = [];
+
+                NextSchedule =  data.ItemClass.map((item) => {
+
+                    let classObj = {
+
+                        id:item.ClassID,
+
+                        name:item.ClassName,
+
+                        active:false
+
+                    };
+
+                    let list = utils.ScheduleRemoveRepeat(data.ItemSchedule.map((i) => {
+
+                        if (i.ClassID === item.ClassID){
+
+                            return {
+
+                                ...i,
+
+                                type:i.ScheduleType,
+
+                                title:i.SubjectName,
+
+                                titleID:i.SubjectName,
+
+                                secondTitle:i.TeacherName,
+
+                                secondTitleID:i.TeacherID,
+
+                                thirdTitle:i.ClassRoomName,
+
+                                thirdTitleID:i.ClassRoomID,
+
+                                WeekDay:i.WeekDay,
+
+                                ClassHourNO:i.ClassHourNO
+
+                            };
+
+                        }else {
+
+                            return ;
+
+                        }
+
+                    }).filter(i => {return i!==undefined}));
+
+                    classObj['list'] = list;
+
+                    return classObj;
+
+                });
+
+                let schedule = [];
+
+                ScheduleList.splice(PageIndex-1,1,NextSchedule);
+
+                ScheduleList.map(item=>{
+
+                    schedule.push(...item);
+
+                });
+
+                dispatch({type:MANAGER_CT_SCHEDULE_LIST_UPDATE,data:ScheduleList});
+
+                dispatch({type:MANAGER_CLASS_TOTAL_SCHEDULE_UPDATE,data:schedule});
+
+                dispatch({type:MANAGER_CLASS_TOTAL_CLASS_COUNT,data:data.ClassCout});
+
+                dispatch({type:MANAGER_CLASS_TOTAL_LOADING_HIDE});
+
+            }
+
+        });*/
+
+        ApiActions.GetAllScheduleOfClassOneDayForPage({
+
+            SchoolID,GradeID,PeriodID,ClassDate:NowClassDate,PageIndex,dispatch
 
         }).then(data => {
 
@@ -1009,7 +1200,11 @@ export default {
 
     MANAGER_CLASS_TOTAL_GRADE_UPDATE,
 
-    MANAGER_CLASS_TOTAL_WEEK_CHANGE,
+    MANAGER_CT_NOW_WEEK_NO_CHANGE,
+
+    MANAGER_CT_NOW_WEEK_DAY_CHANGE,
+
+    MANAGER_CT_NOW_CLASS_DATE_CHANGE,
 
     MANAGER_CLASS_TOTAL_SCHEDULE_UPDATE,
 

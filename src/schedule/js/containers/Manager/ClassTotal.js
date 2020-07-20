@@ -12,6 +12,8 @@ import ComPageRefresh from '../../actions/ComPageRefresh';
 
 import TermPick from "../../component/TermPick";
 
+import WeekDayPick from '../../component/WeekDayPick';
+
 import $ from "jquery";
 
 import DoubleSingleTable from "../../component/DoubleSingleTable";
@@ -66,11 +68,15 @@ class ClassTotal extends Component{
     }
 
     //选择某一周次
-    weekPickEvent(e){
+    weekDateChange(date,week,weekDay){
 
         const {dispatch} = this.props;
 
-        dispatch({type:CTActions.MANAGER_CLASS_TOTAL_WEEK_CHANGE,data:e.value});
+        dispatch({type:CTActions.MANAGER_CT_NOW_WEEK_NO_CHANGE,data:week});
+
+        dispatch({type:CTActions.MANAGER_CT_NOW_CLASS_DATE_CHANGE,data:date});
+
+        dispatch({type:CTActions.MANAGER_CT_NOW_WEEK_DAY_CHANGE,data:weekDay});
 
         $('#tb').find('div.ant-table-body').scrollTop(0);
 
@@ -78,35 +84,7 @@ class ClassTotal extends Component{
 
     }
 
-    //选择下一周次
-    weekNextEvent(){
 
-        const {dispatch,ClassTotal} = this.props;
-
-        const {WeekNO} = ClassTotal;
-
-        dispatch({type:CTActions.MANAGER_CLASS_TOTAL_WEEK_CHANGE,data:(WeekNO+1)});
-
-        $('#tb').find('div.ant-table-body').scrollTop(0);
-
-        dispatch(CTActions.ClassTotalPageUpdate());
-
-    }
-
-    //选择上一周次
-    weekPrevEvent(){
-
-        const {dispatch,ClassTotal} = this.props;
-
-        const {WeekNO} = ClassTotal;
-
-        dispatch({type:CTActions.MANAGER_CLASS_TOTAL_WEEK_CHANGE,data:(WeekNO-1)});;
-
-        $('#tb').find('div.ant-table-body').scrollTop(0);
-
-        dispatch(CTActions.ClassTotalPageUpdate());
-
-    }
 
     //滚动到底部
 
@@ -121,14 +99,6 @@ class ClassTotal extends Component{
             dispatch(CTActions.ClassTotalPageUpdate({nextPage:true}));
 
         }
-
-        /* else if (Math.ceil(ClassCount/10)>0){
-
-            message.info('已经是最后一页了！',0.2);
-
-            message.config({maxCount:1,top:200});
-
-        } */
 
     }
 
@@ -170,7 +140,7 @@ class ClassTotal extends Component{
 
         const { ItemClassHour,ItemClassHourCount,NowClassHourNO } = SubjectCourseGradeClassRoom;
 
-        const {WeekNO,ScheduleList} = ClassTotal;
+        const {NowWeekNO,ScheduleList} = ClassTotal;
 
         const { ClassID } = Params;
 
@@ -188,7 +158,7 @@ class ClassTotal extends Component{
 
         });
 
-        dispatch({type:SDActions.COMPONENT_SCHEDULE_DETAIL_MODAL_PARAMS_UPDATE,data:{ItemClassHour,ItemClassHourCount,NowClassHourNO,WeekNO,PageIndex:FindPage}});
+        dispatch({type:SDActions.COMPONENT_SCHEDULE_DETAIL_MODAL_PARAMS_UPDATE,data:{ItemClassHour,ItemClassHourCount,NowClassHourNO,WeekNO:NowWeekNO,PageIndex:FindPage}});
 
         dispatch(SDActions.ScheduleDetailShow(Params));
 
@@ -217,7 +187,6 @@ class ClassTotal extends Component{
 
 
     render(){
-
 
         const { PeriodWeekTerm,SubjectCourseGradeClassRoom,ClassTotal } = this.props;
 
@@ -249,7 +218,7 @@ class ClassTotal extends Component{
 
                         </DropDown>
 
-                        <TermPick
+                        {/*<TermPick
 
                             ItemTermName={PeriodWeekTerm.ItemTerm?PeriodWeekTerm.ItemTerm.TermName:''}
 
@@ -266,7 +235,25 @@ class ClassTotal extends Component{
                             WeekNO={PeriodWeekTerm.WeekNO?PeriodWeekTerm.WeekNO:''}
                         >
 
-                        </TermPick>
+                        </TermPick>*/}
+
+                        <WeekDayPick
+
+                            WeekList={ClassTotal.WeekList}
+
+                            NowWeekNO={ClassTotal.NowWeekNO}
+
+                            NowWeekDay={ClassTotal.NowWeekDay}
+
+                            NowClassDate={ClassTotal.NowClassDate}
+
+                            weekDateChange={this.weekDateChange.bind(this)}
+
+                        >
+
+
+
+                        </WeekDayPick>
 
                         <div className="double-single-table-wrapper">
 

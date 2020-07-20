@@ -20,6 +20,8 @@ import {connect} from 'react-redux';
 
 import {CSSTransition} from 'react-transition-group';
 
+import WeekDayPick from '../../component/WeekDayPick';
+
 
 
 class Subject extends Component{
@@ -60,42 +62,17 @@ class Subject extends Component{
 
     }
 
-    //选择某一周次
-    weekPickEvent(e){
-
-        const {dispatch} = this.props;
-
-        dispatch({type:STSAction.STS_NOW_WEEK_CHANGE,data:e.value});
-
-        $('#tb').find('div.ant-table-body').scrollTop(0);
-
-        dispatch(STSAction.STSPageUpdate());
-
-    }
-
-    //选择下一周次
-    weekNextEvent(){
-
-        const {dispatch,Manager} = this.props;
-
-        const {NowWeekNo} = Manager.SubjectTeacherSchedule;
-
-        dispatch({type:STSAction.STS_NOW_WEEK_CHANGE,data:(NowWeekNo+1)});
-
-        $('#tb').find('div.ant-table-body').scrollTop(0);
-
-        dispatch(STSAction.STSPageUpdate());
-
-    }
 
     //选择上一周次
-    weekPrevEvent(){
+    weekDateChange(date,week,weekDay){
 
         const {dispatch,Manager} = this.props;
 
-        const {NowWeekNo} = Manager.SubjectTeacherSchedule;
+        dispatch({type:STSAction.MANAGER_STS_NOW_WEEK_NO_CHANGE,data:week});
 
-        dispatch({type:STSAction.STS_NOW_WEEK_CHANGE,data:(NowWeekNo-1)});
+        dispatch({type:STSAction.MANAGER_STS_NOW_WEEK_DAY_CHANGE,data:weekDay});
+
+        dispatch({type:STSAction.MANAGER_STS_NOW_CLASS_DATE_CHANGE,data:date});
 
         $('#tb').find('div.ant-table-body').scrollTop(0);
 
@@ -117,14 +94,6 @@ class Subject extends Component{
             dispatch(STSAction.STSPageUpdate({nextPage:true}));
 
         }
-
-        // else if (Math.ceil(TeacherCount/10)>0){
-
-        //     message.info('已经是最后一页了！',0.2);
-
-        //     message.config({maxCount:1,top:200});
-
-        // }
 
     }
 
@@ -185,7 +154,7 @@ class Subject extends Component{
 
         const { ItemClassHour,ItemClassHourCount,NowClassHourNO } = Manager.SubjectCourseGradeClassRoom;
 
-        const WeekNO = Manager.SubjectTeacherSchedule.NowWeekNo;
+        const WeekNO = Manager.SubjectTeacherSchedule.NowWeekNO;
 
         dispatch({type:SDActions.COMPONENT_SCHEDULE_DETAIL_MODAL_PARAMS_UPDATE,data:{ItemClassHour,ItemClassHourCount,NowClassHourNO,WeekNO,PageIndex:FindPage}});
 
@@ -194,9 +163,7 @@ class Subject extends Component{
 
     }
 
-
     //点击全屏按钮
-
     FullScreenClick(e){
 
         this.setState({fullScreen:!this.state.fullScreen},()=>{
@@ -214,7 +181,6 @@ class Subject extends Component{
         });
 
     }
-
 
 
     render() {
@@ -268,9 +234,7 @@ class Subject extends Component{
 
                 <div className="full-screen-btn" onClick={this.FullScreenClick.bind(this)}>{this.state.fullScreen?'退出全屏':'全屏'}</div>
 
-
                     <Loading spinning={SubjectTeacherSchedule.loadingShow} tip="正在为您查找，请稍后...">
-
 
                         <DropDown
 
@@ -286,7 +250,23 @@ class Subject extends Component{
 
                         </DropDown>
 
-                        <TermPick
+                        <WeekDayPick
+
+                            NowWeekNO={SubjectTeacherSchedule.NowWeekNO}
+
+                            NowWeekDay={SubjectTeacherSchedule.NowWeekDay}
+
+                            NowClassDate={SubjectTeacherSchedule.NowClassDate}
+
+                            WeekList={ItemWeek}
+
+                            weekDateChange={this.weekDateChange.bind(this)}
+
+                        >
+
+                        </WeekDayPick>
+
+                       {/* <TermPick
 
                             ItemTermName={PeriodWeekTerm.ItemTerm?PeriodWeekTerm.ItemTerm.TermName:''}
 
@@ -302,7 +282,7 @@ class Subject extends Component{
 
                             weekPrevEvent = {this.weekPrevEvent.bind(this)}>
 
-                        </TermPick>
+                        </TermPick>*/}
 
                         <div className="double-single-table-wrapper">
 
