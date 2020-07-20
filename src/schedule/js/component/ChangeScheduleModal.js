@@ -73,9 +73,10 @@ function ChangeScheduleModal(props) {
 
         ItemClassHour=[],ItemWeek=[],ItemClassHourCount=[],NowDate='',WeekDay='',
 
-        ClassHourNO='',StartEndTime='', ClassID='',TeacherID='',ScheduleID=''
+        ClassHourNO='',StartEndTime='', ClassID='',CourseClassID='',TeacherID='',ScheduleID=''
 
     } = ChangeSchedule;
+
 
 
 
@@ -95,7 +96,7 @@ function ChangeScheduleModal(props) {
 
         if (Show){
 
-            apiActions.GetScheduleOfClassOne({SchoolID,ClassID,WeekNO,dispatch}).then(data=>{
+            apiActions.GetScheduleOfClassOne({SchoolID,ClassID:ClassID?ClassID:CourseClassID,WeekNO,dispatch}).then(data=>{
 
                 const list = data.ItemSchedule&&data.ItemSchedule.length>0?data.ItemSchedule:[];
 
@@ -215,8 +216,6 @@ function ChangeScheduleModal(props) {
             apiActions.ExchangeTeacherSchedule({UserID:userID,UserType:userType,ScheduleID1:scheduleID,ScheduleID2:selectScheduleRef.current.scheduleID,dispatch}).then(errCode=>{
 
                 if (errCode===0){
-
-
 
                     dispatch({type:SDActions.COMPONENT_CHANGE_SCHEDULE_MODAL_HIDE});
 

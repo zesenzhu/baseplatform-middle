@@ -148,8 +148,6 @@ class Teacher extends Component{
 
         const { dispatch,Manager } = this.props;
 
-        /*dispatch(STTActions.ScheduleDetailShow(Params));*/
-
         const { ItemClassHour,ItemClassHourCount,NowClassHourNO } = Manager.SubjectCourseGradeClassRoom;
 
         const WeekNO = Manager.SubjectTeacherTeacherSchedule.NowWeekNo;

@@ -816,171 +816,40 @@ class Table extends React.Component {
 /*
  * 分页组件 start
  * */
-class PagiNation extends React.Component {
+class PageComponent extends React.Component {
 
-    constructor(props) {
-        
-        super(props);
-        
-        this.state={
+  render() {
+    const {
+      children,
+      size,
+      className,
+      showSizeChanger,
+      ...reset
+    } = this.props;
 
-            slideDown:true,
-            
-            pageSize:10,
 
-            pageSizeOptions:[10,20,50,100]
+    return (
+      <ConfigProvider locale={zhCN}>
 
-        }
+          <AntPagination
 
-    }
-    
+          className={`${className ? className : ""} ${
+            size && size === "micro" ? "micro" : ""
+          } `}
 
+          size={size}
 
-    onShowSizeChange(size){
+          showSizeChanger={showSizeChanger}
 
-        this.setState({slideDown:true,pageSize:size});
+          showTotal={showSizeChanger?(total)=><span>共<span style={{color:'#ff6600'}}>{total}</span>条</span>:()=>{}}
 
-        const { onShowSizeChange,current } = this.props;
-
-        if(onShowSizeChange){
-
-            onShowSizeChange(current,size);
-
-        }
-
-    }
-
-    componentDidMount(){
-
-        addEventListener('click',this.OutPageSizeEvent.bind(this));
-
-    }
-
-
-    //点击之外的地方
-
-    OutPageSizeEvent(e){
-
-        const Dom =  document.getElementById('pagination-row-set-wrapper');
-
-        if(Dom&&!Dom.contains(e.target)){
-
-            this.setState({slideDown:true});          
-
-        }
-
-    }
-
-
-    //点击下拉组件
-
-    slideSizeChanger(){
-
-        this.setState({slideDown:!this.state.slideDown});
-
-    }
-
-    //展示全部
-
-    render() {
-        const {
-            children,
-            hideOnSinglePage=true,
-            size,
-            showQuickJumper,
-            className,
-            total=0,
-            pageSize,
-            showSizeChanger,
-            pageSizeOptions,
-            ...reset
-        } = this.props;
-
-
-        return (
-
-            <ConfigProvider locale={zhCN}>
-
-                <AntPagination
-
-                        total={total}
-
-                        pageSize={pageSize?pageSize:this.state.pageSize}
-
-                        {...reset}
-
-                        hideOnSinglePage={hideOnSinglePage}
-
-                        showQuickJumper={size === 'micro'?true:{
-
-                            goButton:
-
-                                <React.Fragment>
-
-                                    {
-
-                                        (showSizeChanger===true||showSizeChanger===1)?
-
-                                            <span  className="pagination-total-self-dom">(
-
-                                            <span>共<span className="number">{total}</span>条,</span>
-
-                                        <span>每页<span className="row-set-wrapper" id="pagination-row-set-wrapper">
-                                            
-                                            <span className={`set-input ${this.state.slideDown?'down':'up'}`} onClick={this.slideSizeChanger.bind(this)}>{pageSize?pageSize:this.state.pageSize}</span>
-
-                                            <ul className="select-wrapper" style={{display:`${this.state.slideDown?'none':'block'}`}}>
-
-                                                {
-
-                                                    pageSizeOptions?
-                                                    
-                                                    pageSizeOptions.map((item,key)=>{
-
-                                                    return <li key={key} className={`select-item ${pageSize?(pageSize===item?'active':''):(this.state.pageSize===item?'active':'')}`} onClick={this.onShowSizeChange.bind(this,item)}>{item}</li>
-
-                                                    })
-                                                    
-                                                    :
-
-                                                    this.state.pageSizeOptions.map((item,key)=>{
-
-                                                        return <li key={key} className={`select-item ${pageSize?(pageSize===item?'active':''):(this.state.pageSize===item?'active':'')}`} onClick={this.onShowSizeChange.bind(this,item)}>{item}</li>
-
-                                                        })
-
-                                                }
-
-                                            </ul>
-                                            
-                                        </span>条</span>
-
-                                        )</span>
-
-                                            :''   
-
-                                    }
-
-                                    <span className="pagination_go_button">Go</span>
-
-                                </React.Fragment>
-
-                        }}
-
-                        className={`${className?className:''} ${size && size === 'micro' ? 'micro' : ''} ${showSizeChanger===false?'':'total'}`}
-
-                        size={size}
-                        
-                    >
-                        
-                        {children}
-                    
-                    
-                    </AntPagination>
-
-            </ConfigProvider>
-        );
-    }
+          {...reset}
+        >
+          {children}
+        </AntPagination>
+      </ConfigProvider>
+    );
+  }
 }
 /*
  * 分页组件 end
@@ -1241,385 +1110,491 @@ class Search extends React.Component {
 /*
  * 下拉 start
  * */
-class DropDown extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            dropSelectd: props.dropSelectd ? props.dropSelectd : '',
-            dropListShow: false,
-            range2ListShow: '',
-            range2ListActive: ''
+class DropComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dropSelectd: props.dropSelectd ? props.dropSelectd : "",
+      dropListShow: false,
+      range2ListShow: "",
+      range2ListActive: ""
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+
+    const { dropSelectd,dropList } = nextProps;
+
+    this.setState({ dropSelectd: dropSelectd});
+
+  }
+
+  onToggleDropList() {
+    this.setState({ dropListShow: !this.state.dropListShow }, () => {
+      $(this.refs.dropdown_select_ul).slideToggle("fast");
+    });
+  } //展示或者隐藏下拉列表
+
+  onSimpleDropChange(e) {
+    const { activeValue } = this.props;
+
+    const { onChange, value, title } = e;
+
+    this.setState(
+      { dropListShow: false, dropSelectd: { value, title } },
+      () => {
+        $(this.refs.dropdown_select_ul).hide();
+        if (onChange) {
+          onChange({ value, title });
         }
+      }
+    );
+  }
+
+  //改变下拉选项的时候调用
+  onMultipleRang2DropChange(e) {
+    const { id, name, onChange } = e;
+    this.setState(
+      {
+        //点击选项之后
+        dropListShow: false,
+        dropSelectd: {
+          value: id,
+          title: name,
+        },
+        range2ListActive: id,
+      },
+      () => {
+        $(this.refs.dropdown_select_ul).hide(); //隐藏下拉框
+        if (onChange) {
+          onChange({ value: name, id: id }); //调用外部传入的行数
+        }
+      }
+    );
+  } //二级下拉改变下拉的时候调用
+
+  onRange2ListShow(k1) {
+    if (this.state.range2ListShow === k1) {
+      this.setState({ range2ListShow: "" });
+    } else {
+      this.setState({ range2ListShow: k1 });
     }
+  } //在二级的时候展开下拉
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
+  componentDidMount() {
+    document.addEventListener("click", (e) =>
+      this.outDropClick({
+        that: this,
+        target: e.target,
+        ulDom: this.refs.dropdown_select_ul,
+        spanDom: this.refs.dropdown_default_span,
+      })
+    ); //当点击事件发生在下拉之外的时候
+  }
 
-        const { dropSelectd } = nextProps;
+  outDropClick(e) {
 
-        this.setState({ dropSelectd: dropSelectd });
+    const { that, target, ulDom, spanDom } = e;
 
-    }
-
-    onToggleDropList() {
-
-        this.setState({ dropListShow: !this.state.dropListShow }, () => {
-
-            $(this.refs.dropdown_select_ul).slideToggle('fast');
-
+    if (ulDom && spanDom) {
+      //在该界面上已有该组件才这样展示
+      if (!spanDom.contains(target) && !ulDom.contains(target)) {
+        that.setState({ dropListShow:false }, () => {
+          $(ulDom).hide();
         });
-
-    }//展示或者隐藏下拉列表
-
-    onSimpleDropChange(e) {
-
-        const {activeValue} = this.props;
-
-        const { onChange, value, title } = e;
-
-        this.setState({ dropListShow: false,dropSelectd: { value, title } }, () => {
-            $(this.refs.dropdown_select_ul).hide();
-            if (onChange) {
-                onChange({ value, title });
-            }
-        });
-
-
+      }
     }
-
-    //改变下拉选项的时候调用
-    onMultipleRang2DropChange(e) {
-        const { id, name, onChange } = e;
-        this.setState({ //点击选项之后
-            dropListShow: false,
-            dropSelectd: {
-                value: id,
-                title: name
-            },
-            range2ListActive: id
-        }, () => {
-            $(this.refs.dropdown_select_ul).hide();//隐藏下拉框
-            if (onChange) {
-                onChange({ value: name, id: id });//调用外部传入的行数
-            }
-        });
-    }//二级下拉改变下拉的时候调用
-
-
-    onRange2ListShow(k1) {
-        if (this.state.range2ListShow === k1) {
-            this.setState({ range2ListShow: '' });
-        } else {
-            this.setState({ range2ListShow: k1 });
-        }
-
-    }//在二级的时候展开下拉
-
-
-    componentDidMount() {
-        document.addEventListener('click', (e) => this.outDropClick({
-            that: this,
-            target: e.target,
-            ulDom: this.refs.dropdown_select_ul,
-            spanDom: this.refs.dropdown_default_span
-        }));//当点击事件发生在下拉之外的时候
+  } //当点击事件发生在下拉组件之外的时候
+  onClickSearch(e) {
+    const { mutipleOptions } = this.props;
+    if (e.value) {
+      if (mutipleOptions && mutipleOptions.dropClickSearch) {
+        mutipleOptions.dropClickSearch(e);
+      }
+    } else {
+      if (mutipleOptions && mutipleOptions.dropClickSearch) {
+        mutipleOptions.dropClickSearch(e);
+      }
     }
+  } //点击搜索之后
+  onCancelSearch(e) {
+    const { mutipleOptions } = this.props;
 
-    outDropClick(e) {
-        const { that, target, ulDom, spanDom } = e;
-
-        if (ulDom && spanDom) { //在该界面上已有该组件才这样展示
-            if ((!spanDom.contains(target)) && (!ulDom.contains(target))) {
-                that.setState({ dropListShow: false }, () => {
-                    $(ulDom).hide();
-                })
-            }
-        }
-
-    }//当点击事件发生在下拉组件之外的时候
-    onClickSearch(e) {
-        const { mutipleOptions } = this.props;
-        if (e.value) {
-
-            if (mutipleOptions && mutipleOptions.dropClickSearch) {
-                mutipleOptions.dropClickSearch(e);
-            }
-
-        } else {
-            if (mutipleOptions && mutipleOptions.dropClickSearch) {
-                mutipleOptions.dropClickSearch(e);
-            }
-        }
-
-    }//点击搜索之后
-    onCancelSearch(e) {
-        const { mutipleOptions } = this.props;
-
-        if (mutipleOptions && mutipleOptions.dropCancelSearch) {
-            mutipleOptions.dropCancelSearch();
-        }
-
-
+    if (mutipleOptions && mutipleOptions.dropCancelSearch) {
+      mutipleOptions.dropCancelSearch();
     }
-
-    render() {
-        const {
-
-            Title,TitleShow=true,title, width, height,activeValue,disabled, dropSelectd, dropList, onChange, type, className,
-
-            mutipleOptions, dropLoadingShow, ...reset
-
-        } = this.props;
-
-        let dropContainer = '';
-
-        let selectUlWidth = (mutipleOptions && mutipleOptions.width ? mutipleOptions.width : 540);
-
-        let selectUlHeight = (mutipleOptions && mutipleOptions.height ? mutipleOptions.height : 280);
-
-        let searchWidth = (mutipleOptions && mutipleOptions.searchWidth ? mutipleOptions.searchWidth : 320);
-
-        let scrollWrapperWidth = (mutipleOptions && mutipleOptions.width ? (mutipleOptions.width - 20) : 520);
-
-        let scrollWrapperHeight = (mutipleOptions && mutipleOptions.height ? (mutipleOptions.height - 72) : 228);
-
-        let searchOpen = mutipleOptions && mutipleOptions.searchOpen ? mutipleOptions.searchOpen : false;
-
-        //所需的参数
-        let dropMultipleList = '';
-
-        //判断等级渲染相对应的元素
-        if (searchOpen) { //如果开启搜索的话
-
-            dropMultipleList =
-
-                <ul className="dropdown_list_ul3 clearfix" style={{ display: "block" }}>
-
-                    <Loading tip="加载中..."  opacity={false} spinning={mutipleOptions && mutipleOptions.searchLoadingShow ? mutipleOptions.searchLoadingShow : false}>
-
-                        {
-                            mutipleOptions.searchList.length>0?
-
-                            mutipleOptions.searchList.map((item, ks) => {
-
-                                let CanActive = '';
-
-                                if (mutipleOptions.dropSelectd){
-
-                                    CanActive = mutipleOptions.dropSelectd.value === item.id?'active':'';
-
-                                }else{
-
-                                    CanActive = this.state.range2ListActive === item.id ? 'active' : '';
-
-                                }
-
-                                return <li key={ks} className={`dropdown_item3_li ${CanActive}`}
-                                onClick={this.onMultipleRang2DropChange.bind(this, {
-                                    name: item.name,
-                                    id: item.id,
-                                    onChange: mutipleOptions.dropMultipleChange
-                                })}//绑定点击事件
-                                title={TitleShow?(Title?Title:item.name):''}>
-                                <span className="dropdown_item3_name">{item.name}</span>
-                            </li>
-
-                            })
-
-                            :
-
-                            <Empty type="5" title={mutipleOptions.empSearchTitle?mutipleOptions.empSearchTitle:'暂未有相关数据'}></Empty>
-
-                        }
-
-                    </Loading>
-
-                </ul>
-
-        } else if (mutipleOptions && mutipleOptions.range === 2) { //如果range的等级为2
-
-            //内容是否为空
-            if (mutipleOptions.dropMultipleList&&(mutipleOptions.dropMultipleList.length>0)){
-
-                dropMultipleList =  mutipleOptions.dropMultipleList.map((item1, k1) => {//遍历第一个数组
-
-                    return <li key={k1} className="dropdown_list_item1">
-                        <div
-                            className={`dropdown_item1_name ${this.state.range2ListShow === k1 ? 'slide' : ''}`} //判断是否是活动状态
-                            title={TitleShow?(Title?Title:item1.name):''} onClick={this.onRange2ListShow.bind(this, k1)}>{item1.name}</div>
-                        <ul ref={`dropdown_list_ul3_${k1}`} className={`dropdown_list_ul3 clearfix`} style={{ display: `${this.state.range2ListShow === k1 ? 'block' : 'none'}` }}>
-                            {//遍历第二个数组
-                                item1.list.map((item2, k2) => {
-
-                                    let CanActive = '';
-
-                                    if (mutipleOptions.dropSelectd){
-
-                                        CanActive = mutipleOptions.dropSelectd.value === item2.id?'active':'';
-
-                                    }else{
-
-                                        CanActive = this.state.range2ListActive === item2.id ? 'active' : '';
-
-                                    }
-
-                                    return <li key={k2}
+  }
 
 
 
-                                               className={`dropdown_item3_li ${CanActive}`} //判断是否是active
-                                               title={TitleShow?(Title?Title:item2.name):''}
-                                               onClick={this.onMultipleRang2DropChange.bind(this, {
-                                                   name: item2.name,
-                                                   id: item2.id,
-                                                   onChange: mutipleOptions.dropMultipleChange
-                                               })}//绑定点击事件
-                                    >
-                                        <span className="dropdown_item3_name">{item2.name}</span>
-                                    </li>
-                                })
-                            }
-                        </ul>
-                    </li>
 
-                });
 
-            }else{
+  render() {
+    const {
+      Title,
+      TitleShow,
+      title,
+      width,
+      activeValue,
+      disabled,
+      dropSelectd,
+      dropList,
+      onChange,
+      type,
+      className,
+      mutipleOptions,
+      dropLoadingShow,
+      dropSimpleSearch,
+      ...reset
+    } = this.props;
 
-                dropMultipleList = <Empty type="3" title={mutipleOptions.empTitle?mutipleOptions.empTitle:'暂未有相关数据'}></Empty>
 
+    let dropContainer = "";
+
+    let selectUlWidth =
+      mutipleOptions && mutipleOptions.width ? mutipleOptions.width : 540;
+
+    let selectUlHeight =
+      mutipleOptions && mutipleOptions.height ? mutipleOptions.height : 280;
+
+    let searchWidth =
+      mutipleOptions && mutipleOptions.searchWidth
+        ? mutipleOptions.searchWidth
+        : 320;
+
+    let scrollWrapperWidth =
+      mutipleOptions && mutipleOptions.width ? mutipleOptions.width - 20 : 520;
+
+    let scrollWrapperHeight =
+      mutipleOptions && mutipleOptions.height
+        ? mutipleOptions.height - 72
+        : 228;
+
+    let searchOpen =
+      mutipleOptions && mutipleOptions.searchOpen
+        ? mutipleOptions.searchOpen
+        : false;
+
+    //所需的参数
+    let dropMultipleList = "";
+
+    //判断等级渲染相对应的元素
+    if (searchOpen) {
+      //如果开启搜索的话
+
+      dropMultipleList = (
+        <ul className="dropdown_list_ul3 clearfix" style={{ display: "block" }}>
+          <Loading
+            tip="加载中..."
+            opacity={false}
+            spinning={
+              mutipleOptions && mutipleOptions.searchLoadingShow
+                ? mutipleOptions.searchLoadingShow
+                : false
             }
+          >
+            {mutipleOptions.searchList.length > 0 ? (
+              mutipleOptions.searchList.map((item, ks) => {
+                let CanActive = "";
 
+                if (mutipleOptions.dropSelectd) {
+                  CanActive =
+                    mutipleOptions.dropSelectd.value === item.id
+                      ? "active"
+                      : "";
+                } else {
+                  CanActive =
+                    this.state.range2ListActive === item.id ? "active" : "";
+                }
 
-        } else if (mutipleOptions && mutipleOptions.range === 3) {
-            //等待后期扩展使用
-        }
+                return (
+                  <li
+                    key={ks}
+                    className={`dropdown_item3_li ${CanActive}`}
+                    onClick={this.onMultipleRang2DropChange.bind(this, {
+                      name: item.name,
+                      id: item.id,
+                      onChange: mutipleOptions.dropMultipleChange,
+                    })} //绑定点击事件
+                    title={TitleShow ? (Title ? Title : item.name) : ""}
+                  >
+                    <span className="dropdown_item3_name">{item.name}</span>
+                  </li>
+                );
+              })
+            ) : (
+              <Empty
+                type="5"
+                title={
+                  mutipleOptions.empSearchTitle
+                    ? mutipleOptions.empSearchTitle
+                    : "暂未有相关数据"
+                }
+              ></Empty>
+            )}
+          </Loading>
+        </ul>
+      );
+    } else if (mutipleOptions && mutipleOptions.range === 2) {
+      //如果range的等级为2
 
-        if (type && type === 'multiple') {
+      //内容是否为空
+      if (
+        mutipleOptions.dropMultipleList &&
+        mutipleOptions.dropMultipleList.length > 0
+      ) {
+        dropMultipleList = mutipleOptions.dropMultipleList.map((item1, k1) => {
+          //遍历第一个数组
 
-            dropContainer =
-                <div ref="dropdown_select_ul" className="dropdown_select_ul"
-                    style={{ width: selectUlWidth}}>
-                    <div className="dropdown_multiple_container">
-                        <div className="dropdown_search_wrapper">
+          return (
+            <li key={k1} className="dropdown_list_item1">
+              <div
+                className={`dropdown_item1_name ${
+                  this.state.range2ListShow === k1 ? "slide" : ""
+                }`} //判断是否是活动状态
+                title={TitleShow ? (Title ? Title : item1.name) : ""}
+                onClick={this.onRange2ListShow.bind(this, k1)}
+              >
+                {item1.name}
+              </div>
+              <ul
+                ref={`dropdown_list_ul3_${k1}`}
+                className={`dropdown_list_ul3 clearfix`}
+                style={{
+                  display: `${
+                    this.state.range2ListShow === k1 ? "block" : "none"
+                  }`,
+                }}
+              >
+                {
+                  //遍历第二个数组
+                  item1.list.map((item2, k2) => {
+                    let CanActive = "";
 
-                            <Search
-                                placeHolder={mutipleOptions && mutipleOptions.searchPlaceholder ? mutipleOptions.searchPlaceholder : null}
-                                width={searchWidth}
-                                onClickSearch={this.onClickSearch.bind(this)}
-                                onCancelSearch={this.onCancelSearch.bind(this)}
-                                CancelBtnShow={mutipleOptions.CancelBtnShow}
-                                Value={mutipleOptions.inputValue}
-                            >
-
-                            </Search>
-
-                        </div>
-
-                        <Scrollbars  autoHeight autoHeightMin={160} autoHeightMax={scrollWrapperHeight} style={{ width: scrollWrapperWidth }} >
-
-                            <Loading opacity={false} spinning={mutipleOptions && mutipleOptions.dropLoadingShow ? mutipleOptions.dropLoadingShow : false}>
-
-                                <ul className="dropdown_list_ul">
-
-                                    {dropMultipleList}
-
-                                </ul>
-
-                            </Loading>
-
-                        </Scrollbars>
-                    </div>
-                </div>
-
-
-        } else {
-
-            let ClientHeight;
-
-            if (dropList && (dropList.length < (height / 24))) {
-
-                ClientHeight = dropList.length * 24;
-
-            } else {
-
-                ClientHeight = height;
-
-            }
-
-            dropContainer =
-
-                <ul className="dropdown_select_ul" ref="dropdown_select_ul" style={{ width: width ? width : 120, overflow: "initial" }}>
-
-                    <Loading opacity={false} spinning={dropLoadingShow ? dropLoadingShow : false}>
-
-                        <Scrollbars  style={{ width: width ? (width-2) : 118, height:ClientHeight}}>
-
-
-                        {//dropList是否存在？dropList:''
-                            dropList ?
-                                dropList.map((item, key) => {
-                                    return <li key={key} className={`dropdown_select_li ${activeValue&&activeValue===item.value?'active':(dropSelectd.value===item.value?'active':'')}`}
-                                        title={TitleShow?(Title?Title:item.title):''}
-                                        data-vaule={item.value}
-                                        onClick={
-                                            this.onSimpleDropChange.bind(this, {
-                                                onChange: onChange,
-                                                value: item.value,
-                                                title: item.title
-                                            })
-                                        }
-                                    >{item.title}</li>
-                                })
-                                : ''
-                        }
-
-                        </Scrollbars>
-
-                    </Loading>
-
-                </ul>;
-
-        }
-        return (
-            <div className={`dropdown_container ${className ? className : ''}`} {...reset}>
-                <span className="dropdown_title_span">{title}</span>
-                <span className="dropdown_wrapper" style={{ width: width ? width : 120 }}>
-                    <span ref='dropdown_default_span' className={`dropdown_default_span ${disabled ? 'disabled' : ''}`}
-                        onClick={ //点击展示和隐藏下拉列表
-                            disabled ?
-                                () => {
-                                } : this.onToggleDropList.bind(this)
-                        }
-                        style={{ width: width ? width : 120 }}>
-                        <span className={`dropdown_icon_span ${this.state.dropListShow ? 'slide' : ''}`}></span>
-                        {   //判断this.state.dropSelectd?this.state.dropSelectd:(判断外界传入的dropSelectd？外界传入的dropSelectd:'')
-                            this.state.dropSelectd ?
-                                <span data-value={this.state.dropSelectd.value} className="dropdown_text_span"
-
-                                      title={TitleShow?(Title?Title:this.state.dropSelectd.title):''}
-
-                                >{this.state.dropSelectd.title}</span>
-                                : (dropSelectd ?
-                                    <span data-value={dropSelectd.value} className="dropdown_text_span"
-
-                                         title={TitleShow?(Title?Title:dropSelectd.title):''}
-
-                                    >{dropSelectd.title}</span>
-                                    : ''
-                                )
-                        }
-                    </span>
-
-                    {
-
-                        dropContainer
-
+                    if (mutipleOptions.dropSelectd) {
+                      CanActive =
+                        mutipleOptions.dropSelectd.value === item2.id
+                          ? "active"
+                          : "";
+                    } else {
+                      CanActive =
+                        this.state.range2ListActive === item2.id
+                          ? "active"
+                          : "";
                     }
 
-                </span>
-            </div>
+                    return (
+                      <li
+                        key={k2}
+                        className={`dropdown_item3_li ${CanActive}`} //判断是否是active
+                        title={TitleShow ? (Title ? Title : item2.name) : ""}
+                        onClick={this.onMultipleRang2DropChange.bind(this, {
+                          name: item2.name,
+                          id: item2.id,
+                          onChange: mutipleOptions.dropMultipleChange,
+                        })} //绑定点击事件
+                      >
+                        <span className="dropdown_item3_name">
+                          {item2.name}
+                        </span>
+                      </li>
+                    );
+                  })
+                }
+              </ul>
+            </li>
+          );
+        });
+      } else {
+        dropMultipleList = (
+          <Empty
+            type="3"
+            title={
+              mutipleOptions.empTitle
+                ? mutipleOptions.empTitle
+                : "暂未有相关数据"
+            }
+          >
+
+          </Empty>
         );
+      }
+    } else if (mutipleOptions && mutipleOptions.range === 3) {
+      //等待后期扩展使用
     }
+
+    if (type && type === "multiple") {
+      dropContainer = (
+        <div
+          ref="dropdown_select_ul"
+          className="dropdown_select_ul"
+          style={{ width: selectUlWidth }}
+        >
+          <div className="dropdown_multiple_container">
+            <div className="dropdown_search_wrapper">
+              <Search
+                placeHolder={
+                  mutipleOptions && mutipleOptions.searchPlaceholder
+                    ? mutipleOptions.searchPlaceholder
+                    : null
+                }
+                width={searchWidth}
+                onClickSearch={this.onClickSearch.bind(this)}
+                onCancelSearch={this.onCancelSearch.bind(this)}
+                CancelBtnShow={mutipleOptions.CancelBtnShow}
+                Value={mutipleOptions.inputValue}
+              >
+
+              </Search>
+            </div>
+
+            <Scrollbars
+              renderTrackHorizontal={(props)=>{ return <span style={{display:'none'}}></span>}}
+              renderThumbHorizontal={(props)=>{ return <span style={{display:'none'}}></span>}}
+              autoHeight
+              autoHeightMin={160}
+             
+              autoHeightMax={scrollWrapperHeight}
+              style={{ width: scrollWrapperWidth}}
+              
+            >
+              <Loading
+                opacity={false}
+                spinning={
+                  mutipleOptions && mutipleOptions.dropLoadingShow
+                    ? mutipleOptions.dropLoadingShow
+                    : false
+                }
+              >
+                <ul className="dropdown_list_ul">{dropMultipleList}</ul>
+              </Loading>
+            </Scrollbars>
+          </div>
+        </div>
+
+      );
+    } else {
+
+      dropContainer = (
+
+          <ul
+          className="dropdown_select_ul"
+          ref="dropdown_select_ul"
+          style={{ width:width, overflow: "initial" }}
+        >
+
+          <Loading
+            opacity={false}
+            spinning={dropLoadingShow}
+          >
+            <Scrollbars
+              style={{ width:width - 2}}
+              autoHeight
+              autoHeightMin={0}
+              autoHeightMax={288}
+              renderTrackHorizontal={(props)=>{ return <span style={{display:'none'}}></span>}}
+              renderThumbHorizontal={(props)=>{ return <span style={{display:'none'}}></span>}}
+            >
+              {
+
+                  dropList.map((item,key) => {
+
+                   return (
+
+                          <li
+                          key={key}
+                          className={`dropdown_select_li ${
+                            activeValue && activeValue === item.value
+                              ? "active"
+                              : dropSelectd.value === item.value
+                              ? "active"
+                              : ""
+                          }`}
+                          title={TitleShow ? (Title ? Title : item.title) : ""}
+                          data-vaule={item.value}
+                          onClick={this.onSimpleDropChange.bind(this, {
+                            onChange: onChange,
+                            value: item.value,
+                            title: item.title,
+                          })}
+                        >
+                          {item.title}
+                        </li>
+
+                   );
+
+                 })
+              }
+
+            </Scrollbars>
+
+          </Loading>
+
+          </ul>
+
+      );
+
+    }
+
+    return (
+      <div
+        className={`dropdown_container ${className ? className : ""}`}
+        {...reset}
+      >
+        <span className="dropdown_title_span">{title}</span>
+        <span
+          className="dropdown_wrapper"
+          style={{ width: width }}
+        >
+          <span
+            ref="dropdown_default_span"
+            className={`dropdown_default_span ${disabled ? "disabled" : ""}`}
+            onClick={
+              //点击展示和隐藏下拉列表
+              disabled ? () => {} : this.onToggleDropList.bind(this)
+            }
+            style={{ width:width}}
+          >
+            <span
+              className={`dropdown_icon_span ${
+                this.state.dropListShow ? "slide" : ""
+              }`}
+            ></span>
+            {
+              //判断this.state.dropSelectd?this.state.dropSelectd:(判断外界传入的dropSelectd？外界传入的dropSelectd:'')
+              this.state.dropSelectd ? (
+                <span
+                  data-value={this.state.dropSelectd.value}
+                  className="dropdown_text_span"
+                  title={
+                    TitleShow
+                      ? Title
+                        ? Title
+                        : this.state.dropSelectd.title
+                      : ""
+                  }
+                >
+                  {this.state.dropSelectd.title}
+                </span>
+              ) : dropSelectd ? (
+                <span
+                  data-value={dropSelectd.value}
+                  className="dropdown_text_span"
+                  title={TitleShow ? (Title ? Title : dropSelectd.title) : ""}
+                >
+                  {dropSelectd.title}
+                </span>
+              ) : (
+                ""
+              )
+            }
+          </span>
+
+          {dropContainer}
+        </span>
+      </div>
+    );
+  }
 }
 /*
  * 下拉 end
@@ -1984,8 +1959,6 @@ class AppAlert extends React.Component {
       contentMaxWidth,
       className
     } = this.props;
-
-    console.log(this.props.title);
 
     let { cancelShow, okShow } = this.props;
 
@@ -3124,7 +3097,43 @@ class Tips extends React.Component {
 
 const LeftMenu = withRouter(MenuLeft);
 
+const PagiNation = memo(PageComponent);
+
 const Alert = memo(AppAlert);
+
+const DropDown = memo(DropComponent);
+
+
+PagiNation.defaultProps = {
+
+    showQuickJumper:true,
+
+    showSizeChanger:false,
+
+    hideOnSinglePage:true,
+
+    pageSizeOptions:['10','20','50','100'],
+
+    total:0,
+
+    pageSize:10,
+
+    current:1
+
+};
+
+DropDown.defaultProps = {
+
+  dropList:[],TitleShow:true,
+
+  width:120,dropLoadingShow:false,
+
+  dropSimpleSearch:false,
+
+  //simpleSearchChange:()=>{}
+
+};
+
 
 export {
     Radio,

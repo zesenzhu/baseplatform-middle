@@ -32,9 +32,9 @@ class ScheduleSetting extends Component{
 
     }
 
-    componentWillUpdate(){
+    UNSAFE_componentWillReceiveProps(nextProps){
 
-        const { dispatch,LoginUser } = this.props;
+        const { dispatch,LoginUser } = nextProps;
 
         if (Object.keys(LoginUser).length>0&&this.state.FirstUpload){
 
@@ -69,7 +69,7 @@ class ScheduleSetting extends Component{
 
         const { dispatch } = this.props;
 
-        const method = opts.type===1?'统一':'分学段';
+        const method = opts.type===1?'分学段':'统一';
 
         dispatch(AppAlertActions.alertQuery({title:`您确定要切换成按${method}设置吗？`,ok:()=>this.SettingTypeSitch.bind(this,opts)}));
 

@@ -358,7 +358,9 @@ const teacherDropChange = (info) => {
 
                     }).filter(i => i!==undefined);
 
-                    const TeacherList = teacherList.filter(item=>item.id===list[0].value)[0].list;
+                    const tmpList = teacherList.filter(item=>item.id===list[0].value);
+
+                    const TeacherList = tmpList.length>0?tmpList[0].list:[];
 
                     const ReplaceTeacherList = TeacherList.map(item=>{
 
@@ -3878,14 +3880,13 @@ const ModalCommit = ({changeTimeModal,changeRoomModal}) => {
 
               }
 
-              let ClassID = classCheckedList.join(',');
+              let ClassID = classList.filter(i=>{return classCheckedList.includes(i.id)}).map(i=>i.id).join(',');
 
-              let ClassNameList = classCheckedList.map(item=>{
+              let ClassNameList = classList.filter(i=>{
 
-                  return classList.find(i=>i.id===item).name
+                  return classCheckedList.includes(i.id);
 
-              }).join(',');
-
+              }).map(i=>i.name).join(',');
 
 
               dispatch({type:ADJUST_BY_TEACHER_LOADING_SHOW});
