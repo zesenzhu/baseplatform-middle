@@ -1077,6 +1077,7 @@ class Student extends React.Component {
       userMail: "1519406168@qq.com",
       userAddress: "蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团"
     };
+    console.log(this.state.secondDropList,DataState.GradeClassMsg.returnData)
     return (
       <div className="Student">
         <div className="Student-box">
@@ -1116,7 +1117,7 @@ class Student extends React.Component {
                 height={240}
                 style={{ display: this.state.DropMenuShow ? "block" : "none" }}
                 dropSelectd={this.state.secondSelect}
-                dropList={this.state.secondDropList}
+                dropList={this.state.secondDropList?this.state.secondDropList:[{ value: 0, title: "全部班级" }]}
                 onChange={this.StudentDropMenuSecond}
               ></DropDown>
               <Search

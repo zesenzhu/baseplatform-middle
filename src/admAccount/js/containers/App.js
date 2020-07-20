@@ -213,7 +213,7 @@ class App extends Component {
         } else if (handleRoute === "Student") {
           //dispatch(actions.UpDataState.getAllUserPreview('/Archives' + handleRoute));
           dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
-          if (!this.props.DataState.GradeClassMsg.returnData.grades)
+          // if (!this.props.DataState.GradeClassMsg.returnData.grades)
             dispatch(
               actions.UpDataState.getGradeClassMsg("/GetGradeClassTree?SchoolID="+
               userMsg.SchoolID)
@@ -228,7 +228,7 @@ class App extends Component {
         }else if (handleRoute === "Parents") {
           //dispatch(actions.UpDataState.getAllUserPreview('/Archives' + handleRoute));
           dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
-          if (!this.props.DataState.GradeClassMsg.returnData.grades)
+          // if (!this.props.DataState.GradeClassMsg.returnData.grades)
             dispatch(
               actions.UpDataState.getGradeClassMsg("/GetGradeClassTree?SchoolID="+
               userMsg.SchoolID)
@@ -242,7 +242,7 @@ class App extends Component {
           );
         } else if (handleRoute === "Teacher") {
           dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
-          if (!this.props.DataState.SubjectTeacherMsg.returnData)
+          // if (!this.props.DataState.SubjectTeacherMsg.returnData)
             dispatch(actions.UpDataState.getSubjectTeacherMsg("/GetSubject?SchoolID="+
             userMsg.SchoolID));
           dispatch(

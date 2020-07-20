@@ -287,14 +287,14 @@ class App extends Component {
                   )
                 );
               // }
-              if (!DataState.TeacherTitleMsg.returnData) {
+              // if (!DataState.TeacherTitleMsg.returnData) {
                 //职称
                 dispatch(
                   actions.UpDataState.getTeacherTitleMsg(
                     "/GetTitle?schoolID=" + userMsg.SchoolID
                   )
                 );
-              }
+              // }
               // console.log(ID);
               if (ID === "all") {
                 dispatch(
