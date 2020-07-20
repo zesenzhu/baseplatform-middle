@@ -1497,7 +1497,7 @@ class DropComponent extends React.Component {
             >
               {
 
-                  dropList.map((item,key) => {
+                  dropList&&(dropList instanceof Array)&&dropList.map((item,key) => {
 
                    return (
 
