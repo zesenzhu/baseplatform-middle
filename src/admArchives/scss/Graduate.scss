@@ -1,9 +1,8 @@
-.frame-fluid {
-    position: relative;
-    padding: 0;
-    background: #fff !important;
-}
-
+// .frame-fluid {
+//     position: relative;
+//     padding: 0;
+//     background: #fff !important;
+// }
 $image-url: "../images";
 @import "./images.scss";
 .Graduate {
@@ -33,9 +32,55 @@ $image-url: "../images";
                     background-position: left center;
                 }
                 .menu-location {
-                    background: url(../images/icon-location.png) no-repeat;
-                    background-size: 14px 19px;
+                    background: url(../images/menu-icon28-hover.png) no-repeat;
+                    background-size: 17px 17px;
                     background-position: left center;
+                }
+            }
+            .top-nav {
+                float: right;
+                .link {
+                    color: #0099ff;
+                    font-size: 14px;
+                    line-height: 37px;
+                    text-decoration: underline;
+                    &:hover {
+                        color: #ff6600;
+                        .add {
+                            background: url(../images/icon-add-active.png)no-repeat left center;
+                            background-size: 12px 12px;
+                        }
+                        .RegisterExamine {
+                            background: url(../images/icon-register-active.png)no-repeat left center;
+                            background-size: 14px 16px;
+                        }
+                        .ImportFile {
+                            background: url(../images/icon-import-active.png)no-repeat left center;
+                            background-size: 16px 16px;
+                        }
+                    }
+                    .add {
+                        padding-left: 16px;
+                        background: url(../images/icon-add.png)no-repeat left center;
+                        background-size: 12px 12px;
+                    }
+                    .RegisterExamine {
+                        padding-left: 18px;
+                        background: url(../images/icon-register.png)no-repeat left center;
+                        background-size: 14px 16px;
+                    }
+                    .ImportFile {
+                        padding-left: 20px;
+                        background: url(../images/icon-import.png)no-repeat left center;
+                        background-size: 16px 16px;
+                    }
+                }
+                .divide {
+                    position: relative;
+                    font-size: 14px;
+                    color: #c9e1f0;
+                    top: -1px;
+                    margin: 0 12px;
                 }
             }
             .btn-toGraduate {

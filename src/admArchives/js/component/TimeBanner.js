@@ -5,24 +5,61 @@ import {
   HashRouter as Router,
   Route,
   Link,
-  BrowserRouter
+  BrowserRouter,
 } from "react-router-dom";
+import history from "../containers/history";
+import TopMenu from './newEdition/TopMenu'
 import { Button } from "../../../common";
 class TimeBanner extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      List: [
+        { value: "All", title: "用户档案总览", icon: "All" },
+        { value: "Student", title: "学生档案", icon: "Student" },
+        { value: "Teacher", title: "教师档案", icon: "Teacher" },
+        { value: "Leader", title: "领导档案", icon: "Leader" },
+        { value: "Graduate", title: "毕业生档案 ", icon: "Graduate" },
+      ],
+    };
   }
+  onSelectMenu = (key) => {
+    let route = history.location.pathname;
 
+    let pathArr = route.split("/");
+    let handleRoute = pathArr[2];
+    if (key !== "All") {
+      // console.log(key)
+      if (handleRoute === "Student") {
+        window.StudentCancelSearch();
+      } else if (handleRoute === "Teacher") {
+        window.TeacherCancelSearch();
+      } else if (handleRoute === "Leader") {
+        window.LeaderCancelSearch();
+      }
+      history.push("/UserArchives/" + key + "/all");
+    } else {
+      history.push("/UserArchives/" + key);
+    }
+    // history.push('/'+key)
+  };
   render() {
-    const { DataState, UIState } = this.props;
+    const { DataState, UIState, route } = this.props;
+    let {List} = this.state
     let userMsg = DataState.LoginUser;
     let AdminPower = true;
     if (userMsg.UserType === "7" && userMsg.UserClass === "2") {
       AdminPower = false;
     }
+    let pathname = history.location.pathname;
+
+    let pathArr = pathname.split("/");
+    let handleRoute = pathArr[2];
+    console.log(handleRoute);
+
     return (
       <Router>
+        <TopMenu></TopMenu>
         {this.props.route ? (
           // (<Link to='/ImportFile/Graduate' target='_blank'><Button className='btn-toGraduate' color='blue' shape='round'>导入毕业去向</Button></Link>)
           ""
@@ -39,7 +76,7 @@ class TimeBanner extends React.Component {
                 target="_blank"
                 className="tips_handle"
               >
-                查看详情>>
+                {"查看详情" + ">>"}
               </Link>
             </span>
           ) : (
@@ -50,7 +87,7 @@ class TimeBanner extends React.Component {
                 target="_blank"
                 className="tips_handle"
               >
-                查看全部变更记录>>
+                {"查看全部变更记录" + ">>"}
               </Link>
             </span>
           )
@@ -61,11 +98,11 @@ class TimeBanner extends React.Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   let { UIState, DataState } = state;
   return {
     UIState,
-    DataState
+    DataState,
   };
 };
 export default connect(mapStateToProps)(TimeBanner);

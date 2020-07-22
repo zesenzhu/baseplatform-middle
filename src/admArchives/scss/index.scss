@@ -2,18 +2,17 @@
     position: relative;
 }
 
-.frame-fluid {
-    position: relative;
-    //   padding: 0;
-    padding: 25px 42px !important;
-    background: #fff !important;
-}
-
 label {
     cursor: pointer;
 }
 
 .mainFrame {
+    .frame-fluid {
+        position: relative;
+        //   padding: 0;
+        padding: 30px 36px !important;
+        background: #fff !important;
+    }
     .frame-block-wrapper {
         padding-left: 100px!important;
     }

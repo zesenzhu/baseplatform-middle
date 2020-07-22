@@ -2,7 +2,7 @@ $image-url :"../images";
 @import './images.scss';
 .All {
     position: relative;
-    padding: 22px 32px;
+    // padding: 22px 32px;
     text-align: center;
     //公用
     .All-box {
@@ -23,19 +23,19 @@ $image-url :"../images";
         }
     }
     .All-content {
-        width: 860px;
+        // width: 860px;
         height: 272px;
         margin: 0 auto 40px;
         background-color: #f5f5f5;
         #all-user-content {
-            width: 860px;
+            // width: 860px;
             height: 272px;
         }
     }
     .user-content {
         .echarts-tips {
             position: absolute;
-            left: 408px;
+            left: 608px;
             top: 160px;
             p {
                 margin: 5px;
@@ -67,6 +67,10 @@ $image-url :"../images";
                     width: 18px;
                     height: 12px;
                     border-radius: 3px;
+                    -webkit-border-radius: 3px;
+                    -moz-border-radius: 3px;
+                    -ms-border-radius: 3px;
+                    -o-border-radius: 3px;
                 }
                 .tips-icon-3 {
                     background-image: linear-gradient(90deg, #90b915 0%, #d9ff81 100%);
@@ -80,7 +84,7 @@ $image-url :"../images";
     .All-hr {
         position: relative;
         border-top: 1px dashed #ccc;
-        width: 858px;
+        // width: 858px;
         left: 11px;
         margin: 0 auto 20px;
     }

@@ -1,5 +1,5 @@
 import { func } from "prop-types";
-import config from './config'
+import config from "./config";
 
 //对象深度对比
 const deepCompare = (x, y) => {
@@ -159,10 +159,7 @@ function getUrlQueryVariable(url, variable) {
  * 返回对相应的数据类型
  */
 function getType(data) {
-  return Object.prototype.toString
-    .call(data)
-    .substring(8)
-    .split(/]/)[0];
+  return Object.prototype.toString.call(data).substring(8).split(/]/)[0];
 }
 
 /**
@@ -222,34 +219,24 @@ function getLg_tk(url) {
   }
   let lg_tk = "";
   if (Url.indexOf("#") === -1) {
-
     lg_tk = Url.split("lg_tk=")[1].split("&")[0];
-
   } else {
-    lg_tk = Url.split("lg_tk=")[1]
-      .split("#")[0]
-      .split("&")[0];
-
+    lg_tk = Url.split("lg_tk=")[1].split("#")[0].split("&")[0];
   }
 
-
-
-  lg_tk = Url.includes('?lg_tk=')?"?lg_tk=" + lg_tk:'&lg_tk='+lg_tk;
+  lg_tk = Url.includes("?lg_tk=") ? "?lg_tk=" + lg_tk : "&lg_tk=" + lg_tk;
 
   return Url.replace(lg_tk, "");
 }
 // 处理url适合获取icon
-const UrlGetIcon = url => {
+const UrlGetIcon = (url) => {
   let urlArr = "";
   // console.log(url,url instanceof String,typeof url)
   if (typeof url !== "string") {
     return;
   }
   if (url.indexOf("://") !== "-1") {
-    urlArr = url
-      .split("/")
-      .slice(0, 3)
-      .join("/");
+    urlArr = url.split("/").slice(0, 3).join("/");
     // console.log(urlArr)
     return urlArr;
   } else {
@@ -259,7 +246,7 @@ const UrlGetIcon = url => {
     return urlArr;
   }
 };
-const requestNextAnimationFrame = (function() {
+const requestNextAnimationFrame = (function () {
   var originalWebkitMethod,
     wrapper = undefined,
     callback = undefined,
@@ -268,14 +255,14 @@ const requestNextAnimationFrame = (function() {
     index = 0,
     self = this;
   if (window.webkitRequestAnimationFrame) {
-    wrapper = function(time) {
+    wrapper = function (time) {
       if (time === undefined) {
         time += new Date();
       }
       self.callback(time);
     };
     originalWebkitMethod = window.webkitRequestAnimationFrame;
-    window.webkitRequestAnimationFrame = function(callback, element) {
+    window.webkitRequestAnimationFrame = function (callback, element) {
       self.callback = callback;
       originalWebkitMethod(wrapper, element);
     };
@@ -296,9 +283,9 @@ const requestNextAnimationFrame = (function() {
     window.mozRequestAnimationFrame ||
     window.oRequestAnimationFrame ||
     window.msRequestAnimationFrame ||
-    function(callback, element) {
+    function (callback, element) {
       var start, finish;
-      window.setTimeout(function() {
+      window.setTimeout(function () {
         start = +new Date();
         callback(start);
         finish = +new Date();
@@ -308,50 +295,71 @@ const requestNextAnimationFrame = (function() {
   );
 })();
 
-
-
 const IEVersion = () => {
-    let userAgent = navigator.userAgent; //取得浏览器的userAgent字符串  
-    // console.log(userAgent)
-    let isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器  
-    let isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器  
-    let isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
-    if (isIE) {
-        let reIE = new RegExp("MSIE (\\d+\\.\\d+);");
-        reIE.test(userAgent);
-        let fIEVersion = parseFloat(RegExp["$1"]);
-        if (fIEVersion < 10) {
-            //IE版本低于10 跳转到错误页面
-            window.location.href = config.ErrorProxy + "/browser-tips.html";
-            return false
-            console.log("版本过低")
+  let userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+  // console.log(userAgent)
+  let isIE =
+    userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器
+  let isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器
+  let isIE11 =
+    userAgent.indexOf("Trident") > -1 && userAgent.indexOf("rv:11.0") > -1;
+  if (isIE) {
+    let reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+    reIE.test(userAgent);
+    let fIEVersion = parseFloat(RegExp["$1"]);
+    if (fIEVersion < 10) {
+      //IE版本低于10 跳转到错误页面
+      window.location.href = config.ErrorProxy + "/browser-tips.html";
+      return false;
+      console.log("版本过低");
 
-            console.log(fIEVersion);
-
-        } else {
-            console.log("这是IE10")
-            return true;//IE版本>=10
-        }
-    } else if (isEdge) {
-        console.log("这个edge")
-        return true;//edge
-    } else if (isIE11) {
-        console.log("这是IE11")
-        return true; //IE11  
+      console.log(fIEVersion);
     } else {
-
-        console.log("不是ie浏览器")
-        return true
+      console.log("这是IE10");
+      return true; //IE版本>=10
     }
+  } else if (isEdge) {
+    console.log("这个edge");
+    return true; //edge
+  } else if (isIE11) {
+    console.log("这是IE11");
+    return true; //IE11
+  } else {
+    console.log("不是ie浏览器");
+    return true;
+  }
+};
+// 给教务系统，处理url，改变布局，设置跳转逻辑
+function checkUrlAndPostMsg(
+   { sysid= "000", btnName= "", url= "" },
+  useDefault = true,
+  func = () => {}
+) {
+  let iFrame = getQueryVariable("iFrame");
+  let isIFrame = false;
+  // let { sysid, btnName, url } = params;
+  // console.log(iFrame, sysid, btnName, url, arguments);
+  if (iFrame === "true") {
+    isIFrame = true;
+
+    window.parent.postMessage({ sysid, btnName, url }, "*");
+  } else if (useDefault) {
+    window.open(url)
+  }
+  if(typeof arguments[arguments.length-1] === 'function'){
+    arguments[arguments.length-1](isIFrame);
+  }
+  // (isIFrame);
+  return isIFrame;
 }
 export default {
-    deepCompare,
-    getQueryVariable,
-    getUrlQueryVariable,
-    comparisonObject,
-    getLg_tk,
-    UrlGetIcon,
-    IEVersion,
-    requestNextAnimationFrame
-
-}
+  deepCompare,
+  getQueryVariable,
+  getUrlQueryVariable,
+  comparisonObject,
+  getLg_tk,
+  UrlGetIcon,
+  IEVersion,
+  requestNextAnimationFrame,
+  checkUrlAndPostMsg,
+};

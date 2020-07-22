@@ -14,7 +14,7 @@ import {
   Empty,
   Loading
 } from "../../../common/index";
-import { Link } from "react-router-dom";
+// import { a } from "react-router-dom";
 import CONFIG from "../../../common/js/config";
 import { postData, getData } from "../../../common/js/fetch";
 import history from "../containers/history";
@@ -25,6 +25,7 @@ import Public from "../../../common/js/public";
 import IconLocation from "../../images/icon-location.png";
 import StudentChangeRecord from "./StudentChangeRecord";
 import actions from "../actions";
+let { checkUrlAndPostMsg } = Public;
 class Leader extends React.Component {
   constructor(props) {
     super(props);
@@ -680,7 +681,12 @@ class Leader extends React.Component {
 
     dispatch({ type: actions.UpUIState.LEADER_CHANGE_MODAL_CLOSE });
   };
+  onLinkClick = (btnName, route) => {
+    let url = window.location.href.split(window.location.hash).join(route);
 
+    // console.log(url);
+    checkUrlAndPostMsg({ btnName, url });
+  };
   render() {
     const { UIState, DataState } = this.props;
 
@@ -692,7 +698,7 @@ class Leader extends React.Component {
               <span className="tips menu35 ">领导档案管理</span>
             </span>
             <div className="top-nav">
-              {/* <Link className='link' to='/GraduteArchives' replace>查看毕业生档案</Link>
+              {/* <a className='link' to='/GraduteArchives' replace>查看毕业生档案</a>
                             <span className='divide'>|</span> */}
               <span
                 className="link"
@@ -702,14 +708,19 @@ class Leader extends React.Component {
                 <span className="add">添加领导</span>
               </span>
               <span className="divide">|</span>
-              <Link
+              <a
                 className="link"
-                target="_blank"
-                to="/ImportFile/Leader"
-                replace
+                // target="_blank"
+                // to="/ImportFile/Leader"
+                // replace
+                onClick={this.onLinkClick.bind(
+                  this,
+                  "导入领导",
+                  "#/ImportFile/Leader"
+                )}
               >
                 <span className="ImportFile">导入领导</span>
-              </Link>
+              </a>
             </div>
           </div>
           <div className="Leader-hr"></div>

@@ -11,7 +11,7 @@ import {
   CheckBoxGroup,
   Modal,
   Empty,
-  Loading
+  Loading,
 } from "../../../common/index";
 //import '../../../common/scss/_left_menu.scss'
 import { Link } from "react-router-dom";
@@ -26,6 +26,7 @@ import EditModal from "./EditModal";
 import IconLocation from "../../images/icon-location.png";
 import actions from "../actions";
 import StudentChangeRecord from "./StudentChangeRecord";
+let { checkUrlAndPostMsg } = Public;
 class Student extends React.Component {
   constructor(props) {
     super(props);
@@ -41,7 +42,7 @@ class Student extends React.Component {
           key: "OrderNo",
           width: 68,
           align: "left",
-          render: key => {
+          render: (key) => {
             return (
               <div className="registerTime-content">
                 <label style={{ whiteSpace: "nowrap" }}>
@@ -58,7 +59,7 @@ class Student extends React.Component {
                 </label>
               </div>
             );
-          }
+          },
         },
         {
           title: "",
@@ -67,7 +68,7 @@ class Student extends React.Component {
           width: 50,
           colSpan: 0,
           dataIndex: "UserName",
-          render: arr => {
+          render: (arr) => {
             return (
               <div className="name-content">
                 <i
@@ -78,12 +79,12 @@ class Student extends React.Component {
                     width: "47px",
                     height: "47px",
                     display: "inline-block",
-                    background: `url(${arr.PhotoPath}) no-repeat center center / 47px`
+                    background: `url(${arr.PhotoPath}) no-repeat center center / 47px`,
                   }}
                 ></i>
               </div>
             );
-          }
+          },
         },
         {
           title: "姓名",
@@ -93,7 +94,7 @@ class Student extends React.Component {
           key: "UserName",
           dataIndex: "UserName",
           sorter: true,
-          render: arr => {
+          render: (arr) => {
             return (
               <div className="name-content">
                 <span
@@ -105,7 +106,7 @@ class Student extends React.Component {
                 </span>
               </div>
             );
-          }
+          },
         },
         {
           title: "学号",
@@ -114,13 +115,13 @@ class Student extends React.Component {
           dataIndex: "UserID",
           key: "UserID",
           sorter: true,
-          render: UserID => {
+          render: (UserID) => {
             return (
               <span title={UserID} className="UserID">
                 {UserID ? UserID : "--"}
               </span>
             );
-          }
+          },
         },
         {
           title: "性别",
@@ -128,13 +129,13 @@ class Student extends React.Component {
           width: 80,
           dataIndex: "Gender",
           key: "Gender",
-          render: Gender => {
+          render: (Gender) => {
             return (
               <span title={Gender} className="Gender">
                 {Gender ? Gender : "--"}
               </span>
             );
-          }
+          },
         },
         {
           title: "年级",
@@ -142,13 +143,13 @@ class Student extends React.Component {
           key: "GradeName",
           width: 110,
           dataIndex: "GradeName",
-          render: GradeName => {
+          render: (GradeName) => {
             return (
               <span title={GradeName} className="GradeName">
                 {GradeName ? GradeName : "--"}
               </span>
             );
-          }
+          },
         },
         {
           title: "班级",
@@ -156,13 +157,13 @@ class Student extends React.Component {
           width: 110,
           key: "ClassName",
           dataIndex: "ClassName",
-          render: ClassName => {
+          render: (ClassName) => {
             return (
               <span title={ClassName} className="ClassName">
                 {ClassName ? ClassName : "--"}
               </span>
             );
-          }
+          },
         },
         {
           title: "操作",
@@ -170,7 +171,7 @@ class Student extends React.Component {
           key: "handle",
           width: 232,
           dataIndex: "key",
-          render: key => {
+          render: (key) => {
             return (
               <div className="handle-content">
                 <Button
@@ -191,8 +192,8 @@ class Student extends React.Component {
                 </Button>
               </div>
             );
-          }
-        }
+          },
+        },
       ],
       data: [
         {
@@ -201,14 +202,14 @@ class Student extends React.Component {
             key: "01",
             PhotoPath:
               "http://192.168.129.1:10101/LgTTFtp/UserInfo/Photo/Default/Nopic001.jpg",
-            UserName: "祝泽森"
+            UserName: "祝泽森",
           },
           UserID: "S00001",
           Grader: "男",
           GradeName: "一年级",
           ClassName: "一年1班",
-          Others: {}
-        }
+          Others: {},
+        },
       ],
       pagination: 1,
       loading: false,
@@ -234,7 +235,8 @@ class Student extends React.Component {
       sortType: "",
       sortFiled: "",
       searchWord: "",
-      studentChangeUserLog: {}
+      studentChangeUserLog: {},
+      pageSize: 10,
     };
     window.StudentCancelSearch = this.StudentCancelSearch.bind(this);
   }
@@ -245,7 +247,7 @@ class Student extends React.Component {
       searchValue: "",
       checkAll: false,
       checkedList: [],
-      pagination: 1
+      pagination: 1,
     });
   };
   componentWillReceiveProps(nextProps) {
@@ -274,20 +276,20 @@ class Student extends React.Component {
         nextProps.DataState.GradeClassMsg.returnData.AllClasses[
           Select.GradeID.value
         ];
-      ClassArr.map(Class => {
+      ClassArr.map((Class) => {
         Classes.push(Class);
       });
       //Classes.push(this.props.DataState.GradeClassMsg.returnData.AllClasses[e.value]);
       //this.refs.dropMenuSecond.state.dropList = Classes;]
       this.setState({
         secondDropList: Classes,
-        DropMenuShow: true
+        DropMenuShow: true,
         // pagination:1
       });
     } else {
       this.setState({
         DropMenuShow: false,
-        secondDropList: Classes
+        secondDropList: Classes,
       });
     }
     // console.log('ss')
@@ -297,12 +299,12 @@ class Student extends React.Component {
       secondSelect: Select.ClassID
         ? Select.ClassID
         : { value: 0, title: "全部年级" },
-      pagination: Number(Select.pageIndex) + 1
+      pagination: Number(Select.pageIndex) + 1,
     });
   }
   componentWillMount() {}
 
-  StudentDropMenu = e => {
+  StudentDropMenu = (e) => {
     const { dispatch, DataState } = this.props;
 
     let Classes = [{ value: 0, title: "全部班级" }];
@@ -320,7 +322,7 @@ class Student extends React.Component {
         CancelBtnShow: "n",
         searchValue: "",
         // pagination: 1,
-        keyword: ""
+        keyword: "",
       });
       dispatch(
         actions.UpDataState.getGradeStudentPreview(
@@ -328,7 +330,10 @@ class Student extends React.Component {
             this.state.userMsg.SchoolID +
             "&GradeID=" +
             e.value +
-            "&PageIndex=0&PageSize=10" +
+            "&pageSize=" +
+            this.state.pageSize +
+            "&PageIndex=0&pageSize=" +
+            this.state.pageSize +
             this.state.sortFiled +
             this.state.sortType,
           e
@@ -342,21 +347,23 @@ class Student extends React.Component {
         CancelBtnShow: "n",
         searchValue: "",
         // pagination: 1,
-        keyword: ""
+        keyword: "",
       });
       dispatch(
         actions.UpDataState.getGradeStudentPreview(
           "/GetStudentToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize=10" +
+            "&PageIndex=0" +
             this.state.sortFiled +
+            "&pageSize=" +
+            this.state.pageSize +
             this.state.sortType
         )
       );
     }
   };
 
-  StudentDropMenuSecond = e => {
+  StudentDropMenuSecond = (e) => {
     const { dispatch, DataState } = this.props;
     //  console.log(e);
     // this.setState({
@@ -368,7 +375,7 @@ class Student extends React.Component {
         checkAll: false,
         secondSelect: e,
         CancelBtnShow: "n",
-        searchValue: ""
+        searchValue: "",
         // pagination: 1
       });
       dispatch(
@@ -377,8 +384,10 @@ class Student extends React.Component {
             this.state.userMsg.SchoolID +
             "&GradeID=" +
             this.state.firstSelect.value +
-            "&PageIndex=0&PageSize=10" +
+            "&PageIndex=0" +
             this.state.sortFiled +
+            "&pageSize=" +
+            this.state.pageSize +
             this.state.sortType,
           this.state.firstSelect
         )
@@ -389,7 +398,7 @@ class Student extends React.Component {
         checkAll: false,
         secondSelect: e,
         searchValue: "",
-        CancelBtnShow: "n"
+        CancelBtnShow: "n",
         // pagination: 1
       });
       dispatch(
@@ -400,7 +409,9 @@ class Student extends React.Component {
             this.state.firstSelect.value +
             "&ClassID=" +
             e.value +
-            "&PageIndex=0&PageSize=10" +
+            "&PageIndex=0" +
+            "&pageSize=" +
+            this.state.pageSize +
             this.state.sortFiled +
             this.state.sortType,
           this.state.firstSelect,
@@ -410,7 +421,7 @@ class Student extends React.Component {
     }
   };
 
-  StudentSearch = e => {
+  StudentSearch = (e) => {
     const { dispatch, DataState } = this.props;
     // this.setState({
     //     keyword: '&keyword='+e.value,
@@ -426,7 +437,7 @@ class Student extends React.Component {
           ok: this.onAppAlertOK.bind(this),
           cancel: this.onAppAlertCancel.bind(this),
           close: this.onAppAlertClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
       return;
@@ -441,7 +452,7 @@ class Student extends React.Component {
           title: "输入的学号或姓名格式不正确",
           ok: this.onAppAlertOK.bind(this),
           cancel: this.onAppAlertCancel.bind(this),
-          close: this.onAppAlertClose.bind(this)
+          close: this.onAppAlertClose.bind(this),
         })
       );
       return;
@@ -451,7 +462,7 @@ class Student extends React.Component {
       checkAll: false,
       keyword: "&keyword=" + e.value,
       searchWord: e.value,
-      CancelBtnShow: "y"
+      CancelBtnShow: "y",
       // pagination: 1
     });
     // //  console.log(e)
@@ -467,7 +478,8 @@ class Student extends React.Component {
             : "") +
           "&keyword=" +
           e.value +
-          "&PageIndex=0&PageSize=10" +
+          "&PageIndex=0&pageSize=" +
+          this.state.pageSize +
           this.state.sortFiled +
           this.state.sortType,
         this.state.firstSelect,
@@ -476,7 +488,7 @@ class Student extends React.Component {
     );
   };
 
-  onSelectChange = e => {
+  onSelectChange = (e) => {
     // //  console.log(e)
     //this.setState({ selectedRowKeys });
   };
@@ -492,11 +504,11 @@ class Student extends React.Component {
     );
     this.setState({
       studentModalVisible: true,
-      userKey: e
+      userKey: e,
     });
   };
 
-  StudentChange = key => {
+  StudentChange = (key) => {
     //  console.log(e, key)
     const { dispatch, DataState } = this.props;
 
@@ -505,26 +517,26 @@ class Student extends React.Component {
     // console.log(innerID)
     dispatch(actions.UpDataState.getUserLog(url, "student"));
     this.setState({
-      studentChangeUserLog: DataState.GradeStudentPreview.newList[key].Others
+      studentChangeUserLog: DataState.GradeStudentPreview.newList[key].Others,
     });
   };
 
   onMouseEnterName = () => {};
-  OnCheckAllChange = e => {
+  OnCheckAllChange = (e) => {
     //  console.log(e)
     if (e.target.checked) {
       this.setState({
         checkedList: this.props.DataState.GradeStudentPreview.keyList,
-        checkAll: e.target.checked
+        checkAll: e.target.checked,
       });
     } else {
       this.setState({
         checkedList: [],
-        checkAll: e.target.checked
+        checkAll: e.target.checked,
       });
     }
   };
-  onCheckBoxGroupChange = checkedList => {
+  onCheckBoxGroupChange = (checkedList) => {
     //  console.log(checkedList)
     this.setState({
       checkedList,
@@ -532,10 +544,10 @@ class Student extends React.Component {
         checkedList.length ===
         this.props.DataState.GradeStudentPreview.keyList.length
           ? true
-          : false
+          : false,
     });
   };
-  handleStudentModalOk = e => {
+  handleStudentModalOk = (e) => {
     let url = "/EditStudent";
 
     const { DataState, dispatch, UIState } = this.props;
@@ -554,21 +566,21 @@ class Student extends React.Component {
     if (!changeStudentMsg.classID) {
       dispatch(
         actions.UpUIState.editModalTipsVisible({
-          ClassTipsVisible: true
+          ClassTipsVisible: true,
         })
       );
       return;
     } else if (changeStudentMsg.classID === -1) {
       dispatch(
         actions.UpUIState.editModalTipsVisible({
-          ClassTipsVisible: false
+          ClassTipsVisible: false,
         })
       );
       return;
     } else {
       dispatch(
         actions.UpUIState.editModalTipsVisible({
-          ClassTipsVisible: false
+          ClassTipsVisible: false,
         })
       );
     }
@@ -583,7 +595,7 @@ class Student extends React.Component {
           ok: this.onAppAlertOK.bind(this),
           cancel: this.onAppAlertCancel.bind(this),
           close: this.onAppAlertClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
       return;
@@ -599,14 +611,14 @@ class Student extends React.Component {
           {
             ...changeStudentMsg,
             photoPath: picObj.picUploader.getCurImgPath(),
-            PhotoEdit: PhotoEdit
+            PhotoEdit: PhotoEdit,
           },
           2
         )
-          .then(res => {
+          .then((res) => {
             return res.json();
           })
-          .then(json => {
+          .then((json) => {
             // if (json.StatusCode !== 200) {
             //     dispatch(actions.UpUIState.showErrorAlert({
             //         type: 'btn-error',
@@ -622,15 +634,15 @@ class Student extends React.Component {
                 actions.UpUIState.showErrorAlert({
                   type: "success",
                   title: "操作成功",
-                  onHide: this.onAlertWarnHide.bind(this)
+                  onHide: this.onAlertWarnHide.bind(this),
                 })
               );
               this.setState({
-                studentModalVisible: false
+                studentModalVisible: false,
               });
               this.setState({
                 checkedList: [],
-                checkAll: false
+                checkAll: false,
               });
             }
             dispatch(
@@ -645,7 +657,8 @@ class Student extends React.Component {
                     : "") +
                   "&PageIndex=" +
                   (this.state.pagination - 1) +
-                  "&PageSize=10" +
+                  "&pageSize=" +
+                  this.state.pageSize +
                   this.state.sortFiled +
                   this.state.sortType +
                   this.state.keyword,
@@ -658,20 +671,20 @@ class Student extends React.Component {
       }
     }
   };
-  handleStudentModalCancel = e => {
+  handleStudentModalCancel = (e) => {
     //  console.log(e)
     const { dispatch } = this.props;
     dispatch(actions.UpUIState.editAlltModalTipsVisible());
     this.setState({
-      studentModalVisible: false
+      studentModalVisible: false,
     });
   };
-  StudentChangeMadalOk = e => {
+  StudentChangeMadalOk = (e) => {
     const { dispatch } = this.props;
 
     dispatch({ type: actions.UpUIState.STUDENT_CHANGE_MODAL_CLOSE });
   };
-  StudentChangeMadalCancel = e => {
+  StudentChangeMadalCancel = (e) => {
     //  console.log(e)
     const { dispatch } = this.props;
 
@@ -689,7 +702,7 @@ class Student extends React.Component {
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
           close: this.onAlertWarnClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
     } else {
@@ -699,7 +712,7 @@ class Student extends React.Component {
           title: "确定删除勾选的学生吗？",
           ok: this.onAlertQueryOk.bind(this),
           cancel: this.onAlertQueryClose.bind(this),
-          close: this.onAlertQueryClose.bind(this)
+          close: this.onAlertQueryClose.bind(this),
         })
       );
     }
@@ -733,14 +746,14 @@ class Student extends React.Component {
       CONFIG.UserInfoProxy + url,
       {
         userIDs: UserIDListString,
-        schoolID: this.state.userMsg.SchoolID
+        schoolID: this.state.userMsg.SchoolID,
       },
       2
     )
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         if (json.StatusCode === 200) {
           // if((Total-len)%(this.state.pagination-1)===0){
           //   pagination = this.state.pagination - 2;
@@ -750,7 +763,7 @@ class Student extends React.Component {
           // }
           this.setState({
             checkedList: [],
-            checkAll: false
+            checkAll: false,
           });
 
           dispatch(actions.UpUIState.hideErrorAlert());
@@ -758,12 +771,12 @@ class Student extends React.Component {
             actions.UpUIState.showErrorAlert({
               type: "success",
               title: "操作成功",
-              onHide: this.onAlertWarnHide.bind(this)
+              onHide: this.onAlertWarnHide.bind(this),
             })
           );
           this.setState({
             checkedList: [],
-            checkAll: false
+            checkAll: false,
           });
           dispatch(
             actions.UpDataState.getGradeStudentPreview(
@@ -777,7 +790,8 @@ class Student extends React.Component {
                   : "") +
                 "&PageIndex=" +
                 pagination +
-                "&PageSize=10" +
+                "&pageSize=" +
+                this.state.pageSize +
                 this.state.sortFiled +
                 this.state.sortType +
                 this.state.keyword,
@@ -803,12 +817,12 @@ class Student extends React.Component {
   }
 
   // 分页
-  onPagiNationChange = e => {
+  onPagiNationChange = (e) => {
     const { dispatch, DataState } = this.props;
 
     this.setState({
       checkedList: [],
-      checkAll: false
+      checkAll: false,
       // pagination: e
     });
     dispatch(
@@ -823,7 +837,8 @@ class Student extends React.Component {
             : "") +
           "&PageIndex=" +
           (e - 1) +
-          "&PageSize=10" +
+          "&pageSize=" +
+          this.state.pageSize +
           this.state.sortType +
           this.state.sortFiled +
           this.state.keyword,
@@ -832,24 +847,24 @@ class Student extends React.Component {
       )
     );
   };
-  onUserNameClick = key => {
+  onUserNameClick = (key) => {
     const { DataState } = this.props;
     this.setState({
       StudentDetailsMsgModalVisible: true,
-      detailData: DataState.GradeStudentPreview.pensonalList[key]
+      detailData: DataState.GradeStudentPreview.pensonalList[key],
     });
   };
   StudentDetailsMsgModalOk = () => {
     this.setState({
-      StudentDetailsMsgModalVisible: false
+      StudentDetailsMsgModalVisible: false,
     });
   };
   StudentDetailsMsgModalCancel = () => {
     this.setState({
-      StudentDetailsMsgModalVisible: false
+      StudentDetailsMsgModalVisible: false,
     });
   };
-  onAddStudent = e => {
+  onAddStudent = (e) => {
     //  console.log(e)
     const { dispatch, DataState } = this.props;
 
@@ -860,10 +875,10 @@ class Student extends React.Component {
     );
     this.setState({
       addStudentModalVisible: true,
-      userKey: "add"
+      userKey: "add",
     });
   };
-  handleAddStudentModalOk = e => {
+  handleAddStudentModalOk = (e) => {
     //  console.log(e)
     let url = "/AddStudent";
 
@@ -883,7 +898,7 @@ class Student extends React.Component {
     if (changeStudentMsg.userID === "") {
       dispatch(
         actions.UpUIState.editModalTipsVisible({
-          UserIDTipsVisible: true
+          UserIDTipsVisible: true,
         })
       );
       haveMistake = true;
@@ -892,7 +907,7 @@ class Student extends React.Component {
     if (changeStudentMsg.userName === "") {
       dispatch(
         actions.UpUIState.editModalTipsVisible({
-          UserNameTipsVisible: true
+          UserNameTipsVisible: true,
         })
       );
       haveMistake = true;
@@ -901,7 +916,7 @@ class Student extends React.Component {
     if (!changeStudentMsg.gender) {
       dispatch(
         actions.UpUIState.editModalTipsVisible({
-          GenderTipsVisible: true
+          GenderTipsVisible: true,
         })
       );
       haveMistake = true;
@@ -910,7 +925,7 @@ class Student extends React.Component {
     if (!changeStudentMsg.gradeID) {
       dispatch(
         actions.UpUIState.editModalTipsVisible({
-          GradeTipsVisible: true
+          GradeTipsVisible: true,
         })
       );
       haveMistake = true;
@@ -919,21 +934,21 @@ class Student extends React.Component {
     if (!changeStudentMsg.classID) {
       dispatch(
         actions.UpUIState.editModalTipsVisible({
-          ClassTipsVisible: true
+          ClassTipsVisible: true,
         })
       );
       haveMistake = true;
     } else if (changeStudentMsg.classID === -1) {
       dispatch(
         actions.UpUIState.editModalTipsVisible({
-          ClassTipsVisible: false
+          ClassTipsVisible: false,
         })
       );
       haveMistake = true;
     } else {
       dispatch(
         actions.UpUIState.editModalTipsVisible({
-          ClassTipsVisible: false
+          ClassTipsVisible: false,
         })
       );
     }
@@ -953,7 +968,7 @@ class Student extends React.Component {
           ok: this.onAppAlertOK.bind(this),
           cancel: this.onAppAlertCancel.bind(this),
           close: this.onAppAlertClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
       return;
@@ -963,14 +978,14 @@ class Student extends React.Component {
           CONFIG.UserInfoProxy + url,
           {
             ...changeStudentMsg,
-            photoPath: picObj.picUploader.getCurImgPath()
+            photoPath: picObj.picUploader.getCurImgPath(),
           },
           2
         )
-          .then(res => {
+          .then((res) => {
             return res.json();
           })
-          .then(json => {
+          .then((json) => {
             // if (json.StatusCode !== 200) {
             //     dispatch(actions.UpUIState.showErrorAlert({
             //         type: 'btn-error',
@@ -986,18 +1001,18 @@ class Student extends React.Component {
                 actions.UpUIState.showErrorAlert({
                   type: "success",
                   title: "操作成功",
-                  onHide: this.onAlertWarnHide.bind(this)
+                  onHide: this.onAlertWarnHide.bind(this),
                 })
               );
               this.setState({
-                studentModalVisible: false
+                studentModalVisible: false,
               });
               this.setState({
-                addStudentModalVisible: false
+                addStudentModalVisible: false,
               });
               this.setState({
                 checkedList: [],
-                checkAll: false
+                checkAll: false,
               });
               dispatch(
                 actions.UpDataState.getGradeStudentPreview(
@@ -1011,7 +1026,8 @@ class Student extends React.Component {
                       : "") +
                     "&PageIndex=" +
                     (this.state.pagination - 1) +
-                    "&PageSize=10" +
+                    "&pageSize=" +
+                    this.state.pageSize +
                     this.state.sortFiled +
                     this.state.sortType +
                     this.state.keyword,
@@ -1031,12 +1047,12 @@ class Student extends React.Component {
     //console.log('ddd')
     dispatch(actions.UpUIState.hideErrorAlert());
   };
-  handleAddStudentModalCancel = e => {
+  handleAddStudentModalCancel = (e) => {
     //  console.log(e)
     const { dispatch } = this.props;
     dispatch(actions.UpUIState.editAlltModalTipsVisible());
     this.setState({
-      addStudentModalVisible: false
+      addStudentModalVisible: false,
     });
   };
 
@@ -1058,7 +1074,7 @@ class Student extends React.Component {
         checkedList: [],
         checkAll: false,
         sortType: "&" + sortType,
-        sortFiled: "&sortFiled=" + sorter.columnKey
+        sortFiled: "&sortFiled=" + sorter.columnKey,
       });
       dispatch(
         actions.UpDataState.getGradeStudentPreview(
@@ -1074,7 +1090,9 @@ class Student extends React.Component {
             sorter.columnKey +
             "&PageIndex=" +
             (this.state.pagination - 1) +
-            "&PageSize=10&" +
+            "&pageSize=" +
+            this.state.pageSize +
+            "&" +
             sortType +
             this.state.keyword,
           this.state.firstSelect,
@@ -1086,7 +1104,7 @@ class Student extends React.Component {
         checkedList: [],
         checkAll: false,
         sortType: "",
-        sortFiled: ""
+        sortFiled: "",
       });
       dispatch(
         actions.UpDataState.getGradeStudentPreview(
@@ -1100,7 +1118,8 @@ class Student extends React.Component {
               : "") +
             "&PageIndex=" +
             (this.state.pagination - 1) +
-            "&PageSize=10" +
+            "&pageSize=" +
+            this.state.pageSize +
             this.state.keyword,
           this.state.firstSelect,
           this.state.secondSelect
@@ -1109,13 +1128,13 @@ class Student extends React.Component {
     }
   };
   //搜索change
-  onChangeSearch = e => {
+  onChangeSearch = (e) => {
     this.setState({
-      searchValue: e.target.value.trim()
+      searchValue: e.target.value.trim(),
     });
   };
   // 取消搜索
-  onCancelSearch = e => {
+  onCancelSearch = (e) => {
     const { dispatch } = this.props;
 
     this.setState({
@@ -1123,7 +1142,7 @@ class Student extends React.Component {
       keyword: "",
       searchValue: "",
       checkAll: false,
-      checkedList: []
+      checkedList: [],
       // pagination: 1
     });
     dispatch(
@@ -1138,9 +1157,50 @@ class Student extends React.Component {
             : "") +
           "&PageIndex=" +
           0 +
-          "&PageSize=10" +
+          "&pageSize=" +
+          this.state.pageSize +
           this.state.sortType +
           this.state.sortFiled,
+        this.state.firstSelect,
+        this.state.secondSelect
+      )
+    );
+  };
+  onLinkClick = (btnName, route) => {
+    let url = window.location.href.split(window.location.hash).join(route);
+
+    // console.log(url);
+    checkUrlAndPostMsg({ btnName, url });
+  };
+  // 改变显示条目数
+  onShowSizeChange = (current, pageSize) => {
+    // console.log(current, pageSize);
+    const { dispatch } = this.props;
+
+    this.setState({
+      pageSize,
+      checkedList: [],
+      checkAll: false,
+      pagination:1
+    });
+
+    dispatch(
+      actions.UpDataState.getGradeStudentPreview(
+        "/GetStudentToPage?SchoolID=" +
+          this.state.userMsg.SchoolID +
+          (this.state.firstSelect.value !== 0
+            ? "&gradeID=" + this.state.firstSelect.value
+            : "") +
+          (this.state.secondSelect.value !== 0
+            ? "&classID=" + this.state.secondSelect.value
+            : "") +
+          "&PageIndex=0" 
+           +
+          "&pageSize=" +
+          pageSize +
+          this.state.sortFiled +
+          this.state.sortType +
+          this.state.keyword,
         this.state.firstSelect,
         this.state.secondSelect
       )
@@ -1170,23 +1230,27 @@ class Student extends React.Component {
               <span className="tips menu39 ">学生档案管理</span>
             </span>
             <div className="top-nav">
-              <Link
+              {/* <a
                 className="link"
-                to="/UserArchives/Graduate"
-                target="_blank"
-                replace
+                // to="/UserArchives/Graduate"
+                // target="_blank"
+                // replace
               >
                 <span className="Graduate">毕业生档案管理</span>
-              </Link>
-              <span className="divide">|</span>
-              <Link
-                className="link"
-                target="_blank"
-                to="/RegisterExamine"
-                replace
-              >
-                <span className="RegisterExamine">学生注册审核</span>
-              </Link>
+              </a>
+              <span className="divide">|</span> */}
+              <a className="link">
+                <span
+                  onClick={this.onLinkClick.bind(
+                    this,
+                    "学生注册审核",
+                    "#/RegisterExamine/RegisterWillExamine"
+                  )}
+                  className="RegisterExamine"
+                >
+                  学生注册审核
+                </span>
+              </a>
               <span className="divide">|</span>
               <span
                 className="link"
@@ -1196,14 +1260,19 @@ class Student extends React.Component {
                 <span className="add">添加学生</span>
               </span>
               <span className="divide">|</span>
-              <Link
+              <a
                 className="link"
-                target="_blank"
-                to="/ImportFile/Student"
-                replace
+                // target="_blank"
+                // to="/ImportFile/Student"
+                // replace
+                onClick={this.onLinkClick.bind(
+                  this,
+                  "导入学生",
+                  "#/ImportFile/Student"
+                )}
               >
                 <span className="ImportFile">导入学生</span>
-              </Link>
+              </a>
             </div>
           </div>
           <div className="Student-hr"></div>
@@ -1235,7 +1304,8 @@ class Student extends React.Component {
                 <span
                   className="search-tips"
                   style={{
-                    display: this.state.CancelBtnShow === "y" ? "block" : "none"
+                    display:
+                      this.state.CancelBtnShow === "y" ? "block" : "none",
                   }}
                 >
                   <span>
@@ -1318,8 +1388,11 @@ class Student extends React.Component {
                   <div className="pagination-box">
                     <PagiNation
                       showQuickJumper
+                      showSizeChanger
+                      pageSize={this.state.pageSize}
+                      onShowSizeChange={this.onShowSizeChange}
                       current={this.state.pagination}
-                      hideOnSinglepage={true}
+                      hideOnSinglePage={DataState.GradeStudentPreview.Total===0?true:false}
                       total={DataState.GradeStudentPreview.Total}
                       onChange={this.onPagiNationChange}
                     ></PagiNation>
@@ -1419,11 +1492,11 @@ class Student extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   let { UIState, DataState } = state;
   return {
     UIState,
-    DataState
+    DataState,
   };
 };
 export default connect(mapStateToProps)(Student);

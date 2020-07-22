@@ -2,14 +2,14 @@ $image-url: "../images";
 @import "./images.scss";
 .Student {
     position: relative;
-    padding: 22px 36px;
+    // padding: 22px 36px;
     text-align: center;
     //公用
     .Student-box {
         position: relative;
         text-align: left;
         margin: 0 auto;
-        width: 870px;
+        // width: 870px;
         .Student-top {
             position: relative;
             margin-left: 15px;
@@ -86,17 +86,19 @@ $image-url: "../images";
         .Student-hr {
             position: relative;
             border-top: 1px dashed #ccc;
-            width: 855px;
+            // width: 855px;
             margin-left: 15px;
             // margin: 0 auto;
         }
         .Student-content {
             margin: 18px auto 0;
             position: relative;
-            width: 870px;
+            // width: 870px;
             .content-top {
                 position: relative;
                 margin-left: 15px;
+                border: none;
+                padding-right: 15px;
                 height: 28px;
                 .dropdown_select_ul {
                     z-index: 2;
@@ -184,7 +186,8 @@ $image-url: "../images";
                         cursor: pointer;
                         display: inline-block;
                         text-align: left;
-                        width: 90px;
+                        width: 150px;
+                        // width: 100%;
                         overflow: hidden; //超出一行文字自动隐藏
                         text-overflow: ellipsis; //文字隐藏后添加省略号
                         white-space: nowrap; //强制不换行
@@ -194,7 +197,8 @@ $image-url: "../images";
                         color: #999;
                         height: 17px;
                         display: inline-block;
-                        width: 95px;
+                        width: 110px;
+                        // width: 100%;
                         overflow: hidden; //超出一行文字自动隐藏
                         text-overflow: ellipsis; //文字隐藏后添加省略号
                         white-space: nowrap; //强制不换行

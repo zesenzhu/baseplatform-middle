@@ -444,7 +444,7 @@ class TeacherRegisterExamine extends React.Component {
                     this.state.handleClick ? "active" : ""
                   } `}
                 >
-                  待审核
+                  待审核({DataState.GetTeacherSignUpLog.WillData.Total?DataState.GetTeacherSignUpLog.WillData.Total:0})
                 </Link>
                 <Link
                   to="/TeacherRegisterExamine/TeacherRegisterDidExamine"

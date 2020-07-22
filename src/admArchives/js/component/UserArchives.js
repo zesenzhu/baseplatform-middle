@@ -122,13 +122,14 @@ class UserArchives extends React.Component {
       let handleRoute = pathArr[2];
       let ID = pathArr[3];
       // 获取接口数据
-      if (handleRoute === "Graduate") {
-        this.setState({
-          showLeftMenu: false,
-          showBarner: false,
-          route: true
-        });
-      } else if (handleRoute === "LogDynamic" || handleRoute === "LogRecord") {
+      // if (handleRoute === "Graduate") {
+      //   this.setState({
+      //     showLeftMenu: false,
+      //     showBarner: false,
+      //     route: true
+      //   });
+      // } else 
+      if (handleRoute === "LogDynamic" || handleRoute === "LogRecord") {
         this.setState({
           showLeftMenu: false,
           showBarner: false,
@@ -227,7 +228,7 @@ class UserArchives extends React.Component {
             image: logo
           }}
           type="circle"
-          showLeftMenu={this.state.showLeftMenu}
+          showLeftMenu={false}
           showBarner={this.state.showBarner}
           className='myFrame mainFrame'
         >
@@ -235,7 +236,7 @@ class UserArchives extends React.Component {
             <TimeBanner route={this.state.route} />
           </div>
           <div ref="frame-left-menu">
-            <Menu params={this.state.MenuParams}> </Menu>
+            {/* <Menu params={this.state.MenuParams}> </Menu> */}
           </div>
           <div ref="frame-right-content">
             <Loading
