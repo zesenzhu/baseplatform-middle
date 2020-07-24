@@ -142,17 +142,35 @@ function App(props){
 
                     const access_token = '4d39af1bff534514e24948568b750f6c';
 
-                    const sysIDs = parseInt(data.ProductType)===2?990:751;
+                    const sysIDs = parseInt(data.ProductType)===2?'990,751':751;
 
                     GetSystemsMainServer({appid,access_token,sysIDs,dispatch}).then(res=>{
 
                         if (res){
 
-                            const obj =  res[0]?res[0]:{};
+                           const list = res&&res.length>0?res:[];
 
-                            const { WebSvrAddr='' } = obj;
+                           let IntroWebSvrAddr = '',PCDownLoadWebSvrAddr = '';
 
-                            data['WebSvrAddr'] = WebSvrAddr;
+                            list.map(i=>{
+
+                              if (parseInt(i.SysID)===990){
+
+                                  IntroWebSvrAddr = i.WebSvrAddr;
+
+                              }
+                              
+                              if (parseInt(i.SysID)===751){
+
+                                  PCDownLoadWebSvrAddr = i.WebSvrAddr;
+
+                              }
+
+                           });
+
+                            data['IntroWebSvrAddr'] = IntroWebSvrAddr;
+
+                            data['PCDownLoadWebSvrAddr'] = PCDownLoadWebSvrAddr;
 
                         }
 
@@ -166,7 +184,6 @@ function App(props){
                     initData(skin,data);
 
                 }
-
 
             }
 
@@ -565,6 +582,8 @@ function App(props){
 
         });
 
+        window.BstoCs = BstoCs;
+
     };
 
 
@@ -692,12 +711,7 @@ function App(props){
 
             }
 
-
-
-
             <Alert className={skin} type={appAlert.type} okShow={appAlert.okShow} cancelShow={appAlert.cancelShow} onClose={appAlert.close} show={appAlert.show} title={appAlert.title} onOk={appAlert.ok} onCancel={appAlert.cancel} okTitle={appAlert.okTitle} cancelTitle={appAlert.cancelTitle}></Alert>
-
-
 
         </div>
 
