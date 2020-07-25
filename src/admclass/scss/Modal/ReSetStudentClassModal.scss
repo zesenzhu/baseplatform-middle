@@ -1,0 +1,53 @@
+.ReSetStudentClassModal {
+    // overflow: hidden;
+    .before-tips {
+        position: absolute;
+        margin-left: 0;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        color: #999999;
+        background-color: #ffeedf;
+    }
+    .main-content {
+        top: 50px;
+        position: relative;
+        padding: 10px 20px;
+        .row {
+            line-height: 20px;
+            .row-left {
+                display: inline-block;
+                width: 15%;
+                text-align: right;
+                font-size: 14px;
+                color: #999999;
+                vertical-align: top;
+                margin-right: 8px;
+            }
+            .row-right {
+                display: inline-block;
+                max-width: calc(85% - 8px);
+                text-align: left;
+                font-size: 14px;
+                color: #999999;
+                .member {
+                    color: #999999;
+                    .member-red {
+                        color: #ff0000;
+                    }
+                }
+            }
+        }
+        .row-drop {
+            line-height: 28px;
+            margin-top: 20px;
+            .row-left {
+                line-height: 31px;
+                margin: 0;
+            }
+        }
+    }
+}

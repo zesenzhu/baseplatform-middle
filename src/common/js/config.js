@@ -79,6 +79,7 @@ if (process.env.NODE_ENV === 'development'){
         InitSeytemProxy:'http://192.168.129.1:30103/SysMgr/Setting/Init',
         TextBookProxy:'http://192.168.129.1:30103/SubjectResMgr/TextBookMgr',
         TextBookProxy_2:'http://192.168.2.202:7300/mock/5d7726e0ed0ccd1564c8df05/webCloudDev',
+        ClassProxy:'http://192.168.129.1:30103/UserMgr/ClassMgr',
 
         HashPrevProxy: RootUrl,
 
@@ -126,6 +127,7 @@ if (process.env.NODE_ENV === 'production'){
         InitSeytemProxy:'/SysMgr/Setting/Init',
         TextBookProxy:'/SubjectResMgr/TextBookMgr',
         TextBookProxy_2:'/TextBook',
+        ClassProxy:'/UserMgr/ClassMgr',
 
         HashPrevProxy: RootUrl
 

@@ -1,0 +1,44 @@
+#Class {
+    width: 1200px;
+    min-height: 624px;
+    padding: 25px 32px;
+    .content-top {
+        height: 28px;
+        .top-icon {
+            display: inline-block;
+            vertical-align: top;
+            width: 19px;
+            height: 15px;
+            margin-right: 6px;
+            background: url(../images/Barner/行政班管理_19.png) no-repeat center center/100% 100%;
+        }
+        .top-title {
+            width: calc(100% - 27px);
+            height: 28px;
+            display: inline-block;
+            line-height: 17px;
+            font-size: 16px;
+            vertical-align: top;
+            color: #333333;
+            text-align: left;
+            border-bottom: 1px #cccccc dashed;
+        }
+    }
+    .content-handle {
+        padding-top: 16px;
+        padding-left: 19px;
+        .Search {
+            float: right;
+        }
+    }
+    .content-main {
+        padding: 10px 16px;
+        .Card {
+            margin: 14px 14px 0;
+            // float: left;
+        }
+    }
+    .pagination-box {
+        text-align: center;
+    }
+}
