@@ -4,7 +4,7 @@ import config from '../api/config';
 
 import {CSSTransition} from 'react-transition-group';
 
-import {downLoadFile} from '../api/utils';
+import {downLoadFile,removeSlashUrl} from '../api/utils';
 
 
 function Header(props) {
@@ -61,7 +61,7 @@ function Header(props) {
 
     const downLoadTestManage = useCallback(()=>{
 
-        window.BstoCs.startByFlag("7$", "751|M10", "AiTestManage|LGCampusMonitorTest",props.WebRootUrl,"../AiTest/Manage/AiTest-Manage.exe", "");
+        window.BstoCs.start("751|M10", "AiTestManage|LGCampusMonitorTest",props.WebRootUrl,"../AiTest/Manage/AiTest-Manage.exe", "");
 
     },[props.WebRootUrl]);
 
