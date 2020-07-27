@@ -6,7 +6,7 @@ import publicJS from '../../../common/js/public';
 
 import Frame from '../../../common/Frame';
 
-import {TokenCheck_Connect} from "../../../common/js/disconnect";
+import {getQueryVariable} from "../../../common/js/disconnect";
 
 import {connect} from 'react-redux';
 
@@ -22,7 +22,11 @@ import LoginUserActions from '../actions/LoginUserActions';
 
 import logo from "../../images/logo.png";
 
+import {getBaseInfo} from '../actions/BaseActions';
 
+import BaseActions from '../actions/BaseActions';
+
+import $ from 'jquery';
 
 
 
@@ -88,9 +92,45 @@ class App extends Component{
 
         let UserInfo = JSON.parse(sessionStorage.getItem('UserInfo'));
 
+        const { UserID,UserType,Gender } = UserInfo;
+
         dispatch({type:LoginUserActions.UPDATE_LOGIN_USER,data:UserInfo});
 
         dispatch({type:MCIActions.MODULE_COMMON_INFO_MENU_CHANGE,data:"base"});
+
+        const isSafeSetting = getQueryVariable('isSafeSetting');
+
+        getBaseInfo({UserID,UserType,dispatch}).then(data => {
+
+            if (data){
+
+                if (data.PhotoPath===BaseSetting.PhotoPath) {//不需要刷新photo头像
+
+                    delete data.PhotoPath;
+
+                    delete data.PhotoPath_NoCache;
+
+                }
+
+                dispatch({type:BaseActions.BASE_INFO_UPDATE,data:data});
+
+            }
+
+            if (isSafeSetting){
+
+                dispatch({type:MCIActions.MODULE_COMMON_INFO_MENU_CHANGE,data:"safe"});
+
+                $('.frame_leftmenu_mainitem.no_child').removeClass('active selected');
+
+                $('.frame_leftmenu_mainitem.no_child:nth-child(2)').addClass('active selected');
+
+            }else{
+
+                dispatch({type:MCIActions.MODULE_COMMON_INFO_MENU_CHANGE,data:"base"});
+
+            }
+
+        });
 
     }
 
@@ -137,6 +177,7 @@ class App extends Component{
                     name:LoginUser.UserName,
                     image:BaseSettings.PhotoPath_NoCache?BaseSettings.PhotoPath_NoCache:LoginUser.PhotoPath_NoCache
                 }}*/
+
                 type="triangle"
                 showBarner={false}
                 showLeftMenu={true}
