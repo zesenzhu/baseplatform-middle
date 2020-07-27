@@ -34,7 +34,7 @@ const getGetData =  async (url,level,api=Api,mode='cors',arr=false) =>{
     }
 };
 //调用post接口
-const getPostData = async (url,data,level,api=Api,content_type='urlencoded',arr=false) =>{
+const getPostData = async (url,data,level,api=Api,content_type='json',arr=false) =>{
 
     try {
         let fetchAsync = '';

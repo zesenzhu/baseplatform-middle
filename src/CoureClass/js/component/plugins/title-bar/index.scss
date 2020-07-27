@@ -1,0 +1,61 @@
+.title-bar-wrapper{
+
+  margin:0 32px;
+
+  .content{
+
+    margin-left: 26px;
+
+    border-bottom: 1px dashed #cccccc;
+
+    height: 30px;
+
+  }
+
+  .left-title{
+
+    float: left;
+
+    font-size: 16px;
+
+    color: #333333;
+
+  }
+
+  .right-wrapper{
+
+    float: right;
+
+  }
+
+  background-position: left 4px;
+
+  background-repeat: no-repeat;
+
+  background-size: 18px;
+
+  &.manage{
+
+    background-image:url("../../../../images/manage-icon-active.png");
+
+  }
+
+  &.college{
+
+    background-image:url("../../../../images/college-icon.png");
+
+  }
+
+  &.course{
+
+    background-image:url("../../../../images/course-icon.png");
+
+  }
+
+  &.person{
+
+    background-image:url("../../../../images/person-icon.png");
+
+  }
+
+}

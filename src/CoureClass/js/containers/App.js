@@ -1,19 +1,21 @@
 import React, { Component } from "react";
-import { Menu, Loading, Alert, LeftMenu, Modal } from "../../../common";
+
+import {  Loading, Alert, LeftMenu, Modal } from "../../../common";
+
 import { connect } from "react-redux";
-import TimeBanner from "../component/TimeBanner";
+
+
 import CONFIG from "../../../common/js/config";
+
 import deepCompare from "../../../common/js/public";
+
 import Student from './Student';
 
-import {
-  HashRouter as Router,
-  Route,
-  Link,
-  BrowserRouter,
-  Redirect
-} from "react-router-dom";
-import history from "./history";
+import {loginUserUpdate} from '../reducers/LoginUser';
+
+import { withRouter } from "react-router-dom";
+
+
 import Frame from "../../../common/Frame";
 
 import logo from "../../images/image-MyClass.png";
@@ -26,7 +28,7 @@ import Search from "../component/Search";
 
 import Class from "../component/Class";
 
-import Dynamic from "../component/Dynamic";
+
 
 import Record from "../component/Record";
 
@@ -39,6 +41,8 @@ import HandleCourseClass from "../component/HandleCourseClass";
 import AddCourseClass from "../component/AddCourseClass";
 
 import AppRoutes from './AppRoutes';
+
+import Banner from '../component/banner';
 
 
 import CourseClassDetails from "../component/CourseClassDetails";
@@ -54,7 +58,16 @@ import actions from "../actions";
 
 import { QueryPower, QueryAdminPower } from "../../../common/js/power";
 
+import {bannerTabHide,bannerBtnShow,bannerLogHide,bannerShow,
+
+    bannerHide,bannerBtnHide,bannerLogShow,bannerTabShow} from "../reducers/bannerState";
+
+import {leftMemuShow,leftMemuHide,leftMenuListUpdate} from "../reducers/leftMenu";
+
+
+
 const COURECLASS_MODULEID = "000-2-0-17"; //教学班管理
+
 
 class App extends Component {
   constructor(props) {
@@ -76,16 +89,26 @@ class App extends Component {
 
       let token = sessionStorage.getItem("token");
 
-      if (sessionStorage.getItem("UserInfo")) {
-          dispatch(
+      const { history,dispatch } = this.props;
+
+      let UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
+
+      const { UserType } = UserInfo;
+
+      const UserInfoCopy = {...UserInfo,UserType:parseInt(UserInfo.UserType),UserClass:parseInt(UserInfo.UserClass)};
+
+
+      dispatch(
               actions.UpDataState.getLoginUser(
                   JSON.parse(sessionStorage.getItem("UserInfo"))
               )
           );
 
-          const { UserType } = JSON.parse(sessionStorage.getItem("UserInfo"));
 
-          that.setState({
+      dispatch(loginUserUpdate(UserInfoCopy));
+
+
+          this.setState({
               UserMsg: JSON.parse(sessionStorage.getItem("UserInfo"))
           });
 
@@ -95,42 +118,63 @@ class App extends Component {
 
           }
 
-          that.requestData(route);
-      } else {
-          getUserInfo(token, "000");
-          let timeRun = setInterval(function() {
-              if (sessionStorage.getItem("UserInfo")) {
-                  dispatch(
-                      actions.UpDataState.getLoginUser(
-                          JSON.parse(sessionStorage.getItem("UserInfo"))
-                      )
-                  );
-                  that.setState({
-                      UserMsg: JSON.parse(sessionStorage.getItem("UserInfo"))
-                  });
-
-                  const { UserType } = JSON.parse(sessionStorage.getItem("UserInfo"));
-
-                  if (parseInt(UserType)===2){
-
-                      this.setState({showBarner:false,showLeftMenu:false});
-
-                  }
-
-                  that.requestData(route);
-
-                  clearInterval(timeRun);
-              }
-          }, 1000);
-
-      }
-      history.listen(() => {
-          //路由监听
           let route = history.location.pathname;
 
-          that.requestData(route);
+          this.requestData(route);
 
-      });
+          history.listen(() => {
+              //路由监听
+              let route = history.location.pathname;
+
+              if(route.split('/')[1]==='statics'){
+
+                  dispatch(bannerShow());
+
+                  dispatch(leftMemuShow());
+
+              }
+
+              if(route.split('/')[1]==='manage'){
+
+                  dispatch(bannerShow());
+
+                  dispatch(leftMemuHide());
+
+              }
+
+              if(route.split('/')[1]==='ImportFile'){
+
+                  dispatch(bannerHide());
+
+                  dispatch(leftMemuHide());
+
+              }
+
+              if(route.split('/')[1]==='Log'){
+
+                  dispatch(bannerHide());
+
+                  dispatch(leftMemuHide());
+
+              }
+
+              if(route.split('/')[1]==='Teacher'){
+
+                  dispatch(bannerShow());
+
+                  dispatch(bannerBtnShow());
+
+                  dispatch(bannerLogHide());
+
+                  dispatch(bannerTabHide());
+
+                  dispatch(leftMemuHide());
+
+              }
+
+              this.requestData(route);
+
+          });
 
   }
 
@@ -160,7 +204,7 @@ class App extends Component {
   }
   // 请求每个组件主要渲染的数据
   requestData = route => {
-    const { dispatch, DataState } = this.props;
+    const { dispatch, DataState,history } = this.props;
     if (
       !DataState.LoginUser.SchoolID &&
       !JSON.parse(sessionStorage.getItem("UserInfo"))
@@ -190,13 +234,13 @@ class App extends Component {
                 let subjectID = pathArr[3];
                 let classID = pathArr[4];
                 // console.log(UserMsg)
-                if (UserMsg.UserType === "0" || UserMsg.UserType === "7")
+               /* if (UserMsg.UserType === "0" || UserMsg.UserType === "7")
                     dispatch(
                         actions.UpDataState.getCoureClassAllMsg(
                             "/GetCouseclassSumarry?schoolID=" + UserMsg.SchoolID,
                             this.MenuClcik
                         )
-                    );
+                    );*/
                 // console.log(route, routeID, subjectID)
                 dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
                 if (route === "/") {
@@ -370,7 +414,7 @@ class App extends Component {
                     if (UserMsg.UserType === "1") {
                         history.push("/Teacher");
                     } else if (UserMsg.UserType === "0" || UserMsg.UserType === "7") {
-                        history.push("/All");
+                        /*history.push("/All");*/
                     } else {
                         console.log("用户没有权限访问");
                         return;
@@ -381,12 +425,14 @@ class App extends Component {
 
     }
 
+
+
   };
 
   MenuClcik = (id, type, sub = null) => {
 
     if (type === "All") {
-      history.push("/All");
+      // history.push("/All");
     } else if (type === "Subject") {
       history.push("/Subject/" + id + "/all");
     } else if (type === "Class") {
@@ -512,39 +558,15 @@ class App extends Component {
               onHide: this.onAlertWarnHide.bind(this)
             })
           );
-          if (userMsg.UserType === "0") {
-            if (handleRoute === "Search") {
-              dispatch(
-                actions.UpDataState.getClassAllMsg(
-                  "/GetGradeCouseclassDetailForPage?schoolID=" +
-                    this.state.UserMsg.SchoolID +
-                    "&key=" +
-                    routeID +
-                    "&pageIndex=" +
-                    pageIndex +
-                    "&pageSize="+DataState.SetPagiSizeMsg.ClassPagisize+"&subjectID=" +
+          if (userMsg.UserType === 0) {
 
-                    "&gradeID=" 
+              if (window.ManageUpDateTable){
 
-                )
-              );
-            } else {
-              dispatch(
-                actions.UpDataState.getClassAllMsg(
-                  "/GetGradeCouseclassDetailForPage?schoolID=" +
-                    this.state.UserMsg.SchoolID +
-                    "&key=&pageIndex=" +
-                    pageIndex +
-                    "&pageSize="+DataState.SetPagiSizeMsg.ClassPagisize+"&subjectID=" +
-                    routeID +
-                    "&gradeID=" +
-                    classID,
-                  routeID,
-                  classID
-                )
-              );
-            }
-          } else if (userMsg.UserType === "1") {
+                  window.ManageUpDateTable();
+
+              }
+
+          } else if (userMsg.UserType === 1) {
             history.push("/Teacher");
           }
 
@@ -601,11 +623,11 @@ class App extends Component {
   };
   //添加教学班模态框
   AddCourseClassModalOk = () => {
-    const { dispatch, DataState } = this.props;
+    const { dispatch, DataState,LoginUser } = this.props;
     let Student =
       DataState.GetCourseClassDetailsHandleClassMsg.selectData.Student;
 
-    let userMsg = DataState.LoginUser;
+    let userMsg = LoginUser;
     let data = DataState.GetCourseClassDetailsHandleClassMsg;
     let route = history.location.pathname;
     let pathArr = route.split("/");
@@ -685,7 +707,6 @@ class App extends Component {
         courseClassStus: courseClassStus,
         courseClassID: "",
         classIDs:data.selectData.Class.join()
-
       },
       2,
       "json"
@@ -704,58 +725,15 @@ class App extends Component {
               onHide: this.onAlertWarnHide.bind(this)
             })
           );
-          if (userMsg.UserType === "0") {
-            if (handleRoute === "Search") {
-              dispatch(
-                actions.UpDataState.getClassAllMsg(
-                  "/GetGradeCouseclassDetailForPage?schoolID=" +
-                    this.state.UserMsg.SchoolID +
-                    "&key=" +
-                    routeID +
-                    "&pageIndex=" +
-                    pageIndex +
-                    "&pageSize="+DataState.SetPagiSizeMsg.SearchPagisize+"&subjectID=" +
+          if (userMsg.UserType ===0) {
 
-                    "&gradeID=" 
+            if (window.ManageUpDateTable){
 
-                )
-              );
-            } else {
-              if(classID){
-                dispatch(
-                  actions.UpDataState.getClassAllMsg(
-                    "/GetGradeCouseclassDetailForPage?schoolID=" +
-                      this.state.UserMsg.SchoolID +
-                      "&key=&pageIndex=" +
-                      pageIndex +
-                      "&pageSize="+DataState.SetPagiSizeMsg.ClassPagisize+"&subjectID=" +
-                      routeID +
-                      "&gradeID=" +
-                      classID,
-                    routeID,
-                    classID
-                  )
-                );
-              }else if(routeID){
-                dispatch({ type: actions.UpUIState.RIGHT_LOADING_OPEN });
+                window.ManageUpDateTable();
 
-                dispatch(
-                  actions.UpDataState.getSubjectAllMsg(
-                    "/GetSubjectCouseclassSumarry?subjectID=" + routeID,
-                    routeID
-                  )
-                );
-              }else{
-                dispatch(
-                  actions.UpDataState.getCoureClassAllMsg(
-                    "/GetCouseclassSumarry?schoolID=" + this.state.UserMsg.SchoolID,
-                    this.MenuClcik
-                  )
-                );
-              }
-              
             }
-          } else if (userMsg.UserType === "1") {
+
+          } else if (userMsg.UserType === 1){
             history.push("/Teacher");
           }
 
@@ -783,6 +761,7 @@ class App extends Component {
     dispatch(actions.UpDataState.setSubjectTeacherMsg([]));
 
     dispatch(actions.UpDataState.setSubjectTeacherTransferMsg([]));
+
   };
   AddCourseClassModalCancel = () => {
     const { dispatch, DataState } = this.props;
@@ -802,14 +781,26 @@ class App extends Component {
     dispatch({ type: actions.UpUIState.GRADE_TIPS_SHOW_CLOSE });
     dispatch({ type: actions.UpUIState.MODAL_LOADING_CLOSE });
   };
+
+    menuClick({id,name}){
+
+        const { dispatch,breadCrumb,history } = this.props;
+
+        const path  = history.location.pathname;
+
+    }
+
   render() {
-    const { UIState, DataState } = this.props;
+    const { UIState, DataState,AppLoading,leftMenu,bannerState,history } = this.props;
+
     let {UserID,UserType} = DataState.LoginUser;
 
-    if (DataState.GetCoureClassAllMsg.isError) {
+    /*if (DataState.GetCoureClassAllMsg.isError) {
 
       window.location.href = "/html/CoureClass#/All";
-    }
+
+    }*/
+
     let route = history.location.pathname.split("/");
     let cnname = "教学班管理";
     let enname = "CoureClass Management";
@@ -829,7 +820,7 @@ class App extends Component {
           tip="加载中..."
           opacity={false}
           size="large"
-          spinning={UIState.AppLoading.appLoading}
+          spinning={AppLoading}
         >
           <Frame
             pageInit={this.pageInit.bind(this)}
@@ -840,15 +831,19 @@ class App extends Component {
               image: logo
             }}
             type="triangle"
-            showBarner={this.state.showBarner}
-            showLeftMenu={this.state.showLeftMenu}
+            showBarner={bannerState.show}
+            showLeftMenu={leftMenu.show}
           >
             <div ref="frame-time-barner">
-              <TimeBanner />
+
+                <Banner />
+
             </div>
 
             <div ref="frame-left-menu">
-              <Menu params={DataState.GetCoureClassAllMsg.MenuParams}></Menu>
+
+                <LeftMenu Icon={"pic3"} Menu={leftMenu.menuList} menuClick={this.menuClick.bind(this)}></LeftMenu>
+
             </div>
 
             <div ref="frame-right-content">
@@ -861,7 +856,7 @@ class App extends Component {
 
                 <AppRoutes></AppRoutes>
 
-               {UserID? <Router>
+              {/* {UserID? <Router>
                   <Route path="/All" exact component={All}></Route>
                   <Route
                     path="/Subject/:subjectID/all"
@@ -889,7 +884,7 @@ class App extends Component {
 
                        }
 
-                </Router>:''}
+                </Router>:''}*/}
 
                 {/*</Loading>*/}
 
@@ -950,7 +945,7 @@ class App extends Component {
           <Loading
             wrapperClassName="handle-laoding"
             opacity={false}
-            spinning={UIState.AppLoading.modalLoading}
+            spinning={AppLoading}
           >
             <HandleCourseClass></HandleCourseClass>
           </Loading>
@@ -1008,10 +1003,14 @@ class App extends Component {
   }
 }
 const mapStateToProps = state => {
-  let { UIState, DataState } = state;
+  let { UIState, DataState,AppLoading,leftMenu,bannerState,LoginUser } = state;
   return {
     UIState,
-    DataState
+    DataState,
+    AppLoading,
+    leftMenu,
+    bannerState,
+    LoginUser
   };
 };
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(withRouter(App));

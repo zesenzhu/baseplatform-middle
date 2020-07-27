@@ -49,7 +49,7 @@ function AppRoutes(props){
 
                     <Redirect path={"/statics/college*"} to={'/statics/college/total'}></Redirect>
 
-                    <Redirect path={"/statics*"} to={'/statics/college/total'}></Redirect>
+                    <Redirect path={"/statics*"} to={'/statics/subject/total'}></Redirect>
 
                     <Redirect path={"/*"} to={'/manage'}></Redirect>
 
@@ -130,6 +130,7 @@ function AppRoutes(props){
             <Route exact path={"/statics/teacher/total"} component={TeacherTotal}></Route>
 
             <Route exact path={"/statics/teacher/:teachingRoomID"} component={TheResearchRoom}></Route>
+
 
             <Route exact path="/ImportFile" component={ImportFile}></Route>
 
