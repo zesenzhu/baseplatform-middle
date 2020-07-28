@@ -62,7 +62,7 @@ class Leader extends React.Component {
           align: "center",
           key: "UserName",
           dataIndex: "UserName",
-          width: 130,
+          width: 180,
           sorter: true,
           render: arr => {
             return (
@@ -91,7 +91,7 @@ class Leader extends React.Component {
           align: "center",
           dataIndex: "ShortName",
           key: "ShortName",
-          width: 120,
+          width: 170,
           sorter: true,
           render: ShortName => {
             return (
@@ -102,59 +102,153 @@ class Leader extends React.Component {
           }
         },
         {
-          title: "个性签名",
+          title: "最后一次登录",
           align: "center",
-          dataIndex: "Sign",
-          width: 300,
-          key: "Sign",
-          render: Sign => {
+          width: 200,
+          // dataIndex: "LastTime",
+          key: "LastTime",
+          render: (data) => {
             return (
-              <span className="Sign" title={Sign}>
-                {Sign ? Sign : "--"}
-              </span>
+              <div className="LastTime">
+                <p
+                  className="last"
+                  title={
+                    data.Others && data.Others.LastTimeLogin
+                      ? data.Others.LastTimeLogin
+                      : "--"
+                  }
+                >
+                  时间:
+                  {data.Others && data.Others.LastTimeLogin
+                    ? data.Others.LastTimeLogin
+                    : "--"}
+                </p>
+                <p
+                  className="last"
+                  title={
+                    data.Others && data.Others.LastTimeIP
+                      ? data.Others.LastTimeIP
+                      : "--"
+                  }
+                >
+                  IP:
+                  {data.Others && data.Others.LastTimeIP
+                    ? data.Others.LastTimeIP
+                    : "--"}
+                </p>
+              </div>
             );
-          }
+          },
         },
         {
           title: "联系方式",
           align: "center",
-          width: 120,
+          width: 270,
           key: "UserContact",
           dataIndex: "UserContact",
-          render: UserContact => {
+          render: (UserContact) => {
             return (
-              <Tooltip
-                placement="topLeft"
-                trigger="click"
-                arrowPointAtCenter={true}
-                title={<TipsContact data={UserContact}></TipsContact>}
-              >
-                <span
-                  className="UserContact"
-                  onClick={this.onUserContactClick.bind(this, UserContact)}
-                >
-                  查看
-                </span>
-              </Tooltip>
+              <div className="uc">
+                <div className="uc-float">
+                  <p className="uc-box uc-left">
+                    <span
+                      title={UserContact.QQ ? UserContact.QQ : "--"}
+                      className="uc-title uc-QQ"
+                    >
+                      {UserContact.QQ ? UserContact.QQ : "--"}
+                    </span>
+                    <span
+                      title={UserContact.Weibo ? UserContact.Weibo : "--"}
+                      className="uc-title uc-Weibo"
+                    >
+                      {UserContact.Weibo ? UserContact.Weibo : "--"}
+                    </span>
+                  </p>
+                </div>
+                <div className="uc-float">
+                  <p className="uc-box uc-right">
+                    <span
+                      title={UserContact.WeiXin ? UserContact.WeiXin : "--"}
+                      className="uc-title uc-WeiXin"
+                    >
+                      {UserContact.WeiXin ? UserContact.WeiXin : "--"}
+                    </span>
+                    <span
+                      title={
+                        UserContact.Telephone ? UserContact.Telephone : "--"
+                      }
+                      className="uc-title uc-Telephone"
+                    >
+                      {UserContact.Telephone ? UserContact.Telephone : "--"}
+                    </span>
+                  </p>
+                </div>
+              </div>
             );
-          }
+          },
         },
+        // {
+        //   title: "个性签名",
+        //   align: "center",
+        //   dataIndex: "Sign",
+        //   width: 300,
+        //   key: "Sign",
+        //   render: Sign => {
+        //     return (
+        //       <span className="Sign" title={Sign}>
+        //         {Sign ? Sign : "--"}
+        //       </span>
+        //     );
+        //   }
+        // },
+        // {
+        //   title: "联系方式",
+        //   align: "center",
+        //   width: 120,
+        //   key: "UserContact",
+        //   dataIndex: "UserContact",
+        //   render: UserContact => {
+        //     return (
+        //       <Tooltip
+        //         placement="topLeft"
+        //         trigger="click"
+        //         arrowPointAtCenter={true}
+        //         title={<TipsContact data={UserContact}></TipsContact>}
+        //       >
+        //         <span
+        //           className="UserContact"
+        //           onClick={this.onUserContactClick.bind(this, UserContact)}
+        //         >
+        //           查看
+        //         </span>
+        //       </Tooltip>
+        //     );
+        //   }
+        // },
         {
           title: "操作",
           align: "center",
           width: 132,
           key: "handle",
-          dataIndex: "key",
-          render: key => {
+          // dataIndex: "key",
+          render: data => {
             return (
               <div className="handle-content">
                 <Button
                   color="blue"
                   type="default"
-                  onClick={this.onChangePwdClick.bind(this, key)}
+                  onClick={this.onChangePwdClick.bind(this, data.key)}
                   className="handle-btn"
                 >
                   重置密码
+                </Button>
+                <Button
+                  color={data.Others.IsEnable ? "red" : "green"}
+                  type="default"
+                  onClick={this.onChangeEnableClick.bind(this, data.key)}
+                  className="handle-btn"
+                >
+                  {data.Others.IsEnable ? "禁用账号" : "启用账号"}
                 </Button>
               </div>
             );
@@ -203,7 +297,9 @@ class Leader extends React.Component {
       PwdTipsTitle:
         "密码应由8-20位字母、数字及特殊字符`~!@#$%^&*()_+-={}|[]:\";'<>?,./\\的任意两种及以上组成",
       ChangeAllPwdMadalVisible: false,
-      PwdStrong:0
+      PwdStrong:0,
+      pageSize:10
+
 
     };
     window.LeaderCancelSearch = this.LeaderCancelSearch.bind(this);
@@ -348,6 +444,50 @@ class Leader extends React.Component {
       ChangePwdMadalVisible: true,
       onClickKey: key
     });
+  };
+  onChangeEnableClick = (key, isEnable) => {
+    const {
+      dispatch,
+      DataState: {
+        SchoolLeaderPreview: { newList },
+      },
+    } = this.props;
+    let {
+      Others: { UserID, UserType, IsEnable },
+    } = newList[key];
+    console.log(IsEnable);
+    dispatch(
+      actions.UpDataState.DisableAccount({
+        UserID,
+        UserType,
+        Flag: !IsEnable ? 1 : 0,
+        func: () => {
+          dispatch(
+            actions.UpUIState.showErrorAlert({
+              type: "success",
+              title: "操作成功",
+              onHide: this.onAlertWarnHide.bind(this)
+            })
+          );
+          this.setState({
+            ChangePwdMadalVisible: false,
+            defaultPwd: "pwd888888",
+            checkedList: [],
+            checkAll: false,
+            PwdStrong:0
+          });
+
+          dispatch(
+            actions.UpDataState.getSchoolLeaderPreview(
+              "/GetSchoolLeader?SchoolID=" +
+                this.state.userMsg.SchoolID +
+                this.state.sortFiled +
+                this.state.sortType
+            )
+          );
+        },
+      })
+    );
   };
   onPwdchangeOk = pwd => {
     //  console.log(pwd);

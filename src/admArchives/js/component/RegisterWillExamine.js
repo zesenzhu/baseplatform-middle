@@ -7,7 +7,7 @@ import {
   HashRouter as Router,
   Route,
   Link,
-  BrowserRouter
+  BrowserRouter,
 } from "react-router-dom";
 import history from "../containers/history";
 import CONFIG from "../../../common/js/config";
@@ -30,7 +30,7 @@ import {
   CheckBox,
   CheckBoxGroup,
   Modal,
-  Empty
+  Empty,
 } from "../../../common/index";
 
 import { getData, postData } from "../../../common/js/fetch";
@@ -49,7 +49,7 @@ class RegisterWillExamine extends React.Component {
           key: "OrderNo",
           width: 66,
           align: "left",
-          render: key => {
+          render: (key) => {
             return (
               <div className="registerTime-content">
                 <label style={{ whiteSpace: "normal" }}>
@@ -64,7 +64,7 @@ class RegisterWillExamine extends React.Component {
                 </label>
               </div>
             );
-          }
+          },
         },
         {
           title: "注册时间",
@@ -73,7 +73,7 @@ class RegisterWillExamine extends React.Component {
           dataIndex: "SignUpTime",
           key: "SignUpTime",
           sorter: true,
-          render: time => {
+          render: (time) => {
             return (
               <div className="registerTime-content">
                 <span title={time} className="registerTime">
@@ -81,7 +81,7 @@ class RegisterWillExamine extends React.Component {
                 </span>
               </div>
             );
-          }
+          },
         },
         {
           title: "",
@@ -90,7 +90,7 @@ class RegisterWillExamine extends React.Component {
           colSpan: 0,
           key: "UserImg",
           width: 60,
-          render: arr => {
+          render: (arr) => {
             return (
               <div className="name-content">
                 {/* <img
@@ -109,12 +109,12 @@ class RegisterWillExamine extends React.Component {
                     width: "47px",
                     height: "47px",
                     display: "inline-block",
-                    background: `url(${arr.PhotoPath}) no-repeat center center / 47px`
+                    background: `url(${arr.PhotoPath}) no-repeat center center / 47px`,
                   }}
                 ></i>
               </div>
             );
-          }
+          },
         },
         {
           title: "姓名",
@@ -124,7 +124,7 @@ class RegisterWillExamine extends React.Component {
           width: 90,
           key: "UserName",
           sorter: true,
-          render: arr => {
+          render: (arr) => {
             return (
               <div className="name-content">
                 <span
@@ -136,7 +136,7 @@ class RegisterWillExamine extends React.Component {
                 </span>
               </div>
             );
-          }
+          },
         },
         {
           title: "学号",
@@ -145,13 +145,13 @@ class RegisterWillExamine extends React.Component {
           key: "UserID",
           width: 210,
           sorter: true,
-          render: UserID => {
+          render: (UserID) => {
             return (
               <span title={UserID} className="UserID">
                 {UserID ? UserID : "--"}
               </span>
             );
-          }
+          },
         },
         {
           title: "性别",
@@ -159,13 +159,13 @@ class RegisterWillExamine extends React.Component {
           dataIndex: "Gender",
           width: 45,
           key: "Gender",
-          render: Gender => {
+          render: (Gender) => {
             return (
               <span title={Gender} className="Gender">
                 {Gender ? Gender : "--"}
               </span>
             );
-          }
+          },
         },
         {
           title: "年级",
@@ -173,13 +173,13 @@ class RegisterWillExamine extends React.Component {
           dataIndex: "Grade",
           width: 95,
           key: "Grade",
-          render: Grade => {
+          render: (Grade) => {
             return (
               <span title={Grade.GradeName} className="GradeName">
                 {Grade.GradeName ? Grade.GradeName : "--"}
               </span>
             );
-          }
+          },
         },
         {
           title: "班级",
@@ -187,13 +187,13 @@ class RegisterWillExamine extends React.Component {
           width: 155,
           dataIndex: "Class",
           key: "Class",
-          render: Class => {
+          render: (Class) => {
             return (
               <span title={Class.ClassName} className="ClassName">
                 {Class.ClassName ? Class.ClassName : "--"}
               </span>
             );
-          }
+          },
         },
         {
           title: "操作",
@@ -201,7 +201,7 @@ class RegisterWillExamine extends React.Component {
           dataIndex: "key",
           width: 170,
           key: "Others",
-          render: key => {
+          render: (key) => {
             return (
               <div className="handle-content">
                 <Button
@@ -215,8 +215,8 @@ class RegisterWillExamine extends React.Component {
                 </Button>
               </div>
             );
-          }
-        }
+          },
+        },
       ],
       keyList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       loading: false,
@@ -243,7 +243,8 @@ class RegisterWillExamine extends React.Component {
       CancelBtnShow: "n",
       searchValue: "",
       isWho: "1",
-      searchWord: ""
+      searchWord: "",
+      pageSize:10
     };
   }
 
@@ -259,19 +260,19 @@ class RegisterWillExamine extends React.Component {
         let ClassArr = this.props.DataState.GradeClassMsg.returnData.AllClasses[
           DataState.GetSignUpLog.Grade.value
         ];
-        ClassArr.map(Class => {
+        ClassArr.map((Class) => {
           Classes.push(Class);
         });
         this.setState({
           DropMenuShow: true,
-          secondDropList: Classes
+          secondDropList: Classes,
         });
       }
       this.setState({
         firstSelect: DataState.GetSignUpLog.Grade,
         secondSelect: DataState.GetSignUpLog.Class,
         firstParam: "&gradeID=" + DataState.GetSignUpLog.Grade.value,
-        secondParam: "&classID=" + DataState.GetSignUpLog.Class.value
+        secondParam: "&classID=" + DataState.GetSignUpLog.Class.value,
       });
       if (DataState.GetSignUpLog.Class.value === 0) {
         this.StudentDropMenu(DataState.GetSignUpLog.Grade);
@@ -286,7 +287,7 @@ class RegisterWillExamine extends React.Component {
       }
     }
     this.setState({
-      isWho: isWho
+      isWho: isWho,
     });
     // if(DataState.GetSignUpLog.Grade!==this.state.firstSelect){
 
@@ -348,7 +349,7 @@ class RegisterWillExamine extends React.Component {
       // });
     }
     this.setState({
-      pagination: DataState.GetSignUpLog.WillData.PageIndex + 1
+      pagination: DataState.GetSignUpLog.WillData.PageIndex + 1,
     });
     // if(DataState.GetSignUpLog.Grade.value!==this.state.firstSelect.value||DataState.GetSignUpLog.Class.value!==this.state.secondSelect.value){
 
@@ -367,22 +368,22 @@ class RegisterWillExamine extends React.Component {
     // }
   }
 
-  StudentDropMenu = e => {
+  StudentDropMenu = (e) => {
     const { dispatch } = this.props;
     //console.log(e);
     let Classes = [{ value: 0, title: "全部班级" }];
     this.setState({
       firstSelect: e,
-      secondParam: ""
+      secondParam: "",
     });
     dispatch({
       type: actions.UpDataState.SET_REGISTER_GRADE_CLASS_MSG,
-      data: { Grade: e }
+      data: { Grade: e },
     });
     if (e.value === 0) {
       dispatch({
         type: actions.UpDataState.SET_REGISTER_GRADE_CLASS_MSG,
-        data: { Class: { value: 0, title: "全部班级" } }
+        data: { Class: { value: 0, title: "全部班级" } },
       });
     }
     ////console.log(this.refs.dropMenuSecond)
@@ -390,7 +391,7 @@ class RegisterWillExamine extends React.Component {
       let ClassArr = this.props.DataState.GradeClassMsg.returnData.AllClasses[
         e.value
       ];
-      ClassArr.map(Class => {
+      ClassArr.map((Class) => {
         Classes.push(Class);
       });
       //Classes.push(this.props.DataState.GradeClassMsg.returnData.AllClasses[e.value]);
@@ -404,13 +405,15 @@ class RegisterWillExamine extends React.Component {
         keyword: "",
         CancelBtnShow: "n",
         searchValue: "",
-        secondSelect: { value: 0, title: "全部班级" }
+        secondSelect: { value: 0, title: "全部班级" },
       });
       dispatch(
         actions.UpDataState.getWillSignUpLog(
           "/GetSignUpLogToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize=10&status=0&gradeID=" +
+            "&PageIndex=0&pageSize=" +
+            this.state.pageSize +
+            "&status=0&gradeID=" +
             e.value +
             this.state.sortType +
             this.state.sortFiled
@@ -418,14 +421,16 @@ class RegisterWillExamine extends React.Component {
       );
 
       this.setState({
-        DropMenuShow: true
+        DropMenuShow: true,
       });
     } else {
       dispatch(
         actions.UpDataState.getWillSignUpLog(
           "/GetSignUpLogToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize=10&status=0" +
+            "&PageIndex=0&pageSize=" +
+            this.state.pageSize +
+            "&status=0" +
             this.state.sortType +
             this.state.sortFiled
         )
@@ -440,12 +445,12 @@ class RegisterWillExamine extends React.Component {
         keyword: "",
         CancelBtnShow: "n",
         searchValue: "",
-        secondSelect: { value: 0, title: "全部班级" }
+        secondSelect: { value: 0, title: "全部班级" },
       });
     }
   };
 
-  StudentDropMenuSecond = e => {
+  StudentDropMenuSecond = (e) => {
     const { dispatch } = this.props;
 
     this.setState({
@@ -455,22 +460,24 @@ class RegisterWillExamine extends React.Component {
       // pagination: 1,
       keyword: "",
       CancelBtnShow: "n",
-      searchValue: ""
+      searchValue: "",
     });
     dispatch({
       type: actions.UpDataState.SET_REGISTER_GRADE_CLASS_MSG,
-      data: { Class: e }
+      data: { Class: e },
     });
 
     if (e.value === 0) {
       this.setState({
-        secondParam: ""
+        secondParam: "",
       });
       dispatch(
         actions.UpDataState.getWillSignUpLog(
           "/GetSignUpLogToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize=10&status=0" +
+            "&PageIndex=0&pageSize=" +
+            this.state.pageSize +
+            "&status=0" +
             this.state.firstParam +
             this.state.sortType +
             this.state.sortFiled
@@ -478,13 +485,15 @@ class RegisterWillExamine extends React.Component {
       );
     } else {
       this.setState({
-        secondParam: "&classID=" + e.value
+        secondParam: "&classID=" + e.value,
       });
       dispatch(
         actions.UpDataState.getWillSignUpLog(
           "/GetSignUpLogToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize=10&status=0" +
+            "&PageIndex=0&pageSize=" +
+            this.state.pageSize +
+            "&status=0" +
             this.state.firstParam +
             "&classID=" +
             e.value +
@@ -494,9 +503,9 @@ class RegisterWillExamine extends React.Component {
       );
     }
 
-    //dispatch(actions.UpDataState.getGradeStudentPreview('/ArchivesStudent?SchoolID=schoolID&GradeID=gradeID&ClassID=ClassID&PageIndex=0&PageSize=10&SortFiled=UserID&SortType=ASC'));
+    //dispatch(actions.UpDataState.getGradeStudentPreview('/ArchivesStudent?SchoolID=schoolID&GradeID=gradeID&ClassID=ClassID&PageIndex=0&pageSize="+this.state.pageSize +"&SortFiled=UserID&SortType=ASC'));
   };
-  TeacherDropMenuSecond = e => {
+  TeacherDropMenuSecond = (e) => {
     const { dispatch } = this.props;
 
     this.setState({
@@ -506,21 +515,23 @@ class RegisterWillExamine extends React.Component {
       // pagination: 1,
       keyword: "",
       CancelBtnShow: "n",
-      searchValue: ""
+      searchValue: "",
     });
     dispatch({
       type: actions.UpDataState.SET_REGISTER_GRADE_CLASS_MSG,
-      data: { Class: e }
+      data: { Class: e },
     });
     if (e.value === 0) {
       this.setState({
-        secondParam: ""
+        secondParam: "",
       });
       dispatch(
         actions.UpDataState.getWillSignUpLog(
           "/GetSignUpLogToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize=10&status=0" +
+            "&PageIndex=0&pageSize=" +
+            this.state.pageSize +
+            "&status=0" +
             this.state.firstParam +
             this.state.sortType +
             this.state.sortFiled
@@ -528,13 +539,15 @@ class RegisterWillExamine extends React.Component {
       );
     } else {
       this.setState({
-        secondParam: "&classID=" + e.value
+        secondParam: "&classID=" + e.value,
       });
       dispatch(
         actions.UpDataState.getWillSignUpLog(
           "/GetSignUpLogToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize=10&status=0" +
+            "&PageIndex=0&pageSize=" +
+            this.state.pageSize +
+            "&status=0" +
             this.state.firstParam +
             "&classID=" +
             e.value +
@@ -544,24 +557,24 @@ class RegisterWillExamine extends React.Component {
       );
     }
 
-    //dispatch(actions.UpDataState.getGradeStudentPreview('/ArchivesStudent?SchoolID=schoolID&GradeID=gradeID&ClassID=ClassID&PageIndex=0&PageSize=10&SortFiled=UserID&SortType=ASC'));
+    //dispatch(actions.UpDataState.getGradeStudentPreview('/ArchivesStudent?SchoolID=schoolID&GradeID=gradeID&ClassID=ClassID&PageIndex=0&pageSize="+this.state.pageSize +"&SortFiled=UserID&SortType=ASC'));
   };
-  OnCheckAllChange = e => {
+  OnCheckAllChange = (e) => {
     //console.log(e.target.checked, this.state.keyList)
     const { DataState } = this.props;
     if (e.target.checked) {
       this.setState({
         checkedList: DataState.GetSignUpLog.WillData.keyList,
-        checkAll: e.target.checked
+        checkAll: e.target.checked,
       });
     } else {
       this.setState({
         checkedList: [],
-        checkAll: e.target.checked
+        checkAll: e.target.checked,
       });
     }
   };
-  onCheckBoxGroupChange = checkedList => {
+  onCheckBoxGroupChange = (checkedList) => {
     const { DataState } = this.props;
     console.log(checkedList);
     this.setState({
@@ -569,25 +582,25 @@ class RegisterWillExamine extends React.Component {
       checkAll:
         checkedList.length === DataState.GetSignUpLog.WillData.keyList.length
           ? true
-          : false
+          : false,
     });
   };
-  onExamineClick = key => {
+  onExamineClick = (key) => {
     const { DataState } = this.props;
     let arr = this.state.data;
     //arr[Others.key-1].Others[isExamined] = !arr[Others.key-1].Others[isExamined];
     console.log(DataState.GetSignUpLog.WillData.returnData[key].UserMsg, key);
     this.setState({
       UserExamineModalVisible: true,
-      handleUserMsg: DataState.GetSignUpLog.WillData.returnData[key].UserMsg
+      handleUserMsg: DataState.GetSignUpLog.WillData.returnData[key].UserMsg,
     });
   };
-  onPagiNationChange = e => {
+  onPagiNationChange = (e) => {
     const { dispatch } = this.props;
     this.setState({
       // pagination: e,
       checkedList: [],
-      checkAll: false
+      checkAll: false,
     });
     dispatch(
       actions.UpDataState.getWillSignUpLog(
@@ -595,7 +608,9 @@ class RegisterWillExamine extends React.Component {
           this.state.userMsg.SchoolID +
           "&PageIndex=" +
           (e - 1) +
-          "&PageSize=10&status=0" +
+          "&pageSize=" +
+          this.state.pageSize +
+          "&status=0" +
           (this.state.keyword ? "&Keyword=" + this.state.keyword : "") +
           this.state.firstParam +
           this.state.secondParam +
@@ -605,14 +620,14 @@ class RegisterWillExamine extends React.Component {
     );
   };
 
-  onUserNameClick = key => {
+  onUserNameClick = (key) => {
     const { DataState } = this.props;
     this.setState({
       StudentDetailsMsgModalVisible: true,
-      handleUserMsg: DataState.GetSignUpLog.WillData.returnData[key].UserMsg
+      handleUserMsg: DataState.GetSignUpLog.WillData.returnData[key].UserMsg,
     });
   };
-  onAgreeAll = e => {
+  onAgreeAll = (e) => {
     const { dispatch } = this.props;
     //console.log(this.state.checkedList)
     let checkedList = this.state.checkedList;
@@ -623,7 +638,7 @@ class RegisterWillExamine extends React.Component {
           title: "确定通过勾选的注册吗？",
           ok: this.onPassQueryOk.bind(this),
           cancel: this.onAlertQueryClose.bind(this),
-          close: this.onAlertQueryClose.bind(this)
+          close: this.onAlertQueryClose.bind(this),
         })
       );
     } else {
@@ -634,7 +649,7 @@ class RegisterWillExamine extends React.Component {
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
           close: this.onAlertWarnClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
     }
@@ -645,7 +660,7 @@ class RegisterWillExamine extends React.Component {
     //console.log('ddd')
     dispatch(actions.UpUIState.hideErrorAlert());
   };
-  RefuseAll = e => {
+  RefuseAll = (e) => {
     const { dispatch } = this.props;
     //console.log(this.state.checkedList)
     let checkedList = this.state.checkedList;
@@ -656,7 +671,7 @@ class RegisterWillExamine extends React.Component {
           title: "确定不通过勾选的注册吗？",
           ok: this.onFailQueryOk.bind(this),
           cancel: this.onAlertQueryClose.bind(this),
-          close: this.onAlertQueryClose.bind(this)
+          close: this.onAlertQueryClose.bind(this),
         })
       );
     } else {
@@ -667,7 +682,7 @@ class RegisterWillExamine extends React.Component {
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
           close: this.onAlertWarnClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
     }
@@ -688,20 +703,20 @@ class RegisterWillExamine extends React.Component {
       CONFIG.UserInfoProxy + url,
       {
         LogID: logID.join(),
-        Status: 1
+        Status: 1,
       },
       2
     )
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         if (json.StatusCode === 200) {
           dispatch(actions.UpUIState.hideErrorAlert());
 
           this.setState({
             checkAll: false,
-            checkedList: []
+            checkedList: [],
           });
 
           // dispatch(actions.UpDataState.setSignUpLogCountMsg(++StatusCodeCount))
@@ -717,7 +732,9 @@ class RegisterWillExamine extends React.Component {
                 this.state.userMsg.SchoolID +
                 "&PageIndex=" +
                 (this.state.pagination - 1) +
-                "&PageSize=10&status=0" +
+                "&pageSize=" +
+                this.state.pageSize +
+                "&status=0" +
                 (this.state.keyword ? "&Keyword=" + this.state.keyword : "") +
                 this.state.firstParam +
                 this.state.secondParam +
@@ -730,7 +747,7 @@ class RegisterWillExamine extends React.Component {
           //       actions.UpDataState.getWillSignUpLog(
           //         "/GetSignUpLogToPage?SchoolID=" +
           //           this.state.userMsg.SchoolID +
-          //           "&PageIndex=0&PageSize=10&status=0&gradeID=" +
+          //           "&PageIndex=0&pageSize="+this.state.pageSize +"&status=0&gradeID=" +
           //           this.state.firstSelect.value
           //       )
           //     );
@@ -739,7 +756,7 @@ class RegisterWillExamine extends React.Component {
           //       actions.UpDataState.getWillSignUpLog(
           //         "/GetSignUpLogToPage?SchoolID=" +
           //           this.state.userMsg.SchoolID +
-          //           "&PageIndex=0&PageSize=10&status=0&gradeID=" +
+          //           "&PageIndex=0&pageSize="+this.state.pageSize +"&status=0&gradeID=" +
           //           this.state.firstSelect.value +
           //           "&classID=" +
           //           this.state.secondSelect.value
@@ -766,20 +783,20 @@ class RegisterWillExamine extends React.Component {
       CONFIG.UserInfoProxy + url,
       {
         LogID: logID.join(),
-        Status: 2
+        Status: 2,
       },
       2
     )
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         if (json.StatusCode === 200) {
           dispatch(actions.UpUIState.hideErrorAlert());
 
           this.setState({
             checkAll: false,
-            checkedList: []
+            checkedList: [],
           });
           // dispatch(actions.UpDataState.setSignUpLogCountMsg(StatusCodeCount + logID.length));
           dispatch(
@@ -793,7 +810,9 @@ class RegisterWillExamine extends React.Component {
                 this.state.userMsg.SchoolID +
                 "&PageIndex=" +
                 (this.state.pagination - 1) +
-                "&PageSize=10&status=0" +
+                "&pageSize=" +
+                this.state.pageSize +
+                "&status=0" +
                 (this.state.keyword ? "&Keyword=" + this.state.keyword : "") +
                 this.state.firstParam +
                 this.state.secondParam +
@@ -823,11 +842,11 @@ class RegisterWillExamine extends React.Component {
   //审核窗口事件
   UserExamineMadalCancel = () => {
     this.setState({
-      UserExamineModalVisible: false
+      UserExamineModalVisible: false,
     });
   };
   //不通过
-  UserExamineMadalFail = userMsg => {
+  UserExamineMadalFail = (userMsg) => {
     const { dispatch, DataState } = this.props;
     let newStatus = DataState.GetSignUpLog.newStatus;
     let url = "/SignUpLogAudit";
@@ -836,19 +855,19 @@ class RegisterWillExamine extends React.Component {
       CONFIG.UserInfoProxy + url,
       {
         LogID: userMsg.logID,
-        Status: 2
+        Status: 2,
       },
       2
     )
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         if (json.StatusCode === 200) {
           this.setState({
             UserExamineModalVisible: false,
             checkedList: [],
-            checkAll: false
+            checkAll: false,
           });
           dispatch(actions.UpDataState.setSignUpLogCountMsg(++newStatus));
 
@@ -858,7 +877,9 @@ class RegisterWillExamine extends React.Component {
                 this.state.userMsg.SchoolID +
                 "&PageIndex=" +
                 (this.state.pagination - 1) +
-                "&PageSize=10&status=0" +
+                "&pageSize=" +
+                this.state.pageSize +
+                "&status=0" +
                 (this.state.keyword ? "&Keyword=" + this.state.keyword : "") +
                 this.state.firstParam +
                 this.state.secondParam +
@@ -870,7 +891,7 @@ class RegisterWillExamine extends React.Component {
       });
   };
   //通过
-  UserExamineMadalOk = userMsg => {
+  UserExamineMadalOk = (userMsg) => {
     const { dispatch, DataState } = this.props;
     let url = "/SignUpLogAudit";
     let newStatus = DataState.GetSignUpLog.newStatus;
@@ -879,19 +900,19 @@ class RegisterWillExamine extends React.Component {
       CONFIG.UserInfoProxy + url,
       {
         LogID: userMsg.logID,
-        Status: 1
+        Status: 1,
       },
       2
     )
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         if (json.StatusCode === 200) {
           this.setState({
             UserExamineModalVisible: false,
             checkAll: false,
-            checkedList: []
+            checkedList: [],
           });
           // dispatch(actions.UpDataState.setSignUpLogCountMsg(++StatusCodeCount));
           dispatch(actions.UpDataState.setSignUpLogCountMsg(++newStatus));
@@ -902,7 +923,9 @@ class RegisterWillExamine extends React.Component {
                 this.state.userMsg.SchoolID +
                 "&PageIndex=" +
                 (this.state.pagination - 1) +
-                "&PageSize=10&status=0" +
+                "&pageSize=" +
+                this.state.pageSize +
+                "&status=0" +
                 (this.state.keyword ? "&Keyword=" + this.state.keyword : "") +
                 this.state.firstParam +
                 this.state.secondParam +
@@ -914,7 +937,7 @@ class RegisterWillExamine extends React.Component {
       });
   };
   //搜索
-  LogSearch = e => {
+  LogSearch = (e) => {
     const { dispatch } = this.props;
     if (e.value === "") {
       dispatch(
@@ -924,7 +947,7 @@ class RegisterWillExamine extends React.Component {
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
           close: this.onAlertWarnClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
       return;
@@ -939,7 +962,7 @@ class RegisterWillExamine extends React.Component {
           title: "输入的学号或姓名格式不正确",
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
-          close: this.onAlertWarnClose.bind(this)
+          close: this.onAlertWarnClose.bind(this),
         })
       );
       return;
@@ -950,13 +973,15 @@ class RegisterWillExamine extends React.Component {
       // pagination: 1,
       searchWord: e.value,
       checkedList: [],
-      checkAll: false
+      checkAll: false,
     });
     dispatch(
       actions.UpDataState.getWillSignUpLog(
         "/GetSignUpLogToPage?SchoolID=" +
           this.state.userMsg.SchoolID +
-          "&PageIndex=0&PageSize=10&status=0&keyword=" +
+          "&PageIndex=0&pageSize=" +
+          this.state.pageSize +
+          "&status=0&keyword=" +
           e.value +
           this.state.sortType +
           this.state.sortFiled +
@@ -984,7 +1009,7 @@ class RegisterWillExamine extends React.Component {
           : "";
       this.setState({
         sortType: sortType,
-        sortFiled: "&sortFiled=" + sorter.columnKey
+        sortFiled: "&sortFiled=" + sorter.columnKey,
       });
       dispatch(
         actions.UpDataState.getWillSignUpLog(
@@ -992,7 +1017,9 @@ class RegisterWillExamine extends React.Component {
             this.state.userMsg.SchoolID +
             "&PageIndex=" +
             (this.state.pagination - 1) +
-            "&PageSize=10&status=0&sortFiled=" +
+            "&pageSize=" +
+            this.state.pageSize +
+            "&status=0&sortFiled=" +
             sorter.columnKey +
             sortType +
             (this.state.keyword ? "&Keyword=" + this.state.keyword : "") +
@@ -1003,7 +1030,7 @@ class RegisterWillExamine extends React.Component {
     } else if (sorter) {
       this.setState({
         sortType: "",
-        sortFiled: ""
+        sortFiled: "",
       });
       dispatch(
         actions.UpDataState.getWillSignUpLog(
@@ -1011,7 +1038,9 @@ class RegisterWillExamine extends React.Component {
             this.state.userMsg.SchoolID +
             "&PageIndex=" +
             (this.state.pagination - 1) +
-            "&PageSize=10&status=0" +
+            "&pageSize=" +
+            this.state.pageSize +
+            "&status=0" +
             (this.state.keyword ? "&Keyword=" + this.state.keyword : "") +
             this.state.firstParam +
             this.state.secondParam
@@ -1022,23 +1051,23 @@ class RegisterWillExamine extends React.Component {
   //学生详情信息
   StudentDetailsMsgModalOk = () => {
     this.setState({
-      StudentDetailsMsgModalVisible: false
+      StudentDetailsMsgModalVisible: false,
     });
   };
   StudentDetailsMsgModalCancel = () => {
     this.setState({
-      StudentDetailsMsgModalVisible: false
+      StudentDetailsMsgModalVisible: false,
     });
   };
 
   //搜索change
-  onChangeSearch = e => {
+  onChangeSearch = (e) => {
     this.setState({
-      searchValue: e.target.value.trim()
+      searchValue: e.target.value.trim(),
     });
   };
   // 取消搜索
-  onCancelSearch = e => {
+  onCancelSearch = (e) => {
     const { dispatch } = this.props;
 
     this.setState({
@@ -1047,17 +1076,48 @@ class RegisterWillExamine extends React.Component {
       searchValue: "",
       // pagination: 1,
       checkAll: false,
-      checkedList: []
+      checkedList: [],
     });
     dispatch(
       actions.UpDataState.getWillSignUpLog(
         "/GetSignUpLogToPage?SchoolID=" +
           this.state.userMsg.SchoolID +
-          "&PageIndex=0&PageSize=10&status=0" +
+          "&PageIndex=0&pageSize=" +
+          this.state.pageSize +
+          "&status=0" +
           this.state.sortType +
           this.state.sortFiled +
           this.state.firstParam +
           this.state.secondParam
+      )
+    );
+  };
+  // 改变显示条目数
+  onShowSizeChange = (current, pageSize) => {
+    // console.log(current, pageSize);
+    const { dispatch } = this.props;
+
+    this.setState({
+      pageSize,
+      checkedList: [],
+      checkAll: false,
+      pagination: 1,
+    });
+
+    dispatch(
+      actions.UpDataState.getWillSignUpLog(
+        "/GetSignUpLogToPage?SchoolID=" +
+          this.state.userMsg.SchoolID +
+          "&PageIndex=" +
+          0 +
+          "&pageSize=" +
+          pageSize +
+          "&status=0" +
+          (this.state.keyword ? "&Keyword=" + this.state.keyword : "") +
+          this.state.firstParam +
+          this.state.secondParam +
+          this.state.sortType +
+          this.state.sortFiled
       )
     );
   };
@@ -1109,7 +1169,7 @@ class RegisterWillExamine extends React.Component {
             <span
               className="search-tips"
               style={{
-                display: this.state.CancelBtnShow === "y" ? "block" : "none"
+                display: this.state.CancelBtnShow === "y" ? "block" : "none",
               }}
             >
               <span>{"搜索关键词“" + this.state.searchWord + "”共找到"}</span>
@@ -1200,8 +1260,11 @@ class RegisterWillExamine extends React.Component {
             <div className="pagination-box">
               <PagiNation
                 showQuickJumper
+                showSizeChanger
+                pageSize={this.state.pageSize}
+                onShowSizeChange={this.onShowSizeChange}
                 current={this.state.pagination}
-                hideOnSinglepage={true}
+                hideOnSinglePage={DataState.GetSignUpLog.WillData.Total===0?true:false}
                 total={DataState.GetSignUpLog.WillData.Total}
                 onChange={this.onPagiNationChange}
               ></PagiNation>
@@ -1238,11 +1301,11 @@ class RegisterWillExamine extends React.Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   let { UIState, DataState } = state;
   return {
     UIState,
-    DataState
+    DataState,
   };
 };
 

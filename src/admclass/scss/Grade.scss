@@ -1,0 +1,34 @@
+#Grade {
+    width: 1200px;
+    min-height: 624px;
+    padding: 25px 32px;
+    .content-top {
+        height: 28px;
+        .top-icon {
+            display: inline-block;
+            vertical-align: top;
+            width: 17px;
+            height: 17px;
+            margin-right: 6px;
+            background: url(../images/Barner/menu-icon1-hover.png) no-repeat center center/100% 100%;
+        }
+        .top-title {
+            width: calc(100% - 23px);
+            height: 28px;
+            display: inline-block;
+            line-height: 17px;
+            font-size: 16px;
+            vertical-align: top;
+            color: #333333;
+            text-align: left;
+            border-bottom: 1px #cccccc dashed;
+        }
+    }
+    .content-main {
+        padding: 10px 16px;
+        .Card {
+            margin: 14px 14px 0;
+            // float: left;
+        }
+    }
+}

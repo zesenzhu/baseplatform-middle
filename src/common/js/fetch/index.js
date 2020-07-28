@@ -5,7 +5,7 @@ import {
   AESEncryptionBody,
   AESEncryptionUrl,
   requestSecure,
-  ErrorAlert
+  ErrorAlert,
 } from "./util";
 import { stringify } from "querystring";
 import ReactDOM from "react-dom";
@@ -43,7 +43,7 @@ function postData(
   let ContentTypeArr = [
     "application/x-www-form-urlencoded",
     "application/json",
-    "multipart/form-data"
+    "multipart/form-data",
   ];
   let ContentType = "";
   if (content_type === "urlencoded") {
@@ -53,7 +53,8 @@ function postData(
   } else if (content_type === "file") {
     ContentType = ContentTypeArr[2];
   } else {
-    ContentType = ContentTypeArr[0];
+    // ContentType = ContentTypeArr[0];
+    ContentType = content_type;
   }
   let result = fetch(url, {
     method: "post", //*post、get、put、delete，此项为请求方法相关的配置
@@ -65,12 +66,12 @@ function postData(
     headers: {
       Accept: "application/json, text/plain, */*", //请求头，代表的、发送端（客户端）希望接收的数据类型
       "Content-Type": ContentType, //实体头，代表发送端（客户端|服务器）发送的实体数据的数据类型
-      Authorization: requestSecure(paramsObj, TESTKEY, SecurityLevel)
+      Authorization: requestSecure(paramsObj, TESTKEY, SecurityLevel),
     },
     redirect: "follow", //manual、*follow(自动重定向)、error，此项为重定向的相关配置
     // referrer: 'no-referrer',//该首部字段会告知服务器请求的原始资源的URI
     // 注意post时候参数的形式
-    body: AESEncryptionBody(paramsObj, TESTKEY, SecurityLevel, content_type) //此处需要和headers里的"Content-Type"相对应
+    body: AESEncryptionBody(paramsObj, TESTKEY, SecurityLevel, content_type), //此处需要和headers里的"Content-Type"相对应
   });
   // .then(data => data.json()).then(json => {
   //     if (json.StatusCode === '401') {
@@ -84,45 +85,39 @@ function postData(
   // }, err => {
 
   // })
-  result.then(
-    res => {
+  result
+    .then((res) => {
+      //做提前处理
+      let clone = res.clone();
+      //console.log(clone.json());
+      return clone;
+    })
+    .then((response) => {
+      //当请求成功时直接返回response，失败则进行json解析返回失败信息
+      // console.log(response.status)
 
-
-
-        //做提前处理
-        let clone = res.clone();
-        //console.log(clone.json());
-        return clone;
-     
-    }
-  ).then(response => {
-    //当请求成功时直接返回response，失败则进行json解析返回失败信息
-    // console.log(response.status)
-
-    if (response.status === 200) {
-
-      return response;
-
-    }else if (response.status===401){
-
-        const preUrl = encodeURIComponent(Public.getLg_tk(window.location.href));
+      if (response.status === 200) {
+        return response;
+      } else if (response.status === 401) {
+        const preUrl = encodeURIComponent(
+          Public.getLg_tk(window.location.href)
+        );
 
         window.location.href = "/html/admDisconnect?lg_preurl=" + preUrl;
-
-    }else {
-      return response.json().then(json => {
-        //   console.log(json)
-        return Promise.reject(json);
-      });
-    }
-  })
+      } else {
+        return response.json().then((json) => {
+          //   console.log(json)
+          return Promise.reject(json);
+        });
+      }
+    })
     .then(
-      res => res.json(),
-      err => {
+      (res) => res.json(),
+      (err) => {
         return false;
       }
     )
-    .then(json => {
+    .then((json) => {
       // console.log(json, json.StatusCode === 200)
       if (element !== false) {
         handleStatusCode(json, element);
@@ -148,7 +143,6 @@ function handleStatusCode(json, element = true) {
     return;
   }
 
-
   if (json.StatusCode === undefined) {
     title = "服务器出现未知异常，请重试或联系管理员";
     ReactDOM.render(
@@ -170,7 +164,7 @@ function handleStatusCode(json, element = true) {
   if (element === true) {
     isAllSelect = true;
   } else if (element instanceof Array) {
-    element.map(child => {
+    element.map((child) => {
       isSelect[child] = true;
     });
   } else {
@@ -207,7 +201,6 @@ function handleStatusCode(json, element = true) {
       }
       break;
     case 401:
-
       if (isAllSelect || isSelect[401]) TokenCheck();
       break;
     case 403:
@@ -219,13 +212,14 @@ function handleStatusCode(json, element = true) {
   }
 }
 
-function getData(
+const getData =(
   url,
   SecurityLevel = 1,
   mode = "cors",
   IsDesk = false,
-  element = true
-) {
+  element = true,
+  moreParams={ content_type: "urlencoded", requestHeader: {} }
+) =>{
   let token = sessionStorage.getItem("token") || getQueryVariable("lg_tk");
   // if (!token && SecurityLevel !== 1) {
   //     console.log('token无效，请重新登录');//后期会进行无token的事件操作
@@ -238,8 +232,33 @@ function getData(
   //     });
   // }
   // console.log(isIE());
+  let { content_type, requestHeader } = moreParams;
+  if(content_type===undefined){
+    content_type = "urlencoded"
+  }
+  if(requestHeader===undefined){
+    content_type = {}
+  }
+  console.log(content_type,requestHeader)
+
   if (isIE()) {
     url = encodeURI(url);
+  }
+  let ContentTypeArr = [
+    "application/x-www-form-urlencoded",
+    "application/json",
+    "multipart/form-data",
+  ];
+  let ContentType = "";
+  if (content_type === "urlencoded") {
+    ContentType = ContentTypeArr[0];
+  } else if (content_type === "json") {
+    ContentType = ContentTypeArr[1];
+  } else if (content_type === "file") {
+    ContentType = ContentTypeArr[2];
+  } else {
+    // ContentType = ContentTypeArr[0];
+    ContentType = content_type;
   }
   // console.log(url)
   let result = fetch(AESEncryptionUrl(url, TESTKEY, SecurityLevel, IsDesk), {
@@ -251,10 +270,11 @@ function getData(
 
     headers: {
       Accept: "application/json, text/plain, */*", //请求头，代表的、发送端（客户端）希望接收的数据类型
-      "Content-Type": "application/x-www-form-urlencoded", //实体头，代表发送端（客户端|服务器）发送的实体数据的数据类型
-      Authorization: requestSecure(url, TESTKEY, SecurityLevel)
+      "Content-Type": ContentType, //实体头，代表发送端（客户端|服务器）发送的实体数据的数据类型
+      Authorization: requestSecure(url, TESTKEY, SecurityLevel),
+      ...requestHeader,
     },
-    redirect: "follow" //manual、*follow(自动重定向)、error，此项为重定向的相关配置
+    redirect: "follow", //manual、*follow(自动重定向)、error，此项为重定向的相关配置
     // referrer: 'no-referrer',//该首部字段会告知服务器请求的原始资源的URI
   });
 
@@ -267,51 +287,41 @@ function getData(
   //     return data
   // })
 
-  result.then(
-    res => {
-        //做提前处理
+  result
+    .then((res) => {
+      //做提前处理
       let clone = res.clone();
       // console.log(clone.json())
-      return clone
-    }
-  ).then(response => {
-    // console.log(response.status)
-    //当请求成功时直接返回response，失败则进行json解析返回失败信息
+      return clone;
+    })
+    .then((response) => {
+      // console.log(response.status)
+      //当请求成功时直接返回response，失败则进行json解析返回失败信息
 
-
-    if (response.status === 200) {
-      return response;
-    } else {
-
-      if(response.status===401){
-
-          const preUrl = encodeURIComponent(Public.getLg_tk(window.location.href));
+      if (response.status === 200) {
+        return response;
+      } else {
+        if (response.status === 401) {
+          const preUrl = encodeURIComponent(
+            Public.getLg_tk(window.location.href)
+          );
 
           window.location.href = "/html/admDisconnect?lg_preurl=" + preUrl;
-
-      }else{
-
-          return response.json().then(json => {
-              //   console.log(json)
-              return Promise.reject(json);
-
+        } else {
+          return response.json().then((json) => {
+            //   console.log(json)
+            return Promise.reject(json);
           });
-
+        }
       }
-
-    }
-  })
+    })
     .then(
-      res => res.json()
-      ,
-      err => {
-        return false
-
+      (res) => res.json(),
+      (err) => {
+        return false;
       }
     )
-    .then(json => {
-
-
+    .then((json) => {
       // console.log(json, json.StatusCode === 200)
       if (element !== false) {
         handleStatusCode(json, element);
@@ -327,7 +337,6 @@ function getQueryVariable(variable) {
     window.location.search.substring(1) ||
     window.location.href.split("?")[1] ||
     window.location.href;
-
 
   var vars = query.split("&");
   for (var i = 0; i < vars.length; i++) {

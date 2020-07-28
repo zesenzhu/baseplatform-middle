@@ -170,9 +170,19 @@ class PowerContent extends React.Component {
                         className="radio"
                         onChange={this.onRadioChange.bind(this)}
                       >
-                        {Power.student[0].PowerName}
+                        {/* {Power.student[0].PowerName} */}
+                        <span className="radio-tips-1">
+                          {Power.student[0].PowerName}
+                        </span>
+                        <span className="radio-tips-2">
+                          {Power.student[0].Status === 0
+                            ? "需要经过学校管理员或班主任审核确认后，系统才会为学生创建用户账号"
+                            : '注册完成时，即可使用，不需要经过审核'
+                            // "在学生提交档案时系统便为其创建用户账号"
+                            }
+                        </span>
                       </Radio>
-                      <div className="radio-box-2">
+                      {/* <div className="radio-box-2">
                         <RadioGroup
                           name="radioGroup"
                           value={Power.student[0].Status}
@@ -207,7 +217,7 @@ class PowerContent extends React.Component {
                             </span>
                           </div>
                         </RadioGroup>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -224,9 +234,19 @@ class PowerContent extends React.Component {
                       className="radio"
                       onChange={this.onRadioChange.bind(this)}
                     >
-                      {Power.teacher[0].PowerName}
+                      {/* {Power.teacher[0].PowerName} */}
+                      <span className="radio-tips-1">
+                          {Power.teacher[0].PowerName}
+                        </span>
+                        <span className="radio-tips-2">
+                          {Power.student[0].Status === 0
+                            ? "需要经过学校管理员或班主任审核确认后，系统才会为学生创建用户账号"
+                            : '注册完成时，即可使用，不需要经过审核'
+                            // "在学生提交档案时系统便为其创建用户账号"
+                            }
+                        </span>
                     </Radio>
-                    <div className="radio-box-2">
+                    {/* <div className="radio-box-2">
                       <RadioGroup
                         name="radioGroup"
                         value={Power.teacher[0].Status}
@@ -261,7 +281,7 @@ class PowerContent extends React.Component {
                           </span>
                         </div>
                       </RadioGroup>
-                    </div>
+                    </div> */}
                     {Power.teacher instanceof Array &&
                       Power.teacher.map((child, index) => {
                         if (index === 0) {
@@ -269,8 +289,7 @@ class PowerContent extends React.Component {
                         } else
                           return (
                             <Radio
-                            key={child.PowerID}
-
+                              key={child.PowerID}
                               value={child.PowerID}
                               checked={child.Status !== 0 ? true : false}
                               className="radio"
@@ -310,8 +329,7 @@ class PowerContent extends React.Component {
                         Power.ganger.map((child, index) => {
                           return (
                             <Radio
-                            key={child.PowerID}
-
+                              key={child.PowerID}
                               value={child.PowerID}
                               checked={child.Status !== 0 ? true : false}
                               className="radio"
@@ -337,7 +355,7 @@ class PowerContent extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="content-row clearfix">
+              {/* <div className="content-row clearfix">
                 <div className="left">
                   <img width={108} height={116} alt="director" src={director} />
                 </div>
@@ -347,8 +365,7 @@ class PowerContent extends React.Component {
                       Power.dean.map((child, index) => {
                         return (
                           <Radio
-                          key={child.PowerID}
-
+                            key={child.PowerID}
                             value={child.PowerID}
                             checked={child.Status !== 0 ? true : false}
                             className="radio"
@@ -358,30 +375,31 @@ class PowerContent extends React.Component {
                           </Radio>
                         );
                       })}
-                    {/* <Radio
-                                              value={Power.dean[0].PowerID}
-                                              checked={Power.dean[0].Status !== 0 ? true : false}
-                                              className='radio'
-                                              onChange={this.onRadioChange.bind(this)}
-                                          >{Power.dean[0].PowerName}</Radio>
-                                          <Radio
-                                              value={Power.dean[1].PowerID}
-                                              checked={Power.dean[1].Status !== 0 ? true : false}
-                                              className='radio'
-                                              onChange={this.onRadioChange.bind(this)}
-                                          >{Power.dean[1].PowerName}</Radio>
-                                          <Radio
-                                              value={Power.dean[2].PowerID}
-                                              checked={Power.dean[2].Status !== 0 ? true : false}
-                                              className='radio'
-                                              onChange={this.onRadioChange.bind(this)}
-                                          >{Power.dean[2].PowerName}</Radio>
-                                          <Radio
-                                              value={Power.dean[3].PowerID}
-                                              checked={Power.dean[3].Status !== 0 ? true : false}
-                                              className='radio'
-                                              onChange={this.onRadioChange.bind(this)}
-                                          >{Power.dean[3].PowerName}</Radio> */}
+                    
+                  </div>
+                </div>
+              </div> */}
+              <div className="content-row clearfix">
+                <div className="left">
+                  <img width={108} height={116} alt="director" src={director} />
+                </div>
+                <div className="right">
+                  <div>
+                    {Power.parents instanceof Array &&
+                      Power.parents.map((child, index) => {
+                        return (
+                          <Radio
+                            key={child.PowerID}
+                            value={child.PowerID}
+                            checked={child.Status !== 0 ? true : false}
+                            className="radio"
+                            onChange={this.onRadioChange.bind(this)}
+                          >
+                            {child.PowerName}
+                          </Radio>
+                        );
+                      })}
+                    
                   </div>
                 </div>
               </div>

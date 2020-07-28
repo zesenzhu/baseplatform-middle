@@ -467,7 +467,7 @@ class YearSemesterSetting extends Component {
               调整学期期限
             </Button>
             <i className="btn-shadow"></i>
-
+            <p className="tips">调整期限时，周次也会随之变化</p>
             <Modal
               type="1"
               title="调整学年期限"

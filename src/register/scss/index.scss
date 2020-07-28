@@ -23,17 +23,62 @@
 
 .box {
     position: relative;
-    min-height: 690px;
-    width: 100%;
-    border-radius: 12px;
+    min-height: 100vh;
+    max-width: 1920px;
+    min-width: 1200px;
+    margin: 0 auto;
+    // border-radius: 12px;
     background-color: #fff;
     overflow: auto;
+    .box-top {
+        height: 190px;
+        // background: rgba($color: #f62e75, $alpha: 0.5);
+        background: url(../images/img-bg.png) no-repeat center top;
+        .bt-msg {
+            height: 100%;
+            padding-top: 25px;
+            .tb-name {
+                text-align: center;
+                color: #fff;
+                font-size: 24px;
+                height: 53px;
+                line-height: 53px;
+                // font-weight: bold;
+                i {
+                    width: 45px;
+                    display: inline-block;
+                    height: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    vertical-align: top;
+                    background: url(../images/logo.png) no-repeat left center/36px;
+                }
+            }
+            .tb-hr {
+                margin: 10px 0;
+                height: 1px;
+                background: url(../images/logo.png) no-repeat left center/36px;
+                background: url(../images/icon-devide.png) no-repeat center center / 223px 1px;
+            }
+            .bt-title {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                text-align: center;
+                color: #fff;
+                font-size: 16px;
+                height: 34px;
+                line-height: 34px;
+            }
+        }
+    }
 }
 
 .myFrame {
-    .frame-block-wrapper {
-        padding-left: 102px;
-    }
+    // .frame-block-wrapper {
+    //     padding-left: 102px;
+    // }
 }
 
 .register-error {
@@ -48,5 +93,273 @@
 }
 
 body {
-    font-family: '微软雅黑';
+    font-family: "微软雅黑";
+}
+
+@mixin keyframes($bTop, $bLeft, $eTop, $eLeft) {
+    @keyframes ball-1 {
+        50% {
+            top: $bTop;
+            left: $bLeft;
+        }
+        100% {
+            top: $eTop;
+            left: $eLeft;
+        }
+    }
+    @keyframes ball-1 {
+        50% {
+            top: $bTop;
+            left: $bLeft;
+        }
+        100% {
+            top: $eTop;
+            left: $eLeft;
+        }
+    }
+}
+
+.ball-1 {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    animation: ball-1 10s linear infinite;
+    background: url(../images/ball.png) no-repeat center center / 100%;
+    -webkit-animation: ball-1 10s linear infinite;
+    -moz-animation: ball-1 10s linear infinite;
+}
+
+.ball-2 {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    transform: rotate(60deg);
+    top: -20px;
+    left: 350px;
+    animation: ball-2 15s linear infinite;
+    background: url(../images/ball.png) no-repeat center center / 100%;
+    -webkit-animation: ball-2 15s linear infinite;
+    -moz-animation: ball-2 15s linear infinite;
+    -webkit-transform: rotate(60deg);
+    -moz-transform: rotate(60deg);
+    -ms-transform: rotate(60deg);
+    -o-transform: rotate(60deg);
+}
+
+.ball-3 {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    transform: rotate(100deg);
+    top: 100px;
+    left: 800px;
+    animation: ball-3 15s linear infinite;
+    background: url(../images/ball.png) no-repeat center center / 100%;
+    -webkit-animation: ball-3 15s linear infinite;
+    -moz-animation: ball-3 15s linear infinite;
+    -webkit-transform: rotate(100deg);
+    -moz-transform: rotate(100deg);
+    -ms-transform: rotate(100deg);
+    -o-transform: rotate(100deg);
+}
+
+.ball-4 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    transform: rotate(100deg);
+    top: -50px;
+    left: 1000px;
+    animation: ball-4 15s linear infinite;
+    background: url(../images/ball.png) no-repeat center center / 100%;
+    -webkit-animation: ball-4 15s linear infinite;
+    -moz-animation: ball-4 15s linear infinite;
+    -webkit-transform: rotate(100deg);
+    -moz-transform: rotate(100deg);
+    -ms-transform: rotate(100deg);
+    -o-transform: rotate(100deg);
+}
+
+.ball-5 {
+    width: 90px;
+    height: 90px;
+    position: absolute;
+    transform: rotate(10deg);
+    top: 100px;
+    left: 1300px;
+    animation: ball-5 15s linear infinite;
+    background: url(../images/ball.png) no-repeat center center / 100%;
+    -webkit-animation: ball-5 15s linear infinite;
+    -moz-animation: ball-5 15s linear infinite;
+    -webkit-transform: rotate(10deg);
+    -moz-transform: rotate(10deg);
+    -ms-transform: rotate(10deg);
+    -o-transform: rotate(10deg);
+}
+
+@keyframes ball-1 {
+    50% {
+        top: 100px;
+        left: 100px;
+    }
+    100% {
+        top: 50px;
+        left: 50px;
+    }
+}
+
+@-webkit-keyframes ball-1 {
+    50% {
+        top: 100px;
+        left: 100px;
+    }
+    100% {
+        top: 50px;
+        left: 50px;
+    }
+}
+
+@-moz-keyframes ball-1 {
+    50% {
+        top: 100px;
+        left: 100px;
+    }
+    100% {
+        top: 50px;
+        left: 50px;
+    }
+}
+
+@keyframes ball-2 {
+    50% {
+        top: 50px;
+        left: 420px;
+    }
+    100% {
+        top: -20px;
+        left: 350px;
+    }
+}
+
+@-webkit-keyframes ball-2 {
+    50% {
+        top: 50px;
+        left: 420px;
+    }
+    100% {
+        top: -20px;
+        left: 350px;
+    }
+}
+
+@-moz-keyframes ball-2 {
+    50% {
+        top: 50px;
+        left: 420px;
+    }
+    100% {
+        top: -20px;
+        left: 350px;
+    }
+}
+
+@keyframes ball-3 {
+    50% {
+        top: 150px;
+        left: 600px;
+    }
+    100% {
+        top: 100px;
+        left: 800px;
+    }
+}
+
+@-webkit-keyframes ball-3 {
+    50% {
+        top: 150px;
+        left: 600px;
+    }
+    100% {
+        top: 100px;
+        left: 800px;
+    }
+}
+
+@-moz-keyframes ball-3 {
+    50% {
+        top: 150px;
+        left: 600px;
+    }
+    100% {
+        top: 100px;
+        left: 800px;
+    }
+}
+
+@keyframes ball-4 {
+    50% {
+        top: 50px;
+        left: 900px;
+    }
+    100% {
+        top: -50px;
+        left: 1000px;
+    }
+}
+
+@-webkit-keyframes ball-4 {
+    50% {
+        top: 50px;
+        left: 900px;
+    }
+    100% {
+        top: -50px;
+        left: 1000px;
+    }
+}
+
+@-moz-keyframes ball-4 {
+    50% {
+        top: 50px;
+        left: 900px;
+    }
+    100% {
+        top: -50px;
+        left: 1000px;
+    }
+}
+
+@keyframes ball-5 {
+    50% {
+        top: 10px;
+        left: 1000px;
+    }
+    100% {
+        top: 100px;
+        left: 1300px;
+    }
+}
+
+@-webkit-keyframes ball-5 {
+    50% {
+        top: 10px;
+        left: 1000px;
+    }
+    100% {
+        top: 100px;
+        left: 1300px;
+    }
+}
+
+@-moz-keyframes ball-5 {
+    50% {
+        top: 10px;
+        left: 1000px;
+    }
+    100% {
+        top: 100px;
+        left: 1300px;
+    }
 }

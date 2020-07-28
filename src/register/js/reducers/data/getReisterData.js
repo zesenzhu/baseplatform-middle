@@ -5,15 +5,14 @@ const getReisterData = (
   state = {
     GradeList: [{ value: 0, title: "暂无年级" }],
     ClassList: {},
-    SubjectList: [
-      { value: 0, title: "暂无学科" },
-      
-    ],
+    SubjectList: [{ value: 0, title: "暂无学科" }],
     // SchoolList:[{value:'',title:'暂无学校'}],
     SchoolList: [
       // { value: "S27-511-AF57", title: "一体化教育云    平台sadasda" },
-      { value: "2", title: "暂无学校" }
-    ]
+      { value: "2", title: "暂无学校" },
+    ],
+    BaseInfoForPages: { ProductName: "" },
+    VCCode: "",
     // SubjectList:[{value:0,title:'暂无学科'}]
   },
   actions
@@ -23,10 +22,14 @@ const getReisterData = (
   switch (actions.type) {
     // case UpDataState.SET_USER_MSG:
     //   return Object.assign({}, state, { ...actions.data });
+    case UpDataState.GET_VC_CODE:
+      return Object.assign({}, state, { VCCode: actions.data });
+    case UpDataState.GET_BASE_INFO_FOR_PAGES:
+      return Object.assign({}, state, { BaseInfoForPages: actions.data });
     case UpDataState.GET_GRADE_CLASS_DATA:
       data = handleGradeInfo(actions.data);
       return Object.assign({}, state, { ...data });
-      case UpDataState.GET_SUBJECT_DATA:
+    case UpDataState.GET_SUBJECT_DATA:
       data = handleSubjectInfo(actions.data);
       return Object.assign({}, state, { ...data });
     case UpDataState.GET_SCHOOL_INFO:
@@ -39,26 +42,24 @@ const getReisterData = (
 function handleSubjectInfo(data) {
   if (data instanceof Array) {
     let SubjectList = [];
-    
+
     data.map((child, index) => {
-      if(child.SubjectID==='all'){
-        return
-      }else{
+      if (child.SubjectID === "all") {
+        return;
+      } else {
         SubjectList.push({
           value: child.SubjectID,
-          title: child.SubjectName
+          title: child.SubjectName,
         });
       }
-      
-      
     });
     return {
-      SubjectList
+      SubjectList,
     };
   } else {
     return {
       GradeList: [{ value: 0, title: "暂无年级" }],
-      ClassList: {}
+      ClassList: {},
     };
   }
 }
@@ -69,30 +70,30 @@ function handleGradeInfo(data) {
     data.Grades.map((child, index) => {
       GradeList.push({
         value: child.GradeID,
-        title: child.GradeName
+        title: child.GradeName,
       });
-      let Class = []
-        child.Classes instanceof Array &&
+      let Class = [];
+      child.Classes instanceof Array &&
         child.Classes.map((child1, index1) => {
           Class.push({
             value: child1.ClassID,
             title: child1.ClassName,
-            GradeID:child1.GradeID
+            GradeID: child1.GradeID,
           });
         });
-        if(Class.length===0){
-          Class ={ value: 0, title: "暂无班级"}
-        }
-        ClassList[child.GradeID] = Class
+      if (Class.length === 0) {
+        Class = { value: 0, title: "暂无班级" };
+      }
+      ClassList[child.GradeID] = Class;
     });
     return {
       GradeList,
-      ClassList
+      ClassList,
     };
   } else {
     return {
       GradeList: [{ value: 0, title: "暂无年级" }],
-      ClassList: {}
+      ClassList: {},
     };
   }
 }
@@ -101,7 +102,7 @@ function handleSchoolInfo(data) {
     let SchoolList = data.map((child, index) => {
       return {
         value: child.SchoolID,
-        title: child.SchoolName
+        title: child.SchoolName,
       };
     });
     return SchoolList;

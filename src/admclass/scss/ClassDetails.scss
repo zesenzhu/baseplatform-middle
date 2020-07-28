@@ -1,0 +1,99 @@
+#Admin {
+    width: 1200px;
+    min-height: 624px;
+    padding: 25px 32px;
+    .content-top {
+        height: 28px;
+        .top-icon {
+            display: inline-block;
+            vertical-align: top;
+            width: 17px;
+            height: 17px;
+            margin-right: 6px;
+            background: url(../images/Barner/menu-icon1-hover.png) no-repeat center center/100% 100%;
+        }
+        .top-title {
+            width: calc(100% - 23px);
+            height: 28px;
+            display: inline-block;
+            line-height: 17px;
+            font-size: 16px;
+            vertical-align: top;
+            color: #333333;
+            text-align: left;
+            border-bottom: 1px #cccccc dashed;
+        }
+    }
+}
+
+.TeacherContent {
+    padding: 15px 28px;
+    .top-tip {
+        height: 35px;
+        line-height: 35px;
+        padding-left: 28px;
+        background: url(../images/Cards/class-bar.png) no-repeat left center/ 20px 18px;
+        .tip-left {
+            font-size: 16px;
+            color: #333333;
+        }
+        .tip-right {
+            font-size: 16px;
+            color: #999999;
+        }
+    }
+}
+
+.StudentContent {
+    // padding: 15px 28px;
+    padding: 15px 28px;
+    .top-tip {
+        height: 35px;
+        line-height: 35px;
+        padding-left: 28px;
+        background: url(../images/Cards/class-stu-bar.png) no-repeat left center/ 18px 20px;
+        .tip-left {
+            font-size: 16px;
+            color: #333333;
+        }
+        .tip-right {
+            font-size: 16px;
+            color: #999999;
+        }
+        .Search {
+            float: right;
+            margin-top: 3.5px;
+        }
+    }
+    .sc-main {
+        overflow: hidden;
+        background-color: #f5f5f5;
+        margin-top: 13px;
+        min-height: 300px;
+        padding: 14px 16px 60px;
+        position: relative;
+        // padding: 14px 16px;
+        // min-height: 466px;
+        .pagination-box {
+            padding: 0 15px;
+            position: absolute;
+            width: calc(100% - 32px);
+            bottom: 20px;
+            right: 20px;
+            .ReSet-box {
+                float: left;
+                height: 100%;
+                .edit-btn {
+                    width: 56px;
+                    color: #fff;
+                    height: 28px;
+                    line-height: 28px;
+                    padding: 0;
+                    font-size: 14px;
+                }
+            }
+            margin-top: 10px;
+            text-align: right;
+        }
+    }
+}

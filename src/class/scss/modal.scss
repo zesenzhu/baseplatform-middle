@@ -1,0 +1,20 @@
+//模态框组件
+.ant-modal-footer{
+  .ant-btn{
+    @include border-radius(3px);
+    color: #ffffff;
+    border:0;
+    background-blend-mode: normal,normal;
+    width:80px;
+    height: 30px;
+    line-height: 30px;
+  }
+  .btn-green{
+    background-image: linear-gradient(90deg, #00e566 0%, #12d033 62%, #23ba00 100%),
+    linear-gradient(#f2f2f2, #f2f2f2);
+  }
+  .btn-blue{
+    background-image: linear-gradient(90deg, #0fc1fc 0%, #1da4fe 100%),
+    linear-gradient(#f2f2f2, #f2f2f2);
+  }
+}

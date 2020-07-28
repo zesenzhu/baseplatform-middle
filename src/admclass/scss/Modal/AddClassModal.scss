@@ -1,0 +1,35 @@
+#AddClassModal {
+    // overflow: hidden;
+    padding-top: 24px;
+    .modal-row {
+        margin-top: 20px;
+        height: 32px;
+        .row-left {
+            width: 30%;
+            // display: inline-block;
+            float: left;
+            text-align: right;
+            height: 32px;
+            line-height: 32px;
+            color: #999999;
+            font-size: 14px;
+        }
+        .row-right {
+            width: 70%;
+            padding-left: 10px;
+            // display: inline-block;
+            float: left;
+            height: 32px;
+            .rename-input {
+                width: 265px;
+            }
+            .dropdown_container .dropdown_wrapper {
+                margin-left: 0;
+                .dropdown_default_span {
+                    line-height: 30px;
+                    height: 30px;
+                }
+            }
+        }
+    }
+}

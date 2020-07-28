@@ -21,6 +21,7 @@ import {
   CheckBoxGroup,
   Tips,
 } from "../../../common/index";
+import { instanceOf } from "prop-types";
 window.$ = $;
 
 window.jQuery = $;
@@ -62,6 +63,20 @@ class EditModal extends React.Component {
       TitleIDTipsTitle: "请选择职称",
       TitleIDVisible: false,
       PositionTipsTitle: "请选择行政职称",
+      GenderList: [
+        {
+          value: 3,
+          title: "保密",
+        },
+        {
+          value: 1,
+          title: "男",
+        },
+        {
+          value: 2,
+          title: "女",
+        },
+      ],
     };
   }
   componentWillMount() {
@@ -573,10 +588,21 @@ class EditModal extends React.Component {
   //性别
   onEditGendeChange = (e) => {
     const { dispatch } = this.props;
+    console.log(e.target.value);
+    let value = e.target.value;
+    let GendeChange ={value:3,title:'保密'}
+    let GenderList = this.state.GenderList;
+    GenderList instanceof Array && GenderList.forEach(child=>{
+      if(child.title=== value){
+        GendeChange = child
+      }
+    })
     this.setState({
-      GendeChange: e,
+      GendeChange: GendeChange,
     });
-    $("#picUpload").picUploader.setGender(e.title);
+    console.log(GendeChange,value)
+
+    $("#picUpload").picUploader.setGender(GendeChange.title);
     dispatch(
       actions.UpUIState.editModalTipsVisible({
         GenderTipsVisible: false,
@@ -584,13 +610,13 @@ class EditModal extends React.Component {
     );
     if (this.state.type === "teacher") {
       //改变reduce教师中转数据
-      dispatch(actions.UpDataState.setTeacherMsg({ gender: e.title }));
+      dispatch(actions.UpDataState.setTeacherMsg({ gender: value }));
     } else if (this.state.type === "student") {
       //改变reduce学生中转数据
-      dispatch(actions.UpDataState.setStudentMsg({ gender: e.title }));
+      dispatch(actions.UpDataState.setStudentMsg({ gender: value }));
     } else if (this.state.type === "leader") {
       //改变reduce领导中转数据
-      dispatch(actions.UpDataState.setLeaderMsg({ gender: e.title }));
+      dispatch(actions.UpDataState.setLeaderMsg({ gender: value }));
     }
   };
   //年级
@@ -659,8 +685,16 @@ class EditModal extends React.Component {
   //行政职务
   onEditPositionChange = (e) => {
     const { dispatch } = this.props;
+    let LeaderPositionList = this.state.LeaderPositionList;
+    let PositionChange = { value: 0, title: "请选择行政职务" };
+    LeaderPositionList instanceof Array &&
+      LeaderPositionList.forEach((child, index) => {
+        if (e.target.value === child.value) {
+          PositionChange = child;
+        }
+      });
     this.setState({
-      PositionChange: e,
+      PositionChange: PositionChange,
     });
     dispatch(
       actions.UpUIState.editModalTipsVisible({
@@ -668,7 +702,7 @@ class EditModal extends React.Component {
       })
     );
     //改变reduce领导中转数据
-    dispatch(actions.UpDataState.setLeaderMsg({ position: e }));
+    dispatch(actions.UpDataState.setLeaderMsg({ position: PositionChange }));
   };
   //身份证
   onEditIDCardChange = (e) => {
@@ -865,13 +899,14 @@ class EditModal extends React.Component {
     let SubjectListChange =
       DataState.SubjectTeacherMsg.returnData.SubjectListChange;
     let TeacherChangeMsg = {};
-    let Options = []
-    SubjectListChange instanceof Array&&SubjectListChange.map((child, index) => {
-      TeacherChangeMsg[child.value] = child.title;
-      Options.push(child.value) ;
-    });
+    let Options = [];
+    SubjectListChange instanceof Array &&
+      SubjectListChange.map((child, index) => {
+        TeacherChangeMsg[child.value] = child.title;
+        Options.push(child.value);
+      });
 
-    let map = []
+    let map = [];
     Options.map((opt, index) => {
       // if(index>2){
       //   return ''
@@ -1006,7 +1041,25 @@ class EditModal extends React.Component {
                 getPopupContainer={(e) => e.parentNode}
                 title={this.state.GenderTipsTitle}
               >
-                <DropDown
+                <div style={{ float: "left", paddingTop: "10px" }}>
+                  <RadioGroup
+                    name="radioGroup"
+                    className={""}
+                    style={{
+                      // lineHeight: " 40px",
+                      // paddingRight: "23px",
+                      // verticalAlign: "top",
+                      width: "200px",
+                    }}
+                    value={this.state.GendeChange.title}
+                    onChange={this.onEditGendeChange.bind(this)}
+                  >
+                    <Radio value={"保密"}>保密</Radio>
+                    <Radio value={"男"}>男</Radio>
+                    <Radio value={"女"}>女</Radio>
+                  </RadioGroup>
+                </div>
+                {/* <DropDown
                   style={{ zIndex: 3 }}
                   dropSelectd={this.state.GendeChange}
                   dropList={[
@@ -1026,7 +1079,7 @@ class EditModal extends React.Component {
                   width={120}
                   height={96}
                   onChange={this.onEditGendeChange}
-                ></DropDown>
+                ></DropDown> */}
               </Tips>
             </div>
           </div>
@@ -1168,23 +1221,23 @@ class EditModal extends React.Component {
                   </CheckBoxGroup>
                 ) : (
                   <Scrollbars
-                  autoHeightMin={28}
-                  autoHeightMax={112}
-                  autoHeight={true}
-                  autoHide={
-                    this.MapPlainOptions().length <= 16 ? true : false
-                  }
-                  autoHideTimeout={0}
-                  autoHideDuration={0}
-                  className="Scrollbars"
-                  // renderTrackVertical={props=>{return this.MapPlainOptions().length <= 16 ? <div></div> : <div {...props}/>}}
-                  style={{
-                    display: "inline-block",
-                    width: "unset",
-                    // height: "unset",
-                    // maxWidth: "400px",
-                    minWidth: "100px",
-                  }}
+                    autoHeightMin={28}
+                    autoHeightMax={112}
+                    autoHeight={true}
+                    autoHide={
+                      this.MapPlainOptions().length <= 16 ? true : false
+                    }
+                    autoHideTimeout={0}
+                    autoHideDuration={0}
+                    className="Scrollbars"
+                    // renderTrackVertical={props=>{return this.MapPlainOptions().length <= 16 ? <div></div> : <div {...props}/>}}
+                    style={{
+                      display: "inline-block",
+                      width: "unset",
+                      // height: "unset",
+                      // maxWidth: "400px",
+                      minWidth: "100px",
+                    }}
                   >
                     <CheckBoxGroup
                       onChange={this.changeCheckBox}
@@ -1214,14 +1267,40 @@ class EditModal extends React.Component {
                 getPopupContainer={(e) => e.parentNode}
                 title={this.state.PositionTipsTitle}
               >
-                <DropDown
+                <div style={{ float: "left", paddingTop: "10px" }}>
+                  <RadioGroup
+                    name="radio-Group"
+                    className={""}
+                    style={{
+                      // lineHeight: " 40px",
+                      // paddingRight: "23px",
+                      // verticalAlign: "top",
+                      maxWidth: "400px",
+                    }}
+                    value={
+                      this.state.PositionChange
+                        ? this.state.PositionChange.value
+                        : { value: 0, title: "请选择行政职务" }
+                    }
+                    onChange={this.onEditPositionChange.bind(this)}
+                  >
+                    {this.state.LeaderPositionList instanceof Array &&
+                      this.state.LeaderPositionList.map((child, index) => {
+                        return <Radio value={child.value}>{child.title}</Radio>;
+                      })}
+                    {/* <Radio value={"保密"}>保密</Radio>
+                    <Radio value={"男"}>男</Radio>
+                    <Radio value={"女"}>女</Radio> */}
+                  </RadioGroup>
+                </div>
+                {/* <DropDown
                   style={{ zIndex: 1 }}
                   dropSelectd={this.state.PositionChange}
                   dropList={this.state.LeaderPositionList}
                   width={200}
                   height={96}
                   onChange={this.onEditPositionChange}
-                ></DropDown>
+                ></DropDown> */}
               </Tips>
             </div>
           </div>

@@ -92,7 +92,14 @@ const ModalLoadingOpen = () => {
 const ModalLoadingClose = () => {
     return { type: MODAL_LOADING_CLOSE }
 }
+const SET_TIPS_VISIBLE ='SET_TIPS_VISIBLE'
+const SetTipsVisible = (data) => {
+    return { type: SET_TIPS_VISIBLE,data }
+}
 export default {
+    SetTipsVisible,
+    SET_TIPS_VISIBLE,
+
     APP_LOADING_CLOSE,
     APP_LOADING_OPEN,
     SHOW_ERROR_ALERT,

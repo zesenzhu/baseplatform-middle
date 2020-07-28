@@ -2,14 +2,14 @@ $image-url: "../images";
 @import "./images.scss";
 .Teacher {
     position: relative;
-    padding: 22px 36px;
+    // padding: 22px 36px;
     text-align: center;
     //公用
     .Teacher-box {
         position: relative;
         text-align: left;
         margin: 0 auto;
-        width: 870px;
+        // width: 870px;
         .Teacher-top {
             position: relative;
             // margin: 0;
@@ -77,18 +77,20 @@ $image-url: "../images";
         .Teacher-hr {
             position: relative;
             border-top: 1px dashed #ccc;
-            width: 855px;
+            // width: 855px;
             margin-left: 15px;
             // margin: 0 auto;
         }
         .Teacher-content {
             margin: 18px auto 0;
             position: relative;
-            width: 870px;
+            // width: 870px;
             .content-top {
                 position: relative;
                 margin-left: 15px;
                 height: 28px;
+                padding-right: 15px;
+                border: none;
                 .dropdown_select_ul {
                     z-index: 2;
                 }
@@ -171,7 +173,8 @@ $image-url: "../images";
                         font-size: 16px;
                         cursor: pointer;
                         display: inline-block;
-                        width: 90px;
+                        width: 110px;
+                        // width: 100%;
                         height: 20px;
                         line-height: 20px;
                         overflow: hidden; //超出一行文字自动隐藏
@@ -183,7 +186,8 @@ $image-url: "../images";
                         font-size: 14px;
                         color: #999;
                         display: inline-block;
-                        width: 95px;
+                        width: 140px;
+                        // width: 100%;
                         overflow: hidden; //超出一行文字自动隐藏
                         text-overflow: ellipsis; //文字隐藏后添加省略号
                         white-space: nowrap; //强制不换行
@@ -197,7 +201,8 @@ $image-url: "../images";
                         font-size: 14px;
                         color: #333;
                         display: inline-block;
-                        width: 70px;
+                        // width: 70px;
+                        width: 140px;
                         overflow: hidden; //超出一行文字自动隐藏
                         text-overflow: ellipsis; //文字隐藏后添加省略号
                         white-space: nowrap; //强制不换行

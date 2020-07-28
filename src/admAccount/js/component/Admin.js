@@ -13,7 +13,7 @@ import {
   CheckBoxGroup,
   Modal,
   Empty,
-  Loading
+  Loading,
 } from "../../../common/index";
 //import '../../../common/scss/_left_menu.scss'
 import { Link } from "react-router-dom";
@@ -44,7 +44,7 @@ class Admin extends React.Component {
           width: 68,
           key: "key",
           align: "left",
-          render: handle => {
+          render: (handle) => {
             return (
               <div className="registerTime-content">
                 <label style={{ whiteSpace: "nowrap" }}>
@@ -61,16 +61,16 @@ class Admin extends React.Component {
                 </label>
               </div>
             );
-          }
+          },
         },
         {
           title: "姓名",
           align: "center",
-          width: 130,
+          width: 180,
           key: "UserName",
           dataIndex: "UserName",
           sorter: true,
-          render: arr => {
+          render: (arr) => {
             return (
               <div className="name-content">
                 <span
@@ -86,75 +86,161 @@ class Admin extends React.Component {
                 </span>
               </div>
             );
-          }
+          },
         },
+        // {
+        //   title: "用户名",
+        //   width: 160,
+        //   align: "center",
+        //   dataIndex: "ShortName",
+        //   key: "ShortName",
+        //   sorter: true,
+        //   render: ShortName => {
+        //     return (
+        //       <span title={ShortName} className="UserName">
+        //         {ShortName ? ShortName : "--"}
+        //       </span>
+        //     );
+        //   }
+        // },
         {
-          title: "用户名",
-          width: 160,
+          title: "最后一次登录",
           align: "center",
-          dataIndex: "ShortName",
-          key: "ShortName",
-          sorter: true,
-          render: ShortName => {
+          width: 200,
+          // dataIndex: "LastTime",
+          key: "LastTime",
+          render: (data) => {
             return (
-              <span title={ShortName} className="UserName">
-                {ShortName ? ShortName : "--"}
-              </span>
+              <div className="LastTime">
+                <p
+                  className="last"
+                  title={
+                    data.Others && data.Others.LastTimeLogin
+                      ? data.Others.LastTimeLogin
+                      : "--"
+                  }
+                >
+                  时间:
+                  {data.Others && data.Others.LastTimeLogin
+                    ? data.Others.LastTimeLogin
+                    : "--"}
+                </p>
+                <p
+                  className="last"
+                  title={
+                    data.Others && data.Others.LastTimeIP
+                      ? data.Others.LastTimeIP
+                      : "--"
+                  }
+                >
+                  IP:
+                  {data.Others && data.Others.LastTimeIP
+                    ? data.Others.LastTimeIP
+                    : "--"}
+                </p>
+              </div>
             );
-          }
-        },
-        {
-          title: "访问权限",
-          width: 120,
-          align: "center",
-          dataIndex: "Power",
-          key: "Power",
-          render: Power => {
-            return (
-              <Tooltip
-                placement="topLeft"
-                width={540}
-                trigger="click"
-                overlayClassName="PowerTip"
-                arrowPointAtCenter={true}
-                title={<TipsPower data={Power}></TipsPower>}
-              >
-                <span className="Power">查看</span>
-              </Tooltip>
-            );
-          }
+          },
         },
         {
           title: "联系方式",
-          width: 120,
           align: "center",
+          width: 270,
           key: "UserContact",
           dataIndex: "UserContact",
-          render: UserContact => {
+          render: (UserContact) => {
             return (
-              <Tooltip
-                placement="topLeft"
-                trigger="click"
-                arrowPointAtCenter={true}
-                title={<TipsContact data={UserContact}></TipsContact>}
-              >
-                <span
-                  className="UserContact"
-                  onClick={this.onUserContactClick.bind(this, UserContact)}
-                >
-                  查看
-                </span>
-              </Tooltip>
+              <div className="uc">
+                <div className="uc-float">
+                  <p className="uc-box uc-left">
+                    <span
+                      title={UserContact.QQ ? UserContact.QQ : "--"}
+                      className="uc-title uc-QQ"
+                    >
+                      {UserContact.QQ ? UserContact.QQ : "--"}
+                    </span>
+                    <span
+                      title={UserContact.Weibo ? UserContact.Weibo : "--"}
+                      className="uc-title uc-Weibo"
+                    >
+                      {UserContact.Weibo ? UserContact.Weibo : "--"}
+                    </span>
+                  </p>
+                </div>
+                <div className="uc-float">
+                  <p className="uc-box uc-right">
+                    <span
+                      title={UserContact.WeiXin ? UserContact.WeiXin : "--"}
+                      className="uc-title uc-WeiXin"
+                    >
+                      {UserContact.WeiXin ? UserContact.WeiXin : "--"}
+                    </span>
+                    <span
+                      title={
+                        UserContact.Telephone ? UserContact.Telephone : "--"
+                      }
+                      className="uc-title uc-Telephone"
+                    >
+                      {UserContact.Telephone ? UserContact.Telephone : "--"}
+                    </span>
+                  </p>
+                </div>
+              </div>
             );
-          }
+          },
         },
+        // {
+        //   title: "访问权限",
+        //   width: 120,
+        //   align: "center",
+        //   dataIndex: "Power",
+        //   key: "Power",
+        //   render: Power => {
+        //     return (
+        //       <Tooltip
+        //         placement="topLeft"
+        //         width={540}
+        //         trigger="click"
+        //         overlayClassName="PowerTip"
+        //         arrowPointAtCenter={true}
+        //         title={<TipsPower data={Power}></TipsPower>}
+        //       >
+        //         <span className="Power">查看</span>
+        //       </Tooltip>
+        //     );
+        //   }
+        // },
+        // {
+        //   title: "联系方式",
+        //   width: 120,
+        //   align: "center",
+        //   key: "UserContact",
+        //   dataIndex: "UserContact",
+        //   render: UserContact => {
+        //     return (
+        //       <Tooltip
+        //         placement="topLeft"
+        //         trigger="click"
+        //         arrowPointAtCenter={true}
+        //         title={<TipsContact data={UserContact}></TipsContact>}
+        //       >
+        //         <span
+        //           className="UserContact"
+        //           onClick={this.onUserContactClick.bind(this, UserContact)}
+        //         >
+        //           查看
+        //         </span>
+        //       </Tooltip>
+        //     );
+        //   }
+        // },
         {
           title: "操作",
           align: "center",
           width: 260,
           key: "handle",
           dataIndex: "key",
-          render: key => {
+          render: (key) => {
             return (
               <div className="handle-content">
                 <Button
@@ -175,8 +261,8 @@ class Admin extends React.Component {
                 </Button>
               </div>
             );
-          }
-        }
+          },
+        },
       ],
       data: [
         {
@@ -186,8 +272,8 @@ class Admin extends React.Component {
           Grader: "男",
           GradeName: "一年级",
           ClassName: "一年1班",
-          Others: {}
-        }
+          Others: {},
+        },
       ],
       PwdTipsTitle:
         "密码应由8-20位字母、数字及特殊字符`~!@#$%^&*()_+-={}|[]:\";'<>?,./\\的任意两种及以上组成",
@@ -218,7 +304,8 @@ class Admin extends React.Component {
       userMsg: props.DataState.LoginUser,
       sortType: "",
       sortFiled: "",
-      PwdStrong:0
+      PwdStrong: 0,
+      pageSize: 10,
     };
     window.AdminCancelSearch = this.AdminCancelSearch.bind(this);
   }
@@ -229,7 +316,7 @@ class Admin extends React.Component {
       searchValue: "",
       checkAll: false,
       // pagination: 1,
-      checkedList: []
+      checkedList: [],
     });
   };
   componentWillMount() {
@@ -255,16 +342,16 @@ class Admin extends React.Component {
       nextProps.DataState.AdminPreview.PageIndex + 1 !== this.state.pagination
     ) {
       this.setState({
-        pagination: nextProps.DataState.AdminPreview.PageIndex + 1
+        pagination: nextProps.DataState.AdminPreview.PageIndex + 1,
       });
     }
     this.setState({
-      GradeArr: GradeArr
+      GradeArr: GradeArr,
     });
   }
 
   // 搜索
-  AdminSearch = e => {
+  AdminSearch = (e) => {
     const { dispatch } = this.props;
 
     if (e.value === "") {
@@ -275,7 +362,7 @@ class Admin extends React.Component {
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
           close: this.onAlertWarnClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
       return;
@@ -290,7 +377,7 @@ class Admin extends React.Component {
           title: "输入的工号或姓名格式不正确",
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
-          close: this.onAlertWarnClose.bind(this)
+          close: this.onAlertWarnClose.bind(this),
         })
       );
       return;
@@ -299,27 +386,29 @@ class Admin extends React.Component {
       checkedList: [],
       checkAll: false,
       keyword: e.value,
-      CancelBtnShow: "y"
+      CancelBtnShow: "y",
       // pagination: 1
     });
     dispatch(
       actions.UpDataState.getAdminPreview(
         "/GetAdminToPage?SchoolID=" +
           this.state.userMsg.SchoolID +
-          "&PageIndex=0&PageSize=10&keyword=" +
+          "&PageIndex=0&PageSize=" +
+          this.state.pageSize +
+          "&keyword=" +
           e.value +
           this.state.sortFiled +
           this.state.sortType
       )
     );
   };
-  onChangeSearch = e => {
+  onChangeSearch = (e) => {
     this.setState({
-      searchValue: e.target.value.trim()
+      searchValue: e.target.value.trim(),
     });
   };
 
-  onUserContactClick = UserContact => {
+  onUserContactClick = (UserContact) => {
     //  console.log(UserContact)
     // this.setState({
     //     AdminChangeMadalVisible: true,
@@ -334,39 +423,39 @@ class Admin extends React.Component {
   //     })
   // }
 
-  OnCheckAllChange = e => {
+  OnCheckAllChange = (e) => {
     const { dispatch, DataState } = this.props;
     //  console.log(e)
     if (e.target.checked) {
       this.setState({
         checkedList: DataState.AdminPreview.keyList,
-        checkAll: e.target.checked
+        checkAll: e.target.checked,
       });
     } else {
       this.setState({
         checkedList: [],
-        checkAll: e.target.checked
+        checkAll: e.target.checked,
       });
     }
   };
   // 全选
-  onCheckBoxGroupChange = checkedList => {
+  onCheckBoxGroupChange = (checkedList) => {
     //  console.log(checkedList)
     this.setState({
       checkedList,
-      checkAll: checkedList.length === this.state.keyList.length ? true : false
+      checkAll: checkedList.length === this.state.keyList.length ? true : false,
     });
   };
-  handleAdminModalOk = e => {
+  handleAdminModalOk = (e) => {
     //  console.log(e)
     this.setState({
-      AdminModalVisible: false
+      AdminModalVisible: false,
     });
   };
-  handleAdminModalCancel = e => {
+  handleAdminModalCancel = (e) => {
     //  console.log(e)
     this.setState({
-      AdminModalVisible: false
+      AdminModalVisible: false,
     });
   };
 
@@ -388,7 +477,7 @@ class Admin extends React.Component {
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
           close: this.onAlertWarnClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
     } else {
@@ -398,18 +487,18 @@ class Admin extends React.Component {
           title: "确定删除勾选的管理员吗？",
           ok: this.onAlertDeleteOk.bind(this),
           cancel: this.onAlertQueryClose.bind(this),
-          close: this.onAlertQueryClose.bind(this)
+          close: this.onAlertQueryClose.bind(this),
         })
       );
     }
   };
-  onChangePwdClick = key => {
+  onChangePwdClick = (key) => {
     const { dispatch, DataState } = this.props;
     let data = this.state.AdminAccountData;
     let pwd = "pwd888888";
     this.setState({
       ChangePwdMadalVisible: true,
-      onClickKey: key
+      onClickKey: key,
     });
   };
   //关闭
@@ -418,15 +507,15 @@ class Admin extends React.Component {
     //console.log('ddd')
     dispatch(actions.UpUIState.hideErrorAlert());
   };
-  onHandleClick = key => {
+  onHandleClick = (key) => {
     //console.log(this.state.AdminAccountData[key])
     this.setState({
       AdminChangeKey: key,
       changeAdminModalVisible: true,
-      userKey: "change"
+      userKey: "change",
     });
   };
-  onAddAdmin = e => {
+  onAddAdmin = (e) => {
     //  console.log(e)
     const { dispatch, UIState } = this.props;
 
@@ -435,7 +524,7 @@ class Admin extends React.Component {
     }
     this.setState({
       addAdminModalVisible: true,
-      userKey: "add"
+      userKey: "add",
     });
   };
   onAlertWarnClose = () => {
@@ -451,7 +540,7 @@ class Admin extends React.Component {
     dispatch(actions.UpUIState.hideErrorAlert());
   };
   //
-  onAlertQueryOk = pwd => {
+  onAlertQueryOk = (pwd) => {
     const { dispatch, DataState } = this.props;
     let url = "/DeleteAdmin";
 
@@ -459,7 +548,7 @@ class Admin extends React.Component {
     //  console.log(pwd);
     this.setState({
       checkedList: [],
-      checkAll: false
+      checkAll: false,
     });
   };
   // 删除
@@ -469,7 +558,7 @@ class Admin extends React.Component {
     console.log(this.state.checkedList);
     let Total = DataState.AdminPreview.Total;
 
-    let UserIDs = this.state.checkedList.map(child => {
+    let UserIDs = this.state.checkedList.map((child) => {
       return DataState.AdminPreview.newList[child].UserName.UserID;
     });
     let len = UserIDs.length;
@@ -477,17 +566,17 @@ class Admin extends React.Component {
     postData(
       CONFIG.UserAccountProxy + url,
       {
-        UserIDs: UserIDs.join()
+        UserIDs: UserIDs.join(),
       },
       2
     )
-      .then(res => {
+      .then((res) => {
         if (res.StatusCode === "401") {
           //  console.log('错误码：' + res.StatusCode)
         }
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         if (json.StatusCode === 400) {
           //  console.log(json.StatusCode)
         } else if (json.StatusCode === 200) {
@@ -496,7 +585,7 @@ class Admin extends React.Component {
             actions.UpUIState.showErrorAlert({
               type: "success",
               title: "操作成功",
-              onHide: this.onAlertWarnHide.bind(this)
+              onHide: this.onAlertWarnHide.bind(this),
             })
           );
           // if((Total-len)%(this.state.pagination-1)===0){
@@ -507,7 +596,7 @@ class Admin extends React.Component {
           // }
           this.setState({
             checkedList: [],
-            checkAll: false
+            checkAll: false,
           });
           if (this.state.keyword !== "")
             dispatch(
@@ -516,7 +605,9 @@ class Admin extends React.Component {
                   this.state.userMsg.SchoolID +
                   "&PageIndex=" +
                   pagination +
-                  "&PageSize=10&Keyword=" +
+                  "&PageSize=" +
+                  this.state.pageSize +
+                  "&Keyword=" +
                   this.state.keyword +
                   this.state.sortFiled +
                   this.state.sortType
@@ -529,7 +620,9 @@ class Admin extends React.Component {
                   this.state.userMsg.SchoolID +
                   "&PageIndex=" +
                   (this.state.pagination - 1) +
-                  "&PageSize=10" +
+                  "&PageSize=" +
+                  this.state.pageSize +
+                  "" +
                   this.state.sortFiled +
                   this.state.sortType
               )
@@ -538,12 +631,12 @@ class Admin extends React.Component {
       });
   };
   // 分页
-  onPagiNationChange = value => {
+  onPagiNationChange = (value) => {
     const { dispatch } = this.props;
     this.setState({
       // pagination: value,
       checkedList: [],
-      checkAll: false
+      checkAll: false,
     });
 
     let keyword = "";
@@ -557,40 +650,71 @@ class Admin extends React.Component {
           this.state.userMsg.SchoolID +
           "&PageIndex=" +
           --value +
-          "&PageSize=10" +
+          "&PageSize=" +
+          this.state.pageSize +
+          "" +
           this.state.sortFiled +
           this.state.sortType
       )
     );
   };
+  // 改变显示条目数
+  onShowSizeChange = (current, pageSize) => {
+    // console.log(current, pageSize);
+    const { dispatch } = this.props;
 
-  onUserNameClick = UserID => {
+    this.setState({
+      checkedList: [],
+      checkAll: false,
+      pageSize,
+      pagination: 1,
+    });
+    let keyword = "";
+
+    if (this.state.keyword !== "") {
+      keyword = "&keyword=" + this.state.keyword;
+    }
+    dispatch(
+      actions.UpDataState.getAdminPreview(
+        "/GetAdminToPage?SchoolID=" +
+          this.state.userMsg.SchoolID +
+          "&PageIndex=" +
+          0 +
+          "&PageSize=" +
+          pageSize +
+          "" +
+          this.state.sortFiled +
+          this.state.sortType
+      )
+    );
+  };
+  onUserNameClick = (UserID) => {
     const { dispatch } = this.props;
 
     dispatch(
       actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID, () => {
         this.setState({
-          AdminDetailsMsgModalVisible: true
+          AdminDetailsMsgModalVisible: true,
         });
       })
     );
 
     this.setState({
-      AdminDetailsMsgModalVisible: true
+      AdminDetailsMsgModalVisible: true,
     });
   };
   AdminDetailsMsgModalOk = () => {
     this.setState({
-      AdminDetailsMsgModalVisible: false
+      AdminDetailsMsgModalVisible: false,
     });
   };
   AdminDetailsMsgModalCancel = () => {
     this.setState({
-      AdminDetailsMsgModalVisible: false
+      AdminDetailsMsgModalVisible: false,
     });
   };
 
-  handleAddAdminModalOk = e => {
+  handleAddAdminModalOk = (e) => {
     const { dispatch, UIState, DataState } = this.props;
 
     let picObj = DataState.GetPicUrl.picObj;
@@ -628,6 +752,16 @@ class Admin extends React.Component {
 
       isFlase = true;
     }
+    if (
+      UIState.TipsVisible.TelphoneTipsVisible ||
+      UIState.TipsVisible.WeixinTipsVisible ||
+      UIState.TipsVisible.WeiboTipsVisible ||
+      UIState.TipsVisible.QQTipsVisible
+    ) {
+      // dispatch(actions.UpUIState.UserNameTipsVisibleOpen());
+
+      isFlase = true;
+    }
     if (isFlase) {
       return;
     }
@@ -642,7 +776,7 @@ class Admin extends React.Component {
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
           close: this.onAlertWarnClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
       return;
@@ -662,14 +796,18 @@ class Admin extends React.Component {
           UserName: DataState.AdminPreview.TrasferData.UserName,
           ModuleIDs: DataState.AdminPreview.TrasferData.ModuleIDs,
           PhotoPath: picObj.picUploader.getCurImgPath(),
-          Pwd: "0"
+          Pwd: "0",
+          Telephone: DataState.AdminPreview.TrasferData.Telephone,
+          QQ: DataState.AdminPreview.TrasferData.QQ,
+          Weixin: DataState.AdminPreview.TrasferData.Weixin,
+          Weibo: DataState.AdminPreview.TrasferData.Weibo,
         },
         2
       )
-        .then(res => {
+        .then((res) => {
           return res.json();
         })
-        .then(json => {
+        .then((json) => {
           // if (json.StatusCode !== 200) {
           //     dispatch(actions.UpUIState.showErrorAlert({
           //         type: 'btn-error',
@@ -684,13 +822,13 @@ class Admin extends React.Component {
               actions.UpUIState.showErrorAlert({
                 type: "success",
                 title: "操作成功",
-                onHide: this.onAlertWarnHide.bind(this)
+                onHide: this.onAlertWarnHide.bind(this),
               })
             );
             this.setState({
               addAdminModalVisible: false,
               checkedList: [],
-              checkAll: false
+              checkAll: false,
             });
             dispatch(
               actions.UpDataState.setAdminPreview({
@@ -699,7 +837,7 @@ class Admin extends React.Component {
                 UserName: "",
                 ModuleIDs: "",
                 PhotoPath: "",
-                Pwd: "0"
+                Pwd: "0",
               })
             );
             dispatch(
@@ -708,7 +846,9 @@ class Admin extends React.Component {
                   this.state.userMsg.SchoolID +
                   "&PageIndex=" +
                   (this.state.pagination - 1) +
-                  "&PageSize=10" +
+                  "&PageSize=" +
+                  this.state.pageSize +
+                  "" +
                   (this.state.keyword ? "&Keyword" + this.state.keyword : "") +
                   this.state.sortFiled +
                   this.state.sortType
@@ -719,7 +859,30 @@ class Admin extends React.Component {
         });
     }
   };
-  handleAddAdminModalCancel = e => {
+  //检测手机
+  UserComm_CheckPhoneNumber(strInput) {
+    return /^[0-9]{11}$/.test(strInput);
+  }
+  //检测电话
+  UserComm_CheckTelephone(strInput) {
+    return /^([0-9\/-]){1,40}$/.test(strInput);
+  }
+  //检测QQ
+  UserComm_CheckQQ(strInput) {
+    return /^[1-9]*[1-9][0-9]{4,18}$/.test(strInput); //QQ号
+  }
+  //检测邮箱
+  UserComm_CheckEmail(strInput) {
+    //\S表示非空字符
+    if (!/^(\S)+@(\S)+\.[a-zA-Z]{2,3}$/.test(strInput)) {
+      return false;
+    } else {
+      return /^([a-zA-Z0-9]+[_|\-|\.]*)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]*)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/gi.test(
+        strInput
+      );
+    }
+  }
+  handleAddAdminModalCancel = (e) => {
     const { dispatch, DataState } = this.props;
     dispatch(
       actions.UpDataState.setAdminPreview({
@@ -728,15 +891,15 @@ class Admin extends React.Component {
         UserName: "",
         ModuleIDs: "",
         PhotoPath: "",
-        Pwd: "0"
+        Pwd: "0",
       })
     );
     this.setState({
-      addAdminModalVisible: false
+      addAdminModalVisible: false,
     });
     dispatch(actions.UpUIState.AllTipsVisibleClose());
   };
-  handleChangeAdminModalOk = e => {
+  handleChangeAdminModalOk = (e) => {
     const { dispatch, UIState, DataState } = this.props;
 
     let picObj = DataState.GetPicUrl.picObj;
@@ -768,6 +931,16 @@ class Admin extends React.Component {
 
       return;
     }
+    if (
+      UIState.TipsVisible.TelphoneTipsVisible ||
+      UIState.TipsVisible.WeixinTipsVisible ||
+      UIState.TipsVisible.WeiboTipsVisible ||
+      UIState.TipsVisible.QQTipsVisible
+    ) {
+      // dispatch(actions.UpUIState.UserNameTipsVisibleOpen());
+
+      return;
+    }
     let {
       isChange,
       UserID,
@@ -777,38 +950,36 @@ class Admin extends React.Component {
     } = DataState.AdminPreview.TrasferData;
     let InitPower = DataState.AdminPreview.InitData.ModuleIDs.split(",");
     let len = InitPower.length;
-    
+
     // let CopyPower = InitPower.slice()
-    let Modules= ModuleIDs.split(',')
-    console.log(Modules.length,len)
-     
-    let ModulesIsChange = false
-    if(Modules.length!==len){
-      ModulesIsChange = true
-    }else {
+    let Modules = ModuleIDs.split(",");
+    console.log(Modules.length, len);
+
+    let ModulesIsChange = false;
+    if (Modules.length !== len) {
+      ModulesIsChange = true;
+    } else {
       Modules.map((child) => {
         //console.log(child.length)
-         
-            InitPower instanceof Array &&
-              InitPower.map((power) => {
-                console.log(power,child)
-                if (power === child) {
-                  len--;
-                }
-              });
-           
-      });
-      if(len !== 0 ){
-      ModulesIsChange = true
 
+        InitPower instanceof Array &&
+          InitPower.map((power) => {
+            console.log(power, child);
+            if (power === child) {
+              len--;
+            }
+          });
+      });
+      if (len !== 0) {
+        ModulesIsChange = true;
       }
     }
     // console.log(Modules.length,len)
-     
+
     if (
-      !ModulesIsChange &&
-      UserID === DataState.AdminPreview.InitData.UserID&&
-      UserName === DataState.AdminPreview.InitData.UserName&&
+      // !ModulesIsChange &&
+      UserID === DataState.AdminPreview.InitData.UserID &&
+      UserName === DataState.AdminPreview.InitData.UserName &&
       // PhotoPath === DataState.AdminPreview.InitData.PhotoPath&&
       // UserID === DataState.AdminPreview.InitData.UserID&&
       // !DataState.AdminPreview.TrasferData.isChange &&
@@ -821,7 +992,7 @@ class Admin extends React.Component {
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
           close: this.onAlertWarnClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
       return;
@@ -847,26 +1018,30 @@ class Admin extends React.Component {
           PhotoPath: picObj.picUploader.getCurImgPath(),
           Pwd: "0",
           PhotoEdit: PhotoEdit,
-          EditPower:ModulesIsChange?1:0
+          EditPower: ModulesIsChange ? 1 : 0,
+          Telephone: DataState.AdminPreview.TrasferData.Telephone,
+          QQ: DataState.AdminPreview.TrasferData.QQ,
+          Weixin: DataState.AdminPreview.TrasferData.Weixin,
+          Weibo: DataState.AdminPreview.TrasferData.Weibo,
         },
         2
       )
-        .then(res => {
+        .then((res) => {
           return res.json();
         })
-        .then(json => {
+        .then((json) => {
           if (json.StatusCode === 200) {
             dispatch(
               actions.UpUIState.showErrorAlert({
                 type: "success",
                 title: "操作成功",
-                onHide: this.onAlertWarnHide.bind(this)
+                onHide: this.onAlertWarnHide.bind(this),
               })
             );
             this.setState({
               changeAdminModalVisible: false,
               checkedList: [],
-              checkAll: false
+              checkAll: false,
             });
             dispatch(
               actions.UpDataState.setAdminPreview({
@@ -875,7 +1050,7 @@ class Admin extends React.Component {
                 UserName: "",
                 ModuleIDs: "",
                 PhotoPath: "",
-                Pwd: "0"
+                Pwd: "0",
               })
             );
             dispatch(
@@ -884,7 +1059,9 @@ class Admin extends React.Component {
                   this.state.userMsg.SchoolID +
                   "&PageIndex=" +
                   (this.state.pagination - 1) +
-                  "&PageSize=10" +
+                  "&PageSize=" +
+                  this.state.pageSize +
+                  "" +
                   (this.state.keyword ? "&Keyword" + this.state.keyword : "") +
                   this.state.sortFiled +
                   this.state.sortType
@@ -895,7 +1072,7 @@ class Admin extends React.Component {
         });
     }
   };
-  handleChangeAdminModalCancel = e => {
+  handleChangeAdminModalCancel = (e) => {
     const { dispatch, DataState } = this.props;
     dispatch(
       actions.UpDataState.setAdminPreview({
@@ -904,11 +1081,11 @@ class Admin extends React.Component {
         UserName: "",
         ModuleIDs: "",
         PhotoPath: "",
-        Pwd: "0"
+        Pwd: "0",
       })
     );
     this.setState({
-      changeAdminModalVisible: false
+      changeAdminModalVisible: false,
     });
     dispatch(actions.UpUIState.AllTipsVisibleClose());
   };
@@ -931,20 +1108,20 @@ class Admin extends React.Component {
         userID:
           DataState.AdminPreview.newList[this.state.onClickKey].UserName.UserID,
         userType: 0,
-        newPwd: md5(pwd)
+        newPwd: md5(pwd),
       },
       2
     )
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         if (json.StatusCode === 200) {
           dispatch(
             actions.UpUIState.showErrorAlert({
               type: "success",
               title: "操作成功",
-              onHide: this.onAlertWarnHide.bind(this)
+              onHide: this.onAlertWarnHide.bind(this),
             })
           );
           this.setState({
@@ -952,7 +1129,7 @@ class Admin extends React.Component {
             defaultPwd: "pwd888888",
             checkAll: false,
             checkedList: [],
-            PwdStrong:0
+            PwdStrong: 0,
           });
           if (this.state.keyword !== "")
             dispatch(
@@ -961,7 +1138,9 @@ class Admin extends React.Component {
                   this.state.userMsg.SchoolID +
                   "&PageIndex=" +
                   (this.state.pagination - 1) +
-                  "&PageSize=10&Keyword=" +
+                  "&PageSize=" +
+                  this.state.pageSize +
+                  "&Keyword=" +
                   this.state.keyword +
                   this.state.sortFiled +
                   this.state.sortType
@@ -974,7 +1153,9 @@ class Admin extends React.Component {
                   this.state.userMsg.SchoolID +
                   "&PageIndex=" +
                   (this.state.pagination - 1) +
-                  "&PageSize=10" +
+                  "&PageSize=" +
+                  this.state.pageSize +
+                  "" +
                   this.state.sortFiled +
                   this.state.sortType
               )
@@ -989,14 +1170,14 @@ class Admin extends React.Component {
     this.setState({
       ChangePwdMadalVisible: false,
       defaultPwd: "pwd888888",
-      PwdStrong:0
+      PwdStrong: 0,
     });
   };
-  onPwdchange = e => {
+  onPwdchange = (e) => {
     const { dispatch } = this.props;
     //  console.log(e.target.value)
     this.setState({
-      defaultPwd: e.target.value.trim()
+      defaultPwd: e.target.value.trim(),
     });
   };
 
@@ -1027,13 +1208,15 @@ class Admin extends React.Component {
         sortType: "&" + sortType,
         sortFiled: "&sortFiled=" + sorter.columnKey,
         checkAll: false,
-        checkedList: []
+        checkedList: [],
       });
       dispatch(
         actions.UpDataState.getAdminPreview(
           "/GetAdminToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageSize=10&sortFiled=" +
+            "&PageSize=" +
+            this.state.pageSize +
+            "&sortFiled=" +
             sorter.columnKey +
             sortType +
             "&PageIndex=" +
@@ -1046,13 +1229,15 @@ class Admin extends React.Component {
         sortType: "",
         sortFiled: "",
         checkAll: false,
-        checkedList: []
+        checkedList: [],
       });
       dispatch(
         actions.UpDataState.getAdminPreview(
           "/GetAdminToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageSize=10" +
+            "&PageSize=" +
+            this.state.pageSize +
+            "" +
             "&PageIndex=" +
             (this.state.pagination - 1) +
             keyword
@@ -1061,7 +1246,7 @@ class Admin extends React.Component {
     }
   };
   // 取消搜索
-  onCancelSearch = e => {
+  onCancelSearch = (e) => {
     const { dispatch } = this.props;
 
     this.setState({
@@ -1070,7 +1255,7 @@ class Admin extends React.Component {
       searchValue: "",
       checkAll: false,
       // pagination: 1,
-      checkedList: []
+      checkedList: [],
     });
     dispatch(
       actions.UpDataState.getAdminPreview(
@@ -1078,13 +1263,15 @@ class Admin extends React.Component {
           this.state.userMsg.SchoolID +
           "&PageIndex=" +
           0 +
-          "&PageSize=10" +
+          "&PageSize=" +
+          this.state.pageSize +
+          "" +
           this.state.sortFiled +
           this.state.sortType
       )
     );
   };
-  onPwdBlur = e => {
+  onPwdBlur = (e) => {
     const { dispatch } = this.props;
     // console.log(e.target.value);
     let value = e.target.value;
@@ -1092,10 +1279,10 @@ class Admin extends React.Component {
     // this.setState({
     //   PwdTipsTitle: txt
     // });
-    let PwdStrong = this.UserComm_PwdStrong(value)
+    let PwdStrong = this.UserComm_PwdStrong(value);
     this.setState({
-      PwdStrong:PwdStrong
-    })
+      PwdStrong: PwdStrong,
+    });
     if (!isOK) {
       dispatch({ type: actions.UpUIState.PWD_TIPS_OPEN });
       return;
@@ -1115,7 +1302,7 @@ class Admin extends React.Component {
     // }
   };
   //密码合法判断
-  UserComm_ValidatePwd = pwd => {
+  UserComm_ValidatePwd = (pwd) => {
     let lengthOver8 = true;
     let lengthLess20 = true;
     let containNumber = true;
@@ -1164,44 +1351,37 @@ class Admin extends React.Component {
       return { isOK: false, txt: txt };
     }
   };
-// 密码强度
-  UserComm_PwdStrong=(pwd)=>{
-
+  // 密码强度
+  UserComm_PwdStrong = (pwd) => {
     const containNumber = /[0-9]+/.test(pwd);
 
     const containLetters = /[a-zA-Z]+/.test(pwd);
 
-    const containSymbol = /[`~\!@#$%\^&*\(\)_\+={}|\[\]:\";\'<>\?,.\/\\-]+/.test(pwd);
+    const containSymbol = /[`~\!@#$%\^&*\(\)_\+={}|\[\]:\";\'<>\?,.\/\\-]+/.test(
+      pwd
+    );
 
     //判断是否是强
 
-    if (containLetters&&containNumber&&containSymbol){
+    if (containLetters && containNumber && containSymbol) {
+      return 3;
+    } else if (
+      (containLetters && !containSymbol && !containNumber) ||
+      (containSymbol && !containLetters && !containNumber) ||
+      (containNumber && !containLetters && !containSymbol)
+    ) {
+      //判断是否是弱类型
 
-        return 3
+      return 1;
+    } else if (!containLetters && !containNumber && !containSymbol) {
+      //是否是这样的类型
+      return 0;
+    } else {
+      //是否是中等类型
 
-    }else if (
-
-        (containLetters&&(!containSymbol)&&(!containNumber))||
-
-        (containSymbol&&(!containLetters)&&(!containNumber))||
-
-        (containNumber&&(!containLetters)&&(!containSymbol))
-
-    ){//判断是否是弱类型
-
-        return 1
-
-    }else if (!containLetters&&!containNumber&&!containSymbol) {
-        //是否是这样的类型
-        return 0;
-
-    }else{//是否是中等类型
-
-        return 2;
-
+      return 2;
     }
-
-}
+  };
   render() {
     const { UIState, DataState } = this.props;
     const data = {
@@ -1215,7 +1395,7 @@ class Admin extends React.Component {
       userIDCard: "",
       userPhone: "15626248624",
       userMail: "1519406168@qq.com",
-      userAddress: "蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团"
+      userAddress: "蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团",
     };
     return (
       <div className="Admin">
@@ -1308,10 +1488,15 @@ class Admin extends React.Component {
                   <div className="pagination-box">
                     <PagiNation
                       showQuickJumper
-                      hideOnSinglepage={true}
+                      hideOnSinglePage={
+                        DataState.AdminPreview.Total === 0 ? true : false
+                      }
                       current={this.state.pagination}
                       total={DataState.AdminPreview.Total}
                       onChange={this.onPagiNationChange}
+                      pageSize={this.state.pageSize}
+                      showSizeChanger
+                      onShowSizeChange={this.onShowSizeChange}
                     ></PagiNation>
                   </div>
                 </div>
@@ -1354,7 +1539,7 @@ class Admin extends React.Component {
                 </Modal> */}
         <Modal
           ref="handleAdminMadal"
-          bodyStyle={{ padding: 0 }}
+          bodyStyle={{ padding: 0,height: '370px'}}
           type="1"
           title={"添加管理员"}
           visible={this.state.addAdminModalVisible}
@@ -1374,7 +1559,7 @@ class Admin extends React.Component {
         </Modal>
         <Modal
           ref="handleAdminMadal"
-          bodyStyle={{ padding: 0 }}
+          bodyStyle={{ padding: 0,height: '370px' }}
           type="1"
           title={"编辑管理员"}
           visible={this.state.changeAdminModalVisible}
@@ -1424,7 +1609,7 @@ class Admin extends React.Component {
                 overlayClassName="tips"
                 visible={UIState.TipsVisible.PwdTipsShow}
                 title={this.state.PwdTipsTitle}
-                getPopupContainer={e => e.parentNode}
+                getPopupContainer={(e) => e.parentNode}
               >
                 <Input
                   size="small"
@@ -1434,14 +1619,33 @@ class Admin extends React.Component {
                   value={this.state.defaultPwd}
                 ></Input>
               </Tips>
-              <div className='PwdStrong' style={{ display: this.state.PwdStrong ? "block" : "none" }}>
+              <div
+                className="PwdStrong"
+                style={{ display: this.state.PwdStrong ? "block" : "none" }}
+              >
                 <span className="strongTips">密码强度：</span>
                 <span className="pwd-box">
-                  <span className={`color-first-${this.state.PwdStrong} box-first `}></span>
-                  <span className={`color-second-${this.state.PwdStrong} box-second`}></span>
-                  <span className={`color-third-${this.state.PwdStrong} box-third`} ></span>
+                  <span
+                    className={`color-first-${this.state.PwdStrong} box-first `}
+                  ></span>
+                  <span
+                    className={`color-second-${this.state.PwdStrong} box-second`}
+                  ></span>
+                  <span
+                    className={`color-third-${this.state.PwdStrong} box-third`}
+                  ></span>
                 </span>
-                <span className={`strongTips tips-color-${this.state.PwdStrong} `}>{this.state.PwdStrong===1?'弱':this.state.PwdStrong===2?'中':this.state.PwdStrong===3?'强':''}</span>
+                <span
+                  className={`strongTips tips-color-${this.state.PwdStrong} `}
+                >
+                  {this.state.PwdStrong === 1
+                    ? "弱"
+                    : this.state.PwdStrong === 2
+                    ? "中"
+                    : this.state.PwdStrong === 3
+                    ? "强"
+                    : ""}
+                </span>
               </div>
             </div>
           }
@@ -1490,11 +1694,11 @@ class Admin extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   let { UIState, DataState } = state;
   return {
     UIState,
-    DataState
+    DataState,
   };
 };
 export default connect(mapStateToProps)(Admin);

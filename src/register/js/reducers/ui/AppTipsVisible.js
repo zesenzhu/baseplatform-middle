@@ -8,8 +8,10 @@ const AppTipsVisible = (
     GradeIDTipsVisible: false,
     ClassIDTipsVisible: false,
     SubjectIDsTipsVisible: false,
-    SchoolIDTipsVisible: false
-    ,ComfirmPwdTipsVisible:false
+    SchoolIDTipsVisible: false,
+    ComfirmPwdTipsVisible: false,
+    ShortNameTipsVisible: false,
+    TestCodeTipsVisible: false,
   },
   actions
 ) => {

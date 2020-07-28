@@ -1,0 +1,119 @@
+@import "../public.scss";
+.ClassCard {
+    width: 248px;
+    height: 219px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    .card-main {
+        position: absolute;
+        top: 0;
+        width: 248px;
+        height: 203px;
+        padding: 4px 19px 0;
+        overflow: hidden;
+        // border-radius: 10px;
+        background-color: #ffffff;
+        // border: 1px solid #2d9300;
+        // -webkit-border-radius: 10px;
+        // -moz-border-radius: 10px;
+        // -ms-border-radius: 10px;
+        // -o-border-radius: 10px;
+        background: url(../../images/Cards/组1.png) no-repeat right bottom / contain;
+        .card-name {
+            height: 40px;
+            line-height: 40px;
+            color: #000000;
+            font-size: 16px;
+            text-align: center;
+            @include TextOverflow;
+            // border-bottom: 1px dashed rgba($color: #2d9301, $alpha: 0.36);
+        }
+        .card-msg {
+            padding-top: 16px;
+            .card-msg-row {
+                line-height: 28px;
+                .card-msg-row-left {
+                    display: inline-block;
+                    vertical-align: top;
+                    width: 63px;
+                    text-align: right;
+                    font-size: 12px;
+                    color: #999999;
+                }
+                .card-msg-row-right {
+                    display: inline-block;
+                    vertical-align: top;
+                    width: calc(100% - 63px);
+                    text-align: left;
+                    @include TextOverflow;
+                    font-size: 14px;
+                    padding-left: 13px;
+                    color: #333333;
+                }
+            }
+        }
+        .handle-content {
+            display: none;
+            width: 248px;
+            height: 28px;
+            background-color: rgba($color: #000000, $alpha: 0.65);
+            border-radius: 0px 0px 6px 6px;
+            position: absolute;
+            bottom: 6px;
+            left: 0;
+            text-align: center;
+            .handle-box {
+                display: inline-block;
+                height: 28px;
+                width: 123px;
+                text-align: center;
+                // vertical-align: top;
+            }
+            .rename-tips {
+                padding-left: 21px;
+                line-height: 28px;
+                // te
+                font-size: 14px;
+                color: #ffffff;
+                background: url(../../images/Cards/reset.png) no-repeat left center / 16px 16px;
+            }
+            .delete-tips {
+                padding-left: 18px;
+                line-height: 28px;
+                // te
+                font-size: 14px;
+                color: #ffffff;
+                background: url(../../images/Cards/删除.png) no-repeat left center / 13px 17px;
+            }
+            .handle-devide {
+                width: 0;
+                height: 16px;
+                border-left: 1px #fff solid;
+                margin-top: 6px;
+            }
+        }
+        &:hover {
+            .handle-content {
+                display: inline-block;
+            }
+        }
+    }
+    // .card-bg {
+    //     width: 239px;
+    //     height: 39px;
+    //     position: absolute;
+    //     bottom: 14px;
+    //     left: 50%;
+    //     transform: translateX(-50%);
+    //     // margin: 0 auto;
+    //     background: url(../../images/Cards/2.png) no-repeat center bottom / contain;
+    //     -webkit-transform: translateX(-50%);
+    //     -moz-transform: translateX(-50%);
+    //     -ms-transform: translateX(-50%);
+    //     -o-transform: translateX(-50%);
+    // }
+    &:hover {
+        background: url(../../images/Cards/班级背景鼠标悬停投影效果.png) no-repeat center bottom/248px 45px;
+    }
+}

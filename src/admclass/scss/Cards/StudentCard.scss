@@ -1,0 +1,145 @@
+@mixin TextOverflow {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.StudentCard {
+    margin: 10px 15px;
+    display: inline-block;
+    vertical-align: top;
+    width: 178px;
+    position: relative;
+    height: 76px;
+    .sc-shadow {
+        position: absolute;
+        width: 168px;
+        height: 4px;
+        bottom: -4px;
+        left: 5px;
+        background-color: #dae2e8;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        z-index: 3;
+    }
+}
+
+.StudentCard-main {
+    width: 178px;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    height: 76px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    border: solid 1px #abbfd1;
+    &::before {
+        position: absolute;
+        content: "";
+        left: -3px;
+        width: 6px;
+        height: 42px;
+        top: 17px;
+        background-color: #abbfd1;
+    }
+    .cm-content {
+        cursor: pointer;
+        .cm-img {
+            float: left;
+            width: 42px;
+            height: 52px;
+            cursor: pointer;
+            margin: 12px 5px 0 10px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 3px;
+        }
+        .cm-msg {
+            float: left;
+            width: calc(100% - 65px);
+            height: 100%;
+            .cm-t-name {
+                display: inline-block;
+                margin-top: 20px;
+                line-height: 20px;
+                text-align: left;
+                max-width: 80%;
+                @include TextOverflow();
+                font-size: 14px;
+                padding-right: 14px;
+                color: #333333;
+                &.male {
+                    background: url(../../images/Cards/sex-men.png) no-repeat right center / 10px 12px;
+                }
+                &.female {
+                    background: url(../../images/Cards/sex-women.png) no-repeat right center / 10px 12px;
+                }
+            }
+            .cm-t-id {
+                line-height: 20px;
+                text-align: left;
+                font-size: 12px;
+                @include TextOverflow();
+                padding-left: 18px;
+                color: #999999;
+                background: url(../../images/Cards/id-card.png) no-repeat left center / 15px 12px;
+            }
+            .check-box {
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                width: 20px;
+                height: 20px;
+                overflow: hidden;
+                cursor: pointer;
+                // background-color: #ffffff;
+                border-radius: 10px;
+                // border: solid 1px #abbfd1;
+                background: url(../../images/Cards/背景拷贝10.png) no-repeat center center / 100% 100%;
+                &.checked {
+                    background: url(../../images/Cards/矩形5.png) no-repeat center center / 100% 100%;
+                }
+            }
+        }
+    }
+    .monitor-tips {
+        position: absolute;
+        width: 36px;
+        height: 20px;
+        left: -3px;
+        top: -6px;
+        line-height: 16px;
+        text-align: center;
+        color: #ffffff;
+        background: url(../../images/Cards/monitor-tab.png) no-repeat center;
+        background-size: 100%;
+        z-index: 10;
+        font-size: 12px;
+    }
+    .handle-content {
+        position: absolute;
+        display: none;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        height: 28px;
+        line-height: 28px;
+        background: url(../../images/Cards/stu-cooperate-bg.png) no-repeat center;
+        background-size: 100%;
+        text-align: center;
+        color: #ffffff;
+        .set-tips {
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+    }
+    &:hover {
+        .handle-content {
+            display: inline-block;
+        }
+        box-shadow: 0px 6px 10px -1px #95BFE5;
+    }
+}

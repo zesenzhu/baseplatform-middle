@@ -47,8 +47,8 @@ async function QueryPower({ UserInfo, ModuleID }) {
       POWER_MODULEID !== ModuleID &&
       ACCOUNT_MODULEID !== ModuleID &&
       ADMINISTRATOR_MODULEID !== ModuleID &&
-      PROFILE_MODULEID !== ModuleID&&
-      SYSTEM_MODULEID !== ModuleID&&
+      PROFILE_MODULEID !== ModuleID &&
+      SYSTEM_MODULEID !== ModuleID &&
       WEBSITE_MODULEID !== ModuleID
     )
       window.location.href = config.ErrorProxy + "/Error.aspx?errcode=E011";
@@ -63,7 +63,7 @@ async function QueryPower({ UserInfo, ModuleID }) {
     }
   } else if (UserType === "7" && UserClass === "2") {
     //教务主任
-    let data = await QueryOtherPower({ SchoolID, ModuleID ,UserType:'7' });
+    let data = await QueryOtherPower({ SchoolID, ModuleID, UserType: "7" });
     if (data) {
       return true;
     } else {
@@ -73,8 +73,8 @@ async function QueryPower({ UserInfo, ModuleID }) {
     }
   } else if (UserType === "1") {
     //教师
-    let data = await QueryOtherPower({ SchoolID, ModuleID,UserType:'1' });
-    console.log(data)
+    let data = await QueryOtherPower({ SchoolID, ModuleID, UserType: "1" });
+    console.log(data);
     if (data) {
       return true;
     } else {
@@ -82,6 +82,8 @@ async function QueryPower({ UserInfo, ModuleID }) {
 
       return false;
     }
+  } else if (UserType === "2") {
+    return true;
   } else {
     window.location.href = config.ErrorProxy + "/Error.aspx?errcode=E011";
     return false;
@@ -115,7 +117,7 @@ async function QueryOtherPower({
   SchoolID,
   ModuleID = "",
   Power = "",
-  UserType = ""
+  UserType = "",
 }) {
   let Data = {};
   let HavePower = false;
@@ -140,9 +142,7 @@ async function QueryOtherPower({
   } else if (ModuleID === COURSEARRANGEMENT_MODULEID) {
     //课程安排管理
 
-
     PowerName = Dean_Schedule_CURD;
-
   }
   let url = config.PowerProxy + "/GetGlobalUserPowerV2?SchoolID=" + SchoolID;
 
