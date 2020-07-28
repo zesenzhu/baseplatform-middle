@@ -91,7 +91,7 @@ function GradeTotal(props) {
 
                            {CardProps:'学科数量:',CardValue:<span>{i.SubjectCount}个</span>},
 
-                           {CardProps:'教学班数量:',CardValue:<span>{i.CourseClassCount}个<span style={{color:'#999999'}}>(走班数量{i.TeachingClassCount}个})</span></span>},
+                           {CardProps:'教学班数量:',CardValue:<span>{i.CourseClassCount}个<span style={{color:'#999999'}}>(走班数量{i.TeachingClassCount}个)</span></span>},
 
                            {CardProps:'任课教师数量:',CardValue:`${i.TeacherCount}人`},
 
