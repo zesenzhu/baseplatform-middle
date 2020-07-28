@@ -10,8 +10,6 @@ import SDActions from '../../actions/ScheduleDetailActions';
 
 import ComPageRefresh from '../../actions/ComPageRefresh';
 
-import TermPick from '../../component/TermPick';
-
 import DoubleSingleTable from '../../component/DoubleSingleTable';
 
 import $ from 'jquery';
@@ -21,6 +19,8 @@ import {connect} from 'react-redux';
 import {CSSTransition} from 'react-transition-group';
 
 import WeekDayPick from '../../component/WeekDayPick';
+
+import NewScheduleTable from '../../component/NewScheduleTable/index';
 
 
 
@@ -230,7 +230,7 @@ class Subject extends Component{
 
             <CSSTransition in={this.state.fullScreen} timeout={200} classNames={"full-screen"}>
 
-                <div className={`subject-teacher-subject-content`}>
+                <div className={`subject-teacher-subject-content ${this.state.fullScreen?'full-screen-doing':''}`}>
 
                 <div className="full-screen-btn" onClick={this.FullScreenClick.bind(this)}>{this.state.fullScreen?'退出全屏':'全屏'}</div>
 
@@ -266,25 +266,9 @@ class Subject extends Component{
 
                         </WeekDayPick>
 
-                       {/* <TermPick
-
-                            ItemTermName={PeriodWeekTerm.ItemTerm?PeriodWeekTerm.ItemTerm.TermName:''}
-
-                            NowWeekNo={SubjectTeacherSchedule.NowWeekNo}
-
-                            ItemWeek ={ItemWeek}
-
-                            WeekNO={PeriodWeekTerm.WeekNO?PeriodWeekTerm.WeekNO:''}
-
-                            weekPickEvent = {this.weekPickEvent.bind(this)}
-
-                            weekNextEvent = {this.weekNextEvent.bind(this)}
-
-                            weekPrevEvent = {this.weekPrevEvent.bind(this)}>
-
-                        </TermPick>*/}
-
                         <div className="double-single-table-wrapper">
+
+
 
 
                             {

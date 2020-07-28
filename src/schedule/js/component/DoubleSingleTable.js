@@ -194,8 +194,6 @@ function DoubleSingleTable(props){
 
                     }else{
 
-
-
                         return <div  className={`schedule-wrapper ${record.active?'active':''}`} style={{height:commonRowHeight}}>
 
                             <div className={`title ${item.type!==1?'unend':''} ${item.ScheduleType!==1&&(parseInt(item.IsOver)===1||item.ScheduleType===2)?'has-flag':''}`} onClick={e=>openScheduleDetail({Event:e,Params:item})} data-id={item.titleID}>{item.title}</div>
@@ -271,6 +269,156 @@ function DoubleSingleTable(props){
         setColumns(Columns);
 
     },[ItemClassHour]);
+
+
+    useEffect(()=>{
+
+        if ($('.ant-table-fixed-header .ant-table-scroll .ant-table-hide-scrollbar').css("overflow")==='auto'){
+
+            $('.ant-table-fixed-header .ant-table-scroll .ant-table-hide-scrollbar').css("margin-bottom",'0');
+
+        }else{
+
+            $('.ant-table-fixed-header .ant-table-scroll .ant-table-hide-scrollbar').css("margin-bottom","-17px")
+
+        }
+
+        if ($('.full-screen-doing').length>0){
+
+            const width = 140 + ItemClassHour.length*125;
+
+            $('.full-screen-doing .ant-table-wrapper').css({
+
+                "max-width":width+"px",
+
+                "margin":"0 auto"
+
+            });
+
+        }
+
+    });
+
+
+    /*useEffect(()=>{
+
+        //设置头部的td
+
+        const tdCourse = [];
+
+        let ClassHourCol=[];
+
+        ItemClassHour.map((i,k)=>{
+
+            tdCourse.push(<td  className={`course-time time${i.ClassHourNO}`}>
+
+                <div className={`course-time-div`}>
+
+                    <div className="class-hour">{i.ClassHourName}</div>
+
+                    <div className="class-hour-time">{i.StartTime}-{i.EndTime}</div>
+
+                </div>
+
+            </td>);
+
+            let Title = <div className="course-time-th" >
+
+                <div className="course">第{i.ClassHourNO}节</div>
+
+                <div className="time">{i.StartTime}-{i.EndTime}</div>
+
+            </div>;
+
+            ClassHourCol.push({title:Title,dataIndex:`ClassHourNO${i.ClassHourNO}`,render:(item,record)=>{
+
+                    if (item === 'none'){
+
+                        return <div className={`schedule-wrapper empty ${record.active?'active':''}`}>
+
+                            --
+
+                        </div>
+
+                    }else{
+
+
+
+                        return <div  className={`schedule-wrapper ${record.active?'active':''}`}>
+
+                            <div className={`title ${item.type!==1?'unend':''} ${item.ScheduleType!==1&&(parseInt(item.IsOver)===1||item.ScheduleType===2)?'has-flag':''}`} onClick={e=>openScheduleDetail({Event:e,Params:item})} data-id={item.titleID}>{item.title}</div>
+
+                            <div className="second-title" data-id={item.secondTitleID}>{item.secondTitle}</div>
+
+                            <div className="second-title" data-id={item.thirdTitleID}>{item.thirdTitle}</div>
+
+                            {
+
+                                item.ScheduleType!==1?
+
+                                    item.IsOver&&(parseInt(item.IsOver)===1)?
+
+                                        <div className="stoped-flag">已停课</div>
+
+                                        :
+
+                                        (item.ScheduleType===2?
+
+                                            <div className="ongoing-flag"><span>进行中</span></div>
+
+                                            :'')
+
+                                    :''
+
+                            }
+
+                        </div>
+
+                    }
+
+
+                }});
+
+        });
+
+        let Columns = [
+
+            {
+
+                fixed:"left",
+
+                key:"name",
+
+                dataIndex:"name",
+
+                title:()=>{
+
+                    return <div className="blank-tab"></div>
+
+                },
+
+                render:(item,record)=>{
+
+                    return <div className={`double-single-left-col ${record.active?'active':''}`}>
+
+                        <div className="content" title={item}>
+
+                            {item}
+
+                        </div>
+
+                    </div>
+
+                }
+
+            },
+            ...ClassHourCol
+
+        ];
+
+        setColumns(Columns);
+
+    },[ItemClassHour]);*/
 
 
         //旧代码
@@ -534,12 +682,9 @@ function DoubleSingleTable(props){
         ];*/
 
 
-
-
         return (
 
             <Table id="tb"  columns={columns} bordered dataSource={dataSource} pagination={false} scroll={{x:1120,y:window.innerHeight-200}} onRow={record=>{return { onClick:onClickRow(record) } }}>
-
 
 
             </Table>

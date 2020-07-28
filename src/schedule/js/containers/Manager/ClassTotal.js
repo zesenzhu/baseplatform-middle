@@ -10,8 +10,6 @@ import CTActions from '../../actions/Manager/ClassTotalActions';
 
 import ComPageRefresh from '../../actions/ComPageRefresh';
 
-import TermPick from "../../component/TermPick";
-
 import WeekDayPick from '../../component/WeekDayPick';
 
 import $ from "jquery";
@@ -22,7 +20,7 @@ import SDActions from "../../actions/ScheduleDetailActions";
 
 import {CSSTransition} from 'react-transition-group';
 
-
+import NewScheduleTable from "../../component/NewScheduleTable/index";
 
 
 
@@ -198,7 +196,7 @@ class ClassTotal extends Component{
 
             <CSSTransition in={this.state.fullScreen} timeout={200} classNames={"full-screen"}>
 
-                <div className={`class-total-content`}>
+                <div className={`class-total-content ${this.state.fullScreen?'full-screen-doing':''}`}>
 
                     <div className="full-screen-btn" onClick={this.FullScreenClick.bind(this)}>{this.state.fullScreen?'退出全屏':'全屏'}</div>
 
@@ -217,25 +215,6 @@ class ClassTotal extends Component{
                             onChange={this.GradeChange.bind(this)}>
 
                         </DropDown>
-
-                        {/*<TermPick
-
-                            ItemTermName={PeriodWeekTerm.ItemTerm?PeriodWeekTerm.ItemTerm.TermName:''}
-
-                            NowWeekNo={ClassTotal.WeekNO}
-
-                            ItemWeek ={ClassTotal.WeekList}
-
-                            weekPickEvent = {this.weekPickEvent.bind(this)}
-
-                            weekNextEvent = {this.weekNextEvent.bind(this)}
-
-                            weekPrevEvent = {this.weekPrevEvent.bind(this)}
-
-                            WeekNO={PeriodWeekTerm.WeekNO?PeriodWeekTerm.WeekNO:''}
-                        >
-
-                        </TermPick>*/}
 
                         <WeekDayPick
 
@@ -256,6 +235,19 @@ class ClassTotal extends Component{
                         </WeekDayPick>
 
                         <div className="double-single-table-wrapper">
+
+                            {/*<NewScheduleTable
+                                ItemClassHourCount={SubjectCourseGradeClassRoom.ItemClassHourCount}
+                                ItemClassHour={SubjectCourseGradeClassRoom.ItemClassHour}
+                                ItemWeek = {PeriodWeekTerm.ItemWeek}
+                                NowWeekNo={PeriodWeekTerm.NowWeekNo}
+                                schedule={ClassTotal.Schedule}
+                                onClickRow={(record) => this.clickRow.bind(this,record)}
+                                scrollToBottom={this.scrollToBottom.bind(this)}
+                                ScheduleDetailShow={this.ScheduleDetailShow.bind(this)}
+                            >
+
+                            </NewScheduleTable>*/}
 
                              {
 

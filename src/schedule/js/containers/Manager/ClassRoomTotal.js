@@ -195,7 +195,7 @@ class ClassRoomTotal extends Component{
 
             <CSSTransition in={this.state.fullScreen} timeout={200} classNames={"full-screen"}>
 
-                <div className={`class-total-content`}>
+                <div className={`class-total-content ${this.state.fullScreen?'full-screen-doing':''}`}>
 
                     <div className="full-screen-btn" onClick={this.FullScreenClick.bind(this)}>{this.state.fullScreen?'退出全屏':'全屏'}</div>
 
