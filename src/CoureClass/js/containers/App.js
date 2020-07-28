@@ -63,6 +63,7 @@ import {bannerTabHide,bannerBtnShow,bannerLogHide,bannerShow,
     bannerHide,bannerBtnHide,bannerLogShow,bannerTabShow} from "../reducers/bannerState";
 
 import {leftMemuShow,leftMemuHide,leftMenuListUpdate} from "../reducers/leftMenu";
+import {appLoadingHide} from "../reducers/AppLoading";
 
 
 
@@ -77,7 +78,10 @@ class App extends Component {
       MenuParams: {},
       showBarner: true,
       showLeftMenu: true,
-      UserMsg: JSON.parse(sessionStorage.getItem("UserInfo"))
+      UserMsg: JSON.parse(sessionStorage.getItem("UserInfo")),
+
+      firstLoad:true
+
     };
 
     window.MenuClcik = this.MenuClcik.bind(this);
@@ -120,7 +124,57 @@ class App extends Component {
 
           let route = history.location.pathname;
 
+
+          if(route.split('/')[1]==='statics'){
+
+              dispatch(bannerShow());
+
+              dispatch(leftMemuShow());
+
+          }
+
+          if(route.split('/')[1]==='manage'){
+
+              dispatch(bannerShow());
+
+              dispatch(leftMemuHide());
+
+          }
+
+          if(route.split('/')[1]==='ImportFile'){
+
+              dispatch(bannerHide());
+
+              dispatch(leftMemuHide());
+
+              dispatch(appLoadingHide());
+
+          }
+
+          if(route.split('/')[1]==='Log'){
+
+              dispatch(bannerHide());
+
+              dispatch(leftMemuHide());
+
+          }
+
+          if(route.split('/')[1]==='Teacher'){
+
+              dispatch(bannerShow());
+
+              dispatch(bannerBtnShow());
+
+              dispatch(bannerLogHide());
+
+              dispatch(bannerTabHide());
+
+              dispatch(leftMemuHide());
+
+          }
+
           this.requestData(route);
+
 
           history.listen(() => {
               //路由监听
@@ -181,9 +235,12 @@ class App extends Component {
 
   componentWillReceiveProps(nextProps) {
 
+      const { history,dispatch } = nextProps;
+
     this.setState({
       MenuParams: nextProps.DataState.GetCoureClassAllMsg.MenuParams
     });
+
 
   }
 
@@ -223,7 +280,7 @@ class App extends Component {
         });
 
         havePower.then(res => {
-            console.log(res);
+
             if (res) {
                 let SubjectID = DataState.GetCoureClassAllMsg.Subject;
                 let GradeID = DataState.GetCoureClassAllMsg.Grade;
@@ -233,19 +290,11 @@ class App extends Component {
                 let routeID = pathArr[2];
                 let subjectID = pathArr[3];
                 let classID = pathArr[4];
-                // console.log(UserMsg)
-               /* if (UserMsg.UserType === "0" || UserMsg.UserType === "7")
-                    dispatch(
-                        actions.UpDataState.getCoureClassAllMsg(
-                            "/GetCouseclassSumarry?schoolID=" + UserMsg.SchoolID,
-                            this.MenuClcik
-                        )
-                    );*/
-                // console.log(route, routeID, subjectID)
+
                 dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
                 if (route === "/") {
                     if (UserMsg.UserType === "1") {
-                        history.push("/Teacher");
+                        //history.push("/Teacher");
                         return;
                     } else if (UserMsg.UserType === "0" || UserMsg.UserType === "7") {
                         history.push("/All");
@@ -268,10 +317,7 @@ class App extends Component {
                             this.MenuClcik
                         )
                     );
-                    this.setState({
-                        showBarner: true,
-                        showLeftMenu: true
-                    });
+
                 } else if (
                     (UserMsg.UserType === "0" || UserMsg.UserType === "7") &&
                     handleRoute === "Subject" &&
@@ -287,20 +333,14 @@ class App extends Component {
                     );
                     if (!DataState.GetCoureClassAllMsg.MenuParams) return;
                     dispatch(actions.UpDataState.setCoureClassAllMsg(routeID));
-                    this.setState({
-                        showBarner: true,
-                        showLeftMenu: true
-                    });
+
                 } else if (
                     (UserMsg.UserType === "0" || UserMsg.UserType === "7") &&
                     handleRoute === "Subject" &&
                     subjectID === "Class"
                 ) {
 
-                    this.setState({
-                        showBarner: true,
-                        showLeftMenu: true
-                    });
+
                     dispatch(
                         actions.UpDataState.getSubjectAllMsg(
                             "/GetSubjectCouseclassSumarry?subjectID=" + routeID,
@@ -327,10 +367,7 @@ class App extends Component {
                     handleRoute === "Search"
                 ) {
 
-                    this.setState({
-                        showBarner: true,
-                        showLeftMenu: true
-                    });
+
                     dispatch(
                         actions.UpDataState.getClassAllMsg(
                             "/GetGradeCouseclassDetailForPage?schoolID=" +
@@ -348,10 +385,6 @@ class App extends Component {
                     handleRoute === "Log"
                 ) {
 
-                    this.setState({
-                        showBarner: false,
-                        showLeftMenu: false
-                    });
 
                     if (routeID === "Record") {
                         dispatch(
@@ -369,6 +402,9 @@ class App extends Component {
                                 "&operateType=0"
                             )
                         );
+
+                        dispatch(appLoadingHide());
+
                     } else {
                         dispatch(
                             actions.UpDataState.getCourseClassDynamicMsg(
@@ -383,12 +419,11 @@ class App extends Component {
                                 "&operateType=0"
                             )
                         );
+
+                        dispatch(appLoadingHide());
                     }
                 } else if (UserMsg.UserType === "1" && handleRoute === "Teacher") {
-                    this.setState({
-                        showBarner: true,
-                        showLeftMenu: false
-                    });
+
                     dispatch(
                         actions.UpDataState.getTeacherCourseClassMsg(
                             "/GetCourseClassByUserID?schoolID=" +
@@ -405,14 +440,14 @@ class App extends Component {
                             UserMsg.UserID
                         )
                     );
+
+                    dispatch(appLoadingHide());
+
                 } else if (handleRoute === "ImportFile") {
-                    this.setState({
-                        showBarner: false,
-                        showLeftMenu: false
-                    });
+
                 } else {
                     if (UserMsg.UserType === "1") {
-                        history.push("/Teacher");
+                        //history.push("/Teacher");
                     } else if (UserMsg.UserType === "0" || UserMsg.UserType === "7") {
                         /*history.push("/All");*/
                     } else {
@@ -463,8 +498,8 @@ class App extends Component {
   };
   //编辑教学班模态框
   ChangeCourseClassModalOk = () => {
-    const { dispatch, DataState } = this.props;
-    let userMsg = DataState.LoginUser;
+    const { dispatch, DataState,history,LoginUser } = this.props;
+    let userMsg = LoginUser;
     let data = DataState.GetCourseClassDetailsHandleClassMsg;
     let route = history.location.pathname;
     let pathArr = route.split("/");
@@ -477,12 +512,12 @@ class App extends Component {
     let pageIndex = DataState.GetClassAllMsg.allClass.pageIndex;
     let isFalse = false;
 
-    console.log(JSON.stringify(data.selectData.Student)===JSON.stringify(data.InitStudent),data.selectData.Student, data.TableSource,deepCompare.deepCompare(data.selectData.Student, data.InitStudent ),data.selectData.Teacher.value === data.TeacherID ,
-    data.selectData.CourseClass.CourseClassName === data.CourseClassName,JSON.stringify(data.selectData.Class)===JSON.stringify(data.InitClass))
+
+
     if (
       data.selectData.Teacher.value === data.TeacherID &&
       data.selectData.CourseClass.CourseClassName === data.CourseClassName &&
-      // deepCompare.deepCompare(data.selectData.Student, data.TableSource)
+
       JSON.stringify(data.selectData.Student)===JSON.stringify(data.InitStudent)&&
       JSON.stringify(data.selectData.Class)===JSON.stringify(data.InitClass)
     ) {
@@ -527,9 +562,7 @@ class App extends Component {
     let url = "/InsertOrEditCourseClass";
 
 
-    postData(
-      CONFIG.CourseClassProxy + url,
-      {
+    postData(CONFIG.CourseClassProxy + url,{
         userID: userMsg.UserID,
         userType: userMsg.UserType,
         schoolID: userMsg.SchoolID,
@@ -540,10 +573,7 @@ class App extends Component {
         courseClassStus: courseClassStus,
         courseClassID: data.selectData.CourseClass.CourseClassID,
         classIDs:data.selectData.Class.join()
-      },
-      2,
-      "json"
-    )
+      },2,"json")
       .then(res => {
         return res.json();
       })
@@ -558,6 +588,9 @@ class App extends Component {
               onHide: this.onAlertWarnHide.bind(this)
             })
           );
+
+          console.log(userMsg);
+
           if (userMsg.UserType === 0) {
 
               if (window.ManageUpDateTable){
@@ -567,11 +600,12 @@ class App extends Component {
               }
 
           } else if (userMsg.UserType === 1) {
-            history.push("/Teacher");
+            //history.push("/Teacher");
           }
 
         }
       });
+
     dispatch({ type: actions.UpUIState.MODAL_LOADING_CLOSE });
     dispatch(actions.UpUIState.ChangeCourseClassModalClose());
     dispatch(actions.UpDataState.setCourseClassName([]));
@@ -584,14 +618,13 @@ class App extends Component {
     dispatch(actions.UpDataState.SetCourseClassDefaultMsg({ClassSource:[],Class:[]}));
     dispatch(actions.UpDataState.setClassStudentTransferTransferMsg({ClassSource:[],Class:[]}));
 
-    dispatch(
-      actions.UpDataState.setCourseClassDataMsg({
+    dispatch(actions.UpDataState.setCourseClassDataMsg({
         Subject: {},
         Grade: {},
         Teacher: [],
         Student: []
-      })
-    );
+      }));
+
   };
   //关闭
   onAlertWarnHide = () => {
@@ -810,8 +843,6 @@ class App extends Component {
     }else if (route[1] === "Student") {
         cnname = "我的教学班";
         enname = "My CourseClass";
-        
-        
     }
      
     return (

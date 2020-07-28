@@ -37,6 +37,9 @@ import {leftMemuHide} from "../../reducers/leftMenu";
 import './index.scss';
 
 import actions from "../../actions";
+import deepCompare from "../../../../common/js/public";
+import {postData} from "../../../../common/js/fetch";
+import CONFIG from "../../../../common/js/config";
 
 
 
@@ -158,11 +161,15 @@ function Index(props) {
     });
 
 
+    const DataState = useSelector(state=>state.DataState);
+
     const LoginUser = useSelector(state=>state.LoginUser);
 
-    const { collegeID,collegeName,gradeID,gradeName,subjectID,subjectName,courseType,courseTypeName,courseName,courseID,teachingRoomID,teachingRoomName,teacherID,teacherName } = useSelector(state=>state.breadCrumb.manage);
+    const { gradeID,gradeName,subjectID,subjectName,teacherID,teacherName } = useSelector(state=>state.breadCrumb.manage);
 
     const {UserType,UserClass,SchoolID,UserID} = LoginUser;
+
+    const {history} = props;
 
     const dispatch = useDispatch();
 
@@ -170,7 +177,6 @@ function Index(props) {
     //ref
 
     const subjectsRef = useRef(subjects);
-
 
     const gradesRef = useRef(grades);
 
@@ -205,31 +211,23 @@ function Index(props) {
 
             window.ManageUpDateTable = updateTable;
 
-            if (collegeID&&collegeName&&gradeID&&gradeName){
-
-                collegeRef.current = {...collegeRef.current,dropSelectd:{value:collegeID,title:collegeName}};
+            if (gradeID&&subjectID){
 
                 gradesRef.current = {...gradesRef.current,dropSelectd:{value:gradeID,title:gradeName}};
 
-                setColleges(d=>({...d,dropSelectd:{value:collegeID,title:collegeName}}));
-
                 setGrades(d=>({...d,dropSelectd:{value:gradeID,title:gradeName}}));
-
-            }
-
-            if (subjectID&&courseID){
 
                 subjectsRef.current = {...subjectsRef.current,dropSelectd:{value:subjectID,title:subjectName}};
 
-                coursesRef.current = {...coursesRef.current,dropSelectd:{value:courseID,title:courseName}};
-
                 setSubjects(d=>({...d,dropSelectd:{value:subjectID,title:subjectName}}));
-
-                setCourses(d=>({...d,dropSelectd:{value:courseID,title:courseName}}));
 
             }
 
-            if (teacherID&&teacherName){
+            if (subjectID&&teacherID){
+
+                subjectsRef.current = {...subjectsRef.current,dropSelectd:{value:subjectID,title:subjectName}};
+
+                setSubjects(d=>({...d,dropSelectd:{value:subjectID,title:subjectName}}));
 
                 searchRef.current = {...searchRef.current,value:teacherID,CancelBtnShow:'y'};
 
@@ -843,21 +841,6 @@ function Index(props) {
     //确定删除教学班
     const delOk = useCallback((CourseClassIDs)=>{
 
-       /* DeleteCourseClass_University({SchoolID,UserID,UserType,CourseClassIDs,dispatch}).then(data=>{
-
-            if (data===0){
-
-                hideAlert(dispatch)();
-
-                successAlertShow('删除成功');
-
-                updateTable();
-
-            }
-
-        })
-*/
-
        const {SchoolID,UserID,UserType} = LoginUserRef.current;
 
         DeleteCourseClass({schoolID:SchoolID,userID:UserID,userType:UserType,courseClassIDs:CourseClassIDs,dispatch}).then(data=>{
@@ -903,7 +886,14 @@ function Index(props) {
 
     const editCourseClass = (courseClassID)=>{
 
-        setAddEditCourse(d=>({...d,show:true,isEdit:true,courseClassID}));
+        // setAddEditCourse(d=>({...d,show:true,isEdit:true,courseClassID}));
+
+        dispatch(actions.UpUIState.ChangeCourseClassModalOpen());
+        dispatch(
+            actions.UpDataState.getCourseClassDetailsHandleClassMsg(
+                "/GetCourseClassDetail?courseClassID=" + courseClassID
+            )
+        );
 
     };
 

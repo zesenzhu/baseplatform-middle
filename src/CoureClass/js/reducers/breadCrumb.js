@@ -1,31 +1,23 @@
-const COLLEGE_BREADCRUMB_CHANGE = 'COLLEGE_BREADCRUMB_CHANGE';
+const GRADE_BREADCRUMB_CHANGE = 'GRADE_BREADCRUMB_CHANGE';
 
 const BREADCRUMB_INIT = 'BREADCRUMB_INIT';
 
-const COURSE_BREADCRUMB_CHANGE = 'COURSE_BREADCRUMB_CHANGE';
-
-const TEACHER_BREADCRUMB_CHANGE = 'TEACHER_BREADCRUMB_CHANGE';
-
+const SUBJECT_BREADCRUMB_CHANGE = 'SUBJECT_BREADCRUMB_CHANGE';
 
 const MANAGE_BREADCRUMB_CHANGE = 'MANAGE_BREADCRUMB_CHANGE';
 
 
 
-export const collegeBreadCrumbChange = (payLoad) =>{
+export const gradeBreadCrumbChange = (payLoad) =>{
 
-    return { type:COLLEGE_BREADCRUMB_CHANGE,data:payLoad };
-
-};
-
-export const courseBreadCrumbChange = (payLoad) =>{
-
-    return { type:COURSE_BREADCRUMB_CHANGE,data:payLoad };
+    return { type:GRADE_BREADCRUMB_CHANGE,data:payLoad };
 
 };
 
-export const teacherBreadCrumbChange = (payLoad) => {
 
-    return { type:TEACHER_BREADCRUMB_CHANGE,data:payLoad };
+export const subjectBreadCrumbChange = (payLoad) => {
+
+    return { type:SUBJECT_BREADCRUMB_CHANGE,data:payLoad };
 
 };
 
@@ -45,59 +37,31 @@ export const breadCrumbInit = ()=>{
 
 const defaultState = {
 
-   college:{
+   grade:{
 
-      collegeID:'',
+      gradeID:'',
 
-      collegeName:''
+      gradeName:''
 
    },
 
-   course:{
+   subject:{
 
        subjectID:'',
 
-       subjectName:'',
-
-       courseType:'',
-
-       courseTypeName:''
-
-   },
-
-   teacher:{
-
-       teachingRoomID:'',
-
-       teacherRoomName:''
+       subjectName:''
 
    },
 
     manage:{
 
-        collegeID:'',
-
-        collegeName:'',
-
-        gradeID:'',
-
-        gradeName:'',
-
         subjectID:'',
 
         subjectName:'',
 
-        courseType:'',
+        gradeID:'',
 
-        courseTypeName:'',
-
-        courseName:'',
-
-        courseID:'',
-
-        teachingRoomID:'',
-
-        teachingRoomName:'',
+        gradeName:'',
 
         teacherID:'',
 
@@ -111,63 +75,35 @@ const breadCrumb = (state=defaultState,actions) =>{
 
     switch (actions.type) {
 
-        case COLLEGE_BREADCRUMB_CHANGE:
+        case GRADE_BREADCRUMB_CHANGE:
 
             return {
 
-                college:{
+                grade:{
 
-                    ...state.college,
+                    ...state.grade,
 
                     ...actions.data
 
                 },
 
-                course:{
+                subject:{
 
                     subjectID:'',
 
-                    subjectName:'',
-
-                    courseType:'',
-
-                    courseTypeName:''
-
-                },
-
-                teacher:{
-
-                    teachingRoomID:'',
-
-                    teacherRoomName:''
+                    subjectName:''
 
                 },
 
                 manage:{
 
-                    collegeID:'',
-
-                    collegeName:'',
-
-                    gradeID:'',
-
-                    gradeName:'',
-
                     subjectID:'',
 
                     subjectName:'',
 
-                    courseType:'',
+                    gradeID:'',
 
-                    courseTypeName:'',
-
-                    courseName:'',
-
-                    courseID:'',
-
-                    teachingRoomID:'',
-
-                    teachingRoomName:'',
+                    gradeName:'',
 
                     teacherID:'',
 
@@ -177,126 +113,35 @@ const breadCrumb = (state=defaultState,actions) =>{
 
             };
 
-
-        case COURSE_BREADCRUMB_CHANGE:
+        case SUBJECT_BREADCRUMB_CHANGE:
 
             return {
 
-                college:{
-
-                    collegeID:'',
-
-                    collegeName:''
-
-                },
-
-                teacher:{
-
-                    teachingRoomID:'',
-
-                    teacherRoomName:''
-
-                },
-
-                manage:{
-
-                    collegeID:'',
-
-                    collegeName:'',
+                grade:{
 
                     gradeID:'',
 
-                    gradeName:'',
-
-                    subjectID:'',
-
-                    subjectName:'',
-
-                    courseType:'',
-
-                    courseTypeName:'',
-
-                    courseName:'',
-
-                    courseID:'',
-
-                    teachingRoomID:'',
-
-                    teachingRoomName:'',
-
-                    teacherID:'',
-
-                    teacherName:''
+                    gradeName:''
 
                 },
 
-                course:{
+                subject:{
 
-                    ...state.course,
-
-                    ...actions.data
-
-                }
-
-            };
-
-        case TEACHER_BREADCRUMB_CHANGE:
-
-            return {
-
-                college:{
-
-                    collegeID:'',
-
-                    collegeName:''
-
-                },
-
-                teacher:{
-
-                    ...state.teacher,
+                    ...state.subject,
 
                     ...actions.data
 
                 },
 
-                course:{
+                manage:{
 
                     subjectID:'',
 
                     subjectName:'',
-
-                    courseType:'',
-
-                    courseTypeName:''
-
-                },
-
-                manage:{
-
-                    collegeID:'',
-
-                    collegeName:'',
 
                     gradeID:'',
 
                     gradeName:'',
-
-                    subjectID:'',
-
-                    subjectName:'',
-
-                    courseType:'',
-
-                    courseTypeName:'',
-
-                    courseName:'',
-
-                    courseID:'',
-
-                    teachingRoomID:'',
-
-                    teachingRoomName:'',
 
                     teacherID:'',
 
@@ -310,31 +155,19 @@ const breadCrumb = (state=defaultState,actions) =>{
 
             return {
 
-                college:{
+                grade:{
 
-                    collegeID:'',
+                    gradeID:'',
 
-                    collegeName:''
-
-                },
-
-                teacher:{
-
-                   teachingRoomID:'',
-
-                   teachingRoomName:''
+                    gradeName:''
 
                 },
 
-                course:{
+                subject:{
 
-                    subjectID:'',
+                    ...state.subject,
 
-                    subjectName:'',
-
-                    courseType:'',
-
-                    courseTypeName:''
+                    ...actions.data
 
                 },
 
@@ -354,59 +187,31 @@ const breadCrumb = (state=defaultState,actions) =>{
 
                 ...state,
 
-                college:{
+                grade:{
 
-                    collegeID:'',
+                    gradeID:'',
 
-                    collegeName:''
-
-                },
-
-                course:{
-
-                    subjectID:'',
-
-                    subjectName:'',
-
-                    courseType:'',
-
-                    courseTypeName:''
+                    gradeName:''
 
                 },
 
-                teacher:{
+                subject:{
 
-                    teachingRoomID:'',
+                    ...state.subject,
 
-                    teacherRoomName:''
+                    ...actions.data
 
                 },
 
                 manage:{
 
-                    collegeID:'',
-
-                    collegeName:'',
-
-                    gradeID:'',
-
-                    gradeName:'',
-
                     subjectID:'',
 
                     subjectName:'',
 
-                    courseType:'',
+                    gradeID:'',
 
-                    courseTypeName:'',
-
-                    courseName:'',
-
-                    courseID:'',
-
-                    teachingRoomID:'',
-
-                    teachingRoomName:'',
+                    gradeName:'',
 
                     teacherID:'',
 

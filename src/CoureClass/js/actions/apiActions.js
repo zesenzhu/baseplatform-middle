@@ -144,7 +144,7 @@ export const GetGradeSubjectCouseclassSumarry_Middle = async ({schoolID='',userI
 //获取学科教学班统计信息
 export const GetSubjectCouseclassSumarry_Middle = async ({schoolID='',userID='',userType='',dispatch}) => {
 
-    let res = await Method.getGetData(`/GetGradeSubjectCouseclassSumarry_Middle?schoolID=${schoolID}&userID=${userID}&userType=${userType}`,
+    let res = await Method.getGetData(`/GetSubjectCouseclassSumarry_Middle?schoolID=${schoolID}&userID=${userID}&userType=${userType}`,
 
         2,config.CourseClassProxy);
 
@@ -228,7 +228,6 @@ export const GetCourseClassInfoForPage_Middle = async ({schoolID='',userID='',us
 
 
 };
-
 
 
 

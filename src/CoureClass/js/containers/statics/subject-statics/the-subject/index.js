@@ -12,15 +12,14 @@ import CardTab from '../../../../component/plugins/card-tab';
 
 import {NavLink} from 'react-router-dom';
 
-import {manageBreadCrumbChange} from "../../../../reducers/breadCrumb";
-
-// import {GetCourseTypeCouseclassSumarryForPage_University,GetCourseTypeCouseclassSumarry_University} from '../../../../actions/apiActions';
+import {GetSubjectTeacherCouseclassSumarry_Middle,GetSubjectTeacherForPage_Middle} from '../../../../actions/apiActions';
 
 import StaticsCircle from '../../../../component/plugins/statics-circle';
 
 import './index.scss';
+import {manageBreadCrumbChange} from "../../../../reducers/breadCrumb";
 
-function TheCourse(props) {
+function TheCollege(props) {
 
     //loading
     const [loading,setLoading] = useState(true);
@@ -33,13 +32,11 @@ function TheCourse(props) {
     //统计
     const [statics,setStatics] = useState([
 
-        {title:'课程数量',value:0,id:'course'},
-
         {title:'教学班数量',value:0,id:'courseClass'},
 
         {title:'任课教师数量',value:0,id:'teacher'},
 
-        {title:'学生人数',value:0,id:'student'},
+        {title:'学生人数',value:0,id:'student'}
 
     ]);
 
@@ -63,9 +60,9 @@ function TheCourse(props) {
 
     const {SchoolID,UserType,UserID} = useSelector(state=>state.LoginUser);
 
-    const {course} = useSelector(state=>state.breadCrumb);
+    const {subject} = useSelector(state=>state.breadCrumb);
 
-    const {courseType,courseTypeName,subjectID,subjectName} = course;
+    const {subjectID,subjectName} = subject;
 
     const dispatch = useDispatch();
 
@@ -78,23 +75,21 @@ function TheCourse(props) {
 
     useEffect(()=>{
 
-        /*if (!courseType&&!subjectName){
+        if (!subjectID){
 
-            history.push('/statics/course/total');
+            history.push('/statics/teacher/total');
 
         }else if (SchoolID){
 
-            const GetSumarry = GetCourseTypeCouseclassSumarry_University({schoolID:SchoolID,userID:UserID,userType:UserType,subjectID,courseType,dispatch});
+            const GetSumarry = GetSubjectTeacherCouseclassSumarry_Middle({schoolID:SchoolID,userID:UserID,userType:UserType,subjectID,dispatch});
 
-            const GetCourseType = GetCourseTypeCouseclassSumarryForPage_University({schoolID:SchoolID,userID:UserID,userType:UserType,subjectID,courseType,pageSize:9,pageIndex:1,dispatch});
+            const GetCourseType = GetSubjectTeacherForPage_Middle({schoolID:SchoolID,userID:UserID,userType:UserType,subjectID,pageSize:9,pageIndex:1,dispatch});
 
             Promise.all([GetSumarry,GetCourseType]).then(res=>{
 
                 if (res[0]){
 
                     const data = res[0];
-
-                    const course = data.CourseCount? data.CourseCount:0;
 
                     const courseClass = data.CourseClassCount?data.CourseClassCount:0;
 
@@ -105,8 +100,6 @@ function TheCourse(props) {
                     const LogCount = data.LastLogCount?data.LastLogCount:0;
 
                     setStatics([
-
-                        {title:'课程数量',value:course,id:'course'},
 
                         {title:'教学班数量',value:courseClass,id:'courseClass'},
 
@@ -124,17 +117,15 @@ function TheCourse(props) {
 
                     const data = res[1];
 
-                    const total = data.CourseCount? data.CourseCount:0;
+                    const total = data.TeacherCount? data.TeacherCount:0;
 
                     const list = data.Item&&data.Item.length>0?data.Item.map(i=>{
 
                         const CardItemList = [
 
-                            {CardProps:'课程数量:',CardValue:`${i.CourseCount}个`},
-
                             {CardProps:'教学班数量:',CardValue:`${i.CourseClassCount}个`},
 
-                            {CardProps:'任课教师数量:',CardValue:`${i.TeacherCount}人`},
+                            {CardProps:'所教年级:',CardValue:`${i.GradeCount}个`},
 
                             {CardProps:'学生数量:',CardValue:`${i.StudentCount}人`},
 
@@ -168,7 +159,7 @@ function TheCourse(props) {
 
             });
 
-        }*/
+        }
 
     },[SchoolID]);
 
@@ -206,21 +197,19 @@ function TheCourse(props) {
 
         setCardLoading(true);
 
-        /*GetCourseTypeCouseclassSumarryForPage_University({schoolID:SchoolID,userID:UserID,userType:UserType,subjectID,courseType,pageSize,pageIndex,dispatch}).then(data=>{
+        GetSubjectTeacherForPage_Middle({schoolID:SchoolID,userID:UserID,userType:UserType,subjectID,pageSize,pageIndex,dispatch}).then(data=>{
 
             if (data){
 
-                const total = data.CourseCount? data.CourseCount:0;
+                const total = data.TeacherCount? data.TeacherCount:0;
 
                 const list = data.Item&&data.Item.length>0?data.Item.map(i=>{
 
                     const CardItemList = [
 
-                        {CardProps:'课程数量:',CardValue:`${i.CourseCount}个`},
-
                         {CardProps:'教学班数量:',CardValue:`${i.CourseClassCount}个`},
 
-                        {CardProps:'任课教师数量:',CardValue:`${i.TeacherCount}人`},
+                        {CardProps:'所教年级:',CardValue:`${i.GradeCount}人`},
 
                         {CardProps:'学生数量:',CardValue:`${i.StudentCount}人`},
 
@@ -242,9 +231,9 @@ function TheCourse(props) {
 
                 setPagination(d=>{
 
-                    paginationRef.current = {...d,total};
+                    paginationRef.current = {...d,total,current:data.PageIndex};
 
-                    return {...d,total};
+                    return {...d,total,current:data.PageIndex};
 
                 });
 
@@ -253,14 +242,15 @@ function TheCourse(props) {
             setCardLoading(false);
 
         })
-*/
+
+
     },[]);
 
 
     //点击卡片
     const tabClick = useCallback(({CardID,CardName})=>{
 
-        dispatch(manageBreadCrumbChange({subjectID,subjectName,courseTypeName,courseType,courseID:CardID,courseName:CardName}));
+        dispatch(manageBreadCrumbChange({subjectID,subjectName,teacherID:CardID,teacherName:CardName}));
 
         history.push('/manage');
 
@@ -272,7 +262,7 @@ function TheCourse(props) {
 
             <div className={"the-course-wrapper"}>
 
-                <TitleBar type={"course"} title={<><NavLink to={"/statics/course/total"}>课程教学班统计</NavLink> > {subjectName} > {courseTypeName}</>}></TitleBar>
+                <TitleBar type={"course"} title={<><NavLink to={"/statics/subject/total"}>学科教师教学班统计</NavLink> > {subjectName}</>}></TitleBar>
 
                 <StaticsCircle list={statics}></StaticsCircle>
 
@@ -285,33 +275,21 @@ function TheCourse(props) {
 
                             <Loading spinning={cardLoading} tip={"加载中,请稍候..."}>
 
-                                <CardTab type={4} list={cardList} tabClick={tabClick}></CardTab>
+                                <CardTab type={6} list={cardList} tabClick={tabClick}></CardTab>
 
                             </Loading>
 
-                            <PagiNation
-
-                                total={pagination.total}
-
-                                onChange={pageChange}
-
-                                onShowSizeChange={pageSizeChange}
-
-                                showSizeChanger
-
-                                hideOnSinglePage={pagination.pageSize === parseInt(pagination.pageSizeList[0])}
-
-                                current={pagination.current} pageSizeOptions={pagination.pageSizeList}
-
-                                pageSize={pagination.pageSize}>
-
-                            </PagiNation>
+                            <PagiNation total={pagination.total} onChange={pageChange} onShowSizeChange={pageSizeChange}
+                                        showSizeChanger
+                                        hideOnSinglePage={pagination.pageSize === parseInt(pagination.pageSizeList[0])}
+                                        current={pagination.current} pageSizeOptions={pagination.pageSizeList}
+                                        pageSize={pagination.pageSize}></PagiNation>
 
                         </>
 
                         :
 
-                        <Empty type={"3"} title={"暂无课程相关教学班数据"}></Empty>
+                        <Empty type={"3"} title={"暂无教师相关教学班数据"}></Empty>
 
                 }
 
@@ -323,4 +301,4 @@ function TheCourse(props) {
 
 }
 
-export default memo(TheCourse);
+export default memo(TheCollege);

@@ -14,6 +14,7 @@ import {Button} from 'antd';
 
 
 import {subNameReg} from "../../actions/utils";
+import actions from "../../actions";
 
 // import {InsertOrEditCourseClass_University} from '../../actions/apiActions';
 
@@ -49,17 +50,28 @@ function Index(props) {
 
         let CourseNO='',CourseName = '',MajorIDs='';
 
-        setAddEditCourse(data=>({...data,show:true,CourseInfo:{CourseNO,CourseName,MajorIDs}}));
+        // setAddEditCourse(data=>({...data,show:true,CourseInfo:{CourseNO,CourseName,MajorIDs}}));
+
+
+        dispatch(actions.UpDataState.setCourseClassName([]));
+
+        dispatch(actions.UpDataState.setCourseClassStudentMsg([]));
+
+        dispatch(actions.UpDataState.setSubjectTeacherMsg([]));
+
+        dispatch(actions.UpDataState.setClassStudentTransferMsg([]));
+
+        dispatch(actions.UpDataState.setSubjectTeacherTransferMsg([]));
+
+        dispatch(actions.UpUIState.AddCourseClassModalOpen());
 
     },[]);
 
 
-    console.log(props);
-
 
     //添加教学班OK
 
-    const addEditOk = useCallback(() =>{
+    /*const addEditOk = useCallback(() =>{
 
         const { CourseClassID,CourseClassName,showCourseClassTip,GradeID,showGradeTip,CourseNO, showCourseTip, TeacherID, showTeacherTip, ClassIDs, StudentIDs, showModalLoading,hideModalLoading } = AddEditClassRef.current;
 
@@ -122,7 +134,7 @@ function Index(props) {
 
             showModalLoading();
 
-            /*InsertOrEditCourseClass_University({SchoolID,UserID,GradeID,UserType,CourseClassID,CourseClassName,CourseNO,TeacherID,ClassIDs,StudentIDs,dispatch}).then(data=>{
+            /!*InsertOrEditCourseClass_University({SchoolID,UserID,GradeID,UserType,CourseClassID,CourseClassName,CourseNO,TeacherID,ClassIDs,StudentIDs,dispatch}).then(data=>{
 
                 if (data===0){
 
@@ -137,11 +149,11 @@ function Index(props) {
                 hideModalLoading();
 
             })
-*/
+*!/
         }
 
 
-    },[]);
+    },[]);*/
 
 
 

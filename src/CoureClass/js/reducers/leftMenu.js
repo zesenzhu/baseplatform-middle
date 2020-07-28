@@ -33,7 +33,7 @@ const defaultState = {
 
         {
 
-            link:'/statics/subject',
+            link:'/statics/grade',
 
             name:'年级学科教学班统计',
 
@@ -45,7 +45,7 @@ const defaultState = {
 
         {
 
-            link:'/statics/teacher',
+            link:'/statics/subject',
 
             name:'学科教师教学班统计',
 

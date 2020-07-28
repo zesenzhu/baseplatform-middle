@@ -6,17 +6,13 @@ import {HashRouter as Router,Route,Redirect,Switch} from 'react-router-dom';
 
 import Manage from './manage';
 
-import CollegeTotal from './statics/college-statics/total';
+import GradeTotal from './statics/grade-statics/total';
 
-import TheCollege from './statics/college-statics/the-college';
+import TheGrade from './statics/grade-statics/the-grade';
 
-import CourseTotal from './statics/course-statics/total';
+import SubjectTotal from './statics/subject-statics/total';
 
-import TheCourse from './statics/course-statics/the-course';
-
-import TeacherTotal from './statics/teacher-statics/total';
-
-import TheResearchRoom from './statics/teacher-statics/the-research-room';
+import TheSubject from './statics/subject-statics/the-subject';
 
 import ImportFile from '../component/ImportFile';
 
@@ -25,6 +21,8 @@ import Record from '../component/Record';
 import Dynamic from '../component/Dynamic';
 
 import Teacher from '../component/Teacher';
+
+import Student from './Student';
 
 
 function AppRoutes(props){
@@ -43,13 +41,11 @@ function AppRoutes(props){
 
                     <Route path="/Log/Dynamic" component={Dynamic}></Route>
 
-                    <Redirect path={"/statics/teacher*"} to={'/statics/teacher/total'}></Redirect>
+                    <Redirect path={"/statics/subject*"} to={'/statics/subject/total'}></Redirect>
 
-                    <Redirect path={"/statics/course*"} to={'/statics/course/total'}></Redirect>
+                    <Redirect path={"/statics/grade*"} to={'/statics/grade/total'}></Redirect>
 
-                    <Redirect path={"/statics/college*"} to={'/statics/college/total'}></Redirect>
-
-                    <Redirect path={"/statics*"} to={'/statics/subject/total'}></Redirect>
+                    <Redirect path={"/statics*"} to={'/statics/grade/total'}></Redirect>
 
                     <Redirect path={"/*"} to={'/manage'}></Redirect>
 
@@ -62,6 +58,16 @@ function AppRoutes(props){
                 return (<Switch>
 
                     <Redirect path={"/*"} to={'/Teacher'}></Redirect>
+
+                </Switch>);
+
+                break;
+
+            case 2:
+
+                return (<Switch>
+
+                    <Redirect path={"/*"} to={'/Student'}></Redirect>
 
                 </Switch>);
 
@@ -119,22 +125,19 @@ function AppRoutes(props){
 
             <Route exact path={"/manage"} component={Manage}></Route>
 
-            <Route exact path={"/statics/college/total"} component={CollegeTotal}></Route>
+            <Route exact path={"/statics/grade/total"} component={GradeTotal}></Route>
 
-            <Route exact path={"/statics/college/:collegeID"} component={TheCollege}></Route>
+            <Route exact path={"/statics/grade/:gradeID"} component={TheGrade}></Route>
 
-            <Route exact path={"/statics/course/total"} component={CourseTotal}></Route>
+            <Route exact path={"/statics/subject/total"} component={SubjectTotal}></Route>
 
-            <Route exact path={"/statics/course/:courseType"} component={TheCourse}></Route>
-
-            <Route exact path={"/statics/teacher/total"} component={TeacherTotal}></Route>
-
-            <Route exact path={"/statics/teacher/:teachingRoomID"} component={TheResearchRoom}></Route>
-
+            <Route exact path={"/statics/subject/:subjectID"} component={TheSubject}></Route>
 
             <Route exact path="/ImportFile" component={ImportFile}></Route>
 
             <Route exact path="/Teacher" component={Teacher}></Route>
+
+            <Route path={"/Student"} component={Student}></Route>
 
             {RedirctPath}
 
