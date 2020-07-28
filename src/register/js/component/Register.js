@@ -605,7 +605,7 @@ class Register extends Component {
           }
         }
         if (
-          DataState.RegisterMsg[child] === "" ||
+          ( DataState.RegisterMsg[child] === ""&&child!=='ShortName')||
           DataState.RegisterMsg[child] === [] ||
           ((child === "ClassID" ||
             child === "GradeID" ||
@@ -639,7 +639,7 @@ class Register extends Component {
           }
         }
         if (
-          DataState.RegisterMsg[child] === "" ||
+         ( DataState.RegisterMsg[child] === ""&&child!=='ShortName') ||
           (DataState.RegisterMsg[child] instanceof Array &&
             DataState.RegisterMsg[child].length === 0) ||
           (child === "SchoolID" && DataState.RegisterMsg[child] === 0)
