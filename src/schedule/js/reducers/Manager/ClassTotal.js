@@ -6,7 +6,11 @@ const ClassTotal = (state={
 
     GradeDropList:[],
 
-    WeekNO:0,
+    NowWeekNO:1,
+
+    NowWeekDay:1,
+
+    NowClassDate:'',
 
     Schedule:[],
 
@@ -18,75 +22,7 @@ const ClassTotal = (state={
 
     PageIndex:1,
 
-    ClassCount:0,
-
-    ScheduleDetail:{
-
-        Show:false,
-
-        ModalLoading:true
-
-    },
-
-    ChangeTime:{
-
-        Show:false,
-
-        ModalLoading:true,
-
-        SelectWeekDay:'',
-
-        SelectClassHourNO:0,
-
-        SelectDate:''
-
-    },
-
-    AdjustClassRoom:{
-
-        Show:false,
-
-        ModalLoading:true,
-
-        ClassRoomList:[],
-
-        ClassRoomTabActive:0,
-
-        CheckedValue:'',
-
-        SearchValue:'',
-
-        CancelBtnShow:'n',
-
-        SearchWrapperShow:false,
-
-        SearchList:[],
-
-        SearchLoading:false
-
-    },
-
-    ReplaceSchedule:{
-
-        Show:false,
-
-        ModalLoading:true,
-
-        SearchLoading:false,
-
-        TeacherList:[],
-
-        SearchList:[],
-
-        CancelBtnShow:'n',
-
-        SearchValue:'',
-
-        SearchLoadingShow:false,
-
-        ActiveTeacherID:'',
-
-    }
+    ClassCount:0
 
 },actions) => {
 
@@ -104,75 +40,7 @@ const ClassTotal = (state={
 
                 ClassCount:0,
 
-                Schedule:actions.data,
-
-                ScheduleDetail:{
-
-                    Show:false,
-
-                    ModalLoading:true
-
-                },
-
-                ChangeTime:{
-
-                    Show:false,
-
-                    ModalLoading:true,
-
-                    SelectWeekDay:'',
-
-                    SelectClassHourNO:0,
-
-                    SelectDate:''
-
-                },
-
-                AdjustClassRoom:{
-
-                    Show:false,
-
-                    ModalLoading:true,
-
-                    ClassRoomList:[],
-
-                    ClassRoomTabActive:0,
-
-                    CheckedValue:'',
-
-                    SearchValue:'',
-
-                    CancelBtnShow:'n',
-
-                    SearchWrapperShow:false,
-
-                    SearchList:[],
-
-                    SearchLoading:false
-
-                },
-
-                ReplaceSchedule:{
-
-                    Show:false,
-
-                    ModalLoading:true,
-
-                    SearchLoading:false,
-
-                    TeacherList:[],
-
-                    SearchList:[],
-
-                    CancelBtnShow:'n',
-
-                    SearchValue:'',
-
-                    SearchLoadingShow:false,
-
-                    ActiveTeacherID:'',
-
-                }
+                Schedule:actions.data
 
             };
 
@@ -184,9 +52,17 @@ const ClassTotal = (state={
 
             return { ...state,GradeDropList:actions.data };
 
-        case ClassTotalActions.MANAGER_CLASS_TOTAL_WEEK_CHANGE:
+        case ClassTotalActions.MANAGER_CT_NOW_WEEK_NO_CHANGE:
 
-            return { ...state,WeekNO:actions.data };
+            return { ...state,NowWeekNO:actions.data };
+
+        case ClassTotalActions.MANAGER_CT_NOW_WEEK_DAY_CHANGE:
+
+            return { ...state,NowWeekDay:actions.data };
+
+        case ClassTotalActions.MANAGER_CT_NOW_CLASS_DATE_CHANGE:
+
+            return { ...state,NowClassDate:actions.data };
 
         case ClassTotalActions.MANAGER_CLASS_TOTAL_SCHEDULE_UPDATE:
 

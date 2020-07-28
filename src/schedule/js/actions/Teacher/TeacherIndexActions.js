@@ -35,19 +35,20 @@ const STSPageInit = (ResetClassHour) => {
 
 
 
-
         if (PeriodWeekTerm.ItemPeriod.length>0){
+
+            const { WeekNO,NowWeekDay,NowDate } = PeriodWeekTerm;
 
             let PeriodID = PeriodWeekTerm.ItemPeriod[PeriodWeekTerm.defaultPeriodIndex].PeriodID;//所需的参数
 
-            let NowWeekNo = PeriodWeekTerm.WeekNO;
+            dispatch({type:STSActions.TEACHER_STS_NOW_WEEK_NO_CHANGE,data:WeekNO});
 
-            dispatch({type:STSActions.STS_NOW_WEEK_CHANGE,data:NowWeekNo});
+            dispatch({type:STSActions.TEACHER_STS_NOW_WEEK_DAY_CHANGE,data:NowWeekDay});
+
+            dispatch({type:STSActions.TEACHER_STS_NOW_CLASS_DATE_CHANGE,data:NowDate});
 
 
             //判断是否需要重新加载课时信息
-
-
 
             if (ResetClassHour){
 
@@ -106,9 +107,9 @@ const STSPageInit = (ResetClassHour) => {
 
                         dispatch({type:SCGCRActions.SCGCR_INFO_INIT,data:data});
 
+                        //旧代码
 
-
-                        ApiActions.GetAllScheduleOfTeachersBySubjectIDForPage({
+                       /* ApiActions.GetAllScheduleOfTeachersBySubjectIDForPage({
 
                             SubjectID,SchoolID, PeriodID,PageIndex:1,PageSize:10,dispatch
 
@@ -181,7 +182,83 @@ const STSPageInit = (ResetClassHour) => {
 
                             dispatch({type:AppLoadingActions.APP_LOADING_HIDE});
 
-                        });
+                        });*/
+
+                         ApiActions.GetAllScheduleOfTeachersOneDayForPage({
+
+                             SchoolID,SubjectID,PeriodID,ClassDate:NowDate,dispatch
+
+                         }).then(json=>{
+
+                             if (json){
+
+                                 let SubjectTeacherSchedule = [];
+
+
+                                 SubjectTeacherSchedule =  json.ItemTeacher.map((item) => {
+
+                                     let teacherObj = {
+
+                                         id:item.TeacherID,
+
+                                         name:item.TeacherName
+
+                                     };
+
+                                     let list = utils.ScheduleRemoveRepeat(json.ItemSchedule.map((i) => {
+
+                                         if (i.TeacherID === item.TeacherID){
+
+                                             return {
+
+                                                 ...i,
+
+                                                 type:i.ScheduleType,
+
+                                                 title:(i.ClassName!==''?i.ClassName:i.CourseClassName),
+
+                                                 titleID:(i.ClassName!==''?i.ClassID:i.CourseClassID),
+
+                                                 secondTitle:i.SubjectName,
+
+                                                 secondTitleID:i.SubjectID,
+
+                                                 thirdTitle:i.ClassRoomName,
+
+                                                 thirdTitleID:i.ClassRoomID,
+
+                                                 WeekDay:i.WeekDay,
+
+                                                 ClassHourNO:i.ClassHourNO
+
+                                             };
+
+                                         }else {
+
+                                             return ;
+
+                                         }
+
+                                     }).filter(i => {return i!==undefined}));
+
+                                     teacherObj['list'] = list;
+
+                                     return teacherObj;
+
+                                 });
+
+                                 dispatch({type:STSActions.TEACHER_SUBJECT_TEACHER_SUBJECT_TEACHER_COUNT,data:json.TeacherCount});
+
+                                 dispatch({type:STSActions.SUBJECT_TEACHER_SCHEDULE_INIT,data:SubjectTeacherSchedule});
+
+                             }
+
+                             dispatch({type:STSActions.LOADING_HIDE});
+
+                             dispatch({type:AppLoadingActions.APP_LOADING_HIDE});
+
+                         });
+
 
                     }
 
@@ -234,9 +311,9 @@ const STSPageInit = (ResetClassHour) => {
 
                 }
 
-                ApiActions.GetAllScheduleOfTeachersBySubjectIDForPage({
+                ApiActions.GetAllScheduleOfTeachersOneDayForPage({
 
-                    SubjectID,SchoolID, PeriodID,PageIndex:1,PageSize:10,dispatch
+                    SchoolID,SubjectID,PeriodID,ClassDate:NowDate,dispatch
 
                 }).then(json=>{
 
@@ -368,9 +445,9 @@ const STSPageInit = (ResetClassHour) => {
 
 
 
-                        ApiActions.GetAllScheduleOfTeachersBySubjectIDForPage({
+                        ApiActions.GetAllScheduleOfTeachersOneDayForPage({
 
-                            SubjectID,SchoolID, PeriodID,PageIndex:1,PageSize:10,dispatch
+                            SchoolID,SubjectID,PeriodID,ClassDate:NowDate,dispatch
 
                         }).then(json=>{
 
@@ -448,9 +525,6 @@ const STSPageInit = (ResetClassHour) => {
                 });
 
             }
-
-
-
 
 
             /*Promise.all([GetAllOptionByPeriodID,GetAllScheduleOfTeachersBySubjectIDForPage]).then((res)=>{
@@ -1325,7 +1399,6 @@ const ClassTotalInit = () => {
                     }
 
                 });
-
 
 
             }else{

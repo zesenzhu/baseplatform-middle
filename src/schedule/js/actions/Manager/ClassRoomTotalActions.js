@@ -13,8 +13,12 @@ const MANAGER_CRT_SCHEDULE_LIST_UPDATE = 'MANAGER_CRT_SCHEDULE_LIST_UPDATE';
 
 const  MANAGER_CLASS_ROOM_TOTAL_ROOMTYPE_LIST_UPDATE = 'MANAGER_CLASS_ROOM_TOTAL_ROOMTYPE_LIST_UPDATE';
 
+//时间修改
+const MANAGER_CRT_NOW_WEEK_NO_CHANGE = 'MANAGER_CRT_NOW_WEEK_NO_CHANGE';
 
-const MANAGER_CLASS_ROOM_TOTAL_WEEK_CHANGE = 'MANAGER_CLASS_TOTAL_ROOM_WEEK_CHANGE';
+const MANAGER_CRT_NOW_WEEK_DAY_CHANGE = 'MANAGER_CRT_NOW_WEEK_DAY_CHANGE';
+
+const MANAGER_CRT_NOW_CLASS_DATE_CHANGE = 'MANAGER_CRT_NOW_CLASS_DATE_CHANGE';
 
 const MANAGER_CLASS_ROOM_TOTAL_SCHEDULE_UPDATE = 'MANAGER_CLASS_TOTAL_ROOM_SCHEDULE_UPDATE';
 
@@ -134,7 +138,7 @@ const ClassTotalPageUpdate = (opt) =>{
 
         let PeriodID = PeriodWeekTerm.ItemPeriod[PeriodWeekTerm.defaultPeriodIndex].PeriodID;
 
-        let { WeekNO,RoomTypeDropSelectd,Schedule,ScheduleList,PageIndex} = Manager.ClassRoomTotal;
+        let { NowClassDate,RoomTypeDropSelectd,Schedule,ScheduleList,PageIndex} = Manager.ClassRoomTotal;
 
         let RoomTypeID = '';
 
@@ -152,9 +156,111 @@ const ClassTotalPageUpdate = (opt) =>{
 
         }
 
-        ApiActions.GetAllScheduleOfClassRoomByClassRoomTypeForPage({
+
+        //旧代码
+
+        /*ApiActions.GetAllScheduleOfClassRoomByClassRoomTypeForPage({
 
             PeriodID,SchoolID,WeekNO:WeekNO,PageIndex:NextPageIndex,PageSize:10,ClassRoomType:RoomTypeID,dispatch
+
+        }).then(data => {
+
+            if (data){
+
+                let NextSchedule = [];
+
+                NextSchedule =  data.ItemClassRoom.map((item) => {
+
+                    let classRoomObj = {
+
+                        id:item.ClassRoomID,
+
+                        name:item.ClassRoomName,
+
+                        active:false
+
+                    };
+
+                    let list = utils.ScheduleRemoveRepeat(data.ItemSchedule.map((i) => {
+
+                        if (i.ClassRoomID === item.ClassRoomID){
+
+                            return {
+
+                                ...i,
+
+                                type:i.ScheduleType,
+
+                                title:i.SubjectName,
+
+                                titleID:i.SubjectName,
+
+                                secondTitle:i.TeacherName,
+
+                                secondTitleID:i.TeacherID,
+
+                                thirdTitle:(i.ClassName?i.ClassName:i.CourseClassName),
+
+                                thirdTitleID:(i.ClassName?i.ClassID:i.CourseClassID),
+
+                                WeekDay:i.WeekDay,
+
+                                ClassHourNO:i.ClassHourNO
+
+                            };
+
+                        }else {
+
+                            return ;
+
+                        }
+
+                    }).filter(i => {return i!==undefined}));
+
+                    classRoomObj['list'] = list;
+
+                    return classRoomObj;
+
+                });
+
+                let scheduleList = [];
+
+                //判断操作是否是下一页操作
+                if (opt&&opt.nextPage){
+
+                    Schedule.push(...NextSchedule);
+
+                    scheduleList = Array.from(ScheduleList);
+
+                    dispatch({type:MANAGER_CLASS_ROOM_TOTAL_SCHEDULE_UPDATE,data:Schedule});
+
+                    dispatch({type:MANAGER_CLASS_ROOM_TOTAL_PAGE_ADD});
+
+                }else{
+
+                    $('#tb').find('div.ant-table-body').scrollTop(0);
+
+                    dispatch({type:MANAGER_CLASS_ROOM_TOTAL_SCHEDULE_UPDATE,data:NextSchedule});
+
+                    dispatch({type:MANAGER_CLASS_ROOM_TOTAL_PAGE_UPDATE,data:1});
+
+                }
+
+                scheduleList.push(Array.from(NextSchedule));
+
+                dispatch({type:MANAGER_CRT_SCHEDULE_LIST_UPDATE,data:scheduleList});
+
+                dispatch({type:MANAGER_CLASS_ROOM_TOTAL_CLASS_COUNT,data:data.ClassRoomCount});
+
+                dispatch({type:MANAGER_CLASS_ROOM_TOTAL_LOADING_HIDE});
+
+            }
+
+        });*/
+
+        ApiActions.GetAllScheduleOfClassRoomOneDayForPage({
+
+            SchoolID,PeriodID,ClassRoomType:RoomTypeID,ClassDate:NowClassDate,PageIndex:NextPageIndex,dispatch
 
         }).then(data => {
 
@@ -268,7 +374,7 @@ const ScheduleListUpdate = (PageIndex) =>{
 
         let PeriodID = PeriodWeekTerm.ItemPeriod[PeriodWeekTerm.defaultPeriodIndex].PeriodID;
 
-        let { WeekNO,RoomTypeDropSelectd,ScheduleList,PageIndex} = Manager.ClassRoomTotal;
+        let { NowClassDate,RoomTypeDropSelectd,ScheduleList,PageIndex} = Manager.ClassRoomTotal;
 
         let RoomTypeID = '';
 
@@ -279,10 +385,97 @@ const ScheduleListUpdate = (PageIndex) =>{
 
         }
 
-
-        ApiActions.GetAllScheduleOfClassRoomByClassRoomTypeForPage({
+        //旧代码
+        /*ApiActions.GetAllScheduleOfClassRoomByClassRoomTypeForPage({
 
             PeriodID,SchoolID,WeekNO:WeekNO,PageIndex,PageSize:10,ClassRoomType:RoomTypeID,dispatch
+
+        }).then(data => {
+
+            if (data){
+
+                let NextSchedule = [];
+
+                NextSchedule =  data.ItemClassRoom.map((item) => {
+
+                    let classRoomObj = {
+
+                        id:item.ClassRoomID,
+
+                        name:item.ClassRoomName,
+
+                        active:false
+
+                    };
+
+                    let list = utils.ScheduleRemoveRepeat(data.ItemSchedule.map((i) => {
+
+                        if (i.ClassRoomID === item.ClassRoomID){
+
+                            return {
+
+                                ...i,
+
+                                type:i.ScheduleType,
+
+                                title:i.SubjectName,
+
+                                titleID:i.SubjectName,
+
+                                secondTitle:i.TeacherName,
+
+                                secondTitleID:i.TeacherID,
+
+                                thirdTitle:(i.ClassName?i.ClassName:i.CourseClassName),
+
+                                thirdTitleID:(i.ClassName?i.ClassID:i.CourseClassID),
+
+                                WeekDay:i.WeekDay,
+
+                                ClassHourNO:i.ClassHourNO
+
+                            };
+
+                        }else {
+
+                            return ;
+
+                        }
+
+                    }).filter(i => {return i!==undefined}));
+
+                    classRoomObj['list'] = list;
+
+                    return classRoomObj;
+
+                });
+
+                let schedule = [];
+
+                ScheduleList.splice(PageIndex-1,1,NextSchedule);
+
+                ScheduleList.map(item=>{
+
+                    schedule.push(...item);
+
+                });
+
+
+                dispatch({type:MANAGER_CRT_SCHEDULE_LIST_UPDATE,data:ScheduleList});
+
+                dispatch({type:MANAGER_CLASS_ROOM_TOTAL_CLASS_COUNT,data:data.ClassRoomCount});
+
+                dispatch({type:MANAGER_CLASS_ROOM_TOTAL_SCHEDULE_UPDATE,data:schedule});
+
+                dispatch({type:MANAGER_CLASS_ROOM_TOTAL_LOADING_HIDE});
+
+            }
+
+        });*/
+
+        ApiActions.GetAllScheduleOfClassRoomOneDayForPage({
+
+            SchoolID,PeriodID,ClassRoomType:RoomTypeID,ClassDate:NowClassDate,PageIndex,dispatch
 
         }).then(data => {
 
@@ -1008,7 +1201,11 @@ export default {
 
     MANAGER_CLASS_ROOM_TOTAL_ROOMTYPE_LIST_UPDATE,
 
-    MANAGER_CLASS_ROOM_TOTAL_WEEK_CHANGE,
+    MANAGER_CRT_NOW_WEEK_NO_CHANGE,
+
+    MANAGER_CRT_NOW_WEEK_DAY_CHANGE,
+
+    MANAGER_CRT_NOW_CLASS_DATE_CHANGE,
 
     MANAGER_CLASS_ROOM_TOTAL_SCHEDULE_UPDATE,
 

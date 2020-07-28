@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 
-import TermPick from "../../component/TermPick";
+import WeekDayPick from "../../component/WeekDayPick";
 
 import STSAction from "../../actions/Teacher/SubjectTeacherSubjectActions";
 
@@ -21,6 +21,8 @@ import SDActions from "../../actions/ScheduleDetailActions";
 
 import {CSSTransition} from 'react-transition-group';
 
+
+
 class Subject extends Component{
 
     constructor(props) {
@@ -40,11 +42,15 @@ class Subject extends Component{
     }
 
     //选择某一周次
-    weekPickEvent(e){
+    weekDateChange(date,week,weekDay){
 
         const {dispatch} = this.props;
 
-        dispatch({type:STSAction.STS_NOW_WEEK_CHANGE,data:e.value});
+        dispatch({type:STSAction.TEACHER_STS_NOW_WEEK_NO_CHANGE,data:week});
+
+        dispatch({type:STSAction.TEACHER_STS_NOW_WEEK_DAY_CHANGE,data:weekDay});
+
+        dispatch({type:STSAction.TEACHER_STS_NOW_CLASS_DATE_CHANGE,data:date});
 
         $('#tb').find('div.ant-table-body').scrollTop(0);
 
@@ -52,35 +58,6 @@ class Subject extends Component{
 
     }
 
-    //选择下一周次
-    weekNextEvent(){
-
-        const {dispatch,Teacher} = this.props;
-
-        const {NowWeekNo} = Teacher.SubjectTeacherSubjectSchedule;
-
-        dispatch({type:STSAction.STS_NOW_WEEK_CHANGE,data:(NowWeekNo+1)});
-
-        $('#tb').find('div.ant-table-body').scrollTop(0);
-
-        dispatch(STSAction.STSPageUpdate());
-
-    }
-
-    //选择上一周次
-    weekPrevEvent(){
-
-        const {dispatch,Teacher} = this.props;
-
-        const {NowWeekNo} = Teacher.SubjectTeacherSubjectSchedule;
-
-        dispatch({type:STSAction.STS_NOW_WEEK_CHANGE,data:(NowWeekNo-1)});
-
-        $('#tb').find('div.ant-table-body').scrollTop(0);
-
-        dispatch(STSAction.STSPageUpdate());
-
-    }
 
     //滚动到底部
 
@@ -95,14 +72,6 @@ class Subject extends Component{
             dispatch(STSAction.STSPageUpdate({nextPage:true}));
 
         }
-        
-        /* else if (Math.ceil(TeacherCount/10)>0){
-
-            message.info('已经是最后一页了！',0.2);
-
-            message.config({maxCount:1,top:200});
-
-        } */
 
     }
 
@@ -158,7 +127,7 @@ class Subject extends Component{
 
         const { ItemClassHour,ItemClassHourCount,NowClassHourNO } = SubjectCourseGradeClassRoom;
 
-        const WeekNO = SubjectTeacherSubjectSchedule.NowWeekNo;
+        const WeekNO = SubjectTeacherSubjectSchedule.NowWeekNO;
 
         dispatch({type:SDActions.COMPONENT_SCHEDULE_DETAIL_MODAL_PARAMS_UPDATE,data:{ItemClassHour,ItemClassHourCount,NowClassHourNO,WeekNO,CanOperate:false}});
 
@@ -243,9 +212,25 @@ class Subject extends Component{
 
                         }
 
+                        <WeekDayPick
+
+                            WeekList={ItemWeek}
+
+                            NowWeekNO={SubjectTeacherSubjectSchedule.NowWeekNO}
+
+                            NowWeekDay={SubjectTeacherSubjectSchedule.NowWeekDay}
+
+                            NowClassDate={SubjectTeacherSubjectSchedule.NowClassDate}
+
+                            weekDateChange={this.weekDateChange.bind(this)}
+
+                        >
 
 
-                        <TermPick
+
+                        </WeekDayPick>
+
+                        {/*<TermPick
 
                             ItemTermName={PeriodWeekTerm.ItemTerm?PeriodWeekTerm.ItemTerm.TermName:''}
 
@@ -263,7 +248,7 @@ class Subject extends Component{
 
                             >
 
-                        </TermPick>
+                        </TermPick>*/}
 
                         <div className="double-single-table-wrapper">
 

@@ -14,7 +14,14 @@ const SUBJECT_TEACHER_SCHEDULE_UPDATE = 'SUBJECT_TEACHER_SCHEDULE_UPDATE';
 
 const STS_SUBJECT_CHANGE = 'STS_SUBJECT_CHANGE';
 
-const STS_NOW_WEEK_CHANGE = 'STS_NOW_WEEK_CHANGE';
+
+//日期更换
+
+const MANAGER_STS_NOW_WEEK_NO_CHANGE = 'MANAGER_STS_NOW_WEEK_NO_CHANGE';
+
+const MANAGER_STS_NOW_WEEK_DAY_CHANGE = 'MANAGER_STS_NOW_WEEK_DAY_CHANGE';
+
+const MANAGER_STS_NOW_CLASS_DATE_CHANGE = 'MANAGER_STS_NOW_CLASS_DATE_CHANGE';
 
 const STS_PAGE_ADD = 'STS_PAGE_ADD';
 
@@ -132,7 +139,7 @@ const STSPageUpdate = (opt) => {
 
         let PeriodID = PeriodWeekTerm.ItemPeriod[PeriodWeekTerm.defaultPeriodIndex].PeriodID;
 
-        let {NowWeekNo,ItemSubjectSelect,schedule,ScheduleList,pageIndex} = Manager.SubjectTeacherSchedule;
+        let {NowClassDate,ItemSubjectSelect,schedule,ScheduleList,pageIndex} = Manager.SubjectTeacherSchedule;
 
         let SubjectID = '';
 
@@ -150,9 +157,106 @@ const STSPageUpdate = (opt) => {
 
         }
 
-        ApiActions.GetAllScheduleOfTeachersBySubjectIDForPage({
+
+        //旧代码
+
+        /*ApiActions.GetAllScheduleOfTeachersBySubjectIDForPage({
 
             PeriodID,SchoolID,SubjectID,WeekNO:NowWeekNo,PageIndex,PageSize:10,dispatch
+
+        }).then(data => {
+
+            if (data){
+
+                let SubjectTeacherSchedule =  data.ItemTeacher.map((item) => {
+
+                    let teacherObj = {
+
+                        id:item.TeacherID,
+
+                        name:item.TeacherName,
+
+                        active:false
+
+                    };
+
+                    let list = utils.ScheduleRemoveRepeat(data.ItemSchedule.map((i) => {
+
+                        if (i.TeacherID === item.TeacherID){
+
+                            return {
+
+                                ...i,
+
+                                type:i.ScheduleType,
+
+                                title:(i.ClassName!==''?i.ClassName:i.CourseClassName),
+
+                                titleID:(i.ClassName!==''?i.ClassID:i.CourseClassID),
+
+                                secondTitle:i.SubjectName,
+
+                                secondTitleID:i.SubjectID,
+
+                                thirdTitle:i.ClassRoomName,
+
+                                thirdTitleID:i.ClassRoomID
+
+                            };
+
+                        }else{
+
+                            return;
+
+                        }
+
+                    }).filter(i => {return i!==undefined}));
+
+                    teacherObj['list'] = list;
+
+                    return teacherObj;
+
+                });
+
+
+                let scheduleList = [];
+                //判断操作是否是下一页操作
+                if (opt&&opt.nextPage){
+
+                    schedule.push(...SubjectTeacherSchedule);
+
+                    scheduleList = Array.from(ScheduleList);
+
+                    dispatch({type:SUBJECT_TEACHER_SCHEDULE_UPDATE,data:schedule});
+
+                    dispatch({type:STS_PAGE_ADD});
+
+                }else{
+
+                    $('#tb').find('div.ant-table-body').scrollTop(0);
+
+                    dispatch({type:SUBJECT_TEACHER_SCHEDULE_UPDATE,data:SubjectTeacherSchedule});
+
+                    dispatch({type:MANAGER_STS_PAGE_UPDATE,data:1});
+
+                }
+
+
+                scheduleList.push(Array.from(SubjectTeacherSchedule));
+
+                dispatch({type:MANAGER_STS_SCHEDULE_UPDATE,data:scheduleList});
+
+                dispatch({type:SUBJECT_TEACHER_SCHEDULE_TEACHER_COUNT,data:data.TeacherCount});
+
+                dispatch({type:LOADING_HIDE});
+
+            }
+
+        });*/
+
+        ApiActions.GetAllScheduleOfTeachersOneDayForPage({
+
+            PeriodID,SchoolID,SubjectID,ClassDate:NowClassDate,PageIndex,dispatch
 
         }).then(data => {
 
@@ -261,7 +365,7 @@ const ScheduleListUpdate = (PageIndex) =>{
 
         let PeriodID = PeriodWeekTerm.ItemPeriod[PeriodWeekTerm.defaultPeriodIndex].PeriodID;
 
-        let {NowWeekNo,ItemSubjectSelect,ScheduleList,pageIndex} = Manager.SubjectTeacherSchedule;
+        let {NowClassDate,ItemSubjectSelect,ScheduleList,pageIndex} = Manager.SubjectTeacherSchedule;
 
         let SubjectID = '';
 
@@ -273,9 +377,9 @@ const ScheduleListUpdate = (PageIndex) =>{
         }
 
 
-        ApiActions.GetAllScheduleOfTeachersBySubjectIDForPage({
+        ApiActions.GetAllScheduleOfTeachersOneDayForPage({
 
-            PeriodID,SchoolID,SubjectID,WeekNO:NowWeekNo,PageIndex,PageSize:10,dispatch
+            PeriodID,SchoolID,SubjectID,ClassDate:NowClassDate,PageIndex,dispatch
 
         }).then(data => {
 
@@ -997,7 +1101,11 @@ export default {
 
     STS_SUBJECT_CHANGE,
 
-    STS_NOW_WEEK_CHANGE,
+    MANAGER_STS_NOW_WEEK_NO_CHANGE,
+
+    MANAGER_STS_NOW_WEEK_DAY_CHANGE,
+
+    MANAGER_STS_NOW_CLASS_DATE_CHANGE,
 
     SUBJECT_TEACHER_SCHEDULE_UPDATE,
 

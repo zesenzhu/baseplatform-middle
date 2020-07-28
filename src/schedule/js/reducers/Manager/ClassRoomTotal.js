@@ -6,7 +6,11 @@ const ClassRoomTotal = (state={
 
     RoomTypeDropList:[],
 
-    WeekNO:0,
+    NowWeekNO:1,
+
+    NowWeekDay:1,
+
+    NowClassDate:'',
 
     Schedule:[],
 
@@ -18,75 +22,7 @@ const ClassRoomTotal = (state={
 
     PageIndex:1,
 
-    ClassRoomCount:0,
-
-    ScheduleDetail:{
-
-        Show:false,
-
-        ModalLoading:true
-
-    },
-
-    ChangeTime:{
-
-        Show:false,
-
-        ModalLoading:true,
-
-        SelectWeekDay:'',
-
-        SelectClassHourNO:0,
-
-        SelectDate:''
-
-    },
-
-    AdjustClassRoom:{
-
-        Show:false,
-
-        ModalLoading:true,
-
-        ClassRoomList:[],
-
-        ClassRoomTabActive:0,
-
-        CheckedValue:'',
-
-        SearchValue:'',
-
-        CancelBtnShow:'n',
-
-        SearchWrapperShow:false,
-
-        SearchList:[],
-
-        SearchLoading:false
-
-    },
-
-    ReplaceSchedule:{
-
-        Show:false,
-
-        ModalLoading:true,
-
-        SearchLoading:false,
-
-        TeacherList:[],
-
-        SearchList:[],
-
-        CancelBtnShow:'n',
-
-        SearchValue:'',
-
-        SearchLoadingShow:false,
-
-        ActiveTeacherID:'',
-
-    }
+    ClassRoomCount:0
 
 },actions) => {
 
@@ -106,75 +42,7 @@ const ClassRoomTotal = (state={
 
                 Schedule:actions.data,
 
-                ScheduleList:[],
-
-                ScheduleDetail:{
-
-                    Show:false,
-
-                    ModalLoading:true
-
-                },
-
-                ChangeTime:{
-
-                    Show:false,
-
-                    ModalLoading:true,
-
-                    SelectWeekDay:'',
-
-                    SelectClassHourNO:0,
-
-                    SelectDate:''
-
-                },
-
-                AdjustClassRoom:{
-
-                    Show:false,
-
-                    ModalLoading:true,
-
-                    ClassRoomList:[],
-
-                    ClassRoomTabActive:0,
-
-                    CheckedValue:'',
-
-                    SearchValue:'',
-
-                    CancelBtnShow:'n',
-
-                    SearchWrapperShow:false,
-
-                    SearchList:[],
-
-                    SearchLoading:false
-
-                },
-
-                ReplaceSchedule:{
-
-                    Show:false,
-
-                    ModalLoading:true,
-
-                    SearchLoading:false,
-
-                    TeacherList:[],
-
-                    SearchList:[],
-
-                    CancelBtnShow:'n',
-
-                    SearchValue:'',
-
-                    SearchLoadingShow:false,
-
-                    ActiveTeacherID:'',
-
-                }
+                ScheduleList:[]
 
             };
 
@@ -186,9 +54,17 @@ const ClassRoomTotal = (state={
 
             return { ...state,RoomTypeDropList:actions.data };
 
-        case CRTActions.MANAGER_CLASS_ROOM_TOTAL_WEEK_CHANGE:
+        case CRTActions.MANAGER_CRT_NOW_WEEK_NO_CHANGE:
 
-            return { ...state,WeekNO:actions.data };
+            return { ...state,NowWeekNO:actions.data };
+
+        case CRTActions.MANAGER_CRT_NOW_WEEK_DAY_CHANGE:
+
+            return { ...state,NowWeekDay:actions.data };
+
+        case CRTActions.MANAGER_CRT_NOW_CLASS_DATE_CHANGE:
+
+            return { ...state,NowClassDate:actions.data };
 
         case CRTActions.MANAGER_CLASS_ROOM_TOTAL_SCHEDULE_UPDATE:
 

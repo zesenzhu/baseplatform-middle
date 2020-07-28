@@ -823,6 +823,71 @@ const GetScheduleForChangeTime = async ({ClassID='',CourseClassID,ClassRoomID,Te
 };
 
 
+//新的教学班总课表接口(中小学)
+
+const GetAllScheduleOfClassOneDayForPage = async ({SchoolID='',GradeID='',PeriodID='',ClassDate,PageIndex=1,PageSize=10,CollegeID='',dispatch}) => {
+
+    let res = await Method.getGetData(`/Schedule/api/GetAllScheduleOfClassOneDayForPage?SchoolID=${SchoolID}&GradeID=${GradeID}&PeriodID=${PeriodID}&ClassDate=${ClassDate}&PageIndex=${PageIndex}&PageSize=${PageSize}&CollegeID=${CollegeID}`,
+
+        2,CONFIG.ScheduleProxy);
+
+
+    if (res.StatusCode === 200){
+
+        return res.Data;
+
+    }else{
+
+        ErrorCodeTransform(res,dispatch);
+
+    }
+
+};
+
+
+//新的学科教师总课表接口
+
+const GetAllScheduleOfTeachersOneDayForPage =  async ({SchoolID='',SubjectID='',PeriodID='',ClassDate,PageIndex=1,PageSize=10,CollegeID='',dispatch}) => {
+
+    let res = await Method.getGetData(`/Schedule/api/GetAllScheduleOfTeachersOneDayForPage?SchoolID=${SchoolID}&SubjectID=${SubjectID}&PeriodID=${PeriodID}&ClassDate=${ClassDate}&PageIndex=${PageIndex}&PageSize=${PageSize}&CollegeID=${CollegeID}`,
+
+        2,CONFIG.ScheduleProxy);
+
+
+    if (res.StatusCode === 200){
+
+        return res.Data;
+
+    }else{
+
+        ErrorCodeTransform(res,dispatch);
+
+    }
+
+};
+
+
+
+//获取教室一天的课表
+
+const GetAllScheduleOfClassRoomOneDayForPage = async ({SchoolID='',PeriodID='',ClassRoomType='',ClassDate,PageIndex=1,PageSize=10,CollegeID='',dispatch}) => {
+
+    let res = await Method.getGetData(`/Schedule/api/GetAllScheduleOfClassRoomOneDayForPage?SchoolID=${SchoolID}&PeriodID=${PeriodID}&ClassRoomType=${ClassRoomType}&ClassDate=${ClassDate}&PageIndex=${PageIndex}&PageSize=${PageSize}&CollegeID=${CollegeID}`,
+
+        2,CONFIG.ScheduleProxy);
+
+
+    if (res.StatusCode === 200){
+
+        return res.Data;
+
+    }else{
+
+        ErrorCodeTransform(res,dispatch);
+
+    }
+
+};
 
 
 
@@ -1522,6 +1587,12 @@ export default {
 
     GetStudentForAddOrEditCourseClassByKey,
 
-    GetScheduleForChangeTime
+    GetScheduleForChangeTime,
+
+    GetAllScheduleOfTeachersOneDayForPage,
+
+    GetAllScheduleOfClassOneDayForPage,
+
+    GetAllScheduleOfClassRoomOneDayForPage
 
 }
