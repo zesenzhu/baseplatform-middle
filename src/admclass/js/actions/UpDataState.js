@@ -757,7 +757,46 @@ const SetTopLeftData = (data) => {
     dispatch({ type: COMMON_SET_TOP_LEFT_DATA, data: data });
   };
 };
+// 设置班长
+const EditGrade = ({
+  GradeID,
+  GradeName,
+
+  func = () => {},
+}) => {
+  return (dispatch, getState) => {
+    let {
+      DataState: {
+        CommonData: { gradeData, SelectGanderData },
+      },
+      PublicState: { LoginMsg },
+    } = getState();
+    if (GradeID === undefined) {
+      GradeID = gradeData.GradeID;
+    }
+    if (GradeName === undefined) {
+      GradeName = gradeData.GradeName
+    }
+
+    postData(
+      ClassProxy + "/EditGrade",
+      {
+        GradeID,
+        GradeName,
+      },
+      2
+    )
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.StatusCode === 200) {
+          func(getState());
+        }
+      });
+  };
+};
 export default {
+  EditGrade,
+
   SetTopLeftData,
   COMMON_SET_TOP_LEFT_DATA,
   

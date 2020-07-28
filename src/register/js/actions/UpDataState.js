@@ -152,7 +152,7 @@ const VCCodeEquals = ({ VCCode = "", func = () => {} }) => {
       "cors",
       false,
       true,
-      { requestHeader: { Cookie: document.cookie } }
+      {credentials:'include' }
     )
       .then((res) => {
         return res.json();

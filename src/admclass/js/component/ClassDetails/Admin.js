@@ -52,7 +52,7 @@ class Admin extends Component {
   // 修改班主任
   onReSetClick = (data) => {
     let { dispatch } = this.props;
-    console.log(data);
+    // console.log(data);
     // dispatch(UpDataState.SetSelectGanderData(data))
     dispatch(UpDataState.GetSubject({}));
 
@@ -69,6 +69,9 @@ class Admin extends Component {
       UpDataState.SetGanger({
         UserID: "",
         func: () => {
+          // dispatch(UpDataState.GetStudentToPage({}));
+          dispatch(UpDataState.GetClassTeacher({}));
+
           dispatch(
             PublicAction.showErrorAlert({ type: "success", title: "操作成功" })
           );
@@ -78,20 +81,30 @@ class Admin extends Component {
   };
   onSetMonitorClick = (id) => {
     let { dispatch } = this.props;
-    dispatch(UpDataState.SetMonitor({UserID:id}))
     dispatch(
-      UpDataState.SetClassDetailsParams({
-        PageIndex:0,
-        CheckAll: false,
-      CheckList: [],
+      UpDataState.SetMonitor({
+        UserID: id,
+        func: () => {
+          dispatch(
+            PublicAction.showErrorAlert({ type: "success", title: "操作成功" })
+          );
+          dispatch(
+            UpDataState.SetClassDetailsParams({
+              PageIndex: 0,
+              CheckAll: false,
+              CheckList: [],
+            })
+          );
+
+          dispatch(UpDataState.GetStudentToPage({}));
+        },
       })
     );
-    dispatch(UpDataState.GetStudentToPage({}));
   };
   onSelectStudentClick = (List) => {
     let { dispatch } = this.props;
     // console.log(List);
-    dispatch(UpDataState.SetClassDetailsParams({CheckList:List}))
+    dispatch(UpDataState.SetClassDetailsParams({ CheckList: List }));
   };
   onDeleteMonitorClick = (id) => {
     let { dispatch } = this.props;
@@ -125,31 +138,37 @@ class Admin extends Component {
       dispatch(UpDataState.GetStudentToPage({}));
     }
   };
-  onDetailModalShow = (role,UserID)=>{
+  onDetailModalShow = (role, UserID) => {
     let { dispatch } = this.props;
     dispatch(UpDataState.SetDetailsModalRole(role));
-    dispatch(UpDataState.GetUserDetail({UserID}));
-    dispatch(UpDataState.SetModalVisible({DetailsMsgModalVisible:true}));
-
-  }
-  onCheckAllEndClick=(type)=>{
-    let { dispatch,DataState:{CommonData:{ClassDetailsParams:{CheckList}}} } = this.props;
-    if(CheckList.length===0){
+    dispatch(UpDataState.GetUserDetail({ UserID }));
+    dispatch(UpDataState.SetModalVisible({ DetailsMsgModalVisible: true }));
+  };
+  onCheckAllEndClick = (type) => {
+    let {
+      dispatch,
+      DataState: {
+        CommonData: {
+          ClassDetailsParams: { CheckList },
+        },
+      },
+    } = this.props;
+    if (CheckList.length === 0) {
       dispatch(
-        PublicAction.showErrorAlert({ type:'btn-warn',title: "请勾选学生" })
+        PublicAction.showErrorAlert({ type: "btn-warn", title: "请勾选学生" })
       );
-    return ;
+      return;
     }
-    if(type==='reset'){
+    if (type === "reset") {
       //调班
-      dispatch(UpDataState.GetGradeClassTree({}))
+      dispatch(UpDataState.GetGradeClassTree({}));
       dispatch(
         UpDataState.SetModalVisible({
           ReSetStudentClassModalVisible: true,
         })
       );
     }
-  }
+  };
   render() {
     const {
       DataState: {
@@ -182,17 +201,17 @@ class Admin extends Component {
             onReSetClick={this.onReSetClick}
             onDeleteClick={this.onDeleteClick}
             canControl={true}
-            onDetailModalShow = {this.onDetailModalShow}
+            onDetailModalShow={this.onDetailModalShow}
             data={ClassTeacherData}
           ></TeacherContent>
           <StudentContent
             onSetMonitorClick={this.onSetMonitorClick}
             onSelectStudentClick={this.onSelectStudentClick}
             onDeleteMonitorClick={this.onDeleteMonitorClick}
-            onDetailModalShow = {this.onDetailModalShow}
+            onDetailModalShow={this.onDetailModalShow}
             onGetStudentPageClick={this.onGetStudentPageClick}
             canControl={true}
-            type={'Admin'}
+            type={"Admin"}
             onCheckAllEndClick={this.onCheckAllEndClick}
             // selectStudent={SelectStudent}
             data={ClassStudentData}

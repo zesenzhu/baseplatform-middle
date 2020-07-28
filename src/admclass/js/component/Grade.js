@@ -51,6 +51,7 @@ class Grade extends Component {
         InitGradeName: data.GradeName,
       })
     );
+
     console.log(data);
   };
   onCardClick = (data) => {
@@ -92,7 +93,14 @@ class Grade extends Component {
       },
     } = this.props;
     this.checkName(GradeName, () => {
-      this.ReNameGradeModalCancel();
+      dispatch(
+        UpDataState.EditGrade({
+          func: (State) => {
+            dispatch(UpDataState.GetSummary({}));
+            this.ReNameGradeModalCancel();
+          },
+        })
+      );
     });
   };
   //
@@ -172,7 +180,7 @@ class Grade extends Component {
                     onReNameClick={this.onReNameClick}
                     key={index}
                     data={child}
-                    canControl={UserPower==='Admin'}
+                    canControl={UserPower === "Admin"}
                     className={"Card"}
                   ></GradeCard>
                 );

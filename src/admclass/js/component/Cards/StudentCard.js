@@ -97,12 +97,16 @@ class StudentCard extends React.Component {
               </p>
               {canControl ? (
                 <div
-                  onClick={() =>
+                  onClick={(e) => {
+                    // 阻止合成事件的冒泡
+                    e.stopPropagation();
+                    // 阻止与原生事件的冒泡
+                    e.nativeEvent.stopImmediatePropagation();
                     onSelectStudentClick(
                       { value: UserID, title: UserName },
                       !isSelect
-                    )
-                  }
+                    );
+                  }}
                   className={`check-box ${isSelect ? "checked" : ""}`}
                 >
                   {" "}

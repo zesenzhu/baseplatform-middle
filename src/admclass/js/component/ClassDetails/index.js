@@ -67,8 +67,8 @@ class ClassDetails extends Component {
               })
             );
 
-            dispatch(UpDataState.GetStudentToPage({}));
-
+            // dispatch(UpDataState.GetStudentToPage({}));
+            this.onSetGanderModalCancel();
             dispatch(
               PublicAction.showErrorAlert({
                 type: "success",

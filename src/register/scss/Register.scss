@@ -1,7 +1,7 @@
 .Register {
     position: relative;
     left: 50%;
-    padding-bottom: 50px;
+    padding-bottom: 100px;
     overflow: visible;
     // width: calc(50vw + 150px);
     transform: translateX(-50%);
@@ -147,6 +147,7 @@
             }
             .right {
                 float: left;
+                position: relative;
                 width: calc(100% - 120px);
                 padding-left: 10px;
                 white-space: nowrap;
@@ -358,4 +359,18 @@ p {
 
 .ant-modal-body {
     height: 600px !important;
+}
+
+.TestCodeTest {
+    display: inline-block;
+    width: 16px;
+    height: 100%;
+    position: absolute;
+    left: 110px;
+    &.isSuccess {
+        background: url(../images/对号.png)no-repeat center center /16px 16px;
+    }
+    &.isError {
+        background: url(../images/叉号.png)no-repeat center center /16px 16px;
+    }
 }

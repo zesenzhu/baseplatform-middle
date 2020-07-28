@@ -26,7 +26,8 @@ function postData(
   SecurityLevel = 1,
   content_type = "urlencoded",
   IsDesk = false,
-  element = true
+  element = true,
+  moreParams={ credentials:'omit', requestHeader: {} }
 ) {
   let token = sessionStorage.getItem("token") || getQueryVariable("lg_tk");
 
@@ -40,6 +41,15 @@ function postData(
   //         }
   //     });
   // }
+  let {   requestHeader ,credentials} = moreParams;
+ 
+  if(requestHeader===undefined){
+    requestHeader = {}
+  }
+  if(credentials===undefined){
+    credentials = 'omit'
+  }
+  console.log(content_type,requestHeader)
   let ContentTypeArr = [
     "application/x-www-form-urlencoded",
     "application/json",
@@ -61,7 +71,7 @@ function postData(
     mode: "cors", //no-cors(跨域模式但服务器端不支持cors),*cors(跨域模式，需要服务器通过Access-control-Allow-Origin来
     //允许指定的源进行跨域),same-origin(同源)
     cache: "no-cache", //*no-cache,default,reload,force-cache,only-ifcached,此项为缓存相关配置
-    credentials: "omit", //*include(携带cookie)、same-origin(cookie同源携带)、omit(不携带)
+    credentials: credentials, //*include(携带cookie)、same-origin(cookie同源携带)、omit(不携带)
 
     headers: {
       Accept: "application/json, text/plain, */*", //请求头，代表的、发送端（客户端）希望接收的数据类型
@@ -218,7 +228,7 @@ const getData =(
   mode = "cors",
   IsDesk = false,
   element = true,
-  moreParams={ content_type: "urlencoded", requestHeader: {} }
+  moreParams={ credentials:'omit',content_type: "urlencoded", requestHeader: {} }
 ) =>{
   let token = sessionStorage.getItem("token") || getQueryVariable("lg_tk");
   // if (!token && SecurityLevel !== 1) {
@@ -232,12 +242,15 @@ const getData =(
   //     });
   // }
   // console.log(isIE());
-  let { content_type, requestHeader } = moreParams;
+  let { content_type, requestHeader ,credentials} = moreParams;
   if(content_type===undefined){
     content_type = "urlencoded"
   }
   if(requestHeader===undefined){
-    content_type = {}
+    requestHeader = {}
+  }
+  if(credentials===undefined){
+    credentials = 'omit'
   }
   console.log(content_type,requestHeader)
 
@@ -266,8 +279,7 @@ const getData =(
     mode: mode, //no-cors(跨域模式但服务器端不支持cors),*cors(跨域模式，需要服务器通过Access-control-Allow-Origin来
     //允许指定的源进行跨域),same-origin(同源)
     cache: "no-cache", //*no-cache,default,reload,force-cache,only-ifcached,此项为缓存相关配置
-    credentials: "omit", //*include(携带cookie)、same-origin(cookie同源携带)、omit(不携带)
-
+    credentials: credentials, //*include(携带cookie)、same-origin(cookie同源携带)、omit(不携带)
     headers: {
       Accept: "application/json, text/plain, */*", //请求头，代表的、发送端（客户端）希望接收的数据类型
       "Content-Type": ContentType, //实体头，代表发送端（客户端|服务器）发送的实体数据的数据类型
