@@ -1,0 +1,16 @@
+// @import "../../common/scss/public.scss";
+@import "./Main.scss";
+@import "./Modal.scss";
+.tl-title {
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    line-height: 20px;
+    letter-spacing: 0px;
+    color: #ffffff;
+    // box-shadow: 0px 0px 8px 0px #000000;
+    opacity: 0.72;
+    &>span {
+        padding: 0 8px;
+    }
+}
