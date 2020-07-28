@@ -12,10 +12,11 @@ import TopMenu from "./TopMenu";
 import TopHandle from "./TopHandle";
 import AddClassModal from "../Modal/AddClassModal";
 import actions from "../../actions";
+import Public from "../../../../common/js/public";
 
 import { Button, Modal } from "../../../../common";
 const { UpDataState, UpUIState, PublicAction } = actions;
-
+let { checkUrlAndPostMsg } = Public;
 class TimeBanner extends React.Component {
   constructor(props) {
     super(props);
@@ -67,7 +68,11 @@ class TimeBanner extends React.Component {
   };
   onImportClick = () => {
     let { dispatch } = this.props;
-    window.open("/html/class/#/Import/Genger");
+    let url ='/html/class'+ window.location.search +'#/Import/Genger';
+
+    // console.log(url);
+    checkUrlAndPostMsg({ btnName:'导入班主任及班长', url });
+    // window.open("/html/class/#/Import/Genger");
   };
   onAddClassModalOk = () => {
     let {

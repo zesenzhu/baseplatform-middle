@@ -67,7 +67,7 @@ class Teacher extends React.Component {
           align: "center",
           key: "UserName",
           dataIndex: "UserName",
-          width: 130,
+          width: 180,
           sorter: true,
           render: arr => {
             return (
@@ -89,7 +89,7 @@ class Teacher extends React.Component {
         },
         {
           title: "用户名",
-          width: 120,
+          width: 170,
           align: "center",
           dataIndex: "ShortName",
           key: "ShortName",
@@ -103,59 +103,153 @@ class Teacher extends React.Component {
           }
         },
         {
-          title: "个性签名",
+          title: "最后一次登录",
           align: "center",
-          width: 300,
-          dataIndex: "Sign",
-          key: "Sign",
-          render: Sign => {
+          width: 200,
+          // dataIndex: "LastTime",
+          key: "LastTime",
+          render: (data) => {
             return (
-              <span className="Sign" title={Sign}>
-                {Sign ? Sign : "--"}
-              </span>
+              <div className="LastTime">
+                <p
+                  className="last"
+                  title={
+                    data.Others && data.Others.LastTimeLogin
+                      ? data.Others.LastTimeLogin
+                      : "--"
+                  }
+                >
+                  时间:
+                  {data.Others && data.Others.LastTimeLogin
+                    ? data.Others.LastTimeLogin
+                    : "--"}
+                </p>
+                <p
+                  className="last"
+                  title={
+                    data.Others && data.Others.LastTimeIP
+                      ? data.Others.LastTimeIP
+                      : "--"
+                  }
+                >
+                  IP:
+                  {data.Others && data.Others.LastTimeIP
+                    ? data.Others.LastTimeIP
+                    : "--"}
+                </p>
+              </div>
             );
-          }
+          },
         },
         {
-          width: 120,
           title: "联系方式",
           align: "center",
+          width: 270,
           key: "UserContact",
           dataIndex: "UserContact",
-          render: UserContact => {
+          render: (UserContact) => {
             return (
-              <Tooltip
-                placement="topLeft"
-                trigger="click"
-                arrowPointAtCenter={true}
-                title={<TipsContact data={UserContact}></TipsContact>}
-              >
-                <span
-                  className="UserContact"
-                  onClick={this.onUserContactClick.bind(this, UserContact)}
-                >
-                  查看
-                </span>
-              </Tooltip>
+              <div className="uc">
+                <div className="uc-float">
+                  <p className="uc-box uc-left">
+                    <span
+                      title={UserContact.QQ ? UserContact.QQ : "--"}
+                      className="uc-title uc-QQ"
+                    >
+                      {UserContact.QQ ? UserContact.QQ : "--"}
+                    </span>
+                    <span
+                      title={UserContact.Weibo ? UserContact.Weibo : "--"}
+                      className="uc-title uc-Weibo"
+                    >
+                      {UserContact.Weibo ? UserContact.Weibo : "--"}
+                    </span>
+                  </p>
+                </div>
+                <div className="uc-float">
+                  <p className="uc-box uc-right">
+                    <span
+                      title={UserContact.WeiXin ? UserContact.WeiXin : "--"}
+                      className="uc-title uc-WeiXin"
+                    >
+                      {UserContact.WeiXin ? UserContact.WeiXin : "--"}
+                    </span>
+                    <span
+                      title={
+                        UserContact.Telephone ? UserContact.Telephone : "--"
+                      }
+                      className="uc-title uc-Telephone"
+                    >
+                      {UserContact.Telephone ? UserContact.Telephone : "--"}
+                    </span>
+                  </p>
+                </div>
+              </div>
             );
-          }
+          },
         },
+        // {
+        //   title: "个性签名",
+        //   align: "center",
+        //   width: 300,
+        //   dataIndex: "Sign",
+        //   key: "Sign",
+        //   render: Sign => {
+        //     return (
+        //       <span className="Sign" title={Sign}>
+        //         {Sign ? Sign : "--"}
+        //       </span>
+        //     );
+        //   }
+        // },
+        // {
+        //   width: 120,
+        //   title: "联系方式",
+        //   align: "center",
+        //   key: "UserContact",
+        //   dataIndex: "UserContact",
+        //   render: UserContact => {
+        //     return (
+        //       <Tooltip
+        //         placement="topLeft"
+        //         trigger="click"
+        //         arrowPointAtCenter={true}
+        //         title={<TipsContact data={UserContact}></TipsContact>}
+        //       >
+        //         <span
+        //           className="UserContact"
+        //           onClick={this.onUserContactClick.bind(this, UserContact)}
+        //         >
+        //           查看
+        //         </span>
+        //       </Tooltip>
+        //     );
+        //   }
+        // },
         {
           title: "操作",
           width: 132,
           align: "center",
           key: "handle",
-          dataIndex: "key",
-          render: key => {
+          // dataIndex: "key",
+          render: data => {
             return (
               <div className="handle-content">
                 <Button
                   color="blue"
                   type="default"
-                  onClick={this.onChangePwdClick.bind(this, key)}
+                  onClick={this.onChangePwdClick.bind(this, data.key)}
                   className="handle-btn"
                 >
                   重置密码
+                </Button>
+                <Button
+                  color={data.Others.IsEnable ? "red" : "green"}
+                  type="default"
+                  onClick={this.onChangeEnableClick.bind(this, data.key)}
+                  className="handle-btn"
+                >
+                  {data.Others.IsEnable ? "禁用账号" : "启用账号"}
                 </Button>
               </div>
             );
@@ -290,7 +384,7 @@ class Teacher extends React.Component {
         actions.UpDataState.getSubjectTeacherPreview(
           "/GetTeacherToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize=10&SubjectIDs=" +
+            "&PageIndex=0&PageSize="+this.state.pageSize+ "&SubjectIDs=" +
             e.value +
             this.state.sortFiled +
             this.state.sortType
@@ -301,7 +395,7 @@ class Teacher extends React.Component {
         actions.UpDataState.getSubjectTeacherPreview(
           "/GetTeacherToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize=10" +
+            "&PageIndex=0&PageSize="+this.state.pageSize+ "" +
             this.state.sortFiled +
             this.state.sortType
         )
@@ -350,7 +444,7 @@ class Teacher extends React.Component {
       actions.UpDataState.getSubjectTeacherPreview(
         "/GetTeacherToPage?SchoolID=" +
           this.state.userMsg.SchoolID +
-          "&PageIndex=0&PageSize=10&keyword=" +
+          "&PageIndex=0&PageSize="+this.state.pageSize+ "&keyword=" +
           e.value +
           "&SubjectIDs=" +
           (this.state.SubjectSelect.value
@@ -385,7 +479,7 @@ class Teacher extends React.Component {
           this.state.userMsg.SchoolID +
           "&PageIndex=" +
           0 +
-          "&PageSize=10" +
+          "&PageSize="+this.state.pageSize+ "" +
           "&SubjectIDs=" +
           (this.state.SubjectSelect.value
             ? this.state.SubjectSelect.value
@@ -613,7 +707,7 @@ class Teacher extends React.Component {
                   this.state.userMsg.SchoolID +
                   "&PageIndex=" +
                   (this.state.pagination - 1) +
-                  "&PageSize=10&keyword=" +
+                  "&PageSize="+this.state.pageSize+ "&keyword=" +
                   this.state.keyword +
                   "&SubjectIDs=" +
                   (this.state.SubjectSelect.value
@@ -626,6 +720,57 @@ class Teacher extends React.Component {
           }
         });
     }
+  };
+  onChangeEnableClick = (key, isEnable) => {
+    const {
+      dispatch,
+      DataState: {
+        SubjectTeacherPreview: { newList },
+      },
+    } = this.props;
+    let {
+      Others: { UserID, UserType, IsEnable },
+    } = newList[key];
+    console.log(IsEnable);
+    dispatch(
+      actions.UpDataState.DisableAccount({
+        UserID,
+        UserType,
+        Flag: !IsEnable ? 1 : 0,
+        func: () => {
+          dispatch(
+            actions.UpUIState.showErrorAlert({
+              type: "success",
+              title: "操作成功",
+              onHide: this.onAlertWarnHide.bind(this)
+            })
+          );
+          this.setState({
+            ChangePwdMadalVisible: false,
+            defaultPwd: "pwd888888",
+            checkedList: [],
+            checkAll: false,
+            PwdStrong:0
+          });
+          dispatch(
+            actions.UpDataState.getSubjectTeacherPreview(
+              "/GetTeacherToPage?SchoolID=" +
+                this.state.userMsg.SchoolID +
+                "&PageIndex=" +
+                (this.state.pagination - 1) +
+                "&PageSize="+this.state.pageSize+ "&keyword=" +
+                this.state.keyword +
+                "&SubjectIDs=" +
+                (this.state.SubjectSelect.value
+                  ? this.state.SubjectSelect.value
+                  : "") +
+                this.state.sortFiled +
+                this.state.sortType
+            )
+          );
+        },
+      })
+    );
   };
   // 批量
   onAllPwdchangeOk = pwd => {
@@ -682,7 +827,7 @@ class Teacher extends React.Component {
                   this.state.userMsg.SchoolID +
                   "&PageIndex=" +
                   (this.state.pagination - 1) +
-                  "&PageSize=10&keyword=" +
+                  "&PageSize="+this.state.pageSize+ "&keyword=" +
                   this.state.keyword +
                   "&SubjectIDs=" +
                   (this.state.SubjectSelect.value
@@ -796,7 +941,7 @@ class Teacher extends React.Component {
                 this.state.userMsg.SchoolID +
                 "&PageIndex=" +
                 (this.state.pagination - 1) +
-                "&PageSize=10&keyword=" +
+                "&PageSize="+this.state.pageSize+ "&keyword=" +
                 this.state.keyword +
                 "&SubjectIDs=" +
                 (this.state.SubjectSelect.value
@@ -833,7 +978,7 @@ class Teacher extends React.Component {
           this.state.userMsg.SchoolID +
           "&PageIndex=" +
           (value - 1) +
-          "&PageSize=10" +
+          "&PageSize="+this.state.pageSize+ "" +
           keyword +
           SubjectIDs +
           this.state.sortFiled +
@@ -841,6 +986,43 @@ class Teacher extends React.Component {
       )
     );
   };
+  // 改变显示条目数
+onShowSizeChange = (current, pageSize) => {
+  // console.log(current, pageSize);
+  const { dispatch } = this.props;
+ 
+    this.setState({
+      checkedList: [],
+    checkAll: false,
+    pageSize,
+    pagination:1,
+ 
+ 
+    });
+    let SubjectIDs = "";
+    let keyword = "";
+
+    if (this.state.SubjectSelect.value !== 0) {
+      SubjectIDs = "&SubjectIDs=" + this.state.SubjectSelect.value;
+    }
+    if (this.state.keyword !== "") {
+      keyword = "&keyword=" + this.state.keyword;
+    }
+    dispatch(
+      actions.UpDataState.getSubjectTeacherPreview(
+        "/GetTeacherToPage?SchoolID=" +
+          this.state.userMsg.SchoolID +
+          "&PageIndex=" +
+          0 +
+          "&PageSize="+ pageSize+ "" +
+          keyword +
+          SubjectIDs +
+          this.state.sortFiled +
+          this.state.sortType
+      )
+    );
+  
+};
   onUserNameClick = UserID => {
     const { dispatch } = this.props;
     dispatch(actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID,()=>{
@@ -914,7 +1096,7 @@ class Teacher extends React.Component {
             this.state.userMsg.SchoolID +
             "&sortFiled=" +
             sorter.columnKey +
-            "&PageSize=10&" +
+            "&PageSize="+this.state.pageSize+ "&" +
             sortType +
             "&PageIndex=" +
             (this.state.pagination - 1) +
@@ -933,7 +1115,7 @@ class Teacher extends React.Component {
         actions.UpDataState.getSubjectTeacherPreview(
           "/GetTeacherToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageSize=10" +
+            "&PageSize="+this.state.pageSize+ "" +
             "&PageIndex=" +
             (this.state.pagination - 1) +
             keyword +
@@ -1173,10 +1355,13 @@ class Teacher extends React.Component {
                   <div className="pagination-box">
                     <PagiNation
                       showQuickJumper
-                      hideOnSinglepage={true}
+                      hideOnSinglePage={DataState.SubjectTeacherPreview.Total===0?true:false}
                       current={this.state.pagination}
                       total={DataState.SubjectTeacherPreview.Total}
                       onChange={this.onPagiNationChange}
+                      pageSize={this.state.pageSize}
+                      showSizeChanger
+                      onShowSizeChange={this.onShowSizeChange}
                     ></PagiNation>
                   </div>
                 </div>

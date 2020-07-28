@@ -210,6 +210,7 @@ class App extends Component {
     } else {
       //当做年级
       history.push("Grade");
+      this.ListenRoute({});//因为直接push会导致界面数据不刷新，所以暂时手动给刷新
     }
 
     // dispatch(

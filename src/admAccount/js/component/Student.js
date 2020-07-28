@@ -14,7 +14,7 @@ import {
   CheckBoxGroup,
   Modal,
   Empty,
-  Loading
+  Loading,
 } from "../../../common/index";
 //import '../../../common/scss/_left_menu.scss'
 import { Link } from "react-router-dom";
@@ -27,6 +27,7 @@ import history from "../containers/history";
 //import EditModal from './EditModal'
 //import IconLocation from '../../images/icon-location.png'
 import actions from "../actions";
+import UpDataState from "../actions/UpDataState";
 //import StudentChangeRecord from './StudentChangeRecord'
 class Student extends React.Component {
   constructor(props) {
@@ -43,7 +44,7 @@ class Student extends React.Component {
           width: 70,
           key: "key",
           align: "left",
-          render: handle => {
+          render: (handle) => {
             return (
               <div className="registerTime-content">
                 <label style={{ whiteSpace: "nowrap" }}>
@@ -61,16 +62,16 @@ class Student extends React.Component {
                 </label>
               </div>
             );
-          }
+          },
         },
         {
           title: "姓名",
           align: "center",
           key: "UserName",
-          width: 130,
+          width: 180,
           dataIndex: "UserName",
           sorter: true,
-          render: arr => {
+          render: (arr) => {
             return (
               <div className="name-content">
                 <span
@@ -90,82 +91,176 @@ class Student extends React.Component {
                 </span>
               </div>
             );
-          }
+          },
         },
         {
           title: "用户名",
           align: "center",
-          width: 120,
+          width: 170,
           dataIndex: "ShortName",
           key: "ShortName",
           sorter: true,
-          render: ShortName => {
+          render: (ShortName) => {
             return (
               <span className="UserName" title={ShortName}>
                 {ShortName ? ShortName : "--"}
               </span>
             );
-          }
+          },
         },
         {
-          title: "个性签名",
+          title: "最后一次登录",
           align: "center",
-          width: 300,
-          dataIndex: "Sign",
-          key: "Sign",
-          render: Sign => {
+          width: 200,
+          // dataIndex: "LastTime",
+          key: "LastTime",
+          render: (data) => {
             return (
-              <span className="Sign" title={Sign}>
-                {Sign ? Sign : "--"}
-              </span>
+              <div className="LastTime">
+                <p
+                  className="last"
+                  title={
+                    data.Others && data.Others.LastTimeLogin
+                      ? data.Others.LastTimeLogin
+                      : "--"
+                  }
+                >
+                  时间:
+                  {data.Others && data.Others.LastTimeLogin
+                    ? data.Others.LastTimeLogin
+                    : "--"}
+                </p>
+                <p
+                  className="last"
+                  title={
+                    data.Others && data.Others.LastTimeIP
+                      ? data.Others.LastTimeIP
+                      : "--"
+                  }
+                >
+                  IP:
+                  {data.Others && data.Others.LastTimeIP
+                    ? data.Others.LastTimeIP
+                    : "--"}
+                </p>
+              </div>
             );
-          }
+          },
         },
         {
           title: "联系方式",
           align: "center",
-          width: 120,
+          width: 270,
           key: "UserContact",
           dataIndex: "UserContact",
-          render: UserContact => {
+          render: (UserContact) => {
             return (
-              <Tooltip
-                placement="topLeft"
-                trigger="click"
-                arrowPointAtCenter={true}
-                title={<TipsContact data={UserContact}></TipsContact>}
-              >
-                <span
-                  className="UserContact"
-                  onClick={this.onUserContactClick.bind(this, UserContact)}
-                >
-                  查看
-                </span>
-              </Tooltip>
+              <div className="uc">
+                <div className="uc-float">
+                  <p className="uc-box uc-left">
+                    <span
+                      title={UserContact.QQ ? UserContact.QQ : "--"}
+                      className="uc-title uc-QQ"
+                    >
+                      {UserContact.QQ ? UserContact.QQ : "--"}
+                    </span>
+                    <span
+                      title={UserContact.Weibo ? UserContact.Weibo : "--"}
+                      className="uc-title uc-Weibo"
+                    >
+                      {UserContact.Weibo ? UserContact.Weibo : "--"}
+                    </span>
+                  </p>
+                </div>
+                <div className="uc-float">
+                  <p className="uc-box uc-right">
+                    <span
+                      title={UserContact.WeiXin ? UserContact.WeiXin : "--"}
+                      className="uc-title uc-WeiXin"
+                    >
+                      {UserContact.WeiXin ? UserContact.WeiXin : "--"}
+                    </span>
+                    <span
+                      title={
+                        UserContact.Telephone ? UserContact.Telephone : "--"
+                      }
+                      className="uc-title uc-Telephone"
+                    >
+                      {UserContact.Telephone ? UserContact.Telephone : "--"}
+                    </span>
+                  </p>
+                </div>
+              </div>
             );
-          }
+          },
         },
+        // {
+        //   title: "个性签名",
+        //   align: "center",
+        //   width: 300,
+        //   dataIndex: "Sign",
+        //   key: "Sign",
+        //   render: Sign => {
+        //     return (
+        //       <span className="Sign" title={Sign}>
+        //         {Sign ? Sign : "--"}
+        //       </span>
+        //     );
+        //   }
+        // },
+        // {
+        //   title: "联系方式",
+        //   align: "center",
+        //   width: 120,
+        //   key: "UserContact",
+        //   dataIndex: "UserContact",
+        //   render: UserContact => {
+        //     return (
+        //       <Tooltip
+        //         placement="topLeft"
+        //         trigger="click"
+        //         arrowPointAtCenter={true}
+        //         title={<TipsContact data={UserContact}></TipsContact>}
+        //       >
+        //         <span
+        //           className="UserContact"
+        //           onClick={this.onUserContactClick.bind(this, UserContact)}
+        //         >
+        //           查看
+        //         </span>
+        //       </Tooltip>
+        //     );
+        //   }
+        // },
         {
           title: "操作",
-          width: 132,
+          width: 232,
           align: "center",
           key: "handle",
-          dataIndex: "key",
-          render: key => {
+          // dataIndex: "key",
+          render: (data) => {
             return (
               <div className="handle-content">
                 <Button
                   color="blue"
                   type="default"
-                  onClick={this.onChangePwdClick.bind(this, key)}
+                  onClick={this.onChangePwdClick.bind(this, data.key)}
                   className="handle-btn"
                 >
                   重置密码
                 </Button>
+                <Button
+                  color={data.Others.IsEnable ? "red" : "green"}
+                  type="default"
+                  onClick={this.onChangeEnableClick.bind(this, data.key)}
+                  className="handle-btn"
+                >
+                  {data.Others.IsEnable ? "禁用账号" : "启用账号"}
+                </Button>
               </div>
             );
-          }
-        }
+          },
+        },
       ],
       pagination: 1,
       loading: false,
@@ -196,8 +291,8 @@ class Student extends React.Component {
       PwdTipsTitle:
         "密码应由8-20位字母、数字及特殊字符`~!@#$%^&*()_+-={}|[]:\";'<>?,./\\的任意两种及以上组成",
       ChangeAllPwdMadalVisible: false,
-      PwdStrong:0
-
+      PwdStrong: 0,
+      pageSize:10
     };
     window.StudentCancelSearch = this.StudentCancelSearch.bind(this);
   }
@@ -211,7 +306,7 @@ class Student extends React.Component {
       searchValue: "",
       DropMenuShow: false,
       secondSelect: { value: 0, title: "全部班级" },
-      firstSelect: { value: 0, title: "全部年级" }
+      firstSelect: { value: 0, title: "全部年级" },
     });
   };
   componentWillMount() {
@@ -233,11 +328,11 @@ class Student extends React.Component {
     }
 
     this.setState({
-      GradeArr: GradeArr
+      GradeArr: GradeArr,
     });
   }
 
-  StudentDropMenu = e => {
+  StudentDropMenu = (e) => {
     const { dispatch, DataState } = this.props;
 
     let Classes = [{ value: 0, title: "全部班级" }];
@@ -245,19 +340,19 @@ class Student extends React.Component {
     //console.log(this.refs.dropMenuSecond)
     if (e.value !== 0) {
       let ClassArr = DataState.GradeClassMsg.returnData.AllClasses[e.value];
-      ClassArr.map(Class => {
+      ClassArr.map((Class) => {
         Classes.push(Class);
       });
       //Classes.push(this.props.DataState.GradeClassMsg.returnData.AllClasses[e.value]);
       //this.refs.dropMenuSecond.state.dropList = Classes;]
       this.setState({
-        secondDropList: Classes
+        secondDropList: Classes,
       });
       dispatch(
         actions.UpDataState.getGradeStudentPreview(
           "/GetStudentToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize=10&gradeID=" +
+            "&PageIndex=0&PageSize="+this.state.pageSize+ "&gradeID=" +
             e.value +
             this.state.sortFiled +
             this.state.sortType
@@ -273,14 +368,14 @@ class Student extends React.Component {
         checkAll: false,
         keyword: "",
         pagination: 1,
-        CancelBtnShow: "n"
+        CancelBtnShow: "n",
       });
     } else {
       dispatch(
         actions.UpDataState.getGradeStudentPreview(
           "/GetStudentToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize=10" +
+            "&PageIndex=0&PageSize="+this.state.pageSize+ "" +
             this.state.sortFiled +
             this.state.sortType
         )
@@ -294,12 +389,12 @@ class Student extends React.Component {
         checkedList: [],
         checkAll: false,
         keyword: "",
-        CancelBtnShow: "n"
+        CancelBtnShow: "n",
       });
     }
   };
 
-  StudentDropMenuSecond = e => {
+  StudentDropMenuSecond = (e) => {
     const { dispatch, DataState } = this.props;
     this.setState({
       secondSelect: e,
@@ -308,14 +403,14 @@ class Student extends React.Component {
       pagination: 1,
       CancelBtnShow: "n",
       checkedList: [],
-      checkAll: false
+      checkAll: false,
     });
     if (e.value !== 0)
       dispatch(
         actions.UpDataState.getGradeStudentPreview(
           "/GetStudentToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize=10&gradeID=" +
+            "&PageIndex=0&PageSize="+this.state.pageSize+ "&gradeID=" +
             this.state.firstSelect.value +
             "&classID=" +
             e.value +
@@ -328,7 +423,7 @@ class Student extends React.Component {
         actions.UpDataState.getGradeStudentPreview(
           "/GetStudentToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize=10&gradeID=" +
+            "&PageIndex=0&PageSize="+this.state.pageSize+ "&gradeID=" +
             this.state.firstSelect.value +
             this.state.sortFiled +
             this.state.sortType
@@ -336,7 +431,7 @@ class Student extends React.Component {
       );
   };
   //搜索
-  StudentSearch = e => {
+  StudentSearch = (e) => {
     const { dispatch } = this.props;
 
     if (e.value === "") {
@@ -347,7 +442,7 @@ class Student extends React.Component {
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
           close: this.onAlertWarnClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
       return;
@@ -362,7 +457,7 @@ class Student extends React.Component {
           title: "输入的学号或姓名格式不正确",
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
-          close: this.onAlertWarnClose.bind(this)
+          close: this.onAlertWarnClose.bind(this),
         })
       );
       return;
@@ -371,7 +466,7 @@ class Student extends React.Component {
       actions.UpDataState.getGradeStudentPreview(
         "/GetStudentToPage?SchoolID=" +
           this.state.userMsg.SchoolID +
-          "&PageIndex=0&PageSize=10&keyword=" +
+          "&PageIndex=0&PageSize="+this.state.pageSize+ "&keyword=" +
           e.value +
           (this.state.firstSelect.value
             ? "&gradeID=" + this.state.firstSelect.value
@@ -387,18 +482,18 @@ class Student extends React.Component {
       checkedList: [],
       checkAll: false,
       keyword: e.value,
-      CancelBtnShow: "y"
+      CancelBtnShow: "y",
     });
   };
 
   //搜索change
-  onChangeSearch = e => {
+  onChangeSearch = (e) => {
     this.setState({
-      searchValue: e.target.value.trim()
+      searchValue: e.target.value.trim(),
     });
   };
   // 取消搜索
-  onCancelSearch = e => {
+  onCancelSearch = (e) => {
     const { dispatch } = this.props;
 
     this.setState({
@@ -407,7 +502,7 @@ class Student extends React.Component {
       checkedList: [],
       checkAll: false,
       pagination: 1,
-      searchValue: e.value
+      searchValue: e.value,
     });
     dispatch(
       actions.UpDataState.getGradeStudentPreview(
@@ -415,7 +510,7 @@ class Student extends React.Component {
           this.state.userMsg.SchoolID +
           "&PageIndex=" +
           0 +
-          "&PageSize=10" +
+          "&PageSize="+this.state.pageSize+ "" +
           (this.state.firstSelect.value
             ? "&gradeID=" + this.state.firstSelect.value
             : "") +
@@ -427,11 +522,11 @@ class Student extends React.Component {
       )
     );
   };
-  onSelectChange = e => {
+  onSelectChange = (e) => {
     //this.setState({ selectedRowKeys });
   };
 
-  onUserContactClick = UserContact => {
+  onUserContactClick = (UserContact) => {
     // this.setState({
     //     StudentChangeMadalVisible: true,
     //     StudentChangeKey: key
@@ -444,15 +539,15 @@ class Student extends React.Component {
   //         StudentChangeKey: key
   //     })
   // }
-  onPwdBlur = e => {
+  onPwdBlur = (e) => {
     const { dispatch } = this.props;
     // console.log(e.target.value);
     let value = e.target.value;
     const { isOK, txt } = this.UserComm_ValidatePwd(value);
-    let PwdStrong = this.UserComm_PwdStrong(value)
+    let PwdStrong = this.UserComm_PwdStrong(value);
     this.setState({
-      PwdStrong:PwdStrong
-    })
+      PwdStrong: PwdStrong,
+    });
     if (!isOK) {
       dispatch({ type: actions.UpUIState.PWD_TIPS_OPEN });
       return;
@@ -472,15 +567,15 @@ class Student extends React.Component {
     // }
   };
   // 批量重置
-  onAllPwdBlur = e => {
+  onAllPwdBlur = (e) => {
     const { dispatch } = this.props;
     // console.log(e.target.value);
     let value = e.target.value;
     const { isOK, txt } = this.UserComm_ValidatePwd(value);
-    let PwdStrong = this.UserComm_PwdStrong(value)
+    let PwdStrong = this.UserComm_PwdStrong(value);
     this.setState({
-      PwdStrong:PwdStrong
-    })
+      PwdStrong: PwdStrong,
+    });
     if (!isOK) {
       dispatch({ type: actions.UpUIState.PWD_TIPS_OPEN });
       return;
@@ -500,48 +595,48 @@ class Student extends React.Component {
     // }
   };
   onMouseEnterName = () => {};
-  OnCheckAllChange = e => {
+  OnCheckAllChange = (e) => {
     const { DataState, dispatch } = this.props;
     if (e.target.checked) {
       this.setState({
         checkedList: DataState.GradeStudentPreview.keyList,
-        checkAll: e.target.checked
+        checkAll: e.target.checked,
       });
     } else {
       this.setState({
         checkedList: [],
-        checkAll: e.target.checked
+        checkAll: e.target.checked,
       });
     }
   };
-  onCheckBoxGroupChange = checkedList => {
+  onCheckBoxGroupChange = (checkedList) => {
     const { DataState, dispatch } = this.props;
     this.setState({
       checkedList,
       checkAll:
         checkedList.length === DataState.GradeStudentPreview.keyList.length
           ? true
-          : false
+          : false,
     });
   };
-  handleStudentModalOk = e => {
+  handleStudentModalOk = (e) => {
     this.setState({
-      studentModalVisible: false
+      studentModalVisible: false,
     });
   };
-  handleStudentModalCancel = e => {
+  handleStudentModalCancel = (e) => {
     this.setState({
-      studentModalVisible: false
+      studentModalVisible: false,
     });
   };
-  ChangePwdMadalOk = e => {
+  ChangePwdMadalOk = (e) => {
     this.setState({
-      ChangePwdMadalVisible: false
+      ChangePwdMadalVisible: false,
     });
   };
-  ChangeAllPwdMadalOk = e => {
+  ChangeAllPwdMadalOk = (e) => {
     this.setState({
-      ChangeAllPwdMadalVisible: false
+      ChangeAllPwdMadalVisible: false,
     });
   };
 
@@ -555,7 +650,7 @@ class Student extends React.Component {
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
           close: this.onAlertWarnClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
       return;
@@ -570,23 +665,76 @@ class Student extends React.Component {
       //   })
       // );
       this.setState({
-        ChangeAllPwdMadalVisible: true
+        ChangeAllPwdMadalVisible: true,
       });
     }
   };
   //table点击重置密码
-  onChangePwdClick = key => {
+  onChangePwdClick = (key) => {
     const { dispatch, DataState } = this.props;
 
     let pwd = "pwd888888";
     // console.log(key)
     this.setState({
       ChangePwdMadalVisible: true,
-      onClickKey: key
+      onClickKey: key,
     });
   };
+  onChangeEnableClick = (key, isEnable) => {
+    const {
+      dispatch,
+      DataState: {
+        GradeStudentPreview: { newList },
+      },
+    } = this.props;
+    let {
+      Others: { UserID, UserType, IsEnable },
+    } = newList[key];
+    console.log(IsEnable);
+    dispatch(
+      UpDataState.DisableAccount({
+        UserID,
+        UserType,
+        Flag: !IsEnable ? 1 : 0,
+        func: () => {
+          dispatch(
+            actions.UpUIState.showErrorAlert({
+              type: "success",
+              title: "操作成功",
+              onHide: this.onAlertWarnHide.bind(this),
+            })
+          );
+          this.setState({
+            ChangePwdMadalVisible: false,
+            defaultPwd: "pwd888888",
+            checkedList: [],
+            checkAll: false,
+            PwdStrong: 0,
+          });
+          dispatch(
+            actions.UpDataState.getGradeStudentPreview(
+              "/GetStudentToPage?SchoolID=" +
+                this.state.userMsg.SchoolID +
+                "&PageIndex=" +
+                (this.state.pagination - 1) +
+                "&PageSize="+this.state.pageSize+ "&keyword=" +
+                this.state.keyword +
+                (this.state.firstSelect.value
+                  ? "&gradeID=" + this.state.firstSelect.value
+                  : "") +
+                (this.state.secondSelect.value
+                  ? "&classID=" + this.state.secondSelect.value
+                  : "") +
+                this.state.sortFiled +
+                this.state.sortType
+            )
+          );
+        },
+      })
+    );
+  };
   // 重置密码ok
-  onPwdchangeOk = pwd => {
+  onPwdchangeOk = (pwd) => {
     const { dispatch, DataState, UIState } = this.props;
     let url = "/ResetPwd";
     let UserMsg = DataState.LoginUser;
@@ -604,20 +752,20 @@ class Student extends React.Component {
             DataState.GradeStudentPreview.newList[this.state.onClickKey].Others
               .UserID,
           userType: 2,
-          newPwd: md5(this.state.defaultPwd)
+          newPwd: md5(this.state.defaultPwd),
         },
         2
       )
-        .then(res => {
+        .then((res) => {
           return res.json();
         })
-        .then(json => {
+        .then((json) => {
           if (json.StatusCode === 200) {
             dispatch(
               actions.UpUIState.showErrorAlert({
                 type: "success",
                 title: "操作成功",
-                onHide: this.onAlertWarnHide.bind(this)
+                onHide: this.onAlertWarnHide.bind(this),
               })
             );
             this.setState({
@@ -625,7 +773,7 @@ class Student extends React.Component {
               defaultPwd: "pwd888888",
               checkedList: [],
               checkAll: false,
-              PwdStrong:0
+              PwdStrong: 0,
             });
             dispatch(
               actions.UpDataState.getGradeStudentPreview(
@@ -633,7 +781,7 @@ class Student extends React.Component {
                   this.state.userMsg.SchoolID +
                   "&PageIndex=" +
                   (this.state.pagination - 1) +
-                  "&PageSize=10&keyword=" +
+                  "&PageSize="+this.state.pageSize+ "&keyword=" +
                   this.state.keyword +
                   (this.state.firstSelect.value
                     ? "&gradeID=" + this.state.firstSelect.value
@@ -650,7 +798,7 @@ class Student extends React.Component {
     }
   };
   // 批量重置密码ok
-  onAllPwdchangeOk = pwd => {
+  onAllPwdchangeOk = (pwd) => {
     const { dispatch, DataState, UIState } = this.props;
     let url = "/ResetPwd";
     let UserMsg = DataState.LoginUser;
@@ -669,20 +817,20 @@ class Student extends React.Component {
         {
           userID: userIDs.join(),
           userType: 2,
-          newPwd: md5(this.state.defaultPwd)
+          newPwd: md5(this.state.defaultPwd),
         },
         2
       )
-        .then(res => {
+        .then((res) => {
           return res.json();
         })
-        .then(json => {
+        .then((json) => {
           if (json.StatusCode === 200) {
             dispatch(
               actions.UpUIState.showErrorAlert({
                 type: "success",
                 title: "操作成功",
-                onHide: this.onAlertWarnHide.bind(this)
+                onHide: this.onAlertWarnHide.bind(this),
               })
             );
 
@@ -691,7 +839,7 @@ class Student extends React.Component {
               defaultPwd: "pwd888888",
               checkedList: [],
               checkAll: false,
-              PwdStrong:0
+              PwdStrong: 0,
             });
             dispatch(
               actions.UpDataState.getGradeStudentPreview(
@@ -699,7 +847,7 @@ class Student extends React.Component {
                   this.state.userMsg.SchoolID +
                   "&PageIndex=" +
                   (this.state.pagination - 1) +
-                  "&PageSize=10&keyword=" +
+                  "&PageSize="+this.state.pageSize+ "&keyword=" +
                   this.state.keyword +
                   (this.state.firstSelect.value
                     ? "&gradeID=" + this.state.firstSelect.value
@@ -730,7 +878,7 @@ class Student extends React.Component {
     this.setState({
       ChangePwdMadalVisible: false,
       defaultPwd: "pwd888888",
-      PwdStrong:0
+      PwdStrong: 0,
     });
   };
   // 批量重置密码close
@@ -742,20 +890,20 @@ class Student extends React.Component {
     this.setState({
       ChangeAllPwdMadalVisible: false,
       defaultPwd: "pwd888888",
-      PwdStrong:0
+      PwdStrong: 0,
     });
   };
-  onPwdchange = e => {
+  onPwdchange = (e) => {
     const { dispatch } = this.props;
     this.setState({
-      defaultPwd: e.target.value.trim()
+      defaultPwd: e.target.value.trim(),
     });
   };
   // 批量change
-  onAllPwdchange = e => {
+  onAllPwdchange = (e) => {
     const { dispatch } = this.props;
     this.setState({
-      defaultPwd: e.target.value.trim()
+      defaultPwd: e.target.value.trim(),
     });
   };
   onAlertWarnClose = () => {
@@ -770,7 +918,7 @@ class Student extends React.Component {
     const { dispatch } = this.props;
     dispatch(actions.UpUIState.hideErrorAlert());
   };
-  onAlertQueryOk = pwd => {
+  onAlertQueryOk = (pwd) => {
     let url = "/ResetPwd";
     const { dispatch, DataState } = this.props;
     dispatch(actions.UpUIState.hideErrorAlert());
@@ -782,25 +930,25 @@ class Student extends React.Component {
       {
         userID: userIDs.join(),
         userType: 2,
-        newPwd: md5(this.state.defaultPwd)
+        newPwd: md5(this.state.defaultPwd),
       },
       2
     )
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         if (json.StatusCode === 200) {
           dispatch(
             actions.UpUIState.showErrorAlert({
               type: "success",
               title: "操作成功",
-              onHide: this.onAlertWarnHide.bind(this)
+              onHide: this.onAlertWarnHide.bind(this),
             })
           );
           this.setState({
             checkedList: [],
-            checkAll: false
+            checkAll: false,
           });
           dispatch(
             actions.UpDataState.getGradeStudentPreview(
@@ -808,7 +956,7 @@ class Student extends React.Component {
                 this.state.userMsg.SchoolID +
                 "&PageIndex=" +
                 (this.state.pagination - 1) +
-                "&PageSize=10&keyword=" +
+                "&PageSize="+this.state.pageSize+ "&keyword=" +
                 this.state.keyword +
                 (this.state.firstSelect.value
                   ? "&gradeID=" + this.state.firstSelect.value
@@ -824,10 +972,10 @@ class Student extends React.Component {
       });
   };
   //分页
-  onPagiNationChange = value => {
+  onPagiNationChange = (value) => {
     const { dispatch } = this.props;
     this.setState({
-      pagination: value
+      pagination: value,
     });
     let firstSelect = "";
     let secondSelect = "";
@@ -846,7 +994,7 @@ class Student extends React.Component {
       checkAll: false,
       firstSelectStr: firstSelect,
       secondSelectStr: secondSelect,
-      keywordStr: keyword
+      keywordStr: keyword,
     });
     dispatch(
       actions.UpDataState.getGradeStudentPreview(
@@ -854,7 +1002,7 @@ class Student extends React.Component {
           this.state.userMsg.SchoolID +
           "&PageIndex=" +
           --value +
-          "&PageSize=10" +
+          "&PageSize="+this.state.pageSize+ "" +
           keyword +
           firstSelect +
           secondSelect +
@@ -894,7 +1042,7 @@ class Student extends React.Component {
         checkedList: [],
         checkAll: false,
         sortType: "&" + sortType,
-        sortFiled: "&sortFiled=" + sorter.columnKey
+        sortFiled: "&sortFiled=" + sorter.columnKey,
       });
       dispatch(
         actions.UpDataState.getGradeStudentPreview(
@@ -902,7 +1050,7 @@ class Student extends React.Component {
             this.state.userMsg.SchoolID +
             "&sortFiled=" +
             sorter.columnKey +
-            "&PageSize=10&" +
+            "&PageSize="+this.state.pageSize+ "&" +
             sortType +
             "&PageIndex=" +
             (this.state.pagination - 1) +
@@ -921,13 +1069,13 @@ class Student extends React.Component {
         sortType: "",
         sortFiled: "",
         checkedList: [],
-        checkAll: false
+        checkAll: false,
       });
       dispatch(
         actions.UpDataState.getGradeStudentPreview(
           "/GetStudentToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageSize=10" +
+            "&PageSize="+this.state.pageSize+ "" +
             "&PageIndex=" +
             (this.state.pagination - 1) +
             keyword +
@@ -937,44 +1085,44 @@ class Student extends React.Component {
       );
     }
   };
-  onUserNameClick = UserID => {
+  onUserNameClick = (UserID) => {
     const { dispatch } = this.props;
-    dispatch(actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID,()=>{
-      this.setState({
-        StudentDetailsMsgModalVisible: true
-      });
-    }));
-
-    
+    dispatch(
+      actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID, () => {
+        this.setState({
+          StudentDetailsMsgModalVisible: true,
+        });
+      })
+    );
   };
   StudentDetailsMsgModalOk = () => {
     this.setState({
-      StudentDetailsMsgModalVisible: false
+      StudentDetailsMsgModalVisible: false,
     });
   };
   StudentDetailsMsgModalCancel = () => {
     this.setState({
-      StudentDetailsMsgModalVisible: false
+      StudentDetailsMsgModalVisible: false,
     });
   };
-  onAddStudent = e => {
+  onAddStudent = (e) => {
     this.setState({
       addStudentModalVisible: true,
-      userKey: "add"
+      userKey: "add",
     });
   };
-  handleAddStudentModalOk = e => {
+  handleAddStudentModalOk = (e) => {
     this.setState({
-      addStudentModalVisible: false
+      addStudentModalVisible: false,
     });
   };
-  handleAddStudentModalCancel = e => {
+  handleAddStudentModalCancel = (e) => {
     this.setState({
-      addStudentModalVisible: false
+      addStudentModalVisible: false,
     });
   };
   //密码合法判断
-  UserComm_ValidatePwd = pwd => {
+  UserComm_ValidatePwd = (pwd) => {
     let lengthOver8 = true;
     let lengthLess20 = true;
     let containNumber = true;
@@ -1023,44 +1171,84 @@ class Student extends React.Component {
       return { isOK: false, txt: txt };
     }
   };
-// 密码强度
-  UserComm_PwdStrong=(pwd)=>{
-
+  // 密码强度
+  UserComm_PwdStrong = (pwd) => {
     const containNumber = /[0-9]+/.test(pwd);
 
     const containLetters = /[a-zA-Z]+/.test(pwd);
 
-    const containSymbol = /[`~\!@#$%\^&*\(\)_\+={}|\[\]:\";\'<>\?,.\/\\-]+/.test(pwd);
+    const containSymbol = /[`~\!@#$%\^&*\(\)_\+={}|\[\]:\";\'<>\?,.\/\\-]+/.test(
+      pwd
+    );
 
     //判断是否是强
 
-    if (containLetters&&containNumber&&containSymbol){
+    if (containLetters && containNumber && containSymbol) {
+      return 3;
+    } else if (
+      (containLetters && !containSymbol && !containNumber) ||
+      (containSymbol && !containLetters && !containNumber) ||
+      (containNumber && !containLetters && !containSymbol)
+    ) {
+      //判断是否是弱类型
 
-        return 3
+      return 1;
+    } else if (!containLetters && !containNumber && !containSymbol) {
+      //是否是这样的类型
+      return 0;
+    } else {
+      //是否是中等类型
 
-    }else if (
-
-        (containLetters&&(!containSymbol)&&(!containNumber))||
-
-        (containSymbol&&(!containLetters)&&(!containNumber))||
-
-        (containNumber&&(!containLetters)&&(!containSymbol))
-
-    ){//判断是否是弱类型
-
-        return 1
-
-    }else if (!containLetters&&!containNumber&&!containSymbol) {
-        //是否是这样的类型
-        return 0;
-
-    }else{//是否是中等类型
-
-        return 2;
-
+      return 2;
     }
+  };
+  // 改变显示条目数
+  onShowSizeChange = (current, pageSize) => {
+    // console.log(current, pageSize);
+    const { dispatch } = this.props;
+    let firstSelect = "";
+    let secondSelect = "";
+    let keyword = "";
+    if (this.state.firstSelect.value !== 0) {
+      firstSelect = "&gradeID=" + this.state.firstSelect.value;
+    }
+    if (this.state.secondSelect.value !== 0) {
+      secondSelect = "&classID=" + this.state.secondSelect.value;
+    }
+    if (this.state.keyword !== "") {
+      keyword = "&keyword=" + this.state.keyword;
+    }
+    this.setState({
+      checkedList: [],
+      checkAll: false,
+      pageSize,
+      pagination:1,
+      firstSelectStr: firstSelect,
+      secondSelectStr: secondSelect,
+      keywordStr: keyword,
+    });
+    // this.setState({
+    //   pageSize,
+    //   checkedList: [],
+    //   checkAll: false,
+    //   pagination:1
+    // });
 
-}
+    dispatch(
+      actions.UpDataState.getGradeStudentPreview(
+        "/GetStudentToPage?SchoolID=" +
+          this.state.userMsg.SchoolID +
+          "&PageIndex=" +
+          0 +
+          "&PageSize="+pageSize+ "" +
+          keyword +
+          firstSelect +
+          secondSelect +
+          this.state.sortFiled +
+          this.state.sortType
+      )
+    );
+  };
   render() {
     const { UIState, DataState } = this.props;
     const data = {
@@ -1075,9 +1263,9 @@ class Student extends React.Component {
       userIDCard: "",
       userPhone: "15626248624",
       userMail: "1519406168@qq.com",
-      userAddress: "蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团"
+      userAddress: "蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团",
     };
-    console.log(this.state.secondDropList,DataState.GradeClassMsg.returnData)
+    console.log(this.state.secondDropList, DataState.GradeClassMsg.returnData);
     return (
       <div className="Student">
         <div className="Student-box">
@@ -1117,7 +1305,11 @@ class Student extends React.Component {
                 height={240}
                 style={{ display: this.state.DropMenuShow ? "block" : "none" }}
                 dropSelectd={this.state.secondSelect}
-                dropList={this.state.secondDropList?this.state.secondDropList:[{ value: 0, title: "全部班级" }]}
+                dropList={
+                  this.state.secondDropList
+                    ? this.state.secondDropList
+                    : [{ value: 0, title: "全部班级" }]
+                }
                 onChange={this.StudentDropMenuSecond}
               ></DropDown>
               <Search
@@ -1174,7 +1366,7 @@ class Student extends React.Component {
                           display:
                             DataState.GradeStudentPreview.Total === 0
                               ? "none"
-                              : "inline-block"
+                              : "inline-block",
                         }}
                         className="checkAll-box"
                         type="gray"
@@ -1198,10 +1390,13 @@ class Student extends React.Component {
                   <div className="pagination-box">
                     <PagiNation
                       showQuickJumper
+                      showSizeChanger
+                      pageSize={this.state.pageSize}
                       current={this.state.pagination}
-                      hideOnSinglepage={true}
+                      hideOnSinglePage={DataState.GradeStudentPreview.Total===0?true:false}
                       total={DataState.GradeStudentPreview.Total}
                       onChange={this.onPagiNationChange}
+                      onShowSizeChange={this.onShowSizeChange}
                       // showTotal={(total, range) => `共${DataState.GradeStudentPreview.Total/10} 页 `}
                     ></PagiNation>
                   </div>
@@ -1286,7 +1481,7 @@ class Student extends React.Component {
                 overlayClassName="tips"
                 visible={UIState.TipsVisible.PwdTipsShow}
                 title={this.state.PwdTipsTitle}
-                getPopupContainer={e => e.parentNode}
+                getPopupContainer={(e) => e.parentNode}
               >
                 <Input
                   onBlur={this.onPwdBlur.bind(this)}
@@ -1295,16 +1490,34 @@ class Student extends React.Component {
                   style={{ width: 120 + "px" }}
                   value={this.state.defaultPwd}
                 ></Input>
-                
               </Tips>
-              <div className='PwdStrong' style={{ display: this.state.PwdStrong ? "block" : "none" }}>
+              <div
+                className="PwdStrong"
+                style={{ display: this.state.PwdStrong ? "block" : "none" }}
+              >
                 <span className="strongTips">密码强度：</span>
                 <span className="pwd-box">
-                  <span className={`color-first-${this.state.PwdStrong} box-first `}></span>
-                  <span className={`color-second-${this.state.PwdStrong} box-second`}></span>
-                  <span className={`color-third-${this.state.PwdStrong} box-third`} ></span>
+                  <span
+                    className={`color-first-${this.state.PwdStrong} box-first `}
+                  ></span>
+                  <span
+                    className={`color-second-${this.state.PwdStrong} box-second`}
+                  ></span>
+                  <span
+                    className={`color-third-${this.state.PwdStrong} box-third`}
+                  ></span>
                 </span>
-                <span className={`strongTips tips-color-${this.state.PwdStrong} `}>{this.state.PwdStrong===1?'弱':this.state.PwdStrong===2?'中':this.state.PwdStrong===3?'强':''}</span>
+                <span
+                  className={`strongTips tips-color-${this.state.PwdStrong} `}
+                >
+                  {this.state.PwdStrong === 1
+                    ? "弱"
+                    : this.state.PwdStrong === 2
+                    ? "中"
+                    : this.state.PwdStrong === 3
+                    ? "强"
+                    : ""}
+                </span>
               </div>
             </div>
           }
@@ -1359,7 +1572,7 @@ class Student extends React.Component {
                 overlayClassName="tips"
                 visible={UIState.TipsVisible.PwdTipsShow}
                 title={this.state.PwdTipsTitle}
-                getPopupContainer={e => e.parentNode}
+                getPopupContainer={(e) => e.parentNode}
               >
                 <Input
                   onBlur={this.onAllPwdBlur.bind(this)}
@@ -1369,14 +1582,33 @@ class Student extends React.Component {
                   value={this.state.defaultPwd}
                 ></Input>
               </Tips>
-              <div className='PwdStrong' style={{ display: this.state.PwdStrong ? "block" : "none" }}>
+              <div
+                className="PwdStrong"
+                style={{ display: this.state.PwdStrong ? "block" : "none" }}
+              >
                 <span className="strongTips">密码强度：</span>
                 <span className="pwd-box">
-                  <span className={`color-first-${this.state.PwdStrong} box-first `}></span>
-                  <span className={`color-second-${this.state.PwdStrong} box-second`}></span>
-                  <span className={`color-third-${this.state.PwdStrong} box-third`} ></span>
+                  <span
+                    className={`color-first-${this.state.PwdStrong} box-first `}
+                  ></span>
+                  <span
+                    className={`color-second-${this.state.PwdStrong} box-second`}
+                  ></span>
+                  <span
+                    className={`color-third-${this.state.PwdStrong} box-third`}
+                  ></span>
                 </span>
-                <span className={`strongTips tips-color-${this.state.PwdStrong} `}>{this.state.PwdStrong===1?'弱':this.state.PwdStrong===2?'中':this.state.PwdStrong===3?'强':''}</span>
+                <span
+                  className={`strongTips tips-color-${this.state.PwdStrong} `}
+                >
+                  {this.state.PwdStrong === 1
+                    ? "弱"
+                    : this.state.PwdStrong === 2
+                    ? "中"
+                    : this.state.PwdStrong === 3
+                    ? "强"
+                    : ""}
+                </span>
               </div>
             </div>
           }
@@ -1426,11 +1658,11 @@ class Student extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   let { UIState, DataState } = state;
   return {
     UIState,
-    DataState
+    DataState,
   };
 };
 export default connect(mapStateToProps)(Student);

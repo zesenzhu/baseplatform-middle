@@ -9,7 +9,7 @@ $image-url: "../images";
         position: relative;
         text-align: left;
         margin: 0 auto;
-        width: 870px;
+        // width: 870px;
         .Leader-top {
             position: relative;
             margin: 0;
@@ -21,7 +21,7 @@ $image-url: "../images";
                     line-height: 37px;
                     color: #333333;
                     padding-left: 21px;
-                    margin-left: -21px;
+                    // margin-left: -21px;
                     background-size: 17px 17px;
                     background-position: left center;
                 }
@@ -46,13 +46,15 @@ $image-url: "../images";
         .Leader-hr {
             position: relative;
             border-top: 1px dashed #ccc;
-            width: 870px;
-            margin: 0 auto;
+            left: 21px;
+            width: calc(100% - 21px);
+            // width: 870px;
+            // margin: 0 auto;
         }
         .Leader-content {
             margin: 18px auto 0;
             position: relative;
-            width: 870px;
+            // width: 870px;
             .content-top {
                 position: relative;
                 height: 28px;
@@ -173,6 +175,66 @@ $image-url: "../images";
                         overflow: hidden; //超出一行文字自动隐藏
                         text-overflow: ellipsis; //文字隐藏后添加省略号
                         white-space: nowrap; //强制不换行
+                    }
+                    .LastTime {
+                        color: #999;
+                        font-size: 14px;
+                        .last {
+                            margin: 0 auto;
+                            line-height: 18px;
+                            max-width: 200px;
+                            overflow: hidden; //超出一行文字自动隐藏
+                            text-overflow: ellipsis; //文字隐藏后添加省略号
+                            white-space: nowrap; //强制不换行
+                        }
+                    }
+                    .uc {
+                        width: 270px;
+                        .uc-float {
+                            width: 50%;
+                            display: inline-block;
+                            vertical-align: top;
+                            height: 36px;
+                        }
+                        .uc-left {
+                            float: right;
+                            .uc-title {
+                                text-align: left;
+                            }
+                        }
+                        .uc-right {
+                            float: left;
+                        }
+                        .uc-box {
+                            margin-bottom: 0;
+                            max-width: 100%;
+                            .uc-title {
+                                height: 20px;
+                                line-height: 20px;
+                                display: block;
+                                font-size: 14px;
+                                color: #333;
+                                // vertical-align: top;
+                                max-width: 100%;
+                                padding-left: 42px;
+                                // padding-right: 10px;
+                                overflow: hidden; //超出一行文字自动隐藏
+                                text-overflow: ellipsis; //文字隐藏后添加省略号
+                                white-space: nowrap; //强制不换行
+                            }
+                            .uc-QQ {
+                                background: url(../images/QQ.png)no-repeat 20px center /16px 16px;
+                            }
+                            .uc-WeiXin {
+                                background: url(../images/weixin.png)no-repeat 20px center /16px 16px;
+                            }
+                            .uc-Weibo {
+                                background: url(../images/weibo.png)no-repeat 20px center /16px 16px;
+                            }
+                            .uc-Telephone {
+                                background: url(../images/telephone.png)no-repeat 20px center /16px 16px;
+                            }
+                        }
                     }
                     .Grader {
                         font-size: 14px;

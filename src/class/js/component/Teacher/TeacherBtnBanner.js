@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { Button } from "../../../../common";
+import Public from "../../../../common/js/public";
+let { checkUrlAndPostMsg } = Public;
 
 class TeacherBtnBanner extends Component {
   constructor(props) {
@@ -24,7 +26,11 @@ class TeacherBtnBanner extends Component {
               color="blue"
               className="import-class"
               onClick={(e) => {
-                window.open("/html/class/#/Import/Student");
+                let url ='/html/class'+ window.location.search +'#/Import/Student';
+
+                // console.log(url);
+                checkUrlAndPostMsg({ btnName:'导入学生', url });
+                // window.open("/html/class/#/Import/Student");
               }}
             >
               导入学生
@@ -42,7 +48,11 @@ class TeacherBtnBanner extends Component {
               color="blue"
               className="import-teacher"
               onClick={(e) => {
-                window.open("/html/admArchives");
+                let url ='/html/admArchives'+ window.location.search ;
+
+                // console.log(url);
+                checkUrlAndPostMsg({ btnName:'学生注册审核', url });
+                // window.open("/html/admArchives");
               }}
             >
               学生注册审核

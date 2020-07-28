@@ -82,6 +82,7 @@ if (process.env.NODE_ENV === 'development'){
         ClassProxy:'http://192.168.129.1:30103/UserMgr/ClassMgr',
 
         HashPrevProxy: RootUrl,
+        GlobalProxy:'http://192.168.129.1:30103/Global'
 
     }
 
@@ -129,7 +130,8 @@ if (process.env.NODE_ENV === 'production'){
         TextBookProxy_2:'/TextBook',
         ClassProxy:'/UserMgr/ClassMgr',
 
-        HashPrevProxy: RootUrl
+        HashPrevProxy: RootUrl,
+        GlobalProxy:'/Global'
 
     }
 

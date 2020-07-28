@@ -11,7 +11,7 @@ const RegisterMsg = (
     Pwd:'',
     SubjectIDs:[],
     SchoolID:'',
-
+    ShortName:''
   },
   actions
 ) => {
