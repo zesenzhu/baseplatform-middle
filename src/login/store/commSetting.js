@@ -33,7 +33,9 @@ const defaultSetting = {
 
     WebIndexUrl:'',
 
-    WebSvrAddr:''
+    IntroWebSvrAddr:'',
+
+    PCDownLoadWebSvrAddr:''
 
 };
 

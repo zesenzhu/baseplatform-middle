@@ -303,6 +303,14 @@
 
          background: url("#{$darkTechUrl}/dark-tech-app.png") no-repeat left center;
 
+         opacity:0.8;
+
+         &:hover{
+
+           opacity:1;
+
+         }
+
        }
 
       .code-wrapper{
@@ -403,28 +411,23 @@
 
     }
 
-
     .win_down_load{
 
       .down_load_icon{
 
         background: url("#{$darkTechUrl}/dark-teach-win.png") no-repeat left center;
 
-      }
+        opacity:0.8;
 
-    }
+        &:hover{
 
+          opacity: 1;
 
-    .options_introduce{
-
-      .down_load_icon{
-
-        background: url("#{$darkTechUrl}/dark-tech-operate-introduce.png") no-repeat left center;
+        }
 
       }
 
     }
-
 
     .down_load_icon{
 
@@ -435,6 +438,44 @@
       cursor: pointer;
 
       padding-left: 20px;
+
+    }
+
+    .options_introduce{
+
+      .down_load_icon{
+
+        background: url("#{$darkTechUrl}/dark-tech-operate-introduce.png") no-repeat left center;
+
+        opacity: 0.8;
+
+        &:hover{
+
+         opacity: 1;
+
+        }
+
+      }
+
+    }
+
+    .pc_client{
+
+      .down_load_icon{
+
+        background: url("#{$darkTechUrl}/dark-tech-pc-download.png") no-repeat left center;
+
+        opacity:0.8;
+
+        &:hover{
+
+          background-image: url("#{$darkTechUrl}/dark-tech-pc-download-hover.png");
+
+          opacity:1;
+
+        }
+
+      }
 
     }
 

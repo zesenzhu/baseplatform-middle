@@ -1,14 +1,16 @@
-import React,{useState,memo} from 'react';
+import React,{useState,memo,useCallback} from 'react';
 
 import config from '../api/config';
 
 import {CSSTransition} from 'react-transition-group';
 
-import {downLoadFile} from '../api/utils';
+import {downLoadFile,removeSlashUrl} from '../api/utils';
 
 
 function Header(props) {
 
+
+    //介绍界面
     const [introduceModal,setIntroduceModal] = useState({
 
         show:false,
@@ -16,6 +18,9 @@ function Header(props) {
         loading:true
 
     });
+
+
+    const [PCDownLoad,setPCDownLoad] = useState(false);
 
 
     const {aiSchoolLink} = props;
@@ -41,6 +46,38 @@ function Header(props) {
         downLoadFile(url);
 
     };
+
+
+    //一体化教学平台弹窗消失与否
+    const aiModalToggle = useCallback(()=>{
+
+        setPCDownLoad(d=>!d);
+
+    },[]);
+
+    //下载考试管理
+
+    console.log(props);
+
+    const downLoadTestManage = useCallback(()=>{
+
+        window.BstoCs.start("751|M10", "AiTestManage|LGCampusMonitorTest",props.WebRootUrl,"../AiTest/Manage/AiTest-Manage.exe", "");
+
+    },[props.WebRootUrl]);
+
+    //下载学生考试
+
+    const downLoadTestStu = useCallback(()=>{
+
+        const url = removeSlashUrl(props.PCDownLoadWebSvrAddr)+'/Lgsoft/AiTest-Client.exe';
+
+        downLoad(url);
+
+    },[props.PCDownLoadWebSvrAddr]);
+
+
+
+
 
 
     return(
@@ -124,6 +161,12 @@ function Header(props) {
                             <div className={"options_introduce"}>
 
                                 <a className="down_load_icon" onClick={e=>setIntroduceModal(d=>({...d,show:true}))}>"1分钟"操作指南</a>
+
+                            </div>
+
+                            <div className={"pc_client"}>
+
+                                <a className={"down_load_icon"} onClick={aiModalToggle}>下载客户端</a>
 
                             </div>
 
@@ -239,7 +282,7 @@ function Header(props) {
 
                             <div className={"app_down_load"}>
 
-                                <a className="down_load_icon"   href={`${props.WebSvrAddr}/download.html`} target={"_blank"}>下载PC客户端</a>
+                                <a className="down_load_icon"   href={`${props.PCDownLoadWebSvrAddr}/download.html`} target={"_blank"}>下载PC客户端</a>
 
                             </div>
 
@@ -263,11 +306,62 @@ function Header(props) {
 
             >
 
+
+
                 <div className={`introduce-modal ${props.skin}`}>
 
                     <i className={"close-icon"} onClick={e=>setIntroduceModal(d=>({...d,show:false}))}></i>
 
-                    <iframe src={`${props.WebSvrAddr}/Pages/UserHelp/teacherhelp.html`} frameBorder={0}></iframe>
+                    <iframe src={`${props.IntroWebSvrAddr}/Pages/UserHelp/teacherhelp.html`} frameBorder={0}></iframe>
+
+                </div>
+
+            </CSSTransition>
+
+
+            <CSSTransition
+
+                in={PCDownLoad}
+
+                timeout={500}
+
+                classNames={"ai-download"}
+
+            >
+
+                <div className={"ai-download-mask"}>
+
+                    <div className={`ai-pc-down-modal ${props.skin}`}>
+
+                        <i className={"close-icon"} onClick={aiModalToggle}></i>
+
+                        <div className={"download-icon"}>下载客户端</div>
+
+                        <div className={"content"}>
+
+                            <div className={"manage test"}>
+
+                                <i className={"icon"}></i>
+
+                                <div className={"title"}>考试管理客户端</div>
+
+                                <button onClick={props.PCDownLoadWebSvrAddr?downLoadTestManage:()=>{}} className={`down-btn ${!props.PCDownLoadWebSvrAddr?'disabled':''}`}></button>
+
+                            </div>
+
+                            <div className={"stu test"}>
+
+                                <i className={"icon"}></i>
+
+                                <div className={"title"}>学生考试客户端</div>
+
+                                <button onClick={props.PCDownLoadWebSvrAddr?downLoadTestStu:()=>{}} className={`down-btn ${!props.PCDownLoadWebSvrAddr?'disabled':''}`}></button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
