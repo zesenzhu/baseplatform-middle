@@ -1,0 +1,33 @@
+.log-count-wrapper{
+
+  float: right;
+
+  height: 50px;
+
+  line-height: 50px;
+
+  .tips{
+
+    padding-left: 20px;
+
+    background:url("../../../images/logo-lange.png") no-repeat left center;
+
+  }
+  
+  .tips_handle{
+    
+    text-decoration: underline;
+
+    color: #0099ff;
+
+    font-size: 14px;
+    
+    &:hover{
+
+      color: #ff6600;
+      
+    }
+    
+  }
+
+}

@@ -1,0 +1,385 @@
+@import "../../../scss/base";
+
+.manage-wrapper{
+
+  padding:28px 0;
+
+  .title-bar-wrapper{
+
+    .ant-btn{
+
+      height: 20px;
+
+      padding:0;
+
+     &>span{
+
+       font-size:14px;
+
+       text-decoration: underline;
+
+       height: 18px;
+
+       line-height:18px;
+
+       vertical-align: top;
+
+     }
+
+      background-repeat: no-repeat;
+
+      background-position: left center;
+
+      &:hover{
+
+        color:#ff6600;
+
+      }
+
+    }
+
+    .add{
+
+      position: relative;
+
+      padding-left:16px;
+
+      background-image: url("../../../images/add.png");
+
+      &:hover{
+
+        background-image: url("../../../images/add-active.png");
+
+      }
+
+      &:after{
+
+        position: absolute;
+
+        content: '';
+
+        right:-16px;
+
+        width: 1px;
+
+        height: 12px;
+
+        top:50%;
+
+        transform: translateY(-50%);
+
+        background-color: #c9e1f0;
+
+      }
+
+
+    }
+
+    .import{
+
+      margin-left:32px;
+
+      padding-left:20px;
+
+      background-image: url("../../../images/import.png");
+
+      &:hover{
+
+        background-image: url("../../../images/import-active.png");
+
+      }
+
+    }
+
+  }
+
+  .drops-search-wrapper{
+
+    position: relative;
+
+    z-index: 3;
+
+    margin: 16px 32px;
+
+    line-height: 28px;
+
+    &>*{
+
+      display: inline-block;
+
+      vertical-align: middle;
+
+    }
+
+    .props,.result{
+
+      margin-left:16px;
+
+      color: #999999;
+
+    }
+
+    .props{
+
+      &:first-child{
+
+        margin-left:0;
+
+      }
+
+    }
+
+    .search_container{
+
+      float: right;
+
+    }
+
+  }
+
+
+  .course-class-table{
+
+    margin:0 32px;
+
+    font-size: 14px;
+
+    .ant-checkbox+span{
+
+      padding-left:4px;
+
+      color: #999999;
+
+    }
+
+    .ant-table-tbody>tr>td{
+
+      padding:0;
+
+      height: 72px;
+
+    }
+
+    .ant-btn-link{
+
+      &.course-class-name{
+
+        float: left;
+
+        max-width:200px;
+
+        width: auto;
+
+        font-weight: bold;
+
+        @include textOverFlow;
+
+        color: #0099ff;
+
+        &:hover{
+
+          color: #ff6600;
+
+        }
+
+      }
+
+    }
+
+    .course-class-tab{
+
+      float: left;
+
+      width: 32px;
+
+      height: 20px;
+
+      background-color: #4fd0a0;
+
+      border-radius: 3px;
+
+      color: #ffffff;
+
+      text-align: center;
+
+      font-size: 12px;
+
+      margin-top: 2px;
+
+    }
+
+    .stu-num{
+
+      color: #999999;
+
+    }
+
+    .ant-btn{
+
+      height: 24px;
+      line-height: 24px;
+      text-align: center;
+      padding: 0;
+      width: 52px;
+      box-sizing: border-box;
+      margin-right: 3px;
+      font-size: 14px;
+
+    }
+
+    .sub-course{
+
+      width:190px;
+
+      margin: 0 auto;
+
+      @include textOverFlow;
+
+      color: #999999;
+
+    }
+
+    .grade,.college{
+
+      color: #666666;
+
+      margin: 0 auto;
+
+    }
+
+    .grade{
+
+      width: 112px;
+
+      @include textOverFlow;
+
+    }
+
+    .college{
+
+      width: 170px;
+
+      @include textOverFlow;
+
+    }
+
+    .emptyBox{
+
+      margin-top: 120px;
+
+    }
+
+    .teacher-info{
+
+      @include flex;
+
+      justify-content: center;
+
+      -ms-flex-pack: center;
+
+    }
+
+    .teacher-msg{
+
+      margin-left: 8px;
+
+      text-align: left;
+
+      .name,.id{
+
+        max-width: 150px;
+
+        @include textOverFlow;
+
+      }
+
+      .name{
+
+        color: #333333;
+
+      }
+
+      .id{
+
+        color: #999999;
+
+      }
+
+    }
+
+    .teacher-pic{
+
+      width: 36px;
+
+      height: 36px;
+
+      background-position:center;
+
+      background-repeat: no-repeat;
+
+      background-size: cover;
+
+      border-radius: 50%;
+
+    }
+
+    .emp{
+
+      text-align: center;
+
+      color: #999999;
+
+
+    }
+
+  }
+
+  .course-class-bottom{
+
+    margin:24px 32px;
+
+    height: 28px;
+
+    line-height: 28px;
+
+    .ant-pagination{
+
+      float: right;
+
+    }
+
+    .selector-all{
+
+      float: left;
+
+      .ant-btn{
+
+        height: 28px;
+
+        line-height: 26px;
+
+      }
+
+    }
+
+    .combine{
+
+      margin-left:12px;
+
+    }
+
+    .ant-checkbox-wrapper{
+
+      margin-left: 20px;
+
+    }
+
+  }
+
+}
+
+.red{
+
+  color: #ff6600;
+  
+}

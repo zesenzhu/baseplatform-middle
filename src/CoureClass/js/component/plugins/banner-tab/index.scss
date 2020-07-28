@@ -1,0 +1,76 @@
+.banner-tab-wrapper{
+
+  float: left;
+
+  .tab-item{
+    position: relative;
+    display: inline-block;
+    width: 132px;
+    height: 50px;
+    border: 0;
+    outline: none;
+    text-indent: 40px;
+    cursor: pointer;
+    background-color: #ffffff;
+    background-position: 20px center;
+    background-repeat: no-repeat;
+    
+    &:hover{
+
+      color: #ff6600;
+
+    }
+
+    &.statics{
+
+      background-image: url("../../../../images/statics-icon.png");
+
+      &:hover,&.active{
+
+        background-image: url("../../../../images/statics-icon-active.png");
+
+      }
+
+    }
+
+    &.manage{
+
+      background-image: url("../../../../images/manage-icon.png");
+
+      &:hover,&.active{
+
+        background-image: url("../../../../images/manage-icon-active.png");
+
+      }
+
+    }
+
+    &.active{
+
+      color: #ff6600;
+
+      background-color: #ffefe5;
+
+    }
+
+    &:not(:last-child){
+
+      &:after{
+
+        position: absolute;
+        width: 1px;
+        height: 14px;
+        background-color: #cccccc;
+        content: '';
+        right: 0;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+
+      }
+
+    }
+
+  }
+
+}

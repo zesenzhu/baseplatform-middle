@@ -554,7 +554,7 @@ class AddCourseClass extends React.Component {
       });
     }
 
-    console.log(this.state.SubjectSelect, this.state.GradeSelect);
+
     return (
       <React.Fragment>
         <div id="HandleCourseClass" className="HandleCourseClass">
