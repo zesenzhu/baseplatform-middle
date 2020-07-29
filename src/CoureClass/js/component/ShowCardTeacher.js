@@ -46,7 +46,7 @@ class ShowCardTeacher extends React.Component {
     //单个删除
     onAppAlertDeleteOK = (id) => {
         const { dispatch, DataState, UIState } = this.props;
-        let userMsg = DataState.LoginUser
+        let userMsg = DataState.LoginUser;
         let url = '/DeleteCourseClass';
         dispatch(actions.UpUIState.hideErrorAlert());
         postData(CONFIG.CourseClassProxy + url, {
@@ -63,9 +63,21 @@ class ShowCardTeacher extends React.Component {
                     title: "成功",
                     onHide: this.onAlertWarnHide.bind(this)
                 }));
-                history.push('/Teacher')
+
+                history.push('/Teacher');
+
             // dispatch(actions.UpDataState.getTeacherCourseClassMsg('/GetCourseClassByUserID?schoolID='+this.state.UserMsg.SchoolID+'&userID='+this.state.UserMsg.SchoolID));
-               
+
+                dispatch(
+                    actions.UpDataState.getTeacherCourseClassMsg(
+                        "/GetCourseClassByUserID?schoolID=" +
+                        userMsg.SchoolID +
+                        "&teacherID=" +
+                        userMsg.UserID
+                    )
+                );
+
+
             }
         })
     }

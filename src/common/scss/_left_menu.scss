@@ -941,6 +941,23 @@ ul {
             background-image: url(#{$image-url}/new/left-menu/new/menu-icon27-active.png);
         }
     }
+
+    &.menu45 {
+        //background-image: url(#{$image-url}/new/left-menu/add/menu10.png);
+        background-image: url(#{$image-url}/new/left-menu/new/menu-icon28.png);
+        &.active {
+            background-image: url(#{$image-url}/new/left-menu/new/menu-icon28-active.png);
+        }
+    }
+
+    &.menu46 {
+        //background-image: url(#{$image-url}/new/left-menu/add/menu10.png);
+        background-image: url(#{$image-url}/new/left-menu/new/menu-icon29.png);
+        &.active {
+            background-image: url(#{$image-url}/new/left-menu/new/menu-icon29-active.png);
+        }
+    }
+
 }
 
 // 新左侧菜单
@@ -1072,6 +1089,13 @@ ul {
     &.menu44 {
         background-image: url(#{$image-url}/new/left-menu/new/menu-icon27-hover.png);
     }
+
+    &.menu45 {
+        background-image: url(#{$image-url}/new/left-menu/new/menu-icon28-hover.png);
+    }
+    &.menu46 {
+        background-image: url(#{$image-url}/new/left-menu/new/menu-icon29-hover.png);
+    }
 }
 
 :not(.no_child):not(.active)>.frame_leftmenu_arrow:hover {
@@ -1159,6 +1183,12 @@ ul {
     }
     >.menu44 {
         background-image: url(#{$image-url}/new/left-menu/new/menu-icon27-active.png);
+    }
+    >.menu45 {
+        background-image: url(#{$image-url}/new/left-menu/new/menu-icon28-active.png);
+    }
+    >.menu46 {
+        background-image: url(#{$image-url}/new/left-menu/new/menu-icon29-active.png);
     }
 }
 

@@ -277,7 +277,6 @@ class Class extends React.Component {
   //列表分页改变事件
   onPagiNationChange = (value)=> {
     const { dispatch, DataState } = this.props;
-
     let route = history.location.pathname;
     let pathArr = route.split("/");
     let handleRoute = pathArr[1];
