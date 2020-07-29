@@ -476,7 +476,7 @@ class EditModal extends React.Component {
     let value = e.target.value;
     let Test = /^([0-9\/-]){1,40}$/.test(value);
 
-    if (!Test) {
+    if (value!==''&&!Test) {
       dispatch(actions.UpUIState.SetTipsVisible({ TelphoneTipsVisible: true }));
     } else {
       dispatch(
@@ -504,7 +504,7 @@ class EditModal extends React.Component {
     let value = e.target.value;
     let Test = /^[1-9]*[1-9][0-9]{4,18}$/.test(value);
 
-    if (!Test) {
+    if (value!==''&&!Test) {
       dispatch(actions.UpUIState.SetTipsVisible({ QQTipsVisible: true }));
     } else {
       dispatch(
