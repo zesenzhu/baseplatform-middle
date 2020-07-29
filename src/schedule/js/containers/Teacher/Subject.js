@@ -182,7 +182,7 @@ class Subject extends Component{
 
             <CSSTransition in={this.state.fullScreen} timeout={200} classNames={"full-screen"}>
 
-                <div className={`subject-teacher-subject-content`}>
+                <div className={`subject-teacher-subject-content ${this.state.fullScreen?'full-screen-doing':''}`}>
 
                     <div className="full-screen-btn" onClick={this.FullScreenClick.bind(this)}>{this.state.fullScreen?'退出全屏':'全屏'}</div>
 
