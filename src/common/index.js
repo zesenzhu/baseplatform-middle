@@ -32,11 +32,16 @@ import CONFIG from "./js/config";
 
 import "moment/locale/zh-cn";
 
+import {getQueryVariable} from './js/disconnect/index';
+
+
 const $ = require("jquery");
 
 const history = require("history");
 
 const hashHistory = history.createHashHistory();
+
+
 
 moment.locale("zh-cn");
 /*
@@ -523,11 +528,11 @@ class Modal extends React.Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    const { title } = nextProps;
+    const { title,bodyStyle,className } = nextProps;
 
     this.selectType(this.props.type);
 
-    this.setState({ title: title });
+    this.setState({ title: title,bodyStyle,className });
   }
   // 拖拽modal
 
@@ -2699,6 +2704,7 @@ class Frame extends React.Component {
 
     this.state = {
       fixed: false,
+      isFrame:false
     };
   }
 
@@ -2714,10 +2720,21 @@ class Frame extends React.Component {
     });
   }
 
-  UNSAFE_componentWillReceiveProps() {
+  UNSAFE_componentWillReceiveProps(props) {
     if (window.AppRightContentChange) {
       window.AppRightContentChange(this.RightContent.clientHeight);
     }
+
+    if (getQueryVariable('iFrame')){
+
+      this.setState({isFrame:true},()=>{
+
+        //$('body').css("cssText",'background-color:#ffffff!important');
+
+      });
+
+    }
+
   }
 
   render() {
@@ -2822,7 +2839,7 @@ class Frame extends React.Component {
     }
 
     return (
-      <div className="frame-drag-flag" {...reset}>
+      <div className={`frame-drag-flag ${this.state.isFrame?'has-in-frame':''}`}   {...reset}>
         {showTop ? (
           <div className="frame-header-wrapper">
             <div className={`frame-header-bg ${type ? type : ""}`}>
@@ -2909,7 +2926,7 @@ class Frame extends React.Component {
         )}
 
         {showBarner ? (
-          <div className="frame-time-bar">
+          <div className={`frame-time-bar ${this.state.isFrame?'has-in-frame':''}`}>
             <div className="frame-nav-content">{timeBarner}</div>
           </div>
         ) : (
@@ -2918,7 +2935,7 @@ class Frame extends React.Component {
         <div
           className={`frame-content-wrapper clearfix ${
             showBarner ? "" : "barnerHide"
-          }`}
+          }  ${this.state.isFrame?'has-in-frame':''}`}
         >
           <div
             className={`frame-content-leftside ${

@@ -8,6 +8,13 @@ $img_url:'#{$image_url}/frame';
   min-width: 1200px;
   background-color:#f5f5f5;
   min-height: 100%;
+
+  /*&.has-in-frame{
+
+    background-color: #ffffff;
+
+  }*/
+
 }
 //界面框架头部
 .frame-header-wrapper{
@@ -410,6 +417,17 @@ $img_url:'#{$image_url}/frame';
   line-height: 50px;
   background-color: #fff;
   @include box-shadow(0 3px 5px 0 rgba(0, 0, 0, 0.03));
+
+  &.has-in-frame{
+
+    .frame-nav-content{
+
+      margin:0;
+
+    }
+
+  }
+
 }
 .frame-nav-content{
   width: 1200px;
@@ -426,6 +444,27 @@ $img_url:'#{$image_url}/frame';
   &.barnerHide{
     margin-top: 20px;
   }
+
+  &.has-in-frame{
+
+    margin:0;
+
+    margin-top:0;
+
+    .frame-content-rightside{
+
+      &.frame-fluid{
+
+        border-radius:0;
+
+        box-shadow: none;
+
+      }
+
+    }
+
+  }
+
 }
 .frame-content-rightside{
   float: right;

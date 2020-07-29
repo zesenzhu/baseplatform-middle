@@ -49,7 +49,7 @@ function postData(
   if(credentials===undefined){
     credentials = 'omit'
   }
-  console.log(content_type,requestHeader)
+
   let ContentTypeArr = [
     "application/x-www-form-urlencoded",
     "application/json",
@@ -252,7 +252,7 @@ const getData =(
   if(credentials===undefined){
     credentials = 'omit'
   }
-  console.log(content_type,requestHeader)
+
 
   if (isIE()) {
     url = encodeURI(url);

@@ -20,8 +20,6 @@ import {CSSTransition} from 'react-transition-group';
 
 import WeekDayPick from '../../component/WeekDayPick';
 
-import NewScheduleTable from '../../component/NewScheduleTable/index';
-
 
 
 class Subject extends Component{

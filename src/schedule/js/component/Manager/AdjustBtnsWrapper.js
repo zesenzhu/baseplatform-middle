@@ -1,7 +1,17 @@
 import React,{Component} from 'react';
-import ScheduleSetting from "../../containers/Manager/ScheduleSetting";
+
+import {checkUrlAndPostMsg} from "../../../../common/js/public";
 
 class AdjustBtnsWrapper extends Component{
+
+
+    lookAdjustLog(){
+
+        const url = location.pathname+'#/manager/adjustlog'+location.search;
+
+        checkUrlAndPostMsg({btnName:'查看调课日志',url});
+
+    }
 
 
     render() {
@@ -74,7 +84,7 @@ class AdjustBtnsWrapper extends Component{
 
                 </span>
 
-                <span className="see-adjust-log" onClick={()=>{ window.open('/html/schedule#/manager/adjustlog'); }}>查看调课日志</span>
+                <span className="see-adjust-log" onClick={this.lookAdjustLog.bind(this)}>查看调课日志</span>
 
 
 

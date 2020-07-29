@@ -7,8 +7,6 @@ import { connect } from "react-redux";
 
 import CONFIG from "../../../common/js/config";
 
-import deepCompare from "../../../common/js/public";
-
 import Student from './Student';
 
 import {loginUserUpdate} from '../reducers/LoginUser';
@@ -52,19 +50,21 @@ import Teacher from "../component/Teacher";
 
 import "../../scss/index.scss";
 
-import { postData, getData } from "../../../common/js/fetch";
+import { postData } from "../../../common/js/fetch";
 
 import actions from "../actions";
 
-import { QueryPower, QueryAdminPower } from "../../../common/js/power";
+import { QueryPower } from "../../../common/js/power";
 
 import {bannerTabHide,bannerBtnShow,bannerLogHide,bannerShow,
 
-    bannerHide,bannerBtnHide,bannerLogShow,bannerTabShow} from "../reducers/bannerState";
+    bannerHide} from "../reducers/bannerState";
 
-import {leftMemuShow,leftMemuHide,leftMenuListUpdate} from "../reducers/leftMenu";
+import {leftMemuShow,leftMemuHide} from "../reducers/leftMenu";
+
 import {appLoadingHide} from "../reducers/AppLoading";
 
+import {getQueryVariable} from "../../../common/js/disconnect";
 
 
 const COURECLASS_MODULEID = "000-2-0-17"; //教学班管理
@@ -79,8 +79,8 @@ class App extends Component {
       showBarner: true,
       showLeftMenu: true,
       UserMsg: JSON.parse(sessionStorage.getItem("UserInfo")),
-
-      firstLoad:true
+      firstLoad:true,
+      isFrame:false
 
     };
 
@@ -242,6 +242,11 @@ class App extends Component {
     });
 
 
+    if (getQueryVariable("iFrame")){
+
+     this.setState({isFrame:true});
+
+    }
   }
 
   onAppAlertOK() {
@@ -656,7 +661,7 @@ class App extends Component {
   };
   //添加教学班模态框
   AddCourseClassModalOk = () => {
-    const { dispatch, DataState,LoginUser } = this.props;
+    const { dispatch, DataState,LoginUser,history} = this.props;
     let Student =
       DataState.GetCourseClassDetailsHandleClassMsg.selectData.Student;
 
@@ -669,6 +674,7 @@ class App extends Component {
     let subjectID = pathArr[3];
     let classID = pathArr[4];
     let pageIndex = DataState.GetClassAllMsg.allClass.pageIndex;
+
     let isFalse = false;
 
     if (data.selectData.CourseClass.CourseClassName === "") {
@@ -823,16 +829,19 @@ class App extends Component {
 
     }
 
+
+
+
+
   render() {
+
+    console.log(this.state.isFrame);
+
     const { UIState, DataState,AppLoading,leftMenu,bannerState,history } = this.props;
 
     let {UserID,UserType} = DataState.LoginUser;
 
-    /*if (DataState.GetCoureClassAllMsg.isError) {
 
-      window.location.href = "/html/CoureClass#/All";
-
-    }*/
 
     let route = history.location.pathname.split("/");
     let cnname = "教学班管理";
@@ -963,12 +972,10 @@ class App extends Component {
           ref="CourseClassDetailsMadal"
           type="1"
           width={800}
-          // width={680}
-
+          className={`edit-course-class ${this.state.isFrame?'has-in-frame':''}`}
           destroyOnClose={true}
           title={"编辑教学班"}
-          bodyStyle={{ height: 530 + "px", padding: 0 }}
-          // bodyStyle={{ height: 305 + "px", padding: 0 }}
+          bodyStyle={{ height:this.state.isFrame?396:530, padding: 0 }}
           visible={UIState.ChangeCourseClassModalShow.Show}
           onOk={this.ChangeCourseClassModalOk}
           onCancel={this.ChangeCourseClassModalCancel}
@@ -978,22 +985,21 @@ class App extends Component {
             opacity={false}
             spinning={AppLoading}
           >
-            <HandleCourseClass></HandleCourseClass>
+            <HandleCourseClass isFrame={this.state.isFrame}></HandleCourseClass>
           </Loading>
         </Modal>
         <Modal
           ref="AddCourseClassDetailsMadal"
           type="1"
           width={800}
-          // width={680}
           destroyOnClose={true}
           title={"添加教学班"}
-          bodyStyle={{ height: 530 + "px", padding: 0 }}
-          // bodyStyle={{ height: 305 + "px", padding: 0 }}
-
+          bodyStyle={{height:this.state.isFrame?396:530, padding: 0 }}
           visible={UIState.AddCourseClassModalShow.Show}
           onOk={this.AddCourseClassModalOk}
           onCancel={this.AddCourseClassModalCancel}
+          className={`add-course-class ${this.state.isFrame?'has-in-frame':''}`}
+
         >
           <Loading
             wrapperClassName="handle-laoding"
@@ -1009,7 +1015,10 @@ class App extends Component {
                     ? "Teacher"
                     : false
                 }
-              ></AddCourseClass>
+                isFrame={this.state.isFrame}
+              >
+
+              </AddCourseClass>
             ) : (
               ""
             )}
@@ -1020,7 +1029,7 @@ class App extends Component {
           type="1"
           width={720}
           title={"教学班调整详情"}
-          bodyStyle={{ height: 532 + "px", padding: 0 }}
+          bodyStyle={{height:532, padding: 0 }}
           visible={UIState.LogDetailsModalShow.Show}
           footer={null}
           destroyOnClose={true}

@@ -206,3 +206,37 @@
         }
     }
 }
+
+
+.add-course-class,.edit-course-class{
+
+    &.has-in-frame{
+
+        #HandleCourseClass {
+
+            padding-top: 20px;
+
+            .row{
+
+                margin-bottom: 10px;
+
+            }
+
+            .row .row-column .right-2 .Student-box .select-box .select-content-box{
+
+                height: 88px;
+
+            }
+
+            .row .row-column .right-2 .Student-box{
+
+                height: 290px;
+
+            }
+
+        }
+
+    }
+
+}
+

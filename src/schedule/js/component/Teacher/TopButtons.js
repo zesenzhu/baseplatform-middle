@@ -1,12 +1,30 @@
-import React,{Component} from 'react';
+import React,{useMemo,memo,useState,useCallback,useEffect} from 'react';
 
 import { Button } from "../../../../common";
 
-class TopButtons extends Component{
+import {getQueryVariable} from "../../../../common/js/disconnect";
 
-    render() {
+function TopButtons(props){
 
-        const { AdjustScheduleShow,Import,AddTempScheduleShow,Power } = this.props;
+    const [isFrame,setIsFrame] = useState(false);
+
+
+    const { Power } = props;
+
+    const {AdjustScheduleShow,AddTempScheduleShow,Import} = props;
+
+
+    useEffect(()=>{
+
+        if (getQueryVariable('iFrame')){
+
+            setIsFrame(true);
+
+        }
+
+    },[]);
+
+
 
         return (
 
@@ -28,7 +46,15 @@ class TopButtons extends Component{
 
                         <React.Fragment>
 
-                            <Button color="blue" className="teacher-btn import-schedule" onClick={()=>Import()}>导入课程安排</Button>
+                            {
+
+                                !isFrame?
+
+                                    <Button color="blue" className="teacher-btn import-schedule" onClick={()=>Import()}>导入课程安排</Button>
+
+                                    :null
+
+                            }
 
                             <Button color="blue" className="teacher-btn adjust-schedule" onClick={()=>AddTempScheduleShow()}>添加临时课程</Button>
 
@@ -44,8 +70,6 @@ class TopButtons extends Component{
 
         );
 
-    }
-
 }
 
-export default TopButtons;
+export default memo(TopButtons);

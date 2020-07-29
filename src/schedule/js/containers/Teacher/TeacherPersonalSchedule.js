@@ -22,16 +22,6 @@ import AdjustByTeacherModal from './AdjustByTeacherModal';
 
 import ComPageRefresh from "../../actions/ComPageRefresh";
 
-/*
-import ScheduleDetailModal from "../../component/ScheduleDetailModal";
-
-import ChangeTimeModal from "../../component/ChangeTimeModal";
-
-import AdjustClassRoomModal from "../../component/AdjustClassRoomModal";
-
-import ReplaceScheduleModal from "../../component/ReplaceScheduleModal";
-*/
-
 import AddTempScheduleModal from './AddTempScheduleModal';
 
 import $ from "jquery";

@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{useEffect,useCallback,useState,useMemo,useRef,memo} from 'react';
 
 import {HashRouter as Router,Route,Switch,Redirect} from  'react-router-dom';
 
@@ -10,25 +10,33 @@ import SubjectTeacher from './SubjectTeacher';
 
 import ClassTotalStudent from "../Teacher/ClassTotalStudent";
 
-import { connect } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+
+import {getQueryVariable} from "../../../../common/js/disconnect";
 
 
+function Index(props){
+
+    const [isFrame,setIsFrame] = useState(false);
+
+    const [headerLink,setHeaderLink] = useState([]);
 
 
-class Index extends Component{
+    const LoginUser = useSelector(state=>state.LoginUser);
 
+    const { UserType,UserClass,UserID } = LoginUser;
 
+    const dispatch = useDispatch();
 
+    useEffect(()=>{
 
-    render() {
+        if (UserID){
 
-        let HeaderLinkList = [];
+            if (getQueryVariable("iFrame")){
 
-        const { LoginUser,dispatch } = this.props;
+                setIsFrame(true);
 
-        const { UserType,UserClass,UserID } = LoginUser;
-
-        if (Object.keys(LoginUser).length>0){
+            }
 
             if (UserType==='1'){
 
@@ -36,25 +44,33 @@ class Index extends Component{
 
                 if (UserClassType==='1'){
 
-                    HeaderLinkList = [
+                    console.log(getQueryVariable('iFrame'));
 
-                                {link:"/teacher/subject-teacher",name:"学科教师课表",logo:"subject"},
+                    let list = getQueryVariable('iFrame')?
+                        [
+                        {link:"/teacher/mine",name:"我的课表",logo:"mine"},
+                        {link:"/teacher/class",name:"班级课表",logo:"class"}
+                        ]:
+                        [
+                            {link:"/teacher/subject-teacher",name:"学科教师课表",logo:"subject"},
+                            {link:"/teacher/mine",name:"我的课表",logo:"mine"},
+                            {link:"/teacher/class",name:"班级课表",logo:"class"}
+                        ];
 
-                                {link:"/teacher/mine",name:"我的课表",logo:"mine"},
-
-                                {link:"/teacher/class",name:"班级课表",logo:"class"},
-
-                            ];
+                    setHeaderLink(list);
 
                 }else{
 
-                    HeaderLinkList = [
+                    let list = getQueryVariable('iFrame')?
+                        [
+                            {link:"/teacher/mine",name:"我的课表",logo:"mine"},
+                        ]:
+                        [
+                            {link:"/teacher/subject-teacher",name:"学科教师课表",logo:"subject"},
+                            {link:"/teacher/mine",name:"我的课表",logo:"mine"},
+                        ];
 
-                        {link:"/teacher/subject-teacher",name:"学科教师课表",logo:"subject"},
-
-                        {link:"/teacher/mine",name:"我的课表",logo:"mine"}
-
-                    ];
+                    setHeaderLink(list);
 
                 }
 
@@ -66,6 +82,8 @@ class Index extends Component{
 
         }
 
+    },[UserID]);
+
 
         return (
 
@@ -73,7 +91,8 @@ class Index extends Component{
 
                 {/*头部的路由选项卡*/}
 
-                <HeaderRouter HeaderLinkList={HeaderLinkList}></HeaderRouter>
+                <HeaderRouter HeaderLinkList={headerLink}></HeaderRouter>
+
                 {/* 泡泡型标签链接按钮*/}
 
                 <Router>
@@ -99,16 +118,8 @@ class Index extends Component{
 
         );
 
-    }
 
 }
 
-const mapStateToProps = (state) => {
 
-    const { LoginUser } = state;
-
-    return { LoginUser };
-
-};
-
-export default connect(mapStateToProps)(Index);
+export default memo(Index);

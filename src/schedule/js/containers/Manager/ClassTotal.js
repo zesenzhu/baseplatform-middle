@@ -20,8 +20,6 @@ import SDActions from "../../actions/ScheduleDetailActions";
 
 import {CSSTransition} from 'react-transition-group';
 
-import NewScheduleTable from "../../component/NewScheduleTable/index";
-
 
 
 class ClassTotal extends Component{

@@ -330,7 +330,7 @@ const IEVersion = () => {
   }
 };
 // 给教务系统，处理url，改变布局，设置跳转逻辑
-function checkUrlAndPostMsg(
+export function checkUrlAndPostMsg(
    { sysid= "000", btnName= "", url= "" },
   useDefault = true,
   func = () => {}
