@@ -175,11 +175,14 @@ class PowerContent extends React.Component {
                           {Power.student[0].PowerName}
                         </span>
                         <span className="radio-tips-2">
-                          {Power.student[0].Status === 0
-                            ? "需要经过学校管理员或班主任审核确认后，系统才会为学生创建用户账号"
-                            : '注册完成时，即可使用，不需要经过审核'
+                          ({" "}
+                          {
+                            Power.student[0].Status === 0
+                              ? "需要经过学校管理员或班主任审核确认后，系统才会为学生创建用户账号"
+                              : "注册完成时，即可使用，不需要经过审核"
                             // "在学生提交档案时系统便为其创建用户账号"
-                            }
+                          }
+                          )
                         </span>
                       </Radio>
                       {/* <div className="radio-box-2">
@@ -236,15 +239,18 @@ class PowerContent extends React.Component {
                     >
                       {/* {Power.teacher[0].PowerName} */}
                       <span className="radio-tips-1">
-                          {Power.teacher[0].PowerName}
-                        </span>
-                        <span className="radio-tips-2">
-                          {Power.student[0].Status === 0
+                        {Power.teacher[0].PowerName}
+                      </span>
+                      <span className="radio-tips-2">
+                        (
+                        {
+                          Power.teacher[0].Status === 0
                             ? "需要经过学校管理员或班主任审核确认后，系统才会为学生创建用户账号"
-                            : '注册完成时，即可使用，不需要经过审核'
-                            // "在学生提交档案时系统便为其创建用户账号"
-                            }
-                        </span>
+                            : "注册完成时，即可使用，不需要经过审核"
+                          // "在学生提交档案时系统便为其创建用户账号"
+                        }
+                        )
+                      </span>
                     </Radio>
                     {/* <div className="radio-box-2">
                       <RadioGroup
@@ -295,7 +301,24 @@ class PowerContent extends React.Component {
                               className="radio"
                               onChange={this.onRadioChange.bind(this)}
                             >
-                              {child.PowerName}
+                              {/* {child.PowerName} */}
+                              <span className="radio-tips-1">
+                                {child.PowerName}
+                              </span>
+                              <span className="radio-tips-2">
+                                
+                                {
+                                  child.PowerID === "Teacher_CourseClass_CURD"
+                                    ? "(可以自主添加、修改、删除教学班)"
+                                    : child.PowerID === "Teacher_Schedule_C"
+                                    ? "(可以自主录入课表安排)"
+                                    : child.PowerID === "Teacher_Schedule_U"
+                                    ? "(可以调整个人课表)"
+                                    : ""
+                                  // "在学生提交档案时系统便为其创建用户账号"
+                                }
+                                
+                              </span>
                             </Radio>
                           );
                       })}
@@ -335,7 +358,19 @@ class PowerContent extends React.Component {
                               className="radio"
                               onChange={this.onRadioChange.bind(this)}
                             >
-                              {child.PowerName}
+                              <span className="radio-tips-1">
+                                {child.PowerName}
+                              </span>
+                              <span className="radio-tips-2">
+                                
+                                {
+                                  child.PowerID === "Ganger_Student_CURD"
+                                    ? "(可以自主添加、修改、删除班级学生档案)"
+                                    : ""
+                                  // "在学生提交档案时系统便为其创建用户账号"
+                                }
+                                
+                              </span>
                             </Radio>
                           );
                         })
@@ -395,11 +430,22 @@ class PowerContent extends React.Component {
                             className="radio"
                             onChange={this.onRadioChange.bind(this)}
                           >
-                            {child.PowerName}
+                            <span className="radio-tips-1">
+                              {child.PowerName}
+                            </span>
+                            <span className="radio-tips-2">
+                              
+                              {
+                                child.PowerID === "Parents_Show"
+                                  ? "(可以登录平台访问相应功能)"
+                                  : ""
+                                // "在学生提交档案时系统便为其创建用户账号"
+                              }
+                              
+                            </span>
                           </Radio>
                         );
                       })}
-                    
                   </div>
                 </div>
               </div>
