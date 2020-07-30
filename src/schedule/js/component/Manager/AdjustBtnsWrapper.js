@@ -1,98 +1,111 @@
-import React,{Component} from 'react';
+import React,{useEffect,useRef,useState,useMemo,useCallback,memo} from 'react';
 
 import {checkUrlAndPostMsg} from "../../../../common/js/public";
 
-class AdjustBtnsWrapper extends Component{
+import {getQueryVariable} from "../../../../common/js/disconnect";
+
+function AdjustBtnsWrapper(props){
+
+    //是否是frame嵌套
+
+    const [isFrame,setIsFrame] = useState(false);
+
+    const {
+
+        addScheduleModalShow,
+
+        adjustByTimeModalShow,stopScheduleShow,delScheduleShow,
+
+        adjustByTeacherShow,Import,ScheduleSettingShow,adjustByClassRoomShow,
+
+        Intellenct,IntellenctUrl
+
+    } = props;
 
 
-    lookAdjustLog(){
+    const lookAdjustLog = useCallback(()=>{
 
         const url = location.pathname+'#/manager/adjustlog'+location.search;
 
         checkUrlAndPostMsg({btnName:'查看调课日志',url});
 
-    }
+    },[]);
+
+    useEffect(()=>{
+
+        if (getQueryVariable("iFrame")){
+
+            setIsFrame(true);
+
+        }
+
+    },[]);
 
 
-    render() {
 
-        const {
+    return (
 
-            addScheduleModalShow,
+        <div className="adjust-schedule-wrapper">
 
-            adjustByTimeModalShow,stopScheduleShow,delScheduleShow,
+            <span className="schedule-setting" onClick={ScheduleSettingShow}>课程表设置</span>
 
-            adjustByTeacherShow,Import,ScheduleSettingShow,adjustByClassRoomShow,
+            {
 
-            Intellenct,IntellenctUrl
+                IntellenctUrl&&!isFrame?
 
-        } = this.props;
+                    <span className="enter-schedule">
 
-        return (
+                        <span>录入课程安排</span>
 
-            <div className="adjust-schedule-wrapper">
+                        <div className="import-list-wrapper" id="import-list-wrapper" >
 
-                <span className="schedule-setting" onClick={()=>ScheduleSettingShow()}>课程表设置</span>
+                            <div className="import-schedule" onClick={Import}><span>导入课表</span></div>
 
-                {
+                            <div className="intellenct-schedule" onClick={Intellenct}><span>智能排课</span></div>
 
-                    IntellenctUrl?
+                        </div>
 
-                        <span className="enter-schedule">
+                    </span>
 
-                            <span>录入课程安排</span>
+                    :
 
-                            <div className="import-list-wrapper" id="import-list-wrapper" >
+                    <span className="import-schedule single" onClick={Import}>导入课表</span>
 
-                                <div className="import-schedule" onClick={()=>Import()}><span>导入课表</span></div>
-
-                                <div className="intellenct-schedule" onClick={()=>Intellenct()}><span>智能排课</span></div>
-
-                            </div>
-
-                        </span>
-
-                        :
-
-                        <span className="import-schedule single" onClick={()=>Import()}>导入课表</span>
-
-                }
+            }
 
 
 
 
 
-                <span className="adjust-schedule" id="adjust-schedule"  >
+            <span className="adjust-schedule" id="adjust-schedule"  >
 
-                    <span>调整课程安排</span>
+                <span>调整课程安排</span>
 
-                    <div className="adjust-list-wrapper" id="adjust-list-wrapper" >
+                <div className="adjust-list-wrapper" id="adjust-list-wrapper" >
 
-                        <div className="add-schedule" onClick={()=>{addScheduleModalShow();}}><span>添加临时课程</span></div>
+                    <div className="add-schedule" onClick={{addScheduleModalShow}}><span>添加临时课程</span></div>
 
-                        <div className="adjust-by-teacher" onClick={()=>adjustByTeacherShow()}><span>按老师调整</span></div>
+                    <div className="adjust-by-teacher" onClick={adjustByTeacherShow}><span>按老师调整</span></div>
 
-                        <div className="adjust-by-time" onClick={()=>{adjustByTimeModalShow();}}><span>按时间调整</span></div>
+                    <div className="adjust-by-time" onClick={adjustByTimeModalShow}><span>按时间调整</span></div>
 
-                        <div className="adjust-by-classroom" onClick={()=>{adjustByClassRoomShow()}}><span>按教室调整</span></div>
+                    <div className="adjust-by-classroom" onClick={adjustByClassRoomShow}><span>按教室调整</span></div>
 
-                        <div className="stop-schedule" onClick={()=>{stopScheduleShow();}}><span>停课</span></div>
+                    <div className="stop-schedule" onClick={stopScheduleShow}><span>停课</span></div>
 
-                        <div className="delete-schedule" onClick={()=>{delScheduleShow();}}><span>删除课程</span></div>
+                    <div className="delete-schedule" onClick={delScheduleShow}><span>删除课程</span></div>
 
-                    </div>
+                </div>
 
-                </span>
+            </span>
 
-                <span className="see-adjust-log" onClick={this.lookAdjustLog.bind(this)}>查看调课日志</span>
+            <span className="see-adjust-log" onClick={lookAdjustLog}>查看调课日志</span>
 
 
 
-            </div>
+        </div>
 
-        );
-
-    }
+    );
 
 }
 

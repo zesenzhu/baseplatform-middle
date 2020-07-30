@@ -81,7 +81,7 @@ function DoubleSingleTable(props){
 
         //类型为single-single,double-single,single-double三种
 
-        if (dataSource.length>=6){
+        /*if (dataSource.length>=6){
 
             $('#tb').find('.ant-table-body').css('overflow','scroll');
 
@@ -94,7 +94,7 @@ function DoubleSingleTable(props){
 
             $('#tb').find('.ant-table-scroll>.ant-table-header').css('overflow','auto');
 
-        }
+        }*/
 
     },[dataSource]);
 

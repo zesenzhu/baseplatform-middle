@@ -79,6 +79,49 @@ const DateDisabled = (current) => {
 
 };
 
+
+
+
+//获取节日
+
+export const getFestival = (time)=>{
+
+    const month = time.get("month");
+
+    const date = time.get("date");
+
+    let title = '';
+
+    if ((month == 0) && (date == 1)) title = "元旦";
+
+    if ((month == 1) && (date ==14 )) title = "情人节";
+
+    if ((month == 2) && (date == 8)) title = "妇女节";
+
+    if ((month == 2) && (date == 12)) title = "植树节";
+
+    if ((month == 3) && (date == 1)) title = "愚人节";
+
+    if ((month == 4) && (date == 1)) title = "劳动节";
+
+    if ((month == 5) && (date == 1)) title = "儿童节";
+
+    if ((month == 6) && (date == 1)) title = "建党节";
+
+    if ((month == 7) && (date == 1)) title = "建军节";
+
+    if ((month == 8) && (date == 10)) title = "教师节";
+
+    if ((month == 11) && (date == 24)) title = "平安夜";
+
+    if ((month == 11) && (date == 25)) title = "圣诞节";
+
+    return title;
+
+};
+
+
+
 export default {
 
     ScheduleRemoveRepeat,
