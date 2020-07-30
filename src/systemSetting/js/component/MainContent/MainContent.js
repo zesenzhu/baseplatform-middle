@@ -56,13 +56,13 @@ class MainContent extends Component {
                         icon: "menu41",
                         onTitleClick: this.handleClick.bind(this.key)
                     },
-                    // {
+                    {
                         
-                    //     key: "Subsystem",
-                    //     title: "子系统访问设置",
-                    //     icon: "menu43",
-                    //     onTitleClick: this.handleClick.bind(this.key)
-                    // },
+                        key: "Subsystem",
+                        title: "子系统访问设置",
+                        icon: "menu43",
+                        onTitleClick: this.handleClick.bind(this.key)
+                    },
                 ]
             },
             route: false,
