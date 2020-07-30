@@ -4,7 +4,7 @@ import {getQueryVariable} from "../../common/js/disconnect";
 
 
 //获取数据以及封装数据格式
-const getGetData =  async (url,level,api='',mode='cors',arr=[500,403]) =>{
+const getGetData =  async (url,level,api='',mode='cors',arr=false) =>{
 
     try {
 
@@ -33,7 +33,7 @@ const getGetData =  async (url,level,api='',mode='cors',arr=[500,403]) =>{
     }
 };
 //调用post接口
-const getPostData = async (url,data,level,api='',content_type='urlencoded',arr=arr=[500,403]) =>{
+const getPostData = async (url,data,level,api='',content_type='urlencoded',arr=false) =>{
 
     try {
         let fetchAsync = '';

@@ -5,10 +5,6 @@ import {useSelector,useDispatch} from 'react-redux';
 import {appLoadingHide} from "../../reducers/AppLoading";
 
 import {
-    /*GetAllTeachInfo_university,
-    GetCourseClassInfoForPage_University,
-    DeleteCourseClass_University,
-    InsertOrEditCourseClass_University,*/
 
     GetCourseClassInfoForPage_Middle,
 
@@ -19,8 +15,6 @@ import {
 } from '../../actions/apiActions';
 
 import TitleBar from '../../component/plugins/title-bar';
-
-// import AddEditCourseClass from "../Manager/AddEditCourseClass";
 
 import {logCountUpdate} from "../../reducers/commonSetting";
 
@@ -37,12 +31,8 @@ import {leftMemuHide} from "../../reducers/leftMenu";
 import './index.scss';
 
 import actions from "../../actions";
-import deepCompare from "../../../../common/js/public";
-import {postData} from "../../../../common/js/fetch";
-import CONFIG from "../../../../common/js/config";
 
-
-
+import { checkUrlAndPostMsg } from '../../../../common/js/public';
 
 
 function Index(props) {
@@ -379,15 +369,21 @@ function Index(props) {
     };
 
 
-    const titleBtns = useMemo(()=>{
+    /*const titleBtns = useMemo(()=>{
 
-        return <>
+        return
 
-            <Button type={"link"} className={"add"} onClick={e=>addCourseClass()}>添加教学班</Button>
+    },[]);*/
 
-            <Button type={"link"} className={"import"}>导入教学班</Button>
 
-        </>
+    //点击导入教学班按钮
+
+
+    const importCourseClass = useCallback(()=>{
+
+        const url = location.pathname+location.search+'#/ImportFile';
+
+        checkUrlAndPostMsg({btnName:'导入教学班',url});
 
     },[]);
 
@@ -1088,7 +1084,18 @@ function Index(props) {
 
             <div className={"manage-wrapper"}>
 
-                <TitleBar type={"manage"} title={"教学班管理"} rightContent={titleBtns}></TitleBar>
+                <TitleBar type={"manage"} title={"教学班管理"} rightContent={
+
+                    <>
+
+                        <Button type={"link"} className={"add"} onClick={e=>addCourseClass()}>添加教学班</Button>
+
+                        <Button type={"link"} className={"import"} onClick={importCourseClass}>导入教学班</Button>
+
+                    </>}
+                >
+
+                </TitleBar>
 
                 <div className={"drops-search-wrapper"}>
 

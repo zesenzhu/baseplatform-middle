@@ -497,7 +497,7 @@ class AddCourseClass extends React.Component {
     dispatch(actions.UpUIState.hideErrorAlert());
   }
   render() {
-    const { DataState, UIState } = this.props;
+    const { DataState, UIState,isFrame } = this.props;
     //获取路由
     // console.log(this.props.type)
     if (!this.props.type) {
@@ -729,12 +729,7 @@ class AddCourseClass extends React.Component {
                                 >
                                   {child.ClassName}
                                 </span>
-                                {/* <span
-                                  title={child.ClassID}
-                                  className="card-id"
-                                >
-                                  {child.ClassID}
-                                </span> */}
+
                                 <span
                                   onClick={this.onDeleteClassClick.bind(
                                     this,

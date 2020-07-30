@@ -1,4 +1,4 @@
-import React,{Component} from "react";
+import React,{memo,useState,useMemo} from "react";
 
 import {HashRouter as Router, Redirect,withRouter,Route,Switch} from "react-router-dom";
 
@@ -10,85 +10,75 @@ import StudentComponent from "./Student";
 
 import Import from './Import';
 
-import { connect } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 
 import AdjustLog from './Manager/AdjustLog';
 
 import ScheduleSetting from "./Manager/ScheduleSetting";
 
 
-class RouterWrapper extends Component{
+function RouterWrapper(props){
 
-    render() {
+    const LoginUser = useSelector(state=>state.LoginUser);
 
-        const {state} = this.props;
+    const dispatch = useDispatch();
 
-        const { LoginUser } = state;
+    return (
 
-        return (
+        <Router>
 
-            <Router>
+            <Switch>
 
-                <Switch>
+                <Route exact path="/manager/scheduleSetting*" component={ScheduleSetting}></Route>
 
-                    <Route exact path="/manager/scheduleSetting*" component={ScheduleSetting}></Route>
+                <Route exact path="/manager/adjustlog*" component={AdjustLog}></Route>
 
-                    <Route exact path="/manager/adjustlog*" component={AdjustLog}></Route>
+                <Route path="/manager/*"  component={ManagerComponent}></Route>
 
-                    <Route path="/manager/*"  component={ManagerComponent}></Route>
+                <Route path="/teacher/*"  component={TeacherComponent}></Route>
 
-                    <Route path="/teacher/*"  component={TeacherComponent}></Route>
+                <Route path="/student/*"  component={StudentComponent}></Route>
 
-                    <Route path="/student/*"  component={StudentComponent}></Route>
+                <Route path="/Import*" component={Import}></Route>
 
-                    <Route path="/Import*" component={Import}></Route>
+                {
 
-                    {
+                    LoginUser&&parseInt(LoginUser.UserType)===0?
 
-                        LoginUser&&parseInt(LoginUser.UserType)===0?
+                        <Redirect path="/*"  to={{pathname:"/manager/subject-teacher/subject"}}></Redirect>
 
-                            <Redirect path="/*"  to={{pathname:"/manager/subject-teacher/subject"}}></Redirect>
+                        :''
 
-                            :''
+                }
 
-                    }
+                {
 
-                    {
+                    LoginUser&&parseInt(LoginUser.UserType)===1?
 
-                        LoginUser&&parseInt(LoginUser.UserType)===1?
+                        <Redirect path="/*" to={{pathname:"/teacher/mine"}}></Redirect>
 
-                            <Redirect path="/*" to={{pathname:"/teacher/subject-teacher/subject"}}></Redirect>
+                        :''
 
-                            :''
+                }
 
-                    }
+                {
 
-                    {
+                    LoginUser&&parseInt(LoginUser.UserType)===2?
 
-                        LoginUser&&parseInt(LoginUser.UserType)===2?
+                        <Redirect path="/*" to={{pathname:"/student/mine"}}></Redirect>
 
-                            <Redirect path="/*" to={{pathname:"/student/mine"}}></Redirect>
+                        :''
 
-                            :''
+                }
+            </Switch>
 
-                    }
-                </Switch>
+        </Router>
 
-            </Router>
-
-        );
-
-    }
+    );
 
 }
 
-const mapStateToProps = (state) => {
 
-    return{
-        state
-    }
 
-};
-
-export default connect(mapStateToProps)(withRouter(RouterWrapper));
+export default memo(withRouter(RouterWrapper));
 

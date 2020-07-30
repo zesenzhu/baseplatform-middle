@@ -20,8 +20,6 @@ import {CSSTransition} from 'react-transition-group';
 
 import WeekDayPick from '../../component/WeekDayPick';
 
-import NewScheduleTable from '../../component/NewScheduleTable/index';
-
 
 
 class Subject extends Component{
@@ -261,6 +259,8 @@ class Subject extends Component{
                             WeekList={ItemWeek}
 
                             weekDateChange={this.weekDateChange.bind(this)}
+
+                            OriginWeekList={PeriodWeekTerm.ItemWeek}
 
                         >
 

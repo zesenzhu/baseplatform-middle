@@ -890,6 +890,26 @@ const GetAllScheduleOfClassRoomOneDayForPage = async ({SchoolID='',PeriodID='',C
 };
 
 
+//获取学校学期开始和学期结束日期
+
+export const GetTermInfoAndHolidayCount = async ({SchoolID,dispatch}) => {
+
+    let res = await Method.getGetData(`/Schedule/api/GetTermInfoAndHolidayCount?SchoolID=${SchoolID}`,
+
+        2,CONFIG.ScheduleProxy);
+
+
+    if (res.StatusCode === 200){
+
+        return res.Data;
+
+    }else{
+
+        ErrorCodeTransform(res,dispatch);
+
+    }
+
+};
 
 
 
@@ -1480,6 +1500,38 @@ const CancelChangeTeacherAndGetTea = async ({ UserID,SchoolID,TeacherID,ClassDat
 
 
 };
+
+
+
+//撤销找人代课
+
+export const SetGetHolidayInfo = async ({ SchoolID,HolidayItem,dispatch}) => {
+
+    let res = await Method.getPostData(`/Schedule/api/SetGetHolidayInfo`,{
+
+        SchoolID,HolidayItem
+
+    },2);
+
+    //'http://192.168.2.26:8084');
+    //'http://192.168.2.202:7300/mock/5d7726e0ed0ccd1564c8df05/webCloudDev');
+
+    if (res.StatusCode === 200){
+
+        return res.ErrCode;
+
+    }else{
+
+        ErrorCodeTransform(res,dispatch);
+
+    }
+
+
+};
+
+
+
+
 
 
 
