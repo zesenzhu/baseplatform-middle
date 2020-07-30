@@ -239,6 +239,7 @@ const EditClass = ({
       .then((json) => {
         if (json.StatusCode === 200) {
           func(getState());
+          dispatch(PublicAction.showErrorAlert({type:'success',title:"操作成功"}))
         }
       });
   };
@@ -283,6 +284,8 @@ const AddClass = ({
       .then((json) => {
         if (json.StatusCode === 200) {
           func(getState());
+          dispatch(PublicAction.showErrorAlert({type:'success',title:"操作成功"}))
+
         }
       });
   };
@@ -572,6 +575,8 @@ const SetGanger = ({
       .then((json) => {
         if (json.StatusCode === 200) {
           func(getState());
+          // dispatch(PublicAction.showErrorAlert({type:'success',title:"操作成功"}))
+
         }
       });
   };
@@ -609,6 +614,8 @@ const SetMonitor = ({
       .then((json) => {
         if (json.StatusCode === 200) {
           func(getState());
+          dispatch(PublicAction.showErrorAlert({type:'success',title:"操作成功"}))
+
         }
       });
   };
@@ -617,13 +624,18 @@ const SetMonitor = ({
 const ReSetStudentClass = ({
   ClassID,
   UserIDs,
-
+  OldClassID,
   func = () => {},
 }) => {
   return (dispatch, getState) => {
     let {
       DataState: {
         CommonData: { ClassDetailsParams, ResetClassParams },
+        MainData:{
+          ClassTeacherData:{
+            ClassID:oldClassID
+          }
+        }
       },
       PublicState: { LoginMsg },
     } = getState();
@@ -634,12 +646,15 @@ const ReSetStudentClass = ({
     if (UserIDs === undefined) {
       UserIDs = ClassDetailsParams.CheckList.map(child=>child.value).join(','); //不传就不跳班
     }
-
+    if (OldClassID === undefined) {
+      OldClassID = oldClassID
+    }
     postData(
       ClassProxy + "/ReSetStudentClass",
       {
         UserIDs,
         ClassID,
+        OldClassID
       },
       2
     )

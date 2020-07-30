@@ -74,6 +74,20 @@ class Button extends React.Component {
       className: props.className ? props.className : "",
     };
   }
+  componentWillReceiveProps(props){
+    this.setState({
+      type: props.type /*type:primary、default、默认primary*/,
+      size: props.size /*size:large、normal、small默认normal*/,
+      disabled: props.disabled ? true : false,
+      color: props.color,
+      value: props.value,
+      shape: props.shape /*shape:round、circle、默认border-radius:4px*/,
+      onClick: props.onClick,
+      onChange: props.onChange,
+      style: props.style,
+      className: props.className ? props.className : "",
+    })
+  }
 
   /*
    * size筛选:large、normal、small，不写默认为normal

@@ -72,7 +72,7 @@ class Class extends Component {
         onOk: () => {
           dispatch(
             UpDataState.DeleteClass({
-              GradeID: GradeID,
+              GradeID: data.GradeID,
               ClassIDs: data.ClassID,
               func: () => {
                 dispatch(PublicAction.hideErrorAlert());

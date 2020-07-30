@@ -125,7 +125,7 @@ const getGradeStudentPreview = (
 ) => {
   // console.log(GradeID, ClassID)
   let pageIndex = Public.getUrlQueryVariable(url, "PageIndex");
-  let pageSize = Public.getUrlQueryVariable(url, "PageSize");
+  let pageSize = Public.getUrlQueryVariable(url, "pageSize");
   return dispatch => {
     dispatch(actions.UpUIState.TableLoadingOpen());
     getData(CONFIG.UserInfoProxy + url, 2)
@@ -160,9 +160,9 @@ const getSubjectTeacherPreview = (url, SubjectID={
   value: "all",
   title: "全部学科"
 } ) => {
-  console.log(url)
+  // console.log(url)
   let pageIndex = Public.getUrlQueryVariable(url, "PageIndex");
-  let pageSize = Public.getUrlQueryVariable(url, "PageSize");
+  let pageSize = Public.getUrlQueryVariable(url, "pageSize");
   return (dispatch,getState) => {
     dispatch(actions.UpUIState.TableLoadingOpen());
     getData(CONFIG.UserInfoProxy + url, 2)
@@ -394,7 +394,7 @@ const getGraduateGradeClassMsg = url => {
 // 分页获取毕业生信息
 const getGraduatePreview = url => {
   let pageIndex = Public.getUrlQueryVariable(url, "PageIndex");
-  let pageSize = Public.getUrlQueryVariable(url, "PageSize");
+  let pageSize = Public.getUrlQueryVariable(url, "pageSize");
   return dispatch => {
     
     dispatch(actions.UpUIState.TableLoadingOpen());
@@ -476,7 +476,7 @@ const getUnreadLogCountPreview = (
 // 分页获取最近档案动态
 const getUnreadLogPreview = url => {
   let pageIndex = Public.getUrlQueryVariable(url, "PageIndex");
-  let pageSize = Public.getUrlQueryVariable(url, "PageSize");
+  let pageSize = Public.getUrlQueryVariable(url, "pageSize");
   return (dispatch, getState) => {
     // console.log(getState())
     dispatch(actions.UpUIState.TableLoadingOpen());
@@ -502,7 +502,7 @@ const getUnreadLogPreview = url => {
 // 分页获取所有档案变更记录
 const getLogRecordPreview = url => {
   let pageIndex = Public.getUrlQueryVariable(url, "PageIndex");
-  let pageSize = Public.getUrlQueryVariable(url, "PageSize");
+  let pageSize = Public.getUrlQueryVariable(url, "pageSize");
   return (dispatch, getState) => {
     // console.log(getState())
     //url += getState().DataState.LoginUser.UserID

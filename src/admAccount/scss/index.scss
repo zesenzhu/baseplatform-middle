@@ -164,3 +164,16 @@ label {
 body {
     font-family: '微软雅黑';
 }
+
+.btn-green-default {
+    &:focus {
+        color: #23ba00;
+    }
+}
+
+.btn-red-default {
+    &:focus {
+        color: #ff1b10;
+        ;
+    }
+}

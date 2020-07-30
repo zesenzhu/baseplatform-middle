@@ -41,7 +41,7 @@ class PowerContent extends React.Component {
     }
   }
   onRadioChange = (value, id) => {
-    // console.log(value, id)
+    console.log(value, id)
     const { DataState, UIState, dispatch } = this.props;
     let Power = DataState.GetUserPowerMsg.Power;
     let UserMsg = DataState.LoginUser;
@@ -55,7 +55,7 @@ class PowerContent extends React.Component {
       {
         PowerID: id,
         SchoolID: this.state.userMsg.SchoolID,
-        Status: value ? 1 : 0,
+        Status:id==='Student_SginUp'||id==='Teacher_SginUp' ?(value ? 2 : 1):(value ? 1 : 0),
       },
       2
     )
@@ -68,7 +68,7 @@ class PowerContent extends React.Component {
             disabled: false,
           });
           if (json.Data === null) {
-            Power = this.handlePower(Power, value ? 1 : 0, id);
+            Power = this.handlePower(Power, id==='Student_SginUp'||id==='Teacher_SginUp' ?(value ? 2 : 1):(value ? 1 : 0), id);
             dispatch(actions.UpDataState.setUserPowerMsg(Power));
           } else if (json.Data === -2) {
             // console.log('参数错误')
@@ -166,7 +166,7 @@ class PowerContent extends React.Component {
                     <div>
                       <Radio
                         value={Power.student[0].PowerID}
-                        checked={Power.student[0].Status !== 0 ? true : false}
+                        checked={Power.student[0].Status !== 1 ? true : false}
                         className="radio"
                         onChange={this.onRadioChange.bind(this)}
                       >
@@ -177,7 +177,7 @@ class PowerContent extends React.Component {
                         <span className="radio-tips-2">
                           ({" "}
                           {
-                            Power.student[0].Status === 0
+                            Power.student[0].Status === 1
                               ? "需要经过学校管理员或班主任审核确认后，系统才会为学生创建用户账号"
                               : "注册完成时，即可使用，不需要经过审核"
                             // "在学生提交档案时系统便为其创建用户账号"
@@ -233,7 +233,7 @@ class PowerContent extends React.Component {
                   <div>
                     <Radio
                       value={Power.teacher[0].PowerID}
-                      checked={Power.teacher[0].Status !== 0 ? true : false}
+                      checked={Power.teacher[0].Status !== 1 ? true : false}
                       className="radio"
                       onChange={this.onRadioChange.bind(this)}
                     >
@@ -244,8 +244,8 @@ class PowerContent extends React.Component {
                       <span className="radio-tips-2">
                         (
                         {
-                          Power.teacher[0].Status === 0
-                            ? "需要经过学校管理员或班主任审核确认后，系统才会为学生创建用户账号"
+                          Power.teacher[0].Status === 1
+                            ? "需要经过学校管理员审核确认后，系统才会为教师创建用户账号"
                             : "注册完成时，即可使用，不需要经过审核"
                           // "在学生提交档案时系统便为其创建用户账号"
                         }
