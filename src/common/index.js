@@ -2708,7 +2708,8 @@ class Frame extends React.Component {
     };
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
+
     $(window).scroll(() => {
       let scrollTop = $(window).scrollTop();
 
@@ -2718,11 +2719,14 @@ class Frame extends React.Component {
         this.setState({ fixed: false });
       }
     });
-  }
+
+  }*/
 
   UNSAFE_componentWillReceiveProps(props) {
     if (window.AppRightContentChange) {
+
       window.AppRightContentChange(this.RightContent.clientHeight);
+
     }
 
     if (getQueryVariable('iFrame')){
