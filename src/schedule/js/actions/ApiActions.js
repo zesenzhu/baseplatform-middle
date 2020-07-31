@@ -1503,7 +1503,7 @@ const CancelChangeTeacherAndGetTea = async ({ UserID,SchoolID,TeacherID,ClassDat
 
 
 
-//撤销找人代课
+//设置学校节假日
 
 export const SetGetHolidayInfo = async ({ SchoolID,HolidayItem,dispatch}) => {
 
