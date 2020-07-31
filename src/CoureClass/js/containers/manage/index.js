@@ -4,6 +4,8 @@ import {useSelector,useDispatch} from 'react-redux';
 
 import {appLoadingHide} from "../../reducers/AppLoading";
 
+import config from '../../../../common/js/config';
+
 import {
 
     GetCourseClassInfoForPage_Middle,
@@ -381,7 +383,7 @@ function Index(props) {
 
     const importCourseClass = useCallback(()=>{
 
-        const url = location.pathname+location.search+'#/ImportFile';
+        const url = config.HashPrevProxy+location.pathname+location.search+'#/ImportFile';
 
         checkUrlAndPostMsg({btnName:'导入教学班',url});
 

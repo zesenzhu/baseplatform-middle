@@ -18,11 +18,16 @@ import './index.scss';
 
 import AppAlertActions from "../../actions/AppAlertActions";
 
+import {getQueryVariable} from '../../../../common/js/disconnect';
+
 function Holiday(props) {
 
     //月份列表
     const [monthList,setMonthList] = useState([]);
 
+
+    //月份列表
+    const [hasInFrame,setHasInFrame] = useState(false);
 
     //loading
     const [loading,setLoading] = useState(false);
@@ -84,6 +89,13 @@ function Holiday(props) {
             }else{
 
                 holidaylist = holidayList;
+
+            }
+
+
+            if (getQueryVariable("iFrame")){
+
+                setHasInFrame(true);
 
             }
 
@@ -257,7 +269,7 @@ function Holiday(props) {
 
             width={1000}
 
-            bodyStyle={{height:600,padding:0}}
+            bodyStyle={{height:hasInFrame?500:600,padding:0}}
 
             visible={show}
 
@@ -273,7 +285,7 @@ function Holiday(props) {
 
                 <div className={"top-tips"}>请勾选非周末日期设为校内节假日(周末默认为节假日)，节假日默认情况下不会安排课程。</div>
 
-                <Scrollbars style={{height:552}}>
+                <Scrollbars style={{height:hasInFrame?452:552}}>
 
                     <ul className={"canlender-wrapper"}>
 

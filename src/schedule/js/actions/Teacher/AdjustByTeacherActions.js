@@ -26,6 +26,7 @@ const ADJUST_BY_TEACHER_CLASS_HOURS_LIST_UPDATE = 'ADJUST_BY_TEACHER_CLASS_HOURS
 const ADJUST_BY_TEACHER_CLASS_ROOM_TYPE_LIST_UPDATE = 'ADJUST_BY_TEACHER_CLASS_ROOM_TYPE_LIST_UPDATE';
 
 
+
 const REPLACE_SHCEDULE_ERROR_TIPS_SHOW = 'REPLACE_SHCEDULE_ERROR_TIPS_SHOW';
 
 const REPLACE_SHCEDULE_ERROR_TIPS_HIDE = 'REPLACE_SHCEDULE_ERROR_TIPS_HIDE';
@@ -54,7 +55,13 @@ const REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_SHOW = 'REPLACE_SHCEDULE_TEACHER_SS
 
 const REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_HIDE = 'REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_HIDE';
 
+const REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_CHANGE = 'REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_CHANGE';
+
+
 const REPLACE_SHCEDULE_CLASS_LIST_UPDATE = 'REPLACE_SHCEDULE_CLASS_LIST_UPDATE';
+
+const REPLACE_SHCEDULE_ALL_CLASS_LIST_UPDATE = 'REPLACE_SHCEDULE_ALL_CLASS_LIST_UPDATE';
+
 
 const REPLACE_SHCEDULE_TEACHER_DROP_CHANGE = 'REPLACE_SHCEDULE_TEACHER_DROP_CHANGE';
 
@@ -276,6 +283,7 @@ const AdjustByTeacherScheduleInit = () => {
 
                 const ClassRoomTypeList = data.ItemClassRoomType&&data.ItemClassRoomType.length>0?data.ItemClassRoomType:[];
 
+
                 dispatch({type:ADJUST_BY_TEACHER_CLASS_ROOM_TYPE_LIST_UPDATE,data:ClassRoomTypeList});
 
                 dispatch({type:ADJUST_BY_TEACHER_CLASS_HOURS_LIST_UPDATE,data:ClassHourList});
@@ -323,6 +331,22 @@ const AdjustByTeacherScheduleInit = () => {
                            }
 
                        }).filter(i => i!==undefined);
+
+                       let allList = data.ItemClass.map(item => {
+
+                           return {
+
+                               id:item.ClassID,
+
+                               name:item.ClassName,
+
+                               subjectID:item.SubjectID
+
+                           }
+
+                       });
+
+                       dispatch({type:REPLACE_SHCEDULE_ALL_CLASS_LIST_UPDATE,data:allList});
 
                        dispatch({type:REPLACE_SHCEDULE_CLASS_LIST_UPDATE,data:classList});
 
@@ -3231,9 +3255,13 @@ export default {
 
     ADJUST_BY_TEACHER_CLASS_ROOM_TYPE_LIST_UPDATE,
 
+    REPLACE_SHCEDULE_ALL_CLASS_LIST_UPDATE,
+
     REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_SHOW,
 
     REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_HIDE,
+
+    REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_CHANGE,
 
     REPLACE_SHCEDULE_CLASS_LIST_UPDATE,
 
@@ -3396,6 +3424,8 @@ export default {
     STOP_SCHEDULE_ERROR_TIPS_SHOW,
 
     STOP_SCHEDULE_ERROR_TIPS_HIDE,
+
+
 
     AdjustByTeacherScheduleInit,
 

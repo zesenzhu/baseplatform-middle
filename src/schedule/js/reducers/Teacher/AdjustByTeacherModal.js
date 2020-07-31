@@ -53,6 +53,8 @@ const AdjustByTeacherModal = (state={
 
         classList:[],
 
+        allClassList:[],
+
         classCheckedList:[],
 
         activeRadio:"all",
@@ -358,6 +360,8 @@ const AdjustByTeacherModal = (state={
                     },
 
                     classList:[],
+
+                    allClassList:[],
 
                     classCheckedList:[],
 
@@ -923,6 +927,22 @@ const AdjustByTeacherModal = (state={
 
             };
 
+        case ABTActions.REPLACE_SHCEDULE_ALL_CLASS_LIST_UPDATE:
+
+            return {
+
+                ...state,
+
+                replaceSchedule:{
+
+                    ...state.replaceSchedule,
+
+                    allClassList:actions.data
+
+                }
+
+            };
+
         case ABTActions.ADJUST_BY_TEACHER_LOADING_HIDE:
 
             return {...state,LoadingShow:false};
@@ -968,6 +988,38 @@ const AdjustByTeacherModal = (state={
                 }
 
             };
+
+        case ABTActions.REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_CHANGE:
+
+            return {
+
+                ...state,
+
+                replaceSchedule:{
+
+                    ...state.replaceSchedule,
+
+                    teacherSubject:{
+
+                        ...state.replaceSchedule.teacherSubject,
+
+                        dropShow:true,
+
+                        select:{
+
+                            ...state.replaceSchedule.teacherSubject.select,
+
+                            dropSelectd:actions.data
+
+                        }
+
+                    }
+
+                }
+
+            };
+
+
 
         case ABTActions.REPLACE_SHCEDULE_CLASS_LIST_UPDATE:
 

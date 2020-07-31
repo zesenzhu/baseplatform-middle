@@ -4,6 +4,8 @@ import {checkUrlAndPostMsg} from "../../../../common/js/public";
 
 import {getQueryVariable} from "../../../../common/js/disconnect";
 
+import config from "../../../../common/js/config";
+
 function AdjustBtnsWrapper(props){
 
     //是否是frame嵌套
@@ -25,7 +27,7 @@ function AdjustBtnsWrapper(props){
 
     const lookAdjustLog = useCallback(()=>{
 
-        const url = location.pathname+'#/manager/adjustlog'+location.search;
+        const url = config.HashPrevProxy+location.pathname+'#/manager/adjustlog'+location.search;
 
         checkUrlAndPostMsg({btnName:'查看调课日志',url});
 

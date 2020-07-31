@@ -35,6 +35,20 @@ class ReplaceSchedule extends Component{
 
         //学科选择
 
+        const { dispatch,replaceSchedule } = this.props;
+
+        const { allClassList } = replaceSchedule;
+
+        const list = allClassList.filter(i=>i.subjectID===info.value);
+
+        //学科选择
+
+        dispatch({type:ABTActions.REPLACE_SHCEDULE_ERROR_TIPS_HIDE,data:{type:'originTeacher'}});
+
+        dispatch({type:ABTActions.REPLACE_SHCEDULE_CLASS_LIST_UPDATE,data:list});
+
+        dispatch({type:ABTActions.REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_CHANGE,data:info});
+
         dispatch({type:ABTActions.REPLACE_SHCEDULE_ERROR_TIPS_HIDE,data:{type:'originTeacher'}});
 
     }
