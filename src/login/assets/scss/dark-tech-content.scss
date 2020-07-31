@@ -24,21 +24,9 @@
 
     opacity:0;
 
-    &.introduce1{
+    &.introduce1,&.introduce2,&.introduce3,&.introduce4{
 
-      @include animation(techIntroduceAnimation 0.8s 1.2s forwards);
-
-    }
-
-    &.introduce2{
-
-      @include animation(techIntroduceAnimation 0.8s 1.2s forwards);
-
-    }
-
-    &.introduce3{
-
-      @include animation(techIntroduceAnimation 0.8s 1.2s forwards);
+      @include animation(techIntroduceAnimation 0.5s forwards);
 
     }
 
@@ -70,91 +58,9 @@
 
   }
 
-  .pic{
+  #dark_tech_pic{
 
-    position: absolute;
-
-    top:100px;
-
-    left:74px;
-
-    width: 496px;
-
-    height:280px;
-
-    opacity:0;
-
-    background-repeat: no-repeat;
-
-    background-position: center;
-
-    @include background-size(contain);
-
-    &.pic1{
-
-      background-image: url("#{$darkTechUrl}/dark-tech-pic1.png");
-
-      @include animation(techPicAnimation 2s 0.8s forwards);
-
-    }
-
-    &.pic2{
-
-      background-image: url("#{$darkTechUrl}/dark-tech-pic2.png");
-
-      @include animation(techPicAnimation 2s 0.8s forwards);
-
-    }
-
-    &.pic3{
-
-      background-image: url("#{$darkTechUrl}/dark-tech-pic3.png");
-
-      @include animation(techPicAnimation 2s 0.8s forwards);
-
-    }
-
-  }
-
-  .pallet{
-
-    position: absolute;
-
-    top:262px;
-
-    left:0;
-
-    width: 646px;
-
-    height:188px;
-
-    opacity:0;
-
-    background-repeat: no-repeat;
-
-    background-position: center;
-
-    @include background-size(contain);
-
-    background-image: url("#{$darkTechUrl}/dark-tech-pallet.png");
-
-    &.pallet1{
-
-      @include animation(techPicAnimation 1s linear forwards);
-
-    }
-
-    &.pallet2{
-
-      @include animation(techPicAnimation 1s linear forwards);
-
-    }
-
-    &.pallet3{
-
-      @include animation(techPicAnimation 1s linear forwards);
-
-    }
+    margin-top: 20px;
 
   }
 

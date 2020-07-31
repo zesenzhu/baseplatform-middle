@@ -83,7 +83,7 @@ function AdjustBtnsWrapper(props){
 
                 <div className="adjust-list-wrapper" id="adjust-list-wrapper" >
 
-                    <div className="add-schedule" onClick={{addScheduleModalShow}}><span>添加临时课程</span></div>
+                    <div className="add-schedule" onClick={addScheduleModalShow}><span>添加临时课程</span></div>
 
                     <div className="adjust-by-teacher" onClick={adjustByTeacherShow}><span>按老师调整</span></div>
 
