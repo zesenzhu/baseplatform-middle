@@ -30,6 +30,11 @@ const TipsVisible = (
       return Object.assign({}, state, {
         UserIDTipsVisible: false,
         UserNameTipsVisible: false,
+        // UserNameTipsVisible: false,
+    TelphoneTipsVisible:false,
+    WeixinTipsVisible:false,
+    WeiboTipsVisible:false,
+    QQTipsVisible:false,
       });
     default:
       return state;

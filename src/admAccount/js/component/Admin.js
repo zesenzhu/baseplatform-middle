@@ -849,7 +849,7 @@ class Admin extends React.Component {
                   "&PageSize=" +
                   this.state.pageSize +
                   "" +
-                  (this.state.keyword ? "&Keyword" + this.state.keyword : "") +
+                  (this.state.keyword ? "&Keyword=" + this.state.keyword : "") +
                   this.state.sortFiled +
                   this.state.sortType
               )
@@ -976,27 +976,27 @@ class Admin extends React.Component {
     }
     // console.log(Modules.length,len)
 
-    if (
-      // !ModulesIsChange &&
-      UserID === DataState.AdminPreview.InitData.UserID &&
-      UserName === DataState.AdminPreview.InitData.UserName &&
-      // PhotoPath === DataState.AdminPreview.InitData.PhotoPath&&
-      // UserID === DataState.AdminPreview.InitData.UserID&&
-      // !DataState.AdminPreview.TrasferData.isChange &&
-      !picObj.picUploader.isChanged()
-    ) {
-      dispatch(
-        actions.UpUIState.showErrorAlert({
-          type: "warn",
-          title: "管理员信息没有发生改变",
-          ok: this.onAlertWarnOk.bind(this),
-          cancel: this.onAlertWarnClose.bind(this),
-          close: this.onAlertWarnClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this),
-        })
-      );
-      return;
-    }
+    // if (
+    //   // !ModulesIsChange &&
+    //   UserID === DataState.AdminPreview.InitData.UserID &&
+    //   UserName === DataState.AdminPreview.InitData.UserName &&
+    //   // PhotoPath === DataState.AdminPreview.InitData.PhotoPath&&
+    //   // UserID === DataState.AdminPreview.InitData.UserID&&
+    //   // !DataState.AdminPreview.TrasferData.isChange &&
+    //   !picObj.picUploader.isChanged()
+    // ) {
+    //   dispatch(
+    //     actions.UpUIState.showErrorAlert({
+    //       type: "warn",
+    //       title: "管理员信息没有发生改变",
+    //       ok: this.onAlertWarnOk.bind(this),
+    //       cancel: this.onAlertWarnClose.bind(this),
+    //       close: this.onAlertWarnClose.bind(this),
+    //       onHide: this.onAlertWarnHide.bind(this),
+    //     })
+    //   );
+    //   return;
+    // }
     let url = "/EditAdmin";
     // let ModulesID = []
     // DataState.AdminPreview.TrasferData.ModuleIDs.map((child) => {
@@ -1062,7 +1062,7 @@ class Admin extends React.Component {
                   "&PageSize=" +
                   this.state.pageSize +
                   "" +
-                  (this.state.keyword ? "&Keyword" + this.state.keyword : "") +
+                  (this.state.keyword ? "&Keyword=" + this.state.keyword : "") +
                   this.state.sortFiled +
                   this.state.sortType
               )
