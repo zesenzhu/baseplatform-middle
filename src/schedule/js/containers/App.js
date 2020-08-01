@@ -64,7 +64,7 @@ import ChangeScheduleModal from '../component/ChangeScheduleModal';
 
 import SDActions from "../actions/ScheduleDetailActions";
 
-import {getQueryVariable} from "../../../common/js/disconnect";
+import config from "../../../common/js/config";
 
 
 class App extends Component{
@@ -238,7 +238,7 @@ class App extends Component{
 
     Import(){
 
-        const url = location.pathname+'#/Import'+location.search;
+        const url = config.HashPrevProxy + location.pathname+'#/Import'+location.search;
 
         checkUrlAndPostMsg({btnName:'导入课表',url});
 
@@ -248,7 +248,7 @@ class App extends Component{
 
     ScheduleSettingShow(){
 
-        const url = location.pathname+'#/manager/scheduleSetting'+location.search;
+        const url = config.HashPrevProxy+location.pathname+'#/manager/scheduleSetting'+location.search;
 
         checkUrlAndPostMsg({btnName:'课程表设置',url});
 

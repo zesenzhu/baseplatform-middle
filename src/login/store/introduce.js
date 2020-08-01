@@ -28,7 +28,9 @@ const defaultIntroduce = {
 
             { title:'一体化备课',describe:'——教学方案的专业化、一体化备课' },
 
-            { title:'智能化编辑教材',describe:'——人工智能、高效、多媒体教材' }
+            { title:'智能化编辑教材',describe:'——人工智能、高效、多媒体教材' },
+
+            { title:'AI考试',describe:'——让考试更加智能轻松' }
 
         ]
 

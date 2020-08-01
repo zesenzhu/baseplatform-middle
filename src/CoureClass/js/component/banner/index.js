@@ -14,6 +14,8 @@ import actions from "../../actions";
 
 import {checkUrlAndPostMsg} from "../../../../common/js/public";
 
+import config from '../../../../common/js/config';
+
 function Index(props) {
 
 
@@ -76,7 +78,7 @@ function Index(props) {
 
     const importCourseClass = useCallback(()=>{
 
-        const url = location.pathname+'#/ImportFile'+location.search;
+        const url = config.HashPrevProxy+location.pathname+'#/ImportFile'+location.search;
 
         checkUrlAndPostMsg({btnName:'导入教学班',url});
 
