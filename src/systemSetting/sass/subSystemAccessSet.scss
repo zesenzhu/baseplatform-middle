@@ -1,254 +1,236 @@
 @import "./public-minx.scss";
-
 .subsystem-access {
-  position: relative;
-  top: 0;
-  right: 0;
-  width: 944px;
-  height: 678px;
-  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.03);
-  border-radius: 12px;
-  box-sizing: border-box;
-  padding-top: 30px;
-  // background-color:#e68900;
-
-  .guide {
-    width: 881px;
-    margin-left: 30px;
-    border-bottom: 1px dashed #ccc;
-    padding-bottom: 10px;
-    .subsystem-logo {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-
-      background: url("../images/subsystem_logo.png") no-repeat;
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 944px;
+    height: 678px;
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.03);
+    border-radius: 12px;
+    box-sizing: border-box;
+    padding-top: 30px;
+    // background-color:#e68900;
+    .guide {
+        width: 881px;
+        margin-left: 30px;
+        border-bottom: 1px dashed #ccc;
+        padding-bottom: 10px;
+        .subsystem-logo {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: url("../images/subsystem_logo.png") no-repeat;
+        }
+        span {
+            margin-left: 8px;
+            display: inline-block;
+            width: 140px;
+            height: 17px;
+            font-family: MicrosoftYaHei;
+            font-size: 18px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            color: #333333;
+            vertical-align: top;
+        }
     }
-    span {
-      margin-left: 8px;
-      display: inline-block;
-      width: 140px;
-      height: 17px;
-      font-family: MicrosoftYaHei;
-      font-size: 18px;
-      font-weight: normal;
-      font-stretch: normal;
-      letter-spacing: 0px;
-      color: #333333;
-      vertical-align: top;
-    }
-  }
-  .subsystem-detail {
-    margin-top: 16px;
-    margin-bottom: 16px;
-    margin-left: 54px;
-    width: 255px;
-    height: 20px;
-    font-family: MicrosoftYaHei;
-    font-size: 14px;
-    font-weight: normal;
-    letter-spacing: 0px;
-    color: #999999;
-
-    span {
-      font-weight: normal;
-      font-stretch: normal;
-      letter-spacing: 0px;
-      color: #333333;
-      &:nth-child(2) {
+    .subsystem-detail {
+        margin-top: 16px;
+        margin-bottom: 16px;
+        margin-left: 54px;
+        width: 255px;
+        height: 20px;
+        font-family: MicrosoftYaHei;
+        font-size: 14px;
         font-weight: normal;
         letter-spacing: 0px;
-        color: #ff0000;
-      }
-    }
-  }
-  .access-status,
-  .users-type {
-    display: inline-block;
-    width: 195px;
-    height: 28px;
-    margin-top: 12px;
-    margin-left: 54px;
-    select {
-      margin-right: 8px;
-    }
-  }
-  .users-type {
-    margin-left: 29px;
-    select {
-      margin-right: 8px;
-    }
-  }
-  .subsystem-search {
-    display: inline-block;
-    margin-left: 232px;
-    margin-top: 12px;
-    width: 220px;
-    height: 28px;
-  }
-
-  .subsystem-container {
-    .Empty {
-      @include Center();
-    }
-
-    padding: 0 54px;
-
-    .subsystem-wall {
-      position: relative;
-      width: 258px;
-      height: 139px;
-      float: left;
-      top:0;
-      margin-bottom: 20px;
-      margin-left: 30px;
-    //   transition:top 10s linear 0s;
-        
-
-      &:hover {
-        // top: -200px;
-
-        animation: toTop 0.22s ease-in-out;
-
-        animation-fill-mode:forwards;
-        
-        .subsystem-content{
-            box-shadow: 0px 6px 6px 0px #abbfd1;
+        color: #999999;
+        span {
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            color: #333333;
+            &:nth-child(2) {
+                font-weight: normal;
+                letter-spacing: 0px;
+                color: #ff0000;
+            }
         }
-      }
-      &:nth-child(3n + 1) {
-        margin-left: 0;
-      }
-      &:nth-child(3n + 2) {
-        .subsystem-content {
-          .pic-bg {
-            background: url("../images/tomato_bg.png");
-          }
+    }
+    .access-status,
+    .users-type {
+        display: inline-block;
+        width: 195px;
+        height: 28px;
+        margin-top: 12px;
+        margin-left: 54px;
+        select {
+            margin-right: 8px;
         }
-      }
-      &:nth-child(3n + 3) {
-        .subsystem-content {
-          .pic-bg {
-            background: url("../images/green_bg.png");
-          }
+    }
+    .users-type {
+        margin-left: 29px;
+        select {
+            margin-right: 8px;
         }
-      }
-
-      .grey-bg {
-        position: relative;
-        width: 248px;
-        height: 139px;
-        top: 4px;
-        left: 5px;
-        background-color: #abbfd1;
-        border-radius: 5px;
-        border: solid 1px #abbfd1;
-        //   z-index: 8;
-      }
-
-      .subsystem-content {
-        position: absolute;
-        width: 258px;
-        height: 139px;
-        left: 0px;
-        top: 0px;
-        background-color: #ffffff;
-        border-radius: 5px;
-        border: solid 1px #abbfd1;
-        z-index: 300;
-
-        .pic-bg {
-          position: absolute;
-          left: 12px;
-          top: 12px;
-          width: 64px;
-          height: 64px;
-          background: url("../images/blue_bg.png");
-
-          img {
+    }
+    .subsystem-search {
+        display: inline-block;
+        margin-left: 232px;
+        margin-top: 12px;
+        width: 220px;
+        height: 28px;
+    }
+    .subsystem-container {
+        .Empty {
             @include Center();
-            max-width: 64px;
-            max-width: 64px;
-          }
         }
-        .subsystemName {
-          position: absolute;
-          left: 84px;
-          top: 29px;
-          color: #333333;
-          font-family: MicrosoftYaHei-Bold;
-          font-size: 16px;
-        }
-        .user-type {
-          position: absolute;
-          left: 84px;
-          top: 55px;
-          height: 13px;
-          font-family: MicrosoftYaHei;
-          font-size: 12px;
-          font-weight: normal;
-          font-stretch: normal;
-          letter-spacing: 0px;
-          color: #999999;
-          line-height: 10px;
-          span {
-            display: inline-block;
-            width: 12px;
-            height: 13px;
-            background: url("../images/usertype_bg_logo.png") no-repeat;
-            margin-right: 3px;
-          }
-        }
-        .split-line {
-          @include Hcenter();
-          top: 88px;
-          width: 226px;
-          height: 1px;
-          border: dashed 1px #cccccc;
-        }
-        .access-state {
-          position: absolute;
-          left: 19px;
-          top: 105px;
-          width: 145px;
-          height: 23px;
-          font-size: 14px;
-          color: #999999;
-          .btn-state {
-            margin-left: 11px;
-            width: 64px;
-            height: 20px;
-            background: url("../images/system_close.png") no-repeat;
-            border: none;
-            border-radius: 12px;
-            vertical-align: top;
-            cursor: pointer;
-            &.open {
-              background: url("../images/system_open.png") no-repeat;
+        padding: 0 54px;
+        .subsystem-wall {
+            position: relative;
+            width: 258px;
+            height: 139px;
+            float: left;
+            top: 0;
+            margin-bottom: 20px;
+            margin-left: 30px;
+            //   transition:top 10s linear 0s;
+            &:hover {
+                // top: -200px;
+                animation: toTop 0.22s ease-in-out;
+                animation-fill-mode: forwards;
+                .subsystem-content {
+                    box-shadow: 0px 6px 6px 0px #abbfd1;
+                }
             }
-            &.ban {
-              background: url("../images/cannot_close.png") no-repeat;
-              cursor: not-allowed;
+            &:nth-child(3n+1) {
+                margin-left: 0;
             }
-          }
+            &:nth-child(3n+2) {
+                .subsystem-content {
+                    .pic-bg {
+                        background: url("../images/tomato_bg.png");
+                    }
+                }
+            }
+            &:nth-child(3n+3) {
+                .subsystem-content {
+                    .pic-bg {
+                        background: url("../images/green_bg.png");
+                    }
+                }
+            }
+            .grey-bg {
+                position: relative;
+                width: 248px;
+                height: 139px;
+                top: 4px;
+                left: 5px;
+                background-color: #abbfd1;
+                border-radius: 5px;
+                border: solid 1px #abbfd1;
+                //   z-index: 8;
+            }
+            .subsystem-content {
+                position: absolute;
+                width: 258px;
+                height: 139px;
+                left: 0px;
+                top: 0px;
+                background-color: #ffffff;
+                border-radius: 5px;
+                border: solid 1px #abbfd1;
+                z-index: 300;
+                .pic-bg {
+                    position: absolute;
+                    left: 12px;
+                    top: 12px;
+                    width: 64px;
+                    height: 64px;
+                    background: url("../images/blue_bg.png");
+                    img {
+                        @include Center();
+                        max-width: 64px;
+                        max-width: 64px;
+                    }
+                }
+                .subsystemName {
+                    position: absolute;
+                    left: 84px;
+                    top: 29px;
+                    color: #333333;
+                    font-family: MicrosoftYaHei-Bold;
+                    font-size: 16px;
+                    max-width: 160px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+                .user-type {
+                    position: absolute;
+                    left: 84px;
+                    top: 55px;
+                    height: 13px;
+                    font-family: MicrosoftYaHei;
+                    font-size: 12px;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    letter-spacing: 0px;
+                    color: #999999;
+                    line-height: 13px;
+                    span {
+                        display: inline-block;
+                        width: 12px;
+                        height: 13px;
+                        background: url("../images/usertype_bg_logo.png") no-repeat;
+                        margin-right: 3px;
+                        vertical-align: top;
+                    }
+                }
+                .split-line {
+                    @include Hcenter();
+                    top: 88px;
+                    width: 226px;
+                    height: 1px;
+                    border-bottom: dashed 1px #cccccc;
+                }
+                .access-state {
+                    position: absolute;
+                    left: 19px;
+                    top: 105px;
+                    width: 145px;
+                    height: 23px;
+                    font-size: 14px;
+                    color: #999999;
+                    .btn-state {
+                        margin-left: 11px;
+                        width: 64px;
+                        height: 20px;
+                        background: url("../images/system_close.png") no-repeat;
+                        border: none;
+                        border-radius: 12px;
+                        vertical-align: top;
+                        cursor: pointer;
+                        &.open {
+                            background: url("../images/system_open.png") no-repeat;
+                        }
+                        &.ban {
+                            background: url("../images/cannot_close.png") no-repeat;
+                            cursor: not-allowed;
+                        }
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 
 @keyframes toTop {
-
-    from{
-
-         top:0;   
-
+    from {
+        top: 0;
     }
-
-    to{
-
+    to {
         top: -6px;
-
     }
-
 }

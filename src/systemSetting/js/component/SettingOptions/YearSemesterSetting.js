@@ -110,7 +110,7 @@ class YearSemesterSetting extends Component {
             // EndDate: semesterInfo.TermEndDate,
             // TermName: semesterInfo.Term,
             StartDate: semesterInfo.NextTermStartDate,
-            EndDate:semesterInfo.NextTermEndDate,
+            EndDate: semesterInfo.NextTermEndDate,
             TermName: semesterInfo.NextTerm.value,
             SchoolID: SchoolID,
           }).then((data) => {
@@ -290,18 +290,22 @@ class YearSemesterSetting extends Component {
 
   render() {
     const { semesterInfo, semesterloading } = this.props;
-    let { NextTerm, TermList,NextTermEndDate,
-        NextTermStartDate } = semesterInfo;
+    let {
+      NextTerm,
+      TermList,
+      NextTermEndDate,
+      NextTermStartDate,
+    } = semesterInfo;
 
     return (
       <Loading spinning={semesterloading} opacity={false} tip="请稍后...">
         <div className="year-semester">
+          <div className="guide">
+            <div className="semester-logo"></div>
+            <span>学年学期设置</span>
+          </div>
           {semesterInfo.TotalWeeks ? (
             <React.Fragment>
-              <div className="guide">
-                <div className="semester-logo"></div>
-                <span>学年学期设置</span>
-              </div>
               <i></i>
               <div className="semester-info">
                 <p>
@@ -361,7 +365,10 @@ class YearSemesterSetting extends Component {
             >
               <div className="ModalNewtermContent">
                 <div className="new-term">
-                  新的学期:<span className='term-detail' style={{paddingLeft:'10px'}}>{NextTerm?NextTerm.title?NextTerm.title:'':''}</span>
+                  新的学期:
+                  <span className="term-detail" style={{ paddingLeft: "10px" }}>
+                    {NextTerm ? (NextTerm.title ? NextTerm.title : "") : ""}
+                  </span>
                   {/* <DropDown
                     width={231}
                     dropSelectd={{
@@ -380,7 +387,8 @@ class YearSemesterSetting extends Component {
                     format="YYYY-MM-DD"
                     placeholder="请选择日期"
                     value={
-                        NextTermStartDate === undefined ||NextTermStartDate===''
+                      NextTermStartDate === undefined ||
+                      NextTermStartDate === ""
                         ? null
                         : moment(NextTermStartDate)
                     }
@@ -400,7 +408,7 @@ class YearSemesterSetting extends Component {
                     onChange={this.getOffDate}
                     placeholder="请选择日期"
                     value={
-                        NextTermEndDate === undefined ||NextTermEndDate===''
+                      NextTermEndDate === undefined || NextTermEndDate === ""
                         ? null
                         : moment(NextTermEndDate)
                     }
