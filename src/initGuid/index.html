@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>初始化向导</title>
+
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<div id="alert"></div>
+
+
+<script>
+
+    (function myBrowser(){
+        let userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+        let isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
+        let isIE =  userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1&&!isOpera; //判断是否IE浏览器
+        let isFF = userAgent.indexOf("Firefox") > -1; //判断是否Firefox浏览器
+        let isSafari = userAgent.indexOf("Safari") > -1; //判断是否Safari浏览器
+        let isChrome = userAgent.indexOf("Chrome") > -1;
+
+        if (isIE) {
+
+            let reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+
+            reIE.test(userAgent);
+
+            let fIEVersion = parseFloat(RegExp["$1"]);
+
+            if (fIEVersion<10){
+
+                window.location.href = "/browser-tips.html";
+
+            }
+
+        }//isIE end
+        if (isFF) {
+            return "FF";
+        }
+        if (isOpera) {
+            return "Opera";
+        }
+        if (isChrome) {
+            return "Chrome";
+        }
+
+    })()
+
+</script>
+
+</body>
+
+</html>

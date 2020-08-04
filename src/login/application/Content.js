@@ -103,7 +103,7 @@ function Content(props) {
 
         move:0,
 
-        maxCount:5
+        maxCount:8
 
     });
 

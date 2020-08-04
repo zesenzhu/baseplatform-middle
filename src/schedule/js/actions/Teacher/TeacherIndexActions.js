@@ -20,6 +20,8 @@ import utils from '../utils';
 
 import $ from 'jquery';
 
+import moment from 'moment';
+
 
 //学科教师总表学科总课表界面初始化
 const STSPageInit = (ResetClassHour) => {
@@ -37,7 +39,24 @@ const STSPageInit = (ResetClassHour) => {
 
         if (PeriodWeekTerm.ItemPeriod.length>0){
 
-            const { WeekNO,NowWeekDay,NowDate } = PeriodWeekTerm;
+            let { WeekNO,NowWeekDay,NowDate,ItemWeek } = PeriodWeekTerm;
+
+            const nowDateMoment = moment(NowDate);
+
+            const endDateMoment = moment(ItemWeek[ItemWeek.length-1].EndDate);
+
+            const startDateMoment = moment(ItemWeek[0].StartDate);
+
+            if (nowDateMoment.isAfter(endDateMoment)||nowDateMoment.isBefore(startDateMoment)){
+
+                WeekNO = 1;
+
+                NowWeekDay = 1;
+
+                NowDate = ItemWeek[0].StartDate;
+
+            }
+
 
             let PeriodID = PeriodWeekTerm.ItemPeriod[PeriodWeekTerm.defaultPeriodIndex].PeriodID;//所需的参数
 

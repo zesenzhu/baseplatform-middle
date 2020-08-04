@@ -2,8 +2,6 @@ import React,{useState,useEffect,useRef,useImperativeHandle,forwardRef,useContex
 
 import {connect} from 'react-redux';
 
-import UpUIState from '../actions/UpUIState';
-
 import {GetAllCourseClassInfoForStu,SureChangeClass,SureChangeSubjectAndClass} from '../actions/apiActions';
 
 import {useStateValue,useSetState} from "../actions/hooks";
@@ -19,6 +17,10 @@ import ChangeCourseClass from '../component/ChangeCourseClass';
 import AgainSelectCourse from '../component/AgainSelectCourse';
 
 import appAlertActions from "../actions/appAlertActions";
+
+import {appLoadingHide} from "../reducers/AppLoading";
+
+import {bannerHide} from "../reducers/bannerState";
 
 import actions from "../actions";
 
@@ -59,18 +61,23 @@ function Student(props) {
 
     useEffect(()=>{
 
-        GetAllCourseClassInfoForStu({UserID,UserType,dispatch}).then(data=>{
+        if (UserID){
 
-            const list = data.CourseClassItem&&data.CourseClassItem.length>0?data.CourseClassItem:[];
+            GetAllCourseClassInfoForStu({UserID,UserType,dispatch}).then(data=>{
 
-            setCourseClassList(list);
+                const list = data.CourseClassItem&&data.CourseClassItem.length>0?data.CourseClassItem:[];
 
-            dispatch({type:UpUIState.APP_LOADING_CLOSE});
+                setCourseClassList(list);
 
-        });
+                dispatch(appLoadingHide());
 
+                dispatch(bannerHide());
 
-    },[]);
+            });
+
+        }
+
+    },[UserID]);
 
 
 

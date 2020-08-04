@@ -165,7 +165,7 @@ class ClassRoomTotal extends Component{
 
     //点击全屏按钮
 
-    FullScreenClick(e){
+    /*FullScreenClick(e){
 
         this.setState({fullScreen:!this.state.fullScreen},()=>{
 
@@ -181,7 +181,7 @@ class ClassRoomTotal extends Component{
 
         });
 
-    }
+    }*/
 
 
     render(){
@@ -197,7 +197,7 @@ class ClassRoomTotal extends Component{
 
                 <div className={`class-total-content ${this.state.fullScreen?'full-screen-doing':''}`}>
 
-                    <div className="full-screen-btn" onClick={this.FullScreenClick.bind(this)}>{this.state.fullScreen?'退出全屏':'全屏'}</div>
+                    {/*<div className="full-screen-btn" onClick={this.FullScreenClick.bind(this)}>{this.state.fullScreen?'退出全屏':'全屏'}</div>*/}
 
                     <Loading spinning={ClassRoomTotal.LoadingShow} tip="正在为您查找，请稍后...">
 
