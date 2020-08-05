@@ -263,11 +263,11 @@ class ErrorAlert extends React.Component {
         return <Alert
             show={this.state.show}
             type='btn-error'
-            title={'提示信息'}
+            title={this.props.title}
             onOk={this.onOk}
-            abstract={this.props.title}
             onCancel={this.onCancel}
             onClose={this.onClose}
+            cancelShow={"n"}
         ></Alert>
     }
 

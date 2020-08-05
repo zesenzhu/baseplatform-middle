@@ -36,6 +36,8 @@ import actions from "../../actions";
 
 import { checkUrlAndPostMsg } from '../../../../common/js/public';
 
+import {isNotWalkingClass,isWalkingClass} from "../../reducers/editCourseClassModal";
+
 
 function Index(props) {
 
@@ -563,7 +565,7 @@ function Index(props) {
 
                     return <div className={"cooperate"}>
 
-                        <Button className={"edit btn-blue-default"} onClick={e=>editCourseClass(i.CourseClassID)}>编辑</Button>
+                        <Button className={"edit btn-blue-default"} onClick={e=>editCourseClass(i.CourseClassID,i.IsCourseClass)}>编辑</Button>
 
                         <Button className={"del btn-blue-default"} onClick={e=>delCourseClass(2,i.CourseClassID)}>删除</Button>
 
@@ -882,9 +884,13 @@ function Index(props) {
 
     //编辑教学班
 
-    const editCourseClass = (courseClassID)=>{
+    const editCourseClass = (courseClassID,isCourseClass)=>{
 
         // setAddEditCourse(d=>({...d,show:true,isEdit:true,courseClassID}));
+
+        console.log(isCourseClass);
+
+        isCourseClass?dispatch(isWalkingClass()):dispatch(isNotWalkingClass());
 
         dispatch(actions.UpUIState.ChangeCourseClassModalOpen());
         dispatch(
@@ -1010,8 +1016,6 @@ function Index(props) {
         const pageSize = paginationRef.current.pageSize;
 
         const pageIndex = paginationRef.current.current;
-
-        console.log(UserType,UserID);
 
         setTableLoading(true);
 

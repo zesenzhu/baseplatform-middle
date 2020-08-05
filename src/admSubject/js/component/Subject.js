@@ -630,7 +630,8 @@ class Subject extends React.Component {
   };
   render() {
     const { DataState, UIState } = this.props;
-    console.log(DataState.SubjectMsg ? DataState.SubjectMsg.Total : 0);
+
+    console.log(DataState.PeriodMsg);
 
     return (
       <React.Fragment>
@@ -652,18 +653,28 @@ class Subject extends React.Component {
             <div className="Adm-hr" ></div>
             <div className="Adm-content">
               <div className="content-top">
-                <DropDown
-                  ref="dropMenuFirst"
-                  onChange={this.AdmDropMenu.bind(this)}
-                  width={120}
-                  height={96}
-                  dropSelectd={this.state.SubjectSelect}
-                  dropList={
-                    DataState.PeriodMsg
-                      ? DataState.PeriodMsg.value
-                      : [{ value: 0, title: "全部学段" }]
+
+                  {
+
+                      DataState.PeriodMsg&&DataState.PeriodMsg.value.length>1?
+
+                          <DropDown
+                              ref="dropMenuFirst"
+                              onChange={this.AdmDropMenu.bind(this)}
+                              width={120}
+                              height={96}
+                              dropSelectd={this.state.SubjectSelect}
+                              dropList={
+                                  DataState.PeriodMsg
+                                      ? DataState.PeriodMsg.value
+                                      : [{ value: 0, title: "全部学段" }]
+                              }
+                          ></DropDown>
+
+                          :null
+
                   }
-                ></DropDown>
+
               </div>
               <div className="content-render">
                 <Table

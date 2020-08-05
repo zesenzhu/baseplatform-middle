@@ -24,6 +24,14 @@ import pic3 from '../assets/images/dark-tech/dark-tech-animation3.png';
 
 import pic4 from '../assets/images/dark-tech/dark-tech-animation4.png';
 
+import animationPic1 from '../assets/images/dark-tech/dark-tech-pic1.png';
+
+import animationPic2 from '../assets/images/dark-tech/dark-tech-pic2.png';
+
+import animationPic3 from '../assets/images/dark-tech/dark-tech-pic3.png';
+
+import animationPic4 from '../assets/images/dark-tech/dark-tech-pic4.png';
+
 import {getNewTkUrl,goToNextPage,decodeObjValue} from "../api/utils";
 
 
@@ -65,6 +73,10 @@ function Content(props) {
         return username?true:false
 
     });
+
+    //图片序列帧第一帧是否加载
+
+    const [darkTechImgShow,setDarkTechImgShow] = useState(true);
 
 
 
@@ -147,6 +159,8 @@ function Content(props) {
 
         }else if(skin==='dark_tech'){
 
+            setDarkTechImgShow(true);
+
             const canvas = document.getElementById(`dark_tech_pic`);
 
             const ctx = canvas.getContext("2d");
@@ -197,11 +211,15 @@ function Content(props) {
 
                 cancelAnimationFrame(AnimationRef.current);
 
+                setDarkTechImgShow(false);
+
                 canvasDraw();
 
             };
 
             timer = setTimeout(()=>{
+
+                setDarkTechImgShow(true);
 
                 if (active===3){
 
@@ -212,7 +230,6 @@ function Content(props) {
                     picChange(active+1);
 
                 }
-
 
             },4000);
 
@@ -839,6 +856,13 @@ function Content(props) {
 
     },[ResHttpRootUrl]);
 
+    //图标
+    const darkTeachImgs = useMemo(()=>{
+
+        return [animationPic1,animationPic2,animationPic3,animationPic4];
+
+    },[]);
+
 
 
     return(
@@ -911,8 +935,17 @@ function Content(props) {
 
                                                     <i className={`pallet pallet${active+1}`}></i>*/}
 
-                                                    <canvas id={`dark_tech_pic`} width={640} height={500} className={`animation${k}`}></canvas>
+                                                    {
 
+                                                        darkTechImgShow?
+
+                                                            <i className={"animation-before-pic"} style={{backgroundImage:`url(${darkTeachImgs[k]})`}}/>
+
+                                                            :null
+
+                                                    }
+
+                                                    <canvas id={`dark_tech_pic`} width={640} height={500} className={`animation${k}`}></canvas>
 
                                                 </div>
 

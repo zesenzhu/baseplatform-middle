@@ -4,7 +4,7 @@ import {useSelector,useDispatch} from 'react-redux';
 
 import {Modal,Loading} from "../../../../common";
 
-import {Calendar} from 'antd';
+import {Calendar,Button} from 'antd';
 
 import {Scrollbars} from 'react-custom-scrollbars';
 
@@ -135,11 +135,11 @@ function Holiday(props) {
 
         let type = '';
         
-        if (date.format("YYYY-MM-DD")===start){
+        if (date.format("YYYY-MM-DD")===start&&!disabled){
 
             contentTitle = '开学';
 
-        }else if (date.format("YYYY-MM-DD")===end){
+        }else if (date.format("YYYY-MM-DD")===end&&!disabled){
 
             contentTitle = '学期结束';
 
@@ -170,7 +170,7 @@ function Holiday(props) {
     };
 
 
-    const dateSelect = useCallback(({date,isSelectd})=>{
+    const dateSelect = ({date,isSelectd})=>{
 
         const dateStr = date.format("YYYY-MM-DD");
 
@@ -188,19 +188,21 @@ function Holiday(props) {
 
             setSelectdDate(d=>{
 
-                const list = d;
+                const list = Array.from(d);
 
                 list.push(dateStr);
 
                 selectdDateRef.current = list;
 
+                console.log(list);
+
                 return list;
 
-            })
+            });
 
         }
 
-    },[]);
+    };
 
     //空函数
 
@@ -259,6 +261,7 @@ function Holiday(props) {
 
     },[]);
 
+
     return(
 
         <Modal
@@ -275,9 +278,19 @@ function Holiday(props) {
 
             className={"set-holiday-modal"}
 
-            onOk={ok}
+            /*onOk={ok}
 
-            onCancel={cancel}
+            onCancel={cancel}*/
+
+            footer={<>
+
+                <span className={"tips"} style={{float:'left'}}>已选择<span style={{color:'#ff6600'}}>{selectdDate.length}</span>天</span>
+
+                <Button className={"ant-btn Button btn-small btn-green"} onClick={ok}>确定</Button>
+
+                <Button className={"ant-btn Button btn-small btn-blue"} onClick={cancel}>取消</Button>
+
+            </>}
 
         >
 

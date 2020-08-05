@@ -533,7 +533,7 @@ class Modal extends React.Component {
     }
     this.setState({
       width: this.props.width ? this.props.width : width,
-      ModalStyle: ModalStyle,
+      ModalStyle: ModalStyle
     });
   }
 
@@ -542,11 +542,13 @@ class Modal extends React.Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    const { title,bodyStyle,className } = nextProps;
+
+    const { title,bodyStyle,className,footer } = nextProps;
 
     this.selectType(this.props.type);
 
-    this.setState({ title: title,bodyStyle,className });
+    this.setState({ title: title,bodyStyle,className,footer});
+
   }
   // 拖拽modal
 
