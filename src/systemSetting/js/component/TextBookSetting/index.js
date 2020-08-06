@@ -23,6 +23,7 @@ class TextBookSetting extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    console.log('1245')
     props.dispatch(UpDataState.GetSubjectListData({}));
     // props.dispatch(
     //   UpDataState.SetTextBookInitData({

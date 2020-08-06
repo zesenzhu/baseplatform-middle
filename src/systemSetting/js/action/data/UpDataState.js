@@ -31,6 +31,7 @@ const GET_SUBJECT_LIST_DATA = "GET_SUBJECT_LIST_DATA";
 const GetSubjectListData = ({ isFirstLoad = true, func = () => {} }) => {
   return (dispatch, getState) => {
     let { SchoolID } = getState().DataState.LoginUser;
+    // console.log('dssd')
     if (!SchoolID) {
       return;
     }

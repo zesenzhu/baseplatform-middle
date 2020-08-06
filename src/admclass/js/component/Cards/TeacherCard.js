@@ -75,7 +75,7 @@ class TeacherCard extends React.Component {
       >
         {/* <div className="card-bg"></div> */}
         {/* <div className="card-main"> */}
-        <div className="cm-content" onClick={()=>onDetailModalShow('teacher',UserID)}>
+        <div className="cm-content" onClick={IsSet?()=>onDetailModalShow('teacher',UserID):()=>{}}>
           <div
             className="cm-img"
             style={
