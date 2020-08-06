@@ -10,6 +10,8 @@ import { GetBaseInfoForPages } from '../actions/apiActions';
 
 import {loginUserUpdate} from "../store/LoginUser";
 
+import {appLoadingHide} from "../store/AppLoading";
+
 import {firstPageLoad} from '../../common/js/disconnect/index';
 
 import Header from './header';
@@ -63,6 +65,8 @@ function App(props) {
 
       dispatch(loginUserUpdate(UserInfo));
 
+      dispatch(appLoadingHide());
+
     };
 
     return(
@@ -73,7 +77,7 @@ function App(props) {
 
                 <div className={"init-guid-app"}>
 
-                    <Header LoginUser={LoginUser}></Header>
+                    <Header></Header>
 
                     <Guider></Guider>
 

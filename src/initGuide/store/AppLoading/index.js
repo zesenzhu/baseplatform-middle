@@ -2,7 +2,7 @@ export const APP_LOADING_SHOW = 'APP_LOADING_SHOW';
 
 export const APP_LOADING_HIDE = 'APP_LOADING_HIDE';
 
-const appLoadingHide = () =>{
+export const appLoadingHide = () =>{
 
   return { type:APP_LOADING_HIDE }
 
