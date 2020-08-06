@@ -236,7 +236,7 @@ class App extends Component {
           UserPower = "Admin";
         } else if (UserType === "1") {
           //教师
-          if (UserClass === "101000") {
+          if (UserClass[2] === "1") {
             UserPower = "MainTeacher";
           } else {
             UserPower = "Teacher";

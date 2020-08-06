@@ -14,6 +14,8 @@ import AddClassModal from "../Modal/AddClassModal";
 import actions from "../../actions";
 import Public from "../../../../common/js/public";
 
+import config from '../../../../common/js/config';
+
 import { Button, Modal } from "../../../../common";
 const { UpDataState, UpUIState, PublicAction } = actions;
 let { checkUrlAndPostMsg } = Public;
@@ -67,8 +69,10 @@ class TimeBanner extends React.Component {
     );
   };
   onImportClick = () => {
+
     let { dispatch } = this.props;
-    let url ='/html/class'+ window.location.search +'#/Import/Genger';
+
+    let url =config.HashPrevProxy+'/html/class'+ window.location.search +'#/Import/Genger';
 
     // console.log(url);
     checkUrlAndPostMsg({ btnName:'导入班主任及班长', url });

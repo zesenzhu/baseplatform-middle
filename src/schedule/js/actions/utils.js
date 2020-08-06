@@ -94,13 +94,9 @@ export const getFestival = (time)=>{
 
     if ((month == 0) && (date == 1)) title = "元旦";
 
-    if ((month == 1) && (date ==14 )) title = "情人节";
-
     if ((month == 2) && (date == 8)) title = "妇女节";
 
-    if ((month == 2) && (date == 12)) title = "植树节";
-
-    if ((month == 3) && (date == 1)) title = "愚人节";
+    if ((month == 4) && (date == 4)) title = "青年节";
 
     if ((month == 4) && (date == 1)) title = "劳动节";
 
@@ -112,9 +108,7 @@ export const getFestival = (time)=>{
 
     if ((month == 8) && (date == 10)) title = "教师节";
 
-    if ((month == 11) && (date == 24)) title = "平安夜";
-
-    if ((month == 11) && (date == 25)) title = "圣诞节";
+    if ((month == 9) && (date == 1)) title = "国庆节";
 
     return title;
 

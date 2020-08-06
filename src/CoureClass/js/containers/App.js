@@ -65,6 +65,7 @@ import {leftMemuShow,leftMemuHide} from "../reducers/leftMenu";
 import {appLoadingHide} from "../reducers/AppLoading";
 
 import {getQueryVariable} from "../../../common/js/disconnect";
+import editCoureClassModal from "../reducers/editCourseClassModal";
 
 
 const COURECLASS_MODULEID = "000-2-0-17"; //教学班管理
@@ -567,6 +568,9 @@ class App extends Component {
     let url = "/InsertOrEditCourseClass";
 
 
+
+    dispatch({type:actions.UpUIState.MODAL_LOADING_OPEN});
+
     postData(CONFIG.CourseClassProxy + url,{
         userID: userMsg.UserID,
         userType: userMsg.UserType,
@@ -594,8 +598,6 @@ class App extends Component {
             })
           );
 
-          console.log(userMsg);
-
           if (userMsg.UserType === 0) {
 
               if (window.ManageUpDateTable){
@@ -608,27 +610,26 @@ class App extends Component {
             //history.push("/Teacher");
           }
 
+            dispatch(actions.UpUIState.ChangeCourseClassModalClose());
+            dispatch(actions.UpDataState.setCourseClassName([]));
+            dispatch(actions.UpDataState.setCourseClassStudentMsg([]));
+            dispatch(actions.UpDataState.setSubjectTeacherMsg([]));
+            dispatch(actions.UpDataState.setClassStudentTransferMsg([]));
+            dispatch(actions.UpDataState.setSubjectTeacherTransferMsg([]));
+            dispatch(actions.UpDataState.SetCourseClassDefaultMsg({ClassSource:[],Class:[]}));
+            dispatch(actions.UpDataState.setClassStudentTransferTransferMsg({ClassSource:[],Class:[]}));
+            dispatch(actions.UpDataState.setCourseClassDataMsg({
+                Subject: {},
+                Grade: {},
+                Teacher: [],
+                Student: []
+            }));
+
         }
+
+        dispatch({ type: actions.UpUIState.MODAL_LOADING_CLOSE });
+
       });
-
-    dispatch({ type: actions.UpUIState.MODAL_LOADING_CLOSE });
-    dispatch(actions.UpUIState.ChangeCourseClassModalClose());
-    dispatch(actions.UpDataState.setCourseClassName([]));
-    dispatch(actions.UpDataState.setCourseClassStudentMsg([]));
-    dispatch(actions.UpDataState.setSubjectTeacherMsg([]));
-    dispatch(actions.UpDataState.setClassStudentTransferMsg([]));
-
-    dispatch(actions.UpDataState.setSubjectTeacherTransferMsg([]));
-
-    dispatch(actions.UpDataState.SetCourseClassDefaultMsg({ClassSource:[],Class:[]}));
-    dispatch(actions.UpDataState.setClassStudentTransferTransferMsg({ClassSource:[],Class:[]}));
-
-    dispatch(actions.UpDataState.setCourseClassDataMsg({
-        Subject: {},
-        Grade: {},
-        Teacher: [],
-        Student: []
-      }));
 
   };
   //关闭
@@ -733,6 +734,8 @@ class App extends Component {
     let url = "/InsertOrEditCourseClass";
 
 
+      dispatch({ type: actions.UpUIState.MODAL_LOADING_OPEN });
+
     postData(
       CONFIG.CourseClassProxy + url,
       {
@@ -776,30 +779,32 @@ class App extends Component {
             history.push("/Teacher");
           }
 
+            dispatch(actions.UpUIState.AddCourseClassModalClose());
+
+            dispatch(actions.UpDataState.setCourseClassName({ CourseClassName: "" }));
+
+            dispatch(
+                actions.UpDataState.setCourseClassDataMsg({
+                    Subject: {},
+                    Grade: {},
+                    Teacher: [],
+                    Student: []
+                })
+            );
+
+            dispatch(actions.UpDataState.setCourseClassStudentMsg([]));
+            dispatch(actions.UpDataState.SetCourseClassDefaultMsg({ClassSource:[],Class:[]}));
+            dispatch(actions.UpDataState.setClassStudentTransferTransferMsg({ClassSource:[],Class:[]}));
+            dispatch(actions.UpDataState.setClassStudentTransferMsg([]));
+            dispatch(actions.UpDataState.setSubjectTeacherMsg([]));
+
+            dispatch(actions.UpDataState.setSubjectTeacherTransferMsg([]));
+
         }
+
+          dispatch({ type: actions.UpUIState.MODAL_LOADING_CLOSE });
+
       });
-    dispatch(actions.UpUIState.AddCourseClassModalClose());
-    dispatch({ type: actions.UpUIState.MODAL_LOADING_CLOSE });
-
-
-    dispatch(actions.UpDataState.setCourseClassName({ CourseClassName: "" }));
-    dispatch(
-      actions.UpDataState.setCourseClassDataMsg({
-        Subject: {},
-        Grade: {},
-        Teacher: [],
-        Student: []
-      })
-    );
-    dispatch(actions.UpDataState.setCourseClassStudentMsg([]));
-    dispatch(actions.UpDataState.SetCourseClassDefaultMsg({ClassSource:[],Class:[]}));
-    dispatch(actions.UpDataState.setClassStudentTransferTransferMsg({ClassSource:[],Class:[]}));
-    dispatch(actions.UpDataState.setClassStudentTransferMsg([]));
-
-
-    dispatch(actions.UpDataState.setSubjectTeacherMsg([]));
-
-    dispatch(actions.UpDataState.setSubjectTeacherTransferMsg([]));
 
   };
   AddCourseClassModalCancel = () => {
@@ -837,7 +842,7 @@ class App extends Component {
 
     console.log(this.state.isFrame);
 
-    const { UIState, DataState,AppLoading,leftMenu,bannerState,history } = this.props;
+    const { UIState, DataState,AppLoading,leftMenu,bannerState,history,editCourseClassModal } = this.props;
 
     let {UserID,UserType} = DataState.LoginUser;
 
@@ -853,7 +858,12 @@ class App extends Component {
         cnname = "我的教学班";
         enname = "My CourseClass";
     }
-     
+
+    console.log(editCourseClassModal);
+
+    const { isWalkingClass } = editCourseClassModal;
+
+
     return (
       <React.Fragment>
         <Loading
@@ -985,7 +995,7 @@ class App extends Component {
             opacity={false}
             spinning={AppLoading}
           >
-            <HandleCourseClass isFrame={this.state.isFrame}></HandleCourseClass>
+            <HandleCourseClass  isFrame={this.state.isFrame}></HandleCourseClass>
           </Loading>
         </Modal>
         <Modal
@@ -1043,14 +1053,15 @@ class App extends Component {
   }
 }
 const mapStateToProps = state => {
-  let { UIState, DataState,AppLoading,leftMenu,bannerState,LoginUser } = state;
+  let { UIState, DataState,AppLoading,leftMenu,bannerState,LoginUser,editCourseClassModal } = state;
   return {
     UIState,
     DataState,
     AppLoading,
     leftMenu,
     bannerState,
-    LoginUser
+    LoginUser,
+    editCourseClassModal
   };
 };
 export default connect(mapStateToProps)(withRouter(App));

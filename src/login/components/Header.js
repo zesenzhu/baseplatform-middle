@@ -57,8 +57,6 @@ function Header(props) {
 
     //下载考试管理
 
-    console.log(props);
-
     const downLoadTestManage = useCallback(()=>{
 
         window.BstoCs.start("751|M10", "AiTestManage|LGCampusMonitorTest",props.WebRootUrl,"../AiTest/Manage/AiTest-Manage.exe", "");

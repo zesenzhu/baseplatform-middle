@@ -18,6 +18,8 @@ import CRSActions from './ClassRoomSingleActions';
 
 import ApiActions from "../ApiActions";
 
+import moment from 'moment';
+
 
 
 
@@ -33,9 +35,23 @@ const STSPageInit = (ResetClassHour) => {
 
         let {SchoolID,UserID,UserType} =LoginUser;//需要的参数后期加入
 
-        const {WeekNO,NowWeekDay,NowDate} = PeriodWeekTerm;
+        let {WeekNO,NowWeekDay,NowDate,ItemWeek} = PeriodWeekTerm;
 
+        const nowDateMoment = moment(NowDate);
 
+        const endDateMoment = moment(ItemWeek[ItemWeek.length-1].EndDate);
+
+        const startDateMoment = moment(ItemWeek[0].StartDate);
+
+        if (nowDateMoment.isAfter(endDateMoment)||nowDateMoment.isBefore(startDateMoment)){
+
+            WeekNO = 1;
+
+            NowWeekDay = 1;
+
+            NowDate = ItemWeek[0].StartDate;
+
+        }
 
         if (PeriodWeekTerm.ItemPeriod.length>0){
 
@@ -826,7 +842,23 @@ const ClassTotalInit = (ResetClassHour) => {
 
         let {SchoolID,UserID,UserType} =LoginUser;//需要的参数后期加入
 
-        const {WeekNO,NowWeekDay,NowDate} = PeriodWeekTerm;
+        let {WeekNO,NowWeekDay,NowDate,ItemWeek} = PeriodWeekTerm;
+
+        const nowDateMoment = moment(NowDate);
+
+        const endDateMoment = moment(ItemWeek[ItemWeek.length-1].EndDate);
+
+        const startDateMoment = moment(ItemWeek[0].StartDate);
+
+        if (nowDateMoment.isAfter(endDateMoment)||nowDateMoment.isBefore(startDateMoment)){
+
+            WeekNO = 1;
+
+            NowWeekDay = 1;
+
+            NowDate = ItemWeek[0].StartDate;
+
+        }
 
         let WeekList = [];
         //封装获取到的周次
@@ -1820,7 +1852,23 @@ const ClassRoomTotalInit = (ResetClassHour) => {
 
             let WeekList = [];
 
-            const {WeekNO,NowWeekDay,NowDate} = PeriodWeekTerm;
+            let {WeekNO,NowWeekDay,NowDate,ItemWeek} = PeriodWeekTerm;
+
+            const nowDateMoment = moment(NowDate);
+
+            const endDateMoment = moment(ItemWeek[ItemWeek.length-1].EndDate);
+
+            const startDateMoment = moment(ItemWeek[0].StartDate);
+
+            if (nowDateMoment.isAfter(endDateMoment)||nowDateMoment.isBefore(startDateMoment)){
+
+                WeekNO = 1;
+
+                NowWeekDay = 1;
+
+                NowDate = ItemWeek[0].StartDate;
+
+            }
 
             dispatch({type:CRTActions.MANAGER_CRT_NOW_WEEK_NO_CHANGE,data:WeekNO});
 

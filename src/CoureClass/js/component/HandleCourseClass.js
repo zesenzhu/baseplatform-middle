@@ -120,7 +120,7 @@ class HandleCourseClass extends React.Component {
       dispatch({ type: actions.UpUIState.NAME_TIPS_SHOW_OPEN });
     } else if (!Test) {
       this.setState({
-        SubjectNameTipsTitle: "教学班名称格式不正确",
+        SubjectNameTipsTitle: "教学班名称应由:数字或字母或中文汉字以及>/()（）等符号组成",
       });
       dispatch({ type: actions.UpUIState.NAME_TIPS_SHOW_OPEN });
     } else {
@@ -266,7 +266,7 @@ class HandleCourseClass extends React.Component {
     dispatch(actions.UpUIState.AddStudentModalOpen());
   };
   render() {
-    const { DataState, UIState } = this.props;
+    const { DataState, UIState,isFrame } = this.props;
     let data = DataState.GetCourseClassDetailsHandleClassMsg;
     let tableSource = data.TableSource ? data.TableSource : [];
     let teacher = data.selectData
@@ -389,12 +389,13 @@ class HandleCourseClass extends React.Component {
                     </span>
                     <span className="top-left-add" style={{display:data.selectData.ClassSource.length>0&&this.state.tableSource.length>0?'inline-block':'none'}}>+</span>
                     <span style={{display:data.selectData.ClassSource.length>0?'inline-block':'none'}} className="top-left top-left-2">
-                      已选
                       <span className="count">
+                        已选
                         {data.selectData.ClassSource.length}
                       </span>
                       个行政班
                     </span>
+
                     <span className="top-right">
                       <span
                         onClick={this.onSelectStudentAllClick.bind(this)}
@@ -409,10 +410,12 @@ class HandleCourseClass extends React.Component {
                         清空
                       </span>
                     </span>
+
                   </div>
+
                   <div style={{display:data.selectData.ClassSource.length>0?' block':'none'}} className="select-box student-box">
                     <p className="box-title">行政班：</p>
-                    <div className="select-content-box">
+                    <div className="select-content-box" style={this.state.tableSource.length>0?{height:isFrame?90:140}:{height:isFrame?220:320}}>
                       <Scrollbars
                         style={{ width: 100 + "%", height:   "100%" }}
                       >
@@ -449,9 +452,10 @@ class HandleCourseClass extends React.Component {
                       </Scrollbars>
                     </div>
                   </div>
+
                   <div style={{display:this.state.tableSource.length>0?' block':'none'}} className="select-box student-box">
                     <p className="box-title">学生：</p>
-                    <div className="select-content-box">
+                    <div className="select-content-box" style={data.selectData.ClassSource.length>0?{height:isFrame?90:140}:{height:isFrame?220:320}}>
                       <Scrollbars
                         style={{ width: 100 + "%", height:   "100%" }}
                       >
@@ -488,6 +492,7 @@ class HandleCourseClass extends React.Component {
                       </Scrollbars>
                     </div>
                   </div>
+
                 </div>
               </span>
             </div>

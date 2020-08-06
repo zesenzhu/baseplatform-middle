@@ -7,6 +7,7 @@ import breadCrumb from './breadCrumb';
 import commonSetting from './commonSetting';
 import leftMenu from './leftMenu';
 import LoginUser from './LoginUser';
+import editCourseClassModal from './editCourseClassModal';
 
 
 
@@ -19,6 +20,7 @@ let rootReducers = combineReducers({
     AppLoading,
     bannerState,
     breadCrumb,
+    editCourseClassModal,
     DataState,
     UIState
 });

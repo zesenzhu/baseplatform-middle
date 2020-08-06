@@ -872,7 +872,7 @@ function AddTempScheduleModal(props){
 
                                     </td>
 
-                                    <td>
+                                    {/*<td>
 
                                         {
 
@@ -897,7 +897,7 @@ function AddTempScheduleModal(props){
 
                                         }
 
-                                    </td>
+                                    </td>*/}
 
                                 </tr>
 

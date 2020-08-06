@@ -67,7 +67,7 @@ function Index(props) {
 
     const lookDetail = useCallback(()=>{
 
-        const url = location.pathname+'#/Log/Dynamic'+location.search;
+        const url = config.HashPrevProxy+location.pathname+location.search+'#/Log/Dynamic';
 
         checkUrlAndPostMsg({btnName:'查看详情',url});
 
@@ -78,7 +78,7 @@ function Index(props) {
 
     const importCourseClass = useCallback(()=>{
 
-        const url = config.HashPrevProxy+location.pathname+'#/ImportFile'+location.search;
+        const url = config.HashPrevProxy+location.pathname+location.search+'#/ImportFile';
 
         checkUrlAndPostMsg({btnName:'导入教学班',url});
 

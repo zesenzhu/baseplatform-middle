@@ -1,0 +1,154 @@
+body{
+
+  background-color: #ffffff!important;
+
+  font-family: "Microsoft YaHei";
+
+}
+
+.init-guide-header{
+
+  background: url("./images/header-bg.png") no-repeat center;
+
+  min-width: 1200px;
+
+  height: 128px;
+
+  .header-left-content{
+
+    float:left;
+
+    &>*{
+
+      float: left;
+
+    }
+
+    .logo{
+
+      margin-left: 42px;
+
+      margin-top: 32px;
+
+      width: 90px;
+
+      height: 80px;
+
+      background:url("./images/logo.png") no-repeat center;
+
+    }
+
+    .product-info{
+
+      margin-top: 32px;
+
+      margin-left: -14px;
+
+    }
+
+    .product-title{
+
+      font-size: 16px;
+
+      color:rgba(255,255,255,0.72);
+
+      margin-bottom: 6px;
+
+    }
+
+    .init-guide-title-icon{
+
+      display: block;
+
+      width: 206px;
+
+      height: 34px;
+
+      background: url("./images/guide-title.png") no-repeat center;
+
+    }
+
+  }
+
+  .header-user-info{
+
+    float: right;
+
+    margin-right: 54px;
+
+    margin-top: 58px;
+
+    &>*{
+
+      float: left;
+
+    }
+
+    .header-icon{
+
+      width: 24px;
+
+      height: 24px;
+
+      border-radius: 50%;
+
+      background-repeat: no-repeat;
+
+      background-position: center;
+
+      background-size: cover;
+
+    }
+
+    .user-name{
+
+      height: 24px;
+
+      line-height: 24px;
+
+      margin:0 6px;
+
+      max-width:120px;
+
+      white-space: nowrap;
+
+      text-overflow: ellipsis;
+
+      overflow: hidden;
+
+      color: #bcd9fb;
+
+      cursor: pointer;
+
+      &:hover{
+
+        opacity: 0.8;
+
+      }
+
+    }
+
+    .log-out{
+
+      width: 14px;
+
+      height: 14px;
+
+      margin-top: 5px;
+
+      background: url("./images/log-out.png") no-repeat center;
+
+      cursor: pointer;
+
+      &:hover{
+
+        opacity: 0.8;
+
+      }
+
+    }
+
+  }
+
+}
+

@@ -128,7 +128,7 @@ function ScheduleSetting(props){
 
         const method = opts.type===1?'分学段':'统一';
 
-        dispatch(AppAlertActions.alertQuery({title:`您确定要切换成按${method}设置吗？`,ok:()=>{ return SettingTypeSitch(opts)}}));
+        dispatch(AppAlertActions.alertQuery({title:`您确定要切换成按${method}设置吗？`,ok:()=>{ return e=>SettingTypeSitch(opts)}}));
 
     };
 
