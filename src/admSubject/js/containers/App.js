@@ -61,29 +61,42 @@ class App extends Component {
         }
         let UserMsg = DataState.LoginUser.SchoolID?DataState.LoginUser:JSON.parse(sessionStorage.getItem('UserInfo'))
         // console.log(DataState.LoginUser.SchoolID,UserMsg)
-        let havePower = QueryPower({
-            UserInfo: UserMsg,
-            ModuleID: SUBJECT_MODULEID
-          });
-          havePower.then(res => {
-            if (res) {
-                let pathArr = route.split('/');
-                let handleRoute = pathArr[1];
-                // console.log(route)
-                if (route === '/') {
-                    //dispatch(actions.UpDataState.getAllUserPreview('/ArchivesAll'));
-                    dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
-                    if (!this.props.DataState.PeriodMsd)
-                        dispatch(actions.UpDataState.getPeriodMsg('/GetPeriodBySchoolID?schoolID=' + UserMsg.SchoolID));
-                    dispatch(actions.UpDataState.getSubjectMsg('/GetSchoolSubjectInfo?schoolID=' + UserMsg.SchoolID + '&periodID=&pageSize=8&pageIndex=1'));
-                    // if (!this.props.DataState.SubjectMsg.addSubjectMsg)
-                    //     dispatch(actions.UpDataState.getSubjectModalMsg('/GetSubjectInfoForAddBySchool?schoolID=' + UserMsg.SchoolID));
-        
-                } else {
-                    history.push('/')
-                }
-        
-            }})
+
+        if (parseInt(UserMsg.UserType)===7||parseInt(UserMsg.UserType)===10){
+
+            dispatch(actions.UpDataState.getPeriodMsg('/GetPeriodBySchoolID?schoolID=' + UserMsg.SchoolID));
+
+            dispatch(actions.UpDataState.getSubjectMsg('/GetSchoolSubjectInfo?schoolID=' + UserMsg.SchoolID + '&periodID=&pageSize=8&pageIndex=1'));
+
+            dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
+
+        }else{
+
+            let havePower = QueryPower({
+                UserInfo: UserMsg,
+                ModuleID: SUBJECT_MODULEID
+            });
+            havePower.then(res => {
+                if (res) {
+                    let pathArr = route.split('/');
+                    let handleRoute = pathArr[1];
+                    // console.log(route)
+                    if (route === '/') {
+                        //dispatch(actions.UpDataState.getAllUserPreview('/ArchivesAll'));
+                        dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
+                        if (!this.props.DataState.PeriodMsd)
+                            dispatch(actions.UpDataState.getPeriodMsg('/GetPeriodBySchoolID?schoolID=' + UserMsg.SchoolID));
+                            dispatch(actions.UpDataState.getSubjectMsg('/GetSchoolSubjectInfo?schoolID=' + UserMsg.SchoolID + '&periodID=&pageSize=8&pageIndex=1'));
+                        // if (!this.props.DataState.SubjectMsg.addSubjectMsg)
+                        //     dispatch(actions.UpDataState.getSubjectModalMsg('/GetSubjectInfoForAddBySchool?schoolID=' + UserMsg.SchoolID));
+
+                    } else {
+                        history.push('/')
+                    }
+
+                }})
+
+        }
         
 
     };
@@ -108,7 +121,7 @@ class App extends Component {
 
     render() {
         const { UIState, DataState } = this.props;
-        let UserID = DataState.LoginUser.UserID
+        let UserID = DataState.LoginUser.UserID;
 
         return (
             <React.Fragment>

@@ -35,6 +35,10 @@ function AppRoutes(props){
 
             case 0:
 
+            case 7:
+
+            case 10:
+
                 return (<Switch>
 
                     <Route path="/Log/Record" component={Record}></Route>

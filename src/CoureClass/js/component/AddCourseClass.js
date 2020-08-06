@@ -501,7 +501,7 @@ class AddCourseClass extends React.Component {
     //获取路由
     // console.log(this.props.type)
     if (!this.props.type) {
-      return;
+      //return;
     }
     let type = this.props.type;
     let route = history.location.pathname;
@@ -712,7 +712,7 @@ class AddCourseClass extends React.Component {
                   </div>
                   <div style={{display:data.selectData.ClassSource.length>0?' block':'none'}} className="select-box student-box">
                     <p className="box-title">行政班：</p>
-                    <div className="select-content-box">
+                    <div className="select-content-box" style={this.state.tableSource.length>0?{height:isFrame?90:140}:{height:isFrame?220:320}}>
                       <Scrollbars
                         style={{ width: 100 + "%", height:   "100%" }}
                       >
@@ -746,7 +746,7 @@ class AddCourseClass extends React.Component {
                   </div>
                   <div style={{display:this.state.tableSource.length>0?' block':'none'}} className="select-box student-box">
                     <p className="box-title">学生：</p>
-                    <div className="select-content-box">
+                    <div className="select-content-box" style={data.selectData.ClassSource.length>0?{height:isFrame?90:140}:{height:isFrame?220:320}}>
                       <Scrollbars
                         style={{ width: 100 + "%", height:   "100%" }}
                       >

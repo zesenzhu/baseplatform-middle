@@ -100,11 +100,11 @@ class App extends Component {
 
       const { UserType } = UserInfo;
       
-      if (parseInt(UserType)===7||parseInt(UserType)===10){
+      /*if (parseInt(UserType)===7||parseInt(UserType)===10){
 
           UserInfo['UserType'] = '0';
 
-      }
+      }*/
 
       const UserInfoCopy = {...UserInfo,UserType:parseInt(UserInfo.UserType),UserClass:UserInfo.UserClass};
 
@@ -284,9 +284,10 @@ class App extends Component {
       ? DataState.LoginUser
       : JSON.parse(sessionStorage.getItem("UserInfo"));
 
+
     console.log(UserMsg);
 
-    if (parseInt(UserMsg.UserType)!==2){
+    if (parseInt(UserMsg.UserType)!==2&&parseInt(UserMsg.UserType)!==7&&parseInt(UserMsg.UserType)!==10){
 
         let havePower = QueryPower({
             UserInfo: UserMsg,
@@ -846,8 +847,6 @@ class App extends Component {
 
   render() {
 
-    console.log(this.state.isFrame);
-
     const { UIState, DataState,AppLoading,leftMenu,bannerState,history,editCourseClassModal } = this.props;
 
     let {UserID,UserType} = DataState.LoginUser;
@@ -865,7 +864,6 @@ class App extends Component {
         enname = "My CourseClass";
     }
 
-    console.log(editCourseClassModal);
 
     const { isWalkingClass } = editCourseClassModal;
 
@@ -1025,7 +1023,7 @@ class App extends Component {
             {UIState.AddCourseClassModalShow.Show ? (
               <AddCourseClass
                 type={
-                  DataState.LoginUser.UserType === "0"
+                  DataState.LoginUser.UserType === "0"||DataState.LoginUser.UserType==='7'||DataState.LoginUser.UserType==="10"
                     ? "Admin"
                     : DataState.LoginUser.UserType === "1"
                     ? "Teacher"
