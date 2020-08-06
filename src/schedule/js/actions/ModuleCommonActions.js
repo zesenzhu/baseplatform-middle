@@ -17,7 +17,7 @@ const getCommonInfo = () => {
 
             let {SchoolID,UserID,UserType} = UserInfo;
 
-            if (parseInt(UserType)===0){
+            if (parseInt(UserType)===0||parseInt(UserType)===7||parseInt(UserType)===10){
 
                 //获取智能排课的URL
 
@@ -36,6 +36,10 @@ const getCommonInfo = () => {
             switch (parseInt(UserType)) {
 
                 case 0:
+
+                case 10:
+
+                case 7:
 
                     dispatch({type:ModuleSettingActions.UPDATE_MANAGER_MODULE_SETTING});
 

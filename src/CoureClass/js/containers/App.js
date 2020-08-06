@@ -99,13 +99,19 @@ class App extends Component {
       let UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
 
       const { UserType } = UserInfo;
+      
+      if (parseInt(UserType)===7||parseInt(UserType)===10){
 
-      const UserInfoCopy = {...UserInfo,UserType:parseInt(UserInfo.UserType),UserClass:parseInt(UserInfo.UserClass)};
+          UserInfo['UserType'] = '0';
+
+      }
+
+      const UserInfoCopy = {...UserInfo,UserType:parseInt(UserInfo.UserType),UserClass:UserInfo.UserClass};
 
 
       dispatch(
               actions.UpDataState.getLoginUser(
-                  JSON.parse(sessionStorage.getItem("UserInfo"))
+                  UserInfo
               )
           );
 
@@ -114,7 +120,7 @@ class App extends Component {
 
 
           this.setState({
-              UserMsg: JSON.parse(sessionStorage.getItem("UserInfo"))
+              UserMsg: UserInfo
           });
 
           if (parseInt(UserType)===2){
@@ -277,6 +283,8 @@ class App extends Component {
     let UserMsg = DataState.LoginUser.SchoolID
       ? DataState.LoginUser
       : JSON.parse(sessionStorage.getItem("UserInfo"));
+
+    console.log(UserMsg);
 
     if (parseInt(UserMsg.UserType)!==2){
 
@@ -465,8 +473,6 @@ class App extends Component {
         });
 
     }
-
-
 
   };
 

@@ -432,14 +432,29 @@ export function getUserInfo(token, SysID="000",fun=()=>{}) {
 
       let UserInfo = {};
 
-      for (let [key, value] of Object.entries(loginInfo)) {
+        UserInfo['TruethUserType'] = loginInfo['UserType'];
+
+        for (let [key, value] of Object.entries(loginInfo)) {
         if (key === "PhotoPath") {
           let date = new Date();
           let time = date.getTime();
           value = value + "?T=" + time;
         }
+
+        /*if (key==='UserType'){
+
+            if (parseInt(key)===7||10){
+
+                value = '0';
+
+            }
+
+        }*/
+
         UserInfo[key] = decodeURIComponent(value);
       }
+
+
 
       UserInfo.isLogin = true;
       // console.log(JSON.stringify(UserInfo))
@@ -611,12 +626,25 @@ export const checkTokenOnce = (func=()=>{}) =>{
 
                         let UserInfo = {};
 
+                        UserInfo['TruethUserType'] = res.data['UserType'];
+
                         for (let [key, value] of Object.entries(res.data)) {
                             if (key === "PhotoPath") {
                                 let date = new Date();
                                 let time = date.getTime();
                                 value = value + "?T=" + time;
                             }
+
+                            /*if (key==='UserType'){
+
+                                if (parseInt(key)===7||10){
+
+                                    value = '0';
+
+                                }
+
+                            }*/
+
                             UserInfo[key] = decodeURIComponent(value);
                         }
 
@@ -745,12 +773,25 @@ export const updateUserInfo = () => {
 
                 let UserInfo = {};
 
+                UserInfo['TruethUserType'] = res.data['UserType'];
+
                 for (let [key, value] of Object.entries(res.data)) {
                     if (key === "PhotoPath") {
                         let date = new Date();
                         let time = date.getTime();
                         value = value + "?T=" + time;
                     }
+
+                   /* if (key==='UserType'){
+
+                        if (parseInt(key)===7||10){
+
+                            value = '0';
+
+                        }
+
+                    }*/
+
                     UserInfo[key] = decodeURIComponent(value);
                 }
 
@@ -818,12 +859,25 @@ export const firstPageLoad = (func=()=>{}) => {
 
                             let UserInfo = {};
 
+                            UserInfo['TruethUserType'] = res.data['UserType'];
+
                             for (let [key, value] of Object.entries(res.data)) {
                                 if (key === "PhotoPath") {
                                     let date = new Date();
                                     let time = date.getTime();
                                     value = value + "?T=" + time;
                                 }
+
+                                /*if (key==='UserType'){
+
+                                    if (parseInt(key)===7||10){
+
+                                        value = '0';
+
+                                    }
+
+                                }*/
+
                                 UserInfo[key] = decodeURIComponent(value);
                             }
 

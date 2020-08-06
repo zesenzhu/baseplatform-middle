@@ -15,42 +15,102 @@
 
   margin-left: 16px;
 
-}
-.schedule-period-item{
+  .schedule-period-item{
 
-  float: left;
+    float: left;
 
-  width: 46px;
+    width: 46px;
 
-  height: 24px;
+    height: 24px;
 
-  margin:1px 3px;
+    margin:1px 3px;
 
-  font-size: 14px;
+    font-size: 14px;
 
-  color: #666666;
+    color: #666666;
 
-  line-height:1;
+    line-height:1;
 
-  padding-top:4px;
+    padding-top:4px;
 
-  text-align: center;
+    text-align: center;
 
-  cursor: pointer;
+    cursor: pointer;
 
-  @include border-radius(12px);
+    @include border-radius(12px);
 
-  &.active{
+    &.active{
 
-    background-image: linear-gradient(90deg,
-            #0fc1fc 0%,
-            #1da4fe 100%),
-    linear-gradient(
-                    #f69313,
-                    #f69313);
+      background-image: linear-gradient(90deg,
+              #0fc1fc 0%,
+              #1da4fe 100%),
+      linear-gradient(
+                      #f69313,
+                      #f69313);
 
-    color: #ffffff;
+      color: #ffffff;
+
+    }
+
+  }
+
+  &.work-plant-form{
+
+    border:0;
+
+    margin-top:0;
+
+    margin-left:36px;
+
+    .schedule-period-item{
+
+      position: relative;
+
+      height: 50px;
+
+      line-height: 50px;
+
+      margin: 0;
+
+      width: auto;
+
+      margin-right: 36px;
+
+      border-radius:0;
+
+      padding-top: 0;
+
+      &.active{
+
+        background-image:none;
+
+        font-weight: bold;
+
+        color: #1ca6fe;
+
+        &:after{
+
+          position: absolute;
+
+          bottom: 0;
+
+          left: 0;
+
+          content: '';
+
+          width: 100%;
+
+          height: 2px;
+
+          background-color:#1ca6fe;
+
+        }
+
+      }
+
+    }
 
   }
 
 }
+

@@ -21,41 +21,6 @@ import { QueryPower, QueryAdminPower } from "../../../common/js/power";
 const SUBJECT_MODULEID = "000-2-0-18"; //学科管理
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        const { dispatch } = props;
-        this.state = {
-            UserMsg: JSON.parse(sessionStorage.getItem('UserInfo'))
-
-        }
-        let route = history.location.pathname;
-        //判断token是否存在
-        TokenCheck_Connect(false,()=>{
-            let token = sessionStorage.getItem('token')
-            // console.log(sessionStorage.getItem('UserInfo'))
-            
-            if (sessionStorage.getItem('UserInfo')) {
-                dispatch(actions.UpDataState.getLoginUser(JSON.parse(sessionStorage.getItem('UserInfo'))));
-            this.requestData(route);
-    
-            }
-            else {
-                getUserInfo(token, '000');
-                let that = this
-                let timeRun = setInterval(function () {
-                    if (sessionStorage.getItem('UserInfo')) {
-                        dispatch(actions.UpDataState.getLoginUser(JSON.parse(sessionStorage.getItem('UserInfo'))));
-                        that.requestData(route);
-    
-                        clearInterval(timeRun)
-                    }
-                }, 1000)
-                //dispatch(actions.UpDataState.getLoginUser(JSON.parse(sessionStorage.getItem('UserInfo'))));
-            }
-        })
-       
-    }
-
 
 
     componentWillMount() {
@@ -71,12 +36,8 @@ class App extends Component {
 
         })
     }
-    componentWillUpdate() {
 
-    }
-    componentDidUpdate() {
 
-    }
 
 
     onAppAlertOK() {
@@ -125,6 +86,22 @@ class App extends Component {
             }})
         
 
+    };
+
+    pageInit(){
+
+        const { dispatch } = this.props;
+
+        let route = history.location.pathname;
+
+        let token = sessionStorage.getItem('token');
+
+        const UserInfo = JSON.parse(sessionStorage.getItem('UserInfo'));
+
+        dispatch(actions.UpDataState.getLoginUser(UserInfo));
+
+        this.requestData(route);
+
     }
 
 
@@ -138,10 +115,14 @@ class App extends Component {
                 <Loading opacity={false} tip="加载中..." size="large" spinning={UIState.AppLoading.appLoading}>
 
 
-                    <Frame userInfo={{
+                    <Frame
+
+                        /*userInfo={{
                         name: DataState.LoginUser.UserName,
                         image: DataState.LoginUser.PhotoPath
-                    }}
+                    }}*/
+
+                        pageInit={this.pageInit.bind(this)}
 
                         module={{
                             cnname: "学科管理",

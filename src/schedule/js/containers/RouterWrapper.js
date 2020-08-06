@@ -43,7 +43,7 @@ function RouterWrapper(props){
 
                 {
 
-                    LoginUser&&parseInt(LoginUser.UserType)===0?
+                    LoginUser&&(parseInt(LoginUser.UserType)===0||parseInt(LoginUser.UserType)===7||parseInt(LoginUser.UserType)===10)?
 
                         <Redirect path="/*"  to={{pathname:"/manager/subject-teacher/subject"}}></Redirect>
 

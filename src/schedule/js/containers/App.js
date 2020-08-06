@@ -65,9 +65,23 @@ import ChangeScheduleModal from '../component/ChangeScheduleModal';
 import SDActions from "../actions/ScheduleDetailActions";
 
 import config from "../../../common/js/config";
+import {getQueryVariable} from "../../../common/js/disconnect";
 
 
 class App extends Component{
+
+    constructor(props) {
+
+        super(props);
+
+        this.state = {
+
+            //是否是工作平台嵌套
+            isWorkPlantform:false
+
+        }
+
+    }
 
 
     pageInit(){
@@ -84,7 +98,7 @@ class App extends Component{
 
         //判断权限
 
-        if (parseInt(UserType)===0||parseInt(UserType)===1||parseInt(UserType)===2){
+        if (parseInt(UserType)===0||parseInt(UserType)===1||parseInt(UserType)===2||parseInt(UserType)===7||parseInt(UserType)===10){
 
             if (parseInt(UserType)===0){//判断管理员权限
 
@@ -145,6 +159,12 @@ class App extends Component{
         }else{//无权限角色
 
             window.location.href='/Error.aspx?errcode=E011';
+
+        }
+
+        if (getQueryVariable('isWorkPlantform')){
+
+            this.setState({isWorkPlantform:true});
 
         }
 
@@ -601,7 +621,7 @@ class App extends Component{
 
                                     PeriodWeekTerm.ItemPeriod&&PeriodWeekTerm.ItemPeriod.length>1?
 
-                                        <div className="schedule-period-tab clearfix">
+                                        <div className={`schedule-period-tab ${this.state.isWorkPlantform?'work-plant-form':''} clearfix`}>
 
                                             {
 
@@ -626,7 +646,7 @@ class App extends Component{
 
                                 {
 
-                                    parseInt(LoginUser.UserType) === 0?
+                                    parseInt(LoginUser.UserType) === 0||parseInt(LoginUser.UserType) === 7||parseInt(LoginUser.UserType) === 10?
 
                                         <AdjustBtnsWrapper
 
