@@ -270,7 +270,7 @@ class SubsystemAccessSetting extends Component {
             renderSubSystem = subsystemInfo.List.map((item, key) => {
                 return (
                     item.CanBeClose !== false ?
-                        <div className="subsystem-wall">
+                        <div key={key} className="subsystem-wall">
                             <div className="grey-bg"></div>
                             <div className="subsystem-content">
                                 <div className="pic-bg"> <img src={item.SubSystemImgUrl} alt="图片丢失" title={item.SubSystemName} /></div>
