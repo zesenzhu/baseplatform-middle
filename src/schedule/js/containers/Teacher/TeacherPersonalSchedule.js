@@ -27,6 +27,7 @@ import AddTempScheduleModal from './AddTempScheduleModal';
 import $ from "jquery";
 
 import SDActions from "../../actions/ScheduleDetailActions";
+import {getQueryVariable} from "../../../../common/js/disconnect";
 
 
 class TeacherPersonalSchedule extends Component{
@@ -38,6 +39,12 @@ class TeacherPersonalSchedule extends Component{
         const {dispatch} = props;
 
         dispatch(ComPageRefresh.ComPageInit(TeacherIndexActions.TeacherPersonalInit()));
+
+        this.state={
+
+            isWorkPlantform:false
+
+        }
 
     }
 
@@ -137,277 +144,15 @@ class TeacherPersonalSchedule extends Component{
     }
 
 
- /*   //停课
+    componentDidMount(){
 
-    StopSchedule(params){
+        if (getQueryVariable('isWorkPlantform')){
 
-        const { dispatch } = this.props;
+            this.setState({isWorkPlantform:true});
 
-        dispatch(TPActions.StopSchedule(params));
-
-    }
-
-    //恢复上课
-    RebackStopSchedule(params){
-
-        const { dispatch } = this.props;
-
-        dispatch(TPActions.RebackStopSchedule(params));
+        }
 
     }
-
-    //关闭弹窗
-
-    ScheduleDetailClose(){
-
-        const { dispatch } = this.props;
-
-        dispatch({type:TPActions.TEACHER_TP_SCHEDULE_DETAIL_MODAL_HIDE});
-
-        /!*ComPageRefresh.ComPageUpdate(dispatch);*!/
-
-        dispatch(TPActions.TPSUpdate());
-
-    }
-
-    //调整时间弹窗
-
-    ChangeTimeShow(params){
-
-        const { dispatch } = this.props;
-
-        dispatch(TPActions.ChangeTimeShow(params));
-
-    }
-
-    //调整时间弹窗点击某一个课时
-
-    SelectClassHour(params){
-
-        const { dispatch } = this.props;
-
-        dispatch(TPActions.SelectClassHour(params));
-
-    }
-
-
-    //调整时间弹窗切换周次
-
-    WeekPick(WeekNO){
-
-        const { dispatch } = this.props;
-
-        dispatch(TPActions.WeekPick(WeekNO));
-
-    }
-
-    //调整时间弹窗关闭
-
-    CloseChangeTime(){
-
-        const { dispatch } = this.props;
-
-        dispatch({type:TPActions.TEACHER_TP_CHANGE_TIME_MODAL_HIDE});
-
-    }
-
-    //点击调整时间弹窗确定
-    ChangeTimeCommit(){
-
-        const { dispatch } = this.props;
-
-        dispatch(TPActions.ChangeTimeCommit());
-
-    }
-
-    //撤销调整时间
-    RebackTime(params){
-
-        const { dispatch } = this.props;
-
-        dispatch(TPActions.RebackTime(params));
-
-    }
-
-    //调整教室弹窗
-    AdjustClassRoomShow(params){
-
-        const { dispatch } = this.props;
-
-        dispatch(TPActions.AdjustClassRoomShow(params));
-
-    }
-
-    //调整教室弹窗切换选中教室事件
-
-    ChangeClassRoomPick(e){
-
-        const { dispatch } = this.props;
-
-        dispatch({type:TPActions.TEACHER_TP_ADJUST_CLASSROOM_MODAL_CHECKED_CHANGE,data:e.target.value});
-
-    }
-
-    //调整教室教室类型切换
-
-    ChangeClassRoomType(key){
-
-        const { dispatch } = this.props;
-
-        dispatch({type:TPActions.TEACHER_TP_ADJUST_CLASSROOM_MODAL_CLASSROOM_TYPE_CHANGE,data:key});
-
-    }
-
-    //调整教室搜索值变化
-
-    SearchValueChange(e){
-
-        const { dispatch } = this.props;
-
-        dispatch({type:TPActions.TEACHER_TP_ADJUST_CLASSROOM_MODAL_SEARCH_VALUE_CHANGE,data:e.target.value});
-
-
-    }
-
-    //点击教室搜索
-
-    ClassRoomSearchClick(SearchValue){
-
-        const { dispatch } = this.props;
-
-        dispatch(TPActions.ClassRoomSearchClick(SearchValue))
-
-    }
-
-    //取消搜索教室
-
-    ClassRoomSearchCancel(){
-
-        const { dispatch } = this.props;
-
-        dispatch({type:TPActions.TEACHER_TP_ADJUST_CLASSROOM_MODAL_SEARCH_CANCEL_BTN_HIDE});
-
-        dispatch({type:TPActions.TEACHER_TP_ADJUST_CLASSROOM_MODAL_SEARCH_WRAPPER_HIDE});
-
-        dispatch({type:TPActions.TEACHER_TP_ADJUST_CLASSROOM_MODAL_SEARCH_VALUE_CHANGE,data:''});
-
-    }
-
-
-    //关闭调整教室弹窗
-
-    CloseAdjustClassRoom(){
-
-        const { dispatch } = this.props;
-
-        dispatch({type:TPActions.TEACHER_TP_ADJUST_CLASSROOM_MODAL_HIDE});
-
-    }
-
-    //调整教室弹窗提交
-    AdjustClassRoomCommit(){
-
-        const { dispatch } = this.props;
-
-        dispatch(TPActions.AdjustClassRoomCommit());
-
-    }
-
-    //撤销教室调整
-
-    RebackClassRoom(params){
-
-        const { dispatch } = this.props;
-
-        dispatch(TPActions.RebackClassRoom(params));
-
-    }
-
-    //找人代课弹窗出现
-
-    ChooseReplaceTeacherShow(params){
-
-        const { dispatch } = this.props;
-
-        dispatch(TPActions.ChooseReplaceTeacherShow(params));
-
-    }
-
-    //找人代课教师选择
-
-    ReplaceTeacherPick(ID){
-
-        const { dispatch } = this.props;
-
-        dispatch({type:TPActions.TEACHER_TP_REPLACE_SCHEDULE_MODAL_TEACHER_PICK,data:ID});
-
-    }
-
-    //找人代课输入框改变
-
-    ReplaceSearchValueChange(e){
-
-        const { dispatch } = this.props;
-
-        dispatch({type:TPActions.TEACHER_TP_REPLACE_SCHEDULE_MODAL_INPUT_CHANGE,data:e.target.value});
-
-    }
-
-    //点击代课教师搜索
-
-    ReplaceSearchClick(SearchValue){
-
-        const { dispatch } = this.props;
-
-        dispatch(TPActions.ReplaceSearchClick(SearchValue));
-
-    }
-
-    //取消搜索教师
-
-    ReplaceSearchCancel(){
-
-        const { dispatch } = this.props;
-
-        dispatch({type:TPActions.TEACHER_TP_REPLACE_SCHEDULE_MODAL_SEARCH_CANCEL_BTN_HIDE});
-
-        dispatch({type:TPActions.TEACHER_TP_REPLACE_SCHEDULE_MODAL_SEARCH_WRAPPER_HIDE});
-
-        dispatch({type:TPActions.TEACHER_TP_REPLACE_SCHEDULE_MODAL_INPUT_CHANGE,data:''});
-
-    }
-
-    //关闭找人代课弹窗
-
-    ReplaceScheduleClose(){
-
-        const { dispatch } = this.props;
-
-        dispatch({type:TPActions.TEACHER_TP_REPLACE_SCHEDULE_MODAL_HIDE});
-
-    }
-
-    //找人代课弹窗提交
-    ReplaceScheduleCommit(){
-
-        const { dispatch } = this.props;
-
-        dispatch(TPActions.ReplaceScheduleCommit());
-
-    }
-
-    //找人代课撤销
-
-    RebackReplaceSchedule(params){
-
-        const { dispatch } = this.props;
-
-        dispatch(TPActions.RebackReplaceSchedule(params));
-
-    }*/
-
-
-
 
 
     render() {
@@ -433,7 +178,7 @@ class TeacherPersonalSchedule extends Component{
 
         return (
 
-            <div className="teacher-mine-wrapper">
+            <div className={`teacher-mine-wrapper ${this.state.isWorkPlantform?'work-plant-form':''}`}>
 
                 {
 

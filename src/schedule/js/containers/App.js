@@ -96,6 +96,15 @@ class App extends Component{
 
         const { UserType,UserClass } = UserInfo;
 
+        if (getQueryVariable('isWorkPlantform')){
+
+            document.getElementsByClassName("frame-drag-flag")[0].style.backgroundColor = '#ffffff';
+
+            document.getElementsByClassName("frame-content-rightside")[0].style.borderTop = '1px solid #f2f2f2';
+
+        }
+
+
         //判断权限
 
         if (parseInt(UserType)===0||parseInt(UserType)===1||parseInt(UserType)===2||parseInt(UserType)===7||parseInt(UserType)===10){

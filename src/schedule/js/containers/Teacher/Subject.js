@@ -252,8 +252,6 @@ class Subject extends Component{
 
                         </TermPick>*/}
 
-                        <div className="double-single-table-wrapper">
-
                             {
 
                                 SubjectTeacherSubjectSchedule.schedule.length>0?
@@ -280,8 +278,6 @@ class Subject extends Component{
                                     <Empty type="3" title="暂无学科教师课表数据"></Empty>
 
                             }
-
-                        </div>
 
                     </Loading>
 

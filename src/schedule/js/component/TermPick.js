@@ -1,95 +1,108 @@
-import React,{Component} from 'react';
+import React,{useEffect,useState,memo,useMemo} from 'react';
 
 import {DropDown} from "../../../common";
 
 
-class TermPick extends Component{
+function TermPick(props){
+
+    const [prevDisabled,setPrevDisabled] = useState('');
+
+    const [nextDisabled,setNextDisabled] = useState('');
+
+    const {ItemTermName,WeekNO,ItemWeek,NowWeekNo,weekPickEvent,weekNextEvent,weekPrevEvent} = props;
 
 
-    render() {
 
-        const {ItemTermName,WeekNO,ItemWeek,NowWeekNo,weekPickEvent,weekNextEvent,weekPrevEvent} = this.props;
-
-        let prevDisabled = '';
-
-        let nextDisabled = '';
+    useEffect(()=>{
 
         if (ItemWeek.length>0){
 
-           switch (NowWeekNo) {
+            let pDisablde = '',nDisabled='';
 
-               case ItemWeek[0].value:
+            switch (NowWeekNo) {
 
-                   prevDisabled = 'disabled';
+                case ItemWeek[0].value:
 
-                   nextDisabled = '';
+                    pDisablde = 'disabled';
 
-                   break;
+                    nDisabled = '';
 
-               case ItemWeek[ItemWeek.length-1].value:
+                    break;
 
-                   prevDisabled = '';
+                case ItemWeek[ItemWeek.length-1].value:
 
-                   nextDisabled = 'disabled';
+                    pDisablde = '';
 
-                   break;
+                    nDisabled = 'disabled';
 
-               default:
+                    break;
 
-                   prevDisabled = '';
+                default:
 
-                   nextDisabled = '';
+                    pDisablde = '';
 
-           }
+                    nDisabled = '';
+
+            }
+
+            setNextDisabled(nDisabled);
+
+            setPrevDisabled(pDisablde);
 
         }
 
-        const WeekList = ItemWeek.map(item=>{
+    },[NowWeekNo]);
+
+
+    const WeekList = useMemo(()=>{
+
+        return ItemWeek.map(item=>{
 
             if(item.value===WeekNO){
 
-                return { value:item.value,title:<span>{item.title}<span style={{color:'#999'}}> (本周)</span></span>}  
+                return { value:item.value,title:<span>{item.title}<span style={{color:'#999'}}> (本周)</span></span>}
 
             }else{
 
                 return item;
 
-            }    
+            }
 
         });
-        
-        
 
-        return (
+    },[ItemWeek]);
 
-            <div className="term-pick-wrapper clearfix">
 
-                <button className={`prev ${prevDisabled}`}  onClick={prevDisabled?()=>{}:()=>{weekPrevEvent()}}>&lt;&nbsp;上一周</button>
+    return (
 
-                <div className="term-title">
+        <div className="term-pick-wrapper work-plant-form clearfix">
 
-                    {ItemTermName?ItemTermName:''}
-                    
-                    第<DropDown dropSelectd={{title:NowWeekNo,value:NowWeekNo}} 
-                    
-                    onChange={(e)=>{weekPickEvent(e)}} 
-                    
-                    dropList={WeekList} width={80} height={188}
+            <button className={`prev ${prevDisabled}`}  onClick={prevDisabled?()=>{}:()=>{weekPrevEvent()}}>&lt;&nbsp;上一周</button>
 
-                    TitleShow={false}
-                    
-                    style={{zIndex:10}}>
-                        
-                    </DropDown>周
+            <div className="term-title">
 
-                </div>
+                {ItemTermName?ItemTermName:''}
 
-                <button className={`next ${nextDisabled}`} onClick={nextDisabled?()=>{}:()=>{weekNextEvent()}}>下一周&nbsp;&gt;</button>
+                第<DropDown dropSelectd={{title:NowWeekNo,value:NowWeekNo}}
+
+                onChange={(e)=>{weekPickEvent(e)}}
+
+                dropList={WeekList} width={80} height={188}
+
+                TitleShow={false}
+
+                style={{zIndex:10}}>
+
+                </DropDown>周
 
             </div>
 
-        );
-    }
+            <button className={`next ${nextDisabled}`} onClick={nextDisabled?()=>{}:()=>{weekNextEvent()}}>下一周&nbsp;&gt;</button>
+
+        </div>
+
+    );
+
 }
 
-export default TermPick;
+export default memo(TermPick);

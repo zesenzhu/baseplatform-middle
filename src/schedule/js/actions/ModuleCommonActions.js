@@ -5,6 +5,7 @@ import PeriodWeekTermActions from './PeriodWeekTermActions';
 import ApiActions from './ApiActions';
 
 import LoginUserActions from "./LoginUserActions";
+import {getQueryVariable} from "../../../common/js/disconnect";
 
 const MANAGER_INTELLENCT_URL_UPDATE = 'MANAGER_INTELLENCT_URL_UPDATE';
 
@@ -55,6 +56,12 @@ const getCommonInfo = () => {
 
                     dispatch({type:ModuleSettingActions.UPDATE_STUDENT_MODULE_SETTING});
 
+                    if (getQueryVariable('isWorkPlantform')||getQueryVariable('iFrame')){
+
+                        document.getElementsByClassName("frame-content-wrapper")[0].style.marginTop=0;
+
+                    }
+
                     break;
 
                 default:
@@ -78,11 +85,19 @@ const getCommonInfo = () => {
 
                     if (data){
 
-                        if ( UserType === 1 ){
+
+                        if ( parseInt(UserType) === 1 ){
 
                             if ( data.ItemPeriod.length  <= 1 ){
 
                                 dispatch({type:ModuleSettingActions.TIME_BARNER_HIDE});
+
+                                if (getQueryVariable('isWorkPlantform')||getQueryVariable('iFrame')){
+
+                                    document.getElementsByClassName("frame-content-wrapper")[0].style.marginTop=0;
+
+                                }
+
 
                             }else{
 

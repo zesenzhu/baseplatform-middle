@@ -22,13 +22,14 @@ function TopButtons(props){
 
         }
 
+
     },[]);
 
 
 
         return (
 
-            <div className="teacher-top-btns clearfix">
+            <div className={`teacher-top-btns clearfix`}>
 
                 {
 

@@ -1,18 +1,28 @@
-import React,{Component} from 'react';
+import React,{useEffect,useState,useMemo,memo} from 'react';
 
 import {HashRouter as Router,withRouter,NavLink} from "react-router-dom";
 
-class HeaderRouter extends Component{
+import {getQueryVariable} from "../../../common/js/disconnect";
 
-    render() {
+function HeaderRouter(props){
 
-        const {HeaderLinkList} =this.props;
+        const [isWorkPlantform,setIsWorkPlantform] = useState(false);
+
+        useEffect(()=>{
+
+            if(getQueryVariable('isWorkPlantform')){
+
+                setIsWorkPlantform(true);
+
+            }
+
+        },[]);
+
+        const {HeaderLinkList} = props;
 
         return (
 
-
-
-            <div className="schedule-router-tab clearfix">
+            <div className={`schedule-router-tab ${isWorkPlantform?'work-plant-form':''} clearfix`}>
 
                 {
 
@@ -33,6 +43,6 @@ class HeaderRouter extends Component{
             </div>
 
         );
-    }
+
 }
-export default  withRouter(HeaderRouter);
+export default  withRouter(memo(HeaderRouter));

@@ -684,10 +684,14 @@ function DoubleSingleTable(props){
 
         return (
 
-            <Table id="tb"  columns={columns} bordered dataSource={dataSource} pagination={false} scroll={{x:1120,y:window.innerHeight-200}} onRow={record=>{return { onClick:onClickRow(record) } }}>
+            <div className={"double-single-table-wrapper work-plant-form"}>
+
+                <Table id="tb"  columns={columns} bordered dataSource={dataSource} pagination={false} scroll={{x:1120,y:window.innerHeight-200}} onRow={record=>{return { onClick:onClickRow(record) } }}>
 
 
-            </Table>
+                </Table>
+
+            </div>
 
         );
 

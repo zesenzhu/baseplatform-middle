@@ -1,7 +1,5 @@
 .double-single-table-wrapper {
 
-
-
     //头部
     .col {
         border: solid 1px #aaddea;
@@ -348,6 +346,86 @@
     
       }
 
+
+
+    &.work-plant-form{
+
+        .ant-table-fixed-left .ant-table-fixed tr{
+
+            th,td{
+
+                background-image: none!important;
+
+                background-color:#d6efff;
+
+            }
+
+        }
+
+        .ant-table-fixed-header .ant-table-header th{
+
+            background-image: none;
+
+            background-color:#d6efff;
+
+        }
+
+        .double-single-left-col{
+
+            color: #399cd0;
+
+            font-size: 14px;
+
+        }
+
+        .course-time-th{
+
+            .course,.time{
+
+                color: #399cd0;
+
+            }
+
+            .course{
+
+                margin-bottom: 10px;
+
+            }
+
+        }
+
+        .schedule-wrapper{
+
+            .title{
+
+                margin-right:0;
+
+                padding-left: 4px;
+
+                padding-right: 4px;
+
+                padding-top: 16px;
+
+                text-align: center;
+
+                font-size: 14px;
+
+            }
+
+            .second-title,.third-title{
+
+                padding-left: 4px;
+
+                padding-top: 0;
+
+                text-align: center;
+
+            }
+
+        }
+
+
+    }
 
 }
 

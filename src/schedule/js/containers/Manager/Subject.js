@@ -266,10 +266,6 @@ class Subject extends Component{
 
                         </WeekDayPick>
 
-                        <div className="double-single-table-wrapper">
-
-
-
 
                             {
 
@@ -301,11 +297,6 @@ class Subject extends Component{
 
                             }
 
-
-
-
-
-                        </div>
 
                     </Loading>
 

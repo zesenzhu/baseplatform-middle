@@ -165,7 +165,7 @@ class SingleDoubleTable extends Component{
 
         return (
 
-            <table className="single-double-table">
+            <table className="single-double-table work-plant-form">
 
                 <thead>
 

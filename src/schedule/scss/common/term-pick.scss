@@ -77,7 +77,6 @@
 
   }
 
-
   &.week-day-pick{
 
     width:580px;
@@ -91,6 +90,37 @@
     .dropdown_wrapper{
 
       margin-left:0px;
+
+    }
+
+  }
+
+
+  &.work-plant-form{
+
+    button{
+
+      font-size: 16px;
+
+    }
+
+    .term-title{
+
+      font-size: 20px;
+
+      font-weight: bold;
+
+      color: #174e90;
+
+      margin-top: 2px;
+
+    }
+
+    .dropdown_container{
+
+      color: #333333;
+
+      font-weight: normal;
 
     }
 

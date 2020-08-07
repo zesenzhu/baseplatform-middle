@@ -9,8 +9,6 @@ import ManagerIndexActions from "../../actions/Manager/ManagerIndexActions";
 
 import CRTActions from '../../actions/Manager/ClassRoomTotalActions';
 
-import TermPick from "../../component/TermPick";
-
 import $ from "jquery";
 
 import DoubleSingleTable from "../../component/DoubleSingleTable";
@@ -20,6 +18,7 @@ import ComPageRefresh from "../../actions/ComPageRefresh";
 import SDActions from "../../actions/ScheduleDetailActions";
 
 import {CSSTransition} from 'react-transition-group';
+
 import WeekDayPick from "../../component/WeekDayPick";
 
 
@@ -252,7 +251,6 @@ class ClassRoomTotal extends Component{
 
                         </TermPick>*/}
 
-                        <div className="double-single-table-wrapper">
 
                             {
 
@@ -281,8 +279,6 @@ class ClassRoomTotal extends Component{
                                     <Empty type="3" title="暂无教室课表数据"></Empty>
 
                             }
-
-                        </div>
 
                     </Loading>
 

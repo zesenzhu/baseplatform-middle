@@ -194,8 +194,6 @@ function Holiday(props) {
 
                 selectdDateRef.current = list;
 
-                console.log(list);
-
                 return list;
 
             });

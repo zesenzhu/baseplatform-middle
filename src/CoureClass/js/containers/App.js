@@ -65,6 +65,7 @@ import {leftMemuShow,leftMemuHide} from "../reducers/leftMenu";
 import {appLoadingHide} from "../reducers/AppLoading";
 
 import {getQueryVariable} from "../../../common/js/disconnect";
+
 import editCoureClassModal from "../reducers/editCourseClassModal";
 
 
@@ -105,6 +106,7 @@ class App extends Component {
           UserInfo['UserType'] = '0';
 
       }*/
+
 
       const UserInfoCopy = {...UserInfo,UserType:parseInt(UserInfo.UserType),UserClass:UserInfo.UserClass};
 
@@ -240,7 +242,7 @@ class App extends Component {
   }
 
 
-  componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillMount (nextProps) {
 
       const { history,dispatch } = nextProps;
 
@@ -284,8 +286,6 @@ class App extends Component {
       ? DataState.LoginUser
       : JSON.parse(sessionStorage.getItem("UserInfo"));
 
-
-    console.log(UserMsg);
 
     if (parseInt(UserMsg.UserType)!==2&&parseInt(UserMsg.UserType)!==7&&parseInt(UserMsg.UserType)!==10){
 

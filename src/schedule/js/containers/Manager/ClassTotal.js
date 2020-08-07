@@ -234,7 +234,7 @@ class ClassTotal extends Component{
 
                         </WeekDayPick>
 
-                        <div className="double-single-table-wrapper">
+
 
                             {/*<NewScheduleTable
                                 ItemClassHourCount={SubjectCourseGradeClassRoom.ItemClassHourCount}
@@ -277,8 +277,6 @@ class ClassTotal extends Component{
 
                              }
 
-
-                        </div>
 
                     </Loading>
 

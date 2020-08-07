@@ -8,109 +8,43 @@
 
   left:16px;
 
-}
-.schedule-router-tab-item{
+  .schedule-router-tab-item{
 
-  float: left;
+    float: left;
 
-  width: 178px;
+    width: 178px;
 
-  height: 42px;
+    height: 42px;
 
-  line-height: 42px;
+    line-height: 42px;
 
-  text-align: center;
+    text-align: center;
 
-  background-image: linear-gradient(0deg,
-          rgba(214, 255, 237, 0.89) 0%,
-          rgba(108, 250, 255, 0.89) 100%),
+    background-image: linear-gradient(0deg,
+            rgba(214, 255, 237, 0.89) 0%,
+            rgba(108, 250, 255, 0.89) 100%),
 
-  linear-gradient(
-                  #e6e6e6,
-                  #e6e6e6);
+    linear-gradient(
+                    #e6e6e6,
+                    #e6e6e6);
 
-  background-blend-mode: normal, normal;
+    background-blend-mode: normal, normal;
 
-  border-bottom: 1px solid #05e3f8;
+    border-bottom: 1px solid #05e3f8;
 
-  &:not(:first-child){
+    &:not(:first-child){
 
-    margin-left: 12px;
-
-  }
-
-  .router-title{
-
-    margin-left:4px;
-
-    font-size: 16px;
-
-    background-image: -webkit-gradient(linear,0 bottom,0 top,from(#0e6982),to(#41cfdb));
-
-    -webkit-background-clip: text; /*必需加前缀 -webkit- 才支持这个text值 */
-
-    -webkit-text-fill-color: transparent; /*text-fill-color会覆盖color所定义的字体颜色： */
-
-
-  }
-
-  .router-logo{
-
-    padding-left:20px;
-
-    line-height: 20px;
-
-    background-position:left center;
-
-    background-repeat: no-repeat;
-
-    &.subject{
-
-      background-image: url("#{$image-url}/subject.png");
+      margin-left: 12px;
 
     }
-
-    &.class{
-
-      background-image: url("#{$image-url}/class.png");
-
-    }
-
-    &.classroom{
-
-      background-image: url("#{$image-url}/classroom.png");
-
-    }
-
-    &.mine{
-
-      background-image: url("#{$image-url}/mine.png");
-
-    }
-
-  }
-
-
-  &:hover{
-
-    color: #666666;
-    
-  }
-  
-
-  &.active{
-
-    background-color:#ffffff;
-
-    border: 1px solid #05e3f8;
-
-    border-bottom:0;
-
-    background-image: none;
 
     .router-title{
 
-      background-image: -webkit-gradient(linear, 0 0,0 bottom, from(#0173ff), to(#65dcfd));
+      margin-left:4px;
+
+      font-size: 16px;
+
+      background-image: -webkit-gradient(linear,0 bottom,0 top,from(#0e6982),to(#41cfdb));
 
       -webkit-background-clip: text; /*必需加前缀 -webkit- 才支持这个text值 */
 
@@ -121,29 +55,166 @@
 
     .router-logo{
 
+      padding-left:20px;
+
+      line-height: 20px;
+
+      background-position:left center;
+
+      background-repeat: no-repeat;
+
       &.subject{
 
-        background-image: url("#{$image-url}/subject-active.png");
+        background-image: url("#{$image-url}/subject.png");
 
       }
 
       &.class{
 
-        background-image: url("#{$image-url}/class-active.png");
+        background-image: url("#{$image-url}/class.png");
 
       }
 
       &.classroom{
 
-        background-image: url("#{$image-url}/classroom-active.png");
+        background-image: url("#{$image-url}/classroom.png");
 
       }
 
       &.mine{
 
-        background-image: url("#{$image-url}/mine-active.png");
+        background-image: url("#{$image-url}/mine.png");
 
       }
+
+    }
+
+
+    &:hover{
+
+      color: #666666;
+
+    }
+
+
+    &.active{
+
+      background-color:#ffffff;
+
+      border: 1px solid #05e3f8;
+
+      border-bottom:0;
+
+      background-image: none;
+
+      .router-title{
+
+        background-image: -webkit-gradient(linear, 0 0,0 bottom, from(#0173ff), to(#65dcfd));
+
+        -webkit-background-clip: text; /*必需加前缀 -webkit- 才支持这个text值 */
+
+        -webkit-text-fill-color: transparent; /*text-fill-color会覆盖color所定义的字体颜色： */
+
+
+      }
+
+      .router-logo{
+
+        &.subject{
+
+          background-image: url("#{$image-url}/subject-active.png");
+
+        }
+
+        &.class{
+
+          background-image: url("#{$image-url}/class-active.png");
+
+        }
+
+        &.classroom{
+
+          background-image: url("#{$image-url}/classroom-active.png");
+
+        }
+
+        &.mine{
+
+          background-image: url("#{$image-url}/mine-active.png");
+
+        }
+
+      }
+
+    }
+
+  }
+
+  &.work-plant-form{
+
+    top:-44px;
+
+    .schedule-router-tab-item{
+
+      width: 100px;
+
+      background-image: none;
+
+      border:0;
+
+      .router-title{
+
+        display: inline-block;
+
+        height: 100%;
+
+        background-image:none;
+
+        -webkit-text-fill-color:inherit;
+
+        color: #666666;
+
+        font-size: 14px;
+
+      }
+
+      &.active{
+
+        .router-title{
+
+          position: relative;
+
+          color: #1ca6fe;
+
+          font-weight: bold;
+
+          &:after{
+
+            position: absolute;
+
+            bottom: 0;
+
+            left: 0;
+
+            content: '';
+
+            width: 100%;
+
+            height: 2px;
+
+            background-color: #1ca6fe;
+
+          }
+
+        }
+
+      }
+
+    }
+
+    .router-logo{
+
+      display: none;
 
     }
 

@@ -702,6 +702,8 @@ const commitInfo = ({ModalInit,SubjectID,SubjectName,ClassID,CourseClassName,Cla
 
                 ComPageRefresh.ComPageUpdate(dispatch);
 
+                ModalInit();
+
             }
 
             dispatch({type:TEACHER_ADD_SCHEDULE_MODAL_LOADING_HIDE});

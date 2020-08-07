@@ -181,7 +181,7 @@ function WeekDayPick(props) {
 
     return(
 
-        <div className="term-pick-wrapper week-day-pick clearfix">
+        <div className="term-pick-wrapper work-plant-form week-day-pick clearfix">
 
             <button className={`prev ${prevDisabled?'disabled':''}`}  onClick={prevDisabled?()=>{}:()=>{dateChange({reback:true})}}>&lt;&nbsp;前一天</button>
 
