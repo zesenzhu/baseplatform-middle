@@ -178,6 +178,8 @@ class Subject extends Component{
 
         }
 
+
+
         return (
 
             <CSSTransition in={this.state.fullScreen} timeout={200} classNames={"full-screen"}>

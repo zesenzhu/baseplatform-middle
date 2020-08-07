@@ -190,6 +190,8 @@ class ClassRoomTotal extends Component{
         const { ScheduleDetail,ChangeTime,AdjustClassRoom,ReplaceSchedule } = ClassRoomTotal;
 
 
+
+
         return(
 
             <CSSTransition in={this.state.fullScreen} timeout={200} classNames={"full-screen"}>
