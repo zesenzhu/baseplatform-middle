@@ -24,11 +24,11 @@ const defaultIntroduce = {
 
         list:[
 
-            { title:'学生自主学习',describe:'——个性化、自由式学习' },
-
             { title:'一体化备课',describe:'——教学方案的专业化、一体化备课' },
 
             { title:'智能化编辑教材',describe:'——人工智能、高效、多媒体教材' },
+
+            { title:'学生自主学习',describe:'——个性化、自由式学习' },
 
             { title:'AI考试',describe:'——让考试更加智能轻松' }
 
