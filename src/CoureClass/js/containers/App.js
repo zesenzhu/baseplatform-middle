@@ -242,13 +242,15 @@ class App extends Component {
   }
 
 
-    UNSAFE_componentWillMount (nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
 
       const { history,dispatch } = nextProps;
 
-    this.setState({
-      MenuParams: nextProps.DataState.GetCoureClassAllMsg.MenuParams
-    });
+        this.setState({
+
+          MenuParams: nextProps.DataState.GetCoureClassAllMsg.MenuParams
+
+        });
 
 
     if (getQueryVariable("iFrame")){

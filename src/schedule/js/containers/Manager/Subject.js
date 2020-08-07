@@ -34,7 +34,7 @@ class Subject extends Component{
 
         };
 
-        const {PeriodWeekTerm,dispatch} = this.props;
+        const {PeriodWeekTerm,dispatch} = props;
 
         dispatch(ComPageRefresh.ComPageInit(ManagerIndexActions.STSPageInit()));
 
