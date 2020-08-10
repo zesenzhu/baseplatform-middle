@@ -73,6 +73,8 @@ class TimeBanner extends React.Component {
       //     MenuParams:Menu
       //   }
       // )
+    }else{
+      List = this.state.List
     }
     
     return (
