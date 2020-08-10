@@ -2720,7 +2720,8 @@ class Frame extends React.Component {
 
     this.state = {
       fixed: false,
-      isFrame:false
+      isFrame:false,
+      isWorkPlantform:false
     };
   }
 
@@ -2739,19 +2740,16 @@ class Frame extends React.Component {
   }*/
 
   UNSAFE_componentWillReceiveProps(props) {
+
     if (window.AppRightContentChange) {
 
       window.AppRightContentChange(this.RightContent.clientHeight);
 
     }
 
-    if (getQueryVariable('iFrame')){
+    if(getQueryVariable('isWorkPlantform')){
 
-      this.setState({isFrame:true},()=>{
-
-        //$('body').css("cssText",'background-color:#ffffff!important');
-
-      });
+      this.setState({isWorkPlantform:true});
 
     }
 
@@ -2859,7 +2857,7 @@ class Frame extends React.Component {
     }
 
     return (
-      <div className={`frame-drag-flag ${this.state.isFrame?'has-in-frame':''}`}   {...reset}>
+      <div className={`frame-drag-flag   ${this.state.isWorkPlantform?'in-work-plant-form':''}`}   {...reset}>
         {showTop ? (
           <div className="frame-header-wrapper">
             <div className={`frame-header-bg ${type ? type : ""}`}>
@@ -2946,7 +2944,7 @@ class Frame extends React.Component {
         )}
 
         {showBarner ? (
-          <div className={`frame-time-bar ${this.state.isFrame?'has-in-frame':''}`}>
+          <div className={`frame-time-bar ${this.state.isWorkPlantform?'in-work-plant-form':''}`}>
             <div className="frame-nav-content">{timeBarner}</div>
           </div>
         ) : (
@@ -2955,7 +2953,7 @@ class Frame extends React.Component {
         <div
           className={`frame-content-wrapper clearfix ${
             showBarner ? "" : "barnerHide"
-          }  ${this.state.isFrame?'has-in-frame':''}`}
+          }  ${this.state.isWorkPlantform?'in-work-plant-form':''}`}
         >
           <div
             className={`frame-content-leftside ${

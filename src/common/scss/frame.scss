@@ -9,11 +9,21 @@ $img_url:'#{$image_url}/frame';
   background-color:#f5f5f5;
   min-height: 100%;
 
-  /*&.has-in-frame{
+  &.in-work-plant-form{
 
-    background-color: #ffffff;
+    .frame-nav-content{
 
-  }*/
+      margin-left:20;
+
+    }
+
+    .frame-content-wrapper{
+
+      margin-left: 0;
+
+    }
+
+  }
 
 }
 //界面框架头部
@@ -435,13 +445,6 @@ $img_url:'#{$image_url}/frame';
   &.barnerHide{
     margin-top: 20px;
   }
-
-  &.has-in-frame{
-
-    margin-top:0;
-
-  }
-
 }
 .frame-content-rightside{
   float: right;
