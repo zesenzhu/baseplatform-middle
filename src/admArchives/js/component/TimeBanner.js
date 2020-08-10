@@ -45,21 +45,41 @@ class TimeBanner extends React.Component {
   };
   render() {
     const { DataState, UIState, route } = this.props;
-    let {List} = this.state
+    // let {List} = this.state
     let userMsg = DataState.LoginUser;
     let AdminPower = true;
-    if (userMsg.UserType === "7" && userMsg.UserClass === "2") {
-      AdminPower = false;
-    }
+    // if (userMsg.UserType === "7" && userMsg.UserClass === "2") {
+    //   AdminPower = false;
+    // }
     let pathname = history.location.pathname;
 
     let pathArr = pathname.split("/");
     let handleRoute = pathArr[2];
-    console.log(handleRoute);
+    // console.log(handleRoute);
+    let List = []
+    if(userMsg.UserType === "7" ){
+        this.state.List.map((child,index)=>{
+        if(child.value!=='Leader'){
+          List.push(child)
+        }
+      })
+      // if(children[children.length-1].key==='Leader'){
+      //   Menu.children.pop();
+      // }
 
+      // // Menu.children = children;
+      // this.setState(
+      //   {
+      //     MenuParams:Menu
+      //   }
+      // )
+    }else{
+      List = this.state.List
+    }
+    
     return (
       <Router>
-        <TopMenu></TopMenu>
+        <TopMenu List={List}></TopMenu>
         {this.props.route ? (
           // (<Link to='/ImportFile/Graduate' target='_blank'><Button className='btn-toGraduate' color='blue' shape='round'>导入毕业去向</Button></Link>)
           ""

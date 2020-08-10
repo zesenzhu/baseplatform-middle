@@ -33,10 +33,12 @@ class TopMenu extends React.Component {
       history.push("/UserArchives/" + key);
     }
     // history.push('/'+key)
+
+   
   };
 
   render() {
-    let { List } = this.state;
+    let { List } = this.props;
     let pathname = history.location.pathname;
 
     let pathArr = pathname.split("/");

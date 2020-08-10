@@ -331,7 +331,8 @@ class Teacher extends React.Component {
       PwdTipsTitle:
         "密码应由8-20位字母、数字及特殊字符`~!@#$%^&*()_+-={}|[]:\";'<>?,./\\的任意两种及以上组成",
       ChangeAllPwdMadalVisible: false,
-      PwdStrong:0
+      PwdStrong:0,
+      pageSize:10
 
     };
     window.TeacherCancelSearch = this.TeacherCancelSearch.bind(this);
@@ -1242,6 +1243,7 @@ onShowSizeChange = (current, pageSize) => {
 }
   render() {
     const { UIState, DataState } = this.props;
+    // console.log(this.state.pageSize)
 
     return (
       <div className="Teacher">

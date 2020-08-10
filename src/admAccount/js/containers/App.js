@@ -198,16 +198,23 @@ class App extends Component {
     let List = this.state.List;
     if (userMsg.UserType !== "0" || userMsg.UserClass !== "2") {
       let Menu = this.state.List;
-      List = []
+      List = [];
       if (Menu instanceof Array) {
         Menu.forEach((child) => {
           if (child.value !== "Admin") {
-            List.push(child);
+            if (userMsg.UserType === "7") {
+              if (child.value !== "Leader") {
+                List.push(child);
+              }
+            } else {
+              List.push(child);
+            }
           }
         });
       } else {
         List = Menu;
       }
+
       // let children = Menu.children;
       // if(children[children.length-1].key==='Admin'){
       //   children.pop();
@@ -226,18 +233,18 @@ class App extends Component {
     havePower.then((res) => {
       if (res) {
         dispatch(
-          actions.UpDataState.GetConfig(
-            ({func : (State) => {
+          actions.UpDataState.GetConfig({
+            func: (State) => {
               let { DataState } = State;
               // if (route === "/") {
               //   //dispatch(actions.UpDataState.getAllUserPreview('/ArchivesAll'));
               //   dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
               // } else
-              console.log(DataState.ParentsPreview.canBeUse.ParentsShow,List)
-              if (DataState.ParentsPreview.canBeUse.ParentsShow!==1) {
+              console.log(DataState.ParentsPreview.canBeUse.ParentsShow, List);
+              if (DataState.ParentsPreview.canBeUse.ParentsShow !== 1) {
                 let Menu = List;
                 // let List = [];
-                List = []
+                List = [];
                 if (Menu instanceof Array) {
                   Menu.forEach((child) => {
                     if (child.value !== "Parents") {
@@ -250,7 +257,7 @@ class App extends Component {
                 // let children = Menu.children;
                 // if(children[children.length-1].key==='Admin'){
                 //   children.pop();
-          
+
                 // }
                 // Menu.children = children;
                 // this.setState({
@@ -259,8 +266,8 @@ class App extends Component {
                 // AdminPower = false;
               }
               this.setState({
-                List
-              })
+                List,
+              });
               if (handleRoute === "Student") {
                 //dispatch(actions.UpDataState.getAllUserPreview('/Archives' + handleRoute));
                 dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
@@ -337,8 +344,8 @@ class App extends Component {
               } else {
                 history.push("/Student");
               }
-            }})
-          )
+            },
+          })
         );
       }
     });

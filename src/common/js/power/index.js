@@ -61,16 +61,19 @@ async function QueryPower({ UserInfo, ModuleID }) {
       let result = await QueryAdminPower({ ModuleID: ModuleID });
       return result;
     }
-  } else if (UserType === "7" && UserClass === "2") {
+  } else if (UserType === "7"
+  //  && UserClass === "2"
+   ) {
     //教务主任
-    let data = await QueryOtherPower({ SchoolID, ModuleID, UserType: "7" });
-    if (data) {
+    // let data = await QueryOtherPower({ SchoolID, ModuleID, UserType: "7" });
+    // 现在所有领导都可以进去
+    // if (data) {
       return true;
-    } else {
-      window.location.href = config.ErrorProxy + "/Error.aspx?errcode=E011";
+    // } else {
+    //   window.location.href = config.ErrorProxy + "/Error.aspx?errcode=E011";
 
-      return false;
-    }
+    //   return false;
+    // }
   } else if (UserType === "1") {
     //教师
     let data = await QueryOtherPower({ SchoolID, ModuleID, UserType: "1" });
