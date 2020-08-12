@@ -2,9 +2,10 @@ import React,{useEffect,useCallback,useMemo,useRef,useState,memo} from 'react';
 
 import {HashRouter as Router,Switch,Route,Redirect} from 'react-router-dom';
 
-import Guider from "../guider";
-
 import {useSelector,useDispatch} from 'react-redux';
+
+import SchoolSetting from '../schoolSetting';
+
 
 function AppRoutes(props) {
 
@@ -24,7 +25,9 @@ function AppRoutes(props) {
 
         <Switch>
 
-            <Route path={"/"}></Route>
+            <Route path={"/schoolSetting"} component={SchoolSetting}></Route>
+
+            <Redirect path={"/*"} to={"/schoolSetting"}></Redirect>
 
         </Switch>
 

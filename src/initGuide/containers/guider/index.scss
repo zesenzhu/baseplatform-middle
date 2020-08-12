@@ -12,6 +12,130 @@
 
     margin: 0 auto;
 
+    .guide-title{
+
+      font-size: 14px;
+
+      color: #009900;
+
+      padding-top: 32px;
+
+    }
+
+    .guide-tips{
+
+      color: #999999;
+
+    }
+
+    .guide-content-wrapper{
+
+      margin: 0 auto;
+
+      width: 860px;
+
+      margin-top: 32px;
+
+    }
+
+    .guide-list{
+
+      position: relative;
+
+      margin-bottom:0;
+
+      height:2px;
+
+      background-color: #84cefe;
+
+    }
+
+    .guide-item{
+
+      position: absolute;
+
+      top:26px;
+
+      color: #666666;
+
+      font-size: 14px;
+
+      line-height:1;
+
+      transform: translateX(-50%);
+
+      white-space: nowrap;
+
+      &:after{
+
+        position:absolute;
+
+        width: 10px;
+
+        height: 10px;
+
+        left: 50%;
+
+        top: -30px;
+
+        content: '';
+
+        background-color: #84cefe;
+
+        border-radius: 50%;
+
+        transform: translateX(-50%);
+
+      }
+
+      &.going{
+
+        color: #1ca6fe;
+
+        &:after{
+
+          box-shadow: 0 1px 4px 1px #0877fd;
+
+          background-color: #ffffff;
+
+          z-index: 3;
+
+        }
+
+        &:before{
+
+          position:absolute;
+
+          width: 24px;
+
+          height: 24px;
+
+          left: 50%;
+
+          top: -37px;
+
+          content: '';
+
+          background-color: #1ca6fe;
+
+          border-radius: 50%;
+
+          transform: translateX(-50%);
+
+          z-index: 2;
+
+        }
+
+      }
+
+      &.end{
+
+        color: #1ca6fe;
+
+      }
+
+    }
+
   }
 
 }

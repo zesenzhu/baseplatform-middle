@@ -10,9 +10,11 @@ import { GetBaseInfoForPages } from '../actions/apiActions';
 
 import {loginUserUpdate} from "../store/LoginUser";
 
-import {appLoadingHide} from "../store/AppLoading";
-
 import {firstPageLoad} from '../../common/js/disconnect/index';
+
+import {schoolTypeChange} from "../store/schoolType";
+
+import {GetCurrentTermInfo} from '../actions/apiActions';
 
 import Header from './header';
 
@@ -20,17 +22,22 @@ import Guider from './guider'
 
 import AppRoutes from './appRoutes';
 
+import './App.scss';
+
 function App(props) {
 
 
 
-    const { appAlert,appSuccessAlert } = useSelector(state=>state.AppAlert);
+    const { appAlert,appSuccessAlert } = useSelector(state=>state.appAlert);
 
-    const loading = useSelector(state=>state.AppLoading);
+    const loading = useSelector(state=>state.appLoading);
 
     const LoginUser = useSelector(state=>state.LoginUser);
 
     const dispatch = useDispatch();
+
+    const { history } = props;
+
 
     useEffect(()=>{
 
@@ -63,9 +70,73 @@ function App(props) {
 
       const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
 
-      dispatch(loginUserUpdate(UserInfo));
+      const CopyUserInfo = UserInfo;
 
-      dispatch(appLoadingHide());
+      CopyUserInfo['UserType'] = parseInt(UserInfo['UserType']);
+
+      const { SchoolID,UserType } = CopyUserInfo;
+
+      const token = sessionStorage.getItem("token");
+
+        const { ProductUseRange } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+
+        if ([4,7,8,9].includes(parseInt(ProductUseRange))){
+
+            window.location.href = `/html/admSchoolSetting?lg_tk=${token}`;
+
+        }else if ([1,2,6].includes(parseInt(ProductUseRange))){
+
+            dispatch(schoolTypeChange('university'));
+
+            //dispatch(schoolTypeChange('middle'));
+
+        }else if ([3,5].includes(parseInt(ProductUseRange))){
+
+            dispatch(schoolTypeChange('middle'));
+
+            //dispatch(schoolTypeChange('university'));
+
+        }
+
+
+      if (UserType===0){
+
+          if (SchoolID){
+
+              GetCurrentTermInfo({dispatch,SchoolID}).then(data=>{
+
+                  if (data){
+
+                      history.push('/schoolSetting');
+
+                      dispatch(loginUserUpdate(UserInfo));
+
+                      //真实的跳转
+
+                  }else{
+
+                      history.push('/schoolSetting');
+
+                      dispatch(loginUserUpdate(UserInfo));
+
+                  }
+
+              })
+
+          }else{
+
+              history.push('/schoolSetting');
+
+              dispatch(loginUserUpdate(UserInfo));
+
+          }
+
+
+      }else{
+
+          window.location.href='/Error.aspx?errcode=E011';
+
+      }
 
     };
 
@@ -81,7 +152,13 @@ function App(props) {
 
                     <Guider></Guider>
 
-                    <AppRoutes></AppRoutes>
+                    <div className={"init-guide-content"}>
+
+                        <AppRoutes></AppRoutes>
+
+                    </div>
+
+
 
                 </div>
 
