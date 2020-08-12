@@ -25,7 +25,7 @@ const RESOURCE_LOADING = "RESOURCE_LOADING",
 
     getLinkData = (Period = "P1", SubjectId) => {
         // let url = `/SubjectResMgr/LancooBrowser/GetPeriodList?Period=${Period}`
-        let url = `/SubjectResMgr/LancooBrowser/WebsitesList?Period=${Period}&SubjectId=${SubjectId}`
+        let url = `/SubjectResMgr/LancooBrowser/WebsitesList?Period=${Period!=='isMine'?Period:''}&SubjectId=${SubjectId}&isMine=${Period==='isMine'?true:false}`
         console.log(SubjectId)
         return dispatch => {
             dispatch({
@@ -34,7 +34,7 @@ const RESOURCE_LOADING = "RESOURCE_LOADING",
             })
             ApiAction.getMethod(url).then(json => {
                 let webLinkList = json.Data
-                webLinkList = webLinkList.map(item => {
+                webLinkList =webLinkList instanceof Array ? webLinkList.map(item => {
                     return {
                         ...item,
                         List: item.List.map(i => {
@@ -48,7 +48,7 @@ const RESOURCE_LOADING = "RESOURCE_LOADING",
                         })
                     }
 
-                })
+                }):[]
                 console.log(webLinkList)
 
                 dispatch({

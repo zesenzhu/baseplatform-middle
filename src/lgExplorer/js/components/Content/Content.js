@@ -252,16 +252,41 @@ class Content extends Component {
       resourceLoading,
     } = this.props;
     // })
-    let periodResult = PeriodList.map((item) => {
-      return (
-        <li
-          key={item.PeriodName}
-          className={`${item.PeriodId === this.state.active ? "selected" : ""}`}
-          onClick={() => this.periodChange(item.PeriodId)}
-        >
-          {item.PeriodName}{" "}
-        </li>
-      );
+
+    let periodResult = PeriodList.map((item, index) => {
+      if (index !== PeriodList.length - 1) {
+        return (
+          <li
+            key={item.PeriodName}
+            className={`${
+              item.PeriodId === this.state.active ? "selected" : ""
+            }`}
+            onClick={() => this.periodChange(item.PeriodId)}
+          >
+            {item.PeriodName}{" "}
+          </li>
+        );
+      } else {
+        return (
+          <React.Fragment key={index}>
+            <li
+              key={item.PeriodName}
+              className={`${
+                item.PeriodId === this.state.active ? "selected" : ""
+              }`}
+              onClick={() => this.periodChange(item.PeriodId)}
+            >
+              {item.PeriodName}{" "}
+            </li>
+            <li
+              className={`${"isMine" === this.state.active ? "selected" : ""}`}
+              onClick={() => this.periodChange("isMine")}
+            >
+              {'我的'}{" "}
+            </li>
+          </React.Fragment>
+        );
+      }
     });
 
     //渲染学段对应的资源
@@ -422,24 +447,23 @@ class Content extends Component {
     //渲染我的资源库中的内容
     let myResLibResult = MyResLibList.map((item) => {
       // console.log(item, MyResLibList);
-      let ClassName = ''
-      if(item.Name === "资料收藏夹" ){
-          ClassName = 'store'
-      }else if(item.Name === "教学方案" ){
-          ClassName = 'tecplan'
-      }else if(item.Name === "个人网盘" ){
-          ClassName = 'personal'
-      }else if(item.Name === "本地电脑" ){
-          ClassName = 'desktop'
+      let ClassName = "";
+      if (item.Name === "资料收藏夹") {
+        ClassName = "store";
+      } else if (item.Name === "教学方案") {
+        ClassName = "tecplan";
+      } else if (item.Name === "个人网盘") {
+        ClassName = "personal";
+      } else if (item.Name === "本地电脑") {
+        ClassName = "desktop";
       }
       if (
-          item.Name === "资料收藏夹" 
-          ||
-          item.Name === "个人网盘" ||
-          item.Name === "教学方案"
-        ) {
-          return "";
-        }
+        item.Name === "资料收藏夹" ||
+        item.Name === "个人网盘" ||
+        item.Name === "教学方案"
+      ) {
+        return "";
+      }
       return (
         <li
           key={item.Name}
