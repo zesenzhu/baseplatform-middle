@@ -16,18 +16,7 @@ import echarts from 'echarts/dist/echarts.min';
 
 import {productInfoChange} from '../reducers/ProductInfo';
 
-
-
-import OnlineShadowPng from '../../images/blue-shadow.png';
-
-import TopVisitShadowPng from '../../images/green-shadow.png';
-
-import LoginShadowPng from '../../images/oragen-shadow.png';
-
-import DiskUsedShadowPng from '../../images/blue-shadow.png';
-
-import GroupShadowPng from '../../images/green-shadow.png';
-
+import moment from 'moment';
 
 
 
@@ -780,7 +769,7 @@ const PageInit = () => {
 
                             value:1,
 
-                            text:CurrentWeek,
+                            text:(CurrentWeek<=0||CurrentWeek>TotalWeeks)?(moment().month()>4&&moment().month()<9?'暑假':'寒假'):CurrentWeek,
 
                             itemStyle:{
 
@@ -840,7 +829,15 @@ const PageInit = () => {
 
                                 formatter:(params)=>{
 
-                                    return `{b|第}{c|${params.data.text}}{d|周}`;
+                                    if (CurrentWeek<=0||CurrentWeek>TotalWeeks){
+
+                                        return `{c|${params.data.text}}`;
+
+                                    }else{
+
+                                        return `{b|第}{c|${params.data.text}}{d|周}`;
+
+                                    }
 
                                 }
 
@@ -999,7 +996,7 @@ const PageInit = () => {
 
                             value:1,
 
-                            text:CurrentWeek,
+                            text:(CurrentWeek<=0||CurrentWeek>TotalWeeks)?(moment().month()>4&&moment().month()<9?'暑假':'寒假'):CurrentWeek,
 
                             itemStyle:{
 
@@ -1056,7 +1053,15 @@ const PageInit = () => {
 
                                 formatter:(params)=>{
 
-                                    return `{b|第}{c|${params.data.text}}{d|周}`;
+                                    if (CurrentWeek<=0||CurrentWeek>TotalWeeks){
+
+                                        return `{c|${params.data.text}}`;
+
+                                    }else{
+
+                                        return `{b|第}{c|${params.data.text}}{d|周}`;
+
+                                    }
 
                                 }
 

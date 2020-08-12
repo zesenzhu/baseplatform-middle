@@ -26,6 +26,11 @@ import BottomFloor from './application/BottomFloor';
 
 function App(props){
 
+
+    //是否是第一次检测基础插件
+
+    const [firstCheckBase,setFirstCheckBase] = useState(false)
+
     const [AppLoading,setAppLoading] = useState(true);
 
     //智慧校园的链接
@@ -248,6 +253,8 @@ function App(props){
 
                         //当token失效的时候再判断MacID是否登录
 
+                       //2020-08-10 注释修改为只要一刷新就再次获取Mac地址
+
                         if (localStorage.getItem('LgBaseMacID')){
 
                             loginApi({method:'GetTokenByMac',params:localStorage.getItem('LgBaseMacID')}).then(d=>{
@@ -304,6 +311,10 @@ function App(props){
                         }
 
 
+                        /*//2020-08-10新增
+
+                        checkBase({ProductName:data.ProductName,ClinetDownUrl:data.ClinetDownUrl,WebIndexUrl:data.WebIndexUrl});
+*/
                     }
 
                 },(resp,err)=>{
@@ -313,6 +324,8 @@ function App(props){
                     sessionStorage.clear();
 
                     localStorage.removeItem('token');
+
+                    //2020-08-10 注释修改为只要一刷新就再次获取Mac地址
 
                     if (localStorage.getItem('LgBaseMacID')){
 
@@ -365,9 +378,17 @@ function App(props){
 
                     }
 
+                 /*   //2020-08-10新增
+
+                    checkBase({ProductName:data.ProductName,ClinetDownUrl:data.ClinetDownUrl,WebIndexUrl:data.WebIndexUrl});
+*/
                 });
 
             }else{//没有登录的情况下判断是否有基础插件包
+
+
+
+                //2020-08-10 注释修改为只要一刷新就再次获取Mac地址
 
                 if (localStorage.getItem('LgBaseMacID')){
 
@@ -420,6 +441,11 @@ function App(props){
 
                 }
 
+
+              /*  //2020-08-10新增
+
+                checkBase({ProductName:data.ProductName,ClinetDownUrl:data.ClinetDownUrl,WebIndexUrl:data.WebIndexUrl});
+*/
             }
 
         }else{//锁控不正常的情况下显示锁控信息，清除登录信息
@@ -508,6 +534,9 @@ function App(props){
 
                 dispatch(changePluginStatus(true));
 
+
+                //2020-08-10 注释修改为只要一刷新就再次获取Mac地址
+
                 const MacID = localStorage.getItem('LgBaseMacID');
 
                 if (!MacID){//如果之前存储的macID不存在
@@ -519,6 +548,10 @@ function App(props){
                     setAppLoading(false);
 
                 }
+
+             /*   //2020-08-10新增
+
+                result.GetMacIDs();*/
 
             }
 
