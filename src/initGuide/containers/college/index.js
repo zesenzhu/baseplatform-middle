@@ -137,9 +137,7 @@ function College(props) {
 
             }else{
 
-                setLoading(false);
-
-                dispatch(appLoadingHide());
+                history.push('/schoolSetting');
 
             }
 
