@@ -252,11 +252,11 @@ export const EditSchoolInfo_Middle = async ({UserID,SchoolID,SchoolName,SchoolCo
 
 
 //大学修改学校基础信息
-export const EditSchoolInfo_University = async ({UserID,SchoolID,SchoolName,SchoolCode,SchoolType='',SchoolSessionType,SchoolImgUrl,SchoolTel='',SchoolLinkman='',CountyID,dispatch}) =>{
+export const EditSchoolInfo_University = async ({UserID,SchoolID,SchoolName,SchoolCode,SchoolType='',SchoolLevel,SchoolSessionType,SchoolImgUrl,SchoolTel='',SchoolLinkman='',CountyID,dispatch}) =>{
 
     const res = await getPostData(`/SysMgr/Setting/EditSchoolInfo_Admin`,{
 
-        UserID,SchoolID,SchoolName,SchoolCode,SchoolType,SchoolSessionType,SchoolImgUrl,SchoolTel,SchoolLinkman,CountyID
+        UserID,SchoolID,SchoolName,SchoolCode,SchoolType,SchoolSessionType,SchoolImgUrl,SchoolTel,SchoolLinkman,CountyID,SchoolLevel
 
     },2);
 

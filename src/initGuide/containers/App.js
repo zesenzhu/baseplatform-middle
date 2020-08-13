@@ -16,6 +16,8 @@ import {schoolTypeChange} from "../store/schoolType";
 
 import {GetCurrentTermInfo} from '../actions/apiActions';
 
+import {getQueryVariable} from "../../common/js/disconnect/index";
+
 import Header from './header';
 
 import Guider from './guider'
@@ -78,19 +80,15 @@ function App(props) {
 
       const token = sessionStorage.getItem("token");
 
-        const { ProductUseRange } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+      const { ProductUseRange } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
-        if ([4,7,8,9].includes(parseInt(ProductUseRange))){
-
-            window.location.href = `/html/admSchoolSetting?lg_tk=${token}`;
-
-        }else if ([1,2,6].includes(parseInt(ProductUseRange))){
+      if ([1,2,6,7,9].includes(parseInt(ProductUseRange))){
 
             dispatch(schoolTypeChange('university'));
 
             //dispatch(schoolTypeChange('middle'));
 
-        }else if ([3,5].includes(parseInt(ProductUseRange))){
+        }else if ([3,4,5,8].includes(parseInt(ProductUseRange))){
 
             dispatch(schoolTypeChange('middle'));
 
@@ -111,7 +109,13 @@ function App(props) {
 
                       dispatch(loginUserUpdate(UserInfo));
 
-                      //真实的跳转
+                      const url = getQueryVariable('lg_preurl');
+
+                      const token = sessionStorage.getItem("token");
+
+                      const {WebIndexUrl} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+
+                      window.location.href = url?url+'?lg_tk='+token:WebIndexUrl+'?lg_tk='+token;
 
                   }else{
 

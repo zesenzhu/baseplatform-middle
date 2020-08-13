@@ -907,6 +907,10 @@ function SchoolSetting(props) {
 
                     });
 
+                }else{
+
+                    fileRef.current.value='';
+
                 }
 
             })
@@ -1194,7 +1198,7 @@ function SchoolSetting(props) {
 
                 SchoolLevel = 1;
 
-                SchoolType = '';
+                SchoolType = 1;
 
                 SchoolSessionType = systemRef.current.checked ;
 
@@ -1206,7 +1210,7 @@ function SchoolSetting(props) {
 
                     EditSchoolInfo_University({dispatch,UserID:loginUserRef.current.UserID,
 
-                        SchoolName,SchoolCode,SchoolLevel,SchoolSessionType,SchoolImgUrl,
+                        SchoolType,SchoolID:loginUserRef.current.SchoolID,SchoolName,SchoolCode,SchoolLevel,SchoolSessionType,SchoolImgUrl,
 
                         CountyID
 
@@ -1296,7 +1300,7 @@ function SchoolSetting(props) {
 
                             <div className={"school-logo-wrapper clearfix"}>
 
-                                <img src={schoolLogo.logoUrl} className={"logo-img"} alt=""/>
+                                <img src={schoolLogo.logoUrl} alt={"图片"} className={"logo-img"} alt=""/>
 
                                 <div className={"btn-wrapper"}>
 
@@ -1314,7 +1318,7 @@ function SchoolSetting(props) {
 
                             <div className={"school-badge-wrapper clearfix"}>
 
-                                <img src={schoolLogo.badgeUrl} onError={badgeLoadErr}  className={"logo-img"} alt=""/>
+                                <img alt={"图片"} src={schoolLogo.badgeUrl} onError={badgeLoadErr}  className={"logo-img"} alt=""/>
 
                                 <div className={"btn-wrapper"}>
 

@@ -20,6 +20,8 @@ import './index.scss'
 
 import moment from 'moment';
 
+import {getQueryVariable} from "../../../common/js/disconnect";
+
 
 
 function YearAndTerm(props) {
@@ -382,7 +384,13 @@ function YearAndTerm(props) {
 
                 if (data===0){
 
-                    console.log("设置成功");
+                    const url = getQueryVariable('lg_preurl');
+
+                    const token = sessionStorage.getItem("token");
+
+                    const {WebIndexUrl} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+
+                    window.location.href = url?url+'?lg_tk='+token:WebIndexUrl+'?lg_tk='+token;
 
                 }
 
