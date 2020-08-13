@@ -84,7 +84,7 @@ function AreaCheck(props,ref) {
 
                     const list = data&&data.length>0?data.map(i=>({value:i.AreaID,title:i.AreaName})):[];
 
-                    const dropSelectd = list.find(i=>i.value===ProvinceID);
+                    const dropSelectd = list.find(i=>i.value===ProvinceID)?list.find(i=>i.value===ProvinceID):{value:'',title:'请选择省份'};
 
                     setProvince(d=>{
 
@@ -98,11 +98,11 @@ function AreaCheck(props,ref) {
 
                 if (res[1]){
 
-                    const data = res[2];
+                    const data = res[1];
 
                     const list = data&&data.length>0?data.map(i=>({value:i.AreaID,title:i.AreaName})):[];
 
-                    const dropSelectd = list.find(i=>i.value===CityID);
+                    const dropSelectd = list.find(i=>i.value===CityID)?list.find(i=>i.value===CityID):{value:'',title:'请选择城市'};
 
                     setCity(d=>{
 
@@ -122,7 +122,7 @@ function AreaCheck(props,ref) {
 
                     const list = data&&data.length>0?data.map(i=>({value:i.AreaID,title:i.AreaName})):[];
 
-                    const dropSelectd = list.find(i=>i.value===CountyID);
+                    const dropSelectd = list.find(i=>i.value===CountyID)?list.find(i=>i.value===CountyID):{value:'',title:'请选择区县'};
 
                     setCounty(d=>{
 

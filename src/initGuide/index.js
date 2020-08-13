@@ -14,8 +14,12 @@ import {Provider} from 'react-redux';
 
 import {HashRouter as Router} from 'react-router-dom';
 
+import {ConfigProvider} from 'antd';
+
+import zhCN from 'antd/es/locale/zh_CN';
+
 import store from './store';
 
-ReactDOM.render(<Provider store={store}><Router><App /></Router></Provider>, document.getElementById('root'));
+ReactDOM.render(<Provider store={store}><Router><ConfigProvider locale={zhCN}><App /></ConfigProvider></Router></Provider>, document.getElementById('root'));
 
 serviceWorker.register();

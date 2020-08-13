@@ -1,0 +1,190 @@
+@import "../base";
+
+.college-setting{
+
+  .college-title{
+
+    margin:22px 60px 16px 60px;
+
+    .tips{
+
+      color:#999999;
+
+    }
+
+  }
+
+  .tips{
+
+    float: left;
+
+    line-height: 28px;
+
+  }
+
+  .add-wrapper{
+
+    float: right;
+
+    button{
+
+      width: 120px;
+
+      height: 28px;
+
+      background-color: #77a5d8;
+
+      border-radius: 14px;
+
+      font-size: 14px;
+
+      color: #ffffff;
+
+      border:0;
+
+      outline: none;
+
+      &:last-child{
+
+        margin-left: 10px;
+
+      }
+
+    }
+
+  }
+
+  .ant-table-wrapper{
+
+    margin:0 40px;
+
+  }
+
+  .ant-table-thead{
+
+    th{
+
+      height: 36px;
+
+      border-top: 1px solid #dedede;
+
+      border-bottom: 1px solid #dedede;
+
+      .ant-table-column-title{
+
+        color: #b8b8b8;
+
+      }
+
+    }
+
+  }
+
+  .ant-table-tbody>tr>td{
+
+    padding-left:0;
+
+    padding-right:0;
+
+  }
+
+  .order-no{
+
+    color: #999999;
+
+    font-size: 12px;
+    
+  }
+
+  .college-name{
+
+    width:300px;
+
+    font-weight: bold;
+
+    color: #333333;
+
+    font-size: 14px;
+
+    @include textOverflow;
+
+  }
+
+  .college-code{
+
+    width:200px;
+
+    color: #999999;
+
+    font-size: 12px;
+
+    @include textOverflow;
+
+  }
+
+  .coopreate{
+
+    button{
+
+      padding-left: 18px;
+
+      padding-right:0;
+
+      background-position: left center;
+
+      background-repeat: no-repeat;
+
+      &:last-child{
+
+        margin-left: 20px;
+
+      }
+
+      span{
+
+        text-decoration: underline;
+
+      }
+
+      &:hover{
+
+        opacity: 0.7;
+
+      }
+
+
+      &.edit{
+
+        color: #0249a5;
+
+        background-image: url("./images/edit.png");
+
+      }
+
+      &.del{
+
+        color: #9a1601;
+
+        background-image: url("./images/del.png");
+
+      }
+
+    }
+
+  }
+
+  .ant-pagination{
+
+    text-align: center;
+
+    margin-top: 20px;
+
+  }
+
+  .guide-footer{
+
+    margin-top: 84px;
+
+  }
+
+}
