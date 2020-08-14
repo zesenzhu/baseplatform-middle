@@ -1,13 +1,19 @@
 import React from "react";
+
 import { connect } from "react-redux";
+
 import actions from "../actions";
+
 import "../../scss/HandleCourseClass.scss";
+
 import { postData, getData } from "../../../common/js/fetch";
+
 import { Scrollbars } from "react-custom-scrollbars";
 
-import history from "../containers/history";
 import { Input } from "antd";
+
 import CONFIG from "../../../common/js/config";
+
 import {
   Modal,
   Loading,
@@ -17,6 +23,8 @@ import {
   PagiNation,
   CheckBox,
   CheckBoxGroup,
+  RadioGroup,
+  Radio,
   Tips
 } from "../../../common";
 import SelectTeacher from "./SelectTeacher";
@@ -37,44 +45,68 @@ class AddCourseClass extends React.Component {
       UserMsg: props.DataState.LoginUser,
       SubjectNameTipsTitle: "请输入教学班名称",
       SubjectTipsTitle: "请选择学科",
-      GradeTipsTitle: "请选择年级"
+      GradeTipsTitle: "请选择年级",
+      isWarkingClass:false,
+      classSelectd:{value:'',title:'请指定一个班级'},
+      classTipShow:false
     };
   }
   componentWillMount() {
-    const { DataState, dispatch } = this.props;
+
+    const { DataState, dispatch,history } = this.props;
+
     //获取路由
     let route = history.location.pathname;
+
     let pathArr = route.split("/");
+
     let handleRoute = pathArr[1];
+
     let routeID = pathArr[2];
+
     let subjectID = pathArr[3];
+
     let classID = pathArr[4];
-    //*************** */
+
     let UserMsg = DataState.LoginUser.SchoolID
       ? DataState.LoginUser
       : JSON.parse(sessionStorage.getItem("UserInfo"));
 
     if (handleRoute === "Teacher") {
+
       let UserMsg = DataState.LoginUser;
+
+      console.log(DataState);
+
       DataState.GetCourseClassDetailsHandleClassMsg.selectData.Teacher = {
+
         value: UserMsg.UserID,
+
         title: UserMsg.UserName
+
       };
-      //dispatch(actions.UpDataState.setSubjectTeacherTransferMsg({value:UserMsg.UserID,title:UserMsg.UserName}))
+
     }
 
     if (this.props.type === "Teacher") {
+
       let Subjects = DataState.GetTeacherSubjectAndGradeMsg.Subjects;
 
       if (Subjects.length === 1) {
+
         this.setState({
           SubjectSelect: Subjects[0],
           Subject: Subjects[0]
         });
+
       }
+
       dispatch(
+
         actions.UpDataState.setCourseClassDataMsg({ Subject: Subjects[0] })
+
       );
+
     }
 
     if (UserMsg.UserType === "0" || UserMsg.UserType === "7")
@@ -84,11 +116,18 @@ class AddCourseClass extends React.Component {
           window.MenuClcik
         )
       );
+
     let SubjectSelect = { value: 0, title: "请选择学科" };
+
     let GradeSelect = { value: 0, title: "请选择年级" };
+
     let SubjectDropList = [];
+
     let GradeDropList = [{ value: 0, title: "请选择年级" }];
+
+
     if (this.props.type === "Admin") {
+
       let Subjects = DataState.GetCoureClassAllMsg.Subjects;
 
       SubjectSelect =
@@ -187,10 +226,7 @@ class AddCourseClass extends React.Component {
   }
   //数据绑定
   onCourseClassNameChange = e => {
-    // const { DataState, UIState, dispatch } = this.props;
-    // let { CourseClassName, ...data } = DataState.GetCourseClassDetailsHandleClassMsg.selectData.CourseClass
-    // //console.log(this.state.courseClassName, e.target.value)
-    // dispatch(actions.UpDataState.setCourseClassName({ CourseClassName: e.target.value, ...data }))
+
     this.setState({
       courseClassName: e.target.value.trim()
     });
@@ -229,33 +265,14 @@ class AddCourseClass extends React.Component {
         ...data
       })
     );
-    // this.setState({
-    //     courseClassName: e.target.value,
-    // })
+
   };
 
-  // //学科选择
-  // onSelectSubjectChange = (value) => {
-  //   // console.log(value)
-  // }
-  // //年级选择
-  // onSelectGradeChange = (value) => {
-  //   // console.log(value)
-  // }
-  //选择教师
+
   onTeacherSelectClick = () => {
     const { DataState, UIState, dispatch } = this.props;
     if (this.state.SubjectSelect.value === 0) {
-      //   dispatch(
-      //     actions.UpUIState.showErrorAlert({
-      //       type: "warn",
-      //       title: "请选择学科",
-      //       ok: this.onAppAlertOK.bind(this),
-      //       cancel: this.onAppAlertCancel.bind(this),
-      //       close: this.onAppAlertClose.bind(this),
-      //       onHide: this.onAlertWarnHide.bind(this)
-      //     })
-      //   );
+
       dispatch({ type: actions.UpUIState.SUBJECT_TIPS_SHOW_OPEN });
       return;
     } else {
@@ -290,7 +307,7 @@ class AddCourseClass extends React.Component {
     let teacher =
       DataState.GetCourseClassDetailsHandleClassMsg.selectData.Teacher;
 
-    //dispatch(actions.UpDataState.setSubjectTeacherMsg({}))
+
 
     dispatch(actions.UpUIState.AddTeacherModalClose());
   };
@@ -315,24 +332,13 @@ class AddCourseClass extends React.Component {
   let Class = DataState.GetCourseClassDetailsHandleClassMsg.selectData.Class;
   let ClassSource = DataState.GetCourseClassDetailsHandleClassMsg.selectData.ClassSource;
   dispatch(actions.UpDataState.setClassStudentTransferMsg(oldStudent));
-  //dispatch(actions.UpDataState.setSubjectTeacherMsg({}))
+
   dispatch(actions.UpDataState.setClassStudentTransferTransferMsg({Class,ClassSource}));
 
     dispatch(actions.UpUIState.AddStudentModalClose());
   };
-  // //删除学生
-  // onDeleteStudentClick = id => {
-  //   const { DataState, UIState, dispatch } = this.props;
 
-  //   let data = DataState.GetCourseClassDetailsHandleClassMsg.selectData.Student;
-  //   let newData = data.splice(id, 1);
-  //   this.setState({
-  //     tableSource: data
-  //   });
-  //   // console.log(id, newData);
-  //   dispatch(actions.UpDataState.setCourseClassStudentMsg(data));
-  // };
-  //删除学生
+
   onDeleteStudentClick = (id) => {
     const { DataState, UIState, dispatch } = this.props;
 
@@ -377,7 +383,7 @@ class AddCourseClass extends React.Component {
   //关闭
   onAlertWarnHide = () => {
     const { dispatch } = this.props;
-    //console.log('ddd')
+
     dispatch(actions.UpUIState.hideErrorAlert());
   };
   //选择弹窗
@@ -385,37 +391,19 @@ class AddCourseClass extends React.Component {
     const { DataState, UIState, dispatch } = this.props;
     let UserMsg = DataState.LoginUser;
     if (this.state.SubjectSelect.value === 0) {
-      //   dispatch(
-      //     actions.UpUIState.showErrorAlert({
-      //       type: "warn",
-      //       title: "请选择学科",
-      //       ok: this.onAppAlertOK.bind(this),
-      //       cancel: this.onAppAlertCancel.bind(this),
-      //       close: this.onAppAlertClose.bind(this),
-      //       onHide: this.onAlertWarnHide.bind(this)
-      //     })
-      //   );
+
       dispatch({ type: actions.UpUIState.SUBJECT_TIPS_SHOW_OPEN });
       return;
     }
     dispatch({ type: actions.UpUIState.SUBJECT_TIPS_SHOW_CLOSE });
     if (this.state.GradeSelect.value === 0) {
-      //   dispatch(
-      //     actions.UpUIState.showErrorAlert({
-      //       type: "warn",
-      //       title: "请选择年级",
-      //       ok: this.onAppAlertOK.bind(this),
-      //       cancel: this.onAppAlertCancel.bind(this),
-      //       close: this.onAppAlertClose.bind(this),
-      //       onHide: this.onAlertWarnHide.bind(this)
-      //     })
-      //   );
+
       dispatch({ type: actions.UpUIState.GRADE_TIPS_SHOW_OPEN });
       return;
     } else {
       dispatch({ type: actions.UpUIState.GRADE_TIPS_SHOW_CLOSE });
     }
-    // console.log(';ll')
+
     dispatch(
       actions.UpDataState.getGradeClassMsg(
         "/GetStudentForAddOrEditCourseClassByInit?schoolID=" +
@@ -429,7 +417,9 @@ class AddCourseClass extends React.Component {
   //选择学科
   onSelectSubjectChange = value => {
     const { DataState, UIState, dispatch } = this.props;
-    // console.log(value)
+
+
+
     if (value.value !== this.state.SubjectSelect.value) {
       if(this.state.type === "Admin"){
         dispatch(actions.UpDataState.setSubjectTeacherMsg([]));
@@ -458,7 +448,7 @@ class AddCourseClass extends React.Component {
   //选择年级
   onSelectGradeChange = value => {
     const { DataState, UIState, dispatch } = this.props;
-    // console.log(value)
+
     if (value.value !== this.state.GradeSelect.value) {
       dispatch(actions.UpDataState.setCourseClassStudentMsg([]));
       dispatch(actions.UpDataState.setClassStudentTransferMsg([]));
@@ -468,19 +458,11 @@ class AddCourseClass extends React.Component {
 
     this.setState({
       GradeSelect: value
-      // SubjectSelect: value
+
     });
     dispatch(actions.UpDataState.setCourseClassDataMsg({ Grade: value }));
 
-    // if(this.state.Subject.value===0){
-    //     dispatch(actions.UpUIState.showErrorAlert({
-    //         type: 'btn-error',
-    //         title: "您还没有选择学科哦~",
-    //         ok: this.onAppAlertOK.bind(this),
-    //         cancel: this.onAppAlertCancel.bind(this),
-    //         close: this.onAppAlertClose.bind(this)
-    //     }));
-    // }
+
   };
 
   //提示
@@ -497,12 +479,14 @@ class AddCourseClass extends React.Component {
     dispatch(actions.UpUIState.hideErrorAlert());
   }
   render() {
-    const { DataState, UIState,isFrame } = this.props;
+    const { DataState, UIState,isFrame,history } = this.props;
     //获取路由
-    // console.log(this.props.type)
+
     if (!this.props.type) {
       //return;
     }
+
+
     let type = this.props.type;
     let route = history.location.pathname;
     let pathArr = route.split("/");
@@ -510,7 +494,7 @@ class AddCourseClass extends React.Component {
     let routeID = pathArr[2];
     let subjectID = pathArr[3];
     let classID = pathArr[4];
-    //*************** */
+
 
     let SubjectSelect = { value: 0, title: "请选择学科" };
     let GradeSelect = { value: 0, title: "请选择年级" };
@@ -558,17 +542,22 @@ class AddCourseClass extends React.Component {
     return (
       <React.Fragment>
         <div id="HandleCourseClass" className="HandleCourseClass">
-          <div className="row clearfix">
-            <div className="row-column">
-              <span className="left">教学班名称：</span>
+
+            <div className="row clearfix">
+
+              <div className="row-column">
+
+                <span className="left">教学班名称：</span>
+
               <span className="right ">
+
                 <Tips
                   overlayClassName="tips"
                   visible={UIState.AppTipsShow.nameTipsShow}
                   getPopupContainer={e => e.parentNode}
                   title={this.state.SubjectNameTipsTitle}
                 >
-                  {" "}
+
                   <Input
                     placeholder="请输入教学班名称..."
                     style={{ width: 180 + "px" }}
@@ -578,10 +567,13 @@ class AddCourseClass extends React.Component {
                     onChange={this.onCourseClassNameChange.bind(this)}
                     value={this.state.courseClassName}
                   />
+
                 </Tips>
+
               </span>
-              {/* <span className='right text-style'>{data.CourseClassName}</span> */}
+
             </div>
+
             <div className="row-column">
               <span className="left">学科：</span>
               <span className="right ">
@@ -608,15 +600,24 @@ class AddCourseClass extends React.Component {
                     className="noChange SubjectName"
                   >
                     {this.state.SubjectSelect.title}
+
                   </span>
                 )}
+
               </span>
+
             </div>
+
           </div>
+
           <div className="row clearfix">
+
             <div className="row-column">
+
               <span className="left">所属年级：</span>
+
               <span className="right ">
+
                 <Tips
                   overlayClassName="tips"
                   visible={UIState.AppTipsShow.gradeTipsShow}
@@ -637,14 +638,24 @@ class AddCourseClass extends React.Component {
                         : GradeDropList[this.state.SubjectSelect.value]
                     }
                     onChange={this.onSelectGradeChange.bind(this)}
-                  ></DropDown>
+                  >
+
+                  </DropDown>
+
                 </Tips>
+
               </span>
+
             </div>
+
             <div className="row-column">
+
               <span className="left">任课老师：</span>
+
               {handleRoute !== "Teacher" ? (
-                <span className="right">
+
+                  <span className="right">
+
                   <Input
                     readOnly
                     unselectable="on"
@@ -655,31 +666,77 @@ class AddCourseClass extends React.Component {
                     style={{ width: 150 + "px" }}
                     onChange={this.onCourseClassNameChange.bind(this)}
                   />
-                  <span
+
+                      <span
                     onClick={this.onTeacherSelectClick.bind(this)}
                     className="teacher-select"
                   >
                     选择
                   </span>
+
                 </span>
+
               ) : (
-                <span className="right">
-                  <span
+
+                  <span className="right">
+
+                      <span
                     title={data.selectData.Teacher.title}
                     className="noChange teacherName"
                   >
                     {data.selectData ? data.selectData.Teacher.title : ""}
+
+                    </span>
+
                   </span>
-                </span>
+
               )}
+
             </div>
+
           </div>
+
           <div className="row clearfix">
+
+                <div className="row-column">
+
+                    <span className="left">班级类型:</span>
+
+                    <span className="right ">
+
+                      <RadioGroup>
+
+                        <Radio>走班</Radio>
+
+                        <Radio>非走班</Radio>
+
+                      </RadioGroup>
+
+                      <Tips>
+
+                        <DropDown></DropDown>
+
+                      </Tips>
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+          <div className="row clearfix">
+
             <div className=" row-column row-column-2">
+
               <span className="left">学生名单：</span>
+
               <span className="right right-2">
+
                 <div className="Student-box">
+
                   <div className="box-top">
+
                   <span  style={{display:this.state.tableSource.length>0?'inline-block':'none'}} className="top-left top-left-1">
                       已选
                       <span className="count">
@@ -813,8 +870,11 @@ class AddCourseClass extends React.Component {
                 </div>
               </span>
             </div>
+
           </div>
+
         </div>
+
         <Modal
           ref="SelectTeacherMadal"
           type="1"

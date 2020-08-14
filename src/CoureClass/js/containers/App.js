@@ -1001,7 +1001,7 @@ class App extends Component {
             opacity={false}
             spinning={AppLoading}
           >
-            <HandleCourseClass  isFrame={this.state.isFrame}></HandleCourseClass>
+            <HandleCourseClass history={history} isFrame={this.state.isFrame}></HandleCourseClass>
           </Loading>
         </Modal>
         <Modal
@@ -1031,6 +1031,7 @@ class App extends Component {
                     ? "Teacher"
                     : false
                 }
+                history={history}
                 isFrame={this.state.isFrame}
               >
 
