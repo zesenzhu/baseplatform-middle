@@ -215,10 +215,10 @@ function handleStatusCode(json, element = true) {
       break;
     case 403:
       if (isAllSelect || isSelect[403])
-        //window.location.href = config.ErrorProxy + "/Error.aspx?errcode=E011";
+        window.location.href = config.ErrorProxy + "/Error.aspx?errcode=E011";
       break;
     default:
-      //window.location.href = config.ErrorProxy + "/Error.aspx?errcode=E011";
+      window.location.href = config.ErrorProxy + "/Error.aspx?errcode=E011";
   }
 }
 

@@ -12,11 +12,9 @@ const InitState = ({props,type}) => {
 
             ImportTarget:props.ImportTarget?props.ImportTarget:'',
 
+            ImportTargetName:props.ImportTargetName?props.ImportTargetName:'',
+
             FtpPath:'',
-
-           /* UpLoadLoading:true,
-
-            ModulesLink:[],*/
 
             UpLoadFileName:'请选择文件...',
 
@@ -212,6 +210,14 @@ const InitState = ({props,type}) => {
                     ID:'leader_4',
 
                     Url:`${CONFIG.Import}/UserMgr/Comm/Controls/Import/DownloadFile.ashx?fileUrl=~%2FUserMgr%2FUserInfoMgr%2FTemplate%2F%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%E5%AD%A6%E6%A0%A1%E9%A2%86%E5%AF%BC%E4%BF%A1%E6%81%AF%28%E9%AB%98%E6%95%99%E7%B2%BE%E7%AE%80%E7%89%882%29.xls`
+
+                },
+
+                {
+
+                    ID:'importCollegeInfo',
+
+                    Url:`${CONFIG.Import}/UserMgr/Comm/Controls/Import/DownloadFile.ashx?fileUrl=~%2FSysMgr%2FSysSetting%2FCollegeInfo%2F%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%E5%AD%A6%E9%99%A2%E4%BF%A1%E6%81%AF.xls`
 
                 }
 

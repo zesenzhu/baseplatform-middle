@@ -2,17 +2,25 @@ import {combineReducers} from 'redux';
 
 import LoginUser from './LoginUser';
 
-import AppAlert from './AppAlert';
+import appAlert from './appAlert';
 
-import AppLoading from './AppLoading';
+import appLoading from './appLoading';
+
+import guideStep from './guideStep';
+
+import schoolType from './schoolType';
 
 const reducers = combineReducers({
 
     LoginUser,
 
-    AppAlert,
+    appAlert,
 
-    AppLoading
+    appLoading,
+
+    guideStep,
+
+    schoolType
 
 });
 

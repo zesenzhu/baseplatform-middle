@@ -518,7 +518,7 @@ export function TokenCheck_Connect(IsDesk=false,fun=()=>{}) {
 
 export function LogOut(SysID="000",IsPersonnal) {
 
-  let token = sessionStorage.getItem("token") || getQueryVariable("lg_tk");
+  let token = getQueryVariable("lg_tk")||sessionStorage.getItem("token")||localStorage.getItem("token");
 
   $.ajax({
     url:

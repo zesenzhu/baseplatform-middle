@@ -2,6 +2,10 @@ import React,{useEffect,useState,useRef,useMemo,memo,useCallback} from 'react';
 
 import {useSelector,useDispatch} from 'react-redux';
 
+import {LogOut} from "../../../common/js/disconnect/index";
+
+import {btnQueryAlertShow} from "../../store/appAlert/index";
+
 import './index.scss';
 
 function Header(props) {
@@ -11,6 +15,8 @@ function Header(props) {
     const LoginUser = useSelector(state=>state.LoginUser);
 
     const { SchoolID,UserID,UserName,PhotoPath } = LoginUser;
+
+    const dispatch = useDispatch();
 
     useEffect(()=>{
 
@@ -23,6 +29,24 @@ function Header(props) {
         }
 
     },[UserID]);
+
+
+    //退出登录
+
+    const logout = useCallback(()=>{
+
+        dispatch(btnQueryAlertShow({title:'确定要退出登录吗？',cancelShow:'y',ok:logoutOk}))
+
+    },[]);
+
+
+
+    //退出登录
+    const logoutOk = useCallback(()=>{
+
+        LogOut()
+
+    },[]);
 
     return(
 
@@ -48,7 +72,7 @@ function Header(props) {
 
                 <div className={"user-name"}>{UserName}</div>
 
-                <i className={"log-out"}></i>
+                <i className={"log-out"} onClick={logout}></i>
 
             </div>
 

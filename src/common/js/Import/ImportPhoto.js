@@ -322,7 +322,7 @@ class Import extends Component{
 
                                     <div className="usermgr_upload_error_item">
 
-                                        <p className="usermgr_upload_error_title">对应工号不存在</p>
+                                        <p className="usermgr_upload_error_title">对应工号/学号不存在</p>
 
                                         <div className="usermgr_upload_error_item_list">
 

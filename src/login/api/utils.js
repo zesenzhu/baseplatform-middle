@@ -114,31 +114,42 @@ export const goToNextPage = ({token,WebIndexUrl,UserType}) =>{
 
     }else{
 
-        const preUri = getQueryVariable('lg_preurl');
-
-        const urlObj = preUri?getNewTkUrl({preUrl:preUri,jointParam:`?lg_tk=${token}`}):getNewTkUrl({preUrl:WebIndexUrl,jointParam:`?lg_tk=${token}`});
 
         let nexUrl = '';
 
-        switch (urlObj.type) {
+        const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
 
-            case 1:
+        const preUri = getQueryVariable('lg_preurl');
 
-                nexUrl = urlObj.newUrl;
+        if (UserInfo&&UserInfo.SchoolID){
 
-                break;
+            const urlObj = preUri?getNewTkUrl({preUrl:preUri,jointParam:`?lg_tk=${token}`}):getNewTkUrl({preUrl:WebIndexUrl,jointParam:`?lg_tk=${token}`});
 
-            case 2:
+            switch (urlObj.type) {
 
-                nexUrl = urlObj.newUrl+'&lg_tk='+token;
+                case 1:
 
-                break;
+                    nexUrl = urlObj.newUrl;
 
-            case 3:
+                    break;
 
-                nexUrl = urlObj.newUrl+'?lg_tk='+token;
+                case 2:
 
-                break;
+                    nexUrl = urlObj.newUrl+'&lg_tk='+token;
+
+                    break;
+
+                case 3:
+
+                    nexUrl = urlObj.newUrl+'?lg_tk='+token;
+
+                    break;
+
+            }
+
+        }else{
+
+            nexUrl = `/html/initGuide?lg_tk=${token}${preUri?'&lg_preurl='+preUri:''}`
 
         }
 

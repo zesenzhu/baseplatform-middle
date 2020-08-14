@@ -100,6 +100,19 @@ export const downLoadFile = (url)=>{
 };
 
 
+export const schoolCodeReg = (str) =>{
+
+    return /^([a-zA-Z0-9]{1,24})$/.test(str.trim());
+
+};
+
+export const schoolNameReg = (str) =>{
+
+    return /^[0-9a-zA-Z()（）\u4E00-\u9FA5\uF900-\uFA2D-]{1,20}$/.test(str.trim());
+
+};
+
+
 export {
 
     getPostData,

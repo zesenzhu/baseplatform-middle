@@ -1,0 +1,60 @@
+.guide-footer{
+
+  position:relative;
+
+  z-index: 1;
+
+  width: 1200px;
+
+  margin: 0 auto;
+
+  margin-bottom: 54px;
+
+  text-align:center;
+
+  .step-btn{
+
+    width: 200px;
+
+    height: 36px;
+
+    outline: none;
+
+    border: 0;
+
+    border-radius: 18px;
+
+    font-size: 16px;
+
+    color: #ffffff;
+
+    &.next-step{
+
+      background-image: linear-gradient(-90deg,
+              #04caf4 0%,
+              #23a1fa 100%),
+      linear-gradient(
+                      #018eed,
+                      #018eed);
+
+      box-shadow: 0 3px 6px 1px #a0dcfc;
+
+    }
+
+    &.back-step{
+
+      background-color: #05c305;
+
+      box-shadow: 0 3px 6px 1px #97e697;
+
+    }
+
+    &:not(:first-child){
+
+      margin-left:20px;
+
+    }
+
+  }
+
+}
