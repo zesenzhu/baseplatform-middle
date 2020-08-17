@@ -8,6 +8,8 @@ import "../../scss/HandleCourseClass.scss";
 
 import { postData, getData } from "../../../common/js/fetch";
 
+import { GetStudentForAddOrEditCourseClassByInit,GetStudentForAddOrEditCourseClassByGroupID } from "../actions/apiActions";
+
 import { Scrollbars } from "react-custom-scrollbars";
 
 import { Input } from "antd";
@@ -29,6 +31,7 @@ import {
 } from "../../../common";
 import SelectTeacher from "./SelectTeacher";
 import SelectStudent from "./SelectStudent";
+import {checkUrlAndPostMsg} from "../../../common/js/public";
 
 class AddCourseClass extends React.Component {
   constructor(props) {
@@ -46,10 +49,16 @@ class AddCourseClass extends React.Component {
       SubjectNameTipsTitle: "请输入教学班名称",
       SubjectTipsTitle: "请选择学科",
       GradeTipsTitle: "请选择年级",
-      isWarkingClass:false,
-      classSelectd:{value:'',title:'请指定一个班级'},
-      classTipShow:false
+      classInfo:{
+        dropSelectd:{value:'',title:'请指定一个班级'},
+        dropList:[],
+        tip:false,
+        radioValue:1,
+        classDisabled:true
+      }
+
     };
+
   }
   componentWillMount() {
 
@@ -75,8 +84,6 @@ class AddCourseClass extends React.Component {
     if (handleRoute === "Teacher") {
 
       let UserMsg = DataState.LoginUser;
-
-      console.log(DataState);
 
       DataState.GetCourseClassDetailsHandleClassMsg.selectData.Teacher = {
 
@@ -211,7 +218,13 @@ class AddCourseClass extends React.Component {
       }
     }
   }
-  componentDidMount() {}
+
+  componentDidMount() {
+
+      this.props.onRef(this);
+
+  }
+
   componentWillReceiveProps(nextProps) {
     const { DataState, UIState } = nextProps;
     let data = nextProps.DataState.GetCourseClassDetailsHandleClassMsg;
@@ -317,9 +330,17 @@ class AddCourseClass extends React.Component {
     const { DataState, UIState, dispatch } = this.props;
     let Student =
       DataState.GetCourseClassDetailsHandleClassMsg.transfer.Student;
+
+
+
       let Class = DataState.GetCourseClassDetailsHandleClassMsg.transfer.Class;
       let ClassSource = DataState.GetCourseClassDetailsHandleClassMsg.transfer.ClassSource;
+
+      Student = Student.filter(i=>i.ClassID!==Class[0]);
+
+
       dispatch(actions.UpDataState.setCourseClassStudentMsg(Student));
+
       dispatch(actions.UpDataState.SetCourseClassDefaultMsg({ Class,ClassSource }));
 
     dispatch(actions.UpUIState.AddStudentModalClose());
@@ -347,9 +368,11 @@ class AddCourseClass extends React.Component {
     this.setState({
       tableSource: data,
     });
-    //console.log(id, newData);
+
     dispatch(actions.UpDataState.setClassStudentTransferMsg(data));
+
     dispatch(actions.UpDataState.setCourseClassStudentMsg(data));
+
   };
   //删除班级
   onDeleteClassClick = (id) => {
@@ -416,11 +439,11 @@ class AddCourseClass extends React.Component {
   };
   //选择学科
   onSelectSubjectChange = value => {
+
     const { DataState, UIState, dispatch } = this.props;
 
-
-
     if (value.value !== this.state.SubjectSelect.value) {
+
       if(this.state.type === "Admin"){
         dispatch(actions.UpDataState.setSubjectTeacherMsg([]));
       dispatch(actions.UpDataState.setSubjectTeacherTransferMsg([]));
@@ -430,7 +453,7 @@ class AddCourseClass extends React.Component {
       dispatch(actions.UpDataState.setClassStudentTransferTransferMsg([]));
       dispatch(
         actions.UpDataState.setCourseClassDataMsg({
-          Grade: {}
+          Grade: {value:0,title: "请选择年级"}
         })
       );
       this.setState({
@@ -443,15 +466,32 @@ class AddCourseClass extends React.Component {
       Subject: value,
       SubjectSelect: value
     });
+
     dispatch(actions.UpDataState.setCourseClassDataMsg({ Subject: value }));
+
+    if (this.state.classInfo.radioValue===1){
+
+      this.setState((state)=>{
+
+        return {...state,classInfo:{...state.classInfo,tip:false,classDisabled:true,dropSelectd:{value:'',title:'请指定一个班级'}}};
+
+      })
+
+    }
+
   };
   //选择年级
   onSelectGradeChange = value => {
-    const { DataState, UIState, dispatch } = this.props;
+
+    const { DataState, UIState, dispatch,LoginUser } = this.props;
+
+    const { SchoolID } = LoginUser;
+
 
     if (value.value !== this.state.GradeSelect.value) {
       dispatch(actions.UpDataState.setCourseClassStudentMsg([]));
       dispatch(actions.UpDataState.setClassStudentTransferMsg([]));
+        dispatch(actions.UpDataState.SetCourseClassDefaultMsg({ Class:[],ClassSource:[] }));
       dispatch(actions.UpDataState.setClassStudentTransferTransferMsg([]));
     }
     dispatch({ type: actions.UpUIState.GRADE_TIPS_SHOW_CLOSE });
@@ -460,8 +500,22 @@ class AddCourseClass extends React.Component {
       GradeSelect: value
 
     });
+
     dispatch(actions.UpDataState.setCourseClassDataMsg({ Grade: value }));
 
+    GetStudentForAddOrEditCourseClassByInit({schoolID:SchoolID,gradeID:value.value,dispatch}).then(data=>{
+
+        const list = data&&data.length>0?data.map(i=>({value:i.ClassID,title:i.ClassName})):[{value:'',title:'该年级下暂无班级'}];
+
+        const classDisabled = this.state.classInfo.radioValue===2;
+
+        this.setState((state)=>{
+
+            return { ...state,classInfo:{...state.classInfo,disabled:false,dropList:list,classDisabled,tip:false,dropSelectd:{value:'',title:'请指定一个班级'}}};
+
+        });
+
+    });
 
   };
 
@@ -478,7 +532,72 @@ class AddCourseClass extends React.Component {
     const { dispatch } = this.props;
     dispatch(actions.UpUIState.hideErrorAlert());
   }
-  render() {
+
+
+    //选择变化
+
+    classRadioChange(e){
+
+      const { dispatch,DataState } = this.props;
+
+      const { Grade } = DataState.GetCourseClassDetailsHandleClassMsg.selectData;
+
+      const value = e.target.value;
+
+      const classDisabled = Grade.value===0||value===2;
+
+      dispatch(actions.UpDataState.setCourseClassStudentMsg([]));
+
+      dispatch(actions.UpDataState.SetCourseClassDefaultMsg({ Class:[],ClassSource:[] }));
+
+      this.setState((state)=>{
+
+          return {...state,classInfo:{...state.classInfo,tip:false,classDisabled,radioValue:value,dropSelectd:{value:'',title:'请指定一个班级'}}};
+
+      });
+
+    }
+
+    //班级选择变化
+
+    classSelectChange(data){
+
+      const { dispatch,LoginUser } = this.props;
+
+      const { SchoolID } = LoginUser;
+
+      const { value,title } = data;
+
+      this.setState((state)=>{
+
+        GetStudentForAddOrEditCourseClassByGroupID({schoolID:SchoolID,classID:value,dispatch}).then(data=>{
+
+          const list = data&&data.length>0?data:[];
+
+          dispatch(actions.UpDataState.setCourseClassStudentMsg(list));
+
+        });
+
+        return {...state,classInfo:{...state.classInfo,dropSelectd:data,tip:false}};
+
+      })
+
+    }
+
+
+    toAdmClass(){
+
+        const url = CONFIG.HashPrevProxy+'/html/admclass'+location.search;
+
+        checkUrlAndPostMsg({btnName:'行政班管理',url});
+      
+    }
+
+
+
+    render() {
+
+
     const { DataState, UIState,isFrame,history } = this.props;
     //获取路由
 
@@ -527,6 +646,7 @@ class AddCourseClass extends React.Component {
         GradeDropList[index] = Grade;
       }
     } else if (type === "Teacher") {
+
       let Subjects = DataState.GetTeacherSubjectAndGradeMsg.Subjects;
 
       Subjects.map((child, index) => {
@@ -539,11 +659,18 @@ class AddCourseClass extends React.Component {
     }
 
 
-    return (
-      <React.Fragment>
-        <div id="HandleCourseClass" className="HandleCourseClass">
 
-            <div className="row clearfix">
+    const token = sessionStorage.getItem("token");
+
+
+
+    return (
+
+      <React.Fragment>
+
+        <div  id="HandleCourseClass" className="HandleCourseClass">
+
+            <div className="row clearfix" style={{zIndex:5}}>
 
               <div className="row-column">
 
@@ -610,7 +737,7 @@ class AddCourseClass extends React.Component {
 
           </div>
 
-          <div className="row clearfix">
+          <div className="row clearfix" style={{zIndex:4}}>
 
             <div className="row-column">
 
@@ -652,7 +779,9 @@ class AddCourseClass extends React.Component {
 
               <span className="left">任课老师：</span>
 
-              {handleRoute !== "Teacher" ? (
+              {
+
+                handleRoute !== "Teacher" ? (
 
                   <span className="right">
 
@@ -696,25 +825,25 @@ class AddCourseClass extends React.Component {
 
           </div>
 
-          <div className="row clearfix">
+          <div className="row clearfix" style={{zIndex:3}}>
 
-                <div className="row-column">
+                <div className="row-column" style={{width:'100%'}}>
 
-                    <span className="left">班级类型:</span>
+                    <span className="left" style={{width:'14%'}}>班级类型:</span>
 
-                    <span className="right ">
+                    <span className="right">
 
-                      <RadioGroup>
+                      <RadioGroup value={this.state.classInfo.radioValue} onChange={this.classRadioChange.bind(this)}>
 
-                        <Radio>走班</Radio>
+                        <Radio value={2}>走班</Radio>
 
-                        <Radio>非走班</Radio>
+                        <Radio value={1}>非走班</Radio>
 
                       </RadioGroup>
 
-                      <Tips>
+                      <Tips visible={this.state.classInfo.tip} title={"请指定一个班级"}>
 
-                        <DropDown></DropDown>
+                        <DropDown onChange={this.classSelectChange.bind(this)} disabled={this.state.classInfo.classDisabled} className={"select-class"} width={200} dropSelectd={this.state.classInfo.dropSelectd} dropList={this.state.classInfo.dropList}></DropDown>
 
                       </Tips>
 
@@ -744,39 +873,140 @@ class AddCourseClass extends React.Component {
                       </span>
                       名学生
                     </span>
+
                     <span className="top-left-add" style={{display:data.selectData.ClassSource.length>0&&this.state.tableSource.length>0?'inline-block':'none'}}>+</span>
-                    <span style={{display:data.selectData.ClassSource.length>0?'inline-block':'none'}} className="top-left top-left-2">
+
+                      <span style={{display:data.selectData.ClassSource.length>0?'inline-block':'none'}} className="top-left top-left-2">
                       已选
                       <span className="count">
                         {data.selectData.ClassSource.length}
                       </span>
                       个行政班
                     </span>
-                    <span className="top-right">
-                      <span
-                        onClick={this.onSelectStudentAllClick.bind(this)}
-                        className="handle select"
-                      >
-                        选择
-                      </span>
-                      <span
-                        onClick={this.onDeleteAllClick.bind(this)}
-                        className="handle deleteAll"
-                      >
-                        清空
-                      </span>
+
+                      <span className="top-right">
+
+                        {
+
+                         this.state.classInfo.radioValue===2?
+
+                             <>
+
+                              <span
+                                  onClick={this.onSelectStudentAllClick.bind(this)}
+                                  className="handle select"
+                              >
+                      选择
                     </span>
+
+                              <span
+                                  onClick={this.onDeleteAllClick.bind(this)}
+                                  className="handle deleteAll"
+                              >
+                                清空
+                              </span>
+
+                             </>
+
+                            :
+
+                            this.state.classInfo.dropSelectd.value?
+
+
+
+                            <span className={"tips"}>
+
+                                  注：如需调整班级学生，请前往<a onClick={this.toAdmClass.bind(this)}>行政班管理</a>模块操作
+
+                            </span>
+
+                            :null
+
+                        }
+
+                      </span>
+
                   </div>
-                  <div style={{display:data.selectData.ClassSource.length>0?' block':'none'}} className="select-box student-box">
-                    <p className="box-title">行政班：</p>
-                    <div className="select-content-box" style={this.state.tableSource.length>0?{height:isFrame?90:140}:{height:isFrame?220:320}}>
+
+                  <div style={{display:this.state.tableSource.length>0?' block':'none'}} className="select-box student-box">
+
+                      {
+
+                          data.selectData.ClassSource.length>0?
+
+                              <p className="box-title">学生：</p>
+
+                              :null
+
+                      }
+
+                      <div className="select-content-box" style={data.selectData.ClassSource.length>0?{height:isFrame?78:122}:{height:isFrame?226:310,margin:0,border:0}}>
                       <Scrollbars
+                          style={{ width: 100 + "%", height:   "100%" }}
+                      >
+                        <div className="box-content">
+                          {this.state.tableSource.map((child, index) => {
+                              return (
+                                  <span
+                                      className="content-card"
+                                      key={child.StudentID + '-'+ index}
+                                  >
+                                <span
+                                    title={child.StudentName}
+                                    className="card-name"
+                                >
+                                  {child.StudentName}
+                                </span>
+                                <span
+                                    title={child.StudentID}
+                                    className="card-id"
+                                >
+                                  {child.StudentID}
+                                </span>
+
+                                      {
+
+                                          this.state.classInfo.radioValue===2?
+
+                                              <span onClick={this.onDeleteStudentClick.bind(this, index)} className="icon-x"></span>
+
+                                              :
+
+                                              null
+
+                                      }
+
+                              </span>
+                              );
+                          })}
+                        </div>
+                      </Scrollbars>
+                    </div>
+
+                  </div>
+
+                  <div style={{display:data.selectData.ClassSource.length>0?' block':'none'}} className="select-box student-box">
+
+                    {
+
+                        this.state.tableSource.length>0?
+
+                        <p className="box-title">行政班：</p>
+
+                        :null
+
+                    }
+
+                    <div className="select-content-box" style={this.state.tableSource.length>0?{height:isFrame?78:122}:{height:isFrame?226:310,margin:0,border:0}}>
+
+                        <Scrollbars
                         style={{ width: 100 + "%", height:   "100%" }}
                       >
                         <div className="box-content">
                           {data.selectData.ClassSource.map((child, index) => {
                             return (
-                              <span
+
+                                <span
                                 className="content-card"
                                 key={child.ClassID + '-'+index}
                               >
@@ -787,86 +1017,17 @@ class AddCourseClass extends React.Component {
                                   {child.ClassName}
                                 </span>
 
-                                <span
-                                  onClick={this.onDeleteClassClick.bind(
-                                    this,
-                                    index
-                                  )}
-                                  className="icon-x"
-                                ></span>
-                              </span>
-                            );
-                          })}
-                        </div>
-                      </Scrollbars>
-                    </div>
-                  </div>
-                  <div style={{display:this.state.tableSource.length>0?' block':'none'}} className="select-box student-box">
-                    <p className="box-title">学生：</p>
-                    <div className="select-content-box" style={data.selectData.ClassSource.length>0?{height:isFrame?90:140}:{height:isFrame?220:320}}>
-                      <Scrollbars
-                        style={{ width: 100 + "%", height:   "100%" }}
-                      >
-                        <div className="box-content">
-                          {this.state.tableSource.map((child, index) => {
-                            return (
-                              <span
-                                className="content-card"
-                                key={child.StudentID + '-'+ index}
-                              >
-                                <span
-                                  title={child.StudentName}
-                                  className="card-name"
-                                >
-                                  {child.StudentName}
-                                </span>
-                                <span
-                                  title={child.StudentID}
-                                  className="card-id"
-                                >
-                                  {child.StudentID}
-                                </span>
-                                <span
-                                  onClick={this.onDeleteStudentClick.bind(
-                                    this,
-                                    index
-                                  )}
-                                  className="icon-x"
-                                ></span>
-                              </span>
-                            );
-                          })}
-                        </div>
-                      </Scrollbars>
-                    </div>
-                  </div>
-                  {/* <Scrollbars style={{ width: 100 + "%", height: 193 + "px" }}>
-                    <div className="box-content">
-                      {this.state.tableSource.map((child, index) => {
-                        return (
-                          <span className="content-card" key={child.StudentID}>
-                            <span
-                              title={child.StudentName}
-                              className="card-name"
-                            >
-                              {child.StudentName}
-                            </span>
-                            <span title={child.StudentID} className="card-id">
-                              {child.StudentID}
-                            </span>
+                                <span onClick={this.onDeleteClassClick.bind(this,index)} className="icon-x"></span>
 
-                            <span
-                              onClick={this.onDeleteStudentClick.bind(
-                                this,
-                                index
-                              )}
-                              className="icon-x"
-                            ></span>
-                          </span>
-                        );
-                      })}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      </Scrollbars>
                     </div>
-                  </Scrollbars> */}
+                  </div>
+
+
                 </div>
               </span>
             </div>
@@ -914,15 +1075,19 @@ class AddCourseClass extends React.Component {
       </React.Fragment>
     );
   }
+
 }
+
+
 AddCourseClass.defaultProps = {
   type: "Admin"
 };
 const mapStateToProps = state => {
-  let { UIState, DataState } = state;
+  let { UIState, DataState,LoginUser } = state;
   return {
     UIState,
-    DataState
+    DataState,
+    LoginUser
   };
 };
 export default connect(mapStateToProps)(AddCourseClass);

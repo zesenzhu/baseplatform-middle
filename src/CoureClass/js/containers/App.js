@@ -100,13 +100,6 @@ class App extends Component {
       let UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
 
       const { UserType } = UserInfo;
-      
-      /*if (parseInt(UserType)===7||parseInt(UserType)===10){
-
-          UserInfo['UserType'] = '0';
-
-      }*/
-
 
       const UserInfoCopy = {...UserInfo,UserType:parseInt(UserInfo.UserType),UserClass:UserInfo.UserClass};
 
@@ -132,7 +125,6 @@ class App extends Component {
           }
 
           let route = history.location.pathname;
-
 
           if(route.split('/')[1]==='statics'){
 
@@ -513,7 +505,11 @@ class App extends Component {
   };
   //编辑教学班模态框
   ChangeCourseClassModalOk = () => {
+
     const { dispatch, DataState,history,LoginUser } = this.props;
+
+      const { classInfo } = this.EditClassRef.state;
+
     let userMsg = LoginUser;
     let data = DataState.GetCourseClassDetailsHandleClassMsg;
     let route = history.location.pathname;
@@ -527,14 +523,14 @@ class App extends Component {
     let pageIndex = DataState.GetClassAllMsg.allClass.pageIndex;
     let isFalse = false;
 
-
-
     if (
       data.selectData.Teacher.value === data.TeacherID &&
       data.selectData.CourseClass.CourseClassName === data.CourseClassName &&
 
       JSON.stringify(data.selectData.Student)===JSON.stringify(data.InitStudent)&&
+
       JSON.stringify(data.selectData.Class)===JSON.stringify(data.InitClass)
+
     ) {
       dispatch(
         actions.UpUIState.showErrorAlert({
@@ -549,6 +545,7 @@ class App extends Component {
       return;
     }
     let value = data.selectData.CourseClass.CourseClassName;
+
     if (value === "") {
 
       dispatch({ type: actions.UpUIState.NAME_TIPS_SHOW_OPEN });
@@ -557,23 +554,63 @@ class App extends Component {
     }
 
     let Test = /^[_\->/()（）A-Za-z0-9\u4e00-\u9fa5]{0,50}$/.test(value);
+
     if (!Test) {
 
       dispatch({ type: actions.UpUIState.NAME_TIPS_SHOW_OPEN });
 
       isFalse = true
     }
+
+      let courseClassStus = data.selectData.Student.map((child, index) => {
+          return child.StudentID;
+      }).join();
+
+    let classIDs = data.selectData.Class.join();
+
+    let courseClassType = 1;
+
+      if (classInfo.radioValue===1){
+
+          if(!classInfo.dropSelectd.value){
+
+              this.EditClassRef.setState((state)=>{
+
+                  return {...state,classInfo:{...state.classInfo,tip:true}};
+
+              });
+
+              isFalse = true;
+
+          }else{
+
+              classIDs = classInfo.dropSelectd.value;
+
+              courseClassStus = '';
+
+          }
+
+      }else{
+
+          courseClassType = 2;
+
+      }
+
+
+
     if(isFalse){
+
       return
+
     }
+
     dispatch({ type: actions.UpUIState.SUBJECT_TIPS_SHOW_CLOSE });
+
     dispatch({ type: actions.UpUIState.NAME_TIPS_SHOW_CLOSE });
 
     dispatch({ type: actions.UpUIState.GRADE_TIPS_SHOW_CLOSE });
 
-    let courseClassStus = data.selectData.Student.map((child, index) => {
-      return child.StudentID;
-    }).join();
+
     let url = "/InsertOrEditCourseClass";
 
 
@@ -588,9 +625,11 @@ class App extends Component {
         teacherID: data.selectData.Teacher.value,
         gradeID: data.GradeID,
         subjectID: data.SubjectID,
-        courseClassStus: courseClassStus,
+        courseClassStus,
         courseClassID: data.selectData.CourseClass.CourseClassID,
-        classIDs:data.selectData.Class.join()
+        classIDs,
+        courseClassType
+
       },2,"json")
       .then(res => {
         return res.json();
@@ -616,7 +655,9 @@ class App extends Component {
               }
 
           } else if (userMsg.UserType === 1) {
-            //history.push("/Teacher");
+
+            history.push("/Teacher");
+
           }
 
             dispatch(actions.UpUIState.ChangeCourseClassModalClose());
@@ -647,7 +688,10 @@ class App extends Component {
     dispatch(actions.UpUIState.hideErrorAlert());
   };
   ChangeCourseClassModalCancel = () => {
+
     const { dispatch, DataState } = this.props;
+
+
 
     dispatch(actions.UpDataState.setCourseClassName({}));
 
@@ -671,30 +715,47 @@ class App extends Component {
   };
   //添加教学班模态框
   AddCourseClassModalOk = () => {
+
+    const { classInfo } = this.AddCourClassRef.state;
+
     const { dispatch, DataState,LoginUser,history} = this.props;
+
     let Student =
       DataState.GetCourseClassDetailsHandleClassMsg.selectData.Student;
 
     let userMsg = LoginUser;
+
     let data = DataState.GetCourseClassDetailsHandleClassMsg;
+
     let route = history.location.pathname;
+
     let pathArr = route.split("/");
+
     let handleRoute = pathArr[1];
+
     let routeID = pathArr[2];
+
     let subjectID = pathArr[3];
+
     let classID = pathArr[4];
+
     let pageIndex = DataState.GetClassAllMsg.allClass.pageIndex;
 
     let isFalse = false;
 
+    let courseClassType = 1;
+
     if (data.selectData.CourseClass.CourseClassName === "") {
 
       dispatch({ type: actions.UpUIState.NAME_TIPS_SHOW_OPEN });
+
       isFalse = true
+
     }
     let value = data.selectData.CourseClass.CourseClassName;
-    //console.log(this.state.courseClassName, e.target.value)
+
     let Test = /^[_\->/()（）A-Za-z0-9\u4e00-\u9fa5]{0,50}$/.test(value);
+
     if (value === "" || value === undefined || !Test) {
 
       dispatch({ type: actions.UpUIState.NAME_TIPS_SHOW_OPEN });
@@ -703,11 +764,7 @@ class App extends Component {
 
     }
 
-    if (
-      data.selectData.Subject &&
-      data.selectData.Subject instanceof Object &&
-      !data.selectData.Subject.value
-    ) {
+    if (data.selectData.Subject && data.selectData.Subject instanceof Object && !data.selectData.Subject.value){
 
       dispatch({ type: actions.UpUIState.SUBJECT_TIPS_SHOW_OPEN });
 
@@ -715,35 +772,67 @@ class App extends Component {
 
     }
 
-    if (
-      data.selectData.Grade &&
-      data.selectData.Grade instanceof Object &&
-      !data.selectData.Grade.value
-    ) {
+    if (data.selectData.Grade && data.selectData.Grade instanceof Object && !data.selectData.Grade.value) {
 
       dispatch({ type: actions.UpUIState.GRADE_TIPS_SHOW_OPEN });
-
 
       isFalse = true
 
     }
 
-    if(isFalse){
-      return
+    let courseClassStus = data.selectData.Student.map((child, index) => {
+
+          return child.StudentID;
+
+      }).join();
+
+    let classIDs = data.selectData.Class.join();
+
+      if (classInfo.radioValue===1){
+
+        if(!classInfo.dropSelectd.value){
+
+            this.AddCourClassRef.setState((state)=>{
+
+                return {...state,classInfo:{...state.classInfo,tip:true}};
+
+            });
+
+            isFalse = true;
+
+        }else{
+
+            classIDs = classInfo.dropSelectd.value;
+
+            courseClassStus = '';
+
+        }
+
+    }else{
+
+        courseClassType = 2;
+
     }
+    
+
+    if(isFalse){
+
+      return
+
+    }
+
     dispatch({ type: actions.UpUIState.SUBJECT_TIPS_SHOW_CLOSE });
+
     dispatch({ type: actions.UpUIState.NAME_TIPS_SHOW_CLOSE });
 
     dispatch({ type: actions.UpUIState.GRADE_TIPS_SHOW_CLOSE });
 
 
-    let courseClassStus = data.selectData.Student.map((child, index) => {
-      return child.StudentID;
-    }).join();
+
     let url = "/InsertOrEditCourseClass";
 
 
-      dispatch({ type: actions.UpUIState.MODAL_LOADING_OPEN });
+    dispatch({ type: actions.UpUIState.MODAL_LOADING_OPEN });
 
     postData(
       CONFIG.CourseClassProxy + url,
@@ -755,9 +844,10 @@ class App extends Component {
         teacherID: data.selectData.Teacher.value,
         gradeID: data.selectData.Grade.value,
         subjectID: data.selectData.Subject.value,
-        courseClassStus: courseClassStus,
+        courseClassStus,
         courseClassID: "",
-        classIDs:data.selectData.Class.join()
+        classIDs,
+        courseClassType
       },
       2,
       "json"
@@ -903,46 +993,8 @@ class App extends Component {
             </div>
 
             <div ref="frame-right-content">
-              {/*<Loading
-                tip="加载中..."
-                opacity={false}
-                size="large"
-                spinning={UIState.AppLoading.rightLoading}
-              >*/}
 
                 <AppRoutes></AppRoutes>
-
-              {/* {UserID? <Router>
-                  <Route path="/All" exact component={All}></Route>
-                  <Route
-                    path="/Subject/:subjectID/all"
-                    component={Subject}
-                  ></Route>
-                  <Route
-                    path="/Subject/:subjectID/Class/:classID"
-                    component={Class}
-                  ></Route>
-                  <Route path="/Search" component={Search}></Route>
-                  <Route path="/Log/Record" component={Record}></Route>
-                  <Route path="/Log/Dynamic" component={Dynamic}></Route>
-                  <Route path="/Teacher" component={Teacher}></Route>
-                  <Route path="/ImportFile" component={ImportFile}></Route>
-
-                  <Route path={"/Student"} component={Student}></Route>
-
-                       {
-
-                         parseInt(UserType)===2?
-
-                             <Redirect path={"/*"} to={"/Student"}></Redirect>
-
-                             :''
-
-                       }
-
-                </Router>:''}*/}
-
-                {/*</Loading>*/}
 
             </div>
 
@@ -959,7 +1011,9 @@ class App extends Component {
           onHide={UIState.AppAlert.onHide}
           onCancel={UIState.AppAlert.onCancel}
           onClose={UIState.AppAlert.onClose}
-        ></Alert>
+        >
+
+        </Alert>
 
         {/* 模态框 */}
         <Modal
@@ -1001,7 +1055,7 @@ class App extends Component {
             opacity={false}
             spinning={AppLoading}
           >
-            <HandleCourseClass history={history} isFrame={this.state.isFrame}></HandleCourseClass>
+            <HandleCourseClass onRef={ref=>this.EditClassRef=ref} history={history} isFrame={this.state.isFrame}></HandleCourseClass>
           </Loading>
         </Modal>
         <Modal
@@ -1033,6 +1087,9 @@ class App extends Component {
                 }
                 history={history}
                 isFrame={this.state.isFrame}
+
+                onRef={ref=>this.AddCourClassRef=ref}
+
               >
 
               </AddCourseClass>

@@ -1,4 +1,7 @@
 import UpDataState from "../../actions/UpDataState";
+
+import UpUIState from '../../actions/UpUIState';
+
 import history from "../../containers/history";
 
 const GetCourseClassDetailsHandleClassMsg = (
@@ -92,6 +95,31 @@ const GetCourseClassDetailsHandleClassMsg = (
         ...actions.data,
       });
       return Object.assign({}, state, { transfer: transfer });
+
+      case UpUIState.CHANGE_COURSE_CLASS_MODAL_CLOSE:
+
+        return {
+
+            selectData: {
+                CourseClass: { CourseClassName: "" },
+                Subject: {},
+                Grade: {},
+                Teacher: [],
+                Student: [],
+                Class: [],
+                ClassSource:[]
+            },
+            transfer: {
+                Teacher: [],
+                Student: [],
+                Class: [],
+                ClassSource:[]
+            },
+            InitClassSource:[],
+            InitStudent:[]
+
+        };
+
     default:
       return state;
   }

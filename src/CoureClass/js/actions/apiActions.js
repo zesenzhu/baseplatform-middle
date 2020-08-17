@@ -230,6 +230,49 @@ export const GetCourseClassInfoForPage_Middle = async ({schoolID='',userID='',us
 };
 
 
+//获取某一年级行政班数据
+
+export const GetStudentForAddOrEditCourseClassByInit = async ({schoolID='',gradeID='',dispatch}) => {
+
+    let res = await Method.getGetData(`/GetStudentForAddOrEditCourseClassByInit?schoolID=${schoolID}&gradeID=${gradeID}`,
+
+        2,config.CourseClassProxy);
+
+    if (res.StatusCode === 200){
+
+        return res.Data;
+
+    }else{
+
+        dispatch(appAlertActions.alertError({title:res.Msg?res.Msg:"未知异常"}));
+
+
+    }
+
+
+};
+
+
+//获取行政班学生
+export const GetStudentForAddOrEditCourseClassByGroupID = async ({schoolID='',classID='',dispatch}) => {
+
+    let res = await Method.getGetData(`/GetStudentForAddOrEditCourseClassByGroupID?schoolID=${schoolID}&classID=${classID}`,
+
+        2,config.CourseClassProxy);
+
+    if (res.StatusCode === 200){
+
+        return res.Data;
+
+    }else{
+
+        dispatch(appAlertActions.alertError({title:res.Msg?res.Msg:"未知异常"}));
+
+
+    }
+
+
+};
 
 
 
