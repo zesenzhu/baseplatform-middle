@@ -139,6 +139,10 @@ function App(props){
 
                         break;
 
+                    default :
+
+                        skin = 'dark_blue';
+
                 }
 
                 if (parseInt(data.ProductType)===2||parseInt(data.ProductType)===5){

@@ -629,14 +629,14 @@ newClassSelect.map(child=>{
                   <ul
                     className="selectStudent"
                     style={{
-                      width: this.state.leftShow ? 475 + "px" : 680 + "px",
+                      width: this.state.leftShow ? 502 + "px" : 680 + "px",
                       height: 437 + "px",
                       display: this.state.show ? "block" : "none"
                     }}
                   >
                     {propStudent.length ?  
                     <Scrollbars
-                      style={{ width: 100 + "%", height: 387 + "px" }}
+                      style={{ width: 100 + "%", height: 437 + "px" }}
                     >
                       <CheckBoxGroup
                         name="123"

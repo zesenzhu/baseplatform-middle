@@ -102,7 +102,12 @@ class ShowCardTeacher extends React.Component {
         dispatch(actions.UpUIState.CourseClassDetailsModalOpen())
         dispatch(actions.UpDataState.getCourseClassDetailsMsg('/GetCourseClassDetail?courseClassID='+classID))
     }
+
+
+
     render() {
+
+
         let To = '';
         To = '/Teacher/' + this.props.params.CourseClassID;
         return (
@@ -119,6 +124,10 @@ class ShowCardTeacher extends React.Component {
                             <div className='details-row clearfix'>
                                 <span className='left'>学科：</span>
                                 <span className='right subjectName'>{this.props.params.SubjectName}</span>
+                            </div>
+                            <div className='details-row clearfix'>
+                                <span className='left'>所属年级：</span>
+                                <span className='right'>{this.props.params.GradeName}</span>
                             </div>
                             <div className='details-row clearfix'>
                                 <span className='left'>学生数量：</span>
