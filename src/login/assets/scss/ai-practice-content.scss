@@ -1,0 +1,1335 @@
+
+
+.ai_practice_left_introduce{
+
+  position: relative;
+
+  width:600px;
+
+  height:500px;
+
+
+  .left-content-pic-wrapper{
+
+    display: none;
+
+    .title{
+
+      font-size: 26px;
+
+      color: #ffffff;
+
+      text-align: center;
+
+    }
+
+    .describe{
+
+      font-size: 16px;
+
+      color: #b2c2ff;
+
+      text-align: center;
+
+      margin-top: 18px;
+
+    }
+
+    .ai_left_pic{
+
+      position: relative;
+
+      height: 390px;
+
+      background-size: cover;
+
+      background-position: center;
+
+      background-repeat: no-repeat;
+
+      .meteor{
+
+        position: absolute;
+
+        width: 66px;
+
+        height: 66px;
+
+        background-size: cover;
+
+        background-position: center;
+
+        background-repeat: no-repeat;
+
+        top:0;
+
+        opacity:0;
+
+        &.meteor1{
+
+          right: 0;
+
+          background-image: url("../images/ai-practice/ai-practice-metor2.png");
+
+          animation: aiPracticeMetor 3s infinite;
+
+        }
+
+        &.meteor2{
+
+          right: 180px;
+
+          background-image: url("../images/ai-practice/ai-practice-metor2.png");
+
+          animation: aiPracticeMetor 3s 1.4s infinite;
+
+        }
+
+        &.meteor3{
+
+          right: 0;
+
+          top: 100px;
+
+          width: 34px;
+
+          height: 34px;
+
+          background-image: url("../images/ai-practice/ai-practice-metor1.png");
+
+          animation: aiPracticeMetor 3s 2.2s infinite;
+
+        }
+
+      }
+
+      &.pic1{
+
+        background-image: url("../images/ai-practice/ai-practice-left-pic1.png");
+
+        background-position: center top;
+
+        .light-points{
+
+          position: absolute;
+
+          width: 100px;
+
+          height: 200px;
+
+          left: 248px;
+
+          top: -20px;
+
+        }
+
+        .light-point{
+
+          position: absolute;
+
+          width:4px;
+
+          height: 4px;
+
+          border-radius: 50%;
+
+          bottom:10px;
+
+          background-color:rgba(0,120,231,0.3);
+
+          opacity: 0;
+
+          &.light1{
+
+            left:5px;
+
+            animation: aiPracticePointerUp 3s linear infinite;
+
+          }
+
+          &.light2{
+
+            left:20px;
+
+            width: 6px;
+
+            height: 6px;
+
+            animation: aiPracticePointerUp 3s 0.5s linear infinite;
+
+          }
+
+          &.light3{
+
+            left:30px;
+
+            width: 8px;
+
+            height: 8px;
+
+            background-color: #ffffff;
+
+            animation: aiPracticePointerUp 3s 0.8s linear infinite;
+
+          }
+
+          &.light4{
+
+            left:45px;
+
+            width: 6px;
+
+            height: 6px;
+
+            background-color: #ffffff;
+
+            animation: aiPracticePointerUp 3s 1.3s linear infinite;
+
+          }
+
+          &.light5{
+
+            left:60px;
+
+            width: 6px;
+
+            height: 6px;
+
+            background-color: #ffffff;
+
+            animation: aiPracticePointerUp 3s 1.9s linear infinite;
+
+          }
+
+          &.light6{
+
+            left:70px;
+
+            width: 6px;
+
+            height: 6px;
+
+            animation: aiPracticePointerUp 3s 2.5s linear infinite;
+
+          }
+
+          &.light7{
+
+            left:80px;
+
+            animation: aiPracticePointerUp 3s 3s linear infinite;
+
+          }
+
+          &.light8{
+
+            left:90px;
+
+            animation: aiPracticePointerUp 3s 3.7s linear infinite;
+
+          }
+
+          &.light9{
+
+            left:18px;
+
+            animation: aiPracticePointerUp 3s 4.2s linear infinite;
+
+          }
+
+          &.light10{
+
+            left:64px;
+
+            width: 6px;
+
+            height: 6px;
+
+            animation: aiPracticePointerUp 3s 4.5s linear infinite;
+
+          }
+
+        }
+
+        .pie{
+
+          position: absolute;
+
+          width: 64px;
+
+          height: 44px;
+
+          background: url("../images/ai-practice/ai-practice-animation1-pie.png") no-repeat center;
+
+          background-size: cover;
+
+          left: 36px;
+
+          top: 116px;
+
+          animation: aiPracticeUpDown 1s linear infinite alternate;
+
+        }
+
+        .book{
+
+          position: absolute;
+
+          width: 66px;
+
+          height: 56px;
+
+          background: url("../images/ai-practice/ai-practice-animation1-book.png") no-repeat center;
+
+          background-size: cover;
+
+          left: 84px;
+
+          bottom: 66px;
+
+          animation: aiPracticeUpDown 1s linear infinite alternate;
+
+        }
+
+        .penciel{
+
+          position: absolute;
+
+          width: 36px;
+
+          height: 56px;
+
+          background: url("../images/ai-practice/ai-practice-animation1-penciel.png") no-repeat center;
+
+          background-size: cover;
+
+          left: 390px;
+
+          top: 6px;
+
+          animation: aiPracticeUpDown 1s linear infinite alternate;
+
+        }
+
+        .pc{
+
+          position: absolute;
+
+          width: 76px;
+
+          height: 70px;
+
+          background: url("../images/ai-practice/ai-practice-animation1-pc.png") no-repeat center;
+
+          background-size: cover;
+
+          right: 46px;
+
+          top: 100px;
+
+          animation: aiPracticeUpDown 1s linear infinite alternate;
+
+        }
+
+        .wheel{
+
+          position: absolute;
+
+          width: 80px;
+
+          height: 60px;
+
+          background: url("../images/ai-practice/ai-practice-animation1-wheel.png") no-repeat center;
+
+          background-size: cover;
+
+          right: 116px;
+
+          top: 278px;
+
+          animation: aiPracticeUpDown 1s linear infinite alternate;
+
+        }
+
+
+
+
+      }
+
+      &.pic2{
+
+        background-image: url("../images/ai-practice/ai-practice-left-pic2.png");
+
+        background-position: -410px center;
+
+        background-size: auto;
+
+        .animation-pic-wrapper{
+
+          position: absolute;
+
+          height: 170px;
+
+          width: 92px;
+
+          left: 140px;
+
+          bottom: 60px;
+
+          &>*{
+
+            position: absolute;
+
+          }
+
+          .icon{
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-repeat: no-repeat;
+
+            z-index: 1;
+
+          }
+
+          .pillar{
+
+            width: 64px;
+
+            height: 110px;
+
+            background-image: url("../images/ai-practice/ai-practice-animation2-pillar.png");
+
+            bottom: 0;
+
+            left: calc(50% - 32px);
+
+          }
+
+          .corona{
+
+            width: 92px;
+
+            height: 60px;
+
+            background-image: url("../images/ai-practice/ai-practice-animation2-corona.png");
+
+            left: calc(50% - 46px);
+
+            bottom:0;
+
+            z-index: 2;
+
+            opacity: 0;
+
+            animation: aiPracticeCorona 4s linear infinite;
+
+          }
+
+          .book{
+
+            width: 68px;
+
+            height: 60px;
+
+            background-image: url("../images/ai-practice/ai-practice-animation2-book.png");
+
+            top:64px;
+
+            left: calc(50% - 34px);
+
+            animation:aiPracticeUpDown 2s linear infinite alternate;
+
+          }
+
+        }
+
+      }
+
+      &.pic3{
+
+        background-image: url("../images/ai-practice/ai-practice-left-pic3.png");
+
+        .icon,.icon-point{
+
+          position: absolute;
+
+          background-position: center;
+
+          background-repeat: no-repeat;
+
+          background-size: cover;
+
+          animation-fill-mode: forwards;
+
+          animation-duration:1.2s;
+
+          animation-timing-function: ease-out;
+
+        }
+
+        .img{
+
+          width: 150px;
+
+          height: 138px;
+
+          left: calc(50% - 75px);
+
+          top: calc(50% - 69px);
+
+          background-image: url("../images/ai-practice/ai-practice-animation3-img.png");
+
+        }
+
+        .ai{
+
+          width: 56px;
+
+          height: 56px;
+
+          left: calc(50% - 28px);
+
+          top: calc(50% - 28px);
+
+          background-image: url("../images/ai-practice/ai-practice-animation3-ai.png");
+
+        }
+
+        .video{
+
+          width: 62px;
+
+          height: 62px;
+
+          left: calc(50% - 31px);
+
+          top: calc(50% - 31px);
+
+          background-image: url("../images/ai-practice/ai-practice-animation3-video.png");
+
+        }
+
+        .chart{
+
+          width: 64px;
+
+          height: 64px;
+
+          left: calc(50% - 32px);
+
+          top: calc(50% - 32px);
+
+          background-image: url("../images/ai-practice/ai-practice-animation3-chart.png");
+
+        }
+
+        .doc{
+
+          width: 136px;
+
+          height: 130px;
+
+          left: calc(50% - 68px);
+
+          top: calc(50% - 65px);
+
+          background-image: url("../images/ai-practice/ai-practice-animation3-doc.png");
+
+        }
+
+        .icon-point{
+
+          border-radius: 50%;
+
+          animation-duration:0.5s;
+
+          animation-fill-mode: forwards;
+
+          opacity: 0;
+
+          &.icon1{
+
+            width: 6px;
+
+            height: 6px;
+
+            left: calc(50% - 3px);
+
+            top: calc(50% - 3px);
+
+            background-color: #97f6ff;
+
+          }
+
+          &.icon2{
+
+            width: 10px;
+
+            height: 10px;
+
+            left: calc(50% - 5px);
+
+            top: calc(50% - 5px);
+
+            background-color: #97f6ff;
+
+            opacity: 0.49;
+
+          }
+
+          &.icon3{
+
+            width: 10px;
+
+            height: 10px;
+
+            left: calc(50% - 5px);
+
+            top: calc(50% - 5px);
+
+            background-color: #97f6ff;
+
+          }
+
+          &.icon4{
+
+            width: 14px;
+
+            height: 14px;
+
+            left: calc(50% - 7px);
+
+            top: calc(50% - 7px);
+
+            background-color: #97f6ff;
+
+            opacity: 0.62;
+
+          }
+
+        }
+
+      }
+
+      &.pic4{
+
+        background-image: url("../images/ai-practice/ai-practice-left-pic4.png");
+
+        .icon{
+
+          position: absolute;
+
+          background-repeat: no-repeat;
+
+          background-position: center;
+
+          background-size: cover;
+
+          animation: aiPracticeUpDown 1.5s linear infinite alternate;
+
+          &.paper{
+
+            width: 54px;
+
+            height: 106px;
+
+            background-image: url("../images/ai-practice/ai-practice-animation4-paper.png");
+
+            left: 264px;
+
+            top: -20px;
+
+          }
+
+          &.bar{
+
+            width: 46px;
+
+            height: 70px;
+
+            right: 120px;
+
+            top: -24px;
+
+            background-image: url("../images/ai-practice/ai-practice-animation4-bar.png");
+
+          }
+
+          &.bubble{
+
+            width: 58px;
+
+            height: 68px;
+
+            background-image: url("../images/ai-practice/ai-practice-animation4-bubble.png");
+
+            right: 70px;
+
+            top: 64px;
+
+          }
+
+          &.calendar{
+
+            width: 62px;
+
+            height: 136px;
+
+            right: 0;
+
+            top: 0;
+
+            background-image: url("../images/ai-practice/ai-practice-animation4-canlendar.png");
+
+          }
+
+          &.fold-line{
+
+            width: 60px;
+
+            height: 110px;
+
+            background-image: url("../images/ai-practice/ai-practice-animation4-foldline.png");
+
+            right: -50px;
+
+            bottom: 60px;
+
+          }
+
+        }
+
+        .light-corona{
+
+          position: absolute;
+
+          width: 114px;
+
+          height: 126px;
+
+          left: 360px;
+
+          top: 6px;
+
+          background-image: url("../images/ai-practice/ai-practice-animation4-lightcorona.png");
+
+        }
+
+        .light-wrapper{
+
+          position: absolute;
+
+          width: 240px;
+
+          height: 124px;
+
+          left: 200px;
+
+          bottom: 59px;
+
+        }
+
+        .little-corona{
+
+          position: absolute;
+
+          width: 90px;
+
+          height: 90px;
+
+          background: url("../images/ai-practice/ai-practice-animation4-littlecorona.png")no-repeat center;
+
+          animation: aiPracticeLittleCorona 1s linear infinite alternate;
+
+          &.corona1{
+
+            left: 0;
+
+            top: -30px;
+
+          }
+
+          &.corona2{
+
+            left: 172px;
+
+            bottom: -24px;
+
+          }
+
+          &.corona3{
+
+            left: 44px;
+
+            bottom: -8px;
+
+          }
+
+        }
+
+      }
+
+    }
+
+    &.active{
+
+      display: block;
+
+      .ai_left_pic.pic3{
+
+        .img{
+
+          animation-name: aiPracticeImg;
+
+        }
+
+        .doc{
+
+          animation-name: aiPracticeDoc;
+
+        }
+
+        .video{
+
+          animation-name: aiPracticeVideo;
+
+        }
+
+        .chart{
+
+          animation-name: aiPracticeChart;
+
+        }
+
+        .ai{
+
+          animation-name: aiPracticeAi;
+
+        }
+
+        .icon1{
+
+          animation-name: aiPracticeIconPonit1;
+
+        }
+
+        .icon2{
+
+          animation-name: aiPracticeIconPonit2;
+
+        }
+
+        .icon3{
+
+          animation-name: aiPracticeIconPonit3;
+
+        }
+
+        .icon4{
+
+          animation-name: aiPracticeIconPonit4;
+
+        }
+
+      }
+      
+      
+      .title,.describe{
+
+        -webkit-animation: aiPracticeTitle 0.5s linear;
+        -o-animation: aiPracticeTitle 0.5s linear;
+        animation: aiPracticeTitle 0.5s linear;
+
+        -webkit-animation-fill-mode: forwards;
+        -moz-animation-fill-mode: forwards;
+        -o-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+
+      }
+
+    }
+
+  }
+
+  .pointer-wrapper{
+
+    @include flex;
+
+    justify-content: center;
+
+    -ms-flex-pack: center;
+
+    margin-top: 20px;
+
+    .pointer{
+
+      width: 6px;
+
+      height: 6px;
+
+      background-color: rgba(255,255,255,0.58);
+
+      border-radius:3px;
+
+      cursor: pointer;
+
+      &:not(:first-child){
+
+        margin-left:6px;
+
+      }
+
+      &.active{
+
+        width: 20px;
+
+        height: 6px;
+
+        background-color: #ffffff;
+
+        cursor: default;
+
+      }
+
+
+
+    }
+
+  }
+
+}
+
+
+.ai_practice_sign_wrapper{
+
+  margin-left: 130px;
+
+}
+
+
+
+
+
+@keyframes aiPracticePointerUp {
+
+  0%{
+
+      opacity: 0;
+
+      bottom: 10px;
+
+  }
+
+  30%{
+
+    opacity: 1;
+
+    bottom:70px;
+
+  }
+
+  100%{
+
+    bottom:200px;
+
+    opacity:0;
+
+  }
+
+}
+
+
+@keyframes aiPracticeUpDown {
+
+  0%{
+
+   transform: translateY(0);
+
+  }
+
+  100%{
+
+    transform: translateY(-10px);
+
+  }
+
+}
+
+@keyframes aiPracticeMetor {
+
+  0%{
+
+    transform: translate(0);
+
+    opacity: 1;
+
+  }
+
+  100%{
+
+    transform: translate(-300px,300px);
+
+    opacity:0;
+
+  }
+
+}
+
+
+@keyframes aiPracticeImg{
+
+  0%{
+
+    transform: translate(0) scale(0.3);
+
+    opacity: 0;
+
+  }
+
+  20%{
+
+    //transform: translate(-140px,-40px) scale(1);
+
+    transform: translate(-130px,-30px) scale(1);
+
+    opacity: 1;
+
+  }
+
+  60%{
+
+    transform: translate(-130px,-30px) scale(1) rotate(10deg);
+
+    opacity: 1;
+
+  }
+
+  100%{
+
+    transform: translate(-140px,-40px) scale(1) rotate(0deg);
+
+    opacity: 1;
+
+  }
+
+}
+
+
+@keyframes aiPracticeVideo{
+
+  0%{
+
+    transform:translate(0) scale(0.3);
+
+    opacity: 0;
+
+  }
+
+  20%{
+
+    //transform: translate(0px,-90px) scale(1);
+
+    transform: translate(0px,-80px) scale(1);
+
+    opacity: 1;
+
+  }
+
+  60%{
+
+    transform: translate(0px,-80px) scale(1) rotate(10deg);
+
+    opacity: 1;
+
+  }
+
+  100%{
+
+    transform: translate(0px,-90px) scale(1) rotate(0deg);
+
+    opacity: 1;
+
+  }
+
+}
+
+@keyframes aiPracticeAi{
+
+  0%{
+
+    transform: translate(0) scale(0.3);
+
+    opacity: 0;
+
+  }
+
+  20%{
+
+    //transform: translate(144px,60px) scale(1);
+
+    transform: translate(124px,40px) scale(1);
+
+    opacity: 1;
+
+  }
+
+  60%{
+
+    //transform: translate(144px,60px) scale(1);
+
+    transform: translate(124px,40px) scale(1) rotate(10deg);
+
+    opacity: 1;
+
+  }
+
+  100%{
+
+    //transform: translate(144px,60px) scale(1);
+
+    transform: translate(134px,50px) scale(1) rotate(0deg);
+
+    opacity: 1;
+
+  }
+
+}
+
+@keyframes aiPracticeChart{
+
+  0%{
+
+    transform: translate(0) scale(0.3);
+
+    opacity: 0;
+
+  }
+
+  20%{
+
+    //transform: translate(80px, 124px) scale(1);
+
+    transform: translate(70px, 114px) scale(1);
+
+    opacity: 1;
+
+  }
+
+  60%{
+
+    //transform: translate(80px, 124px) scale(1);
+
+    transform: translate(70px, 114px) scale(1) rotate(10deg);
+
+    opacity: 1;
+
+  }
+
+  100%{
+
+    //transform: translate(80px, 124px) scale(1);
+
+    transform: translate(80px, 124px) scale(1) rotate(0deg);
+
+    opacity: 1;
+
+  }
+
+}
+
+@keyframes aiPracticeDoc{
+
+  0%{
+
+    transform:translate(0) scale(0.3);
+
+    opacity: 0;
+
+  }
+
+  20%{
+
+    //transform:translate(-30px, 130px) scale(1);
+
+    transform:translate(-20px, 120px) scale(1);
+
+    opacity: 1;
+
+  }
+
+  60%{
+
+    //transform:translate(-30px, 130px) scale(1);
+
+    transform:translate(-20px, 120px) scale(1) rotate(10deg);
+
+    opacity: 1;
+
+  }
+
+  100%{
+
+    //transform:translate(-30px, 130px) scale(1);
+
+    transform:translate(-30px, 130px) scale(1) rotate(0deg);
+
+    opacity: 1;
+
+  }
+
+}
+
+
+@keyframes aiPracticeIconPonit1{
+
+  0%{
+
+    transform:translate(0) scale(0.3);
+
+    opacity: 0;
+
+  }
+
+  100%{
+
+
+    transform: translate(-34px,-20px) scale(1);
+
+    opacity: 1;
+
+  }
+
+}
+
+@keyframes aiPracticeIconPonit2{
+
+  0%{
+
+    transform:translate(0) scale(0.3);
+
+    opacity: 0;
+
+  }
+
+  100%{
+
+
+    transform: translate(-34px, -64px) scale(1);
+
+    opacity: 1;
+
+  }
+
+}
+
+@keyframes aiPracticeIconPonit3{
+
+  0%{
+
+    transform:translate(0) scale(0.3);
+
+    opacity: 0;
+
+  }
+
+  100%{
+
+
+    transform: translate(30px,-54px) scale(1);
+
+    opacity: 1;
+
+  }
+
+}
+
+@keyframes aiPracticeIconPonit4{
+
+  0%{
+
+    transform:translate(0) scale(0.3);
+
+    opacity: 0;
+
+  }
+
+  100%{
+
+
+    transform: translate(86px,0px) scale(1);
+
+    opacity: 1;
+
+  }
+
+}
+
+@keyframes aiPracticeCorona{
+
+  0%{
+
+    transform:translateY(0);
+
+    opacity: 0;
+
+  }
+
+  50%{
+
+    transform: translateY(-32px);
+
+    opacity: 1;
+
+  }
+
+  100%{
+
+
+    transform: translateY(-64px);
+
+    opacity: 0;
+
+  }
+
+}
+
+
+@keyframes aiPracticeLittleCorona{
+
+  0%{
+
+    opacity: 1;
+
+  }
+
+  100%{
+
+    opacity: 0.7;
+
+  }
+
+}
+
+
+@keyframes aiPracticeTitle{
+
+  0%{
+
+    opacity: 0;
+
+    transform:scale(0.7);
+
+  }
+
+  100%{
+
+    opacity: 1;
+
+    transform: scale(1);
+
+  }
+
+}

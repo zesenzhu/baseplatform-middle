@@ -1,10 +1,28 @@
-import React,{memo} from 'react';
+import React,{useState,useCallback,memo} from 'react';
 
 import { Carousel } from 'antd';
 
+import {useSelector,useDispatch} from 'react-redux';
+
+import {introduceChange} from "../store/introduce";
+
 function BottomFloor (props){
 
-    const { slider,skin,slideChange } = props;
+    const {slider,commSetting,introduce} = useSelector(state=>state);
+
+    const { skin } = commSetting;
+
+
+    const dispatch = useDispatch();
+
+
+    const slideChange = useCallback((activeIndex) => {
+
+        //轮播变化引导改变
+
+        dispatch(introduceChange({skin,activeIndex}));
+
+    },[]);
 
     return(
 
@@ -268,6 +286,20 @@ function BottomFloor (props){
                     </Carousel>
 
                     :''
+
+            }
+
+            {
+
+                skin==='ai_practice'?
+
+                    introduce[skin].list.map((i,k)=>{
+
+                        return <div key={i.title} className={`ai_practice_animation_bg ${introduce[skin].active===k?'active':''} pic${k+1}`}></div>
+
+                    })
+
+                    :null
 
             }
 

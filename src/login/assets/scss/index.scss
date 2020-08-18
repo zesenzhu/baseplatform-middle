@@ -1,4 +1,4 @@
-@import "./base";
+@import "base";
 
 
 //loading
@@ -29,6 +29,9 @@
 
 //智能考试
 @import "./ai-exam-content";
+
+//ai实训
+@import "./ai-practice-content";
 
 //脚部
 @import "./footer";

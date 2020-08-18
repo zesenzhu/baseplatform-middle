@@ -33,6 +33,7 @@ import animationPic3 from '../assets/images/dark-tech/dark-tech-pic3.png';
 import animationPic4 from '../assets/images/dark-tech/dark-tech-pic4.png';
 
 import {getNewTkUrl,goToNextPage,decodeObjValue} from "../api/utils";
+import {introduceChange} from "../store/introduce";
 
 
 function Content(props) {
@@ -45,6 +46,10 @@ function Content(props) {
     const [techPicList,setTechPicList] = useState([0,1,2,3]);
 
     const [aiExamPicList,setAiExamPicList] = useState([0,1,2]);
+
+    const [aiPracticePicList,setAiPracticePicList] = useState([0,1,2,3]);
+
+
 
     const [account,setAccount] = useState(()=>{
 
@@ -136,21 +141,21 @@ function Content(props) {
 
     useEffect(()=>{
 
-        if (skin!=='ai_school'&&skin!=='dark_tech'&&skin!=='ai_exam') return;
+        if (skin!=='ai_school'&&skin!=='dark_tech'&&skin!=='ai_exam'&&skin!=='ai_practice') return;
 
         let timer = null;
 
-        if (skin==='ai_school'){
+        if (skin==='ai_school'||skin==='ai_practice'){
 
             timer = setTimeout(()=>{
 
                 if (active===3){
 
-                    picChange(0)
+                    slideChange(0)
 
                 }else{
 
-                    picChange(active+1);
+                    slideChange(active+1);
 
                 }
 
@@ -223,11 +228,11 @@ function Content(props) {
 
                 if (active===3){
 
-                    picChange(0)
+                    slideChange(0)
 
                 }else{
 
-                    picChange(active+1);
+                    slideChange(active+1);
 
                 }
 
@@ -239,11 +244,11 @@ function Content(props) {
 
                 if (active===2){
 
-                    picChange(0)
+                    slideChange(0)
 
                 }else{
 
-                    picChange(active+1);
+                    slideChange(active+1);
 
                 }
 
@@ -864,6 +869,23 @@ function Content(props) {
     },[]);
 
 
+    const slideChange = (activeIndex) => {
+
+        //轮播变化引导改变
+
+        dispatch(introduceChange({skin,activeIndex}));
+
+    };
+
+
+
+    //ai实训登录点击
+
+    const aiPracticePointerClick = useCallback((i)=>{
+
+        slideChange(i);
+
+    },[]);
 
     return(
 
@@ -1218,6 +1240,190 @@ function Content(props) {
                                 })
 
                             }
+
+                        </div>
+
+                        :null
+
+                }
+
+                {
+
+                    skin==='ai_practice'?
+
+                        <div className={"ai_practice_left_introduce"}>
+
+                            {
+
+                                aiPracticePicList.map((i,k)=>{
+
+                                    let animationDom = '';
+
+                                    switch (active) {
+
+                                        case 0:
+
+                                            animationDom = <>
+
+                                                <div className={"light-points"}>
+
+                                                    {
+
+                                                        [1,2,3,4,5,6,7,8,9,10].map(i=>{
+
+                                                            return <i key={i} className={`light-point light${i}`}></i>
+
+                                                        })
+
+                                                    }
+
+                                                </div>
+
+
+
+                                                <i className={"wheel"}></i>
+
+                                                <i className={"book"}></i>
+
+                                                <i className={"penciel"}></i>
+
+                                                <i className={"pc"}></i>
+
+                                                <i className={"pie"}></i>
+
+                                            </>;
+
+                                            break;
+
+                                        case 1:
+
+                                            animationDom = <div className={"animation-pic-wrapper"}>
+
+                                                <i className={"icon pillar"}></i>
+
+                                                <i className={"icon corona"}></i>
+
+                                                <i className={"icon book"}></i>
+
+                                            </div>;
+
+                                            break;
+
+                                        case 2:
+
+                                            animationDom = <>
+
+                                                <i className={"icon img"}></i>
+
+                                                <i className={"icon video"}></i>
+
+                                                <i className={"icon ai"}></i>
+
+                                                <i className={"icon chart"}></i>
+
+                                                <i className={"icon doc"}></i>
+
+                                                {
+
+                                                    [1,2,3,4].map(i=>{
+
+                                                        return <i className={`icon-point icon${i}`}></i>
+
+                                                    })
+
+                                                }
+
+                                            </>;
+
+                                            break;
+
+                                        case 3:
+
+                                            animationDom = <>
+
+                                                <i className={"icon paper"}></i>
+
+                                                <i className={"icon fold-line"}></i>
+
+                                                <i className={"icon bar"}></i>
+
+                                                <i className={"icon bubble"}></i>
+
+                                                <i className={"icon calendar"}></i>
+
+                                                <i className={"light-corona"}></i>
+
+                                                <div className={"light-wrapper"}>
+
+                                                    {
+
+                                                        [1,2,3].map(i=>{
+
+                                                            return <i key={i} className={`little-corona corona${i}`}></i>
+
+                                                        })
+
+                                                    }
+
+                                                </div>
+
+
+                                            </>;
+
+                                            break;
+
+                                    }
+
+                                    return (
+
+                                        <div className={`left-content-pic-wrapper ${active===k?'active':''}`}>
+
+                                            <div key={i} className={`ai_left_pic pic${k+1}`}>
+
+                                                {animationDom}
+
+                                                <div className={"meteor-wrapper"}>
+
+                                                    {
+
+                                                        [1,2,3].map(i=>{
+
+                                                            return <i key={i} className={`meteor meteor${i}`}></i>
+
+                                                        })
+
+                                                    }
+
+                                                </div>
+
+                                            </div>
+
+                                            <div className={"title"}>{introduce[skin].list[k].title}</div>
+
+                                            <div className={"describe"}>{introduce[skin].list[k].describe}</div>
+
+                                        </div>
+
+                                    )
+
+                                })
+
+                            }
+
+
+                            <div className={"pointer-wrapper"}>
+
+                                {
+
+                                    aiPracticePicList.map((i,k)=>{
+
+                                        return <i onClick={e=>aiPracticePointerClick(i)} key={i} className={`pointer ${i===active?'active':''}`}></i>
+
+                                    })
+
+                                }
+
+                            </div>
 
                         </div>
 

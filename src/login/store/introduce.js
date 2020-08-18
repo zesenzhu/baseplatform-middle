@@ -68,6 +68,24 @@ const defaultIntroduce = {
 
         ]
 
+    },
+
+    ai_practice:{
+
+        active:0,
+
+        list:[
+
+            { title:'完整教育生态闭环',describe:"满足“管”“备”“教”“训”“评”"},
+
+            { title:'专业实训实验',describe:'教学实践一体化'},
+
+            { title:'详细学情分析',describe:'全面掌握学习动态'},
+
+            {title:'完善课程体系',describe:'轻松实现“0”备课'}
+
+        ]
+
     }
 
 };
@@ -105,6 +123,9 @@ const introduce = (state=defaultIntroduce,actions)=>{
 
                     return { ...state,ai_exam:{ ...state.ai_exam,active:actions.data.activeIndex } };
 
+                case 'ai_practice':
+
+                    return { ...state,ai_practice:{ ...state.ai_practice,active:actions.data.activeIndex } };
 
                 default:
 

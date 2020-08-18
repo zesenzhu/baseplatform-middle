@@ -26,11 +26,6 @@ import BottomFloor from './application/BottomFloor';
 
 function App(props){
 
-
-    //是否是第一次检测基础插件
-
-    const [firstCheckBase,setFirstCheckBase] = useState(false)
-
     const [AppLoading,setAppLoading] = useState(true);
 
     //智慧校园的链接
@@ -136,6 +131,12 @@ function App(props){
                     case 5:
 
                         skin = 'ai_exam';
+
+                        break;
+
+                    case 6:
+
+                        skin = 'ai_practice';
 
                         break;
 
@@ -257,8 +258,6 @@ function App(props){
 
                         //当token失效的时候再判断MacID是否登录
 
-                       //2020-08-10 注释修改为只要一刷新就再次获取Mac地址
-
                         if (localStorage.getItem('LgBaseMacID')){
 
                             loginApi({method:'GetTokenByMac',params:localStorage.getItem('LgBaseMacID')}).then(d=>{
@@ -315,10 +314,6 @@ function App(props){
                         }
 
 
-                        /*//2020-08-10新增
-
-                        checkBase({ProductName:data.ProductName,ClinetDownUrl:data.ClinetDownUrl,WebIndexUrl:data.WebIndexUrl});
-*/
                     }
 
                 },(resp,err)=>{
@@ -328,8 +323,6 @@ function App(props){
                     sessionStorage.clear();
 
                     localStorage.removeItem('token');
-
-                    //2020-08-10 注释修改为只要一刷新就再次获取Mac地址
 
                     if (localStorage.getItem('LgBaseMacID')){
 
@@ -382,17 +375,9 @@ function App(props){
 
                     }
 
-                 /*   //2020-08-10新增
-
-                    checkBase({ProductName:data.ProductName,ClinetDownUrl:data.ClinetDownUrl,WebIndexUrl:data.WebIndexUrl});
-*/
                 });
 
             }else{//没有登录的情况下判断是否有基础插件包
-
-
-
-                //2020-08-10 注释修改为只要一刷新就再次获取Mac地址
 
                 if (localStorage.getItem('LgBaseMacID')){
 
@@ -445,11 +430,6 @@ function App(props){
 
                 }
 
-
-              /*  //2020-08-10新增
-
-                checkBase({ProductName:data.ProductName,ClinetDownUrl:data.ClinetDownUrl,WebIndexUrl:data.WebIndexUrl});
-*/
             }
 
         }else{//锁控不正常的情况下显示锁控信息，清除登录信息
@@ -469,14 +449,6 @@ function App(props){
     };
 
 
-
-    const slideChange = (activeIndex) => {
-
-        //轮播变化引导改变
-
-        dispatch(introduceChange({skin,activeIndex}));
-
-    };
 
     //改变style风格样式,对外抛出
     const changeStyle = () => {
@@ -538,9 +510,6 @@ function App(props){
 
                 dispatch(changePluginStatus(true));
 
-
-                //2020-08-10 注释修改为只要一刷新就再次获取Mac地址
-
                 const MacID = localStorage.getItem('LgBaseMacID');
 
                 if (!MacID){//如果之前存储的macID不存在
@@ -552,10 +521,6 @@ function App(props){
                     setAppLoading(false);
 
                 }
-
-             /*   //2020-08-10新增
-
-                result.GetMacIDs();*/
 
             }
 
@@ -726,6 +691,7 @@ function App(props){
     };
 
 
+
     return(
 
         <div className={`app ${skin}`}>
@@ -740,9 +706,9 @@ function App(props){
 
                     <>
 
-                        <TopFloor  aiSchoolLink={aiSchoolLink} picChange={slideChange}></TopFloor>
+                        <TopFloor aiSchoolLink={aiSchoolLink}></TopFloor>
 
-                        <BottomFloor  slideChange={slideChange} slider={slider} skin={skin}></BottomFloor>
+                        <BottomFloor></BottomFloor>
 
                     </>
 

@@ -8,7 +8,7 @@
 
   min-width: 1200px;
 
-  min-height: 740px;
+  min-height: 750px;
 
   width: 100%;
 
@@ -117,6 +117,54 @@
     background:url("#{$cloudSchoolRoomUrl}/cloud-schoolroom-bg.png") no-repeat bottom center;
 
     background-size: cover;
+
+  }
+
+
+  .ai_practice_animation_bg{
+
+    height: 100%;
+
+    display: none;
+
+    &.pic1{
+
+      background: url("../images/ai-practice/ai-practice-bg1.png") no-repeat bottom center;
+
+      background-size: cover;
+
+    }
+
+    &.pic2{
+
+      background: url("../images/ai-practice/ai-practice-bg2.png") no-repeat bottom center;
+
+      background-size: cover;
+
+    }
+
+    &.pic3{
+
+      background: url("../images/ai-practice/ai-practice-bg3.png") no-repeat bottom center;
+
+      background-size: cover;
+
+    }
+
+    &.pic4{
+
+      background: url("../images/ai-practice/ai-practice-bg4.png") no-repeat bottom center;
+
+      background-size: cover;
+
+    }
+
+
+    &.active{
+
+      display: block;
+
+    }
 
   }
 
