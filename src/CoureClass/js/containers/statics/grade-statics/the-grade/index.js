@@ -17,6 +17,7 @@ import {GetGradeSubjectCouseclassSumarry_Middle} from '../../../../actions/apiAc
 import StaticsCircle from '../../../../component/plugins/statics-circle';
 
 import './index.scss';
+
 import {manageBreadCrumbChange} from "../../../../reducers/breadCrumb";
 
 function TheCollege(props) {
