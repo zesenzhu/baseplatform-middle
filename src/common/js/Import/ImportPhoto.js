@@ -454,6 +454,8 @@ class Import extends Component{
 
                     onHide={AlertObj.Hide}
 
+                    cancelShow={'n'}
+
             >
 
             </Alert>

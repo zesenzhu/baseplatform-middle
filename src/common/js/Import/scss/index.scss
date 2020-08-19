@@ -266,10 +266,19 @@ $image-url:'../images';
 }
 .usermgr_step4_tips_p {
   margin-top:20px;
-  margin-bottom: 90px;
+  margin-bottom: 70px;
   font-size: 15px;
   color: #333333;
   line-height: 1;
+
+  .fail-tips{
+
+    font-size: 16px;
+
+    margin-bottom: 20px;
+
+  }
+
 }
 .usermgr_upload_error_item {
   display: inline-block;
