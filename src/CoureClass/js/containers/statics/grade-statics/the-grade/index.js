@@ -57,72 +57,83 @@ function TheCollege(props) {
 
     useEffect(()=>{
 
+        let isUnmount = false;
+
         if (!gradeID){
 
             history.push('/statics/grade/total');
 
         }else if (SchoolID){
 
-
             GetGradeSubjectCouseclassSumarry_Middle({schoolID:SchoolID,userID:UserID,userType:UserType,gradeID,dispatch}).then(data=>{
 
-                if (data){
+                if (!isUnmount){
 
-                    const subjectCount = data.SubjectCount?data.SubjectCount:0;
+                    if (data){
 
-                    const courseClass = data.CourseClassCount?data.CourseClassCount:0;
+                        const subjectCount = data.SubjectCount?data.SubjectCount:0;
 
-                    const teacher = data.TeacherCount?data.TeacherCount:0;
+                        const courseClass = data.CourseClassCount?data.CourseClassCount:0;
 
-                    const student = data.StudentCount?data.StudentCount:0;
+                        const teacher = data.TeacherCount?data.TeacherCount:0;
 
-                    const LogCount = data.LastLogCount?data.LastLogCount:0;
+                        const student = data.StudentCount?data.StudentCount:0;
 
-                    const list = data.Item&&data.Item.length>0?data.Item.map(i=>{
+                        const LogCount = data.LastLogCount?data.LastLogCount:0;
 
-                        const CardItemList = [
+                        const list = data.Item&&data.Item.length>0?data.Item.map(i=>{
 
-                            {CardProps:'教学班数量:',CardValue:<span>{i.CourseClassCount}个<span style={{color:'#999999'}}>(走班数量{i.TeachingClassCount}个)</span></span>},
+                            const CardItemList = [
 
-                            {CardProps:'任课教师数量:',CardValue:`${i.TeacherCount}人`},
+                                {CardProps:'教学班数量:',CardValue:<span>{i.CourseClassCount}个<span style={{color:'#999999'}}>(走班数量{i.TeachingClassCount}个)</span></span>},
 
-                            {CardProps:'学生数量:',CardValue:`${i.StudentCount}人`},
+                                {CardProps:'任课教师数量:',CardValue:`${i.TeacherCount}人`},
 
-                        ];
+                                {CardProps:'学生数量:',CardValue:`${i.StudentCount}人`},
 
-                        return{
+                            ];
 
-                            CardID:i.ObjectID,
+                            return{
 
-                            CardName:i.ObjectName,
+                                CardID:i.ObjectID,
 
-                            CardItemList
+                                CardName:i.ObjectName,
 
-                        };
+                                CardItemList
 
-                    }):[];
+                            };
 
-                    setCardList(list);
+                        }):[];
 
-                    setStatics([
+                        setCardList(list);
 
-                        {title:'学科数量',value:subjectCount,id:'subject'},
+                        setStatics([
 
-                        {title:'教学班数量',value:courseClass,id:'courseClass'},
+                            {title:'学科数量',value:subjectCount,id:'subject'},
 
-                        {title:'任课教师数量',value:teacher,id:'teacher'},
+                            {title:'教学班数量',value:courseClass,id:'courseClass'},
 
-                        {title:'学生人数',value:student,id:'student'},
+                            {title:'任课教师数量',value:teacher,id:'teacher'},
 
-                    ]);
+                            {title:'学生人数',value:student,id:'student'},
 
-                    dispatch(logCountUpdate(LogCount));
+                        ]);
+
+                        dispatch(logCountUpdate(LogCount));
+
+                    }
+
+                    setLoading(false);
 
                 }
 
-                setLoading(false);
-
             });
+
+        }
+
+        return ()=>{
+
+            isUnmount = true;
 
         }
 

@@ -201,6 +201,8 @@ function Index(props) {
 
     useEffect(()=>{
 
+        let isUnmount = false;
+
         if (SchoolID){
 
             window.ManageUpDateTable = updateTable;
@@ -229,7 +231,131 @@ function Index(props) {
 
             }
 
-            pageInit();
+            //pageInit(isUnmount);
+
+            const subjectID = subjectsRef.current.dropSelectd.value;
+
+            const classType = classTypeRef.current.dropSelectd.value;
+
+            const gradeID = gradesRef.current.dropSelectd.value;
+
+            const key = searchRef.current.CancelBtnShow==='n'?'':searchRef.current.value;
+
+            const pageSize = paginationRef.current.pageSize;
+
+            const pageIndex = paginationRef.current.current;
+
+            LoginUserRef.current = LoginUser;
+
+            const GetAllInfo = GetAllSubjectAndGradeInfo_Middle({schoolID:SchoolID,dispatch});
+
+            const GetCourseClassInfoForPage = GetCourseClassInfoForPage_Middle({schoolID:SchoolID,subjectID,classType,gradeID,key,pageIndex,pageSize,userID:UserID,userType:UserType,dispatch});
+
+            Promise.all([GetAllInfo,GetCourseClassInfoForPage]).then(res=>{
+
+                if (!isUnmount) {
+
+                    let LogCount = 0;
+
+                    if (res[0]){
+
+                        //数据源留存
+                        setDataSource(d=>{
+
+                            dataSourceRef.current = {...d,dropsInfo:{...res[0]}};
+
+                            return {...d,dropsInfo:{...res[0]}}
+
+                        });
+
+                        const data = res[0];
+
+                        let subjectList = [],gradeList=[];
+
+                        if(data.SubjectItem&&data.SubjectItem.length>0){
+
+                            subjectList = data.SubjectItem.map(i=>({value:i.SubjectID,title:i.SubjectName}));
+
+                        }
+
+                        subjectList.unshift({value:'',title:'全部学科'});
+
+
+                        if(data.GradeItem&&data.GradeItem.length>0){
+
+                            gradeList = data.GradeItem.map(i=>({value:i.GradeID,title:i.GradeName}));
+
+                        }
+
+                        gradeList.unshift({value:'',title:'全部年级'});
+
+                        setSubjects(d=>{
+
+                            subjectsRef.current = {...d,dropList:subjectList};
+
+                            return {...d,dropList:subjectList};
+
+                        });
+
+                        setGrades(d=>{
+
+                            gradesRef.current = {...d,dropList:gradeList};
+
+                            return {...d,dropList:gradeList};
+
+                        });
+
+                    }
+
+                    if (res[1]){
+
+                        let tableList = res[1].Item&&res[1].Item.length>0?res[1].Item.map((i,k)=>{
+
+                            const NO = createNO(k);
+
+                            return {...i,key:i.CourseClassID,NO};
+
+                        }):[];
+
+                        const total = res[1].CourseClassCount?res[1].CourseClassCount:0;
+
+                        const current = res[1].PageIndex?res[1].PageIndex:1;
+
+                        setPagination(d=>{
+
+                            paginationRef.current = {...d,total:total,current};
+
+                            return {...d,total:total,current};
+
+                        });
+
+                        setDataSource(d=>{
+
+                            dataSourceRef.current = {...d,courseClass:tableList};
+
+                            return {...d,courseClass:tableList}
+
+                        });
+
+                        LogCount = res[1].LastLogCount?res[1].LastLogCount:0;
+
+                    }
+
+                    dispatch(logCountUpdate(LogCount));
+
+                    setLoading(false);
+
+                    dispatch(appLoadingHide());
+
+                }
+
+            });
+
+        }
+
+        return ()=>{
+
+            isUnmount = true;
 
         }
 

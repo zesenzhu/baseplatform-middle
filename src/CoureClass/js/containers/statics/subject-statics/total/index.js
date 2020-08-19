@@ -55,76 +55,86 @@ function SubjectTotal(props) {
 
     useEffect(()=>{
 
+        let isUnmount = false;
+
         if (SchoolID) {
 
             dispatch(breadCrumbInit());
 
             GetSubjectCouseclassSumarry_Middle({schoolID:SchoolID,userType:UserType,userID:UserID,dispatch}).then(data=>{
 
-                if (data){
+                if (!isUnmount){
 
-                    const subjectCount = data.SubjectCount?data.SubjectCount:0;
+                    if (data){
 
-                    const CourseClassCount = data.CourseClassCount?data.CourseClassCount:0;
+                        const subjectCount = data.SubjectCount?data.SubjectCount:0;
 
-                    const TeacherCount = data.TeacherCount?data.TeacherCount:0;
+                        const CourseClassCount = data.CourseClassCount?data.CourseClassCount:0;
 
-                    const StudentCount = data.StudentCount?data.StudentCount:0;
+                        const TeacherCount = data.TeacherCount?data.TeacherCount:0;
 
-                    const LogCount = data.LastLogCount?data.LastLogCount:0;
+                        const StudentCount = data.StudentCount?data.StudentCount:0;
 
-                    const list = [
+                        const LogCount = data.LastLogCount?data.LastLogCount:0;
 
-                        {id:'subject',value:subjectCount,title:'学科数量'},
+                        const list = [
 
-                        {id:'courseClass',value:CourseClassCount,title:'教学班数量'},
+                            {id:'subject',value:subjectCount,title:'学科数量'},
 
-                        {id:'teacher',value:TeacherCount,title:'教师数量'},
+                            {id:'courseClass',value:CourseClassCount,title:'教学班数量'},
 
-                        {id:'student',value:StudentCount,title:'学生数量'}
+                            {id:'teacher',value:TeacherCount,title:'教师数量'},
 
-                    ];
-
-                    const cardList = data.Item&&data.Item.length>0?data.Item.map(i=>{
-
-                        const CardItemList = [
-
-                            {CardProps:'教学班数量:',CardValue:<span>{i.CourseClassCount}个<span style={{color:'#999999'}}>(走班数量{i.TeachingClassCount}个)</span></span>},
-
-                            {CardProps:'任课教师数量:',CardValue:`${i.TeacherCount}人`},
-
-                            {CardProps:'学生数量:',CardValue:`${i.StudentCount}人`},
+                            {id:'student',value:StudentCount,title:'学生数量'}
 
                         ];
 
-                        return {
+                        const cardList = data.Item&&data.Item.length>0?data.Item.map(i=>{
 
-                            CardID:i.ObjectID,
+                            const CardItemList = [
 
-                            CardName:i.ObjectName,
+                                {CardProps:'教学班数量:',CardValue:<span>{i.CourseClassCount}个<span style={{color:'#999999'}}>(走班数量{i.TeachingClassCount}个)</span></span>},
 
-                            CardItemList
+                                {CardProps:'任课教师数量:',CardValue:`${i.TeacherCount}人`},
 
-                        }
+                                {CardProps:'学生数量:',CardValue:`${i.StudentCount}人`},
 
-                    }):[];
+                            ];
 
-                    setCardList(cardList);
+                            return {
 
-                    setStaticsList(list);
+                                CardID:i.ObjectID,
 
-                    dispatch(logCountUpdate(LogCount));
+                                CardName:i.ObjectName,
 
+                                CardItemList
+
+                            }
+
+                        }):[];
+
+                        setCardList(cardList);
+
+                        setStaticsList(list);
+
+                        dispatch(logCountUpdate(LogCount));
+
+
+                    }
+
+                    setLoading(false);
+
+                    dispatch(appLoadingHide());
 
                 }
 
-                setLoading(false);
-
-                dispatch(appLoadingHide());
-
             });
 
+        }
 
+        return ()=>{
+
+            isUnmount = true;
 
         }
 

@@ -75,6 +75,8 @@ function TheCollege(props) {
 
     useEffect(()=>{
 
+        let isUnmount = false;
+
         if (!subjectID){
 
             history.push('/statics/teacher/total');
@@ -87,77 +89,87 @@ function TheCollege(props) {
 
             Promise.all([GetSumarry,GetCourseType]).then(res=>{
 
-                if (res[0]){
+                if (!isUnmount){
 
-                    const data = res[0];
+                    if (res[0]){
 
-                    const courseClass = data.CourseClassCount?data.CourseClassCount:0;
+                        const data = res[0];
 
-                    const teacher = data.TeacherCount?data.TeacherCount:0;
+                        const courseClass = data.CourseClassCount?data.CourseClassCount:0;
 
-                    const student = data.StudentCount?data.StudentCount:0;
+                        const teacher = data.TeacherCount?data.TeacherCount:0;
 
-                    const LogCount = data.LastLogCount?data.LastLogCount:0;
+                        const student = data.StudentCount?data.StudentCount:0;
 
-                    setStatics([
+                        const LogCount = data.LastLogCount?data.LastLogCount:0;
 
-                        {title:'教学班数量',value:courseClass,id:'courseClass'},
+                        setStatics([
 
-                        {title:'任课教师数量',value:teacher,id:'teacher'},
+                            {title:'教学班数量',value:courseClass,id:'courseClass'},
 
-                        {title:'学生人数',value:student,id:'student'},
+                            {title:'任课教师数量',value:teacher,id:'teacher'},
 
-                    ]);
+                            {title:'学生人数',value:student,id:'student'},
 
-                    dispatch(logCountUpdate(LogCount));
+                        ]);
+
+                        dispatch(logCountUpdate(LogCount));
+
+                    }
+
+                    if (res[1]){
+
+                        const data = res[1];
+
+                        const total = data.TeacherCount? data.TeacherCount:0;
+
+                        const list = data.Item&&data.Item.length>0?data.Item.map(i=>{
+
+                            const CardItemList = [
+
+                                {CardProps:'教学班数量:',CardValue:`${i.CourseClassCount}个`},
+
+                                {CardProps:'所教年级:',CardValue:`${i.GradeCount}个`},
+
+                                {CardProps:'学生数量:',CardValue:`${i.StudentCount}人`},
+
+                            ];
+
+                            return{
+
+                                CardID:i.ObjectID,
+
+                                CardName:i.ObjectName,
+
+                                CardItemList
+
+                            };
+
+                        }):[];
+
+                        setCardList(list);
+
+                        setPagination(d=>{
+
+                            paginationRef.current = {...d,total};
+
+                            return {...d,total};
+
+                        });
+
+                    }
+
+                    setLoading(false);
 
                 }
-
-                if (res[1]){
-
-                    const data = res[1];
-
-                    const total = data.TeacherCount? data.TeacherCount:0;
-
-                    const list = data.Item&&data.Item.length>0?data.Item.map(i=>{
-
-                        const CardItemList = [
-
-                            {CardProps:'教学班数量:',CardValue:`${i.CourseClassCount}个`},
-
-                            {CardProps:'所教年级:',CardValue:`${i.GradeCount}个`},
-
-                            {CardProps:'学生数量:',CardValue:`${i.StudentCount}人`},
-
-                        ];
-
-                        return{
-
-                            CardID:i.ObjectID,
-
-                            CardName:i.ObjectName,
-
-                            CardItemList
-
-                        };
-
-                    }):[];
-
-                    setCardList(list);
-
-                    setPagination(d=>{
-
-                        paginationRef.current = {...d,total};
-
-                        return {...d,total};
-
-                    });
-
-                }
-
-                setLoading(false);
 
             });
+
+        }
+
+        return ()=>{
+
+            isUnmount = true;
 
         }
 

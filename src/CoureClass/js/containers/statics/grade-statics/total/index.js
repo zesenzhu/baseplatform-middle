@@ -54,76 +54,87 @@ function GradeTotal(props) {
 
     useEffect(()=>{
 
-        if (SchoolID) {
+        let isUmmount = false;
 
+        if (SchoolID) {
 
             dispatch(breadCrumbInit());
 
            GetGradeCouseclassSumarry_Middle({schoolID:SchoolID,userType:UserType,userID:UserID,dispatch}).then(data=>{
 
-               if (data){
+               if (!isUmmount){
 
-                   const GradeCount = data.GradeCount?data.GradeCount:0;
+                   if (data){
 
-                   const CourseClassCount = data.CourseClassCount?data.CourseClassCount:0;
+                       const GradeCount = data.GradeCount?data.GradeCount:0;
 
-                   const TeacherCount = data.TeacherCount?data.TeacherCount:0;
+                       const CourseClassCount = data.CourseClassCount?data.CourseClassCount:0;
 
-                   const StudentCount = data.StudentCount?data.StudentCount:0;
+                       const TeacherCount = data.TeacherCount?data.TeacherCount:0;
 
-                   const LogCount = data.LastLogCount?data.LastLogCount:0;
+                       const StudentCount = data.StudentCount?data.StudentCount:0;
 
-                   const list = [
+                       const LogCount = data.LastLogCount?data.LastLogCount:0;
 
-                       {id:'grade',value:GradeCount,title:'年级数量'},
+                       const list = [
 
-                       {id:'courseClass',value:CourseClassCount,title:'教学班数量'},
+                           {id:'grade',value:GradeCount,title:'年级数量'},
 
-                       {id:'teacher',value:TeacherCount,title:'教师数量'},
+                           {id:'courseClass',value:CourseClassCount,title:'教学班数量'},
 
-                       {id:'student',value:StudentCount,title:'学生数量'}
+                           {id:'teacher',value:TeacherCount,title:'教师数量'},
 
-                   ];
-
-                   const cardList = data.Item&&data.Item.length>0?data.Item.map(i=>{
-
-                       const CardItemList = [
-
-                           {CardProps:'学科数量:',CardValue:<span>{i.SubjectCount}个</span>},
-
-                           {CardProps:'教学班数量:',CardValue:<span>{i.CourseClassCount}个<span style={{color:'#999999'}}>(走班数量{i.TeachingClassCount}个)</span></span>},
-
-                           {CardProps:'任课教师数量:',CardValue:`${i.TeacherCount}人`},
-
-                           {CardProps:'学生数量:',CardValue:`${i.StudentCount}人`},
+                           {id:'student',value:StudentCount,title:'学生数量'}
 
                        ];
 
-                       return {
+                       const cardList = data.Item&&data.Item.length>0?data.Item.map(i=>{
 
-                           CardID:i.ObjectID,
+                           const CardItemList = [
 
-                           CardName:i.ObjectName,
+                               {CardProps:'学科数量:',CardValue:<span>{i.SubjectCount}个</span>},
 
-                           CardItemList
+                               {CardProps:'教学班数量:',CardValue:<span>{i.CourseClassCount}个<span style={{color:'#999999'}}>(走班数量{i.TeachingClassCount}个)</span></span>},
 
-                       }
+                               {CardProps:'任课教师数量:',CardValue:`${i.TeacherCount}人`},
 
-                   }):[];
+                               {CardProps:'学生数量:',CardValue:`${i.StudentCount}人`},
 
-                   setCardList(cardList);
+                           ];
 
-                   setStaticsList(list);
+                           return {
 
-                   dispatch(logCountUpdate(LogCount));
+                               CardID:i.ObjectID,
+
+                               CardName:i.ObjectName,
+
+                               CardItemList
+
+                           }
+
+                       }):[];
+
+                       setCardList(cardList);
+
+                       setStaticsList(list);
+
+                       dispatch(logCountUpdate(LogCount));
+
+                   }
+
+                   setLoading(false);
+
+                   dispatch(appLoadingHide());
 
                }
 
-               setLoading(false);
-
-               dispatch(appLoadingHide());
-
            });
+
+        }
+
+        return ()=>{
+
+            isUmmount  = true
 
         }
 

@@ -1327,7 +1327,7 @@ function Content(props) {
 
                                                     [1,2,3,4].map(i=>{
 
-                                                        return <i className={`icon-point icon${i}`}></i>
+                                                        return <i key={i} className={`icon-point icon${i}`}></i>
 
                                                     })
 
@@ -1376,9 +1376,9 @@ function Content(props) {
 
                                     return (
 
-                                        <div className={`left-content-pic-wrapper ${active===k?'active':''}`}>
+                                        <div key={i} className={`left-content-pic-wrapper ${active===k?'active':''}`}>
 
-                                            <div key={i} className={`ai_left_pic pic${k+1}`}>
+                                            <div className={`ai_left_pic pic${k+1}`}>
 
                                                 {animationDom}
 
