@@ -9,3 +9,17 @@
 
 //教师班级总课表
 @import "./class-total-student";
+
+
+
+.subject-teacher-wrapper{
+
+  &.in-work-plant-form{
+
+    width: 1200px;
+
+    margin: 0 auto;
+
+  }
+
+}

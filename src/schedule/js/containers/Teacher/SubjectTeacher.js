@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{memo,useState,useEffect,useMemo} from 'react';
 
 import ChangeTab from '../../component/ChangeTab';
 
@@ -6,53 +6,60 @@ import {HashRouter as Router,Route,Switch} from 'react-router-dom';
 
 import Subject from './Subject';
 
-import Teacher from './Teacher'
+import Teacher from './Teacher';
 
-import {connect} from 'react-redux';
+import {getQueryVariable} from "../../../../common/js/disconnect";
 
-class SubjectTeacher extends Component{
 
-    render() {
+function SubjectTeacher(props){
 
-        const TabLinkList = [
+    const [isWorkPlantform,setIsWorkPlantform] = useState(false);
 
-            {link:"/teacher/subject-teacher/subject",name:"学科总课表"},
+    useEffect(()=>{
 
-            {link:"/teacher/subject-teacher/teacher",name:"教师课表"}
+        if (getQueryVariable('isWorkPlantform')){
 
-        ];
+            setIsWorkPlantform(true);
 
-        return (
+        }
 
-            <div className="subject-teacher-wrapper">
+    },[]);
 
-                <ChangeTab TabLinkList = {TabLinkList}></ChangeTab>
+    const TabLinkList =useMemo(()=>{
 
-                <Router>
+      return [
 
-                    <Switch>
+          {link:"/teacher/subject-teacher/subject",name:"学科总课表"},
 
-                        <Route path="/teacher/subject-teacher/subject"  component={Subject}></Route>
+          {link:"/teacher/subject-teacher/teacher",name:"教师课表"}
 
-                        <Route path="/teacher/subject-teacher/teacher"  component={Teacher}></Route>
+      ]
 
-                    </Switch>
+    },[]);
 
-                </Router>
+    return (
 
-            </div>
+        <div className={`subject-teacher-wrapper ${isWorkPlantform?'in-work-plant-form':''}`}>
 
-        );
+            <ChangeTab TabLinkList = {TabLinkList}></ChangeTab>
 
-    }
+            <Router>
+
+                <Switch>
+
+                    <Route path="/teacher/subject-teacher/subject"  component={Subject}></Route>
+
+                    <Route path="/teacher/subject-teacher/teacher"  component={Teacher}></Route>
+
+                </Switch>
+
+            </Router>
+
+        </div>
+
+    );
 
 }
-const mapStateToProps = (state) =>{
 
-    return{
-        state
-    }
 
-};
-
-export default connect(mapStateToProps)(SubjectTeacher);
+export default memo(SubjectTeacher);

@@ -952,8 +952,8 @@ class App extends Component {
       cnname = "我的教学班管理";
       enname = "My class Management";
     }else if (route[1] === "Student") {
-        cnname = "我的教学班";
-        enname = "My CourseClass";
+        cnname = "更换选课";
+        enname = "Change Course Selection";
     }
 
 
