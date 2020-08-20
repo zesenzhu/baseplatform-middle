@@ -63,6 +63,8 @@ function Student(props) {
 
         if (UserID){
 
+            document.title="更换选课";
+
             GetAllCourseClassInfoForStu({UserID,UserType,dispatch}).then(data=>{
 
                 const list = data.CourseClassItem&&data.CourseClassItem.length>0?data.CourseClassItem:[];

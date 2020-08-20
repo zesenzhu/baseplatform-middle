@@ -100,7 +100,7 @@
     width: 248px;
     position: relative;
     display: inline-block;
-    height: 145px;
+    height: 168px;
     margin-bottom: 27px;
     cursor: pointer;
     &:hover {
@@ -116,9 +116,9 @@
         width: 248px;
         display: inline-block;
         position: absolute;
-        height: 145px;
+        height: 168px;
         background: url(../images/image-student-2.png) no-repeat right bottom;
-        background-size: contain;
+        background-size: 100% 100%;
         .main-content {
             position: relative;
             margin: 0 auto;

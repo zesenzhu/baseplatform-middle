@@ -35,8 +35,17 @@
                     line-height: 1;
                 }
                 .dropdown_container {
+
                     margin-top: -4px;
-                    z-index: 2;
+
+                    z-index: 3;
+
+                    &.select-class{
+
+                        z-index: 2;
+
+                    }
+
                 }
                 .teacher-select {
                     position: absolute;
@@ -61,6 +70,13 @@
                     text-overflow: ellipsis; //文字隐藏后添加省略号
                     white-space: nowrap; //强制不换行
                 }
+
+                .ant-radio-group{
+
+                    margin-left:10px;
+
+                }
+
             }
             //学生名单
             .right-2 {
@@ -68,7 +84,7 @@
                 height: 390px;
                 .Student-box {
                     width: 610px;
-                    height: 390px;
+                    height: 348px;
                     background-color: #ffffff;
                     border-radius: 3px;
                     border: solid 1px #bac7d9;
@@ -116,6 +132,15 @@
                                 cursor: pointer;
                                 color: #0066ff;
                             }
+
+                            .tips{
+
+                                color: #999999;
+
+                                font-size: 12px;
+
+                            }
+
                         }
                     }
                     .select-box {
@@ -230,7 +255,7 @@
 
             .row .row-column .right-2 .Student-box{
 
-                height: 290px;
+                height:260px;
 
             }
 

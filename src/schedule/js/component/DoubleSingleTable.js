@@ -120,6 +120,8 @@ function DoubleSingleTable(props){
 
                 let ScheduleItem = '';
 
+
+
                 item.list.map((it,kt)=>{
 
                     if (it.ClassHourNO===i.ClassHourNO){
@@ -130,7 +132,7 @@ function DoubleSingleTable(props){
 
                     }
 
-                })
+                });
 
                 if (HasSchedule){
 
@@ -149,7 +151,7 @@ function DoubleSingleTable(props){
 
        setDataSource(dataList);
 
-    },[schedule,schedule.length]);
+    },[schedule,schedule.length,ItemClassHour]);
 
 
     useEffect(()=>{
@@ -182,7 +184,11 @@ function DoubleSingleTable(props){
 
             </div>;
 
+
+
             ClassHourCol.push({title:Title,height:64,dataIndex:`ClassHourNO${i.ClassHourNO}`,render:(item,record)=>{
+
+                    console.log(item);
 
                     if (item === 'none'){
 

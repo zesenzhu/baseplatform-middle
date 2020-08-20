@@ -1,4 +1,4 @@
-import React,{memo} from 'react';
+import React,{memo,useCallback} from 'react';
 
 import Header from '../components/Header';
 
@@ -6,15 +6,11 @@ import Footer from '../components/Footer';
 
 import Content from './Content';
 
-import {connect} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
 
 function TopFloor(props) {
 
-    const { WebRootUrl,footer,skin,hasDownLoad,topTitle,PCDownLoadWebSvrAddr,IntroWebSvrAddr,aiSchoolLink,ProductType } = props;
-
-
-
-    const { picChange } = props;
+    const { WebRootUrl='',footer,skin,hasDownLoad,topTitle,PCDownLoadWebSvrAddr='',IntroWebSvrAddr='',aiSchoolLink='',ProductType } = useSelector(state=>state.commSetting);
 
     return(
 
@@ -24,7 +20,7 @@ function TopFloor(props) {
 
                 <Header WebRootUrl={WebRootUrl} IntroWebSvrAddr={IntroWebSvrAddr} PCDownLoadWebSvrAddr={PCDownLoadWebSvrAddr} ProductType={ProductType} aiSchoolLink={aiSchoolLink} topTitle={topTitle} skin={skin} hasDownLoad={hasDownLoad}></Header>
 
-                <Content picChange={picChange}></Content>
+                <Content></Content>
 
             </div>
 
@@ -36,12 +32,6 @@ function TopFloor(props) {
 
 }
 
-const mapStateToProps = (state)=>{
 
-    const { commSetting } = state;
 
-    return commSetting;
-
-};
-
-export default connect(mapStateToProps)(TopFloor);
+export default memo(TopFloor);

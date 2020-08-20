@@ -2,6 +2,8 @@ import ApiActions from '../ApiActions';
 
 import AppAlertActions from '../AppAlertActions';
 
+import AppLoadingActions from '../AppLoadingActions';
+
 const TEACHER_GANGER_CLASSES_UPDATE = 'TEACHER_GANGER_CLASSES_UPDATE';
 
 const GetGangerClasses = () => {
@@ -19,6 +21,8 @@ const GetGangerClasses = () => {
             }else{
 
                 dispatch(AppAlertActions.alertWarn({title:"您未担任任何班级的班主任!"}));
+
+                dispatch({type:AppLoadingActions.APP_LOADING_HIDE});
 
             }
 

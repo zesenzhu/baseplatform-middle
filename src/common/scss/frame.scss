@@ -19,7 +19,13 @@ $img_url:'#{$image_url}/frame';
 
     .frame-content-wrapper{
 
-      margin-left: 0;
+      width: 100%;
+
+    }
+
+    .frame-content-rightside.frame-fluid{
+
+      width: 100%;
 
     }
 

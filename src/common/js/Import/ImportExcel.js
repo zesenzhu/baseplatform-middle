@@ -81,8 +81,6 @@ class Import extends Component{
 
                 //弹出警告窗
 
-                console.log('弹出了提示');
-
                 utils.AlertWarn({that:this,title:"请上传后缀名为xlsx或xls的Excel文件!"});
 
                 this.Input.value = '';
@@ -243,7 +241,9 @@ class Import extends Component{
 
                                         Unique:data.uniqueNum,
 
-                                        DownLoadPath:data.url
+                                        DownLoadPath:data.url,
+
+                                        ImportDBAllowExistsError:data.importDBAllowExistsError
 
                                     }
 
@@ -414,7 +414,9 @@ class Import extends Component{
 
                             Unique:data.uniqueNum,
 
-                            DownLoadPath:data.url
+                            DownLoadPath:data.url,
+
+                            ImportDBAllowExistsError:data.importDBAllowExistsError
 
                         }
 
@@ -530,6 +532,9 @@ class Import extends Component{
         });
 
         const MouldNames = ImportTargetName.split(',');
+
+
+        
 
         return <div id="ImportComponent" className="component-import">
 
@@ -763,26 +768,61 @@ class Import extends Component{
 
                                 <p className="usermgr_step4_tips_p">
 
+
                                     {
 
-                                        UpLoadResult.Success>0?
+                                        UpLoadResult.ImportDBAllowExistsError?   //容错导入
 
-                                            <span id="count_text_success">
+                                            <>
 
-                                                <span className="common-text">
+                                            {
 
-                                                    成功导入 <span className="color_green">{UpLoadResult.Success}</span>条
+                                                        UpLoadResult.Success>0?
 
-                                                </span>
+                                                        <span id="count_text_success">
 
-                                                {
+                                                        <span className="common-text">
 
-                                                    (UpLoadResult.Unique+UpLoadResult.Error>0)?
+                                                            成功导入 <span className="color_green">{UpLoadResult.Success}</span>条
 
+                                                        </span>
+
+                                                            {
+
+                                                                (UpLoadResult.Unique+UpLoadResult.Error>0)?
+
+
+                                                                    <span className="component-text">
+
+                                                                    ,失败 <span id="failed_count" className="color_red">{UpLoadResult.Error}</span>条
+
+                                                                        {
+
+                                                                            UpLoadResult.Unique>0?
+
+                                                                                <React.Fragment>
+
+                                                                                    (其中有 <span id="unique_count" className="color_red">{UpLoadResult.Unique}</span> 条重复)
+
+                                                                                </React.Fragment>
+
+                                                                                :''
+
+                                                                        }
+
+                                                                </span>
+
+                                                                    :''
+
+                                                            }
+
+                                                    </span>
+
+                                                        :<span className="count_text_fail">
 
                                                         <span className="component-text">
 
-                                                            ,失败 <span id="failed_count" className="color_red">{UpLoadResult.Error}</span>条
+                                                            导入失败,失败 <span id="failed_count" className="color_red">{UpLoadResult.Error}</span>条
 
                                                             {
 
@@ -794,53 +834,77 @@ class Import extends Component{
 
                                                                     </React.Fragment>
 
-                                                                :''
+                                                                    :''
 
                                                             }
 
                                                         </span>
 
-                                                        :''
+                                                    </span>
 
-                                                }
+                                            }
 
-                                            </span>
+                                            {
 
-                                            :<span className="count_text_fail">
+                                                (UpLoadResult.Error+UpLoadResult.Unique)>0?
 
-                                                <span className="component-text">
+                                                <a id="btnDownload" target="_self" className="new_alink" href={UpLoadResult.DownLoadPath}>点击下载失败列表</a>
 
-                                                    导入失败,失败 <span id="failed_count" className="color_red">{UpLoadResult.Error}</span>条
+                                                :''
 
-                                                    {
+                                            }
 
-                                                        UpLoadResult.Unique>0?
+                                            </>
 
-                                                            <React.Fragment>
 
-                                                                (其中有 <span id="unique_count" className="color_red">{UpLoadResult.Unique}</span> 条重复)
+                                            :       //非容错导入
 
-                                                            </React.Fragment>
+                                            UpLoadResult.Error===0?
 
-                                                            :''
 
-                                                    }
+                                                <span id="count_text_success">
+
+                                                    <span className="common-text">
+
+                                                        成功导入 <span className="color_green">{UpLoadResult.Success}</span>条
+
+                                                    </span>
 
                                                 </span>
 
-                                            </span>
+                                                :
+
+                                                <span className="count_text_fail">
+
+                                                    <div className={`fail-tips`}>数据监测不通,无法执行导入,请修正后重试。</div>
+
+                                                    <span className="component-text">
+
+                                                        共<span id="failed_count" className="color_red">{UpLoadResult.Error}</span>条错误
+
+                                                        {
+
+                                                            UpLoadResult.Unique>0?
+
+                                                                <React.Fragment>
+
+                                                                    (其中有 <span id="unique_count" className="color_red">{UpLoadResult.Unique}</span> 条重复)
+
+                                                                </React.Fragment>
+
+                                                                :null
+
+                                                        }
+
+                                                    </span>
+
+                                                     <a id="btnDownload" target="_self" className="new_alink" href={UpLoadResult.DownLoadPath}>点击下载错误列表</a>
+
+                                                </span>
+
 
                                     }
 
-                                    {
-
-                                        (UpLoadResult.Error+UpLoadResult.Unique)>0?
-
-                                            <a id="btnDownload" target="_self" className="new_alink" href={UpLoadResult.DownLoadPath}>点击下载失败列表</a>
-
-                                            :''
-
-                                    }
 
                                 </p>
 
@@ -868,6 +932,8 @@ class Import extends Component{
                             onClose={AlertObj.Close}
 
                             onHide={AlertObj.Hide}
+
+                            cancelShow={'n'}
 
                     >
 
