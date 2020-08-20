@@ -12,7 +12,7 @@ import {
   CheckBoxGroup,
   Modal,
   Empty,
-  Loading
+  Loading,
 } from "../../../common/index";
 // import { a } from "react-router-dom";
 import CONFIG from "../../../common/js/config";
@@ -37,7 +37,7 @@ class Leader extends React.Component {
           key: "OrderNo",
           width: 68,
           align: "left",
-          render: key => {
+          render: (key) => {
             return (
               <div className="registerTime-content">
                 <label style={{ whiteSpace: "nowrap" }}>
@@ -55,7 +55,7 @@ class Leader extends React.Component {
                 </label>
               </div>
             );
-          }
+          },
         },
         {
           title: "",
@@ -64,7 +64,7 @@ class Leader extends React.Component {
           colSpan: 0,
           width: 50,
           dataIndex: "UserName",
-          render: arr => {
+          render: (arr) => {
             return (
               <div className="name-content">
                 {/* <img
@@ -83,12 +83,12 @@ class Leader extends React.Component {
                     width: "47px",
                     height: "47px",
                     display: "inline-block",
-                    background: `url(${arr.PhotoPath}) no-repeat center center / 47px`
+                    background: `url(${arr.PhotoPath}) no-repeat center center / 47px`,
                   }}
                 ></i>
               </div>
             );
-          }
+          },
         },
         {
           title: "姓名",
@@ -98,7 +98,7 @@ class Leader extends React.Component {
           key: "UserName",
           dataIndex: "UserName",
           sorter: true,
-          render: arr => {
+          render: (arr) => {
             return (
               <div className="name-content">
                 <span
@@ -110,7 +110,7 @@ class Leader extends React.Component {
                 </span>
               </div>
             );
-          }
+          },
         },
         {
           title: "工号",
@@ -119,13 +119,13 @@ class Leader extends React.Component {
           dataIndex: "UserID",
           key: "UserID",
           sorter: true,
-          render: UserID => {
+          render: (UserID) => {
             return (
               <span title={UserID} className="UserID">
                 {UserID ? UserID : "--"}
               </span>
             );
-          }
+          },
         },
         {
           title: "性别",
@@ -133,13 +133,13 @@ class Leader extends React.Component {
           width: 120,
           dataIndex: "Gender",
           key: "Gender",
-          render: Gender => {
+          render: (Gender) => {
             return (
               <span title={Gender} className="Gender">
                 {Gender ? Gender : "--"}
               </span>
             );
-          }
+          },
         },
 
         {
@@ -148,13 +148,13 @@ class Leader extends React.Component {
           width: 120,
           key: "Position",
           dataIndex: "Position",
-          render: Position => {
+          render: (Position) => {
             return (
               <span title={Position} className="Position">
                 {Position ? Position : "--"}
               </span>
             );
-          }
+          },
         },
         {
           title: "操作",
@@ -162,7 +162,7 @@ class Leader extends React.Component {
           key: "handle",
           width: 272,
           dataIndex: "key",
-          render: key => {
+          render: (key) => {
             return (
               <div className="handle-content">
                 <Button
@@ -183,8 +183,8 @@ class Leader extends React.Component {
                 </Button>
               </div>
             );
-          }
-        }
+          },
+        },
       ],
       checkedList: [],
       checkAll: false,
@@ -192,34 +192,34 @@ class Leader extends React.Component {
       LeaderDetailsMsgModalVisible: false,
       sortType: "",
       sortFiled: "",
-      leaderChangeUserLog: {}
+      leaderChangeUserLog: {},
     };
     window.LeaderCancelSearch = this.LeaderCancelSearch.bind(this);
   }
   LeaderCancelSearch = () => {
     this.setState({
       checkAll: false,
-      checkedList: []
+      checkedList: [],
       // pagination: 1
     });
   };
   // 点击全选
-  OnCheckAllChange = e => {
+  OnCheckAllChange = (e) => {
     // console.log(e)
     if (e.target.checked) {
       this.setState({
         checkedList: this.props.DataState.SchoolLeaderPreview.keyList,
-        checkAll: e.target.checked
+        checkAll: e.target.checked,
       });
     } else {
       this.setState({
         checkedList: [],
-        checkAll: e.target.checked
+        checkAll: e.target.checked,
       });
     }
   };
   // 点击多选组
-  onCheckBoxGroupChange = checkedList => {
+  onCheckBoxGroupChange = (checkedList) => {
     const { DataState } = this.props;
     // console.log(checkedList)
     this.setState({
@@ -227,7 +227,7 @@ class Leader extends React.Component {
       checkAll:
         checkedList.length === DataState.SchoolLeaderPreview.keyList.length
           ? true
-          : false
+          : false,
     });
   };
   // 点击删除全部
@@ -242,7 +242,7 @@ class Leader extends React.Component {
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
           close: this.onAlertWarnClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
     } else {
@@ -252,7 +252,7 @@ class Leader extends React.Component {
           title: "确定删除所勾选的领导吗？",
           ok: this.onAlertQueryOk.bind(this),
           cancel: this.onAlertQueryClose.bind(this),
-          close: this.onAlertQueryClose.bind(this)
+          close: this.onAlertQueryClose.bind(this),
         })
       );
     }
@@ -298,25 +298,25 @@ class Leader extends React.Component {
       CONFIG.UserInfoProxy + url,
       {
         userIDs: UserIDListString,
-        schoolID: this.state.userMsg.SchoolID
+        schoolID: this.state.userMsg.SchoolID,
       },
       2
     )
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         if (json.StatusCode === 200) {
           this.setState({
             checkedList: [],
-            checkAll: false
+            checkAll: false,
           });
           dispatch(actions.UpUIState.hideErrorAlert());
           dispatch(
             actions.UpUIState.showErrorAlert({
               type: "success",
               title: "操作成功",
-              onHide: this.onAlertWarnHide.bind(this)
+              onHide: this.onAlertWarnHide.bind(this),
             })
           );
           dispatch(
@@ -329,22 +329,22 @@ class Leader extends React.Component {
           );
           this.setState({
             checkedList: [],
-            checkAll: false
+            checkAll: false,
           });
         }
       });
   };
 
   // tableCulomn事件
-  onUserNameClick = key => {
+  onUserNameClick = (key) => {
     const { DataState } = this.props;
     this.setState({
       LeaderDetailsMsgModalVisible: true,
-      detailData: DataState.SchoolLeaderPreview.pensonalList[key]
+      detailData: DataState.SchoolLeaderPreview.pensonalList[key],
     });
   };
   // 编辑记录
-  LeaderChange = key => {
+  LeaderChange = (key) => {
     // console.log(key)
     const { dispatch, DataState } = this.props;
 
@@ -353,15 +353,15 @@ class Leader extends React.Component {
     // console.log(innerID)
     dispatch(actions.UpDataState.getUserLog(url, "leader"));
     this.setState({
-      leaderChangeUserLog: DataState.SchoolLeaderPreview.newList[key].Others
+      leaderChangeUserLog: DataState.SchoolLeaderPreview.newList[key].Others,
     });
   };
   // 编辑领导
-  LeaderEdit = key => {
+  LeaderEdit = (key) => {
     // console.log(key)
     const { dispatch } = this.props;
     this.setState({
-      userKey: key
+      userKey: key,
     });
     dispatch(actions.UpUIState.HandleLeaderModalOpen());
   };
@@ -393,7 +393,7 @@ class Leader extends React.Component {
         checkedList: [],
         checkAll: false,
         sortType: "&" + sortType,
-        sortFiled: "&sortFiled=" + sorter.columnKey
+        sortFiled: "&sortFiled=" + sorter.columnKey,
       });
     } else if (sorter && !sorter.columnKey) {
       dispatch(
@@ -405,24 +405,24 @@ class Leader extends React.Component {
         checkedList: [],
         checkAll: false,
         sortType: "",
-        sortFiled: ""
+        sortFiled: "",
       });
     }
   };
   // 用户详情弹窗事件
   LeaderDetailsMsgModalOk = () => {
     this.setState({
-      LeaderDetailsMsgModalVisible: false
+      LeaderDetailsMsgModalVisible: false,
     });
   };
   LeaderDetailsMsgModalCancel = () => {
     this.setState({
-      LeaderDetailsMsgModalVisible: false
+      LeaderDetailsMsgModalVisible: false,
     });
   };
 
   // 编辑事件
-  handleLeaderModalOk = e => {
+  handleLeaderModalOk = (e) => {
     let url = "/EditSchoolLeader";
 
     const { DataState, dispatch, UIState } = this.props;
@@ -447,7 +447,7 @@ class Leader extends React.Component {
           // ok: this.onAppAlertOK.bind(this),
           // cancel: this.onAppAlertCancel.bind(this),
           // close: this.onAppAlertClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
       return;
@@ -464,14 +464,14 @@ class Leader extends React.Component {
             ...data,
             position: position.title,
             photoPath: picObj.picUploader.getCurImgPath(),
-            PhotoEdit: PhotoEdit
+            PhotoEdit: PhotoEdit,
           },
           2
         )
-          .then(res => {
+          .then((res) => {
             return res.json();
           })
-          .then(json => {
+          .then((json) => {
             // if (json.StatusCode !== 200) {
             //   dispatch(
             //     actions.UpUIState.showErrorAlert({
@@ -489,13 +489,13 @@ class Leader extends React.Component {
                 actions.UpUIState.showErrorAlert({
                   type: "success",
                   title: "操作成功",
-                  onHide: this.onAlertWarnHide.bind(this)
+                  onHide: this.onAlertWarnHide.bind(this),
                 })
               );
               dispatch(actions.UpUIState.HandleLeaderModalClose());
               this.setState({
                 checkedList: [],
-                checkAll: false
+                checkAll: false,
               });
               dispatch(
                 actions.UpDataState.getSchoolLeaderPreview(
@@ -511,7 +511,7 @@ class Leader extends React.Component {
       }
     }
   };
-  handleLeaderModalCancel = e => {
+  handleLeaderModalCancel = (e) => {
     const { dispatch, DataState, UIState } = this.props;
     // console.log(e)
     dispatch(actions.UpUIState.editAlltModalTipsVisible());
@@ -519,14 +519,14 @@ class Leader extends React.Component {
   };
 
   // 添加事件
-  onAddLeader = e => {
+  onAddLeader = (e) => {
     const { dispatch, DataState, UIState } = this.props;
     this.setState({
-      userKey: "add"
+      userKey: "add",
     });
     dispatch(actions.UpUIState.AddLeaderModalOpen());
   };
-  handleAddLeaderModalOk = e => {
+  handleAddLeaderModalOk = (e) => {
     // console.log(e)
     let url = "/AddSchoolLeader";
 
@@ -544,7 +544,7 @@ class Leader extends React.Component {
     if (changeLeaderMsg.userID === "") {
       dispatch(
         actions.UpUIState.editModalTipsVisible({
-          UserIDTipsVisible: true
+          UserIDTipsVisible: true,
         })
       );
       haveMistake = true;
@@ -553,7 +553,7 @@ class Leader extends React.Component {
     if (changeLeaderMsg.userName === "") {
       dispatch(
         actions.UpUIState.editModalTipsVisible({
-          UserNameTipsVisible: true
+          UserNameTipsVisible: true,
         })
       );
       haveMistake = true;
@@ -562,7 +562,7 @@ class Leader extends React.Component {
     if (!changeLeaderMsg.gender) {
       dispatch(
         actions.UpUIState.editModalTipsVisible({
-          GenderTipsVisible: true
+          GenderTipsVisible: true,
         })
       );
       haveMistake = true;
@@ -571,7 +571,7 @@ class Leader extends React.Component {
     if (!changeLeaderMsg.position) {
       dispatch(
         actions.UpUIState.editModalTipsVisible({
-          PositionTipsVisible: true
+          PositionTipsVisible: true,
         })
       );
       haveMistake = true;
@@ -592,7 +592,7 @@ class Leader extends React.Component {
           // ok: this.onAppAlertOK.bind(this),
           // cancel: this.onAppAlertCancel.bind(this),
           // close: this.onAppAlertClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
       return;
@@ -605,14 +605,14 @@ class Leader extends React.Component {
           {
             ...changeLeaderMsg,
             photoPath: picObj.picUploader.getCurImgPath(),
-            position: position.title
+            position: position.title,
           },
           2
         )
-          .then(res => {
+          .then((res) => {
             return res.json();
           })
-          .then(json => {
+          .then((json) => {
             // if (json.StatusCode !== 200) {
             //   dispatch(
             //     actions.UpUIState.showErrorAlert({
@@ -630,16 +630,16 @@ class Leader extends React.Component {
                 actions.UpUIState.showErrorAlert({
                   type: "success",
                   title: "操作成功",
-                  onHide: this.onAlertWarnHide.bind(this)
+                  onHide: this.onAlertWarnHide.bind(this),
                 })
               );
               this.setState({
-                studentModalVisible: false
+                studentModalVisible: false,
               });
               dispatch(actions.UpUIState.AddLeaderModalClose());
               this.setState({
                 checkedList: [],
-                checkAll: false
+                checkAll: false,
               });
 
               dispatch(
@@ -662,7 +662,7 @@ class Leader extends React.Component {
     //console.log('ddd')
     dispatch(actions.UpUIState.hideErrorAlert());
   };
-  handleAddLeaderModalCancel = e => {
+  handleAddLeaderModalCancel = (e) => {
     const { dispatch } = this.props;
     // console.log(e)
     dispatch(actions.UpUIState.editAlltModalTipsVisible());
@@ -670,12 +670,12 @@ class Leader extends React.Component {
     dispatch(actions.UpUIState.AddLeaderModalClose());
   };
 
-  LeaderChangeMadalOk = e => {
+  LeaderChangeMadalOk = (e) => {
     const { dispatch } = this.props;
 
     dispatch({ type: actions.UpUIState.LEADER_CHANGE_MODAL_CLOSE });
   };
-  LeaderChangeMadalCancel = e => {
+  LeaderChangeMadalCancel = (e) => {
     //  console.log(e)
     const { dispatch } = this.props;
 
@@ -825,55 +825,63 @@ class Leader extends React.Component {
           ref="StudentChangeMadal"
           bodyStyle={{ padding: 0 }}
           type="2"
+          footer={null}
           width={650}
           visible={UIState.AppModal.LeaderChangeMadalVisible}
           onOk={this.LeaderChangeMadalOk}
           onCancel={this.LeaderChangeMadalCancel}
         >
-          {DataState.GetUserLog.UserLog instanceof Array &&
-          DataState.GetUserLog.UserLog.length > 0 ? (
-            <div className="modal-studentChange">
-              <div className="content-top">
-                <img
-                  src={IconLocation}
-                  width="30"
-                  height="40"
-                  alt="icon-location"
-                />
-                <span className="top-text">
-                  {this.state.leaderChangeUserLog.UserName}的档案变更记录
-                </span>
+          <Loading
+            // tip="加载中..."
+            opacity={false}
+            size="small"
+            spinning={UIState.AppLoading.modalLoading}
+          >
+            {DataState.GetUserLog.UserLog instanceof Array &&
+            DataState.GetUserLog.UserLog.length > 0 ? (
+              <div className="modal-studentChange">
+                <div className="content-top">
+                  <img
+                    src={IconLocation}
+                    width="30"
+                    height="40"
+                    alt="icon-location"
+                  />
+                  <span className="top-text">
+                    {this.state.leaderChangeUserLog.UserName}的档案变更记录
+                  </span>
+                </div>
+                <div className="content">
+                  <Scrollbars style={{ width: 100 + "%", height: 280 + "px" }}>
+                    {UIState.AppModal.LeaderChangeMadalVisible ? (
+                      <StudentChangeRecord
+                        data={DataState.GetUserLog.UserLog}
+                      ></StudentChangeRecord>
+                    ) : (
+                      ""
+                    )}
+                  </Scrollbars>
+                </div>
               </div>
-              <div className="content">
-                <Scrollbars style={{ width: 100 + "%", height: 280 + "px" }}>
-                  {UIState.AppModal.LeaderChangeMadalVisible ? (
-                    <StudentChangeRecord
-                      data={DataState.GetUserLog.UserLog}
-                    ></StudentChangeRecord>
-                  ) : (
-                    ""
-                  )}
-                </Scrollbars>
-              </div>
-            </div>
-          ) : (
-            <Empty
-              type="4"
-              title="该用户暂无档案变更记录"
-              style={{ top: "150px", position: "relative" }}
-            ></Empty>
-          )}
+            ) : (
+              <Empty
+                type="4"
+                title="该用户暂无档案变更记录"
+                style={{ top: "150px", position: "relative", height: "411px" }}
+              ></Empty>
+            )}
+          </Loading>
         </Modal>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   let { UIState, DataState } = state;
   return {
     UIState,
-    DataState
+    DataState,
   };
 };
 export default connect(mapStateToProps)(Leader);

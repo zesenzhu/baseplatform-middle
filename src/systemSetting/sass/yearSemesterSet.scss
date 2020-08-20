@@ -3,17 +3,16 @@
     position: relative;
     top: 0;
     right: 0px;
-    width: 944px;
+    // width: 944px;
+    padding: 15px 30px;
     height: 678px;
     background-color: #fff;
     box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.03);
     border-radius: 12px;
     padding-top: 32px;
-
     margin: 0 auto;
-
     .guide {
-        width: 881px;
+        // width: 881px;
         // height: 28px;
         margin: 0 auto;
         border-bottom: 1px dashed #ccc;
@@ -28,7 +27,8 @@
         span {
             display: inline-block;
             width: 108px;
-            height: 17px;
+            // height: 17px;
+            line-height: 20px;
             font-family: MicrosoftYaHei;
             font-size: 18px;
             font-weight: normal;
@@ -85,7 +85,7 @@
         display: inline-block;
         position: absolute;
         top: 142px;
-        left: 50px;
+        left: 90px;
         width: 407px;
         height: 320px;
         background: url("../images/semester_green.png") no-repeat;
@@ -225,7 +225,7 @@
         display: inline-block;
         position: absolute;
         top: 142px;
-        right: 50px;
+        right: 90px;
         width: 407px;
         height: 320px;
         background: url("../images/semester_blue.png") no-repeat;
@@ -349,7 +349,7 @@
         height: 22px;
         position: absolute;
         top: 486px;
-        left: 48px;
+        left: 88px;
         line-height: 22px;
         vertical-align: middle;
         .light {
@@ -374,7 +374,7 @@
     }
     .btn-greenshadow {
         position: absolute;
-        left: 47px;
+        left: 87px;
         top: 416px;
         display: inline-block;
         width: 413px;
@@ -383,7 +383,8 @@
     }
     .btn-blueshadow {
         position: absolute;
-        left: 484px;
+        left: auto;
+        right: 87px;
         top: 416px;
         display: inline-block;
         width: 413px;
