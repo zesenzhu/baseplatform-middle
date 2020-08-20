@@ -1,0 +1,55 @@
+.top-menu {
+    height: 100%;
+    .menu-bar {
+        height: 50px;
+        line-height: 50px;
+        /* display: inline-block; */
+        float: left;
+        cursor: pointer;
+        .bar-content {
+            line-height: 14px;
+            border-right: 1px solid #cccccc;
+            padding: 0 20px 0 38px;
+            font-size: 14px;
+            color: #333333;
+            &.bar-icon-Semester {
+                background: url(../../images/menu-icon21.png)no-repeat 20px center /15px 15px;
+            }
+            &.bar-icon-School {
+                background: url(../../images/menu-icon27.png)no-repeat 20px center /15px 15px;
+            }
+            &.bar-icon-Subsystem {
+                background: url(../../images/menu-icon26.png)no-repeat 20px center /15px 15px;
+            }
+            &.bar-icon-TextBookSetting {
+                background: url(../../images/menu-icon24.png)no-repeat 20px center /15px 15px;
+            }
+        }
+        &:last-of-type {
+            .bar-content {
+                border: none;
+            }
+        }
+        &:hover,
+        &.active {
+            .bar-content {
+                color: #ff6600;
+                &.bar-icon-Semester {
+                    background: url(../../images/menu-icon21-hover.png)no-repeat 20px center /15px 15px;
+                }
+                &.bar-icon-School {
+                    background: url(../../images/menu-icon27-hover.png)no-repeat 20px center /15px 15px;
+                }
+                &.bar-icon-Subsystem {
+                    background: url(../../images/menu-icon26-hover.png)no-repeat 20px center /15px 15px;
+                }
+                &.bar-icon-TextBookSetting {
+                    background: url(../../images/menu-icon24-hover.png)no-repeat 20px center /15px 15px;
+                }
+            }
+        }
+        &.active {
+            background-color: #ffefe5;
+        }
+    }
+}

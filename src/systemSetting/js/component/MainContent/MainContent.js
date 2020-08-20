@@ -12,6 +12,7 @@ import { QueryPower } from "../../../../common/js/power";
 import versionChenck from "../../../../common/js/public";
 import UpDataState from "../../action/data/UpDataState";
 import TextBookSetting from "../TextBookSetting";
+import TimeBanner from "../newEdition/TimeBanner";
 
 import { connect } from "react-redux";
 
@@ -66,6 +67,16 @@ class MainContent extends Component {
         ],
       },
       route: false,
+      List: [
+        { value: "Semester", title: "学年学期设置", icon: "Semester" },
+        { value: "School", title: "学校基础资料设置", icon: "School" },
+        {
+          value: "TextBookSetting",
+          title: "教材设置",
+          icon: "TextBookSetting",
+        },
+        { value: "Subsystem", title: "子系统访问设置", icon: "Subsystem" },
+      ],
     };
     const { dispatch } = props;
     const Hash = location.hash;
@@ -171,7 +182,7 @@ class MainContent extends Component {
   };
   requestData = (key) => {
     let route = history.location.pathname;
-    console.log(route)
+    console.log(route);
     let pathArr = route.split("/");
     let handleRoute = pathArr[1];
     let Params = pathArr[2];
@@ -206,14 +217,31 @@ class MainContent extends Component {
       UserName = UserInfo.UserName;
       PhotoPath = UserInfo.PhotoPath;
       UserID = UserInfo.UserID;
+    }else{
+      return <div></div>
     }
     // console.log(this.props)
-
-    let {DataState:{LoginUser}} =this.props.state;
+    let path = history.location.pathname.split("/")[2];
+    let isImport = false;
+    if (path === "Import") {
+      isImport = true;
+    }
+    // console.log(path)
+    if (
+      path !== "Semester" &&
+      path !== "School" &&
+      path !== "Subsystem" &&
+      path !== "TextBookSetting"
+    ) {
+      history.push("/MainContent/Semester");
+    }
+    let {
+      DataState: { LoginUser },
+    } = this.props.state;
     return (
       <Frame
-        showLeftMenu={true}
-        showBarner={false}
+        showLeftMenu={false}
+        showBarner={true}
         type={"triangle"}
         module={{
           image: setting,
@@ -222,41 +250,47 @@ class MainContent extends Component {
         }}
         userInfo={{ name: UserName, image: PhotoPath }}
       >
-        <div ref="frame-left-menu">
+        {/* <div ref="frame-left-menu">
           <Menu params={this.state.MenuParams}></Menu>
+        </div> */}
+        <div ref="frame-time-barner">
+          <TimeBanner path={path} List={this.state.List} />
         </div>
+        {LoginUser.UserID ? (
+          <div ref="frame-right-content">
+            <Router>
+              <Route
+                path="/MainContent/Semester*"
+                exact
+                history={history}
+                component={Semester}
+              ></Route>
 
-        {LoginUser.UserID?<div ref="frame-right-content">
-          <Router>
-            <Route
-              path="/MainContent/Semester*"
-              exact
-              history={history}
-              component={Semester}
-            ></Route>
+              <Route
+                path="/MainContent/School*"
+                exact
+                history={history}
+                component={School}
+              ></Route>
 
-            <Route
-              path="/MainContent/School*"
-              exact
-              history={history}
-              component={School}
-            ></Route>
-
-            <Route
-              path="/MainContent/Subsystem*"
-              exact
-              history={history}
-              component={Subsystem}
-            ></Route>
-            <Route
-              path="/MainContent/TextBookSetting"
-              exact
-              history={history}
-              component={TextBookSetting}
-            ></Route>
-            {/* <Redirect path="/*" to="/MainContent/Semester"></Redirect> */}
-          </Router>
-        </div>:''}
+              <Route
+                path="/MainContent/Subsystem*"
+                exact
+                history={history}
+                component={Subsystem}
+              ></Route>
+              <Route
+                path="/MainContent/TextBookSetting"
+                exact
+                history={history}
+                component={TextBookSetting}
+              ></Route>
+              {/* <Redirect path="/*" to="/MainContent/Semester"></Redirect> */}
+            </Router>
+          </div>
+        ) : (
+          ""
+        )}
       </Frame>
     );
   }
