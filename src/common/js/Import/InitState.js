@@ -77,12 +77,21 @@ const InitState = ({props,type}) => {
 
                 },
 
-                {
+                /*{
 
                     //中小学教学班导入
                     ID:'courseclass',
 
                     Url:`${CONFIG.Import}/UserMgr/Comm/Controls/Import/DownloadFile.ashx?fileUrl=~%2FUserMgr%2FTeachInfoMgr%2FTemplate%2F%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%E7%8F%AD%E7%BA%A7%E4%BF%A1%E6%81%AF.xls`
+
+                },*/
+
+                {
+
+                    //中小学教学班导入
+                    ID:'courseclass_k12',
+
+                    Url:`${CONFIG.Import}/UserMgr/Comm/Controls/Import/DownloadFile.ashx?fileUrl=~%2FUserMgr%2FTeachInfoMgr%2FTemplate%2F%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%E6%95%99%E5%AD%A6%E7%8F%AD%E4%BF%A1%E6%81%AF(%E6%99%AE%E6%95%99%E7%89%88).xls`
 
                 },
 
@@ -91,7 +100,7 @@ const InitState = ({props,type}) => {
                     //大学版教学班导入
                     ID:'courseclassuniversity',
 
-                    Url:`${CONFIG.Import}//UserMgr/Comm/Controls/Import/DownloadFile.ashx?fileUrl=~%2FUserMgr%2FTeachInfoMgr%2FTemplate%2F%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%E6%95%99%E5%AD%A6%E7%8F%AD%E4%BF%A1%E6%81%AF%20(%E5%A4%A7%E5%AD%A6%E7%89%88).xls`
+                    Url:`${CONFIG.Import}/UserMgr/Comm/Controls/Import/DownloadFile.ashx?fileUrl=~%2FUserMgr%2FTeachInfoMgr%2FTemplate%2F%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%E6%95%99%E5%AD%A6%E7%8F%AD%E4%BF%A1%E6%81%AF%20(%E5%A4%A7%E5%AD%A6%E7%89%88).xls`
 
                 },
 

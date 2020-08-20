@@ -1,9 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-
 import thunk from 'redux-thunk';
-
 import React from 'react';
-
 import { createLogger } from 'redux-logger';
 
 import DevTools from './DevTools'; // 辅助工具
@@ -11,7 +8,6 @@ import DevTools from './DevTools'; // 辅助工具
 import rootReducers, { initialState } from './reducers';
 
 let enhancer = applyMiddleware(thunk);
-
 if (process.env.NODE_ENV === 'development') {
     enhancer = compose(
         applyMiddleware(thunk, createLogger()),

@@ -82,7 +82,10 @@ if (process.env.NODE_ENV === 'development'){
         ClassProxy:'http://192.168.129.1:30103/UserMgr/ClassMgr',
 
         HashPrevProxy: RootUrl,
-        GlobalProxy:'http://192.168.129.1:30103/Global'
+
+        GlobalProxy:'http://192.168.129.1:30103/Global',
+
+        UserPersonaProxy:'http://192.168.129.1:30103'
 
     }
 
@@ -131,7 +134,9 @@ if (process.env.NODE_ENV === 'production'){
         ClassProxy:'/UserMgr/ClassMgr',
 
         HashPrevProxy: RootUrl,
-        GlobalProxy:'/Global'
+        GlobalProxy:'/Global',
+
+        UserPersonaProxy:RootUrl
 
     }
 
