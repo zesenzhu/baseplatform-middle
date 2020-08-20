@@ -1181,7 +1181,7 @@ class Student extends React.Component {
       pageSize,
       checkedList: [],
       checkAll: false,
-      pagination:1
+      pagination: 1,
     });
 
     dispatch(
@@ -1194,8 +1194,7 @@ class Student extends React.Component {
           (this.state.secondSelect.value !== 0
             ? "&classID=" + this.state.secondSelect.value
             : "") +
-          "&PageIndex=0" 
-           +
+          "&PageIndex=0" +
           "&pageSize=" +
           pageSize +
           this.state.sortFiled +
@@ -1392,7 +1391,9 @@ class Student extends React.Component {
                       pageSize={this.state.pageSize}
                       onShowSizeChange={this.onShowSizeChange}
                       current={this.state.pagination}
-                      hideOnSinglePage={DataState.GradeStudentPreview.Total===0?true:false}
+                      hideOnSinglePage={
+                        DataState.GradeStudentPreview.Total === 0 ? true : false
+                      }
                       total={DataState.GradeStudentPreview.Total}
                       onChange={this.onPagiNationChange}
                     ></PagiNation>
@@ -1423,44 +1424,52 @@ class Student extends React.Component {
           ref="StudentChangeMadal"
           bodyStyle={{ padding: 0 }}
           type="2"
+          footer={null}
           width={650}
           visible={UIState.AppModal.StudentChangeMadalVisible}
           onOk={this.StudentChangeMadalOk}
           onCancel={this.StudentChangeMadalCancel}
         >
-          {DataState.GetUserLog.UserLog instanceof Array &&
-          DataState.GetUserLog.UserLog.length > 0 ? (
-            <div className="modal-studentChange">
-              <div className="content-top">
-                <img
-                  src={IconLocation}
-                  width="30"
-                  height="40"
-                  alt="icon-location"
-                />
-                <span className="top-text">
-                  {this.state.studentChangeUserLog.UserName}的档案变更记录
-                </span>
+          <Loading
+            // tip="加载中..."
+            opacity={false}
+            size="small"
+            spinning={UIState.AppLoading.modalLoading}
+          >
+            {DataState.GetUserLog.UserLog instanceof Array &&
+            DataState.GetUserLog.UserLog.length > 0 ? (
+              <div className="modal-studentChange">
+                <div className="content-top">
+                  <img
+                    src={IconLocation}
+                    width="30"
+                    height="40"
+                    alt="icon-location"
+                  />
+                  <span className="top-text">
+                    {this.state.studentChangeUserLog.UserName}的档案变更记录
+                  </span>
+                </div>
+                <div className="content">
+                  <Scrollbars style={{ width: 100 + "%", height: 280 + "px" }}>
+                    {UIState.AppModal.StudentChangeMadalVisible ? (
+                      <StudentChangeRecord
+                        data={DataState.GetUserLog.UserLog}
+                      ></StudentChangeRecord>
+                    ) : (
+                      ""
+                    )}
+                  </Scrollbars>
+                </div>
               </div>
-              <div className="content">
-                <Scrollbars style={{ width: 100 + "%", height: 280 + "px" }}>
-                  {UIState.AppModal.StudentChangeMadalVisible ? (
-                    <StudentChangeRecord
-                      data={DataState.GetUserLog.UserLog}
-                    ></StudentChangeRecord>
-                  ) : (
-                    ""
-                  )}
-                </Scrollbars>
-              </div>
-            </div>
-          ) : (
-            <Empty
-              type="4"
-              title="该用户暂无档案变更记录"
-              style={{ top: "150px", position: "relative" }}
-            ></Empty>
-          )}
+            ) : (
+              <Empty
+                type="4"
+                title="该用户暂无档案变更记录"
+                style={{ top: "150px", position: "relative", height: "411px" }}
+              ></Empty>
+            )}
+          </Loading>
         </Modal>
         <Modal
           ref="handleTeacherMadal"
