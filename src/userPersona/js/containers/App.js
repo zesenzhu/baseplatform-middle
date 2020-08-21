@@ -39,13 +39,6 @@ function App(props) {
     useEffect(()=>{
 
 
-        if (getQueryVariable('userType')&&getQueryVariable('userID')){
-
-            const targetUserID = getQueryVariable('userID');
-
-            const targetUserType = parseInt(getQueryVariable('userType'));
-
-            dispatch(targetUserInfoUpdate({UserID:targetUserID,UserType:targetUserType}));
 
             const LgBasePlatformInfo = sessionStorage.getItem("LgBasePlatformInfo");
 
@@ -69,12 +62,6 @@ function App(props) {
 
             }
 
-        }else{
-
-            dispatch(btnErrorAlertShow({title:'参数错误'}));
-
-        }
-
 
     },[]);
 
@@ -89,7 +76,22 @@ function App(props) {
 
         dispatch(loginUserInfoUpdate(CopyUserInfo));
 
-        const {WebRootUrl} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+        if (getQueryVariable('userType')&&getQueryVariable('userID')) {
+
+            const targetUserID = getQueryVariable('userID');
+
+            const targetUserType = parseInt(getQueryVariable('userType'));
+
+            dispatch(targetUserInfoUpdate({UserID: targetUserID, UserType: targetUserType}));
+
+        }else{
+
+            dispatch(btnErrorAlertShow({title:'参数错误'}));
+
+        }
+
+
+       const {WebRootUrl} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
        const token = sessionStorage.getItem('token');
 
@@ -140,8 +142,6 @@ function App(props) {
             setBellShow(false);
 
         }
-
-
 
     };
 
