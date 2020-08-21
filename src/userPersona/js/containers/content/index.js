@@ -69,6 +69,12 @@ function Content(props){
   }, [UsedType]);
 
   return (
+<<<<<<< HEAD
+    <ul className={"app-content-wrapper"}>
+      <ContentItem tabName={"学籍档案信息"}></ContentItem>
+      <StuResult></StuResult>
+    </ul>
+=======
 
     <>
 
@@ -82,6 +88,7 @@ function Content(props){
         <AnchorPoint></AnchorPoint>
 
     </>
+>>>>>>> 6b44d3a6867d411dc7b687af599b33da55e4b17f
   );
 }
 

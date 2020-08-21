@@ -27,7 +27,7 @@ function postData(
   content_type = "urlencoded",
   IsDesk = false,
   element = true,
-  moreParams={ credentials:'omit', requestHeader: {}  }
+  moreParams = { credentials: "omit", requestHeader: {} }
 ) {
   let token = sessionStorage.getItem("token") || getQueryVariable("lg_tk");
 
@@ -41,13 +41,13 @@ function postData(
   //         }
   //     });
   // }
-  let {   requestHeader ,credentials} = moreParams;
- 
-  if(requestHeader===undefined){
-    requestHeader = {}
+  let { requestHeader, credentials } = moreParams;
+
+  if (requestHeader === undefined) {
+    requestHeader = {};
   }
-  if(credentials===undefined){
-    credentials = 'omit'
+  if (credentials === undefined) {
+    credentials = "omit";
   }
 
   let ContentTypeArr = [
@@ -77,7 +77,7 @@ function postData(
       Accept: "application/json, text/plain, */*", //请求头，代表的、发送端（客户端）希望接收的数据类型
       "Content-Type": ContentType, //实体头，代表发送端（客户端|服务器）发送的实体数据的数据类型
       Authorization: requestSecure(paramsObj, TESTKEY, SecurityLevel),
-      ...requestHeader
+      ...requestHeader,
     },
     redirect: "follow", //manual、*follow(自动重定向)、error，此项为重定向的相关配置
     // referrer: 'no-referrer',//该首部字段会告知服务器请求的原始资源的URI
@@ -155,6 +155,12 @@ function handleStatusCode(json, element = true) {
   }
 
   if (json.StatusCode === undefined) {
+    if (json.code !== undefined) {
+      //个人画像没有StatusCode，所以这里进行个人画像的适配
+      console.log(json);
+      checkCode(json);
+      return;
+    }
     title = "服务器出现未知异常，请重试或联系管理员";
     ReactDOM.render(
       // eslint-disable-next-line react/react-in-jsx-scope
@@ -222,15 +228,34 @@ function handleStatusCode(json, element = true) {
       window.location.href = config.ErrorProxy + "/Error.aspx?errcode=E011";
   }
 }
-
-const getData =(
+// 个人画像，检查code
+function checkCode(json) {
+  let { code, msg } = json;
+  if (code !== 0) {
+    ReactDOM.render(
+      // eslint-disable-next-line react/react-in-jsx-scope
+      <ErrorAlert
+        key={"alert" + "400-" + Math.round(Math.random() * 10000)}
+        show={true}
+        title={msg}
+      />,
+      document.getElementById("alert")
+    );
+    return;
+  }
+}
+const getData = (
   url,
   SecurityLevel = 1,
   mode = "cors",
   IsDesk = false,
   element = true,
-  moreParams={ credentials:'omit',content_type: "urlencoded", requestHeader: {} }
-) =>{
+  moreParams = {
+    credentials: "omit",
+    content_type: "urlencoded",
+    requestHeader: {},
+  }
+) => {
   let token = sessionStorage.getItem("token") || getQueryVariable("lg_tk");
   // if (!token && SecurityLevel !== 1) {
   //     console.log('token无效，请重新登录');//后期会进行无token的事件操作
@@ -243,17 +268,16 @@ const getData =(
   //     });
   // }
   // console.log(isIE());
-  let { content_type, requestHeader ,credentials} = moreParams;
-  if(content_type===undefined){
-    content_type = "urlencoded"
+  let { content_type, requestHeader, credentials } = moreParams;
+  if (content_type === undefined) {
+    content_type = "urlencoded";
   }
-  if(requestHeader===undefined){
-    requestHeader = {}
+  if (requestHeader === undefined) {
+    requestHeader = {};
   }
-  if(credentials===undefined){
-    credentials = 'omit'
+  if (credentials === undefined) {
+    credentials = "omit";
   }
-
 
   if (isIE()) {
     url = encodeURI(url);
@@ -320,7 +344,6 @@ const getData =(
           );
 
           window.location.href = "/html/admDisconnect?lg_preurl=" + preUrl;
-
         } else {
           return response.json().then((json) => {
             //   console.log(json)
@@ -343,7 +366,7 @@ const getData =(
     });
 
   return result;
-}
+};
 
 //获取url参数
 function getQueryVariable(variable) {
