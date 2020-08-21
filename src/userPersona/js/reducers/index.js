@@ -6,6 +6,8 @@ import pageUsedType from './pageUsedType';
 
 import appAlert from './appAlert';
 
+import MoreData from './MoreData';
+
 import targetUser from './targetUser';
 
 
@@ -16,6 +18,8 @@ let rootReducers = combineReducers({
     pageUsedType,
     
     appAlert,
+
+    MoreData,
 
     targetUser
 
