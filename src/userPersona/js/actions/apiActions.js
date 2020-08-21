@@ -27,8 +27,6 @@ export const GetSubSystemsMainServerBySubjectID = async ({appid='000',access_tok
 
     const res = await getGetData(`/BaseApi/Global/GetSubSystemsMainServerBySubjectID?appid=${appid}&access_token=${access_token}&sysIDs=${sysIDs}&subjectID=${subjectID}`,1);
 
-    console.log("111");
-
     if (res.StatusCode === 200){
 
         return res.Data;

@@ -10,6 +10,8 @@ import MoreData from './MoreData';
 
 import targetUser from './targetUser';
 
+import systemUrl from './systemUrl';
+
 
 let rootReducers = combineReducers({
 
@@ -21,7 +23,9 @@ let rootReducers = combineReducers({
 
     MoreData,
 
-    targetUser
+    targetUser,
+
+    systemUrl
 
 });
 

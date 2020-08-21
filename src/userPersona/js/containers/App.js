@@ -26,6 +26,10 @@ import {targetUserInfoUpdate} from '../actions/targetUserActions';
 
 import {pageUsedChange} from '../actions/pageUsedTypeActions';
 
+import {systemUrlUpdate} from '../actions/systemUrlActions';
+
+import AnchorPoint from '../components/anchorPoint';
+
 
 function App(props) {
 
@@ -36,31 +40,24 @@ function App(props) {
     //appAlert
     const { appAlert,appSuccessAlert } = useSelector(state=>state.appAlert);
 
+    //系统的地址
+    const  systemUrl  = useSelector(state=>state.systemUrl);
+
     const dispatch = useDispatch();
 
     useEffect(()=>{
 
-        const LgBasePlatformInfo = sessionStorage.getItem("LgBasePlatformInfo");
+        GetBaseInfoForPages({dispatch}).then(data=>{
 
-        if (LgBasePlatformInfo){
+            if (data){
 
-            firstPageLoad(firstLoad);
+                sessionStorage.setItem('LgBasePlatformInfo',JSON.stringify(data));
 
-        }else{
+                firstPageLoad(firstLoad)
 
-            GetBaseInfoForPages({dispatch}).then(data=>{
+            }
 
-                if (data){
-
-                    sessionStorage.setItem('LgBasePlatformInfo',JSON.stringify(data));
-
-                    firstPageLoad(firstLoad)
-
-                }
-
-            });
-
-        }
+        });
 
     },[]);
 
@@ -75,11 +72,11 @@ function App(props) {
 
         dispatch(loginUserInfoUpdate(CopyUserInfo));
 
-        if (getQueryVariable('userType')&&getQueryVariable('userID')) {
+        const targetUserID = getQueryVariable('userID');
 
-            const targetUserID = getQueryVariable('userID');
+        const targetUserType = parseInt(getQueryVariable('userType'));
 
-            const targetUserType = parseInt(getQueryVariable('userType'));
+        if (targetUserID&&targetUserType&&([1,2].includes(targetUserType))) {
 
             dispatch(targetUserInfoUpdate({UserID: targetUserID, UserType: targetUserType}));
 
@@ -157,26 +154,27 @@ function App(props) {
 
         }
 
-        
-
-
        const {WebRootUrl} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
        const token = sessionStorage.getItem('token');
 
-        if (!(CopyUserInfo.UserType===0&&CopyUserInfo===2)&&(CopyUserInfo.UserType!==6)){
+       const sysIDs = Object.keys(systemUrl).join(',');
 
-            GetSubSystemsMainServerBySubjectID({sysIDs:'200',dispatch}).then(data=>{
+       GetSubSystemsMainServerBySubjectID({sysIDs,dispatch}).then(data=>{
 
-                if (data){
+            if (data) {
 
-                    let PsnMgrLgAssistantAddr = data[0].WebSvrAddr;
+                const AssistUrl = data.find(i=>i.SysID==='200')?data.find(i=>i.SysID==='200').WebSvrAddr:'';
 
-                    sessionStorage.setItem('PsnMgrToken',token);//用户Token
+                if (!(CopyUserInfo.UserType === 0 && CopyUserInfo === 2) && (CopyUserInfo.UserType !== 6)&&AssistUrl) {
 
-                    sessionStorage.setItem('PsnMgrMainServerAddr',WebRootUrl); //基础平台IP地址和端口号 形如：http://192.168.129.1:30103/
+                    let PsnMgrLgAssistantAddr = AssistUrl;
 
-                    sessionStorage.setItem('PsnMgrLgAssistantAddr',PsnMgrLgAssistantAddr);
+                    sessionStorage.setItem('PsnMgrToken', token);//用户Token
+
+                    sessionStorage.setItem('PsnMgrMainServerAddr', WebRootUrl); //基础平台IP地址和端口号 形如：http://192.168.129.1:30103/
+
+                    sessionStorage.setItem('PsnMgrLgAssistantAddr', PsnMgrLgAssistantAddr);
 
                     dynamicFile([
 
@@ -184,7 +182,7 @@ function App(props) {
 
                         `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/jquery-1.7.2.min.js`
 
-                    ]).then(()=>{
+                    ]).then(() => {
 
                         dynamicFile([
 
@@ -198,19 +196,27 @@ function App(props) {
 
                     setBellShow(true);
 
-                }else{
+                } else {
 
                     setBellShow(false);
 
                 }
 
-            })
+               let urlObj = {...systemUrl};
 
-        }else{
+               data.map(i=>{
 
-            setBellShow(false);
+                   urlObj[i.SysID] = { WebUrl:i.WebSvrAddr,WsUrl:i.WsSvrAddr };
 
-        }
+               });
+
+               dispatch(systemUrlUpdate(urlObj));
+
+            }
+
+       });
+
+
 
     };
 
@@ -221,6 +227,8 @@ function App(props) {
             <div className={"app"}>
 
                 <Header bellShow={bellShow} tabTitle={"测试标签"}></Header>
+
+                {/*<AppRoutes></AppRoutes>*/}
 
                 <Content></Content>
 
