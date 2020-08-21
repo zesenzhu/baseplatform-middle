@@ -18,6 +18,8 @@ function Header(props) {
 
     const loginUser = useSelector(state=>state.loginUser);
 
+    const dispatch = useDispatch();
+
     const { SchoolID,UserID,UserName,PhotoPath,Sign } = loginUser;
 
     const {tabTitle,bellShow} = props;
@@ -33,8 +35,6 @@ function Header(props) {
             setTitle(ProductName);
 
             setIndexUrl(`${WebIndexUrl}?lg_tk=${token}`);
-
-
 
         }
 
@@ -134,7 +134,16 @@ function Header(props) {
 
                     <span className={"user-name"}>{UserName}</span>
 
-                    <span className={"sign"}>{5415454}</span>
+                    {
+
+                        Sign?
+
+                            <span className={"sign"}>{Sign}</span>
+
+                            :null
+
+                    }
+
 
                 </div>
 

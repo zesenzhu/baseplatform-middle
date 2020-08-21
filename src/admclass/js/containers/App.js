@@ -310,6 +310,7 @@ class App extends Component {
                 image: TopLeftData.image,
               }}
               pageInit={this.RequestData}
+
             >
               <div ref="frame-time-barner">
                 <Barner></Barner>
