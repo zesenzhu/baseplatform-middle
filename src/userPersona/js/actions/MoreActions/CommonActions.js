@@ -17,7 +17,21 @@ const SetClassMoralEduInfoByCriteriasParams = (data) => {
     });
   };
 };
+// 设置学生成绩参数
+const COMMON_SET_STU_RESULT_PARAMS =
+  "COMMON_SET_STU_RESULT_PARAMS";
+const SetStuResultParams = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: COMMON_SET_STU_RESULT_PARAMS,
+      data: data,
+    });
+  };
+};
 const CommonActions = {
+  SetStuResultParams,
+  COMMON_SET_STU_RESULT_PARAMS,
+
   COMMON_SET_CLASS_MORAL_EDU_INFO_BY_CRITERIAS_PARAMS,
   SetClassMoralEduInfoByCriteriasParams,
 };

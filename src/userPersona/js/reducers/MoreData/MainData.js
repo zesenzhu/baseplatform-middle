@@ -14,6 +14,17 @@ const MainData = (
       pageCount: 0,
       data: [],
     },
+    StuNearExamData: {
+      PubName: "",
+      TotalScore: "",
+      RankClass: "",
+      RankGrade: "",
+      LevelName: "",
+      StartTime: "",
+      EndTime: "",
+      CourseScoreList: [],
+    },
+    StudentReportData: [],
   },
   actions
 ) => {
@@ -23,7 +34,14 @@ const MainData = (
       return Object.assign({}, state, {
         MoralEduInfo: actions.data,
       });
-
+    case MainActions.MAIN_GET_STU_NEAR_EXAM:
+      return Object.assign({}, state, {
+        StuNearExamData: actions.data,
+      });
+      case MainActions.MAIN_GET_STUDENT_REPORT:
+        return Object.assign({}, state, {
+          StudentReportData: actions.data,
+        });
     default:
       return state;
   }

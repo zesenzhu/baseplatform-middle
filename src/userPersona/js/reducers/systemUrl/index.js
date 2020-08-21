@@ -23,6 +23,8 @@ const defaultState = {
     //精品课程
 
     'D21':{SysID:'D21', WebUrl: '', WsUrl:''},
+// 学生成绩
+    '810':{SysID:'D21', WebUrl: '', WsUrl:''},
 
 };
 

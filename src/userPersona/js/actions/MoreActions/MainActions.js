@@ -22,7 +22,7 @@ const GetClassMoralEduInfoByCriterias = ({
     let {
       MoreData: {
         CommonData: {
-          MoralEduParams: { UserID, Title, PageSize,PageNum },
+          MoralEduParams: { UserID, Title, PageSize, PageNum },
         },
       },
     } = State;
@@ -38,9 +38,18 @@ const GetClassMoralEduInfoByCriterias = ({
     if (pageNum === undefined) {
       pageNum = PageNum;
     }
-    getClassMoralEduInfoByCriterias({ title, userId, pageSize, pageNum }).then((res) => {
+    getClassMoralEduInfoByCriterias({
+      Proxy,
+      title,
+      userId,
+      pageSize,
+      pageNum,
+    }).then((res) => {
       if (res) {
-        dispatch({ type: MAIN_GET_CLASS_MORAL_EDU_INFO_BY_CRITERIAS, data: res.data });
+        dispatch({
+          type: MAIN_GET_CLASS_MORAL_EDU_INFO_BY_CRITERIAS,
+          data: res.data,
+        });
         func(getState());
         dispatch(
           UpDataState.SetLoadingVisible({ ScheduleLoadingVisible: false })
@@ -54,9 +63,10 @@ const getClassMoralEduInfoByCriterias = async ({
   userId = "",
   pageSize = "",
   pageNum = "",
+  Proxy,
 }) => {
   let url =
-    WorkScheduleProxy +
+    Proxy +
     "/getClassMoralEduInfoByCriterias?title=" +
     title +
     "&userId=" +
@@ -99,8 +109,162 @@ const getClassMoralEduInfoByCriterias = async ({
 //       });
 //   };
 // };
+// 获取学生期末总评
+const MAIN_GET_STUDENT_REPORT = "MAIN_GET_STUDENT_REPORT";
+const GetStudentReport = ({
+  func = () => {},
+  Term,
+  ClassID,
+  GradeID,
+  SchoolID,
+  Proxy,
+  XH,
+}) => {
+  return (dispatch, getState) => {
+    let State = getState();
+    let {
+      MoreData: {
+        CommonData: { StuResultParams },
+      },
+      systemUrl,
+    } = State;
+    if (Term === undefined) {
+      Term = StuResultParams.Term;
+    }
+ 
+    if (SchoolID === undefined) {
+      SchoolID = StuResultParams.SchoolID;
+    }
+    if (Proxy === undefined) {
+      Proxy = systemUrl["810"].WebUrl;
+    }
+    if (XH === undefined) {
+      XH = StuResultParams.XH;
+    }
+    getStudentReport({ Term, ClassID, GradeID, SchoolID, Proxy, XH }).then(
+      (res) => {
+        if (res) {
+          dispatch({ type: MAIN_GET_STUDENT_REPORT, data: res.data });
+          func(getState());
+          
+        }
+      }
+    );
+  };
+};
+const getStudentReport = async ({
+  Term = "",
+  // ClassID = "",
+  // GradeID = "",
+  SchoolID = "",
+  Proxy = "",
+  XH = "",
+}) => {
+  let url =
+    Proxy +
+    "/api/JWCJZP/GetStudentReport?Term=" +
+    Term +
+    "&XH=" +
+    XH +
+    "&SchoolID=" +
+    SchoolID;
+  let data = "";
+  let res = await getData(url, 2);
+  let json = await res.json();
+  if (json.code === 0) {
+    data = json;
+  } else {
+    data = false; //有错误
+  }
+  return data;
+};
+// 获取学生最近一次考试
+
+const MAIN_GET_STU_NEAR_EXAM = "MAIN_GET_STU_NEAR_EXAM";
+const GetStuNearExam = ({
+  func = () => {},
+  Term,
+  ClassID,
+  GradeID,
+  SchoolID,
+  Proxy,
+  XH,
+}) => {
+  return (dispatch, getState) => {
+    let State = getState();
+    let {
+      MoreData: {
+        CommonData: { StuResultParams },
+      },
+      systemUrl,
+    } = State;
+    if (Term === undefined) {
+      Term = StuResultParams.Term;
+    }
+    if (ClassID === undefined) {
+      ClassID = StuResultParams.ClassID;
+    }
+    if (GradeID === undefined) {
+      GradeID = StuResultParams.GradeID;
+    }
+    if (SchoolID === undefined) {
+      SchoolID = StuResultParams.SchoolID;
+    }
+    if (Proxy === undefined) {
+      Proxy = systemUrl["810"].WebUrl;
+    }
+    if (XH === undefined) {
+      XH = StuResultParams.XH;
+    }
+    getStuNearExam({ Term, ClassID, GradeID, SchoolID, Proxy, XH }).then(
+      (res) => {
+        if (res) {
+          dispatch({ type: MAIN_GET_STU_NEAR_EXAM, data: res.data });
+          func(getState());
+          
+        }
+      }
+    );
+  };
+};
+const getStuNearExam = async ({
+  Term = "",
+  ClassID = "",
+  GradeID = "",
+  SchoolID = "",
+  Proxy = "",
+  XH = "",
+}) => {
+  let url =
+    Proxy +
+    "/api/JWCJZP/GetStuNearExam?Term=" +
+    Term +
+    "&ClassID=" +
+    ClassID +
+    "&GradeID=" +
+    GradeID +
+    "&XH=" +
+    XH +
+    "&SchoolID=" +
+    SchoolID;
+  let data = "";
+  let res = await getData(url, 2);
+  let json = await res.json();
+  if (json.code === 0) {
+    data = json;
+  } else {
+    data = false; //有错误
+  }
+  return data;
+};
 const MainActions = {
+  GetStudentReport,
+  MAIN_GET_STUDENT_REPORT,
+
+  GetStuNearExam,
+  MAIN_GET_STU_NEAR_EXAM,
+
   MAIN_GET_CLASS_MORAL_EDU_INFO_BY_CRITERIAS,
-  GetClassMoralEduInfoByCriterias
+  GetClassMoralEduInfoByCriterias,
 };
 export default MainActions;
