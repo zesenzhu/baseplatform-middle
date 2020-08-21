@@ -20,6 +20,12 @@ import dynamicFile from 'dynamic-file';
 
 import {getQueryVariable} from "../../../common/js/disconnect";
 
+import {btnErrorAlertShow} from "../actions/appAlertActions";
+
+import {targetUserInfoUpdate} from '../actions/targetUserActions';
+
+import {pageUsedChange} from '../actions/pageUsedTypeActions';
+
 
 function App(props) {
 
@@ -33,9 +39,6 @@ function App(props) {
     const dispatch = useDispatch();
 
     useEffect(()=>{
-
-
-
 
         const LgBasePlatformInfo = sessionStorage.getItem("LgBasePlatformInfo");
 
@@ -55,7 +58,7 @@ function App(props) {
 
                 }
 
-            })
+            });
 
         }
 
@@ -72,7 +75,92 @@ function App(props) {
 
         dispatch(loginUserInfoUpdate(CopyUserInfo));
 
-        const {WebRootUrl} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+        if (getQueryVariable('userType')&&getQueryVariable('userID')) {
+
+            const targetUserID = getQueryVariable('userID');
+
+            const targetUserType = parseInt(getQueryVariable('userType'));
+
+            dispatch(targetUserInfoUpdate({UserID: targetUserID, UserType: targetUserType}));
+
+             switch (`${CopyUserInfo['UserType']}${targetUserType}`) {
+
+                 case '02':
+
+                     dispatch(pageUsedChange({user:'Adm',targetUser:'Stu',usedType:'AdmToStu'}));
+
+                     break;
+
+                 case '72':
+
+                 case '102':
+
+                     dispatch(pageUsedChange({user:'Leader',targetUser:'Stu',usedType:'LeaderToStu'}));
+
+                     break;
+
+                 case '12':
+
+                     dispatch(pageUsedChange({user:'HeaderTeacher',targetUser:'Stu',usedType:'HeaderTeacherToStu'}));
+
+                     break;
+
+                 case '22':
+
+                     if (CopyUserInfo['UserID']===targetUserID){
+
+                         dispatch(pageUsedChange({user:'Stu',targetUser:'Stu',usedType:'StuToStu'}));
+
+
+                     }else{
+
+                         dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
+
+                     }
+
+                     break;
+
+                 case '01':
+
+                     dispatch(pageUsedChange({user:'Adm',targetUser:'Teacher',usedType:'AdmToTeacher'}));
+
+                     break;
+
+                 case '101':
+
+                 case '71':
+
+                     dispatch(pageUsedChange({user:'Leader',targetUser:'Teacher',usedType:'LeaderToTeacher'}));
+
+                     break;
+
+                 case '11':
+
+                     if (CopyUserInfo['UserID']===targetUserID){
+
+                         dispatch(pageUsedChange({user:'Teacher',targetUser:'Teacher',usedType:'TeacherToTeacher'}));
+
+
+                     }else{
+
+                         dispatch(pageUsedChange({user:'Other',targetUser:'Teacher',usedType:'OtherToTeacher'}));
+
+                     }
+
+                     break;
+
+             }
+            
+        }else{
+
+            dispatch(btnErrorAlertShow({title:'参数错误'}));
+
+        }
+
+        
+
+
+       const {WebRootUrl} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
        const token = sessionStorage.getItem('token');
 
@@ -123,8 +211,6 @@ function App(props) {
             setBellShow(false);
 
         }
-
-
 
     };
 
