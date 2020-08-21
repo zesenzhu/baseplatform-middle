@@ -298,9 +298,23 @@
 
     left: 0;
 
-    .header-img{
+    &>*{
 
       display: inline-block;
+
+      vertical-align: middle;
+
+      -ms-text-overflow: ellipsis;
+
+      text-overflow: ellipsis;
+
+      white-space:nowrap;
+
+      overflow: hidden;
+
+    }
+
+    .header-img{
 
       width: 108px;
 
@@ -314,10 +328,6 @@
 
       border-radius:50%;
 
-      vertical-align: middle;
-
-      overflow: hidden;
-
     }
 
     .user-name{
@@ -329,6 +339,8 @@
       font-weight: bold;
 
       margin-left: 14px;
+
+      max-width: 200px;
 
     }
 
@@ -343,6 +355,8 @@
       margin-left:14px;
 
       background: url("./images/sign-logo.png") no-repeat left center;
+
+      max-width: 600px;
 
     }
 

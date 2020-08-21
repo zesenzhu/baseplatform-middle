@@ -48,7 +48,9 @@ class FrameContainer extends Component{
 
                 image:''
 
-            }
+            },
+
+            childrenLoad:false
 
         }
 
@@ -92,6 +94,8 @@ class FrameContainer extends Component{
 
                         this.setState({UserInfo:{name:UserName,image:PhotoPath}});
 
+                        this.setState({childrenLoad:true});
+
                         if (pageInit){
 
                             pageInit();
@@ -120,6 +124,8 @@ class FrameContainer extends Component{
                                 const { UserName,PhotoPath } = JSON.parse(sessionStorage.getItem("UserInfo"));
 
                                 this.setState({UserInfo:{name:UserName,image:PhotoPath}});
+
+                                this.setState({childrenLoad:true});
 
                                 if (pageInit){
 
@@ -302,7 +308,15 @@ class FrameContainer extends Component{
 
                 >
 
-                    { children }
+                    {
+
+                        this.state.childrenLoad?
+
+                            children
+
+                            :null
+
+                    }
 
                 </Frame>
 
