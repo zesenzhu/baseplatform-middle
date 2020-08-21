@@ -44,4 +44,12 @@ export const GetSubSystemsMainServerBySubjectID = async ({appid='000',access_tok
 
 
 
+export default {
+
+    GetBaseInfoForPages,
+
+    GetSubSystemsMainServerBySubjectID
+
+}
+
 

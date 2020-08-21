@@ -18,6 +18,8 @@ import  DoucumentTitle from 'react-document-title'
 
 import dynamicFile from 'dynamic-file';
 
+import {getQueryVariable} from "../../../common/js/disconnect";
+
 
 function App(props) {
 
@@ -31,6 +33,9 @@ function App(props) {
     const dispatch = useDispatch();
 
     useEffect(()=>{
+
+
+
 
         const LgBasePlatformInfo = sessionStorage.getItem("LgBasePlatformInfo");
 

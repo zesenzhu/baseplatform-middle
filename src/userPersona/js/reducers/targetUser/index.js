@@ -1,5 +1,7 @@
 import {TARGET_USER_INFO_UPDATE} from '../../actions/targetUserActions';
 
+//目标用户的用户ID和用户类型
+
 const defaultState = {
 
   UserType:'',
@@ -8,7 +10,7 @@ const defaultState = {
 
 };
 
-const targetUser = (state,actions) =>{
+const targetUser = (state=defaultState,actions) =>{
 
   switch (actions.type) {
 

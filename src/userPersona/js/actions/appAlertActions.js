@@ -22,13 +22,13 @@ export const hideSuccessAlert = (dispatch) => {
 };
 
 
-export const btnWarnAlertShow = ({title,okShow,cancelShow,ok,cancel,close,abstract,okTitle,cancelTitle}) =>{
+export const btnWarnAlertShow = ({type,title,okShow,cancelShow,ok,cancel,close,abstract,okTitle,cancelTitle}) =>{
 
     return dispatch=>{
 
         dispatch({ type:APP_ALERT_SHOW,data:{
 
-                type:'btn-warn',
+                type:type?type:'btn-warn',
 
                 title,
 
@@ -53,13 +53,13 @@ export const btnWarnAlertShow = ({title,okShow,cancelShow,ok,cancel,close,abstra
 };
 
 //询问弹窗
-export const btnQueryAlertShow = ({title,okShow,cancelShow,ok,cancel,close,abstract,okTitle,cancelTitle}) =>{
+export const btnQueryAlertShow = ({type,title,okShow,cancelShow,ok,cancel,close,abstract,okTitle,cancelTitle}) =>{
 
     return dispatch=>{
 
         dispatch({ type:APP_ALERT_SHOW,data:{
 
-                type:'btn-query',
+                type:type?type:'btn-query',
 
                 title,
 
@@ -84,13 +84,13 @@ export const btnQueryAlertShow = ({title,okShow,cancelShow,ok,cancel,close,abstr
 };
 
 //错误弹窗
-export const btnErrorAlertShow = ({title,okShow,cancelShow,ok,cancel,close,abstract,okTitle,cancelTitle}) =>{
+export const btnErrorAlertShow = ({type,title,okShow,cancelShow,ok,cancel,close,abstract,okTitle,cancelTitle}) =>{
 
     return dispatch=>{
 
         dispatch({ type:APP_ALERT_SHOW,data:{
 
-                type:'btn-error',
+                type:type?type:'btn-error',
 
                 title,
 
@@ -116,11 +116,13 @@ export const btnErrorAlertShow = ({title,okShow,cancelShow,ok,cancel,close,abstr
 
 
 //成功出现
-export const successAlertShow = ({title,hide}) =>{
+export const successAlertShow = ({type,title,hide}) =>{
 
     return dispatch=>{
 
         dispatch({ type:APP_SUCCESS_ALERT_SHOW,data:{
+
+                type:type?type:'success',
 
                 title,
 
@@ -131,3 +133,20 @@ export const successAlertShow = ({title,hide}) =>{
     }
 
 };
+
+
+export default {
+
+    successAlertShow,
+
+    btnErrorAlertShow,
+
+    btnWarnAlertShow,
+
+    btnQueryAlertShow,
+
+    hideAlert,
+
+    hideSuccessAlert
+
+}
