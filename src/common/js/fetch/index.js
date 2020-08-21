@@ -27,7 +27,7 @@ function postData(
   content_type = "urlencoded",
   IsDesk = false,
   element = true,
-  moreParams={ credentials:'omit', requestHeader: {} }
+  moreParams={ credentials:'omit', requestHeader: {}  }
 ) {
   let token = sessionStorage.getItem("token") || getQueryVariable("lg_tk");
 
@@ -77,6 +77,7 @@ function postData(
       Accept: "application/json, text/plain, */*", //请求头，代表的、发送端（客户端）希望接收的数据类型
       "Content-Type": ContentType, //实体头，代表发送端（客户端|服务器）发送的实体数据的数据类型
       Authorization: requestSecure(paramsObj, TESTKEY, SecurityLevel),
+      ...requestHeader
     },
     redirect: "follow", //manual、*follow(自动重定向)、error，此项为重定向的相关配置
     // referrer: 'no-referrer',//该首部字段会告知服务器请求的原始资源的URI
