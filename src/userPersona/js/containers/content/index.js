@@ -27,9 +27,7 @@ function Content(props) {
   return (
     <ul className={"app-content-wrapper"}>
       <ContentItem tabName={"学籍档案信息"}></ContentItem>
-      <ContentItem type="score" tabName={"学生成绩信息"}>
-        <StuResult></StuResult>
-      </ContentItem>
+      <StuResult></StuResult>
     </ul>
   );
 }

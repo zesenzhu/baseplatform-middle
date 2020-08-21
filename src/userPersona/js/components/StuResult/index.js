@@ -4,6 +4,7 @@ import actions from "../../actions";
 import { Carousel, DatePicker, Tabs, Tooltip } from "antd";
 import Public from "../../../../common/js/public";
 import "./index.scss";
+import ContentItem from '../contentItem';
 let { MainActions, CommonActions } = actions;
 
 class StuResult extends Component {
@@ -13,7 +14,9 @@ class StuResult extends Component {
     this.state = {};
   }
   render() {
-    return <div>1111</div>;
+    return <ContentItem  type="score" tabName={"学生成绩信息"}>
+      1111
+    </ContentItem>;
   }
 }
 
