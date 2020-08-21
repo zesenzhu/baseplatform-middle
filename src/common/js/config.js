@@ -85,7 +85,7 @@ if (process.env.NODE_ENV === 'development'){
 
         GlobalProxy:'http://192.168.129.1:30103/Global',
 
-        UserPersonaProxy:'http://192.168.129.1:30103'
+        UserPersonaProxy:'http://192.168.129.182:20102'
 
     }
 
