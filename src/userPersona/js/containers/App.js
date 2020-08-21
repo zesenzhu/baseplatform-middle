@@ -41,7 +41,7 @@ function App(props) {
     const { appAlert,appSuccessAlert } = useSelector(state=>state.appAlert);
 
     //系统的地址
-    const  systemUrl  = useSelector(state=>state.systemUrl);
+    const  {Urls,ModuleRely}  = useSelector(state=>state.systemUrl);
 
     const dispatch = useDispatch();
 
@@ -158,7 +158,7 @@ function App(props) {
 
        const token = sessionStorage.getItem('token');
 
-       const sysIDs = Object.keys(systemUrl).join(',');
+       const sysIDs = Object.keys(Urls).join(',');
 
        GetSubSystemsMainServerBySubjectID({sysIDs,dispatch}).then(data=>{
 
@@ -202,7 +202,7 @@ function App(props) {
 
                 }
 
-               let urlObj = {...systemUrl};
+               let urlObj = {...Urls};
 
                data.map(i=>{
 

@@ -42,7 +42,7 @@ const systemUrl = (state=defaultState,actions) =>{
 
       case SYSTEM_WEB_URL_UPDATE:
 
-        return {...state,...actions.data};
+        return {...state,Urls:{...state.Urls,...actions.data}};
 
       default:
 

@@ -69,26 +69,14 @@ function Content(props){
   }, [UsedType]);
 
   return (
-<<<<<<< HEAD
-    <ul className={"app-content-wrapper"}>
-      <ContentItem tabName={"学籍档案信息"}></ContentItem>
-      <StuResult></StuResult>
-    </ul>
-=======
 
     <>
-
-        <ul className={"app-content-wrapper"}>
-          <ContentItem type={"archives"} tabName={"学籍档案信息"}></ContentItem>
-          <ContentItem type="score" tabName={"学生成绩信息"}>
-            <StuResult></StuResult>
-          </ContentItem>
-        </ul>
-
-        <AnchorPoint></AnchorPoint>
-
+      <ul className={"app-content-wrapper"}>
+        <ContentItem tabName={"学籍档案信息"}></ContentItem>
+        <StuResult></StuResult>
+      </ul>
+      <AnchorPoint></AnchorPoint>
     </>
->>>>>>> 6b44d3a6867d411dc7b687af599b33da55e4b17f
   );
 }
 
