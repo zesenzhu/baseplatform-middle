@@ -147,6 +147,14 @@ export default {
 
     hideAlert,
 
-    hideSuccessAlert
+    hideSuccessAlert,
+
+    APP_ALERT_SHOW,
+
+    APP_ALERT_HIDE,
+
+    APP_SUCCESS_ALERT_SHOW,
+
+    APP_SUCCESS_ALERT_HIDE
 
 }

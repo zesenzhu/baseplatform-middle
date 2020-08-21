@@ -5,3 +5,11 @@ export const loginUserInfoUpdate = (payload) =>{
     return {type:LOGIN_USER_INFO_UPDATE,data:payload};
 
 };
+
+export default {
+
+    loginUserInfoUpdate,
+
+    LOGIN_USER_INFO_UPDATE
+
+}
