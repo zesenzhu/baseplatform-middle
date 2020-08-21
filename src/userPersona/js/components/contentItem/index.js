@@ -42,4 +42,14 @@ function ContentItem(props) {
 
 }
 
+ContentItem.defaultProps = {
+
+    className:'',
+
+    tabName:'',
+
+    type:''
+
+};
+
 export default memo(ContentItem);

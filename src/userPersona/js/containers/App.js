@@ -26,6 +26,8 @@ import {targetUserInfoUpdate} from '../actions/targetUserActions';
 
 import {pageUsedChange} from '../actions/pageUsedTypeActions';
 
+import AnchorPoint from '../components/anchorPoint';
+
 
 function App(props) {
 
@@ -75,11 +77,11 @@ function App(props) {
 
         dispatch(loginUserInfoUpdate(CopyUserInfo));
 
-        if (getQueryVariable('userType')&&getQueryVariable('userID')) {
+        const targetUserID = getQueryVariable('userID');
 
-            const targetUserID = getQueryVariable('userID');
+        const targetUserType = parseInt(getQueryVariable('userType'));
 
-            const targetUserType = parseInt(getQueryVariable('userType'));
+        if (targetUserID&&targetUserType&&([1,2].includes(targetUserType))) {
 
             dispatch(targetUserInfoUpdate({UserID: targetUserID, UserType: targetUserType}));
 
@@ -221,6 +223,8 @@ function App(props) {
             <div className={"app"}>
 
                 <Header bellShow={bellShow} tabTitle={"测试标签"}></Header>
+
+                {/*<AppRoutes></AppRoutes>*/}
 
                 <Content></Content>
 
