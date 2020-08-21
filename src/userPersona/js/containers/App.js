@@ -20,6 +20,10 @@ import dynamicFile from 'dynamic-file';
 
 import {getQueryVariable} from "../../../common/js/disconnect";
 
+import {btnErrorAlertShow} from "../actions/appAlertActions";
+
+import {targetUserInfoUpdate} from '../actions/targetUserActions';
+
 
 function App(props) {
 
@@ -35,29 +39,42 @@ function App(props) {
     useEffect(()=>{
 
 
+        if (getQueryVariable('userType')&&getQueryVariable('userID')){
 
+            const targetUserID = getQueryVariable('userID');
 
-        const LgBasePlatformInfo = sessionStorage.getItem("LgBasePlatformInfo");
+            const targetUserType = parseInt(getQueryVariable('userType'));
 
-        if (LgBasePlatformInfo){
+            dispatch(targetUserInfoUpdate({UserID:targetUserID,UserType:targetUserType}));
 
-            firstPageLoad(firstLoad);
+            const LgBasePlatformInfo = sessionStorage.getItem("LgBasePlatformInfo");
+
+            if (LgBasePlatformInfo){
+
+                firstPageLoad(firstLoad);
+
+            }else{
+
+                GetBaseInfoForPages({dispatch}).then(data=>{
+
+                    if (data){
+
+                        sessionStorage.setItem('LgBasePlatformInfo',JSON.stringify(data));
+
+                        firstPageLoad(firstLoad)
+
+                    }
+
+                })
+
+            }
 
         }else{
 
-            GetBaseInfoForPages({dispatch}).then(data=>{
-
-                if (data){
-
-                    sessionStorage.setItem('LgBasePlatformInfo',JSON.stringify(data));
-
-                    firstPageLoad(firstLoad)
-
-                }
-
-            })
+            dispatch(btnErrorAlertShow({title:'参数错误'}));
 
         }
+
 
     },[]);
 
