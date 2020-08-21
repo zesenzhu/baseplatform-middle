@@ -19,20 +19,54 @@ import "./index.scss";
 
 function Content(props){
 
+    //模块列表
+  const [moduleList,setModuleList] = useState([]);
+
+
   const { SchoolID, UserID, UserName, PhotoPath, Sign } = useSelector((state) => state.loginUser);
 
   const {UsedType} = useSelector((state) => state.pageUsedType);
 
 
+
+
   useEffect(() => {
 
-    if (UserID) {
+    if (UsedType) {
+
+      switch (UsedType) {
+
+          case 'AdmToStu':
 
 
+
+            break;
+
+          case 'LeaderToStu':
+
+          case 'StuToStu':
+
+          case 'ParentsToStu':
+
+          case 'HeaderTeacherToStu':
+
+          case 'OtherToStu':
+
+          case 'AdmToTeacher':
+
+          case 'LeaderToTeacher':
+
+          case 'TeacherToTeacher':
+
+          case 'OtherToTeacher':
+
+
+
+      }
 
     }
 
-  }, [UserID]);
+  }, [UsedType]);
 
   return (
 

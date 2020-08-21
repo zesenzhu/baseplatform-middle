@@ -216,8 +216,6 @@ function App(props) {
 
        });
 
-
-
     };
 
     return(

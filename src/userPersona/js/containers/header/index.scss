@@ -113,6 +113,8 @@
 
     margin: 0 auto;
 
+    height: 110px;
+
   }
 
   .header-home-content{
@@ -200,8 +202,6 @@
     }
 
     &.user{
-
-      width: 104px;
 
       padding-left: 12px;
 
@@ -383,6 +383,20 @@
       cursor: pointer;
 
     }
+
+  }
+
+  .log{
+
+    position: absolute;
+
+    bottom:-30px;
+
+    right:0;
+
+    font-size: 14px;
+
+    color: #ff0000;
 
   }
 

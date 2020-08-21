@@ -147,6 +147,8 @@ function Header(props) {
 
                 </div>
 
+                <a className={"log"}>{'2018-07-12 14:21 管理员(admin006)录入了该学生档案 >>'}</a>
+
             </div>
 
         </div>
