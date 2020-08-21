@@ -4,10 +4,14 @@ import './index.scss';
 
 function ContentItem(props) {
 
-    const {className,tabName,type} = props;
+    const {className,tabName,type,children} = props;
 
 
-    //type:archives(用户档案)
+    //type:archives(用户档案) account(用户账号，个人资料) comment（评价） life（学校生活）
+
+    //material (教学资料) pe（德育） score（成绩） study（学习科目以及课程）
+
+    //work(教学工作量)
 
     return(
 
@@ -22,6 +26,12 @@ function ContentItem(props) {
                 </div>
 
                 <i className={"tab-shadow"}></i>
+
+            </div>
+
+            <div className={"content-wrapper"}>
+
+                {children}
 
             </div>
 
