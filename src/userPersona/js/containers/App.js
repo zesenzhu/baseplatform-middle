@@ -4,13 +4,13 @@ import Header from './header';
 
 import Content from './content';
 
-import {Alert} from "../../../common";
+import {Alert,Loading} from "../../../common";
 
 import {useSelector,useDispatch} from 'react-redux';
 
 import {firstPageLoad} from "../../../common/js/disconnect";
 
-import {GetBaseInfoForPages,GetSubSystemsMainServerBySubjectID} from "../actions/apiActions";
+import {GetBaseInfoForPages,GetSubSystemsMainServerBySubjectID,GetCurrentTermInfo} from "../actions/apiActions";
 
 import {loginUserInfoUpdate} from "../actions/loginUserActions";
 
@@ -28,6 +28,10 @@ import {pageUsedChange} from '../actions/pageUsedTypeActions';
 
 import {systemUrlUpdate} from '../actions/systemUrlActions';
 
+import {appLoadingHide} from "../actions/appLoadingActions";
+
+import {termInfoUpdate} from "../actions/termInfoActions";
+
 import {Scrollbars} from 'react-custom-scrollbars';
 
 
@@ -43,6 +47,9 @@ function App(props) {
 
     //appAlert
     const { appAlert,appSuccessAlert } = useSelector(state=>state.appAlert);
+
+    //appLoading
+    const appLoading = useSelector(state=>state.appLoading);
 
     //系统的地址
     const  {Urls,ModuleRely}  = useSelector(state=>state.systemUrl);
@@ -178,47 +185,61 @@ function App(props) {
 
        const sysIDs = Object.keys(Urls).join(',');
 
-       GetSubSystemsMainServerBySubjectID({sysIDs,dispatch}).then(data=>{
+       const getTerm = GetCurrentTermInfo({SchoolID:CopyUserInfo.SchoolID,dispatch});
 
-            if (data) {
+       const getSys =  GetSubSystemsMainServerBySubjectID({sysIDs,dispatch});
 
-                const AssistUrl = data.find(i=>i.SysID==='200')?data.find(i=>i.SysID==='200').WebSvrAddr:'';
+       Promise.all([getTerm,getSys]).then(res=>{
 
-                if (!(CopyUserInfo.UserType === 0 && CopyUserInfo === 2) && (CopyUserInfo.UserType !== 6)&&AssistUrl) {
+           if (res[0]){
 
-                    let PsnMgrLgAssistantAddr = AssistUrl;
+               const data = res[0];
 
-                    sessionStorage.setItem('PsnMgrToken', token);//用户Token
+                dispatch(termInfoUpdate(data));
 
-                    sessionStorage.setItem('PsnMgrMainServerAddr', WebRootUrl); //基础平台IP地址和端口号 形如：http://192.168.129.1:30103/
+           }
 
-                    sessionStorage.setItem('PsnMgrLgAssistantAddr', PsnMgrLgAssistantAddr);
+           if (res[1]){
 
-                    dynamicFile([
+               const data = res[1];
 
-                        `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/css/lancoo.cp.assistantInfoCenter.css`,
+               const AssistUrl = data.find(i=>i.SysID==='200')?data.find(i=>i.SysID==='200').WebSvrAddr:'';
 
-                        `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/jquery-1.7.2.min.js`
+               if (!(CopyUserInfo.UserType === 0 && CopyUserInfo === 2) && (CopyUserInfo.UserType !== 6)&&AssistUrl) {
 
-                    ]).then(() => {
+                   let PsnMgrLgAssistantAddr = AssistUrl;
 
-                        dynamicFile([
+                   sessionStorage.setItem('PsnMgrToken', token);//用户Token
 
-                            `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/assets/jquery.pagination.js`,
+                   sessionStorage.setItem('PsnMgrMainServerAddr', WebRootUrl); //基础平台IP地址和端口号 形如：http://192.168.129.1:30103/
 
-                            `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/lancoo.cp.assistantInfoCenter.js`
+                   sessionStorage.setItem('PsnMgrLgAssistantAddr', PsnMgrLgAssistantAddr);
 
-                        ])
+                   dynamicFile([
 
-                    });
+                       `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/css/lancoo.cp.assistantInfoCenter.css`,
 
-                    setBellShow(true);
+                       `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/jquery-1.7.2.min.js`
 
-                } else {
+                   ]).then(() => {
 
-                    setBellShow(false);
+                       dynamicFile([
 
-                }
+                           `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/assets/jquery.pagination.js`,
+
+                           `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/lancoo.cp.assistantInfoCenter.js`
+
+                       ])
+
+                   });
+
+                   setBellShow(true);
+
+               } else {
+
+                   setBellShow(false);
+
+               }
 
                let urlObj = {...Urls};
 
@@ -230,7 +251,9 @@ function App(props) {
 
                dispatch(systemUrlUpdate(urlObj));
 
-            }
+           }
+
+           dispatch(appLoadingHide());
 
        });
 
@@ -240,19 +263,23 @@ function App(props) {
 
         <DoucumentTitle title={domTitle}>
 
-            <div className={"app"}>
+            <Loading spinning={appLoading} opacity={false} tip={"加载中,请稍候..."}>
 
-                <Header  bellShow={bellShow} tabTitle={domTitle}></Header>
+                <div className={"app"}>
 
-                {/*<AppRoutes></AppRoutes>*/}
+                    <Header  bellShow={bellShow} tabTitle={domTitle}></Header>
 
-                <Content></Content>
+                    {/*<AppRoutes></AppRoutes>*/}
 
-                <Alert type={appAlert.type} show={appAlert.show} title={appAlert.title} onOk={appAlert.ok} onCancel={appAlert.cancel} onClose={appAlert.close} abstract={appAlert.abstract} okShow={appAlert.okShow} cancelShow={appAlert.cancelShow}></Alert>
+                    <Content></Content>
 
-                <Alert type={appSuccessAlert.type} show={appSuccessAlert.show} title={appSuccessAlert.title} onHide={appSuccessAlert.hide}></Alert>
+                    <Alert type={appAlert.type} show={appAlert.show} title={appAlert.title} onOk={appAlert.ok} onCancel={appAlert.cancel} onClose={appAlert.close} abstract={appAlert.abstract} okShow={appAlert.okShow} cancelShow={appAlert.cancelShow}></Alert>
 
-            </div>
+                    <Alert type={appSuccessAlert.type} show={appSuccessAlert.show} title={appSuccessAlert.title} onHide={appSuccessAlert.hide}></Alert>
+
+                </div>
+
+            </Loading>
 
         </DoucumentTitle>
 

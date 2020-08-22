@@ -12,6 +12,10 @@ import targetUser from './targetUser';
 
 import systemUrl from './systemUrl';
 
+import termInfo from './termInfo';
+
+import appLoading from './appLoading';
+
 
 let rootReducers = combineReducers({
 
@@ -25,7 +29,11 @@ let rootReducers = combineReducers({
 
     targetUser,
 
-    systemUrl
+    systemUrl,
+
+    termInfo,
+
+    appLoading
 
 });
 

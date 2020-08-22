@@ -44,9 +44,13 @@
 
     &:last-child{
 
-      .ant-anchor-link-title{
+      .ant-anchor-link-title>span{
 
-        border-bottom: 0;
+        &:after{
+
+          display: none;
+
+        }
 
       }
 
@@ -86,13 +90,35 @@
 
     white-space: pre-wrap;
 
-    border-bottom: 1px solid #dedede;
-
     padding:15px 0;
 
     overflow: inherit;
 
     text-align: center;
+
+    &>span{
+
+      &:after{
+
+        position: absolute;
+
+        content: '';
+
+        height: 1px;
+
+        width: 20px;
+
+        bottom: 0;
+
+        left:50%;
+
+        transform: translateX(-50%);
+
+        background-color: #dedede;
+
+      }
+
+    }
 
     &.ant-anchor-link-title-active{
 

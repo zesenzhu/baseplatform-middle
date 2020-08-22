@@ -1,4 +1,4 @@
-import {getGetData,getPostData} from './utils';
+import {getGetData,getPostData} from './method';
 
 import { btnErrorAlertShow } from '../store/appAlert/index';
 
