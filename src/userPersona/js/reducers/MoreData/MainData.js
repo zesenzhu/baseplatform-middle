@@ -16,9 +16,9 @@ const MainData = (
     },
     StuNearExamData: {
       PubName: "",
-      TotalScore: "",
-      RankClass: "",
-      RankGrade: "",
+      TotalScore: 90,
+      RankClass: 8,
+      RankGrade: 10,
       LevelName: "",
       StartTime: "",
       EndTime: "",

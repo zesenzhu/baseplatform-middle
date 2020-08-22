@@ -91,16 +91,86 @@ class NearExam extends Component {
           </span>
         </p>
         <div className="NE-box">
-          <Progress
-            type="circle"
-            strokeColor={{
-              "0%": "#5cc5ff",
-              "100%": "#008fff",
-            }}
-            percent={100}
-          />
+          <div className="NEb-content">
+            <div className="NEbc-box">
+              <Progress
+                type="circle"
+                width={96}
+                // strokeWidth={8}
+                strokeColor={
+
+                //   {
+                //   "0%": "#5cc5ff",
+                //   "100%": "#008fff",
+                // }
+                "#5cc5ff"
+              }
+                format={() => {
+                  return (
+                    <span className="Progress-content">
+                      {RankClass}
+                      <span>分</span>
+                    </span>
+                  );
+                }}
+                className="Progress-RankClass"
+                percent={100}
+              />
+              <p className='Progress-title'>总分</p>
+            </div>
+            <div className="NEbc-box">
+              <Progress
+                type="circle"
+                width={96}
+
+                strokeColor={{
+                  "0%": "#93d700",
+                  "100%": "#489200",
+                }}
+                format={() => {
+                  return <span className="Progress-content">{TotalScore}</span>;
+                }}
+                className="Progress-TotalScore"
+                percent={100}
+              />
+              <p className='Progress-title'>班级排名</p>
+
+            </div>
+            <div className="NEbc-box">
+              <Progress
+                type="circle"
+                width={96}
+
+                strokeColor={{
+                  "0%": "#ffa17b",
+                  "100%": "#ff586c",
+                }}
+                format={() => {
+                  return <span className="Progress-content">{RankGrade}</span>;
+                }}
+                className="Progress-RankGrade"
+                percent={100}
+              />
+              <p className='Progress-title'>年级排名</p>
+
+            </div>
+          </div>
         </div>
         <div className="NE-Details">{SubContent}</div>
+        <Progress
+      strokeColor={{
+        '0%': '#108ee9',
+        '100%': '#87d068',
+      }}
+      percent={99.9}
+    />
+    <Progress
+      type="circle"
+      strokeColor={ 
+          '#108ee9' 
+       }
+      percent={90}
+    />
       </div>
     );
   }

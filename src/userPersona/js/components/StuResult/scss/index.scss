@@ -107,11 +107,70 @@ p {
             }
         }
         .NE-box {
+            position: relative;
             width: 1088px;
             height: 192px;
             background-color: #eff3f7;
             border-radius: 6px;
             margin-top: 18px;
+            .NEb-content {
+                position: absolute;
+                height: 100%;
+                //margin: 0 auto;
+                width: 660px;
+                margin-left: 50%;
+                transform: translateX(-50%);
+                -webkit-transform: translateX(-50%);
+                -moz-transform: translateX(-50%);
+                -ms-transform: translateX(-50%);
+                -o-transform: translateX(-50%);
+                .NEbc-box {
+                    width: 220px;
+                    height: 100%;
+                    padding: 34px 62px 0;
+                    display: inline-block;
+                    vertical-align: top;
+                }
+                .Progress-RankGrade,
+                .Progress-TotalScore,
+                .Progress-RankClass {
+                    width: 96px;
+                    height: 96px;
+                }
+                .Progress-RankClass {
+                    .Progress-content {
+                        font-size: 24px;
+                        line-height: 20px;
+                        color: #008fff;
+                        span {
+                            font-size: 16px;
+                            line-height: 24px;
+                            display: inline-block;
+                            vertical-align: top;
+                        }
+                    }
+                }
+                .Progress-TotalScore {
+                    .Progress-content {
+                        font-size: 24px;
+                        line-height: 20px;
+                        color: #438600;
+                    }
+                }
+                .Progress-RankGrade {
+                    .Progress-content {
+                        font-size: 24px;
+                        line-height: 20px;
+                        color: #ff596c;
+                    }
+                }
+                .Progress-title {
+                    line-height: 44px;
+                    text-align: center;
+                    @include TextOverflow();
+                    color: #333333;
+                }
+            }
         }
         .NE-Details {
             padding: 36px 0;
