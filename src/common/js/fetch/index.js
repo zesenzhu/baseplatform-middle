@@ -361,6 +361,7 @@ const getData = (
     .then((json) => {
       // console.log(json, json.StatusCode === 200)
       if (element !== false) {
+        // console.log(json)
         handleStatusCode(json, element);
       }
     });

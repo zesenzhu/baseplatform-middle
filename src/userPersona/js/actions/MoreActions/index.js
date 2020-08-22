@@ -3,7 +3,7 @@ import CommonActions from './CommonActions';
 
 
 
-const actions = {
+let actions = {
     MainActions,
     CommonActions,
 };

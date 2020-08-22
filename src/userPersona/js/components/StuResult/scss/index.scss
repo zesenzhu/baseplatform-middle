@@ -1,0 +1,169 @@
+@mixin TextOverflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+p {
+    margin: 0;
+}
+
+.StuResult {
+    padding-top: 24px;
+    padding-bottom: 42px;
+    .SR-top {
+        height: 42px;
+        padding-left: 102px;
+        margin-bottom: 10px;
+        .SRt-left {
+            float: left;
+            position: relative;
+            .SRtl-bar {
+                width: 90px;
+                height: 32px;
+                display: inline-block;
+                vertical-align: top;
+                line-height: 28px;
+                text-align: center;
+                font-size: 14px;
+                cursor: pointer;
+                color: #034069;
+                background: url(../images/选项卡-未选中背景.png) no-repeat center top / 90px 28px;
+                &.SRtl-bar-select {
+                    color: #ffffff;
+                    background: url(../images/选项卡-选中背景.png) no-repeat center top / 90px 32px;
+                }
+            }
+            .devide {
+                width: 1px;
+                height: 28px;
+                display: inline-block;
+                vertical-align: top;
+                margin: 0 5px;
+                background: url(../images/选项卡-分界线.png) no-repeat center center / contain;
+            }
+        }
+        .SRt-go {
+            float: right;
+            margin-right: -20px;
+            line-height: 30px;
+            padding-left: 19px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: underline;
+            opacity: 0.8;
+            background: url(../images/详情.png) no-repeat left center / 15px 15px;
+            color: #0086e3;
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+    .Result-type-bar {}
+    #NearExam {
+        padding-top: 28px;
+        .NE-title {
+            line-height: 38px;
+            font-size: 18px;
+            font-weight: blod;
+            text-align: left;
+            color: #009900;
+            @include TextOverflow();
+        }
+        .NE-Msg {
+            line-height: 32px;
+            font-size: 14px;
+            text-align: left;
+            color: #999999;
+            .NEm-type {
+                display: inline-block;
+                vertical-align: top;
+                padding-right: 20px;
+                max-width: 20%;
+                @include TextOverflow();
+                span {
+                    color: #333333;
+                }
+            }
+            .NEm-Sub {
+                display: inline-block;
+                vertical-align: top;
+                padding-right: 20px;
+                max-width: 50%;
+                @include TextOverflow();
+                span {
+                    color: #333333;
+                }
+            }
+            .NEm-Time {
+                display: inline-block;
+                vertical-align: top;
+                padding-right: 20px;
+                max-width: 30%;
+                @include TextOverflow();
+                span {
+                    color: #333333;
+                }
+            }
+        }
+        .NE-box {
+            width: 1088px;
+            height: 192px;
+            background-color: #eff3f7;
+            border-radius: 6px;
+            margin-top: 18px;
+        }
+        .NE-Details {
+            padding: 36px 0;
+            .Sub-score-box {
+                width: 181px;
+                display: inline-block;
+                vertical-align: top;
+                .Ssb-Score {
+                    display: block;
+                    text-align: center;
+                    font-size: 36px;
+                    height: 40px;
+                    line-height: 30px;
+                    color: #656565;
+                    span {
+                        display: inline-block;
+                        vertical-align: top;
+                        margin-left: -7px;
+                        font-size: 18px;
+                        line-height: 40px;
+                    }
+                    border-right: 1px solid #dedede;
+                }
+                .Ssb-Sub {
+                    display: block;
+                    text-align: center;
+                    height: 48px;
+                    line-height: 48px;
+                    font-size: 14px;
+                    color: #656565;
+                }
+                &:last-of-type {
+                    .Ssb-Score {
+                        border: none;
+                    }
+                }
+            }
+            .score-1 {
+                .Ssb-Score {
+                    color: #fd8276;
+                }
+            }
+            .score-2 {
+                .Ssb-Score {
+                    color: #0db58f;
+                }
+            }
+            .score-3 {
+                .Ssb-Score {
+                    color: #8099ff;
+                }
+            }
+        }
+    }
+}

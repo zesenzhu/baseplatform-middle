@@ -1,4 +1,5 @@
-import React, {useEffect,
+import React, {
+  useEffect,
   useState,
   useCallback,
   useMemo,
@@ -17,6 +18,7 @@ import AnchorPoint from "../../components/anchorPoint";
 
 
 import "./index.scss";
+
 
 
 function Content(props){
