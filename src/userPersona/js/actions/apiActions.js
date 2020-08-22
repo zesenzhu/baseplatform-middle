@@ -64,13 +64,32 @@ export const getDetailStuStatus =  async ({userId,proxy,dispatch})=>{
 
     const res = await getGetData(`/admin/getDetailStuStatus?userId=${userId}`,1,proxy);
 
+    if (res.code===0){
+
+        return res.data;
+
+    }else{
+
+        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取在线统计信息失败！'}));
+
+    }
+
+};
+
+
+//获取用户详情For画像
+
+export const GetUserDetailForHX =  async ({UserID,UserType,proxy,dispatch})=>{
+
+    const res = await getGetData(`/UserMgr/UserInfoMgr/GetUserDetailForHX?UserID=${UserID}&UserType=${UserType}`,2,proxy);
+
     if (res.StatusCode===200){
 
         return res.Data;
 
     }else{
 
-        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'获取在线统计信息失败！'}));
+        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取在线统计信息失败！'}));
 
     }
 

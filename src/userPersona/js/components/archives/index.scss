@@ -1,5 +1,7 @@
 .archives-wrapper{
 
+  padding-bottom: 28px;
+
   .btn-wrapper{
 
     padding: 32px 0 34px 0;
@@ -45,5 +47,111 @@
     }
 
   }
+
+
+
+
+  table{
+
+    border:1px solid #dedede;
+
+    margin-bottom: 12px;
+
+    td,th{
+
+      font-size: 14px;
+
+      width: 150px;
+
+      height: 32px;
+
+      text-align: center;
+
+      color: #333333;
+
+      &.props{
+
+        background-color: #f5f5f5;
+
+        color: #999999;
+
+        text-align: center;
+
+      }
+
+    }
+
+  }
+
+  .tb1{
+
+    .col6{
+
+      width: 190px;
+
+    }
+
+    .col7{
+
+      width: 154px;
+
+    }
+
+    .user-photo{
+
+      width: 130px;
+
+      height: 164px;
+
+      background-repeat: no-repeat;
+
+      background-position: center;
+
+      background-size: cover;
+
+      margin: 0 auto;
+
+    }
+
+  }
+
+  .tb2{
+
+    .col4{
+
+      width:300px;
+
+    }
+
+    .col5,.col6{
+
+      width: 114px;
+
+    }
+
+    .col7{
+
+      width: 118px;
+
+    }
+
+  }
+
+  .tb3{
+
+    .col4{
+
+      width: 412px;
+
+    }
+
+    .col5{
+
+      width: 230px;
+
+    }
+
+  }
+
 
 }
