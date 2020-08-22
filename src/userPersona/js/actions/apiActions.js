@@ -58,6 +58,25 @@ export const GetCurrentTermInfo =  async ({SchoolID,dispatch})=>{
 };
 
 
+//获取学生学籍档案详情
+
+export const getDetailStuStatus =  async ({userId,proxy,dispatch})=>{
+
+    const res = await getGetData(`/admin/getDetailStuStatus?userId=${userId}`,1,proxy);
+
+    if (res.StatusCode===200){
+
+        return res.Data;
+
+    }else{
+
+        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'获取在线统计信息失败！'}));
+
+    }
+
+};
+
+
 
 
 export default {
