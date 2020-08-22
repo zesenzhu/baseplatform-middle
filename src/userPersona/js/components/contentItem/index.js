@@ -15,7 +15,7 @@ function ContentItem(props) {
 
     return(
 
-        <li className={`content-item ${className?className:''}`}>
+        <li id={type} className={`content-item ${className?className:''}`}>
 
             <div className={`item-tab`}>
 
@@ -48,7 +48,7 @@ ContentItem.defaultProps = {
 
     tabName:'',
 
-    type:''
+    type:'archives'
 
 };
 

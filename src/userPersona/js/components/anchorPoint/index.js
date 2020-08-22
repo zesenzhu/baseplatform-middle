@@ -2,7 +2,9 @@ import React,{useEffect,useRef,useState,useMemo,useCallback,memo} from 'react';
 
 import {Anchor} from 'antd';
 
-const {Link} = Anchor;
+import './index.scss';
+
+const { Link } = Anchor;
 
 function AnchorPoint(props) {
 
@@ -10,23 +12,19 @@ function AnchorPoint(props) {
 
     return(
 
-        <div className={"anchor-wrapper"}>
+        <Anchor showInkInFixed={false}>
 
-            <Anchor>
+            {
 
-                {
+                anchorList.map(i=>{
 
-                    anchorList.map(i=>{
+                    return <Link href={`#${i.id}`} key={i.id} title={i.title}></Link>
 
-                        return <Link activeLink={"111"}>123</Link>
+                })
 
-                    })
+            }
 
-                }
-
-            </Anchor>
-
-        </div>
+        </Anchor>
 
     )
 
