@@ -337,7 +337,7 @@ function Archives(props) {
 
                                                         <div title={i.serviceUnit}>{isHasValue(i.serviceUnit)}</div>
 
-                                                    </td>
+                                                       </td>
                                                     <td className={"col5"}>{isHasValue(i.tel)}</td>
 
                                                 </tr>

@@ -1,0 +1,19 @@
+#root{
+
+  &>.ant-spin-nested-loading{
+
+    min-height: 600px;
+
+    .ant-spin-blur{
+
+      &:after{
+
+        z-index: 1081;
+
+      }
+
+    }
+
+  }
+
+}
