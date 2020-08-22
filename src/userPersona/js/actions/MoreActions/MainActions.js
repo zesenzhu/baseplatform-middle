@@ -2,9 +2,8 @@ import { postData, getData } from "../../../../common/js/fetch";
 
 import CONFIG from "../../../../common/js/config";
 import "whatwg-fetch";
-import { CommonActions } from "../index";
+import CommonActions from "./CommonActions";
 import Public from "../../../../common/js/public";
-
 const { HashPrevProxy } = CONFIG;
 // 查询我的班级德育信息
 const MAIN_GET_CLASS_MORAL_EDU_INFO_BY_CRITERIAS =
@@ -121,6 +120,11 @@ const GetStudentReport = ({
   XH,
 }) => {
   return (dispatch, getState) => {
+    dispatch(
+      CommonActions.SetStuResultParams({
+        TabLoadingVisible: true,
+      })
+    );
     let State = getState();
     let {
       MoreData: {
@@ -131,12 +135,12 @@ const GetStudentReport = ({
     if (Term === undefined) {
       Term = StuResultParams.Term;
     }
- 
+
     if (SchoolID === undefined) {
       SchoolID = StuResultParams.SchoolID;
     }
     if (Proxy === undefined) {
-      Proxy = systemUrl["810"].WebUrl;
+      Proxy = StuResultParams.Proxy;
     }
     if (XH === undefined) {
       XH = StuResultParams.XH;
@@ -146,7 +150,11 @@ const GetStudentReport = ({
         if (res) {
           dispatch({ type: MAIN_GET_STUDENT_REPORT, data: res.data });
           func(getState());
-          
+          dispatch(
+            CommonActions.SetStuResultParams({
+              TabLoadingVisible: false,
+            })
+          );
         }
       }
     );
@@ -171,7 +179,7 @@ const getStudentReport = async ({
   let data = "";
   let res = await getData(url, 2);
   let json = await res.json();
-  if (json.code === 0) {
+  if (json.success === true) {
     data = json;
   } else {
     data = false; //有错误
@@ -191,6 +199,11 @@ const GetStuNearExam = ({
   XH,
 }) => {
   return (dispatch, getState) => {
+    dispatch(
+      CommonActions.SetStuResultParams({
+        TabLoadingVisible: true,
+      })
+    );
     let State = getState();
     let {
       MoreData: {
@@ -211,7 +224,7 @@ const GetStuNearExam = ({
       SchoolID = StuResultParams.SchoolID;
     }
     if (Proxy === undefined) {
-      Proxy = systemUrl["810"].WebUrl;
+      Proxy = StuResultParams.Proxy;
     }
     if (XH === undefined) {
       XH = StuResultParams.XH;
@@ -221,7 +234,11 @@ const GetStuNearExam = ({
         if (res) {
           dispatch({ type: MAIN_GET_STU_NEAR_EXAM, data: res.data });
           func(getState());
-          
+          dispatch(
+            CommonActions.SetStuResultParams({
+              TabLoadingVisible: false,
+            })
+          );
         }
       }
     );
@@ -250,7 +267,7 @@ const getStuNearExam = async ({
   let data = "";
   let res = await getData(url, 2);
   let json = await res.json();
-  if (json.code === 0) {
+  if (json.success === true) {
     data = json;
   } else {
     data = false; //有错误

@@ -10,6 +10,7 @@ const CommonData = (
       Title: "",
       PageSize: 0,
       PageNum: 1,
+      Proxy: "",
     },
     StuResultParams: {
       Term: "",
@@ -17,6 +18,9 @@ const CommonData = (
       GradeID: "",
       SchoolID: "",
       XH: "",
+      Proxy: "",
+      TabLoadingVisible:true,
+      SelectBar: "NearExam", //NearExam:最近考试，TermReport:期末总评
     },
   },
   actions

@@ -2,7 +2,7 @@ import { postData, getData } from "../../../../common/js/fetch";
 
 import CONFIG from "../../../../common/js/config";
 import "whatwg-fetch";
-import { MainActions } from "../index";
+import MainActions from "./MainActions";
 import Public from "../../../../common/js/public";
 
 const {} = CONFIG;

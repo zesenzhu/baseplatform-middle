@@ -22,7 +22,30 @@ const MainData = (
       LevelName: "",
       StartTime: "",
       EndTime: "",
-      CourseScoreList: [],
+      CourseScoreList: [
+        {
+          CourseNO: "A56EDCF6-8407-4BF6-9CC4-BA58E7EF942B",
+          CourseName: "语文",
+          SubjectID: "S2-Chinese",
+          SubjectName: "语文",
+          Score: 82,
+          ClassAvgScore: 0,
+          GradeAvgScore: 0,
+          ClassRank: 0,
+          GradeRank: 0,
+        },
+        {
+          CourseNO: "FCDFF6-8407-4BF6-9CC4-BA58E7EF942B",
+          CourseName: "英语",
+          SubjectID: "S2-English",
+          SubjectName: "英语",
+          Score: 90,
+          ClassAvgScore: 0,
+          GradeAvgScore: 0,
+          ClassRank: 0,
+          GradeRank: 0,
+        },
+      ],
     },
     StudentReportData: [],
   },
@@ -38,10 +61,10 @@ const MainData = (
       return Object.assign({}, state, {
         StuNearExamData: actions.data,
       });
-      case MainActions.MAIN_GET_STUDENT_REPORT:
-        return Object.assign({}, state, {
-          StudentReportData: actions.data,
-        });
+    case MainActions.MAIN_GET_STUDENT_REPORT:
+      return Object.assign({}, state, {
+        StudentReportData: actions.data,
+      });
     default:
       return state;
   }

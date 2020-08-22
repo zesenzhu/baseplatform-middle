@@ -17,25 +17,66 @@ import AnchorPoint from "../../components/anchorPoint";
 
 import "./index.scss";
 
-function Content(props) {
-  const { SchoolID, UserID, UserName, PhotoPath, Sign } = useSelector(
-    (state) => state.loginUser
-  );
 
-  const { UsedType } = useSelector((state) => state.pageUsedType);
+
+function Content(props){
+
+    //模块列表
+  const [moduleList,setModuleList] = useState([]);
+
+
+  const { SchoolID, UserID, UserName, PhotoPath, Sign } = useSelector((state) => state.loginUser);
+
+  const {UsedType} = useSelector((state) => state.pageUsedType);
+
+
+
 
   useEffect(() => {
-    if (UserID) {
+
+    if (UsedType) {
+
+      switch (UsedType) {
+
+          case 'AdmToStu':
+
+
+
+            break;
+
+          case 'LeaderToStu':
+
+          case 'StuToStu':
+
+          case 'ParentsToStu':
+
+          case 'HeaderTeacherToStu':
+
+          case 'OtherToStu':
+
+          case 'AdmToTeacher':
+
+          case 'LeaderToTeacher':
+
+          case 'TeacherToTeacher':
+
+          case 'OtherToTeacher':
+
+
+
+      }
+
     }
-  }, [UserID]);
+
+  }, [UsedType]);
 
   return (
+
     <>
       <ul className={"app-content-wrapper"}>
-        <ContentItem type={"archives"} tabName={"学籍档案信息"}></ContentItem>
+        <ContentItem tabName={"学籍档案信息"}></ContentItem>
         <StuResult></StuResult>
       </ul>
-
       <AnchorPoint></AnchorPoint>
     </>
   );
