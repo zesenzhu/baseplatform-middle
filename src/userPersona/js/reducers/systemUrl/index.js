@@ -30,7 +30,7 @@ const defaultState = {
 
     ModuleRely:{
 
-        "account":['E34']
+        "archives":['E34']
 
     }
 

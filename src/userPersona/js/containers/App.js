@@ -28,11 +28,15 @@ import {pageUsedChange} from '../actions/pageUsedTypeActions';
 
 import {systemUrlUpdate} from '../actions/systemUrlActions';
 
-import AnchorPoint from '../components/anchorPoint';
+import {Scrollbars} from 'react-custom-scrollbars';
 
 
 function App(props) {
 
+
+    //documenttitle
+
+    const [domTitle,setDomTitle] = useState('加载中...');
 
     //铃铛是否显示
     const [bellShow,setBellShow] = useState(false);
@@ -78,6 +82,8 @@ function App(props) {
 
         if (targetUserID&&targetUserType&&([1,2].includes(targetUserType))) {
 
+            let docTitle = targetUserType===2?'学生档案详情':'教师档案详情';
+
             dispatch(targetUserInfoUpdate({UserID: targetUserID, UserType: targetUserType}));
 
              switch (`${CopyUserInfo['UserType']}${targetUserType}`) {
@@ -96,6 +102,14 @@ function App(props) {
 
                      break;
 
+                 case '32':
+
+                     dispatch(pageUsedChange({user:'Parents',targetUser:'Stu',usedType:'ParentsToStu'}));
+
+                     docTitle = '子女档案详情';
+
+                     break;
+
                  case '12':
 
                      dispatch(pageUsedChange({user:'HeaderTeacher',targetUser:'Stu',usedType:'HeaderTeacherToStu'}));
@@ -108,6 +122,7 @@ function App(props) {
 
                          dispatch(pageUsedChange({user:'Stu',targetUser:'Stu',usedType:'StuToStu'}));
 
+                         docTitle = '我的档案';
 
                      }else{
 
@@ -137,6 +152,7 @@ function App(props) {
 
                          dispatch(pageUsedChange({user:'Teacher',targetUser:'Teacher',usedType:'TeacherToTeacher'}));
 
+                         docTitle = '我的档案';
 
                      }else{
 
@@ -147,6 +163,8 @@ function App(props) {
                      break;
 
              }
+
+             setDomTitle(docTitle);
             
         }else{
 
@@ -220,11 +238,11 @@ function App(props) {
 
     return(
 
-        <DoucumentTitle title={"111"}>
+        <DoucumentTitle title={domTitle}>
 
             <div className={"app"}>
 
-                <Header bellShow={bellShow} tabTitle={"测试标签"}></Header>
+                <Header  bellShow={bellShow} tabTitle={domTitle}></Header>
 
                 {/*<AppRoutes></AppRoutes>*/}
 

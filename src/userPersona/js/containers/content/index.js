@@ -8,11 +8,13 @@ import React, {useEffect,
 
 import { useDispatch, useSelector } from "react-redux";
 
-import ContentItem from "../../components/contentItem";
-
 import StuResult from "../../components/StuResult";
 
+import Archives from "../../components/archives";
+
 import AnchorPoint from "../../components/anchorPoint";
+
+
 
 import "./index.scss";
 
@@ -20,62 +22,90 @@ import "./index.scss";
 function Content(props){
 
     //模块列表
-  const [moduleList,setModuleList] = useState([]);
+  //const [moduleList,setModuleList] = useState([]);
+
+  //锚点列表
+
+  //const [anchorList,setAnchorList] = useState([]);
 
 
   const { SchoolID, UserID, UserName, PhotoPath, Sign } = useSelector((state) => state.loginUser);
 
   const {UsedType} = useSelector((state) => state.pageUsedType);
 
+  const {Urls,ModuleRely} = useSelector((state) => state.systemUrl);
 
+  //模块列表
+  const moduleList = useMemo(()=>{
 
+      let urlGet = false;
+      
+      for (let k in Urls){
 
-  useEffect(() => {
+        if(Urls[k].WebUrl){
 
-    if (UsedType) {
+          urlGet = true;
 
-      switch (UsedType) {
+          break;
 
-          case 'AdmToStu':
-
-
-
-            break;
-
-          case 'LeaderToStu':
-
-          case 'StuToStu':
-
-          case 'ParentsToStu':
-
-          case 'HeaderTeacherToStu':
-
-          case 'OtherToStu':
-
-          case 'AdmToTeacher':
-
-          case 'LeaderToTeacher':
-
-          case 'TeacherToTeacher':
-
-          case 'OtherToTeacher':
-
-
+        }
 
       }
 
+      if (urlGet){
+
+          return [{title:<span>学籍<br/>档案</span>,id:'archives',value:Archives,type:'AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu,OtherToStu,LeaderToTeacher,TeacherToTeacher,OtherToTeacher'},
+
+              {title:<span>成绩<br/>信息</span>,id:'score',value:StuResult,type:'AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu'},
+
+          ]
+
+      }else{
+
+        return [];
+
+      }
+
+
+  },[Urls]);
+
+  //锚点
+  const anchorList = useMemo(()=>{
+
+    if(moduleList.length>0){
+
+      return moduleList.filter(i=>i.type.includes(UsedType)).map(i=>({id:i.id,title:i.title}));
+
+    }else{
+
+      return [];
+
     }
 
-  }, [UsedType]);
+  },[moduleList]);
+
 
   return (
 
     <>
       <ul className={"app-content-wrapper"}>
-        <ContentItem tabName={"学籍档案信息"}></ContentItem>
-        <StuResult></StuResult>
+          {
+
+              moduleList.map(i=>{
+
+                if (i.type.includes(UsedType)){
+
+                    return <i.value key={i.id}></i.value>
+
+                }
+
+              })
+
+          }
       </ul>
-      <AnchorPoint></AnchorPoint>
+
+      <AnchorPoint anchorList={moduleList}></AnchorPoint>
+
     </>
   );
 }
