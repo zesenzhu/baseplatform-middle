@@ -42,7 +42,7 @@ import {userArchivesUpdate} from "../actions/userArchivesActions";
 
 import {userInfoLosUpdate} from "../actions/userInfoLogsActions";
 
-
+import "../../../common/scss/public.scss";
 
 function App(props) {
 
