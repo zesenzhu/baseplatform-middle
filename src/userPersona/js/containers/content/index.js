@@ -37,15 +37,9 @@ function Content(props) {
 
   //模块列表
   const moduleList = useMemo(() => {
+
     let urlGet = false;
 
-    for (let k in Urls) {
-      if (Urls[k].WebUrl) {
-        urlGet = true;
-
-        break;
-      }
-    }
 
     for (let k in Urls) {
       if (Urls[k].WebUrl) {
@@ -58,17 +52,12 @@ function Content(props) {
     if (urlGet) {
       return [
         {
-          title: (
-            <span>
-              学籍
-              <br />
-              档案
-            </span>
+          title: (<span>学籍<br />档案</span>
           ),
           id: "archives",
           value: Archives,
           type:
-            "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu,OtherToStu,LeaderToTeacher,TeacherToTeacher,OtherToTeacher",
+            "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu,OtherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher,OtherToTeacher",
         },
 
         {
