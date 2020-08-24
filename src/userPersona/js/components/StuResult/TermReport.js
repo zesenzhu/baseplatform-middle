@@ -25,24 +25,36 @@ class TermReport extends Component {
         MainData: { StudentReportData },
       },
     } = this.props;
+    let CommentData = "";
     return (
       <div id="TermReport">
         <div className="TR-box">
           {StudentReportData instanceof Array &&
           StudentReportData.length > 0 ? (
             StudentReportData.map((child, index) => {
+              if (child.SubjectName === "-1") {
+                return "";
+              }
               return <ReportCard data={child} key={index}></ReportCard>;
             })
           ) : (
-            <Empty type={"4"} title={"暂无学科成绩"}></Empty>
+            <Empty
+              style={{ marginBottom: "20px" }}
+              type={"4"}
+              title={"暂无学科成绩"}
+            ></Empty>
           )}
         </div>
-        <div className='TR-bottom'>
-          <span className='TRt-left'>
-          班主任评语:
-          </span>
-          <p className='TRt-right'>
-            {Comment}
+        <div className="TR-bottom clearfix">
+          <span className="TRt-left">班主任评语:</span>
+          <p className="TRt-right">
+            {StudentReportData instanceof Array &&
+            (CommentData = StudentReportData.find((child) => {
+              return child.SubjectName === "-1";
+            })) &&
+            CommentData.Comment
+              ? CommentData.Comment
+              : <span className='none'>暂无班主任评语</span>}
           </p>
         </div>
       </div>

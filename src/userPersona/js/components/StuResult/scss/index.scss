@@ -46,17 +46,18 @@ p {
         .SRt-go {
             float: right;
             margin-right: -20px;
-            line-height: 30px;
-            padding-left: 19px;
-            font-size: 14px;
-            cursor: pointer;
-            text-decoration: underline;
-            opacity: 0.8;
-            background: url(../images/详情.png) no-repeat left center / 15px 15px;
-            color: #0086e3;
-            &:hover {
-                opacity: 1;
-            }
+            margin-top: 6px;
+            // line-height: 30px;
+            // padding-left: 19px;
+            // font-size: 14px;
+            // cursor: pointer;
+            // text-decoration: underline;
+            // opacity: 0.8;
+            // background: url(../images/详情.png) no-repeat left center / 15px 15px;
+            // color: #0086e3;
+            // &:hover {
+            //     opacity: 1;
+            // }
         }
     }
     .Result-type-bar {}
@@ -183,7 +184,7 @@ p {
                     text-align: center;
                     font-size: 36px;
                     height: 40px;
-                    line-height: 30px;
+                    line-height: 28px;
                     color: #656565;
                     span {
                         display: inline-block;
@@ -222,6 +223,115 @@ p {
                 .Ssb-Score {
                     color: #8099ff;
                 }
+            }
+        }
+    }
+}
+
+#TermReport {
+    padding: 10px 0;
+    .TR-box {
+        width: calc(100% + 24px);
+        margin-left: -12px;
+        .ReportCard {
+            margin: 12px;
+            width: 254px;
+            height: 152px;
+            display: inline-block;
+            vertical-align: top;
+            &.RC-A {
+                background: url(../images/成绩信息-A.png) no-repeat center center / contain;
+                .RC-Msg {
+                    .RCM-content {
+                        .RCMc-top {
+                            color: #fe7196;
+                        }
+                    }
+                }
+            }
+            &.RC-B {
+                background: url(../images/成绩信息-B.png) no-repeat center center / contain;
+                .RC-Msg {
+                    .RCM-content {
+                        .RCMc-top {
+                            color: #0db58f;
+                        }
+                    }
+                }
+            }
+            &.RC-C {
+                background: url(../images/成绩信息-C.png) no-repeat center center / contain;
+                .RC-Msg {
+                    .RCM-content {
+                        .RCMc-top {
+                            color: #6d91ff;
+                        }
+                    }
+                }
+            }
+            .SubjectName {
+                width: 254px;
+                height: 56px;
+                line-height: 56px;
+                padding: 0 18px;
+                font-size: 20px;
+                font-weight: bold;
+                color: #ffffff;
+                @include TextOverflow();
+            }
+            .RC-Msg {
+                padding: 20px 0;
+                .RCM-content {
+                    display: inline-block;
+                    vertical-align: top;
+                    width: calc(50% - 0.5px);
+                    .RCMc-top {
+                        height: 32px;
+                        line-height: 32px;
+                        width: 100%;
+                        font-size: 32px;
+                        text-align: center;
+                        font-weight: bold;
+                        @include TextOverflow();
+                    }
+                    .RCMc-bottom {
+                        font-size: 14px;
+                        text-align: center;
+                        line-height: 24px;
+                        color: #999999;
+                    }
+                }
+                .devide {
+                    width: 1px;
+                    display: inline-block;
+                    vertical-align: top;
+                    height: 100%;
+                }
+            }
+        }
+    }
+    .TR-bottom {
+        padding-top: 12px;
+        .TRt-left {
+            float: left;
+            width: 85px;
+            line-height: 54px;
+            // padding-right: 12px;
+            font-size: 14px;
+            color: #333333;
+        }
+        .TRt-right {
+            float: left;
+            padding: 16px;
+            width: calc(100% - 85px);
+            text-align: left;
+            font-size: 14px;
+            line-height: 20px;
+            color: #333333;
+            background-color: #eff3f7;
+            border-radius: 6px;
+            .none {
+                color: #ff0000;
             }
         }
     }

@@ -6,12 +6,14 @@ import Public from "../../../../common/js/public";
 import "./scss/index.scss";
 import { Loading } from "../../../../common";
 import ContentItem from "../contentItem";
+import LinkBtn from "../linkBtn";
 import NearExam from "./NearExam";
 import TermReport from "./TermReport";
+
 const { TabPane } = Tabs;
 let { MainActions, CommonActions } = actions;
 
-class StuResult extends Component {
+class StuQuality extends Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
@@ -25,12 +27,12 @@ class StuResult extends Component {
     let {
       dispatch,
       MoreData: {
-        CommonData: {
-          StuResultParams: { ClassID, Term, GradeID, SchoolID },
-        },
+        CommonData: { StuResultParams },
       },
       systemUrl: { Urls },
       targetUser: { UserID },
+      termInfo: { Term },
+      userArchives: { ClassID, GradeID, SchoolID },
     } = nextProps;
     // let {}
     Term = 1;
@@ -51,7 +53,7 @@ class StuResult extends Component {
       });
       dispatch(
         CommonActions.SetStuResultParams({
-          Proxy: 'http://192.168.129.8:10103/WS_CJZP',
+          Proxy: "http://192.168.129.8:10103/WS_CJZP",
           // Urls["810"].WsUrl,
           ClassID,
           Term,
@@ -61,7 +63,7 @@ class StuResult extends Component {
           // SelectBar: "NearExam",
         })
       );
-      // this.onSelectBar("NearExam");
+      this.onSelectBar("NearExam");
     }
   }
 
@@ -73,6 +75,8 @@ class StuResult extends Component {
         SelectBar: key ? key : "NearExam",
       })
     );
+    // return ;
+
     if (key === "TermReport") {
       dispatch(MainActions.GetStudentReport({}));
     } else {
@@ -117,14 +121,14 @@ class StuResult extends Component {
                   期末总评
                 </span>
               </div>
-              <span className="SRt-go">学生成绩查询</span>
+              <LinkBtn type='score' className="SRt-go">学生成绩查询</LinkBtn>
             </div>
             <Loading
               //  tip="加载中..."
               size="small"
               opacity={false}
-              // spinning={TabLoadingVisible}
-              spinning={false}
+              spinning={TabLoadingVisible}
+              // spinning={false}
             >
               <Tabs
                 activeKey={SelectBar}
@@ -132,7 +136,7 @@ class StuResult extends Component {
                   return <div></div>;
                 }}
               >
-                <TabPane key="NearExam" >
+                <TabPane key="NearExam">
                   <NearExam></NearExam>
                 </TabPane>
                 <TabPane key="TermReport">
@@ -153,4 +157,4 @@ const mapStateToProps = (state) => {
     ...state,
   };
 };
-export default connect(mapStateToProps)(StuResult);
+export default connect(mapStateToProps)(StuQuality);

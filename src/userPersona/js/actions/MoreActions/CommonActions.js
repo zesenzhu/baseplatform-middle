@@ -28,7 +28,21 @@ const SetStuResultParams = (data) => {
     });
   };
 };
+// 设置综合素养
+const COMMON_SET_STU_QUALITY_PARAMS =
+  "COMMON_SET_STU_QUALITY_PARAMS";
+const SetStuQualityParams = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: COMMON_SET_STU_QUALITY_PARAMS,
+      data: data,
+    });
+  };
+};
 const CommonActions = {
+  COMMON_SET_STU_QUALITY_PARAMS,
+  SetStuQualityParams,
+
   SetStuResultParams,
   COMMON_SET_STU_RESULT_PARAMS,
 

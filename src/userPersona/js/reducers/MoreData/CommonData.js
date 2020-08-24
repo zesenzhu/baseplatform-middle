@@ -22,11 +22,23 @@ const CommonData = (
       TabLoadingVisible:true,
       SelectBar: "NearExam", //NearExam:最近考试，TermReport:期末总评
     },
+    StuQualityParams:{
+      XH:'',
+      Term:'',
+      Proxy: "",
+    }
   },
   actions
 ) => {
   let communicationData = {};
   switch (actions.type) {
+    case CommonActions.COMMON_SET_STU_QUALITY_PARAMS:
+      return Object.assign({}, state, {
+        StuQualityParams: {
+          ...state.StuQualityParams,
+          ...actions.data,
+        },
+      });
     case CommonActions.COMMON_SET_CLASS_MORAL_EDU_INFO_BY_CRITERIAS_PARAMS:
       return Object.assign({}, state, {
         MoralEduParams: {

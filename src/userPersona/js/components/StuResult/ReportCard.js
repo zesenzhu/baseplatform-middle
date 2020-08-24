@@ -19,18 +19,22 @@ class ReportCard extends Component {
     let { data } = this.props;
     let { SubjectName, CourseName, Score, Rank, Comment } = data;
     return (
-      <div className="ReportCard">
+      <div
+        className={`ReportCard ${
+          Rank === 'A' ? "RC-A" : Rank === 'B' ? "RC-B" : "RC-C"
+        }`}
+      >
         <p title={SubjectName} className="SubjectName">
           {SubjectName}
         </p>
         <div className="RC-Msg">
-          <div className="RCM-content">
+          <div className={`RCM-content`}>
             <p title={Score} className="RCMc-top">
               {Score}
             </p>
             <p className="RCMc-bottom">总评分</p>
           </div>
-          <i className='devide'></i>
+          <i className="devide"></i>
           <div className="RCM-content">
             <p title={Rank} className="RCMc-top">
               {Rank}

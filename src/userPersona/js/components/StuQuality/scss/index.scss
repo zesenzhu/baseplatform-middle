@@ -1,0 +1,53 @@
+.StuQuality {
+    padding-top: 24px;
+    padding-bottom: 42px;
+    .SR-top {
+        height: 42px;
+        padding-left: 102px;
+        margin-bottom: 10px;
+        .SRt-left {
+            float: left;
+            position: relative;
+            .SRtl-bar {
+                width: 90px;
+                height: 32px;
+                display: inline-block;
+                vertical-align: top;
+                line-height: 28px;
+                text-align: center;
+                font-size: 14px;
+                cursor: pointer;
+                color: #034069;
+                background: url(../images/选项卡-未选中背景.png) no-repeat center top / 90px 28px;
+                &.SRtl-bar-select {
+                    color: #ffffff;
+                    background: url(../images/选项卡-选中背景.png) no-repeat center top / 90px 32px;
+                }
+            }
+            .devide {
+                width: 1px;
+                height: 28px;
+                display: inline-block;
+                vertical-align: top;
+                margin: 0 5px;
+                background: url(../images/选项卡-分界线.png) no-repeat center center / contain;
+            }
+        }
+        .SRt-go {
+            float: right;
+            margin-right: -20px;
+            margin-top: 6px;
+            // line-height: 30px;
+            // padding-left: 19px;
+            // font-size: 14px;
+            // cursor: pointer;
+            // text-decoration: underline;
+            // opacity: 0.8;
+            // background: url(../images/详情.png) no-repeat left center / 15px 15px;
+            // color: #0086e3;
+            // &:hover {
+            //     opacity: 1;
+            // }
+        }
+    }
+}

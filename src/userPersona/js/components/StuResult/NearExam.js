@@ -50,6 +50,7 @@ class NearExam extends Component {
         SubNamesList.push(SubjectName);
         SubContent.push(
           <span
+          key={index}
             className={`Sub-score-box ${
               Score >= 90 ? "score-1" : Score >= 60 ? "score-2" : "score-3"
             }`}
