@@ -1056,8 +1056,6 @@ class BaseSetting extends Component{
 
             </div>
 
-
-
             </Loading>
 
         );
