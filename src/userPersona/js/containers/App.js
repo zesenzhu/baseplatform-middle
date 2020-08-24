@@ -10,7 +10,13 @@ import {useSelector,useDispatch} from 'react-redux';
 
 import {firstPageLoad} from "../../../common/js/disconnect";
 
-import {GetBaseInfoForPages,GetSubSystemsMainServerBySubjectID,GetCurrentTermInfo} from "../actions/apiActions";
+import {
+    GetBaseInfoForPages,
+    GetSubSystemsMainServerBySubjectID,
+    GetCurrentTermInfo,
+    GetUserDetailForHX,
+    GetUserLogForHX
+} from "../actions/apiActions";
 
 import {loginUserInfoUpdate} from "../actions/loginUserActions";
 
@@ -32,7 +38,10 @@ import {appLoadingHide} from "../actions/appLoadingActions";
 
 import {termInfoUpdate} from "../actions/termInfoActions";
 
-import {Scrollbars} from 'react-custom-scrollbars';
+import {userArchivesUpdate} from "../actions/userArchivesActions";
+
+import {userInfoLosUpdate} from "../actions/userInfoLogsActions";
+
 
 
 function App(props) {
@@ -69,6 +78,13 @@ function App(props) {
             }
 
         });
+
+    },[]);
+
+
+    const proxy = useMemo(()=>{
+
+        return 'http://192.168.2.202:7300/mock/5f40ff6044c5b010dca04032/userPersona';
 
     },[]);
 
@@ -189,7 +205,12 @@ function App(props) {
 
        const getSys =  GetSubSystemsMainServerBySubjectID({sysIDs,dispatch});
 
-       Promise.all([getTerm,getSys]).then(res=>{
+       const getUserInfo = GetUserDetailForHX({UserID:targetUserID,UserType:targetUserType,proxy,dispatch});
+
+       const getUserLog = GetUserLogForHX({UserID:targetUserID,UserType:targetUserType,proxy,dispatch});
+
+
+        Promise.all([getTerm,getSys,getUserInfo,getUserLog]).then(res=>{
 
            if (res[0]){
 
@@ -252,6 +273,18 @@ function App(props) {
                dispatch(systemUrlUpdate(urlObj));
 
            }
+
+           if (res[2]){
+
+               dispatch(userArchivesUpdate(res[2]));
+
+           }
+
+            if (res[3]){
+
+                dispatch(userInfoLosUpdate(res[3]));
+
+            }
 
            dispatch(appLoadingHide());
 

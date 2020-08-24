@@ -56,7 +56,7 @@ function Content(props){
 
       if (urlGet){
 
-          return [{title:<span>学籍<br/>档案</span>,id:'archives',value:Archives,type:'AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu,OtherToStu,LeaderToTeacher,TeacherToTeacher,OtherToTeacher'},
+          return [{title:<span>学籍<br/>档案</span>,id:'archives',value:Archives,type:'AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu,OtherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher,OtherToTeacher'},
 
               {title:<span>成绩<br/>信息</span>,id:'score',value:StuResult,type:'AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu'},
 

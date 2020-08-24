@@ -528,7 +528,7 @@ function App(props){
 
                 setAppLoading(false);
 
-                createCheckBaseMacFc();
+                //createCheckBaseMacFc();
 
             }else{
 
@@ -611,7 +611,7 @@ function App(props){
 
             }
 
-            createCheckBaseMacFc();
+            //createCheckBaseMacFc();
 
         });
 
