@@ -1,3 +1,5 @@
+@import "../../../scss/base";
+
 .archives-wrapper{
 
   padding-bottom: 28px;
@@ -49,8 +51,6 @@
   }
 
 
-
-
   table{
 
     border:1px solid #dedede;
@@ -83,75 +83,152 @@
 
   }
 
-  .tb1{
+  .archives-table{
 
-    .col6{
+    &.stu{
 
-      width: 190px;
+      .tb1{
 
-    }
+        .col6{
 
-    .col7{
+          width: 190px;
 
-      width: 154px;
+        }
 
-    }
+        .col7{
 
-    .user-photo{
+          width: 154px;
 
-      width: 130px;
+        }
 
-      height: 164px;
+        .user-photo{
 
-      background-repeat: no-repeat;
+          width: 130px;
 
-      background-position: center;
+          height: 164px;
 
-      background-size: cover;
+          background-repeat: no-repeat;
 
-      margin: 0 auto;
+          background-position: center;
+
+          background-size: cover;
+
+          margin: 0 auto;
+
+        }
+
+        .user-name,.former-name,.stu-no,.class-name,
+        .genger,.native-space,.country,.census-place,
+        .home-address{
+
+          @include textOverflow;
+
+          width: 150px;
+
+          padding: 0 6px;
+
+        }
+
+        .stu-no,.class-name{
+
+          width: 300px;
+
+        }
+
+        .genger{
+
+          width: 340px;
+
+        }
+
+        .home-address{
+
+          width: 640px;
+
+        }
+
+      }
+
+      .tb2{
+
+        .col4{
+
+          width:300px;
+
+        }
+
+        .col5,.col6{
+
+          width: 114px;
+
+        }
+
+        .col7{
+
+          width: 118px;
+
+        }
+
+        .school-name{
+
+          width: 300px;
+
+          @include textOverflow;
+
+        }
+
+        .learn-content,.certifier,.duty{
+
+          width: 114px;
+
+          @include textOverflow;
+
+        }
+
+      }
+
+      .tb3{
+
+        .col4{
+
+          width: 412px;
+
+        }
+
+        .col5{
+
+          width: 230px;
+
+        }
+
+        .serviceUnit{
+
+          width:412px;
+
+          @include textOverflow;
+
+        }
+
+        .name{
+
+          width:150px;
+
+          @include textOverflow;
+
+        }
+
+        .tel{
+
+          width:230px;
+
+          @include textOverflow;
+
+        }
+
+      }
 
     }
 
   }
-
-  .tb2{
-
-    .col4{
-
-      width:300px;
-
-    }
-
-    .col5,.col6{
-
-      width: 114px;
-
-    }
-
-    .col7{
-
-      width: 118px;
-
-    }
-
-  }
-
-  .tb3{
-
-    .col4{
-
-      width: 412px;
-
-    }
-
-    .col5{
-
-      width: 230px;
-
-    }
-
-  }
-
 
 }

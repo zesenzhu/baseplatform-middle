@@ -2,7 +2,7 @@ import {USER_ARCHIVES_UPDATE} from "../../actions/userArchivesActions";
 
 const defaultState = '';
 
-const termInfo = (state=defaultState,actions)=>{
+const userArchives = (state=defaultState,actions)=>{
 
       switch (actions.type) {
 
@@ -18,4 +18,4 @@ const termInfo = (state=defaultState,actions)=>{
 
 };
 
-export default termInfo;
+export default userArchives;

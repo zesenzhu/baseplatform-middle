@@ -47,6 +47,14 @@ function Content(props) {
       }
     }
 
+    for (let k in Urls) {
+      if (Urls[k].WebUrl) {
+        urlGet = true;
+
+        break;
+      }
+    }
+
     if (urlGet) {
       return [
         {

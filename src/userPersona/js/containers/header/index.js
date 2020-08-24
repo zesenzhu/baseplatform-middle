@@ -16,17 +16,27 @@ function Header(props) {
     //主页地址
     const [indexUrl,setIndexUrl] = useState('');
 
+    const UserInfo = useSelector(state=>state.userArchives);
+
     const loginUser = useSelector(state=>state.loginUser);
+
+    const pageUsedType = useSelector(state=>state.pageUsedType);
+
+    const userInfoLogs = useSelector(state=>state.userInfoLogs);
+
+    const {UsedType} = pageUsedType;
 
     const dispatch = useDispatch();
 
-    const { SchoolID,UserID,UserName,PhotoPath,Sign } = loginUser;
+    const { UserName,AvatarPath,Sign } = UserInfo;
+
+    const { PhotoPath } = loginUser;
 
     const {tabTitle,bellShow} = props;
 
     useEffect(()=>{
 
-        if (UserID){
+        if (UserInfo){
 
             const { ProductName,WebIndexUrl } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
@@ -38,8 +48,7 @@ function Header(props) {
 
         }
 
-    },[UserID]);
-
+    },[UserInfo]);
 
 
     //退出登录
@@ -55,6 +64,16 @@ function Header(props) {
     const logoutOk = useCallback(()=>{
 
         LogOut()
+
+    },[]);
+
+
+    //修改图片
+    const updatePhoto = useCallback(()=>{
+
+        const token = sessionStorage.getItem("token");
+
+        window.open(`/html/personalMgr?lg_tk=${token}`)
 
     },[]);
 
@@ -115,7 +134,6 @@ function Header(props) {
                         </div>
 
 
-
                     </div>
 
                 </div>
@@ -126,9 +144,19 @@ function Header(props) {
 
                 <div className={"personal-info"}>
 
-                    <div className={"header-img"} style={{backgroundImage:`url(${PhotoPath})`}}>
+                    <div className={"header-img"} style={{backgroundImage:`url(${AvatarPath})`}}>
 
-                        <button className={"update-photo"}>修改照片</button>
+                        {
+
+                            UsedType==='StuToStu'||UsedType==='TeacherToTeacher'?
+
+                                <button className={"update-photo"} onClick={updatePhoto}>修改照片</button>
+
+                                :null
+
+
+                        }
+
 
                     </div>
 
@@ -147,7 +175,17 @@ function Header(props) {
 
                 </div>
 
-                <a className={"log"}>{'2018-07-12 14:21 管理员(admin006)录入了该学生档案 >>'}</a>
+                {
+
+                    ['AdmToStu','LeaderToStu','HeaderTeacherToStu'].includes(UsedType)?
+
+                        <a className={"log"}>{userInfoLogs?userInfoLogs[0].Content:''}</a>
+
+                        :null
+
+                }
+
+
 
             </div>
 

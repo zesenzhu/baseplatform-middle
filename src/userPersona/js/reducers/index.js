@@ -18,6 +18,10 @@ import appLoading from './appLoading';
 
 import userArchives from './userArchives';
 
+import userInfoLogs from './userInfoLogs';
+
+import userStatus from './userStatus';
+
 
 let rootReducers = combineReducers({
 
@@ -37,7 +41,11 @@ let rootReducers = combineReducers({
 
     appLoading,
 
-    userArchives
+    userArchives,
+
+    userInfoLogs,
+
+    userStatus
 
 });
 
