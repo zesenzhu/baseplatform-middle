@@ -6,7 +6,7 @@ import Public from "../../../../common/js/public";
 import "./scss/index.scss";
 import { Loading } from "../../../../common";
 import ContentItem from "../contentItem";
- 
+
 const { TabPane } = Tabs;
 let { MainActions, CommonActions } = actions;
 
@@ -32,13 +32,8 @@ class StuQuality extends Component {
       userArchives: { ClassID, GradeID, SchoolID },
     } = nextProps;
     // let {}
- 
-    if (
-      firstTime &&
-      Term &&
-      UserID&&
-      Urls["810"].WsUrl
-    ) {
+
+    if (firstTime && Term && UserID && Urls["810"].WsUrl) {
       this.setState({
         firstTime: false,
       });
@@ -46,22 +41,20 @@ class StuQuality extends Component {
         CommonActions.SetStuResultParams({
           Proxy: "http://192.168.129.8:10103/WS_CJZP",
           // Urls["810"].WsUrl,
- 
+
           Term,
-  
+
           XH: UserID,
           // SelectBar: "NearExam",
         })
       );
     }
   }
- 
+
   render() {
     let {
       MoreData: {
-        CommonData: {
-          StuQualityParams 
-        },
+        CommonData: { StuQualityParams },
       },
     } = this.props;
     let { firstTime } = this.state;
@@ -75,11 +68,10 @@ class StuQuality extends Component {
         >
           <div className="StuQuality">
             <div className="SR-top">
-               
-           
-              <span className="SRt-go">综合素养评价</span>
+              <linkBtn type="comment" className="SRt-go">
+                综合素养评价
+              </linkBtn>
             </div>
-             
           </div>{" "}
         </Loading>
       </ContentItem>
