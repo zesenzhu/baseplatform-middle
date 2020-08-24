@@ -16,6 +16,8 @@ import termInfo from './termInfo';
 
 import appLoading from './appLoading';
 
+import userArchives from './userArchives';
+
 
 let rootReducers = combineReducers({
 
@@ -33,7 +35,9 @@ let rootReducers = combineReducers({
 
     termInfo,
 
-    appLoading
+    appLoading,
+
+    userArchives
 
 });
 
