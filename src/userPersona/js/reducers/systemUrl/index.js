@@ -30,6 +30,7 @@ const defaultState = {
 
   ModuleRely: {
     archives: ["E34"],
+    StuResult: ["810"],
   },
 };
 

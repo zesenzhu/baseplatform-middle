@@ -1,0 +1,9 @@
+@mixin TextOverflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+p {
+    margin: 0;
+}
