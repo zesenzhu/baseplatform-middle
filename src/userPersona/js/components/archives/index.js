@@ -24,8 +24,6 @@ function Archives(props) {
     const [tabName,setTabName] = useState('');
 
 
-    const {className,type,children} = props;
-
     const {Urls} = useSelector(state=>state.systemUrl);
 
     const {UsedType} = useSelector(state=>state.pageUsedType);
