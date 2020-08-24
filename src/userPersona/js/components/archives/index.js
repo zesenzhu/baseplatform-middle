@@ -4,7 +4,7 @@ import ContentItem from '../contentItem';
 
 import LinkBtn from '../linkBtn';
 
-import {getDetailStuStatus,GetUserDetailForHX,getTeacherDetailIntroduction} from '../../actions/apiActions';
+import {getDetailStuStatus,getTeacherDetailIntroduction,getScientificCaseDetail} from '../../actions/apiActions';
 
 import {useSelector,useDispatch} from 'react-redux';
 
@@ -20,8 +20,11 @@ function Archives(props) {
     //loading
     const [loading,setLoading] = useState(true);
 
+    //tabname
+    const [tabName,setTabName] = useState('');
 
-    const {className,tabName,type,children} = props;
+
+    const {className,type,children} = props;
 
     const {Urls} = useSelector(state=>state.systemUrl);
 
@@ -39,31 +42,45 @@ function Archives(props) {
 
         if (UserType===2){
 
-            getDetailStuStatus({userId:UserID,proxy:Urls['E34'].WebUrl,dispatch}).then(data=>{
+          getDetailStuStatus({userId:UserID,proxy:Urls['E34'].WebUrl,dispatch}).then(data=>{
 
-                if (data){
+               if (data){
 
-                    dispatch(userStatusUpdate(data));
+                   dispatch(userStatusUpdate(data));
 
-                }
+               }
 
                 setLoading(false);
 
             });
+
+          setTabName('学籍档案信息');
 
         }else{
 
-            getTeacherDetailIntroduction({teacherId:UserID,proxy:Urls['E34'].WebUrl,dispatch}).then(data=>{
+            const getScientific = getScientificCaseDetail({proxy:Urls['E34'].WebUrl,userId:UserID,scientificType:1,dispatch});
 
-                if (data){
+            const getDetail = getTeacherDetailIntroduction({teacherId:UserID,proxy:Urls['E34'].WebUrl,dispatch});
 
-                    dispatch(userStatusUpdate(data));
+            Promise.all([getDetail,getScientific]).then(res=>{
+
+                if (res[0]){
+
+                    dispatch(userStatusUpdate(res[0]));
+
+                }
+
+                if (res[1]){
+
+                    console.log(res[1]);
 
                 }
 
                 setLoading(false);
 
             });
+
+            setTabName('档案信息');
 
         }
 
@@ -93,7 +110,7 @@ function Archives(props) {
 
     return(
 
-        <ContentItem type={"archives"} tabName={"学籍档案信息"}>
+        <ContentItem type={"archives"} tabName={tabName}>
 
             <div className={"archives-wrapper"}>
 
@@ -446,7 +463,7 @@ function Archives(props) {
 
                         <div className={"archives-table teacher"}>
 
-                           {/* <table className={"tb1"} border="1">
+                            <table className={"tb1"} border="1">
 
                                 <tbody>
 
@@ -456,9 +473,9 @@ function Archives(props) {
 
                                     <td className={"col2"}>
 
-                                        <div className={"user-name"} title={userStatus.studentStatus[0].userName}>
+                                        <div className={"user-name"} title={userStatus.userName}>
 
-                                            {isHasValue(userStatus.studentStatus[0].userName)}
+                                            {isHasValue(userStatus.userName)}
 
                                         </div>
 
@@ -468,9 +485,9 @@ function Archives(props) {
 
                                     <td className={"col4"}>
 
-                                        <div className={"former-name"} title={userStatus.studentStatus[0].formerName}>
+                                        <div className={"user-id"} title={userStatus.userId}>
 
-                                            {isHasValue(userStatus.studentStatus[0].formerName)}
+                                            {isHasValue(userStatus.userId)}
 
                                         </div>
 
@@ -478,19 +495,11 @@ function Archives(props) {
 
                                     <td className={"col5 props"}>性别</td>
 
-                                    <td className={"col6"}>
-
-                                        <div title={userStatus.studentStatus[0].identityNum}>
-
-                                            {isHasValue(userStatus.studentStatus[0].identityNum)}
-
-                                        </div>
-
-                                    </td>
+                                    <td className={"col6"}>{isHasValue(userArchives.Gender)}</td>
 
                                     <td className={"col7"} rowSpan={6}>
 
-                                        <div className={"user-photo"} style={{backgroundImage:`url(${userStatus.studentStatus[0].photoPath})`}}></div>
+                                        <div className={"user-photo"} style={{backgroundImage:`url(${userStatus.photoPath})`}}></div>
 
                                     </td>
 
@@ -500,15 +509,19 @@ function Archives(props) {
 
                                     <td className={"col1 props"}>民族</td>
 
-                                    <td className={"col2"}>{isHasValue(userStatus.studentStatus[0].birthDay)}</td>
+                                    <td className={"col2"}>{isHasValue('汉族')}</td>
 
                                     <td className={"col3 props"}>职称</td>
 
-                                    <td className={"col4"}>{isHasValue(userStatus.studentStatus[0].sex)}</td>
+                                    <td className={"col4"}>{isHasValue(userStatus.professionalTitle)}</td>
 
                                     <td className={"col5 props"}>所教学科</td>
 
-                                    <td className={"col6"}>{isHasValue(userStatus.studentStatus[0].nation)}</td>
+                                    <td className={"col6"}>
+
+                                        <div className={"subject"}>{isHasValue(userArchives.SubjectNames)}</div>
+
+                                    </td>
 
                                 </tr>
 
@@ -518,23 +531,15 @@ function Archives(props) {
 
                                     <td className={"col2"}>
 
-                                        <div className={"stu-no"} title={userStatus.studentStatus[0].stuStatusNum}>
-
-                                            {isHasValue(userStatus.studentStatus[0].stuStatusNum)}
-
-                                        </div>
+                                        {isHasValue("2017-04")}
 
                                     </td>
 
-                                    <td className={"col3 props"}>出生年月</td>
+                                    <td className={"col3 props"}>身份证号</td>
 
-                                    <td className={"col4"} colSpan={2}>
+                                    <td className={"col4"} colSpan={3}>
 
-                                        <div className={"stu-no"} title={userStatus.studentStatus[0].stuStatusNum}>
-
-                                            {isHasValue(userStatus.studentStatus[0].stuStatusNum)}
-
-                                        </div>
+                                        {isHasValue(userArchives.IDCardNo)}
 
                                     </td>
 
@@ -544,23 +549,39 @@ function Archives(props) {
 
                                     <td className={"col1 props"}>家庭地址</td>
 
+                                    <td className={"col2"} colSpan={5}>
+
+                                        <div className={"home-address"} title={userStatus.homeAddress}>
+
+                                            {isHasValue(userStatus.homeAddress)}
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td className={"col1 props"}>籍贯</td>
+
                                     <td className={"col2"} colSpan={2}>
 
-                                        <div className={"class-name"} title={userStatus.studentStatus[0].className}>
+                                        <div className={"native-space"} title={userStatus.nativeSpace}>
 
-                                            {isHasValue(userStatus.studentStatus[0].className)}
+                                            {isHasValue(userStatus.nativeSpace)}
 
                                         </div>
 
                                     </td>
 
-                                    <td className={"col4 props"}>班主任</td>
+                                    <td className={"col3 props"}>政治面貌</td>
 
-                                    <td className={"col6"} colSpan={2}>
+                                    <td className={"col4"} colSpan={2}>
 
-                                        <div className={"genger"} title={userArchives?userArchives.GangerName:''}>
+                                        <div className={"politic-status"} title={userStatus.politicStatus}>
 
-                                            {isHasValue(userArchives?userArchives.GangerName:'')}
+                                            {isHasValue(userStatus.politicStatus)}
 
                                         </div>
 
@@ -570,65 +591,45 @@ function Archives(props) {
 
                                 <tr>
 
-                                    <td className={"col1 props"}>国籍</td>
+                                    <td className={"col1 props"}>最高学历</td>
 
-                                    <td className={"col2"}>
+                                    <td className={"col2"} colSpan={2}>
 
-                                        <div className={"country"} title={userStatus.studentStatus[0].country}>
-
-                                            {isHasValue(userStatus.studentStatus[0].country)}
-
-                                        </div>
+                                        {isHasValue(userStatus.degree)}
 
                                     </td>
 
-                                    <td className={"col3 props"}>籍贯</td>
+                                    <td className={"col3 props"}>最高学位</td>
 
-                                    <td className={"col4"}>
-
-                                        <div className={"native-space"} title={userStatus.studentStatus[0].nativeSpace}>
-
-                                            {isHasValue(userStatus.studentStatus[0].nativeSpace)}
-
-                                        </div>
-
-                                    </td>
-
-                                    <td className={"col5 props"}>港澳台侨胞</td>
-
-                                    <td className={"col6"}>{isHasValue(userStatus.studentStatus[0].overseaPeople)}</td>
+                                    <td className={"col4"} colSpan={2}>{isHasValue(userStatus.educationBackground)}</td>
 
                                 </tr>
 
                                 <tr>
 
-                                    <td className={"col1 props"}>是否独生子女</td>
+                                    <td className={"col1 props"}>教育背景</td>
 
-                                    <td className={"col2"}>{isHasValue(userStatus.studentStatus[0].singleChild)}</td>
-
-                                    <td className={"col3 props"}>是否受过学前教育</td>
-                                    <td className={"col4"}>{isHasValue(userStatus.studentStatus[0].preschoolEdu)}</td>
-                                    <td className={"col5 props"}>是否留守儿童</td>
-                                    <td className={"col6"}>{isHasValue(userStatus.studentStatus[0].leftoverChild)}</td>
+                                    <td className={"col2"} colSpan={6} dangerouslySetInnerHTML={{__html:userStatus.educationBackgroundDetail?userStatus.educationBackgroundDetail:<div>--</div>}}></td>
 
                                 </tr>
+
                                 <tr>
-                                    <td className={"col1 props"}>户籍所在地</td>
-                                    <td className={"col2"}>
 
-                                        <div className={"census-place"} title={userStatus.studentStatus[0].censusPlace}>
+                                    <td className={"col1 props"}>工作经历</td>
 
-                                            {isHasValue(userStatus.studentStatus[0].censusPlace)}
+                                    <td className={"col2"} colSpan={6}  dangerouslySetInnerHTML={{__html:userStatus.workExperience?userStatus.workExperience:<div>--</div>}}></td>
 
-                                        </div>
+                                </tr>
 
-                                    </td>
-                                    <td className={"col3 props"}>家庭住址</td>
-                                    <td className={"col4"} colSpan={4}>
+                                <tr>
 
-                                        <div className={"home-address"} title={userStatus.studentStatus[0].homeAddress}>
+                                    <td className={"col1 props"}>科研及获奖</td>
 
-                                            {isHasValue(userStatus.studentStatus[0].homeAddress)}
+                                    <td className={"col2"} colSpan={6}>
+
+                                        <div className={"award"}>
+
+                                            --
 
                                         </div>
 
@@ -638,7 +639,7 @@ function Archives(props) {
 
                                 </tbody>
 
-                            </table>*/}
+                            </table>
 
                         </div>
 
