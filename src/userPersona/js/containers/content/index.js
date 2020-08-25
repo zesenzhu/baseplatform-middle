@@ -23,7 +23,8 @@ import Account from "../../components/account";
 
 import "./index.scss";
 
-function Content(props) {
+function Content(props){
+
   const { SchoolID, UserID, UserName, PhotoPath, Sign } = useSelector(
     (state) => state.loginUser
   );
@@ -60,7 +61,7 @@ function Content(props) {
             id: "archives",
             value: Archives,
             type:
-              "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher,OtherToTeacher",
+              "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher",
           },
 
           {
@@ -74,7 +75,7 @@ function Content(props) {
             id: "account",
             value: Account,
             type:
-              "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher,OtherToTeacher",
+              "AdmToStu,LeaderToStu,StuToStu,OtherToStu,ParentsToStu,HeaderTeacherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher,OtherToTeacher",
           },
 
           {

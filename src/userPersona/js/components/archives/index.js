@@ -38,53 +38,35 @@ function Archives(props) {
 
     useState(()=>{
 
-        if (UserType===2){
+        if (userStatus){
 
-          getDetailStuStatus({userId:UserID,proxy:Urls['E34'].WebUrl,dispatch}).then(data=>{
-
-               if (data){
-
-                   dispatch(userStatusUpdate(data));
-
-               }
+            if (UserType===2){
 
                 setLoading(false);
 
-            });
+                setTabName('学籍档案信息');
 
-          setTabName('学籍档案信息');
+            }else{
 
-        }else{
+                getScientificCaseDetail({proxy:Urls['E34'].WebUrl,userId:UserID,scientificType:1,dispatch}).then(data=>{
 
-            const getScientific = getScientificCaseDetail({proxy:Urls['E34'].WebUrl,userId:UserID,scientificType:1,dispatch});
+                    if (data){
 
-            const getDetail = getTeacherDetailIntroduction({teacherId:UserID,proxy:Urls['E34'].WebUrl,dispatch});
+                        console.log(data);
 
-            Promise.all([getDetail,getScientific]).then(res=>{
+                    }
 
-                if (res[0]){
+                    setLoading(false);
 
-                    dispatch(userStatusUpdate(res[0]));
+                });
 
-                }
+                setTabName('档案信息');
 
-                if (res[1]){
-
-                    console.log(res[1]);
-
-                }
-
-                setLoading(false);
-
-            });
-
-            setTabName('档案信息');
+            }
 
         }
 
-
-
-    },[]);
+    },[userStatus]);
 
     //判断是否有值，没有的话返回--
     const isHasValue = useCallback((value)=>{
