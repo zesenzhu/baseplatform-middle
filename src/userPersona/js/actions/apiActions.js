@@ -112,6 +112,30 @@ export const getTeacherDetailIntroduction =  async ({teacherId,proxy,dispatch})=
 };
 
 
+export const getScientificCaseDetail =  async ({userId,scientificType,proxy,dispatch})=>{
+
+    const res = await getGetData(`/admin/getScientificCaseDetail?userId=${userId}&scientificType=${scientificType}`,1,proxy);
+
+    if (res.code===0){
+
+        if (res.data){
+
+            return res.data;
+
+        }else{
+
+            dispatch(btnErrorAlertShow({title:'该用户不存在或已被删除'}));
+
+        }
+
+    }else{
+
+        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取用户信息失败'}));
+
+    }
+
+};
+
 
 
 //获取用户详情For画像

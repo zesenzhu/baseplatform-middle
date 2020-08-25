@@ -74,7 +74,7 @@
 
         left: -4px;
 
-        top:6px;
+        top:5px;
 
         background-color:#02418c;
 
@@ -88,15 +88,25 @@
 
     font-size: 12px;
 
-    white-space: pre-wrap;
+    //height: 56px;
 
-    padding:15px 0;
+    padding: 15px 0;
 
     overflow: inherit;
 
+    display: table;
+
     text-align: center;
 
+    width: 100%;
+
     &>span{
+
+      display: table-cell;
+
+      vertical-align: middle;
+
+      height: 26px;
 
       &:after{
 

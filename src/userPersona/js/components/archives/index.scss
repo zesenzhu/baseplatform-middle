@@ -12,6 +12,8 @@
 
       float: right;
 
+      margin-right: -20px;
+
     }
 
   }
@@ -85,6 +87,22 @@
 
   .archives-table{
 
+    .user-photo{
+
+      width: 130px;
+
+      height: 164px;
+
+      background-repeat: no-repeat;
+
+      background-position: center;
+
+      background-size: cover;
+
+      margin: 0 auto;
+
+    }
+
     &.stu{
 
       .tb1{
@@ -98,22 +116,6 @@
         .col7{
 
           width: 154px;
-
-        }
-
-        .user-photo{
-
-          width: 130px;
-
-          height: 164px;
-
-          background-repeat: no-repeat;
-
-          background-position: center;
-
-          background-size: cover;
-
-          margin: 0 auto;
 
         }
 
@@ -222,6 +224,48 @@
           width:230px;
 
           @include textOverflow;
+
+        }
+
+      }
+
+    }
+
+    &.teacher{
+
+      .col6{
+
+        width: 190px;
+
+      }
+
+      .tb1{
+
+        .user-name,.user-id,.subject,.home-address,.native-space{
+
+          width:150px;
+
+          @include textOverflow;
+
+          padding: 0 6px;
+
+        }
+
+        .subject{
+
+          width: 190px;
+
+        }
+
+        .home-address{
+
+          width:786px;
+
+        }
+
+        .native-space{
+
+          width:300px;
 
         }
 

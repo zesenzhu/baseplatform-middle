@@ -1,0 +1,115 @@
+@import "../../../scss/base";
+
+.account-wrapper{
+
+  color: #333333;
+  
+  padding-bottom: 28px;
+
+  .btn-wrapper{
+
+    padding: 32px 0 34px 0;
+
+    .reset,.edit{
+
+      float: right;
+
+      margin-right: -20px;
+
+    }
+
+  }
+
+  .account-table{
+
+    .props{
+
+      color: #999999;
+
+      width: 84px;
+
+      text-align: right;
+
+      padding: 7px 16px 10px 0;
+      
+    }
+
+    .col2{
+
+      width: 280px;
+
+    }
+
+
+    .short-name{
+
+      width:280px;
+
+      @include textOverflow;
+
+    }
+    
+    .more{
+
+      color: #0086e3;
+
+      border: 0;
+
+      outline: none;
+
+      text-decoration: underline;
+
+      font-size: 14px;
+
+      background-color:transparent;
+
+      margin-left: 8px;
+      
+      cursor: pointer;
+      
+      &:hover{
+
+        color: #ff6600;
+        
+      }
+      
+    }
+
+  }
+
+}
+
+
+.login-history-modal{
+
+  .ant-modal-body{
+
+    padding:0;
+
+  }
+
+
+  .login,
+  .logout{
+
+    color: #666666;
+
+  }
+
+  .method,
+  .device,
+  .ip{
+
+    color: #333333;
+
+  }
+
+  .ant-table-row>td{
+
+    height: 42px;
+
+    padding: 0;
+
+  }
+
+}
