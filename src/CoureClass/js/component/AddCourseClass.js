@@ -544,7 +544,7 @@ class AddCourseClass extends React.Component {
 
       const value = e.target.value;
 
-      const classDisabled = Grade.value===0||value===2;
+      const classDisabled = !Grade||!Grade.value||Grade.value===0||value===2;
 
       dispatch(actions.UpDataState.setCourseClassStudentMsg([]));
 
