@@ -1,0 +1,120 @@
+@mixin TextOverflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+p {
+    margin: 0;
+}
+
+.MoralEdu {
+    padding-top: 70px;
+    padding-bottom: 42px;
+    .SR-top {
+        height: 36px;
+        margin-bottom: 10px;
+        .SRt-go {
+            float: right;
+            // margin-right: -20px;
+            margin-top: 9px;
+            // line-height: 30px;
+            padding-left: 19px;
+            background-position: left 1px;
+            background-size: 15px 15px;
+            // font-size: 14px;
+            // cursor: pointer;
+            // text-decoration: underline;
+            // opacity: 0.8;
+            // background: url(../images/详情.png) no-repeat left center / 15px 15px;
+            // color: #0086e3;
+            // &:hover {
+            //     opacity: 1;
+            // }
+        }
+        .SRt-left {
+            font-size: 14px;
+            line-height: 36px;
+            padding-left: 16px;
+            color: #666666;
+            span {
+                font-size: 18px;
+                color: #1bc03a;
+            }
+        }
+    }
+    .ME-box {
+        padding: 12px 20px;
+        background-color: #f5f5f5;
+        border-radius: 6px;
+        margin-top: 12px;
+        .examinationContent {
+            line-height: 30px;
+            font-size: 14px;
+            color: #8e410e;
+            font-weight: bold;
+            text-align: left;
+            @include TextOverflow;
+            i {
+                display: inline-block;
+                vertical-align: top;
+                width: 6px;
+                height: 6px;
+                background-color: #8e410e;
+                margin-right: 10px;
+                margin-top: 12px;
+                border-radius: 50%;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                -ms-border-radius: 50%;
+                -o-border-radius: 50%;
+            }
+        }
+        .itemContent {
+            padding-left: 16px;
+            line-height: 30px;
+            font-size: 14px;
+            @include TextOverflow();
+            text-align: left;
+            color: #333333;
+        }
+        .content {
+            padding-left: 16px;
+            margin-top: 4px;
+            font-size: 14px;
+            line-height: 22px;
+            color: #999999;
+            .score {
+                &.well {
+                    span {
+                        color: #18c230;
+                    }
+                }
+                &.bad {
+                    span {
+                        color: #ff0000;
+                    }
+                }
+            }
+            .type,
+            .time,
+            .score,
+            .examinationDept {
+                margin-right: 30px;
+            }
+        }
+        .remark {
+            padding-left: 16px;
+            font-size: 14px;
+            line-height: 22px;
+            color: #999999;
+            .title {
+                float: left;
+            }
+            .tip {
+                display: block;
+                overflow: hidden;
+            }
+        }
+    }
+}

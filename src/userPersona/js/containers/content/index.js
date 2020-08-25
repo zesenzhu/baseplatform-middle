@@ -15,6 +15,8 @@ import StuResult from "../../components/StuResult";
 
 import Archives from "../../components/archives";
 
+import MoralEdu from "../../components/MoralEdu";
+
 import AnchorPoint from "../../components/anchorPoint";
 
 import "./index.scss";
@@ -86,13 +88,19 @@ function Content(props) {
         {
           title: (
             <span>
-              综合
+              德育
               <br />
               评价
             </span>
           ),
           id: "comment",
           value: StuQuality,
+          type: "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu",
+        },
+        {
+          title: <span>德育</span>,
+          id: "pe",
+          value: MoralEdu,
           type: "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu",
         },
       ];

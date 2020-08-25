@@ -8,9 +8,12 @@ const CommonData = (
     MoralEduParams: {
       UserID: "",
       Title: "",
-      PageSize: 0,
+      PageSize: 10000,
       PageNum: 1,
       Proxy: "",
+      Token:'',
+      Semester:'',
+      ShowAll:false
     },
     StuResultParams: {
       Term: "",
@@ -26,12 +29,14 @@ const CommonData = (
       XH:'',
       Term:'',
       Proxy: "",
-    }
+    },
+ 
   },
   actions
 ) => {
   let communicationData = {};
   switch (actions.type) {
+ 
     case CommonActions.COMMON_SET_STU_QUALITY_PARAMS:
       return Object.assign({}, state, {
         StuQualityParams: {

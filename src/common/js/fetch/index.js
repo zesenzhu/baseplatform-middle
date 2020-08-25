@@ -157,7 +157,6 @@ function handleStatusCode(json, element = true) {
   if (json.StatusCode === undefined) {
     if (json.code !== undefined) {
       //个人画像没有StatusCode，所以这里进行个人画像的适配
-      console.log(json);
       checkCode(json);
       return;
     }else if(json.success===true){
