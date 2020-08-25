@@ -179,6 +179,29 @@ export const GetUserLogForHX =  async ({UserID,UserType,proxy='',dispatch})=>{
 
 
 
+//重置密码
+export const ResetPwd = async ({userID,userType,newPwd,dispatch}) =>{
+
+    const res = await getPostData(`/UserMgr/UserAccount/ResetPwd`,{
+
+        userID,userType,newPwd
+
+    },2);
+
+    if (res.StatusCode===200){
+
+        return res.ErrCode;
+
+    }else if (res.StatusCode===400){
+
+        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'重置密码失败'}));
+
+    }
+
+};
+
+
+
 
 
 
@@ -188,7 +211,19 @@ export default {
 
     GetSubSystemsMainServerBySubjectID,
 
-    GetCurrentTermInfo
+    GetCurrentTermInfo,
+
+    getDetailStuStatus,
+
+    getTeacherDetailIntroduction,
+
+    getScientificCaseDetail,
+
+    GetUserDetailForHX,
+
+    GetUserLogForHX,
+
+    ResetPwd
 
 }
 

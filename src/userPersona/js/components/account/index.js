@@ -6,9 +6,15 @@ import ContentItem from '../contentItem';
 
 import LinkBtn from '../linkBtn';
 
-import {removeSlashUrl} from "../../actions/utils";
+import {btnQueryAlertShow,successAlertShow} from "../../actions/appAlertActions";
 
-import {Modal, Table} from "../../../../common";
+import {ResetPwd} from "../../actions/apiActions";
+
+import {Modal, Table,Tips} from "../../../../common";
+
+import {Input} from "antd";
+
+import {UserComm_PwdStrong,UserComm_ValidatePwd} from '../../actions/utils';
 
 import "./index.scss";
 
@@ -20,6 +26,21 @@ function Account(props) {
     //标签名称
     const [logModalShow,setLogModalShow] = useState(false);
 
+    //设置新的密码
+    const [pwd,setPwd] = useState({
+
+        value:'pwd888888',
+
+        tip:false,
+
+        title:'请输入密码',
+
+        strongType:'',
+
+        strongTypeTxt:''
+
+    });
+
     const {UsedType} = useSelector(state=>state.pageUsedType);
 
     const userArchives = useSelector(state=>state.userArchives);
@@ -27,6 +48,9 @@ function Account(props) {
     const { UserID,UserType } = useSelector(state=>state.targetUser);
 
     const dispatch = useDispatch();
+
+
+    const pwdRef = useRef(pwd);
 
     useEffect(()=>{
 
@@ -61,13 +85,193 @@ function Account(props) {
 
     const btnClick = useCallback(()=>{
 
+        dispatch(btnQueryAlertShow({
 
+            title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.ShortName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
+
+            abstract:<div className={"new-pwd gray"}>
+
+                <div className={"pwd-wrapper"}>新密码:<Tips visible={pwd.tip} title={pwd.title}><Input className={"new-pwd-input"} value={pwd.value} onBlur={pwdBlur} onChange={pwdChange}></Input></Tips></div>
+
+                <div className={"strong-wrapper"} style={{display:`${pwd.strongType?'block':'none'}`}}>密码强度:<i className={`strong-type ${pwd.strongType}`}></i>{pwd.strongTypeTxt}</div>
+
+            </div>,
+
+            ok:updatePwdOk
+
+        }));
 
     },[]);
 
 
 
 
+    //密码修改
+
+    const pwdChange  = useCallback((e)=>{
+
+        e.persist();
+
+        const strong = UserComm_PwdStrong(e.target.value);
+
+        let strongType = '',strongTypeTxt = '';
+
+        switch (strong) {
+
+            case 1:
+
+                strongType = 'weak';
+
+                strongTypeTxt = '弱';
+
+                break;
+
+            case 2:
+
+                strongType = 'middle';
+
+                strongTypeTxt = '中';
+
+                break;
+
+            case 3:
+
+                strongType = 'strong';
+
+                strongTypeTxt = '强';
+
+                break;
+
+            default:
+
+                strongType = '';
+
+                strongTypeTxt = '';
+
+        }
+
+        setPwd(d=>{
+
+           pwdRef.current = {...d,value:e.target.value,strongType,strongTypeTxt};
+
+           dispatch(btnQueryAlertShow({
+
+                title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.ShortName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
+
+                abstract:<div className={"new-pwd gray"}>
+
+                    <div className={"pwd-wrapper"}>新密码:<Tips visible={pwd.tip} title={pwd.title}><Input className={"new-pwd-input"} value={e.target.value} onBlur={pwdBlur} onChange={pwdChange}></Input></Tips></div>
+
+                    <div className={"strong-wrapper"} style={{display:`${strongType?'block':'none'}`}}>密码强度:<i className={`strong-type ${strongType}`}></i>{strongTypeTxt}</div>
+
+                </div>,
+
+               ok:updatePwdOk
+
+            }));
+
+           return {...d,value:e.target.value,strongType,strongTypeTxt};
+
+       });
+
+    },[]);
+
+
+    //密码弹窗blur事件
+
+    const pwdBlur = useCallback(()=>{
+
+        const {value,strongTypeTxt,strongType} = pwdRef.current;
+
+        let tip = false,title='';
+
+        if(value){
+
+            const res = UserComm_ValidatePwd(value);
+
+            if (res.isOK){
+
+                tip = false;
+
+                setPwd(d=>{
+
+                    pwdRef.current = {...d,tip};
+
+                    return {...d,tip};
+
+                });
+
+            }else{
+
+                tip = true;
+
+                title = '密码应由8-20位字母、数字及特殊字符`~!@#$%^&*()_+-={}|[]:\\";\'<>?,./\\\\的任意两种及以上组成';
+
+                setPwd(d=>{
+
+                    pwdRef.current = {...d,tip,title};
+
+                    return {...d,tip,title};
+
+                })
+
+            }
+
+        }else{
+
+            title = '请输入密码';
+
+            tip = true;
+
+            setPwd(d=>{
+
+                pwdRef.current={...d,tip,title};
+
+                return {...d,tip,title};
+
+            });
+
+        }
+
+        dispatch(btnQueryAlertShow({
+
+            title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.ShortName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
+
+            abstract:<div className={"new-pwd gray"}>
+
+                <div className={"pwd-wrapper"}>新密码:<Tips visible={tip} title={title}><Input className={"new-pwd-input"} value={value} onBlur={pwdBlur} onChange={pwdChange}></Input></Tips></div>
+
+                <div className={"strong-wrapper"} style={{display:`${strongType?'block':'none'}`}}>密码强度:<i className={`strong-type ${strongType}`}></i>{strongTypeTxt}</div>
+
+            </div>,
+
+            ok:updatePwdOk
+
+        }));
+
+    },[]);
+
+
+    //提交修改密码
+    const updatePwdOk = useCallback(()=>{
+
+            const {tip,value} = pwdRef.current;
+
+            if (!tip){
+
+                ResetPwd({userID:UserID,userType:UserType,newPwd:value,dispatch}).then(data=>{
+
+                    if (data===0){
+
+                        dispatch(successAlertShow({title:'重置密码成功'}));
+
+                    }
+
+                })
+
+            }
+
+    },[]);
 
     //登录记录的列表
 

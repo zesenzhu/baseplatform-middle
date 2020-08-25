@@ -113,3 +113,97 @@
   }
 
 }
+
+.alert_dialog_tab{
+
+  .account-title{
+
+    font-size: 16px;
+
+    .user-name,.user-id{
+
+      display: inline-block;
+
+      max-width: 90px;
+
+      @include textOverflow;
+
+      vertical-align: bottom;
+
+    }
+
+  }
+
+  .new-pwd{
+
+    text-align: center;
+
+    margin-top: 10px;
+
+    .pwd-wrapper{
+
+      height: 24px;
+
+      line-height: 24px;
+
+    }
+
+    .new-pwd-input{
+
+      width: 120px;
+
+      height: 24px;
+
+      vertical-align: middle;
+
+      margin-left: 4px;
+
+    }
+
+    .strong-wrapper{
+
+      margin-top: 10px;
+
+      .strong-type{
+
+        display: inline-block;
+
+        text-align: center;
+
+        width: 132px;
+
+        height: 12px;
+
+        margin: 0 4px;
+
+        vertical-align: middle;
+
+        background-position: left center;
+
+        background-repeat: no-repeat;
+
+        &.weak{
+
+          background-image: url("./images/strong-lettle.png");
+
+        }
+
+        &.middle{
+
+          background-image: url("./images/strong-middle.png");
+
+        }
+
+        &.strong{
+
+          background-image: url("./images/strong-big.png");
+
+        }
+
+      }
+
+    }
+
+  }
+
+}

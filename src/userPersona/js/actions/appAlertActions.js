@@ -44,7 +44,9 @@ export const btnWarnAlertShow = ({type,title,okShow,cancelShow,ok,cancel,close,a
 
                 okShow,
 
-                close:close?close:hideAlert(dispatch)
+                close:close?close:hideAlert(dispatch),
+
+                abstract
 
             }});
 
@@ -71,11 +73,13 @@ export const btnQueryAlertShow = ({type,title,okShow,cancelShow,ok,cancel,close,
 
                 cancel:cancel?cancel:hideAlert(dispatch),
 
-                cancelShow,
+                cancelShow:cancelShow?cancelShow:'y',
 
                 okShow,
 
-                close:close?close:hideAlert(dispatch)
+                close:close?close:hideAlert(dispatch),
+
+                abstract
 
             }});
 
@@ -106,7 +110,9 @@ export const btnErrorAlertShow = ({type,title,okShow,cancelShow,ok,cancel,close,
 
                 okShow,
 
-                close:close?close:hideAlert(dispatch)
+                close:close?close:hideAlert(dispatch),
+
+                abstract
 
             }});
 
