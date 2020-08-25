@@ -21,6 +21,8 @@ import AnchorPoint from "../../components/anchorPoint";
 
 import Account from "../../components/account";
 
+import SchoolLife from "../../components/schoolLife";
+
 import "./index.scss";
 
 function Content(props){
@@ -76,6 +78,13 @@ function Content(props){
             value: Account,
             type:
               "AdmToStu,LeaderToStu,StuToStu,OtherToStu,ParentsToStu,HeaderTeacherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher,OtherToTeacher",
+          },
+
+          {
+              title: <span>生活<br />信息</span>,
+              id: "life",
+              value:SchoolLife,
+              type:"AdmToStu,LeaderToStu,StuToStu,ParentsToStu",
           },
 
           {

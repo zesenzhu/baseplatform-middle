@@ -4,44 +4,63 @@ import { useDispatch, useSelector } from "react-redux";
 
 import ContentItem from '../contentItem';
 
-import LinkBtn from '../linkBtn';
+import {GetStuActivities,GetStuWaring,GetStuDormitory} from "../../actions/apiActions";
 
-import {btnQueryAlertShow,successAlertShow} from "../../actions/appAlertActions";
-
-import {ResetPwd} from "../../actions/apiActions";
-
-import {Modal, Table,Tips} from "../../../../common";
-
-import {Input} from "antd";
-
-import {UserComm_PwdStrong,UserComm_ValidatePwd} from '../../actions/utils';
+import ModuleLoading from "../moduleLoading";
 
 import "./index.scss";
 
-function Account(props) {
 
-    //标签名称
-    const [tabName,setTabName] = useState('');
+function SchoolLife(props) {
 
-    //标签名称
-    const [logModalShow,setLogModalShow] = useState(false);
+    //loading
+    const [loading,setLoading] = useState(true);
 
-    //设置新的密码
-    const [pwd,setPwd] = useState({
 
-        value:'pwd888888',
+    //学生宿舍
+    const [dormitory,setDormitory] = useState('');
 
-        tip:false,
+    //学生活动
+    const [stuActivities,setStuActivities] = useState({
 
-        title:'请输入密码',
+        attence:{
 
-        strongType:'',
+            value:'',
 
-        strongTypeTxt:''
+            classAvg:'',
+
+            count:0
+
+        },
+
+        homework:{
+
+            value:'',
+
+            classAvg:''
+
+        },
+
+        stayInSchool:{
+
+            value:'',
+
+            classAvg:''
+
+        },
+
+        online:{
+
+            value:'',
+
+            classAvg:''
+
+        }
 
     });
 
-    const {UsedType} = useSelector(state=>state.pageUsedType);
+    //学生异常
+    const [stuLateWarning,setStuLateWarning] = useState(0);
 
     const userArchives = useSelector(state=>state.userArchives);
 
@@ -52,28 +71,91 @@ function Account(props) {
     const dispatch = useDispatch();
 
 
-    const pwdRef = useRef(pwd);
+    //代理
+    const proxy = useMemo(()=>{
 
-    useEffect(()=>{
-
-        if (UsedType==='OtherToStu'){
-
-            setTabName("个人基本信息");
-
-        }else{
-
-            setTabName("账号信息");
-
-        }
-
-        if (UserType===2){
-
-
-
-        }
+        return 'http://192.168.2.202:7300/mock/5f40ff6044c5b010dca04032/userPersona';
 
     },[]);
 
+
+    useEffect(()=>{
+
+        const {SchoolID} = JSON.parse(sessionStorage.getItem("UserInfo"));
+
+        const getActivities = GetStuActivities({StudentId:UserID,ClassId:userArchives.ClassID,GradeId:userArchives.GradeID,proxy,dispatch});
+
+        const getWaring = GetStuWaring({StudentId:UserID,ClassId:userArchives.ClassID,GradeId:userArchives.GradeID,proxy,dispatch});
+
+        const getDormitory = GetStuDormitory({schoolId:SchoolID,userId:UserID,userType:UserType,proxy,dispatch});
+
+        Promise.all([getActivities,getWaring,getDormitory]).then(res=>{
+
+            if (res[0]){
+
+                const data = res[0][0].ActiveList;
+
+                const attence = {
+
+                        value:data.find(i=>i.Type===1).Value,
+
+                        classAvg:data.find(i=>i.Type===1).AvgClass,
+
+                        count:data.find(i=>i.Type===2).Value
+
+                };
+
+                const homework ={
+
+                    value:data.find(i=>i.Type===4).Value,
+
+                    classAvg:data.find(i=>i.Type===4).AvgClass
+
+                };
+
+                const stayInSchool = {
+
+                    value:data.find(i=>i.Type===6).Value,
+
+                    classAvg:data.find(i=>i.Type===6).AvgClass
+
+                };
+
+                const online = {
+
+                    value:data.find(i=>i.Type===5).Value,
+
+                    classAvg:data.find(i=>i.Type===5).AvgClass
+
+                };
+
+                setStuActivities(d=>{
+
+                   return {...d,attence,homework,stayInSchool,online};
+
+                });
+
+            }
+
+            if (res[1]){
+
+                setStuLateWarning(res[1].Count&&res[1].Count>0?res[1].Count:0);
+
+            }
+
+            if (res[2]){
+
+              const data = res[2];
+
+              setDormitory(`${data.buildingName}>${data.floorName}>${data.roomName}>${data.bedName}`)
+
+            }
+
+            setLoading(false);
+
+        });
+
+    },[]);
 
 
     //判断是否有值，没有的话返回--
@@ -83,681 +165,150 @@ function Account(props) {
 
     },[]);
 
-    //点击按钮
-
-    const btnClick = useCallback(()=>{
-
-        if (['AdmToStu','LeaderToStu','AdmToTeacher','LeaderToTeacher'].includes(UsedType)){
-
-            dispatch(btnQueryAlertShow({
-
-                title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.ShortName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
-
-                abstract:<div className={"new-pwd gray"}>
-
-                    <div className={"pwd-wrapper"}>新密码:<Tips visible={pwd.tip} title={pwd.title}><Input className={"new-pwd-input"} value={pwd.value} onBlur={pwdBlur} onChange={pwdChange}></Input></Tips></div>
-
-                    <div className={"strong-wrapper"} style={{display:`${pwd.strongType?'block':'none'}`}}>密码强度:<i className={`strong-type ${pwd.strongType}`}></i>{pwd.strongTypeTxt}</div>
-
-                </div>,
-
-                ok:updatePwdOk
-
-            }));
-
-        }else{
-
-            const token = sessionStorage.getItem("token");
-
-            window.open(`/html/personalMgr?lg_tk=${token}`);
-
-        }
-
-    },[]);
-
-
-
-
-    //密码修改
-
-    const pwdChange  = useCallback((e)=>{
-
-        e.persist();
-
-        const strong = UserComm_PwdStrong(e.target.value);
-
-        let strongType = '',strongTypeTxt = '';
-
-        switch (strong) {
-
-            case 1:
-
-                strongType = 'weak';
-
-                strongTypeTxt = '弱';
-
-                break;
-
-            case 2:
-
-                strongType = 'middle';
-
-                strongTypeTxt = '中';
-
-                break;
-
-            case 3:
-
-                strongType = 'strong';
-
-                strongTypeTxt = '强';
-
-                break;
-
-            default:
-
-                strongType = '';
-
-                strongTypeTxt = '';
-
-        }
-
-        setPwd(d=>{
-
-           pwdRef.current = {...d,value:e.target.value,strongType,strongTypeTxt};
-
-           dispatch(btnQueryAlertShow({
-
-                title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.ShortName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
-
-                abstract:<div className={"new-pwd gray"}>
-
-                    <div className={"pwd-wrapper"}>新密码:<Tips visible={pwd.tip} title={pwd.title}><Input className={"new-pwd-input"} value={e.target.value} onBlur={pwdBlur} onChange={pwdChange}></Input></Tips></div>
-
-                    <div className={"strong-wrapper"} style={{display:`${strongType?'block':'none'}`}}>密码强度:<i className={`strong-type ${strongType}`}></i>{strongTypeTxt}</div>
-
-                </div>,
-
-               ok:updatePwdOk
-
-            }));
-
-           return {...d,value:e.target.value,strongType,strongTypeTxt};
-
-       });
-
-    },[]);
-
-
-    //密码弹窗blur事件
-
-    const pwdBlur = useCallback(()=>{
-
-        const {value,strongTypeTxt,strongType} = pwdRef.current;
-
-        let tip = false,title='';
-
-        if(value){
-
-            const res = UserComm_ValidatePwd(value);
-
-            if (res.isOK){
-
-                tip = false;
-
-                setPwd(d=>{
-
-                    pwdRef.current = {...d,tip};
-
-                    return {...d,tip};
-
-                });
-
-            }else{
-
-                tip = true;
-
-                title = '密码应由8-20位字母、数字及特殊字符`~!@#$%^&*()_+-={}|[]:\\";\'<>?,./\\\\的任意两种及以上组成';
-
-                setPwd(d=>{
-
-                    pwdRef.current = {...d,tip,title};
-
-                    return {...d,tip,title};
-
-                })
-
-            }
-
-        }else{
-
-            title = '请输入密码';
-
-            tip = true;
-
-            setPwd(d=>{
-
-                pwdRef.current={...d,tip,title};
-
-                return {...d,tip,title};
-
-            });
-
-        }
-
-        dispatch(btnQueryAlertShow({
-
-            title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.ShortName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
-
-            abstract:<div className={"new-pwd gray"}>
-
-                <div className={"pwd-wrapper"}>新密码:<Tips visible={tip} title={title}><Input className={"new-pwd-input"} value={value} onBlur={pwdBlur} onChange={pwdChange}></Input></Tips></div>
-
-                <div className={"strong-wrapper"} style={{display:`${strongType?'block':'none'}`}}>密码强度:<i className={`strong-type ${strongType}`}></i>{strongTypeTxt}</div>
-
-            </div>,
-
-            ok:updatePwdOk
-
-        }));
-
-    },[]);
-
-
-    //提交修改密码
-    const updatePwdOk = useCallback(()=>{
-
-            const {tip,value} = pwdRef.current;
-
-            if (!tip){
-
-                ResetPwd({userID:UserID,userType:UserType,newPwd:value,dispatch}).then(data=>{
-
-                    if (data===0){
-
-                        dispatch(successAlertShow({title:'重置密码成功'}));
-
-                    }
-
-                })
-
-            }
-
-    },[]);
-
-    //登录记录的列表
-
-    const columns = useMemo(()=>{
-
-        return [
-
-            {
-
-                title:"登录时间",
-
-                dataIndex:"LoginTime",
-
-                key:"LoginTime",
-
-                align:"center",
-
-                render:(i,k)=>{
-
-                    if (i === ''){
-
-                        return <span className="login">--</span>;
-
-                    }else{
-
-                        return <span className="login">{i}</span>;
-
-                    }
-
-                },
-
-                width:200
-
-            },
-            {
-
-                title:"登出时间",
-
-                dataIndex:"LogoutTime",
-
-                key:"LogoutTime",
-
-                align:"center",
-
-                render:(i,k)=>{
-
-                    if (i === ''){
-
-                        return <span className="logout">--</span>;
-
-                    }else{
-
-                        return <span className="logout">{i}</span>;
-
-                    }
-
-                },
-
-                width:200
-
-            },
-            {
-
-                title:"IP",
-
-                dataIndex:"IPAddress",
-
-                key:"IPAddress",
-
-                align:"center",
-
-                render:(i,k)=>{
-
-                    if (i === ''){
-
-                        return <span className="ip">--</span>;
-
-                    }else{
-
-                        return <span className="ip">{i}</span>;
-
-                    }
-
-                },
-
-                width:180
-
-            },
-            {
-
-                title:"登录方式",
-
-                dataIndex:"LoginTypeTxt",
-
-                key:"LoginTypeTxt",
-
-                align:"center",
-
-                render:(i,k)=>{
-
-                    if (i === ''){
-
-                        return <span className="method">--</span>;
-
-                    }else{
-
-                        return <span className="method">{i}</span>;
-
-                    }
-
-                },
-
-                width:180
-
-            },
-            {
-
-                title:"登录设备",
-
-                dataIndex:"MachineTypeTxt",
-
-                key:"MachineTypeTxt",
-
-                align:"center",
-
-                render:(i,k)=>{
-
-                    if (i === ''){
-
-                        return <span className="device">--</span>;
-
-                    }else{
-
-                        return <span className="device">{i}</span>;
-
-                    }
-
-                },
-
-            }
-
-        ];
-
-    },[]);
-
-    //登录记录的数据
-
-    const logDataSource = useMemo(()=>{
-
-        if (userArchives.LoginLogList&&userArchives.LoginLogList.length>0){
-
-            return userArchives.LoginLogList.filter((i,k)=>k<=9).map(i=>({...i,key:i.LogID}));
-
-        }else{
-
-            return [];
-
-        }
-
-    },[userArchives]);
-
-    //更多记录弹窗出现
-
-    const moreLogShow = useCallback(()=>{
-
-        setLogModalShow(true);
-
-    },[]);
-
-    //更多记录弹窗消失
-
-    const closeMoreLogModal = useCallback(()=>{
-
-        setLogModalShow(false);
-
-    },[]);
-
-
-    //查看班主任信息
-
-    const seeGanger = (userID)=>{
-
-      const token = sessionStorage.getItem('token');
-
-      window.open(`/html/userPersona?lg_tk=${token}&userID=${userID}&userType=1`);
-
-    };
-
 
     return(
 
-        <ContentItem type={"account"} tabName={tabName}>
+        <ContentItem type={"life"} tabName={'在校生活信息'}>
 
-            <div className={"account-wrapper"}>
+            <div className={"school-life-wrapper"}>
 
-                <div className={"btn-wrapper clearfix"}>
+              <div className={"life-header clearfix"}>
 
-                    {
+                  <div className={"study-type"}>
 
-                        ['AdmToStu','LeaderToStu','StuToStu','AdmToTeacher','TeacherToTeacher','LeaderToTeacher'].includes(UsedType)?
+                      <span className={"props"}>就读方式:</span>
 
-                            <LinkBtn onClick={btnClick} type={`${['AdmToStu','LeaderToStu','AdmToTeacher','LeaderToTeacher'].includes(UsedType)?'reset':'edit'}`}>{
+                      <span className={"value study"}>{userStatus&&userStatus.studentStatus&&userStatus.studentStatus.length>0?isHasValue(userStatus.studentStatus[0].studyingWay):'--'}</span>
 
-                                ['AdmToStu','LeaderToStu','AdmToTeacher','LeaderToTeacher'].includes(UsedType)?'重置密码':'编辑'
+                  </div>
 
-                            }</LinkBtn>
+                  <div className={"dormitory"}>
 
-                            :null
+                      <span className={"props"}>所在寝室:</span>
 
-                    }
+                      <span className={"value dormitory"}>{isHasValue(dormitory)}</span>
 
-                </div>
+                      <i className={"icon position"}></i>
 
-                <table className={"account-table"}>
+                  </div>
 
-                    {
+                  <div className={"late-warning"}>
 
-                        ['AdmToStu','LeaderToStu','HeaderTeacherToStu','StuToStu','AdmToTeacher','LeaderToTeacher','TeacherToTeacher'].includes(UsedType)?
+                      <span className={"props"}>晚归异常:</span>
 
-                            <tbody>
+                      <span className={"value late"}>{stuLateWarning}次</span>
 
-                            <tr>
-                                <td className={"col1 props"}>用户名:</td>
-                                <td className={"col2"}>
+                      <i className={"icon warning"}></i>
 
-                                    <div className={"short-name"}>{isHasValue(userArchives.ShortName)}</div>
+                  </div>
 
-                                </td>
-                                <td className={"col3 props"}>最后登录:</td>
-                                <td className={"col4"}>
+              </div>
 
-                                    <div className={"last-log"}>
+              <ul className={"life-content clearfix"}>
 
-                                        <span className={"time"}>{isHasValue(userArchives.LastTimeLogin)}</span>
+                  <li className={"lift-item attence clearfix"}>
 
-                                        {
+                      <i className={"icon"}></i>
 
-                                            userArchives.LoginLogList.length>0?
+                      <div className={"detail-content"}>
 
-                                                <button onClick={moreLogShow} className={"more"}>更多</button>
+                          <div className={"title"}>考勤</div>
 
-                                                :null
+                          <div className={"rate"}>
 
-                                        }
+                              请假<span className={"rate-red"}>{stuActivities.attence.count}</span>次,
 
-                                    </div>
+                              出勤率<span className={"rate-green"}>{stuActivities.attence.value}</span>
 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className={"col1 props"}>QQ:</td>
-                                <td className={"col2"}>{isHasValue(userArchives.QQ)}</td>
-                                <td className={"col3 props"}>微博:</td>
-                                <td className={"col4"}>{isHasValue(userArchives.Weibo)}</td>
-                            </tr>
+                          </div>
 
-                            <tr>
-                                <td className={"col1 props"}>微信:</td>
-                                <td className={"col2"}>{isHasValue(userArchives.Weixin)}</td>
-                                <td className={"col3 props"}>联系电话:</td>
-                                <td className={"col4"}>{isHasValue(userArchives.Telephone2)}</td>
-                            </tr>
+                          <div className={"agv-rate"}>
 
-                            <tr>
-                                <td className={"col1 props"}>注册时间:</td>
-                                <td className={"col2"}>{isHasValue(userArchives.Telephone2)}</td>
-                                <td className={"col3 props"}>累计在线:</td>
-                                <td className={"col4"}>{isHasValue(userArchives.LoginTimeSpan_Txt)}</td>
-                            </tr>
+                              班级平均值:{stuActivities.attence.classAvg}
 
-                            </tbody>
+                          </div>
 
-                            :
+                      </div>
 
-                            UsedType==='OtherToStu'?
+                  </li>
 
-                            <tbody>
+                  <li className={"lift-item homework clearfix"}>
 
-                                <tr>
+                      <i className={"icon"}></i>
 
-                                    <td className={"col1 props"}>姓名:</td>
+                      <div className={"detail-content"}>
 
-                                    <td className={"col2"}>
+                          <div className={"title"}>作业完成率</div>
 
-                                        <div className={"short-name"}>{isHasValue(userArchives.ShortName)}</div>
+                          <div className={"rate"}>
 
-                                    </td>
+                              <span className={"rate-green"}>{stuActivities.homework.value}</span>
 
-                                    <td className={"col3 props"}>性别:</td>
+                          </div>
 
-                                    <td className={"col4"}>{isHasValue(userArchives.Gender)}</td>
+                          <div className={"agv-rate"}>
 
-                                </tr>
+                              班级平均值:{stuActivities.homework.classAvg}
 
-                                <tr>
+                          </div>
 
-                                    <td className={"col1 props"}>学号:</td>
+                      </div>
 
-                                    <td className={"col2"}>
+                  </li>
 
-                                        <div className={"user-id"}>{isHasValue(UserID)}</div>
+                  <li className={"lift-item stayInSchool clearfix"}>
 
-                                    </td>
+                      <i className={"icon"}></i>
 
-                                    <td className={"col3 props"}>所在年级:</td>
+                      <div className={"detail-content"}>
 
-                                    <td className={"col4"}>{isHasValue(userArchives.GradeName)}</td>
+                          <div className={"title"}>在校时长</div>
 
-                                </tr>
+                          <div className={"rate"}>
 
-                                <tr>
+                              <span className={"rate-green"}>{stuActivities.stayInSchool.value}</span>小时/天
 
-                                    <td className={"col1 props"}>所在班级:</td>
+                          </div>
 
-                                    <td className={"col2"}>
+                          <div className={"agv-rate"}>
 
-                                        <div className={"class-name"}>
+                              班级平均值:{stuActivities.stayInSchool.classAvg}小时/天
 
-                                            {isHasValue(userArchives.ClassName)}
+                          </div>
 
-                                        </div>
+                      </div>
 
-                                    </td>
+                  </li>
 
-                                    <td className={"col3 props"}>班主任:</td>
+                  <li className={"lift-item online clearfix"}>
 
-                                    <td className={"col4"}>
+                      <i className={"icon"}></i>
 
-                                        {
+                      <div className={"detail-content"}>
 
-                                            userArchives.GangerName?
+                          <div className={"title"}>网上时长</div>
 
-                                                <button onClick={e=>seeGanger(userArchives.GangerID)} className={"ganger"}>{isHasValue(userArchives.GangerName)}</button>
+                          <div className={"rate"}>
 
-                                                :'--'
+                              <span className={"rate-green"}>{new Number((stuActivities.online.value)/60).toFixed(2)}</span>小时/天
 
-                                        }
+                          </div>
 
-                                    </td>
+                          <div className={"agv-rate"}>
 
-                                </tr>
+                              班级平均值:{new Number((stuActivities.online.value)/60).toFixed(2)}小时/天
 
-                                <tr>
+                          </div>
 
-                                    <td className={"col1 props"}>QQ:</td>
+                      </div>
 
-                                    <td className={"col2"}>{isHasValue(userArchives.QQ)}</td>
+                  </li>
 
-                                    <td className={"col3 props"}>微博:</td>
+              </ul>
 
-                                    <td className={"col4"}>{isHasValue(userArchives.Weibo)}</td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td className={"col1 props"}>微信:</td>
-
-                                    <td className={"col2"}>{isHasValue(userArchives.Weixin)}</td>
-
-                                    <td className={"col3 props"}>联系电话:</td>
-
-                                    <td className={"col4"}>{isHasValue(userArchives.Telephone2)}</td>
-
-                                </tr>
-
-                            </tbody>
-
-                            :
-
-                            <tbody>
-
-                                <tr>
-
-                                    <td className={"col1 props"}>姓名:</td>
-
-                                    <td className={"col2"}>
-
-                                        <div className={"short-name"}>{isHasValue(userArchives.ShortName)}</div>
-
-                                    </td>
-
-                                    <td className={"col3 props"}>工号:</td>
-
-                                    <td className={"col4"}>
-
-                                        <div className={"user-id"}>{isHasValue(UserID)}</div>
-
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td className={"col1 props"}>性别:</td>
-
-                                    <td className={"col2"}>{isHasValue(userArchives.Gender)}</td>
-
-                                    <td className={"col3 props"}>民族:</td>
-
-                                    <td className={"col4"}>{userStatus?isHasValue(userStatus.nation):'--'}</td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td className={"col1 props"}>职称:</td>
-
-                                    <td className={"col2"}>{userStatus?isHasValue(userStatus.professionalTitle):'--'}</td>
-
-                                    <td className={"col3 props"}>所教学科:</td>
-
-                                    <td className={"col4"}>
-
-                                       <div className={"subject"}>
-
-                                           {isHasValue(userArchives.SubjectNames)}
-
-                                       </div>
-
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td className={"col1 props"}>QQ:</td>
-
-                                    <td className={"col2"}>{isHasValue(userArchives.QQ)}</td>
-
-                                    <td className={"col3 props"}>微博:</td>
-
-                                    <td className={"col4"}>{isHasValue(userArchives.Weibo)}</td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td className={"col1 props"}>微信:</td>
-
-                                    <td className={"col2"}>{isHasValue(userArchives.Weixin)}</td>
-
-                                    <td className={"col3 props"}>联系电话:</td>
-
-                                    <td className={"col4"}>{isHasValue(userArchives.Telephone2)}</td>
-
-                                </tr>
-
-                            </tbody>
-
-                    }
-
-                </table>
+              <ModuleLoading loading={loading}></ModuleLoading>
 
             </div>
-
-
-            <Modal
-                className="login-history-modal"
-                title="登录历史详情（最近10次）"
-                type={1}
-                visible={logModalShow}
-                width={936}
-                bodyStyle={{height:466}}
-                mask={true}
-                footer={null}
-                onCancel={closeMoreLogModal}
-            >
-
-
-                <Table dataSource={logDataSource} pagination={false} columns={columns}></Table>
-
-
-            </Modal>
 
         </ContentItem>
 
@@ -765,4 +316,4 @@ function Account(props) {
 
 }
 
-export default memo(Account);
+export default memo(SchoolLife);

@@ -1,8 +1,10 @@
-import {getGetData,getPostData} from './utils';
+import {getGetData,getPostData,removeSlashUrl} from './utils';
 
 import { btnErrorAlertShow } from './appAlertActions';
 
+import {fetch} from 'whatwg-fetch'
 
+//get
 
 //获取基础信息
 export const GetBaseInfoForPages = async ({dispatch})=>{
@@ -178,6 +180,66 @@ export const GetUserLogForHX =  async ({UserID,UserType,proxy='',dispatch})=>{
 
 
 
+//获取学生活动日常
+
+export const GetStuActivities =  async ({StudentId,ClassId,GradeId,ActiveType=0,TimeStamp=new Date().getTime(),Key=new Date().getTime(),IsCourseClass=false,proxy='',dispatch})=>{
+
+    const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/Student/Active/Class/One?StudentId=${StudentId}&ClassId=${ClassId}&GradeId=${GradeId}&ActiveType=${ActiveType}&TimeStamp=${TimeStamp}&Key=${Key}&IsCourseClass=${IsCourseClass}`);
+
+    if (res.StatusCode===200){
+
+        return res.Data;
+
+    }else{
+
+        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取学生活动失败'}));
+
+    }
+
+};
+
+
+//获取学生单个异常
+
+export const GetStuWaring =  async ({StudentId,WarningId='',WarningType=7,ClassId,GradeId,TimeStamp=new Date().getTime(),Key=new Date().getTime(),IsCourseClass=false,proxy='',dispatch})=>{
+
+    const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/Student/Warning/Class/One/Detail?StudentId=${StudentId}&ClassId=${ClassId}&GradeId=${GradeId}&WarningId=${WarningId}&WarningType=${WarningType}&TimeStamp=${TimeStamp}&Key=${Key}&IsCourseClass=${IsCourseClass}`);
+
+    if (res.StatusCode===200){
+
+        return res.Data;
+
+    }else{
+
+        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取学生活动失败'}));
+
+    }
+
+};
+
+
+//获取学生宿舍
+
+export const GetStuDormitory  =  async ({userId,userType,schoolId,proxy='',dispatch})=>{
+
+    const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/student/bedAndStatus?userId=${userId}&userType=${userType}&schoolId=${schoolId}`);
+
+    if (res.code===1){
+
+        return res.result;
+
+    }else{
+
+        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取学生宿舍失败'}));
+
+    }
+
+};
+
+
+
+
+//post
 
 //重置密码
 export const ResetPwd = async ({userID,userType,newPwd,dispatch}) =>{
@@ -205,6 +267,46 @@ export const ResetPwd = async ({userID,userType,newPwd,dispatch}) =>{
 
 
 
+
+
+
+//大数据相关的请求
+
+
+const dataSetsGetData = async (url)=>{
+
+  const res = await fetch(url,{
+
+      method:'GET',
+
+      mode: "cors",
+
+      cache: "no-cache",
+
+      headers:{
+
+          'Content-Type':'application/json',
+
+          'Accept':"application/json",
+
+          'Lg_MgrCenter_Token':sessionStorage.getItem("token"),
+
+          'Lg_MgrCenter_UserId':JSON.parse(sessionStorage.getItem("UserInfo")).UserID,
+
+          "Lg_MgrCenter_Client":0
+
+      }
+
+  });
+
+  const data = await res.json();
+
+  return data;
+
+};
+
+
+
 export default {
 
     GetBaseInfoForPages,
@@ -223,7 +325,11 @@ export default {
 
     GetUserLogForHX,
 
-    ResetPwd
+    ResetPwd,
+
+    GetStuActivities,
+
+    GetStuWaring
 
 }
 

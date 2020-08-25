@@ -66,12 +66,6 @@ function Account(props) {
 
         }
 
-        if (UserType===2){
-
-
-
-        }
-
     },[]);
 
 

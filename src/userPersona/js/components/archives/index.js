@@ -12,6 +12,8 @@ import {userStatusUpdate} from '../../actions/userStatusActions';
 
 import {removeSlashUrl} from "../../actions/utils";
 
+import ModuleLoading from '../moduleLoading';
+
 import './index.scss';
 
 function Archives(props) {
@@ -36,7 +38,7 @@ function Archives(props) {
 
     const dispatch = useDispatch();
 
-    useState(()=>{
+    useEffect(()=>{
 
         if (userStatus){
 
@@ -627,7 +629,7 @@ function Archives(props) {
 
                 }
 
-                <div style={{display:loading?'block':'none'}} className={"loading"}><div className={"loading-title"}>加载中,请稍候...</div></div>
+                <ModuleLoading loading={loading}></ModuleLoading>
 
             </div>
 
