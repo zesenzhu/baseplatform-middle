@@ -114,6 +114,8 @@ function Content(props) {
       } else {
         return [];
       }
+    }else {
+      return []
     }
   }, [userArchives]);
 
