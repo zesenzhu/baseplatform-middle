@@ -31,6 +31,8 @@ const defaultState = {
   ModuleRely: {
     archives: ["E34"],
     StuResult: ["810"],
+    StuQuality: ["810"],
+    MoralEdu: ["E34"],
   },
 };
 

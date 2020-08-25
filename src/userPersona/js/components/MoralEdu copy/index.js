@@ -102,10 +102,10 @@ class StuQuality extends Component {
               {StuQualityList instanceof Array && StuQualityList.length > 0 ? (
                 StuQualityList.map((child, index) => {
                   return (
-                    <div key={index} className="SQb-bar">
+                    <div className="SQb-bar">
                       {child.map((child1, index1) => {
                         return (
-                          <div key={index1} className={`SQb-content`}>
+                          <div className={`SQb-content`}>
                             <div
                               title={child1.RankName ? child1.RankName : ""}
                               className="SQbc-top"

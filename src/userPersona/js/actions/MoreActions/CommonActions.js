@@ -39,7 +39,9 @@ const SetStuQualityParams = (data) => {
     });
   };
 };
+ 
 const CommonActions = {
+
   COMMON_SET_STU_QUALITY_PARAMS,
   SetStuQualityParams,
 

@@ -8,11 +8,196 @@ let { MainActions } = Actions;
 const MainData = (
   state = {
     MoralEduInfo: {
-      pageNum: 1,
-      pageSize: 20,
-      totalCount: 0,
-      pageCount: 0,
-      data: [],
+      data: {
+        pageNum: 1,
+        pageSize: 2000,
+        totalCount: 2,
+        pageCount: 1,
+        data: [
+          {
+            id: 1,
+            remark: "查寝不在",
+            examinationDept: "宿舍管理科",
+            examinationTime: "2020-08-25T01:07:42.000+00:00",
+            semester: "2019-202002",
+            examinationItemId: 1,
+            examinationScore: -2.0,
+            extend1: null,
+            standardIdNew: null,
+            userInfo: [{ userName: "陈捷", userId: "Stu001" }],
+            moralityExaminationStandard: {
+              id: 1,
+              isReiterated: "1",
+              deleteFlag: "1",
+              editFlag: "0",
+              examinationItems: [
+                {
+                  id: 1,
+                  itemContent: "夜不归宿",
+                  itemScore: -2.0,
+                  standardId: 1,
+                  flag: "1",
+                },
+              ],
+              examinationContent: "夜不归宿",
+              examinationType: 0,
+            },
+          },
+          {
+            id: 2,
+            remark: `青少年科技创新大赛(China Adolescents Science & Technology Innovation Contest;简称创新大赛，CASTIC)是一项具有20多年历史的全国性青少年科技
+            创新成果和科学探究项目的综合性科技竞赛，是面向在校中小学生开展的具有示范性和导向性的科技教育活动之一，是目前我国中小学各类科技活动优秀成果
+            集中展示的一种形式。`,
+            examinationDept: "行政处",
+            examinationTime: "2020-08-25T01:08:15.000+00:00",
+            semester: "2019-202002",
+            examinationItemId: 3,
+            examinationScore: 3.0,
+            extend1: null,
+            standardIdNew: null,
+            userInfo: [{ userName: "陈捷", userId: "Stu001" }],
+            moralityExaminationStandard: {
+              id: 2,
+              isReiterated: "1",
+              deleteFlag: "1",
+              editFlag: "0",
+              examinationItems: [
+                {
+                  id: 3,
+                  itemContent: "一等奖",
+                  itemScore: 3.0,
+                  standardId: 2,
+                  flag: "1",
+                },
+              ],
+              examinationContent: "英语竞赛",
+              examinationType: 1,
+            },
+          },
+          {
+            id: 1,
+            remark: "查寝不在",
+            examinationDept: "宿舍管理科",
+            examinationTime: "2020-08-25T01:07:42.000+00:00",
+            semester: "2019-202002",
+            examinationItemId: 1,
+            examinationScore: -2.0,
+            extend1: null,
+            standardIdNew: null,
+            userInfo: [{ userName: "陈捷", userId: "Stu001" }],
+            moralityExaminationStandard: {
+              id: 1,
+              isReiterated: "1",
+              deleteFlag: "1",
+              editFlag: "0",
+              examinationItems: [
+                {
+                  id: 1,
+                  itemContent: "夜不归宿",
+                  itemScore: -2.0,
+                  standardId: 1,
+                  flag: "1",
+                },
+              ],
+              examinationContent: "夜不归宿",
+              examinationType: 0,
+            },
+          },
+          {
+            id: 2,
+            remark: `青少年科技创新大赛(China Adolescents Science & Technology Innovation Contest;简称创新大赛，CASTIC)是一项具有20多年历史的全国性青少年科技
+            创新成果和科学探究项目的综合性科技竞赛，是面向在校中小学生开展的具有示范性和导向性的科技教育活动之一，是目前我国中小学各类科技活动优秀成果
+            集中展示的一种形式。`,
+            examinationDept: "行政处",
+            examinationTime: "2020-08-25T01:08:15.000+00:00",
+            semester: "2019-202002",
+            examinationItemId: 3,
+            examinationScore: 3.0,
+            extend1: null,
+            standardIdNew: null,
+            userInfo: [{ userName: "陈捷", userId: "Stu001" }],
+            moralityExaminationStandard: {
+              id: 2,
+              isReiterated: "1",
+              deleteFlag: "1",
+              editFlag: "0",
+              examinationItems: [
+                {
+                  id: 3,
+                  itemContent: "一等奖",
+                  itemScore: 3.0,
+                  standardId: 2,
+                  flag: "1",
+                },
+              ],
+              examinationContent: "英语竞赛",
+              examinationType: 1,
+            },
+          },
+          {
+            id: 1,
+            remark: "查寝不在",
+            examinationDept: "宿舍管理科",
+            examinationTime: "2020-08-25T01:07:42.000+00:00",
+            semester: "2019-202002",
+            examinationItemId: 1,
+            examinationScore: -2.0,
+            extend1: null,
+            standardIdNew: null,
+            userInfo: [{ userName: "陈捷", userId: "Stu001" }],
+            moralityExaminationStandard: {
+              id: 1,
+              isReiterated: "1",
+              deleteFlag: "1",
+              editFlag: "0",
+              examinationItems: [
+                {
+                  id: 1,
+                  itemContent: "夜不归宿",
+                  itemScore: -2.0,
+                  standardId: 1,
+                  flag: "1",
+                },
+              ],
+              examinationContent: "夜不归宿",
+              examinationType: 0,
+            },
+          },
+          {
+            id: 2,
+            remark: `青少年科技创新大赛(China Adolescents Science & Technology Innovation Contest;简称创新大赛，CASTIC)是一项具有20多年历史的全国性青少年科技
+            创新成果和科学探究项目的综合性科技竞赛，是面向在校中小学生开展的具有示范性和导向性的科技教育活动之一，是目前我国中小学各类科技活动优秀成果
+            集中展示的一种形式。`,
+            examinationDept: "行政处",
+            examinationTime: "2020-08-25T01:08:15.000+00:00",
+            semester: "2019-202002",
+            examinationItemId: 3,
+            examinationScore: 3.0,
+            extend1: null,
+            standardIdNew: null,
+            userInfo: [{ userName: "陈捷", userId: "Stu001" }],
+            moralityExaminationStandard: {
+              id: 2,
+              isReiterated: "1",
+              deleteFlag: "1",
+              editFlag: "0",
+              examinationItems: [
+                {
+                  id: 3,
+                  itemContent: "一等奖",
+                  itemScore: 3.0,
+                  standardId: 2,
+                  flag: "1",
+                },
+              ],
+              examinationContent: "英语竞赛",
+              examinationType: 1,
+            },
+          },
+          
+        ],
+      },
+      totalScore: 101.0,
     },
     StuNearExamData: {
       PubName: "",
@@ -166,33 +351,16 @@ const MainData = (
       //   做得很不够。`,
       // },
     ],
-    StuQualityData: [
-      {
-        ItemID: "4EBDF92E-FA6C-4B6C-A4F0-55C002C3AF23-1",
-        ItemName: "品德表现",
-        RankName: null,
-      },
-      {
-        ItemID: "4EBDF92E-FA6C-4B6C-A4F0-55C002C3AF23-2",
-        ItemName: "运动健康",
-        RankName: null,
-      },
-      {
-        ItemID: "4EBDF92E-FA6C-4B6C-A4F0-55C002C3AF23-3",
-        ItemName: "艺术修养",
-        RankName: null,
-      },
-      {
-        ItemID: "4EBDF92E-FA6C-4B6C-A4F0-55C002C3AF23-4",
-        ItemName: "创新实践",
-        RankName: null,
-      },
-    ],
+    StuQualityData: [],
   },
   actions
 ) => {
   let ApplyModuleSort = [];
   switch (actions.type) {
+    case MainActions.MAIN_GET_STUDENT_QUALITY:
+      return Object.assign({}, state, {
+        StuQualityData: actions.data,
+      });
     case MainActions.MAIN_GET_CLASS_MORAL_EDU_INFO_BY_CRITERIAS:
       return Object.assign({}, state, {
         MoralEduInfo: actions.data,

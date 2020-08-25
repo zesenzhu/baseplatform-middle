@@ -15,13 +15,23 @@ const GetClassMoralEduInfoByCriterias = ({
   title,
   pageSize,
   pageNum,
+  semester,
+  token,
 }) => {
   return (dispatch, getState) => {
     let State = getState();
     let {
       MoreData: {
         CommonData: {
-          MoralEduParams: { UserID, Title, PageSize, PageNum },
+          MoralEduParams: {
+            Token,
+            Proxy,
+            UserID,
+            Title,
+            PageSize,
+            PageNum,
+            Semester,
+          },
         },
       },
     } = State;
@@ -37,12 +47,20 @@ const GetClassMoralEduInfoByCriterias = ({
     if (pageNum === undefined) {
       pageNum = PageNum;
     }
+    if (semester === undefined) {
+      semester = Semester;
+    }
+    if (token === undefined) {
+      token = Token;
+    }
     getClassMoralEduInfoByCriterias({
       Proxy,
       title,
       userId,
       pageSize,
       pageNum,
+      semester,
+      token,
     }).then((res) => {
       if (res) {
         dispatch({
@@ -50,9 +68,7 @@ const GetClassMoralEduInfoByCriterias = ({
           data: res.data,
         });
         func(getState());
-        dispatch(
-          UpDataState.SetLoadingVisible({ ScheduleLoadingVisible: false })
-        );
+         
       }
     });
   };
@@ -62,18 +78,24 @@ const getClassMoralEduInfoByCriterias = async ({
   userId = "",
   pageSize = "",
   pageNum = "",
+  semester = "",
+  token = "",
   Proxy,
 }) => {
   let url =
     Proxy +
-    "/getClassMoralEduInfoByCriterias?title=" +
+    "/stu/getClassMoralEduInfoByCriterias?title=" +
     title +
     "&userId=" +
     userId +
     "&pageSize=" +
     pageSize +
     "&pageNum=" +
-    pageNum;
+    pageNum +
+    "&semester=" +
+    semester +
+    "&token=" +
+    token;
   let data = "";
   let res = await getData(url, 2);
   let json = await res.json();
@@ -274,7 +296,63 @@ const getStuNearExam = async ({
   }
   return data;
 };
+// 获取学生综合素养评价
+const MAIN_GET_STUDENT_QUALITY = "MAIN_GET_STUDENT_QUALITY";
+const GetStudentQuality = ({
+  func = () => {},
+  Term,
+
+  Proxy,
+  XH,
+}) => {
+  return (dispatch, getState) => {
+    let State = getState();
+    let {
+      MoreData: {
+        CommonData: { StuQualityParams },
+      },
+      systemUrl,
+    } = State;
+    if (Term === undefined) {
+      Term = StuQualityParams.Term;
+    }
+
+    if (Proxy === undefined) {
+      Proxy = StuQualityParams.Proxy;
+    }
+    if (XH === undefined) {
+      XH = StuQualityParams.XH;
+    }
+    getStudentQuality({ Term, Proxy, XH }).then((res) => {
+      if (res) {
+        dispatch({ type: MAIN_GET_STUDENT_QUALITY, data: res.data });
+        func(getState());
+      }
+    });
+  };
+};
+const getStudentQuality = async ({
+  Term = "",
+
+  Proxy = "",
+  XH = "",
+}) => {
+  let url = Proxy + "/api/JWCJZP/GetStudentQuality?Term=" + Term + "&XH=" + XH;
+  let data = "";
+  let res = await getData(url, 2);
+  let json = await res.json();
+  if (json.success === true) {
+    data = json;
+  } else {
+    data = false; //有错误
+  }
+  return data;
+};
+
 const MainActions = {
+  GetStudentQuality,
+  MAIN_GET_STUDENT_QUALITY,
+
   GetStudentReport,
   MAIN_GET_STUDENT_REPORT,
 
