@@ -119,7 +119,7 @@ function Content(props) {
 
   //锚点
   const anchorList = useMemo(() => {
-    if (moduleList.length > 0) {
+    if (moduleList instanceof Array&&moduleList.length > 0) {
       return moduleList
         .filter((i) => i.type.includes(UsedType))
         .map((i) => ({ id: i.id, title: i.title }));
@@ -131,7 +131,7 @@ function Content(props) {
   return (
     <>
       <ul className={"app-content-wrapper"}>
-        {moduleList.map((i) => {
+        {moduleList instanceof Array&&moduleList.map((i) => {
           if (i.type.includes(UsedType)) {
             return <i.value key={i.id}></i.value>;
           }
