@@ -76,8 +76,6 @@ class HandleCourseClass extends React.Component {
 
     const data = DataState.GetCourseClassDetailsHandleClassMsg;
 
-    console.log(data);
-
     if (data.GradeID&&this.state.firstLoad){
 
         this.setState({firstLoad:false},()=>{
@@ -567,7 +565,7 @@ class HandleCourseClass extends React.Component {
 
                     <span className="right">
 
-                      <RadioGroup value={this.state.classInfo.radioValue} onChange={this.classRadioChange.bind(this)}>
+                      <RadioGroup disabled={true} value={this.state.classInfo.radioValue} onChange={this.classRadioChange.bind(this)}>
 
                         <Radio value={2}>走班</Radio>
 
@@ -577,7 +575,7 @@ class HandleCourseClass extends React.Component {
 
                       <Tips visible={this.state.classInfo.tip} title={"请指定一个班级"}>
 
-                        <DropDown onChange={this.classSelectChange.bind(this)} disabled={this.state.classInfo.classDisabled} className={"select-class"} width={200} dropSelectd={this.state.classInfo.dropSelectd} dropList={this.state.classInfo.dropList}></DropDown>
+                        <DropDown  onChange={this.classSelectChange.bind(this)} disabled={true} className={"select-class"} width={200} dropSelectd={this.state.classInfo.dropSelectd} dropList={this.state.classInfo.dropList}></DropDown>
 
                       </Tips>
 

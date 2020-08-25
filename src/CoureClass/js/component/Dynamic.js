@@ -420,8 +420,13 @@ class Dynamic extends React.Component {
   OnCheckAllChange = e => {
     //console.log(e.target,this.state.options)
     const { dispatch, DataState } = this.props;
+
     let plainOptions = this.state.plainOptions;
+
     let { pagination, pageSize, dataSource } = this.state;
+
+    console.log(pagination,plainOptions,pageSize);
+
     let defaultPageSize = pageSize;
 
     let checkedList = [];
@@ -559,6 +564,7 @@ class Dynamic extends React.Component {
     // console.log(value)
     let plainOptions = [];
     let { pagination, pageSize, dataSource } = this.state;
+
     let defaultPageSize = pageSize;
     if (dataSource.length < value * defaultPageSize) {
       pageSize = dataSource.length - (value - 1) * defaultPageSize;
