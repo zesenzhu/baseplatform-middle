@@ -66,6 +66,8 @@ function SchoolLife(props) {
 
     const userStatus = useSelector(state=>state.userStatus);
 
+    const {Urls} = useSelector(state=>state.systemUrl);
+
     const { UserID,UserType } = useSelector(state=>state.targetUser);
 
     const dispatch = useDispatch();

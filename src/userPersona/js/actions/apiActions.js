@@ -4,6 +4,9 @@ import { btnErrorAlertShow } from './appAlertActions';
 
 import {fetch} from 'whatwg-fetch'
 
+import config from './config'
+
+
 //get
 
 //获取基础信息
@@ -113,7 +116,7 @@ export const getTeacherDetailIntroduction =  async ({teacherId,proxy,dispatch})=
 
 };
 
-
+//获取科研以及获奖情况
 export const getScientificCaseDetail =  async ({userId,scientificType,proxy,dispatch})=>{
 
     const res = await getGetData(`/admin/getScientificCaseDetail?userId=${userId}&scientificType=${scientificType}`,1,proxy);
@@ -142,9 +145,9 @@ export const getScientificCaseDetail =  async ({userId,scientificType,proxy,disp
 
 //获取用户详情For画像
 
-export const GetUserDetailForHX =  async ({UserID,UserType,proxy='',dispatch})=>{
+export const GetUserDetailForHX =  async ({UserID,UserType,dispatch})=>{
 
-    const res = await getGetData(`/UserMgr/UserInfoMgr/GetUserDetailForHX?UserID=${UserID}&UserType=${UserType}`,2,proxy);
+    const res = await getGetData(`/UserMgr/UserInfoMgr/GetUserDetailForHX?UserID=${UserID}&UserType=${UserType}`,2,config.moniProxy);
 
     if (res.StatusCode===200){
 
@@ -162,9 +165,9 @@ export const GetUserDetailForHX =  async ({UserID,UserType,proxy='',dispatch})=>
 
 //获取用户详情For画像
 
-export const GetUserLogForHX =  async ({UserID,UserType,proxy='',dispatch})=>{
+export const GetUserLogForHX =  async ({UserID,UserType,dispatch})=>{
 
-    const res = await getGetData(`/UserMgr/UserInfoMgr/GetUserLogForHX?UserID=${UserID}&UserType=${UserType}`,2,proxy);
+    const res = await getGetData(`/UserMgr/UserInfoMgr/GetUserLogForHX?UserID=${UserID}&UserType=${UserType}`,2,config.moniProxy);
 
     if (res.StatusCode===200){
 
@@ -177,6 +180,30 @@ export const GetUserLogForHX =  async ({UserID,UserType,proxy='',dispatch})=>{
     }
 
 };
+
+
+
+
+
+//获取个人空间的学习科目和课程
+
+export const GetStudentStudyInfo =  async ({schoolID,userID,termID='',dispatch})=>{
+
+    const res = await getGetData(`/CourseClass/api/GetStudentStudyInfo?schoolID=${schoolID}&userID=${userID}&termID=${termID}`,2,config.moniProxy);
+
+    if (res.StatusCode===200){
+
+        return res.Data;
+
+    }else{
+
+        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取学生学习科目和课程失败'}));
+
+    }
+
+};
+
+
 
 
 
@@ -222,7 +249,7 @@ export const GetStuWaring =  async ({StudentId,WarningId='',WarningType=7,ClassI
 
 export const GetStuDormitory  =  async ({userId,userType,schoolId,proxy='',dispatch})=>{
 
-    const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/student/bedAndStatus?userId=${userId}&userType=${userType}&schoolId=${schoolId}`);
+    const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/student/bedAndStatus?userId=${userId}&userType=${userType}&schoolId=${schoolId}`,2);
 
     if (res.code===1){
 
@@ -302,6 +329,16 @@ const dataSetsGetData = async (url)=>{
   const data = await res.json();
 
   return data;
+
+};
+
+
+
+//宿舍请求
+
+const dormitoryGetData =  (url) =>{
+
+
 
 };
 
