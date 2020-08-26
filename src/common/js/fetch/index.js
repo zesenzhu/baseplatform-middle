@@ -161,6 +161,8 @@ function handleStatusCode(json, element = true) {
       return;
     }else if(json.success===true){
       return ;
+    }else if(json.error===0){
+      return ;
     }
     title = "服务器出现未知异常，请重试或联系管理员";
     ReactDOM.render(

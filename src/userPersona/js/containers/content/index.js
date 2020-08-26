@@ -17,7 +17,11 @@ import Archives from "../../components/archives";
 
 import MoralEdu from "../../components/MoralEdu";
 
+import TeaWork from "../../components/TeaWork";
+
 import AnchorPoint from "../../components/anchorPoint";
+
+import TeaMaterial from "../../components/TeaMaterial";
 
 import Account from "../../components/account";
 
@@ -107,6 +111,20 @@ function Content(props) {
             title: <span>德育</span>,
             id: "pe",
             value: MoralEdu,
+            type:
+              "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu",
+          },
+          {
+            title: <span>教学<br />工作量</span>,
+            id: "work",
+            value: TeaWork,
+            type:
+              "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu",
+          },
+          {
+            title: <span>教学<br />资料</span>,
+            id: "material",
+            value: TeaMaterial,
             type:
               "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu",
           },

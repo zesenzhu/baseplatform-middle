@@ -18,8 +18,7 @@ const SetClassMoralEduInfoByCriteriasParams = (data) => {
   };
 };
 // 设置学生成绩参数
-const COMMON_SET_STU_RESULT_PARAMS =
-  "COMMON_SET_STU_RESULT_PARAMS";
+const COMMON_SET_STU_RESULT_PARAMS = "COMMON_SET_STU_RESULT_PARAMS";
 const SetStuResultParams = (data) => {
   return (dispatch) => {
     dispatch({
@@ -29,8 +28,7 @@ const SetStuResultParams = (data) => {
   };
 };
 // 设置综合素养
-const COMMON_SET_STU_QUALITY_PARAMS =
-  "COMMON_SET_STU_QUALITY_PARAMS";
+const COMMON_SET_STU_QUALITY_PARAMS = "COMMON_SET_STU_QUALITY_PARAMS";
 const SetStuQualityParams = (data) => {
   return (dispatch) => {
     dispatch({
@@ -39,8 +37,32 @@ const SetStuQualityParams = (data) => {
     });
   };
 };
- 
+// 设置教师工作量
+const COMMON_SET_TEA_WORK_PARAMS = "COMMON_SET_TEA_WORK_PARAMS";
+const SetTeaWorkParams = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: COMMON_SET_TEA_WORK_PARAMS,
+      data: data,
+    });
+  };
+};
+// 设置教师工作量
+const COMMON_SET_TEA_MATERIAL_PARAMS = "COMMON_SET_TEA_MATERIAL_PARAMS";
+const SetTeaMaterialParams = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: COMMON_SET_TEA_MATERIAL_PARAMS,
+      data: data,
+    });
+  };
+};
 const CommonActions = {
+  COMMON_SET_TEA_MATERIAL_PARAMS,
+  SetTeaMaterialParams,
+
+  SetTeaWorkParams,
+  COMMON_SET_TEA_WORK_PARAMS,
 
   COMMON_SET_STU_QUALITY_PARAMS,
   SetStuQualityParams,

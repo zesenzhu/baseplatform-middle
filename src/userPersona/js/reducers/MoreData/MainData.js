@@ -194,7 +194,6 @@ const MainData = (
               examinationType: 1,
             },
           },
-          
         ],
       },
       totalScore: 101.0,
@@ -352,11 +351,86 @@ const MainData = (
       // },
     ],
     StuQualityData: [],
+    TeaWorkData: {
+      pageCount: 0,
+      pageNum: 1,
+      pageSize: 10000,
+      totalCount: 0,
+      data: [],
+    },
+    AllTerm: [],
+    TeacherResView: {
+      TeacherID: "",
+      SubjectID: "",
+      SubjectName: "",
+      Url: "",
+      UploadCount: 0, //上传资源数量
+      BrowseCount: 10, //浏览数
+      UploadAllScale: 0.5,
+      SubjectScale: 0,
+      UploadSubjectScale: [
+        { SubjectScale: 0.562, SubjectID: "111", SubjectName: "语文" },
+        { SubjectScale: 1, SubjectID: "111", SubjectName: "英语" },
+      ],
+    },
+    TeachPlan: {
+      PCLink: "html/TeachingPlan/",
+      PCType: 1,
+      SysID: "300",
+      UploadAllScale: 0.6, //上传数量领先全校比值
+      UploadCount: 0,
+      SubjectScale: 0, //上传数量领先本学科比值
+      UploadSubjectScale: [
+        { SubjectScale: 0.562, SubjectID: "111", SubjectName: "语文" },
+        { SubjectScale: 1, SubjectID: "111", SubjectName: "英语" },
+      ],
+      UseCount: 20, //浏览数
+    },
+    TeachPercent: {
+      teacherID: "dqxxyy002",
+      url: "http://172.16.52.123:10103/psi/#/schedule/",
+      uploadCount: 0, //上传精品资源数量
+      browseCount: 30, //浏览量
+      uploadAllScale: 0.2857143, //上传资源领先全校百分比
+
+      UploadSubjectScale: [
+        { SubjectScale: 0.562, SubjectID: "111", SubjectName: "语文" },
+        { SubjectScale: 1, SubjectID: "111", SubjectName: "英语" },
+      ],
+    },
+    TermAndPeriod: {
+      ItemWeek: [],
+      WeekNO: 0,
+    },
   },
   actions
 ) => {
   let ApplyModuleSort = [];
   switch (actions.type) {
+    case MainActions.MAIN_GET_TERM_AND_PERIOD:
+      return Object.assign({}, state, {
+        TermAndPeriod: actions.data,
+      });
+    case MainActions.MAIN_GET_TEACHER_PERCENT_AGE:
+      return Object.assign({}, state, {
+        TeachPercent: actions.data,
+      });
+    case MainActions.MAIN_GET_TEACHER_PLAN_STATISTICS:
+      return Object.assign({}, state, {
+        TeachPlan: actions.data,
+      });
+    case MainActions.MAIN_GET_TEACHER_RES_VIEW:
+      return Object.assign({}, state, {
+        TeacherResView: actions.data,
+      });
+    case MainActions.MAIN_GET_ALL_TERM:
+      return Object.assign({}, state, {
+        AllTerm: actions.data,
+      });
+    case MainActions.MAIN_GET_TEACHER_WORK:
+      return Object.assign({}, state, {
+        TeaWorkData: actions.data,
+      });
     case MainActions.MAIN_GET_STUDENT_QUALITY:
       return Object.assign({}, state, {
         StuQualityData: actions.data,

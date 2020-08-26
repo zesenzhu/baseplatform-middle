@@ -157,7 +157,7 @@ class MoralEdu extends Component {
                     return;
                   }
                   return (
-                    <div className="ME-box">
+                    <div key={index} className="ME-box">
                       <p
                         title={
                           moralityExaminationStandard.examinationContent

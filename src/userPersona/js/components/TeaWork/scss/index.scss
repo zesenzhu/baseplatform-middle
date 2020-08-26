@@ -1,0 +1,98 @@
+@mixin TextOverflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+p {
+    margin: 0;
+}
+
+.TeaWork {
+    padding-top: 24px;
+    padding-bottom: 42px;
+    .SR-top {
+        height: 42px;
+        padding-left: 102px;
+        margin-bottom: 10px;
+        .SRt-go {
+            float: right;
+            margin-right: -20px;
+            margin-top: 6px;
+            // line-height: 30px;
+            padding-left: 16px;
+            background-position: left 1px;
+            background-size: 12px 17px;
+            // font-size: 14px;
+            // cursor: pointer;
+            // text-decoration: underline;
+            // opacity: 0.8;
+            // background: url(../images/详情.png) no-repeat left center / 15px 15px;
+            // color: #0086e3;
+            // &:hover {
+            //     opacity: 1;
+            // }
+        }
+    }
+    .SQ-box {
+        // padding: 0 69px;
+        width: 1024px;
+        margin: 0 auto;
+        .TW-content {
+            width: 256px;
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            .TWc-ball {
+                width: 96px;
+                height: 96px;
+                overflow: auto;
+                line-height: 96px;
+                border-radius: 50%;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                -ms-border-radius: 50%;
+                -o-border-radius: 50%;
+                margin-left: 50%;
+                transform: translateX(-50%);
+                -webkit-transform: translateX(-50%);
+                -moz-transform: translateX(-50%);
+                -ms-transform: translateX(-50%);
+                -o-transform: translateX(-50%);
+                .num {
+                    font-size: 30px;
+                    line-height: 48px;
+                    margin-top: 24px;
+                    color: #ffffff;
+                    text-align: center;
+                    text-decoration: underline;
+                    @include TextOverflow();
+                    width: 100%;
+                }
+                &.scheduleCount {
+                    background-color: #2edba6;
+                    box-shadow: 0px 4px 10px 0px rgba(46, 219, 166, 0.45);
+                }
+                &.administrativeClassNum {
+                    background-color: #3caeff;
+                    box-shadow: 0px 4px 10px 0px rgba(60, 174, 255, 0.45);
+                }
+                &.classNum {
+                    background-color: #8099ff;
+                    box-shadow: 0px 4px 10px 0px rgba(151, 170, 249, 0.45);
+                }
+                &.invigilationNum {
+                    background-color: #fd8276;
+                    box-shadow: 0px 4px 10px 0px rgba(253, 130, 118, 0.45);
+                }
+            }
+            .title {
+                font-size: 14px;
+                text-align: center;
+                line-height: 54px;
+                color: #333333;
+                @include TextOverflow();
+            }
+        }
+    }
+}

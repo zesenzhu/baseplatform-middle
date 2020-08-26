@@ -68,7 +68,6 @@ const GetClassMoralEduInfoByCriterias = ({
           data: res.data,
         });
         func(getState());
-         
       }
     });
   };
@@ -348,8 +347,581 @@ const getStudentQuality = async ({
   }
   return data;
 };
+// 获取学生综合素养评价
+const MAIN_GET_TEACHER_WORK = "MAIN_GET_TEACHER_WORK";
+const GetTeacherWork = ({
+  func = () => {},
+  semester,
+  pageSize,
+  Proxy,
+  pageNum,
+  userName,
+  token,
+}) => {
+  return (dispatch, getState) => {
+    let State = getState();
+    let {
+      MoreData: {
+        CommonData: { TeaWorkParams },
+      },
+      systemUrl,
+    } = State;
+    if (semester === undefined) {
+      semester = TeaWorkParams.Semester;
+    }
 
+    if (Proxy === undefined) {
+      Proxy = TeaWorkParams.Proxy;
+    }
+    if (userName === undefined) {
+      userName = TeaWorkParams.UserName;
+    }
+    if (pageSize === undefined) {
+      pageSize = TeaWorkParams.PageSize;
+    }
+    if (pageNum === undefined) {
+      pageNum = TeaWorkParams.PageNum;
+    }
+    if (token === undefined) {
+      token = TeaWorkParams.Token;
+    }
+    getTeacherWork({
+      semester,
+      Proxy,
+      userName,
+      pageSize,
+      pageNum,
+      token,
+    }).then((res) => {
+      if (res) {
+        dispatch({ type: MAIN_GET_TEACHER_WORK, data: res.data });
+        func(getState());
+      }
+    });
+  };
+};
+const getTeacherWork = async ({
+  semester = "",
+  userName = "",
+  Proxy = "",
+  pageSize = "",
+  token = "",
+  pageNum = "",
+}) => {
+  let url =
+    Proxy +
+    "/admin/getTeacherWork?userName=" +
+    userName +
+    "&pageNum=" +
+    pageNum +
+    "&pageSize=" +
+    pageSize +
+    "&semester=" +
+    semester +
+    "&token=" +
+    token;
+  let data = "";
+  let res = await getData(url, 2);
+  let json = await res.json();
+  if (json.code === 0) {
+    data = json;
+  } else {
+    data = false; //有错误
+  }
+  return data;
+};
+// 获取学生综合素养评价
+const MAIN_GET_ALL_TERM = "MAIN_GET_ALL_TERM";
+const GetAllTerm = ({
+  func = () => {},
+
+  Proxy,
+}) => {
+  return (dispatch, getState) => {
+    let State = getState();
+    let {
+      MoreData: {
+        CommonData: { TeaWorkParams },
+      },
+      systemUrl,
+    } = State;
+
+    if (Proxy === undefined) {
+      Proxy = TeaWorkParams.Proxy;
+    }
+
+    getAllTerm({ Proxy }).then((res) => {
+      if (res) {
+        let List = [];
+        res.data instanceof Array &&
+          res.data.forEach((child) => {
+            List.push({
+              value: child.term,
+              title: constructTerm(child.term),
+            });
+          });
+        dispatch({ type: MAIN_GET_ALL_TERM, data: List });
+        func(getState());
+      }
+    });
+  };
+};
+let constructTerm = (Term) => {
+  if (Term.includes("-")) {
+    let Term1 = Term.slice(0, Term.length - 2);
+    let Term2 = Term.slice(Term.length - 2, Term.length);
+    let TermC = "";
+    if (Term2 === "01") {
+      TermC = "第一学期";
+    } else if (Term2 === "02") {
+      TermC = "第二学期";
+    }
+    return Term1 + "学年" + TermC;
+  }
+  return "";
+};
+const getAllTerm = async ({
+  semester = "",
+  userName = "",
+  Proxy = "",
+  pageSize = "",
+  token = "",
+  pageNum = "",
+}) => {
+  let url = Proxy + "/getAllTerm";
+  let data = "";
+  let res = await getData(url, 2);
+  let json = await res.json();
+  if (json.code === 0) {
+    data = json;
+  } else {
+    data = false; //有错误
+  }
+  return data;
+};
+// 获取教师电子资源
+const MAIN_GET_TEACHER_RES_VIEW = "MAIN_GET_TEACHER_RES_VIEW";
+const GetTeacherResView = ({
+  func = () => {},
+  schoolID,
+  teacherID,
+  Proxy,
+  token,
+  subjectNames,
+  startTime,
+  subjectIDs,
+  endTime,
+}) => {
+  return (dispatch, getState) => {
+    let State = getState();
+    let {
+      MoreData: {
+        CommonData: {
+          TeaWorkParams,
+          TeaMaterialParams: { Token, StartTime, EndTime, FirstProxy },
+        },
+      },
+      targetUser: { UserID },
+      termInfo: { Term },
+      userArchives: {
+        SubjectIDs,
+        SubjectNames,
+        ShortName,
+        ClassID,
+        GradeID,
+        SchoolID,
+        UserName,
+      },
+    } = State;
+    if (schoolID === undefined) {
+      schoolID = SchoolID;
+    }
+
+    if (Proxy === undefined) {
+      Proxy = FirstProxy;
+    }
+    if (teacherID === undefined) {
+      teacherID = UserID;
+    }
+    if (token === undefined) {
+      token = Token;
+    }
+    if (subjectIDs === undefined) {
+      subjectIDs = SubjectIDs;
+    }
+    if (subjectNames === undefined) {
+      subjectNames = SubjectNames;
+    }
+    if (startTime === undefined) {
+      startTime = StartTime;
+    }
+    if (endTime === undefined) {
+      endTime = EndTime;
+    }
+    getTeacherResView({
+      startTime,
+      endTime,
+      schoolID,
+      Proxy,
+      teacherID,
+      subjectIDs,
+      subjectNames,
+      token,
+    }).then((res) => {
+      if (res) {
+        dispatch({ type: MAIN_GET_TEACHER_RES_VIEW, data: res.data });
+        func(getState());
+      }
+    });
+  };
+};
+const getTeacherResView = async ({
+  schoolID = "",
+  teacherID = "",
+  Proxy = "",
+  subjectIDs = "",
+  token = "",
+  subjectNames = "",
+  startTime = "",
+  endTime = "",
+}) => {
+  let url =
+    Proxy +
+    "/api/Public/GetTeacherResView?SchoolID=" +
+    schoolID +
+    "&TeacherID=" +
+    teacherID +
+    "&Token=" +
+    token +
+    "&SubjectIDs=" +
+    subjectIDs +
+    "&SubjectNames=" +
+    subjectNames +
+    "&startTime=" +
+    startTime +
+    "&endTime=" +
+    endTime;
+  let data = "";
+  let res = await getData(url, 2);
+  let json = await res.json();
+  if (json.error === 0) {
+    data = json;
+  } else {
+    data = false; //有错误
+  }
+  return data;
+};
+
+// 获取教师教学方案
+const MAIN_GET_TEACHER_PLAN_STATISTICS = "MAIN_GET_TEACHER_PLAN_STATISTICS";
+const GetTeachPlanStatistics = ({
+  func = () => {},
+  userID,
+  teacherID,
+  Proxy,
+  token,
+
+  startTime,
+
+  endTime,
+}) => {
+  return (dispatch, getState) => {
+    let State = getState();
+    let {
+      MoreData: {
+        CommonData: {
+          TeaWorkParams,
+          TeaMaterialParams: { SecondProxy,Token, StartTime, EndTime },
+        },
+      },
+      targetUser: { UserID },
+      termInfo: { Term },
+      userArchives: {
+        SubjectIDs,
+        SubjectNames,
+        ShortName,
+        ClassID,
+        GradeID,
+        SchoolID,
+        UserName,
+      },
+    } = State;
+    if (userID === undefined) {
+      userID = UserID;
+    }
+
+    if (Proxy === undefined) {
+      Proxy =  SecondProxy;
+    }
+
+    if (token === undefined) {
+      token = Token;
+    }
+
+    if (startTime === undefined) {
+      startTime = StartTime;
+    }
+    if (endTime === undefined) {
+      endTime = EndTime;
+    }
+    getTeachPlanStatistics({
+      startTime,
+      endTime,
+      userID,
+      Proxy,
+      teacherID,
+
+      token,
+    }).then((res) => {
+      if (res) {
+        dispatch({ type: MAIN_GET_TEACHER_PLAN_STATISTICS, data: res.data });
+        func(getState());
+      }
+    });
+  };
+};
+const getTeachPlanStatistics = async ({
+  userID = "",
+  Proxy = "",
+
+  token = "",
+
+  startTime = "",
+  endTime = "",
+}) => {
+  let url =
+    Proxy +
+    "/TeachingPlan/ApiForOutside/GetTeachPlanStatistics?UserID=" +
+    userID +
+    "&Token=" +
+    token +
+    "&StartTime=" +
+    startTime +
+    "&EndTime=" +
+    endTime;
+  let data = "";
+  let res = await getData(url, 2);
+  let json = await res.json();
+  if (json.StatusCode === 200) {
+    data = json;
+  } else {
+    data = false; //有错误
+  }
+  return data;
+};
+// 获取课程精品
+const MAIN_GET_TEACHER_PERCENT_AGE = "MAIN_GET_TEACHER_PERCENT_AGE";
+const GetTeacherpercentage = ({
+  func = () => {},
+  userID,
+  teacherID,
+  Proxy,
+  token,
+  schoolId,
+  startTime,
+
+  endTime,
+}) => {
+  return (dispatch, getState) => {
+    let State = getState();
+    let {
+      MoreData: {
+        CommonData: {
+          TeaWorkParams,
+          TeaMaterialParams: { ThirdProxy,Token, StartTime, EndTime },
+        },
+      },
+      targetUser: { UserID },
+      termInfo: { Term },
+      userArchives: {
+        SubjectIDs,
+        SubjectNames,
+        ShortName,
+        ClassID,
+        GradeID,
+        SchoolID,
+        UserName,
+      },
+    } = State;
+    if (userID === undefined) {
+      userID = UserID;
+    }
+
+    if (Proxy === undefined) {
+      Proxy =  ThirdProxy;
+    }
+
+    if (token === undefined) {
+      token = Token;
+    }
+
+    if (startTime === undefined) {
+      startTime = StartTime;
+    }
+    if (endTime === undefined) {
+      endTime = EndTime;
+    }
+    if (schoolId === undefined) {
+      schoolId = SchoolID;
+    }
+    teacherpercentage({
+      startTime,
+      endTime,
+      userID,
+      Proxy,
+      schoolId,
+
+      token,
+    }).then((res) => {
+      if (res) {
+        dispatch({ type: MAIN_GET_TEACHER_PERCENT_AGE, data: res.data });
+        func(getState());
+      }
+    });
+  };
+};
+const teacherpercentage = async ({
+  userID = "",
+  Proxy = "",
+
+  token = "",
+
+  startTime = "",
+  endTime = "",
+  schoolId = "",
+}) => {
+  let url =
+    Proxy +
+    "/api/common/teacherpercentage?teacherId=" +
+    userID +
+    "&Token=" +
+    token +
+    "&StartTime=" +
+    startTime +
+    "&EndTime=" +
+    endTime +
+    "&schoolId=" +
+    schoolId;
+  let data = "";
+  let res = await getData(url, 2);
+  let json = await res.json();
+  if (json.code === 0) {
+    data = json;
+  } else {
+    data = false; //有错误
+  }
+  return data;
+};
+// 获取学期周次
+const MAIN_GET_TERM_AND_PERIOD = "MAIN_GET_TERM_AND_PERIOD";
+const GetTermAndPeriodAndWeekNOInfo = ({
+  func = () => {},
+  userID,
+  userType,
+  Proxy,
+  token,
+  schoolId,
+  startTime,
+
+  endTime,
+}) => {
+  return (dispatch, getState) => {
+    let State = getState();
+    let {
+      MoreData: {
+        CommonData: {
+          TeaWorkParams,
+          TeaMaterialParams: { Token, StartTime, EndTime },
+        },
+      },
+      targetUser: { UserID, UserType },
+      termInfo: { Term },
+      userArchives: {
+        SubjectIDs,
+        SubjectNames,
+        ShortName,
+        ClassID,
+        GradeID,
+        SchoolID,
+        UserName,
+      },
+    } = State;
+    if (userID === undefined) {
+      userID = UserID;
+    }
+
+    if (Proxy === undefined) {
+      Proxy = TeaWorkParams.SecondProxy;
+    }
+
+    if (userType === undefined) {
+      userType = UserType;
+    }
+
+
+    if (schoolId === undefined) {
+      schoolId = SchoolID;
+    }
+    getTermAndPeriodAndWeekNOInfo({
+      userType,
+      userID,
+      Proxy,
+      schoolId,
+
+      token,
+    }).then((res) => {
+      if (res) {
+        dispatch({ type: MAIN_GET_TERM_AND_PERIOD, data: res.data });
+        func(getState());
+      }
+    });
+  };
+};
+const getTermAndPeriodAndWeekNOInfo = async ({
+  userID = "",
+  Proxy = "",
+
+  token = "",
+
+  userType = "",
+  schoolId = "",
+}) => {
+  let url =
+    Proxy +
+    "/api/common/teacherpercentage?teacherId=" +
+    userID +
+    "&userType=" +
+    userType +
+    "&schoolId=" +
+    schoolId;
+  let data = "";
+  let res = await getData(url, 2);
+  let json = await res.json();
+  if (json.StatusCode === 200) {
+    data = json;
+  } else {
+    data = false; //有错误
+  }
+  return data;
+};
 const MainActions = {
+  GetTermAndPeriodAndWeekNOInfo,
+
+  GetTeacherpercentage,
+  MAIN_GET_TEACHER_PERCENT_AGE,
+
+  MAIN_GET_TEACHER_PLAN_STATISTICS,
+  GetTeachPlanStatistics,
+
+  GetTeacherResView,
+  MAIN_GET_TEACHER_RES_VIEW,
+
+  GetAllTerm,
+  MAIN_GET_ALL_TERM,
+
+  GetTeacherWork,
+  MAIN_GET_TEACHER_WORK,
+
   GetStudentQuality,
   MAIN_GET_STUDENT_QUALITY,
 

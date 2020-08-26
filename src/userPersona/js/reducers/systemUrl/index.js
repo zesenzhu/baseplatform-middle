@@ -11,7 +11,7 @@ const defaultState = {
     E48: { SysID: "E48", WebUrl: "", WsUrl: "" },
 
     //教学方案
-    "310": { SysID: "310", WebUrl: "", WsUrl: "" },
+    "301": { SysID: "301", WebUrl: "", WsUrl: "" },
 
     //电子资源
 
@@ -33,6 +33,8 @@ const defaultState = {
     StuResult: ["810"],
     StuQuality: ["810"],
     MoralEdu: ["E34"],
+    TeaWork: ["E34"],
+    TeaMaterial: ["C10",'D21','301'],
   },
 };
 
