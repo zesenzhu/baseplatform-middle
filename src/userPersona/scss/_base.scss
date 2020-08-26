@@ -8,6 +8,14 @@
 
 }
 
+
+body{
+
+  color: #333333;
+  
+}
+
+
 #root{
 
   &>.ant-spin-nested-loading{
@@ -25,5 +33,17 @@
     }
 
   }
+
+}
+
+.red{
+
+  color: #ff6600;
+
+}
+
+.gray{
+
+  color: #999999;
 
 }

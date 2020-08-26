@@ -15,7 +15,9 @@ import {
     GetSubSystemsMainServerBySubjectID,
     GetCurrentTermInfo,
     GetUserDetailForHX,
-    GetUserLogForHX
+    GetUserLogForHX,
+    getDetailStuStatus,
+    getTeacherDetailIntroduction
 } from "../actions/apiActions";
 
 import {loginUserInfoUpdate} from "../actions/loginUserActions";
@@ -39,6 +41,8 @@ import {appLoadingHide} from "../actions/appLoadingActions";
 import {termInfoUpdate} from "../actions/termInfoActions";
 
 import {userArchivesUpdate} from "../actions/userArchivesActions";
+
+import {userStatusUpdate} from "../actions/userStatusActions";
 
 import {userInfoLosUpdate} from "../actions/userInfoLogsActions";
 
@@ -105,190 +109,225 @@ function App(props) {
 
         if (targetUserID&&targetUserType&&([1,2].includes(targetUserType))) {
 
-            let docTitle = targetUserType===2?'学生档案详情':'教师档案详情';
+           const {WebRootUrl} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
-            dispatch(targetUserInfoUpdate({UserID: targetUserID, UserType: targetUserType}));
+           const token = sessionStorage.getItem('token');
 
-             switch (`${CopyUserInfo['UserType']}${targetUserType}`) {
+           const sysIDs = Object.keys(Urls).join(',');
 
-                 case '02':
+           const getTerm = GetCurrentTermInfo({SchoolID:CopyUserInfo.SchoolID,dispatch});
 
-                     dispatch(pageUsedChange({user:'Adm',targetUser:'Stu',usedType:'AdmToStu'}));
+           const getSys =  GetSubSystemsMainServerBySubjectID({sysIDs,dispatch});
 
-                     break;
+           const getUserInfo = GetUserDetailForHX({UserID:targetUserID,UserType:targetUserType,proxy,dispatch});
 
-                 case '72':
+           const getUserLog = GetUserLogForHX({UserID:targetUserID,UserType:targetUserType,proxy,dispatch});
 
-                 case '102':
+           Promise.all([getTerm,getSys,getUserInfo,getUserLog]).then(res=>{
 
-                     dispatch(pageUsedChange({user:'Leader',targetUser:'Stu',usedType:'LeaderToStu'}));
+               if (res[0]){
 
-                     break;
+                   const data = res[0];
 
-                 case '32':
+                    dispatch(termInfoUpdate(data));
 
-                     dispatch(pageUsedChange({user:'Parents',targetUser:'Stu',usedType:'ParentsToStu'}));
+               }
 
-                     docTitle = '子女档案详情';
+               if (res[1]){
 
-                     break;
+                   const data = res[1];
 
-                 case '12':
+                   const AssistUrl = data.find(i=>i.SysID==='200')?data.find(i=>i.SysID==='200').WebSvrAddr:'';
 
-                     dispatch(pageUsedChange({user:'HeaderTeacher',targetUser:'Stu',usedType:'HeaderTeacherToStu'}));
+                   if (!(CopyUserInfo.UserType === 0 && CopyUserInfo === 2) && (CopyUserInfo.UserType !== 6)&&AssistUrl) {
 
-                     break;
+                       let PsnMgrLgAssistantAddr = AssistUrl;
 
-                 case '22':
+                       sessionStorage.setItem('PsnMgrToken', token);//用户Token
 
-                     if (CopyUserInfo['UserID']===targetUserID){
+                       sessionStorage.setItem('PsnMgrMainServerAddr', WebRootUrl); //基础平台IP地址和端口号 形如：http://192.168.129.1:30103/
 
-                         dispatch(pageUsedChange({user:'Stu',targetUser:'Stu',usedType:'StuToStu'}));
+                       sessionStorage.setItem('PsnMgrLgAssistantAddr', PsnMgrLgAssistantAddr);
 
-                         docTitle = '我的档案';
+                       dynamicFile([
 
-                     }else{
+                           `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/css/lancoo.cp.assistantInfoCenter.css`,
 
-                         dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
+                           `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/jquery-1.7.2.min.js`
 
-                     }
+                       ]).then(() => {
 
-                     break;
+                           dynamicFile([
 
-                 case '01':
+                               `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/assets/jquery.pagination.js`,
 
-                     dispatch(pageUsedChange({user:'Adm',targetUser:'Teacher',usedType:'AdmToTeacher'}));
+                               `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/lancoo.cp.assistantInfoCenter.js`
 
-                     break;
+                           ])
 
-                 case '101':
+                       });
 
-                 case '71':
+                       setBellShow(true);
 
-                     dispatch(pageUsedChange({user:'Leader',targetUser:'Teacher',usedType:'LeaderToTeacher'}));
+                   } else {
 
-                     break;
+                       setBellShow(false);
 
-                 case '11':
+                   }
 
-                     if (CopyUserInfo['UserID']===targetUserID){
+                   let urlObj = {...Urls};
 
-                         dispatch(pageUsedChange({user:'Teacher',targetUser:'Teacher',usedType:'TeacherToTeacher'}));
+                   data.map(i=>{
 
-                         docTitle = '我的档案';
+                       urlObj[i.SysID] = { WebUrl:i.WebSvrAddr,WsUrl:i.WsSvrAddr };
 
-                     }else{
+                   });
 
-                         dispatch(pageUsedChange({user:'Other',targetUser:'Teacher',usedType:'OtherToTeacher'}));
+                   dispatch(systemUrlUpdate(urlObj));
 
-                     }
+                   if (urlObj['E34'].WebUrl){
 
-                     break;
+                       const getDetail = targetUserType===1?
 
-             }
+                           getTeacherDetailIntroduction({teacherId:targetUserID,proxy:urlObj['E34'].WebUrl,dispatch}):
 
-             setDomTitle(docTitle);
-            
+                           getDetailStuStatus({userId:targetUserID,proxy:urlObj['E34'].WebUrl,dispatch});
+
+                       getDetail.then(data=>{
+
+                           if (data){
+
+                               dispatch(userStatusUpdate(data));
+
+                           }
+
+                       })
+
+                   }
+
+               }
+
+               if (res[2]){
+
+                   let docTitle = targetUserType===2?'学生档案详情':'教师档案详情';
+
+                   dispatch(targetUserInfoUpdate({UserID: targetUserID, UserType: targetUserType}));
+
+                   switch (`${CopyUserInfo['UserType']}${targetUserType}`) {
+
+                       case '02':
+
+                           dispatch(pageUsedChange({user:'Adm',targetUser:'Stu',usedType:'AdmToStu'}));
+
+                           break;
+
+                       case '72':
+
+                       case '102':
+
+                           dispatch(pageUsedChange({user:'Leader',targetUser:'Stu',usedType:'LeaderToStu'}));
+
+                           break;
+
+                       case '32':
+
+                           if (res[2].IsMyChild){
+
+                               dispatch(pageUsedChange({user:'Parents',targetUser:'Stu',usedType:'ParentsToStu'}));
+
+                           }else{
+
+                               dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
+
+                           }
+
+                           docTitle = '子女档案详情';
+
+                           break;
+
+                       case '12':
+
+                           if (res[2].IsMyStudent){
+
+                               dispatch(pageUsedChange({user:'HeaderTeacher',targetUser:'Stu',usedType:'HeaderTeacherToStu'}));
+
+                           }else{
+
+                               dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
+
+                           }
+
+                           break;
+
+                       case '22':
+
+                           if (CopyUserInfo['UserID']===targetUserID){
+
+                               dispatch(pageUsedChange({user:'Stu',targetUser:'Stu',usedType:'StuToStu'}));
+
+                               docTitle = '我的档案';
+
+                           }else{
+
+                               dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
+
+                           }
+
+                           break;
+
+                       case '01':
+
+                           dispatch(pageUsedChange({user:'Adm',targetUser:'Teacher',usedType:'AdmToTeacher'}));
+
+                           break;
+
+                       case '101':
+
+                       case '71':
+
+                           dispatch(pageUsedChange({user:'Leader',targetUser:'Teacher',usedType:'LeaderToTeacher'}));
+
+                           break;
+
+                       case '11':
+
+                           if (CopyUserInfo['UserID']===targetUserID){
+
+                               dispatch(pageUsedChange({user:'Teacher',targetUser:'Teacher',usedType:'TeacherToTeacher'}));
+
+                               docTitle = '我的档案';
+
+                           }else{
+
+                               dispatch(pageUsedChange({user:'Other',targetUser:'Teacher',usedType:'OtherToTeacher'}));
+
+                           }
+
+                           break;
+
+                   }
+
+                   setDomTitle(docTitle);
+
+                    dispatch(userArchivesUpdate(res[2]));
+
+               }
+
+                if (res[3]){
+
+                    dispatch(userInfoLosUpdate(res[3]));
+
+                }
+
+               dispatch(appLoadingHide());
+
+           });
+
         }else{
 
             dispatch(btnErrorAlertShow({title:'参数错误'}));
 
         }
-
-       const {WebRootUrl} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
-
-       const token = sessionStorage.getItem('token');
-
-       const sysIDs = Object.keys(Urls).join(',');
-
-       const getTerm = GetCurrentTermInfo({SchoolID:CopyUserInfo.SchoolID,dispatch});
-
-       const getSys =  GetSubSystemsMainServerBySubjectID({sysIDs,dispatch});
-
-       const getUserInfo = GetUserDetailForHX({UserID:targetUserID,UserType:targetUserType,proxy,dispatch});
-
-       const getUserLog = GetUserLogForHX({UserID:targetUserID,UserType:targetUserType,proxy,dispatch});
-
-
-        Promise.all([getTerm,getSys,getUserInfo,getUserLog]).then(res=>{
-
-           if (res[0]){
-
-               const data = res[0];
-
-                dispatch(termInfoUpdate(data));
-
-           }
-
-           if (res[1]){
-
-               const data = res[1];
-
-               const AssistUrl = data.find(i=>i.SysID==='200')?data.find(i=>i.SysID==='200').WebSvrAddr:'';
-
-               if (!(CopyUserInfo.UserType === 0 && CopyUserInfo === 2) && (CopyUserInfo.UserType !== 6)&&AssistUrl) {
-
-                   let PsnMgrLgAssistantAddr = AssistUrl;
-
-                   sessionStorage.setItem('PsnMgrToken', token);//用户Token
-
-                   sessionStorage.setItem('PsnMgrMainServerAddr', WebRootUrl); //基础平台IP地址和端口号 形如：http://192.168.129.1:30103/
-
-                   sessionStorage.setItem('PsnMgrLgAssistantAddr', PsnMgrLgAssistantAddr);
-
-                   dynamicFile([
-
-                       `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/css/lancoo.cp.assistantInfoCenter.css`,
-
-                       `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/jquery-1.7.2.min.js`
-
-                   ]).then(() => {
-
-                       dynamicFile([
-
-                           `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/assets/jquery.pagination.js`,
-
-                           `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/lancoo.cp.assistantInfoCenter.js`
-
-                       ])
-
-                   });
-
-                   setBellShow(true);
-
-               } else {
-
-                   setBellShow(false);
-
-               }
-
-               let urlObj = {...Urls};
-
-               data.map(i=>{
-
-                   urlObj[i.SysID] = { WebUrl:i.WebSvrAddr,WsUrl:i.WsSvrAddr };
-
-               });
-
-               dispatch(systemUrlUpdate(urlObj));
-
-           }
-
-           if (res[2]){
-
-               dispatch(userArchivesUpdate(res[2]));
-
-           }
-
-            if (res[3]){
-
-                dispatch(userInfoLosUpdate(res[3]));
-
-            }
-
-           dispatch(appLoadingHide());
-
-       });
 
     };
 

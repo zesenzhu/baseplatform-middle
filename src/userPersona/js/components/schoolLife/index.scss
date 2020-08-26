@@ -1,0 +1,251 @@
+@import "../../../scss/base";
+
+.school-life-wrapper{
+
+  .life-header{
+
+    padding-top: 80px;
+
+    &>*{
+
+      float: left;
+
+      &:not(:first-child){
+
+        margin-left:42px;
+
+        margin-top: 3px;
+
+      }
+
+  }
+    
+    .props{
+
+      color: #999999;
+
+      margin-right: 4px;
+      
+    }
+
+    .study-type{
+      
+      .study{
+        
+        font-size: 18px;
+
+        color: #1bc03a;
+
+        font-weight: bold;
+        
+      }
+      
+    }
+    
+    .late{
+
+      color: #ff6600;
+      
+    }
+
+    .icon{
+
+      display: inline-block;
+
+      width: 14px;
+
+      height: 14px;
+
+      background-size: contain;
+
+      background-position: center;
+
+      background-repeat: no-repeat;
+
+      margin-left: 4px;
+
+      &.position{
+
+        background-image: url("./images/position.png");
+
+      }
+
+      &.warning{
+
+        background-image: url("./images/warning.png");
+
+      }
+
+    }
+
+    .dormitory,.late-warning{
+
+      &>*{
+
+        vertical-align: middle;
+
+      }
+
+    }
+
+  }
+
+  .life-content{
+
+    margin:20px 0 0 0;
+
+  }
+
+  .lift-item{
+
+    float: left;
+
+    width: 342px;
+
+    height:100px;
+
+    border-radius: 8px;
+
+    margin-bottom: 20px;
+
+    .icon{
+
+      width: 80px;
+
+      height: 80px;
+
+      margin: 10px;
+
+      background-repeat: no-repeat;
+
+      background-position: center;
+
+      background-size: cover;
+
+    }
+
+    .detail-content{
+
+      margin-top: 16px;
+
+    }
+
+    .title{
+
+      font-weight: bold;
+
+    }
+
+    .rate{
+
+      color: #666666;
+
+      margin-top:4px;
+
+      height: 26px;
+
+      line-height: 26px;
+
+    }
+
+    .rate-red{
+
+      font-size: 18px;
+
+      color: #ff0000;
+
+    }
+
+    .rate-green{
+
+      font-size: 18px;
+
+      color: #009900;
+
+    }
+
+    .agv-rate{
+
+      color: #999999;
+
+      height: 16px;
+
+      line-height: 16px;
+
+    }
+
+    &:not(:nth-child(3n+1)){
+
+      margin-left:30px;
+
+    }
+
+    &>*{
+
+      float: left;
+
+    }
+
+    &.attence{
+
+      background-color: #f1fbfa;
+
+      .icon{
+
+        background-image: url("./images/attence.png");
+
+      }
+
+    }
+
+    &.homework{
+
+      background-color: #f1fafe;
+
+      .icon{
+
+        background-image: url("./images/homework.png");
+
+      }
+
+    }
+
+    &.stayInSchool{
+
+      background-color: #fff5f5;
+
+      .icon{
+
+        background-image: url("./images/stay-school.png");
+
+      }
+
+    }
+
+    &.stayInSchool{
+
+      background-color: #fff5f5;
+
+      .icon{
+
+        background-image: url("./images/stay-school.png");
+
+      }
+
+    }
+
+    &.online{
+
+      background-color: #fef8f2;
+
+      .icon{
+
+        background-image: url("./images/online.png");
+
+      }
+
+    }
+
+  }
+
+}

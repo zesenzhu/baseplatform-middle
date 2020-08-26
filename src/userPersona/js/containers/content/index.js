@@ -25,9 +25,14 @@ import TeaMaterial from "../../components/TeaMaterial";
 
 import Account from "../../components/account";
 
+import SchoolLife from "../../components/schoolLife";
+
+import Study from "../../components/study";
+
 import "./index.scss";
 
-function Content(props) {
+function Content(props){
+
   const { SchoolID, UserID, UserName, PhotoPath, Sign } = useSelector(
     (state) => state.loginUser
   );
@@ -64,7 +69,7 @@ function Content(props) {
             id: "archives",
             value: Archives,
             type:
-              "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher,OtherToTeacher",
+              "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher",
           },
 
           {
@@ -78,7 +83,21 @@ function Content(props) {
             id: "account",
             value: Account,
             type:
-              "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher,OtherToTeacher",
+              "AdmToStu,LeaderToStu,StuToStu,OtherToStu,ParentsToStu,HeaderTeacherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher,OtherToTeacher",
+          },
+
+          {
+              title: <span>生活<br />信息</span>,
+              id: "life",
+              value:SchoolLife,
+              type:"AdmToStu,LeaderToStu,HeaderTeacherToStu,StuToStu,ParentsToStu",
+          },
+
+          {
+              title: <span>科目<br />课程</span>,
+              id: "study",
+              value:Study,
+              type:"AdmToStu,LeaderToStu,HeaderTeacherToStu,StuToStu,ParentsToStu",
           },
 
           {
