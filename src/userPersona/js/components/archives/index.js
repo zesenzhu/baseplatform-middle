@@ -104,6 +104,8 @@ function Archives(props) {
     };
 
 
+    console.log(userStatus);
+
     return(
 
         <ContentItem type={"archives"} tabName={tabName}>
@@ -605,7 +607,11 @@ function Archives(props) {
 
                                     <td className={"col1 props"}>教育背景</td>
 
-                                    <td className={"col2"} colSpan={6} dangerouslySetInnerHTML={{__html:userStatus.educationBackgroundDetail?userStatus.educationBackgroundDetail:<div>--</div>}}></td>
+                                    <td className={"col2"} colSpan={6} dangerouslySetInnerHTML={{__html:userStatus.educationBackgroundDetail?userStatus.educationBackgroundDetail:'--'}}>
+
+
+
+                                    </td>
 
                                 </tr>
 
@@ -613,7 +619,7 @@ function Archives(props) {
 
                                     <td className={"col1 props"}>工作经历</td>
 
-                                    <td className={"col2"} colSpan={6}  dangerouslySetInnerHTML={{__html:userStatus.workExperience?userStatus.workExperience:<div>--</div>}}></td>
+                                    <td className={"col2"} colSpan={6}  dangerouslySetInnerHTML={{__html:userStatus.workExperience?userStatus.workExperience:'--'}}></td>
 
                                 </tr>
 
