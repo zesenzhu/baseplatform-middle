@@ -694,10 +694,10 @@ const getTeachPlanStatistics = async ({
 }) => {
   let url =
     Proxy +
-    "/TeachingPlan/ApiForOutside/GetTeachPlanStatistics?UserID=" +
+    "/TeachingPlan/GetTeachPlanStatistics?UserID=" +
     userID +
-    "&Token=" +
-    token +
+    // "&Token=" +
+    // token +
     "&StartTime=" +
     startTime +
     "&EndTime=" +

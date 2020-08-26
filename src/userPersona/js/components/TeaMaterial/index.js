@@ -99,13 +99,13 @@ class TeaMaterial extends Component {
       );
     }
     // 教案
-    if (!secondShow && token && StartTime && EndTime && Urls["301"].WebUrl) {
+    if (!secondShow && token && StartTime && EndTime && Urls["310"].WebUrl) {
       this.setState({
         secondShow: true,
       });
       dispatch(
         CommonActions.SetTeaMaterialParams({
-          SecondProxy: Urls["301"].WebUrl,
+          SecondProxy: Urls["310"].WebUrl,
           // Urls["810"].WsUrl,
           Token: token,
           StartTime: StartTime,
