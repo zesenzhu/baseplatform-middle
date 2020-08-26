@@ -4,6 +4,8 @@ import { btnErrorAlertShow } from './appAlertActions';
 
 import {fetch} from 'whatwg-fetch'
 
+import $ from 'jquery'
+
 import config from './config'
 
 
@@ -249,6 +251,8 @@ export const GetStuWaring =  async ({StudentId,WarningId='',WarningType=7,ClassI
 
 export const GetStuDormitory  =  async ({userId,userType,schoolId,proxy='',dispatch})=>{
 
+    //dormitoryGetData(`${removeSlashUrl(proxy)}/student/bedAndStatus?userId=${userId}&userType=${userType}&schoolId=${schoolId}`);
+
     const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/student/bedAndStatus?userId=${userId}&userType=${userType}&schoolId=${schoolId}`,2);
 
     if (res.code===1){
@@ -338,7 +342,29 @@ const dataSetsGetData = async (url)=>{
 
 const dormitoryGetData =  (url) =>{
 
+    $.ajax({
 
+        type:"get",
+
+        url,
+
+        dataType: "jsonp",
+
+        jsonp: "jsoncallback",
+
+        success:(data)=>{
+
+            console.log(data);
+
+        },
+
+        error:(e,err)=>{
+
+            console.log(e,err);
+
+        }
+
+    })
 
 };
 

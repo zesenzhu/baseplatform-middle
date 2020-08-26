@@ -4,11 +4,15 @@ import Header from './header';
 
 import Content from './content';
 
+import Footer from './footer';
+
 import {Alert,Loading} from "../../../common";
 
 import {useSelector,useDispatch} from 'react-redux';
 
 import {firstPageLoad} from "../../../common/js/disconnect";
+
+
 
 import {
     GetBaseInfoForPages,
@@ -55,6 +59,11 @@ function App(props) {
 
     const [domTitle,setDomTitle] = useState('加载中...');
 
+
+    //footer
+
+    const [footerTitle,setFooterTitle] = useState('蓝鸽科技  版权所有');
+
     //铃铛是否显示
     const [bellShow,setBellShow] = useState(false);
 
@@ -76,6 +85,8 @@ function App(props) {
             if (data){
 
                 sessionStorage.setItem('LgBasePlatformInfo',JSON.stringify(data));
+
+                setFooterTitle(data.ProVersion);
 
                 firstPageLoad(firstLoad)
 
@@ -213,97 +224,115 @@ function App(props) {
 
                    dispatch(targetUserInfoUpdate({UserID: targetUserID, UserType: targetUserType}));
 
-                   switch (`${CopyUserInfo['UserType']}${targetUserType}`) {
+                   const { LockerVersion } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
-                       case '02':
+                   if (parseInt(LockerVersion)===1){
 
-                           dispatch(pageUsedChange({user:'Adm',targetUser:'Stu',usedType:'AdmToStu'}));
+                        if (CopyUserInfo['UserType']===1){
 
-                           break;
+                            dispatch(pageUsedChange({user:'Other',targetUser:'Teacher',usedType:'OtherToTeacher'}));
 
-                       case '72':
+                        }else{
 
-                       case '102':
+                            dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
 
-                           dispatch(pageUsedChange({user:'Leader',targetUser:'Stu',usedType:'LeaderToStu'}));
+                        }
 
-                           break;
+                   }else{
 
-                       case '32':
+                       switch (`${CopyUserInfo['UserType']}${targetUserType}`) {
 
-                           if (res[2].IsMyChild){
+                           case '02':
 
-                               dispatch(pageUsedChange({user:'Parents',targetUser:'Stu',usedType:'ParentsToStu'}));
+                               dispatch(pageUsedChange({user:'Adm',targetUser:'Stu',usedType:'AdmToStu'}));
 
-                           }else{
+                               break;
 
-                               dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
+                           case '72':
 
-                           }
+                           case '102':
 
-                           docTitle = '子女档案详情';
+                               dispatch(pageUsedChange({user:'Leader',targetUser:'Stu',usedType:'LeaderToStu'}));
 
-                           break;
+                               break;
 
-                       case '12':
+                           case '32':
 
-                           if (res[2].IsMyStudent){
+                               if (res[2].IsMyChild){
 
-                               dispatch(pageUsedChange({user:'HeaderTeacher',targetUser:'Stu',usedType:'HeaderTeacherToStu'}));
+                                   dispatch(pageUsedChange({user:'Parents',targetUser:'Stu',usedType:'ParentsToStu'}));
 
-                           }else{
+                               }else{
 
-                               dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
+                                   dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
 
-                           }
+                               }
 
-                           break;
+                               docTitle = '子女档案详情';
 
-                       case '22':
+                               break;
 
-                           if (CopyUserInfo['UserID']===targetUserID){
+                           case '12':
 
-                               dispatch(pageUsedChange({user:'Stu',targetUser:'Stu',usedType:'StuToStu'}));
+                               if (res[2].IsMyStudent){
 
-                               docTitle = '我的档案';
+                                   dispatch(pageUsedChange({user:'HeaderTeacher',targetUser:'Stu',usedType:'HeaderTeacherToStu'}));
 
-                           }else{
+                               }else{
 
-                               dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
+                                   dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
 
-                           }
+                               }
 
-                           break;
+                               break;
 
-                       case '01':
+                           case '22':
 
-                           dispatch(pageUsedChange({user:'Adm',targetUser:'Teacher',usedType:'AdmToTeacher'}));
+                               if (CopyUserInfo['UserID']===targetUserID){
 
-                           break;
+                                   dispatch(pageUsedChange({user:'Stu',targetUser:'Stu',usedType:'StuToStu'}));
 
-                       case '101':
+                                   docTitle = '我的档案';
 
-                       case '71':
+                               }else{
 
-                           dispatch(pageUsedChange({user:'Leader',targetUser:'Teacher',usedType:'LeaderToTeacher'}));
+                                   dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
 
-                           break;
+                               }
 
-                       case '11':
+                               break;
 
-                           if (CopyUserInfo['UserID']===targetUserID){
+                           case '01':
 
-                               dispatch(pageUsedChange({user:'Teacher',targetUser:'Teacher',usedType:'TeacherToTeacher'}));
+                               dispatch(pageUsedChange({user:'Adm',targetUser:'Teacher',usedType:'AdmToTeacher'}));
 
-                               docTitle = '我的档案';
+                               break;
 
-                           }else{
+                           case '101':
 
-                               dispatch(pageUsedChange({user:'Other',targetUser:'Teacher',usedType:'OtherToTeacher'}));
+                           case '71':
 
-                           }
+                               dispatch(pageUsedChange({user:'Leader',targetUser:'Teacher',usedType:'LeaderToTeacher'}));
 
-                           break;
+                               break;
+
+                           case '11':
+
+                               if (CopyUserInfo['UserID']===targetUserID){
+
+                                   dispatch(pageUsedChange({user:'Teacher',targetUser:'Teacher',usedType:'TeacherToTeacher'}));
+
+                                   docTitle = '我的档案';
+
+                               }else{
+
+                                   dispatch(pageUsedChange({user:'Other',targetUser:'Teacher',usedType:'OtherToTeacher'}));
+
+                               }
+
+                               break;
+
+                       }
 
                    }
 
@@ -331,6 +360,9 @@ function App(props) {
 
     };
 
+
+
+
     return(
 
         <DoucumentTitle title={domTitle}>
@@ -344,6 +376,8 @@ function App(props) {
                     {/*<AppRoutes></AppRoutes>*/}
 
                     <Content></Content>
+
+                    <Footer footerTitle={footerTitle}></Footer>
 
                     <Alert type={appAlert.type} show={appAlert.show} title={appAlert.title} onOk={appAlert.ok} onCancel={appAlert.cancel} onClose={appAlert.close} abstract={appAlert.abstract} okShow={appAlert.okShow} cancelShow={appAlert.cancelShow}></Alert>
 

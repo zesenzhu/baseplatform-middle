@@ -4,6 +4,8 @@ import ContentItem from '../contentItem';
 
 import LinkBtn from '../linkBtn';
 
+import {Button} from 'antd';
+
 import {getDetailStuStatus,getTeacherDetailIntroduction,getScientificCaseDetail} from '../../actions/apiActions';
 
 import {useSelector,useDispatch} from 'react-redux';
@@ -88,6 +90,18 @@ function Archives(props) {
             window.open(`${removeSlashUrl(url)}/index_user.html?lg_tk=${token}&stuId=${UserID}#3|1|0`)
 
     },[]);
+
+
+
+    //查看班主任
+
+    const seeGanger = (userID)=>{
+
+      const token = sessionStorage.getItem("token");
+
+      window.open(`/html/userPersona?lg_tk=${token}&userID=${userID}&userType=1`);
+
+    };
 
 
     return(
@@ -222,9 +236,9 @@ function Archives(props) {
 
                                     <td className={"col6"} colSpan={2}>
 
-                                        <div className={"genger"} title={userArchives?userArchives.GangerName:''}>
+                                        <div className={"genger"}>
 
-                                            {isHasValue(userArchives?userArchives.GangerName:'')}
+                                            <Button onClick={e=>seeGanger(userArchives.GangerID)} type={"link"} className={"genger-btn"} title={userArchives?userArchives.GangerName:''}>{isHasValue(userArchives?userArchives.GangerName:'')}</Button>
 
                                         </div>
 

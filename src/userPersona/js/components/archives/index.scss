@@ -85,7 +85,7 @@
         }
 
         .user-name,.former-name,.stu-no,.class-name,
-        .genger,.native-space,.country,.census-place,
+        .native-space,.country,.census-place,
         .home-address{
 
           @include textOverflow;
@@ -105,6 +105,16 @@
         .genger{
 
           width: 340px;
+
+          text-align: center;
+
+          .genger-btn{
+
+            max-width: 330px;
+
+            @include textOverflow;
+
+          }
 
         }
 

@@ -29,7 +29,10 @@ import SchoolLife from "../../components/schoolLife";
 
 import Study from "../../components/study";
 
+
+
 import "./index.scss";
+import systemUrl from "../../reducers/systemUrl";
 
 function Content(props){
 
@@ -57,97 +60,140 @@ function Content(props){
       }
 
       if (urlGet) {
-        return [
-          {
-            title: (
-              <span>
+
+        const initList = [
+            {
+                title: (
+                    <span>
                 学籍
                 <br />
                 档案
               </span>
-            ),
-            id: "archives",
-            value: Archives,
-            type:
-              "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher",
-          },
+                ),
+                id: "archives",
+                value: Archives,
+                type:
+                    "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher",
 
-          {
-            title: (
-              <span>
+                rely:'archives'
+            },
+
+            {
+                title: (
+                    <span>
                 账号
                 <br />
                 信息
               </span>
-            ),
-            id: "account",
-            value: Account,
-            type:
-              "AdmToStu,LeaderToStu,StuToStu,OtherToStu,ParentsToStu,HeaderTeacherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher,OtherToTeacher",
-          },
+                ),
+                id: "account",
+                value: Account,
+                type:
+                    "AdmToStu,LeaderToStu,StuToStu,OtherToStu,ParentsToStu,HeaderTeacherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher,OtherToTeacher",
+                rely:''
 
-          {
-              title: <span>生活<br />信息</span>,
-              id: "life",
-              value:SchoolLife,
-              type:"AdmToStu,LeaderToStu,HeaderTeacherToStu,StuToStu,ParentsToStu",
-          },
+            },
 
-          {
-              title: <span>科目<br />课程</span>,
-              id: "study",
-              value:Study,
-              type:"AdmToStu,LeaderToStu,HeaderTeacherToStu,StuToStu,ParentsToStu",
-          },
+            {
+                title: <span>生活<br />信息</span>,
+                id: "life",
+                value:SchoolLife,
+                type:"AdmToStu,LeaderToStu,HeaderTeacherToStu,StuToStu,ParentsToStu",
 
-          {
-            title: (
-              <span>
+                rely:'schoolLife'
+            },
+
+            {
+                title: <span>科目<br />课程</span>,
+                id: "study",
+                value:Study,
+                type:"AdmToStu,LeaderToStu,HeaderTeacherToStu,StuToStu,ParentsToStu",
+
+                rely:''
+            },
+
+            {
+                title: (
+                    <span>
                 成绩
                 <br />
                 信息
               </span>
-            ),
-            id: "score",
-            value: StuResult,
-            type:
-              "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu",
-          },
-          {
-            title: (
-              <span>
+                ),
+                id: "score",
+                value: StuResult,
+                type:
+                    "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu",
+                rely:'StuResult'
+            },
+            {
+                title: (
+                    <span>
                 综合
                 <br />
                 评价
               </span>
-            ),
-            id: "comment",
-            value: StuQuality,
-            type:
-              "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu",
-          },
-          {
-            title: <span>德育</span>,
-            id: "pe",
-            value: MoralEdu,
-            type:
-              "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu",
-          },
-          {
-            title: <span>教学<br />工作量</span>,
-            id: "work",
-            value: TeaWork,
-            type:
-              "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu",
-          },
-          {
-            title: <span>教学<br />资料</span>,
-            id: "material",
-            value: TeaMaterial,
-            type:
-              "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu",
-          },
+                ),
+                id: "comment",
+                value: StuQuality,
+                type:
+                    "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu",
+                rely:'StuQuality'
+            },
+            {
+                title: <span>德育</span>,
+                id: "pe",
+                value: MoralEdu,
+                type:
+                    "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu",
+                rely:'MoralEdu'
+            },
+            {
+                title: <span>教学<br />工作量</span>,
+                id: "work",
+                value: TeaWork,
+                type:
+                    "AdmToTeacher,LeaderToTeacher,TeacherToTeacher,OtherToTeacher",
+                rely:'TeaWork'
+            },
+            {
+                title: <span>教学<br />资料</span>,
+                id: "material",
+                value: TeaMaterial,
+                type:
+                    "AdmToTeacher,LeaderToTeacher,TeacherToTeacher,OtherToTeacher",
+                rely:'TeaMaterial'
+            },
         ];
+
+        const newList = initList.filter(i=>{
+
+          let canView = false;
+
+          if (i.rely){
+
+              ModuleRely[i.rely].map(item=>{
+
+                if(Urls[item].WebUrl){
+
+                  canView = true;
+
+                }
+
+              });
+
+          }else{
+
+              canView = true;
+
+          }
+
+          return canView;
+
+      });
+
+        return newList;
+
       } else {
         return [];
       }
@@ -158,14 +204,22 @@ function Content(props){
 
   //锚点
   const anchorList = useMemo(() => {
+
     if (moduleList instanceof Array&&moduleList.length > 0) {
-      return moduleList
-        .filter((i) => i.type.includes(UsedType))
-        .map((i) => ({ id: i.id, title: i.title }));
+
+        console.log(moduleList.filter(i =>i.type.includes(UsedType)).map(i =>({ id: i.id, title: i.title })));
+
+      return moduleList.filter(i =>i.type.includes(UsedType)).map(i => ({ id: i.id, title: i.title }));
+
     } else {
       return [];
     }
   }, [moduleList]);
+
+
+
+
+
 
   return (
     <>
@@ -177,7 +231,18 @@ function Content(props){
         })}
       </ul>
 
-      <AnchorPoint anchorList={moduleList}></AnchorPoint>
+
+        {
+
+          UsedType!=='OtherToStu'?
+
+              <AnchorPoint anchorList={anchorList}></AnchorPoint>
+
+              :null
+
+        }
+
+
     </>
   );
 }

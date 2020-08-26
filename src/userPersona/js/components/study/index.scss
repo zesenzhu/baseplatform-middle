@@ -16,7 +16,6 @@
 
   }
 
-
   .study-item{
 
     float: left;
@@ -127,6 +126,16 @@
       max-width: 132px;
 
       @include textOverflow;
+
+    }
+
+  }
+
+  .study-content{
+
+    .emptyBox{
+
+      margin-bottom: 40px;
 
     }
 

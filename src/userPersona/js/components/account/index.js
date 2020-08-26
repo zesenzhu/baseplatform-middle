@@ -543,7 +543,7 @@ function Account(props) {
 
                             <tr>
                                 <td className={"col1 props"}>注册时间:</td>
-                                <td className={"col2"}>{isHasValue(userArchives.Telephone2)}</td>
+                                <td className={"col2"}>{isHasValue(userArchives.SignUpTime)}</td>
                                 <td className={"col3 props"}>累计在线:</td>
                                 <td className={"col4"}>{isHasValue(userArchives.LoginTimeSpan_Txt)}</td>
                             </tr>
