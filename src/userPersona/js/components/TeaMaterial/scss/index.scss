@@ -1,0 +1,117 @@
+@mixin TextOverflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+p {
+    margin: 0;
+}
+
+.TeaMaterial {
+    padding-top: 24px;
+    padding-bottom: 42px;
+    .SR-top {
+        height: 42px;
+        padding-left: 102px;
+        margin-bottom: 10px;
+        .SRt-go {
+            float: right;
+            margin-right: -20px;
+            margin-top: 6px;
+            // line-height: 30px;
+            padding-left: 16px;
+            background-position: left 1px;
+            background-size: 12px 17px;
+            // font-size: 14px;
+            // cursor: pointer;
+            // text-decoration: underline;
+            // opacity: 0.8;
+            // background: url(../images/详情.png) no-repeat left center / 15px 15px;
+            // color: #0086e3;
+            // &:hover {
+            //     opacity: 1;
+            // }
+        }
+    }
+    .SQ-box {
+        padding: 0 26px;
+        // width: 1024px;
+        margin: 0 auto;
+        .TW-content {
+            width: 345px;
+            padding: 0 52px;
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            .TWc-left {
+                width: 89px;
+                display: inline-block;
+                vertical-align: top;
+                padding-top: 14px;
+                .count {
+                    font-size: 24px;
+                    line-height: 47px;
+                    color: #008fff;
+                    text-align: center;
+                    font-weight: bold;
+                    text-decoration: underline;
+                }
+                .name,
+                .UseCount {
+                    font-size: 12px;
+                    line-height: 22px;
+                    text-align: left;
+                    color: #666666;
+                    @include TextOverflow();
+                }
+                .UseCount {
+                    span {
+                        font-size: 16px;
+                        color: #009900;
+                    }
+                }
+            }
+            .TWc-right {
+                width: 151px;
+                display: inline-block;
+                vertical-align: top;
+                .chartsbox {
+                    width: 151px;
+                    height: 160px;
+                    background: url(../images/教学资料.png) no-repeat center center / contain;
+                }
+                .AllScore {
+                    position: absolute;
+                    top: 1px;
+                    right: 55px;
+                    width: 65px;
+                    height: 20px;
+                    line-height: 20px;
+                    font-size: 12px;
+                    z-index: 10;
+                    padding: 0;
+                    text-align: left;
+                    text-shadow: 0px 0px 4px white;
+                    color: #445cbc;
+                    margin: 0 0 1px 2px;
+                }
+                .SubjectScore {
+                    position: absolute;
+                    top: 18px;
+                    right: 55px;
+                    width: 65px;
+                    height: 20px;
+                    line-height: 20px;
+                    font-size: 12px;
+                    z-index: 10;
+                    padding: 0;
+                    text-align: left;
+                    text-shadow: 0px 0px 4px white;
+                    color: #cb4a3d;
+                    margin: 0 0 1px 2px;
+                }
+            }
+        }
+    }
+}

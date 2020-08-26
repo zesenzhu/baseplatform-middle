@@ -11,9 +11,9 @@ const CommonData = (
       PageSize: 10000,
       PageNum: 1,
       Proxy: "",
-      Token:'',
-      Semester:'',
-      ShowAll:false
+      Token: "",
+      Semester: "",
+      ShowAll: false,
     },
     StuResultParams: {
       Term: "",
@@ -22,21 +22,50 @@ const CommonData = (
       SchoolID: "",
       XH: "",
       Proxy: "",
-      TabLoadingVisible:true,
+      TabLoadingVisible: true,
       SelectBar: "NearExam", //NearExam:最近考试，TermReport:期末总评
     },
-    StuQualityParams:{
-      XH:'',
-      Term:'',
+    StuQualityParams: {
+      XH: "",
+      Term: "",
       Proxy: "",
     },
- 
+    TeaWorkParams: {
+      UserName: "",
+      PageSize: 10000,
+      PageNum: 1,
+      Semester: "",
+      Token: "",
+      Proxy: "",
+    },
+    TeaMaterialParams:{
+      StartTime:'',
+      EndTime:'',
+      FirstProxy:'',
+      SecondProxy:'',
+      ThirdProxy:'',
+      Token:'',
+      SelectWeek:{}
+    }
   },
   actions
 ) => {
   let communicationData = {};
   switch (actions.type) {
- 
+    case CommonActions.COMMON_SET_TEA_MATERIAL_PARAMS:
+      return Object.assign({}, state, {
+        TeaMaterialParams: {
+          ...state.TeaMaterialParams,
+          ...actions.data,
+        },
+      });
+    case CommonActions.COMMON_SET_TEA_WORK_PARAMS:
+      return Object.assign({}, state, {
+        TeaWorkParams: {
+          ...state.TeaWorkParams,
+          ...actions.data,
+        },
+      });
     case CommonActions.COMMON_SET_STU_QUALITY_PARAMS:
       return Object.assign({}, state, {
         StuQualityParams: {

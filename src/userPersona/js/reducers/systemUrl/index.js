@@ -33,6 +33,8 @@ const defaultState = {
     StuResult: ["810"],
     StuQuality: ["810"],
     MoralEdu: ["E34"],
+    TeaWork: ["E34"],
+    TeaMaterial: ["C10",'D21','310'],
   },
 };
 

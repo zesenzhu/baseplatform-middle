@@ -32,7 +32,9 @@ class MoralEdu extends Component {
       systemUrl: { Urls },
       targetUser: { UserID },
       termInfo: { Term },
-      userArchives: { ClassID, GradeID, SchoolID },
+      loginUser: { SchoolID },
+
+      userArchives: { ClassID, GradeID },
     } = nextProps;
     // let {}
     let token = sessionStorage.getItem("token");
@@ -157,7 +159,7 @@ class MoralEdu extends Component {
                     return;
                   }
                   return (
-                    <div className="ME-box">
+                    <div key={index} className="ME-box">
                       <p
                         title={
                           moralityExaminationStandard.examinationContent
