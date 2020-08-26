@@ -23,6 +23,8 @@ import Account from "../../components/account";
 
 import SchoolLife from "../../components/schoolLife";
 
+import Study from "../../components/study";
+
 import "./index.scss";
 
 function Content(props){
@@ -84,7 +86,14 @@ function Content(props){
               title: <span>生活<br />信息</span>,
               id: "life",
               value:SchoolLife,
-              type:"AdmToStu,LeaderToStu,StuToStu,ParentsToStu",
+              type:"AdmToStu,LeaderToStu,HeaderTeacherToStu,StuToStu,ParentsToStu",
+          },
+
+          {
+              title: <span>科目<br />课程</span>,
+              id: "study",
+              value:Study,
+              type:"AdmToStu,LeaderToStu,HeaderTeacherToStu,StuToStu,ParentsToStu",
           },
 
           {
