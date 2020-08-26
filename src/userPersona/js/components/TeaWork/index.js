@@ -32,7 +32,9 @@ class TeaWork extends Component {
       systemUrl: { Urls },
       targetUser: { UserID },
       termInfo: { Term },
-      userArchives: { ShortName, ClassID, GradeID, SchoolID, UserName },
+      loginUser:{SchoolID},
+
+      userArchives: { ShortName, ClassID, GradeID, UserName },
     } = nextProps;
     // let {}
     let token = sessionStorage.getItem("token");

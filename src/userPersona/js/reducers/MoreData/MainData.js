@@ -399,8 +399,9 @@ const MainData = (
       ],
     },
     TermAndPeriod: {
-      ItemWeek: [],
-      WeekNO: 0,
+      WeekList: [],
+      ItemWeek:[],
+      NowWeekSelect: { value: 1, title: "第1周" },
     },
   },
   actions

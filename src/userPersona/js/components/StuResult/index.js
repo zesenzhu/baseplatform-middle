@@ -30,15 +30,17 @@ class StuQuality extends Component {
         CommonData: { StuResultParams },
       },
       systemUrl: { Urls },
+      loginUser:{SchoolID},
+
       targetUser: { UserID },
       termInfo: { Term },
-      userArchives: { ClassID, GradeID, SchoolID },
+      userArchives: { ClassID, GradeID },
     } = nextProps;
     // let {}
-    Term = 1;
-    GradeID = "1AD37424-9F56-4DAD-81C6-B94CE498A8DA";
-    ClassID = "A00C8711-A908-41E0-98B4-4DFD8038E8E0";
-    SchoolID = "S-888";
+    // Term = 1;
+    // GradeID = "1AD37424-9F56-4DAD-81C6-B94CE498A8DA";
+    // ClassID = "A00C8711-A908-41E0-98B4-4DFD8038E8E0";
+    // SchoolID = "S-888";
     if (
       firstTime &&
       ClassID &&

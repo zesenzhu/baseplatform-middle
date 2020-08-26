@@ -4,7 +4,7 @@ import CONFIG from "../../../../common/js/config";
 import "whatwg-fetch";
 import CommonActions from "./CommonActions";
 import Public from "../../../../common/js/public";
-const { HashPrevProxy } = CONFIG;
+const { HashPrevProxy, UserScheduleProxy } = CONFIG;
 // 查询我的班级德育信息
 const MAIN_GET_CLASS_MORAL_EDU_INFO_BY_CRITERIAS =
   "MAIN_GET_CLASS_MORAL_EDU_INFO_BY_CRITERIAS";
@@ -521,6 +521,7 @@ const GetTeacherResView = ({
           TeaMaterialParams: { Token, StartTime, EndTime, FirstProxy },
         },
       },
+      loginUser: { SchoolID },
       targetUser: { UserID },
       termInfo: { Term },
       userArchives: {
@@ -529,7 +530,7 @@ const GetTeacherResView = ({
         ShortName,
         ClassID,
         GradeID,
-        SchoolID,
+
         UserName,
       },
     } = State;
@@ -631,9 +632,11 @@ const GetTeachPlanStatistics = ({
       MoreData: {
         CommonData: {
           TeaWorkParams,
-          TeaMaterialParams: { SecondProxy,Token, StartTime, EndTime },
+          TeaMaterialParams: { SecondProxy, Token, StartTime, EndTime },
         },
       },
+      loginUser: { SchoolID },
+
       targetUser: { UserID },
       termInfo: { Term },
       userArchives: {
@@ -642,7 +645,7 @@ const GetTeachPlanStatistics = ({
         ShortName,
         ClassID,
         GradeID,
-        SchoolID,
+
         UserName,
       },
     } = State;
@@ -651,7 +654,7 @@ const GetTeachPlanStatistics = ({
     }
 
     if (Proxy === undefined) {
-      Proxy =  SecondProxy;
+      Proxy = SecondProxy;
     }
 
     if (token === undefined) {
@@ -728,10 +731,12 @@ const GetTeacherpercentage = ({
       MoreData: {
         CommonData: {
           TeaWorkParams,
-          TeaMaterialParams: { ThirdProxy,Token, StartTime, EndTime },
+          TeaMaterialParams: { ThirdProxy, Token, StartTime, EndTime },
         },
       },
       targetUser: { UserID },
+      loginUser: { SchoolID },
+
       termInfo: { Term },
       userArchives: {
         SubjectIDs,
@@ -739,7 +744,7 @@ const GetTeacherpercentage = ({
         ShortName,
         ClassID,
         GradeID,
-        SchoolID,
+
         UserName,
       },
     } = State;
@@ -748,7 +753,7 @@ const GetTeacherpercentage = ({
     }
 
     if (Proxy === undefined) {
-      Proxy =  ThirdProxy;
+      Proxy = ThirdProxy;
     }
 
     if (token === undefined) {
@@ -835,6 +840,7 @@ const GetTermAndPeriodAndWeekNOInfo = ({
         },
       },
       targetUser: { UserID, UserType },
+      loginUser: { SchoolID },
       termInfo: { Term },
       userArchives: {
         SubjectIDs,
@@ -842,7 +848,6 @@ const GetTermAndPeriodAndWeekNOInfo = ({
         ShortName,
         ClassID,
         GradeID,
-        SchoolID,
         UserName,
       },
     } = State;
@@ -858,7 +863,6 @@ const GetTermAndPeriodAndWeekNOInfo = ({
       userType = UserType;
     }
 
-
     if (schoolId === undefined) {
       schoolId = SchoolID;
     }
@@ -871,7 +875,28 @@ const GetTermAndPeriodAndWeekNOInfo = ({
       token,
     }).then((res) => {
       if (res) {
-        dispatch({ type: MAIN_GET_TERM_AND_PERIOD, data: res.data });
+        if (res.Data && res.Data.ItemWeek instanceof Array) {
+          let WeekList = [];
+          let NowWeekSelect;
+          let NowWeek = res.Data.WeekNO;
+          if (NowWeek > res.Data.ItemWeek.length || NowWeek <= 0) {
+            NowWeek = 1;
+          }
+          res.Data.ItemWeek.forEach((child) => {
+            let data = {
+              value: child.WeekNO,
+              title: "第" + child.WeekNO + "周",
+            };
+            WeekList.push(data);
+            if (NowWeek === child.WeekNO) {
+              NowWeekSelect = data;
+            }
+          });
+
+          res.Data.WeekList = WeekList;
+          res.Data.NowWeekSelect = NowWeekSelect;
+        }
+        dispatch({ type: MAIN_GET_TERM_AND_PERIOD, data: res.Data });
         func(getState());
       }
     });
@@ -887,8 +912,8 @@ const getTermAndPeriodAndWeekNOInfo = async ({
   schoolId = "",
 }) => {
   let url =
-    Proxy +
-    "/api/common/teacherpercentage?teacherId=" +
+    UserScheduleProxy +
+    "/GetTermAndPeriodAndWeekNOInfo?userID=" +
     userID +
     "&userType=" +
     userType +
@@ -906,6 +931,7 @@ const getTermAndPeriodAndWeekNOInfo = async ({
 };
 const MainActions = {
   GetTermAndPeriodAndWeekNOInfo,
+  MAIN_GET_TERM_AND_PERIOD,
 
   GetTeacherpercentage,
   MAIN_GET_TEACHER_PERCENT_AGE,

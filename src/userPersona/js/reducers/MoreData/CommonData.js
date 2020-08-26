@@ -44,7 +44,8 @@ const CommonData = (
       FirstProxy:'',
       SecondProxy:'',
       ThirdProxy:'',
-      Token:''
+      Token:'',
+      SelectWeek:{}
     }
   },
   actions

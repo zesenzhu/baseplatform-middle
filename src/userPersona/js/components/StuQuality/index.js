@@ -30,7 +30,9 @@ class StuQuality extends Component {
       systemUrl: { Urls },
       targetUser: { UserID },
       termInfo: { Term },
-      userArchives: { ClassID, GradeID, SchoolID },
+      loginUser:{SchoolID},
+
+      userArchives: { ClassID, GradeID },
     } = nextProps;
     // let {}
 

@@ -35,31 +35,49 @@ class TeaMaterial extends Component {
       dispatch,
       MoreData: {
         CommonData: {
-          TeaWorkParams: { Semester, Proxy },
+          TeaMaterialParams: { StartTime, EndTime },
+        },
+        MainData: {
+          TermAndPeriod: { NowWeekSelect, WeekList, ItemWeek },
         },
       },
       systemUrl: { Urls },
+      loginUser: { SchoolID },
       targetUser: { UserID, UserType },
-      termInfo: { Term, TermEndDate, TermStartDate },
-      userArchives: { ShortName, ClassID, GradeID, SchoolID, UserName },
+      termInfo: { Term },
+      userArchives: { ShortName, ClassID, GradeID, UserName },
     } = nextProps;
     // let {}
     let that = this;
     let token = sessionStorage.getItem("token");
-    if (firstTime && UserID && UserType && SchoolID) {//获取周信息
+    if (firstTime && UserID && UserType && SchoolID) {
+      //获取周信息
       this.setState({
         firstTime: false,
       });
-      dispatch(MainActions.GetTermAndPeriodAndWeekNOInfo({}));
+      dispatch(
+        MainActions.GetTermAndPeriodAndWeekNOInfo({
+          func: (State) => {
+            let {
+              MoreData: {
+                MainData: {
+                  TermAndPeriod: { NowWeekSelect },
+                },
+              },
+            } = State;
+            // dispatch(
+            //   CommonActions.SetTeaMaterialParams({
+            //     SelectWeek: NowWeekSelect,
+            //   })
+            // );
+            this.onSemesterChange(NowWeekSelect)
+          },
+        })
+      );
     }
+     
     // 电子资源
-    if (
-      !firstShow &&
-      token &&
-      TermStartDate &&
-      TermEndDate &&
-      Urls["C10"].WebUrl
-    ) {
+    if (!firstShow && token && StartTime && EndTime && Urls["C10"].WebUrl) {
       this.setState({
         firstShow: true,
       });
@@ -68,8 +86,8 @@ class TeaMaterial extends Component {
           FirstProxy: Urls["C10"].WebUrl,
           // Urls["810"].WsUrl,
           Token: token,
-          StartTime: TermStartDate,
-          EndTime: TermEndDate,
+          StartTime: StartTime,
+          EndTime: EndTime,
           // SelectBar: "NearExam",
         })
       );
@@ -81,13 +99,7 @@ class TeaMaterial extends Component {
       );
     }
     // 教案
-    if (
-      !secondShow &&
-      token &&
-      TermStartDate &&
-      TermEndDate &&
-      Urls["301"].WebUrl
-    ) {
+    if (!secondShow && token && StartTime && EndTime && Urls["301"].WebUrl) {
       this.setState({
         secondShow: true,
       });
@@ -96,8 +108,8 @@ class TeaMaterial extends Component {
           SecondProxy: Urls["301"].WebUrl,
           // Urls["810"].WsUrl,
           Token: token,
-          StartTime: TermStartDate,
-          EndTime: TermEndDate,
+          StartTime: StartTime,
+          EndTime: EndTime,
           // SelectBar: "NearExam",
         })
       );
@@ -109,13 +121,7 @@ class TeaMaterial extends Component {
       );
     }
     // 课程精品
-    if (
-      !thirdShow &&
-      token &&
-      TermStartDate &&
-      TermEndDate &&
-      Urls["D21"].WebUrl
-    ) {
+    if (!thirdShow && token && StartTime && EndTime && Urls["D21"].WebUrl) {
       this.setState({
         thirdShow: true,
       });
@@ -124,8 +130,8 @@ class TeaMaterial extends Component {
           ThirdProxy: Urls["D21"].WebUrl,
           // Urls["810"].WsUrl,
           Token: token,
-          StartTime: TermStartDate,
-          EndTime: TermEndDate,
+          StartTime: StartTime,
+          EndTime: EndTime,
           // SelectBar: "NearExam",
         })
       );
@@ -144,20 +150,57 @@ class TeaMaterial extends Component {
   }
 
   onSemesterChange = (value) => {
-    let { dispatch } = this.props;
+    let {
+      dispatch,
+      MoreData: {
+        CommonData: {
+          TeaWorkParams: { Semester, Proxy },
+        },
+        MainData: {
+          TermAndPeriod: { NowWeekSelect, WeekList, ItemWeek },
+        },
+      },
+    } = this.props;
+    let { firstTime, firstShow, secondShow, thirdShow } = this.state;
+
+    let selectWeek = ItemWeek.find((child) => {
+      return child.WeekNO === NowWeekSelect.value;
+    });
+    let StartTime = ''
+    let EndTime = ''
+    if (selectWeek) {//存在当前周
+      StartTime = selectWeek.StartDate;
+      EndTime = selectWeek.EndDate;
+    }
     dispatch(
-      CommonActions.SetTeaWorkParams({
-        // Urls["810"].WsUrl,
-        Semester: value.value,
-        SemesterC: value.title,
-        // SelectBar: "NearExam",
+      CommonActions.SetTeaMaterialParams({
+        SelectWeek: value,
+        StartTime: StartTime,
+        EndTime: EndTime,
       })
     );
-    dispatch(
-      MainActions.GetTeachPlanStatistics({
-        func: () => {},
-      })
-    );
+    if(firstShow){
+      dispatch(
+        MainActions.GetTeacherResView({
+          func: this.ResVeiwChart,
+        })
+      );
+    }
+    if(secondShow){
+      dispatch(
+        MainActions.GetTeachPlanStatistics({
+          func: this.TeachPlanChart,
+        })
+      );
+    }
+    if(thirdShow){
+      dispatch(
+        MainActions.GetTeacherpercentage({
+          func: this.TeachPercentChart,
+        })
+      );
+    }
+ 
   };
   //
   ResVeiwChart = () => {
@@ -172,7 +215,8 @@ class TeaMaterial extends Component {
       },
     } = this.props;
     let that = this;
-
+    clearTimeout(that.ResVeiwTimeout)
+    clearInterval(that.ResVeiwInterval)
     let SubjectScale = 0;
     UploadAllScale =
       UploadAllScale || UploadAllScale === 0 ? UploadAllScale : 0;
@@ -190,7 +234,7 @@ class TeaMaterial extends Component {
       ) {
         let len = UploadSubjectScale.length;
         UploadSubjectScale.map((child, index) => {
-          setTimeout(() => {
+          that.ResVeiwTimeout=setTimeout(() => {
             let data = {
               SubjectName: child.SubjectName,
               UploadAllScale,
@@ -201,7 +245,7 @@ class TeaMaterial extends Component {
               firstSubjectScore: child.SubjectScale,
             });
             that.SetEChart(data, mychart);
-            setInterval(() => {
+            that.ResVeiwInterval=setInterval(() => {
               that.setState({
                 firstAllScore: UploadAllScale,
                 firstSubjectScore: child.SubjectScale,
@@ -237,7 +281,8 @@ class TeaMaterial extends Component {
       },
     } = this.props;
     let that = this;
-
+    clearTimeout(that.TeachPlanTimeout)
+    clearInterval(that.TeachPlanInterval)
     let SubjectScale = 0;
     UploadAllScale =
       UploadAllScale || UploadAllScale === 0 ? UploadAllScale : 0;
@@ -255,7 +300,7 @@ class TeaMaterial extends Component {
       ) {
         let len = UploadSubjectScale.length;
         UploadSubjectScale.map((child, index) => {
-          setTimeout(() => {
+          that.TeachPlanTimeout = setTimeout(() => {
             let data = {
               SubjectName: child.SubjectName,
               UploadAllScale,
@@ -266,7 +311,7 @@ class TeaMaterial extends Component {
               secondSubjectScore: child.SubjectScale,
             });
             that.SetEChart(data, mychart);
-            setInterval(() => {
+            that.TeachPlanInterval = setInterval(() => {
               that.setState({
                 secondAllScore: UploadAllScale,
                 secondSubjectScore: child.SubjectScale,
@@ -302,7 +347,8 @@ class TeaMaterial extends Component {
       },
     } = this.props;
     let that = this;
-
+    clearTimeout(that.TeachPercentTimeout)
+    clearInterval(that.TeachPercentInterval)
     let SubjectScale = 0;
     UploadAllScale =
       UploadAllScale || UploadAllScale === 0 ? UploadAllScale : 0;
@@ -324,7 +370,7 @@ class TeaMaterial extends Component {
       ) {
         let len = UploadSubjectScale.length;
         UploadSubjectScale.map((child, index) => {
-          setTimeout(() => {
+          that.TeachPercentTimeout = setTimeout(() => {
             let data = {
               SubjectName: child.SubjectName,
               UploadAllScale,
@@ -335,7 +381,7 @@ class TeaMaterial extends Component {
               thirdSubjectScore: child.SubjectScale,
             });
             that.SetEChart(data, mychart);
-            setInterval(() => {
+            that.TeachPercentInterval = setInterval(() => {
               that.setState({
                 thirdAllScore: UploadAllScale,
                 thirdSubjectScore: child.SubjectScale,
@@ -458,7 +504,7 @@ class TeaMaterial extends Component {
     let {
       MoreData: {
         CommonData: {
-          TeaWorkParams: { SemesterC, Semester },
+          TeaMaterialParams: { SemesterC, Semester ,SelectWeek},
         },
         MainData: {
           TeaWorkData: { data },
@@ -466,6 +512,7 @@ class TeaMaterial extends Component {
           TeacherResView,
           TeachPlan,
           TeachPercent,
+          TermAndPeriod: { WeekList, WeekNO },
         },
       },
     } = this.props;
@@ -494,22 +541,22 @@ class TeaMaterial extends Component {
         >
           <div className="TeaMaterial">
             <div className="SR-top">
-              {/* {AllTerm instanceof Array && AllTerm.length > 0 ? (
+              {WeekList instanceof Array && WeekList.length > 0 ? (
                 <DropDown
                   ref="Semester"
-                  width={180}
-                  height={240}
+                  width={120}
+                  height={120}
                   style={{ zIndex: 10 }}
                   onChange={this.onSemesterChange}
-                  dropList={AllTerm}
-                  dropSelectd={{ value: Semester, title: SemesterC }}
+                  dropList={WeekList}
+                  dropSelectd={SelectWeek}
                 ></DropDown>
               ) : (
                 ""
-              )} */}
+              )}
             </div>
             <div className="SQ-box">
-              <div className="TW-content">
+              {firstShow?<div className="TW-content">
                 <div className="TWc-left">
                   <p
                     title={
@@ -550,8 +597,8 @@ class TeaMaterial extends Component {
                     %
                   </p>
                 </div>
-              </div>
-              <div className="TW-content">
+              </div>:''}
+              {secondShow?<div className="TW-content">
                 <div className="TWc-left">
                   <p
                     title={
@@ -590,8 +637,8 @@ class TeaMaterial extends Component {
                     %
                   </p>
                 </div>
-              </div>
-              <div className="TW-content">
+              </div>:''}
+              {thirdShow?<div className="TW-content">
                 <div className="TWc-left">
                   <p
                     title={
@@ -630,7 +677,7 @@ class TeaMaterial extends Component {
                     %
                   </p>
                 </div>
-              </div>
+              </div>:''}
             </div>
           </div>
         </Loading>
