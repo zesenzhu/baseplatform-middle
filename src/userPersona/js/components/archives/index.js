@@ -44,7 +44,9 @@ function Archives(props) {
 
     const dispatch = useDispatch();
 
+
     useEffect(()=>{
+
 
         if (userStatus){
 
@@ -55,6 +57,7 @@ function Archives(props) {
                 setTabName('学籍档案信息');
 
             }else{
+
 
                 getScientificCaseDetail({proxy:Urls['E34'].WebUrl,userId:UserID,scientificType:0,dispatch}).then(data=>{
 

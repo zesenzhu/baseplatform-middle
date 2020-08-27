@@ -121,7 +121,7 @@ export const getTeacherDetailIntroduction =  async ({teacherId,proxy,dispatch})=
 //获取科研以及获奖情况
 export const getScientificCaseDetail =  async ({userId,scientificType,proxy,dispatch})=>{
 
-    const res = await getGetData(`/admin/getScientificCaseDetail?userId=${userId}&scientificType=${scientificType}`,1,proxy);
+    const res = await getGetData(`/admin/getScientificCaseDetail?userId=${userId}&scientificType=${scientificType}`,1,removeSlashUrl(proxy));
 
     if (res.code===0){
 
@@ -217,16 +217,11 @@ export const GetStuActivities =  async ({StudentId,ClassId,GradeId,ActiveType=0,
 
     // const res = transferInterface({appid:'860',reqUrl:`${removeSlashUrl(proxy)}/api/v1/Student/Active/Class/One?StudentId=${StudentId}&ClassId=${ClassId}&GradeId=${GradeId}&ActiveType=${ActiveType}&TimeStamp=${TimeStamp}&Key=${Key}&IsCourseClass=${IsCourseClass}`});
 
-    if (res.StatusCode===200){
+    if (res&&res.length>0){
 
-        return res.Data;
-
-    }else{
-
-        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取学生活动失败'}));
+        return res[0];
 
     }
-
 };
 
 
@@ -236,13 +231,10 @@ export const GetStuWaring =  async ({StudentId,WarningId='',WarningType=7,ClassI
 
     const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/api/v1/Student/Warning/Class/One/Detail?StudentId=${StudentId}&ClassId=${ClassId}&GradeId=${GradeId}&WarningId=${WarningId}&WarningType=${WarningType}&TimeStamp=${TimeStamp}&Key=${Key}&IsCourseClass=${IsCourseClass}`);
 
-    if (res.StatusCode===200){
 
-        return res.Data;
+    if (res&&res.length>0){
 
-    }else{
-
-        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取学生活动失败'}));
+        return res;
 
     }
 

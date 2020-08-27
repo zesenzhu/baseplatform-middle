@@ -98,7 +98,7 @@ function SchoolLife(props) {
 
                 if (res[0]){
 
-                    const data = res[0][0].ActiveList;
+                    const data = res[0].ActiveList;
 
                     const attence = {
 
@@ -166,7 +166,7 @@ function SchoolLife(props) {
 
                 if (res[0]){
 
-                    const data = res[0][0].ActiveList;
+                    const data = res[0].ActiveList;
 
                     const attence = {
 
@@ -310,13 +310,13 @@ function SchoolLife(props) {
 
                               请假<span className={"rate-red"}>{stuActivities.attence.count}</span>次,
 
-                              出勤率<span className={"rate-green"}>{stuActivities.attence.value}</span>
+                              出勤率<span className={"rate-green"}>{stuActivities.attence.value!=='--'?`${stuActivities.attence.value}%`:'--'}</span>
 
                           </div>
 
                           <div className={"agv-rate"}>
 
-                              班级平均值:{stuActivities.attence.classAvg}
+                              班级平均值:{stuActivities.attence.classAvg!=='--'?`${stuActivities.attence.classAvg}%`:'--'}
 
                           </div>
 
@@ -334,13 +334,13 @@ function SchoolLife(props) {
 
                           <div className={"rate"}>
 
-                              <span className={"rate-green"}>{stuActivities.homework.value}</span>
+                              <span className={"rate-green"}>{stuActivities.homework.value!=='--'?`${stuActivities.homework.value}%`:'--'}</span>
 
                           </div>
 
                           <div className={"agv-rate"}>
 
-                              班级平均值:{stuActivities.homework.classAvg}
+                              班级平均值:{stuActivities.homework.classAvg!=='--'?`${stuActivities.homework.classAvg}%`:'--'}
 
                           </div>
 
