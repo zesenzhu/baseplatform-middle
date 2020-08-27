@@ -27,6 +27,7 @@ import AddTempScheduleModal from './AddTempScheduleModal';
 import $ from "jquery";
 
 import SDActions from "../../actions/ScheduleDetailActions";
+
 import {getQueryVariable} from "../../../../common/js/disconnect";
 
 

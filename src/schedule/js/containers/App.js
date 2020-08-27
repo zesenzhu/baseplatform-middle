@@ -175,6 +175,12 @@ class App extends Component{
 
             this.setState({isWorkPlantform:true});
 
+            $(document).on('click',()=>{
+
+               window.parent.postMessage("schedule");
+
+            });
+
         }
 
     }

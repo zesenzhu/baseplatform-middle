@@ -45,6 +45,8 @@ class ClassTotal extends Component{
 
             optionalCurrentPage:1,
 
+            isWorkPlantform:false
+
         };
 
     }
@@ -169,8 +171,6 @@ class ClassTotal extends Component{
     componentWillReceiveProps(nextProps){
 
         const { Student,dispatch,PeriodWeekTerm,LoginUser } = nextProps;
-
-        console.log(getQueryVariable('WeekNO'));
 
         const WeekNO = getQueryVariable('WeekNO')?getQueryVariable('WeekNO'):PeriodWeekTerm.WeekNO;
 
@@ -334,7 +334,9 @@ class ClassTotal extends Component{
 
             this.setState({firstLoad:false},()=>{
 
-                apiActions.GetScheduleByUserID({SchoolID,PeriodID:'',UserType:2,UserID,WeekNO,dispatch}).then(data=>{
+                //旧代码
+
+                /*apiActions.GetScheduleByUserID({SchoolID,PeriodID:'',UserType:2,UserID,WeekNO,dispatch}).then(data=>{
 
                     let schedule = [];
 
@@ -375,9 +377,74 @@ class ClassTotal extends Component{
 
                     dispatch({type:appLoading.APP_LOADING_HIDE});
 
-                })
+                })*/
+
+                apiActions.GetScheduleOfClassOne({SchoolID,WeekNO,ClassID:LoginUser.GroupID,dispatch}).then(data => {
+
+                    let Schedule = [];
+
+                    if (data){
+
+                        Schedule = data.ItemSchedule&&data.ItemSchedule.length>0?utils.ScheduleRemoveRepeat(data.ItemSchedule.map((item) => {
+
+                            return {
+
+                                ...item,
+
+                                title:item.SubjectName,
+
+                                titleID:item.SubjectID,
+
+                                secondTitle:item.TeacherName,
+
+                                secondTitleID:item.TeacherID,
+
+                                thirdTitle:item.ClassRoomName,
+
+                                thirdTitleID:item.ClassRoomID,
+
+                                WeekDay:item.WeekDay,
+
+                                ClassHourNO:item.ClassHourNO,
+
+                                ScheduleType:item.ScheduleType
+
+                            }
+
+                        })):[];
+
+                        data.ItemCourseClass.map(item=>{
+
+                            let ShiftClass = {
+
+                                ClassID:item.ClassID,
+
+                                WeekDay:item.WeekDayNO,
+
+                                ClassHourNO:item.ClassHourNO,
+
+                                IsShift:true
+
+                            };
+
+                            Schedule.push(ShiftClass);
+
+                        });
+
+                    }
+
+                    this.setState({loading:false,schedule:Schedule});
+
+                });
+
 
             })
+
+        }
+
+        if (getQueryVariable('isWorkPlantform')){
+
+            this.setState({isWorkPlantform:true});
 
         }
 
@@ -404,7 +471,7 @@ class ClassTotal extends Component{
 
         }
 
-        return <div className="class-total-content teacher-class-total" style={{border:0}}>
+        return <div className={`class-total-content teacher-class-total ${this.state.isWorkPlantform?'work-plant-form':''}`} style={{border:0}}>
 
             <Loading spinning={this.state.loading} tip="正在为您查找，请稍后...">
 

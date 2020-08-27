@@ -213,7 +213,9 @@ export const GetStudentStudyInfo =  async ({schoolID,userID,termID='',dispatch})
 
 export const GetStuActivities =  async ({StudentId,ClassId,GradeId,ActiveType=0,TimeStamp=new Date().getTime(),Key=new Date().getTime(),IsCourseClass=false,proxy='',dispatch})=>{
 
-    const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/api/v1/Student/Active/Class/One?StudentId=${StudentId}&ClassId=${ClassId}&GradeId=${GradeId}&ActiveType=${ActiveType}&TimeStamp=${TimeStamp}&Key=${Key}&IsCourseClass=${IsCourseClass}`);
+     const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/api/v1/Student/Active/Class/One?StudentId=${StudentId}&ClassId=${ClassId}&GradeId=${GradeId}&ActiveType=${ActiveType}&TimeStamp=${TimeStamp}&Key=${Key}&IsCourseClass=${IsCourseClass}`);
+
+    // const res = transferInterface({appid:'860',reqUrl:`${removeSlashUrl(proxy)}/api/v1/Student/Active/Class/One?StudentId=${StudentId}&ClassId=${ClassId}&GradeId=${GradeId}&ActiveType=${ActiveType}&TimeStamp=${TimeStamp}&Key=${Key}&IsCourseClass=${IsCourseClass}`});
 
     if (res.StatusCode===200){
 
@@ -256,10 +258,6 @@ export const GetStuDormitory  =  async ({userId,userType,schoolId,proxy='',dispa
    if (res.StatusCode===200&&res.Data.code===1){
 
        return res.Data.data;
-
-   }else{
-
-       dispatch(btnErrorAlertShow({title:res.Data.msg?res.Data.msg:res.Msg}));
 
    }
 
@@ -378,6 +376,42 @@ const dataSetsGetData = async (url)=>{
   });
 
   const data = await res.json();
+
+ /* $.ajax({
+
+      url,
+
+      dataType:'jsonp',
+
+      jsonp: "jsoncallback",
+
+      headers:{
+
+          'Content-Type':'application/json',
+
+          'Accept':"application/json",
+
+          'Lg_MgrCenter_Token':sessionStorage.getItem("token"),
+
+          'Lg_MgrCenter_UserId':JSON.parse(sessionStorage.getItem("UserInfo")).UserID,
+
+          "Lg_MgrCenter_Client":0
+
+      },
+
+      success:(data)=>{
+
+          console.log(data);
+
+      },
+
+      error:(e,err)=>{
+
+          console.log(e,err);
+
+      }
+
+  });*/
 
   return data;
 

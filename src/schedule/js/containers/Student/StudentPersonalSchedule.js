@@ -15,6 +15,7 @@ import SDActions from "../../actions/ScheduleDetailActions";
 import utils from "../../actions/utils";
 
 import appLoading from '../../actions/AppLoadingActions';
+
 import {getQueryVariable} from "../../../../common/js/disconnect";
 
 
@@ -34,7 +35,9 @@ class TeacherPersonalSchedule extends Component{
 
             schedule:[],
 
-            NowWeekNO:1
+            NowWeekNO:1,
+
+            isWorkPlantform:false
 
         };
 
@@ -226,7 +229,6 @@ class TeacherPersonalSchedule extends Component{
         const {ItemClassHour} = Student.CommonInfo;
 
 
-
         if (ItemClassHour.length>0&&this.state.firstLoad){
 
             const { SchoolID,UserID } = LoginUser;
@@ -282,6 +284,13 @@ class TeacherPersonalSchedule extends Component{
 
         }
 
+        if (getQueryVariable('isWorkPlantform')){
+
+            this.setState({isWorkPlantform:true});
+
+        }
+
+
     }
 
     render() {
@@ -304,7 +313,7 @@ class TeacherPersonalSchedule extends Component{
 
         return (
 
-            <div className="teacher-mine-wrapper">
+            <div className={`teacher-mine-wrapper ${this.state.isWorkPlantform?'work-plant-form':''}`}>
 
                 <TermPick
 
