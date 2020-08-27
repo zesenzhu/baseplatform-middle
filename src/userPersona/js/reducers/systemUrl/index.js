@@ -41,7 +41,7 @@ const defaultState = {
     StuQuality: ["810"],
     MoralEdu: ["E34"],
     TeaWork: ["E34"],
-    TeaMaterial: ["C10",'D21','310'],
+    TeaMaterial: ["C10",'D21','310']
   },
 };
 

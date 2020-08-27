@@ -28,6 +28,10 @@ function Archives(props) {
     const [tabName,setTabName] = useState('');
 
 
+    //科研以及获奖
+    const [awards,setAwards] = useState('');
+
+
     const {Urls} = useSelector(state=>state.systemUrl);
 
     const {UsedType} = useSelector(state=>state.pageUsedType);
@@ -52,11 +56,11 @@ function Archives(props) {
 
             }else{
 
-                getScientificCaseDetail({proxy:Urls['E34'].WebUrl,userId:UserID,scientificType:1,dispatch}).then(data=>{
+                getScientificCaseDetail({proxy:Urls['E34'].WebUrl,userId:UserID,scientificType:0,dispatch}).then(data=>{
 
-                    if (data){
+                    if (data&&data.length>0){
 
-                        console.log(data);
+                        setAwards(data);
 
                     }
 
@@ -79,18 +83,25 @@ function Archives(props) {
 
     },[]);
 
-
     //按钮点击
-    const btnClick = useCallback(()=>{
+    const btnClick = useCallback((tName)=>{
 
             const token = sessionStorage.getItem("token");
 
             const url = Urls['E34'].WebUrl;
 
-            window.open(`${removeSlashUrl(url)}/index_user.html?lg_tk=${token}&stuId=${UserID}#3|1|0`)
+            if (UserType===2){
+
+                window.open(`${removeSlashUrl(url)}/index_user.html?lg_tk=${token}&stuId=${UserID}#3|1|0`)
+
+            }else{
+
+                window.open(`${removeSlashUrl(url)}/index_user.html?lg_tk=${token}&tName=${tName}&tId=${UserID}`)
+
+            }
+
 
     },[]);
-
 
 
     //查看班主任
@@ -104,8 +115,6 @@ function Archives(props) {
     };
 
 
-    console.log(userStatus);
-
     return(
 
         <ContentItem type={"archives"} tabName={tabName}>
@@ -118,7 +127,7 @@ function Archives(props) {
 
                         ['AdmToStu','LeaderToStu','HeaderTeacherToStu','AdmToTeacher','TeacherToTeacher','LeaderToTeacher'].includes(UsedType)?
 
-                            <LinkBtn onClick={btnClick} type={"archives"}>档案信息管理</LinkBtn>
+                            <LinkBtn onClick={e=>btnClick(UserType===1?userStatus.userName:'')} type={"archives"}>档案信息管理</LinkBtn>
 
                             :null
 
@@ -240,7 +249,17 @@ function Archives(props) {
 
                                         <div className={"genger"}>
 
-                                            <Button onClick={e=>seeGanger(userArchives.GangerID)} type={"link"} className={"genger-btn"} title={userArchives?userArchives.GangerName:''}>{isHasValue(userArchives?userArchives.GangerName:'')}</Button>
+                                            {
+
+                                                userArchives&&userArchives.Ganger?
+
+                                                    <Button onClick={e=>seeGanger(userArchives.GangerID)} type={"link"} className={"genger-btn"} title={userArchives.GangerName}>{userArchives.GangerName}</Button>
+
+                                                    :
+
+                                                    '--'
+
+                                            }
 
                                         </div>
 
@@ -631,7 +650,7 @@ function Archives(props) {
 
                                         <div className={"award"}>
 
-                                            --
+                                            {isHasValue(awards)}
 
                                         </div>
 

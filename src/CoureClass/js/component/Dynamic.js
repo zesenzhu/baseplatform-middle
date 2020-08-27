@@ -425,8 +425,6 @@ class Dynamic extends React.Component {
 
     let { pagination, pageSize, dataSource } = this.state;
 
-    console.log(pagination,plainOptions,pageSize);
-
     let defaultPageSize = pageSize;
 
     let checkedList = [];
@@ -495,18 +493,7 @@ class Dynamic extends React.Component {
               onHide: this.onAlertWarnHide.bind(this)
             })
           );
-          //   let { pagination, pageSize, dataSource } = this.state;
-          //   let defaultPageSize = pageSize;
-          //   if (dataSource.length < pagination * defaultPageSize) {
-          //     pageSize = dataSource.length - (pagination - 1) * defaultPageSize;
-          //   }
-          //   for (let index = 0; index < pageSize; index++) {
-          //     plainOptions.push(index + defaultPageSize * (pagination - 1));
-          //   }
-          //   // console.log(plainOptions, pageSize, dataSource)
-          //   this.setState({
-          //     plainOptions: plainOptions
-          //   });
+
           let userMsg = DataState.LoginUser;
           let handleTypeSelected = this.state.handleTypeSelected;
           dispatch(
@@ -525,32 +512,10 @@ class Dynamic extends React.Component {
                 handleTypeSelected.value
             )
           );
-          //   let { pagination, pageSize, dataSource } = this.state;
-          //   let plainOptions = [];
-          //   let defaultPageSize = pageSize;
-          //   if (dataSource.length < pagination * defaultPageSize) {
-          //     pageSize = dataSource.length - (pagination - 1) * defaultPageSize;
-          //   }
-          //   for (let index = 0; index < pageSize; index++) {
-          //     plainOptions.push(index + defaultPageSize * (pagination - 1));
-          //   }
-          //   this.setState({
-          //     pagination: 1,
-          //     checkAll: false,
-          //     checkedList: [],
-          //     plainOptions: plainOptions
-          //   });
+
         }
       });
-    //  else {
-    //     dispatch(actions.UpUIState.showErrorAlert({
-    //         type: 'btn-warn',
-    //         title: "您确定删除？",
-    //         ok: this.onAppAlertDeleteAllOK.bind(this, courseClassID),
-    //         cancel: this.onAppAlertCancel.bind(this),
-    //         close: this.onAppAlertClose.bind(this)
-    //     }));
-    // }
+
   };
   //关闭
   onAlertWarnHide = () => {
@@ -572,7 +537,6 @@ class Dynamic extends React.Component {
     for (let index = 0; index < pageSize; index++) {
       plainOptions.push(index + defaultPageSize * (value - 1));
     }
-    // console.log(plainOptions, pageSize, dataSource)
 
     this.setState({
       pagination: value,
@@ -584,18 +548,31 @@ class Dynamic extends React.Component {
 
   // 页数改变
   onPagiSizeChange = (current, size) => {
-    // console.log(current,size)
+
     const { dispatch, DataState } = this.props;
 
     let plainOptions = [];
+
     let { pagination, pageSize, dataSource } = this.state;
+
     let defaultPageSize = size;
+
     if (dataSource.length <  defaultPageSize) {
-      pageSize = dataSource.length ;
+
+      pageSize = dataSource.length;
+
+    }else{
+
+      pageSize = defaultPageSize;
+
     }
+
     for (let index = 0; index < pageSize; index++) {
-      plainOptions.push(index );
+
+      plainOptions.push(index);
+
     }
+
 
     this.setState({
       pagination: 1,
@@ -696,11 +673,12 @@ class Dynamic extends React.Component {
                           </Button>
                         )
                       },
+                      pageSizeOptions:['10','20','50','100'],
                       showSizeChanger: true,
                       onShowSizeChange: this.onPagiSizeChange.bind(this),
                       onChange: this.onPaginationChange
-                    }}
-                  ></Table>
+                    }}>
+                  </Table>
                 ) : (
                   <Empty
                     title={

@@ -104,7 +104,7 @@ class ReplaceScheduleModal extends Component{
 
                                            /* }*/
 
-                                        }):<Empty type="5" title="没有搜索到内容,请换个搜索词试试"></Empty>
+                                        }):<Empty type="5" title="没有搜索到代课教师"></Empty>
 
                                         :
 
@@ -118,7 +118,7 @@ class ReplaceScheduleModal extends Component{
 
                                         })
 
-                                        :<Empty type="3" title="没有相关教师数据"></Empty>
+                                        :<Empty type="3" title="暂无可选的代课教师"></Empty>
 
                                 }
 

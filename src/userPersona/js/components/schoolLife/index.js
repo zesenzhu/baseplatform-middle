@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import ContentItem from '../contentItem';
 
-import {GetStuActivities,GetStuWaring,GetStuDormitory} from "../../actions/apiActions";
+import {GetStuActivities,GetStuWaring,GetStuDormitory,transferInterface} from "../../actions/apiActions";
 
 import ModuleLoading from "../moduleLoading";
 
@@ -25,35 +25,35 @@ function SchoolLife(props) {
 
         attence:{
 
-            value:'',
+            value:'--',
 
-            classAvg:'',
+            classAvg:'--',
 
-            count:0
+            count:'--'
 
         },
 
         homework:{
 
-            value:'',
+            value:'--',
 
-            classAvg:''
+            classAvg:'--'
 
         },
 
         stayInSchool:{
 
-            value:'',
+            value:'--',
 
-            classAvg:''
+            classAvg:'--'
 
         },
 
         online:{
 
-            value:'',
+            value:'--',
 
-            classAvg:''
+            classAvg:'--'
 
         }
 
@@ -85,19 +85,22 @@ function SchoolLife(props) {
 
         const {SchoolID} = JSON.parse(sessionStorage.getItem("UserInfo"));
 
-        const getActivities = GetStuActivities({StudentId:UserID,ClassId:userArchives.ClassID,GradeId:userArchives.GradeID,proxy,dispatch});
+        const getActivities = GetStuActivities({StudentId:UserID,ClassId:userArchives.ClassID,GradeId:userArchives.GradeID,proxy:Urls['860'].WebUrl,dispatch});
 
-        const getWaring = GetStuWaring({StudentId:UserID,ClassId:userArchives.ClassID,GradeId:userArchives.GradeID,proxy,dispatch});
+        const getWaring = GetStuWaring({StudentId:UserID,ClassId:userArchives.ClassID,GradeId:userArchives.GradeID,proxy:Urls['860'].WebUrl,dispatch});
 
-        const getDormitory = GetStuDormitory({schoolId:SchoolID,userId:UserID,userType:UserType,proxy,dispatch});
 
-        Promise.all([getActivities,getWaring,getDormitory]).then(res=>{
+        if (Urls['E48'].WebUrl){
 
-            if (res[0]){
+            const getDormitory = GetStuDormitory({schoolId:SchoolID,userId:UserID,userType:UserType,proxy:Urls['E48'].WebUrl,dispatch});
 
-                const data = res[0][0].ActiveList;
+            Promise.all([getActivities,getWaring,getDormitory]).then(res=>{
 
-                const attence = {
+                if (res[0]){
+
+                    const data = res[0][0].ActiveList;
+
+                    const attence = {
 
                         value:data.find(i=>i.Type===1).Value,
 
@@ -105,57 +108,120 @@ function SchoolLife(props) {
 
                         count:data.find(i=>i.Type===2).Value
 
-                };
+                    };
 
-                const homework ={
+                    const homework ={
 
-                    value:data.find(i=>i.Type===4).Value,
+                        value:data.find(i=>i.Type===4).Value,
 
-                    classAvg:data.find(i=>i.Type===4).AvgClass
+                        classAvg:data.find(i=>i.Type===4).AvgClass
 
-                };
+                    };
 
-                const stayInSchool = {
+                    const stayInSchool = {
 
-                    value:data.find(i=>i.Type===6).Value,
+                        value:data.find(i=>i.Type===6).Value,
 
-                    classAvg:data.find(i=>i.Type===6).AvgClass
+                        classAvg:data.find(i=>i.Type===6).AvgClass
 
-                };
+                    };
 
-                const online = {
+                    const online = {
 
-                    value:data.find(i=>i.Type===5).Value,
+                        value:data.find(i=>i.Type===5).Value,
 
-                    classAvg:data.find(i=>i.Type===5).AvgClass
+                        classAvg:data.find(i=>i.Type===5).AvgClass
 
-                };
+                    };
 
-                setStuActivities(d=>{
+                    setStuActivities(d=>{
 
-                   return {...d,attence,homework,stayInSchool,online};
+                        return {...d,attence,homework,stayInSchool,online};
 
-                });
+                    });
 
-            }
+                }
 
-            if (res[1]){
+                if (res[1]){
 
-                setStuLateWarning(res[1].Count&&res[1].Count>0?res[1].Count:0);
+                    setStuLateWarning(res[1].Count&&res[1].Count>0?res[1].Count:0);
 
-            }
+                }
 
-            if (res[2]){
+                if (res[2]){
 
-              const data = res[2];
+                    const data = res[2];
 
-              setDormitory(`${data.buildingName}>${data.floorName}>${data.roomName}>${data.bedName}`)
+                    setDormitory(`${data.buildingName}>${data.floorName}>${data.roomName}>${data.bedName}`)
 
-            }
+                }
 
-            setLoading(false);
+                setLoading(false);
 
-        });
+            });
+
+        }else{
+
+            Promise.all([getActivities,getWaring]).then(res=>{
+
+                if (res[0]){
+
+                    const data = res[0][0].ActiveList;
+
+                    const attence = {
+
+                        value:data.find(i=>i.Type===1).Value,
+
+                        classAvg:data.find(i=>i.Type===1).AvgClass,
+
+                        count:data.find(i=>i.Type===2).Value
+
+                    };
+
+                    const homework ={
+
+                        value:data.find(i=>i.Type===4).Value,
+
+                        classAvg:data.find(i=>i.Type===4).AvgClass
+
+                    };
+
+                    const stayInSchool = {
+
+                        value:data.find(i=>i.Type===6).Value,
+
+                        classAvg:data.find(i=>i.Type===6).AvgClass
+
+                    };
+
+                    const online = {
+
+                        value:data.find(i=>i.Type===5).Value,
+
+                        classAvg:data.find(i=>i.Type===5).AvgClass
+
+                    };
+
+                    setStuActivities(d=>{
+
+                        return {...d,attence,homework,stayInSchool,online};
+
+                    });
+
+                }
+
+                if (res[1]){
+
+                    setStuLateWarning(res[1].Count&&res[1].Count>0?res[1].Count:0);
+
+                }
+
+                setLoading(false);
+
+            });
+
+        }
+
 
     },[]);
 
@@ -184,25 +250,49 @@ function SchoolLife(props) {
 
                   </div>
 
-                  <div className={"dormitory"}>
 
-                      <span className={"props"}>所在寝室:</span>
+                  {
 
-                      <span className={"value dormitory"}>{isHasValue(dormitory)}</span>
+                      userStatus&&userStatus.studentStatus&&userStatus.studentStatus.length>0&&userStatus.studentStatus[0].studyingWay==='寄宿'?
 
-                      <i className={"icon position"}></i>
+                          <>
 
-                  </div>
+                              <div className={"dormitory"}>
 
-                  <div className={"late-warning"}>
+                                  <span className={"props"}>所在寝室:</span>
 
-                      <span className={"props"}>晚归异常:</span>
+                                  <span className={"value dormitory"}>{isHasValue(dormitory)}</span>
 
-                      <span className={"value late"}>{stuLateWarning}次</span>
+                                  {
 
-                      <i className={"icon warning"}></i>
+                                      dormitory?
 
-                  </div>
+                                          <i className={"icon position"}></i>
+
+                                          :null
+
+                                  }
+
+                              </div>
+
+                              <div className={"late-warning"}>
+
+                                  <span className={"props"}>晚归异常:</span>
+
+                                  <span className={"value late"}>{stuLateWarning}次</span>
+
+                                  <i className={"icon warning"}></i>
+
+                              </div>
+
+                          </>
+
+                          :null
+
+                  }
+
+
+
 
               </div>
 
@@ -292,13 +382,13 @@ function SchoolLife(props) {
 
                           <div className={"rate"}>
 
-                              <span className={"rate-green"}>{new Number((stuActivities.online.value)/60).toFixed(2)}</span>小时/天
+                              <span className={"rate-green"}>{stuActivities.online.value!=='--'?new Number((stuActivities.online.value)/60).toFixed(2):'--'}</span>小时/天
 
                           </div>
 
                           <div className={"agv-rate"}>
 
-                              班级平均值:{new Number((stuActivities.online.value)/60).toFixed(2)}小时/天
+                              班级平均值:{stuActivities.online.classAvg!=='--'?new Number((stuActivities.online.classAvg)/60).toFixed(2):'--'}小时/天
 
                           </div>
 

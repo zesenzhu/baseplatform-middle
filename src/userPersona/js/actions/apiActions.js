@@ -149,7 +149,7 @@ export const getScientificCaseDetail =  async ({userId,scientificType,proxy,disp
 
 export const GetUserDetailForHX =  async ({UserID,UserType,dispatch})=>{
 
-    const res = await getGetData(`/UserMgr/UserInfoMgr/GetUserDetailForHX?UserID=${UserID}&UserType=${UserType}`,2,config.moniProxy);
+    const res = await getGetData(`/UserMgr/UserInfoMgr/GetUserDetailForHX?UserID=${UserID}&UserType=${UserType}`,2);
 
     if (res.StatusCode===200){
 
@@ -169,7 +169,7 @@ export const GetUserDetailForHX =  async ({UserID,UserType,dispatch})=>{
 
 export const GetUserLogForHX =  async ({UserID,UserType,dispatch})=>{
 
-    const res = await getGetData(`/UserMgr/UserInfoMgr/GetUserLogForHX?UserID=${UserID}&UserType=${UserType}`,2,config.moniProxy);
+    const res = await getGetData(`/UserMgr/UserInfoMgr/GetUserLogForHX?UserID=${UserID}&UserType=${UserType}`,2);
 
     if (res.StatusCode===200){
 
@@ -191,7 +191,7 @@ export const GetUserLogForHX =  async ({UserID,UserType,dispatch})=>{
 
 export const GetStudentStudyInfo =  async ({schoolID,userID,termID='',dispatch})=>{
 
-    const res = await getGetData(`/CourseClass/api/GetStudentStudyInfo?schoolID=${schoolID}&userID=${userID}&termID=${termID}`,2,config.moniProxy);
+    const res = await getGetData(`/CourseClass/api/GetStudentStudyInfo?schoolID=${schoolID}&userID=${userID}&termID=${termID}`,2);
 
     if (res.StatusCode===200){
 
@@ -213,7 +213,7 @@ export const GetStudentStudyInfo =  async ({schoolID,userID,termID='',dispatch})
 
 export const GetStuActivities =  async ({StudentId,ClassId,GradeId,ActiveType=0,TimeStamp=new Date().getTime(),Key=new Date().getTime(),IsCourseClass=false,proxy='',dispatch})=>{
 
-    const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/Student/Active/Class/One?StudentId=${StudentId}&ClassId=${ClassId}&GradeId=${GradeId}&ActiveType=${ActiveType}&TimeStamp=${TimeStamp}&Key=${Key}&IsCourseClass=${IsCourseClass}`);
+    const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/api/v1/Student/Active/Class/One?StudentId=${StudentId}&ClassId=${ClassId}&GradeId=${GradeId}&ActiveType=${ActiveType}&TimeStamp=${TimeStamp}&Key=${Key}&IsCourseClass=${IsCourseClass}`);
 
     if (res.StatusCode===200){
 
@@ -232,7 +232,7 @@ export const GetStuActivities =  async ({StudentId,ClassId,GradeId,ActiveType=0,
 
 export const GetStuWaring =  async ({StudentId,WarningId='',WarningType=7,ClassId,GradeId,TimeStamp=new Date().getTime(),Key=new Date().getTime(),IsCourseClass=false,proxy='',dispatch})=>{
 
-    const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/Student/Warning/Class/One/Detail?StudentId=${StudentId}&ClassId=${ClassId}&GradeId=${GradeId}&WarningId=${WarningId}&WarningType=${WarningType}&TimeStamp=${TimeStamp}&Key=${Key}&IsCourseClass=${IsCourseClass}`);
+    const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/api/v1/Student/Warning/Class/One/Detail?StudentId=${StudentId}&ClassId=${ClassId}&GradeId=${GradeId}&WarningId=${WarningId}&WarningType=${WarningType}&TimeStamp=${TimeStamp}&Key=${Key}&IsCourseClass=${IsCourseClass}`);
 
     if (res.StatusCode===200){
 
@@ -251,19 +251,63 @@ export const GetStuWaring =  async ({StudentId,WarningId='',WarningType=7,ClassI
 
 export const GetStuDormitory  =  async ({userId,userType,schoolId,proxy='',dispatch})=>{
 
-    //dormitoryGetData(`${removeSlashUrl(proxy)}/student/bedAndStatus?userId=${userId}&userType=${userType}&schoolId=${schoolId}`);
+    const res = await transferInterface({appid:'E48',reqUrl:`${removeSlashUrl(proxy)}/student/bedAndStatus?userId=${userId}&userType=${userType}&schoolId=${schoolId}`})
 
-    const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/student/bedAndStatus?userId=${userId}&userType=${userType}&schoolId=${schoolId}`,2);
+   if (res.StatusCode===200&&res.Data.code===1){
 
-    if (res.code===1){
+       return res.Data.data;
 
-        return res.result;
+   }else{
 
-    }else{
+       dispatch(btnErrorAlertShow({title:res.Data.msg?res.Data.msg:res.Msg}));
 
-        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取学生宿舍失败'}));
+   }
+
+};
+
+
+
+//第三方接口中转接口
+
+export const transferInterface = async ({appid,reqUrl}) =>{
+
+    const token = sessionStorage.getItem("token");
+
+    const url = encodeURIComponent(reqUrl);
+
+    const res = await getGetData(`/Global/GetHttpRequestTransfer?appid=${appid}&token=${token}&reqUrl=${url}`,1,config.ceshiProxy);
+
+    let response = '';
+
+    try {
+
+        const data = JSON.parse(res);
+
+        response = {
+
+            StatusCode:200,
+
+            Msg:'success',
+
+            Data:data
+
+        }
+
+    }catch (e) {
+
+        response = {
+
+            StatusCode:400,
+
+            Msg:'接口错误',
+
+            Data:null
+
+        }
 
     }
+
+    return response;
 
 };
 
@@ -292,6 +336,9 @@ export const ResetPwd = async ({userID,userType,newPwd,dispatch}) =>{
     }
 
 };
+
+
+
 
 
 
@@ -392,7 +439,11 @@ export default {
 
     GetStuActivities,
 
-    GetStuWaring
+    GetStuWaring,
+
+    transferInterface,
+
+    GetStuDormitory
 
 }
 

@@ -49,6 +49,7 @@ function Content(props){
   //模块列表
   const moduleList = useMemo(() => {
     if (userArchives) {
+
       let urlGet = false;
 
       for (let k in Urls) {
@@ -192,10 +193,41 @@ function Content(props){
 
       });
 
+
+
         return newList;
 
       } else {
-        return [];
+
+        return [
+
+
+            {
+                title: (
+                    <span>
+                账号
+                <br />
+                信息
+              </span>
+                ),
+                id: "account",
+                value: Account,
+                type:
+                    "AdmToStu,LeaderToStu,StuToStu,OtherToStu,ParentsToStu,HeaderTeacherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher,OtherToTeacher",
+                rely:''
+
+            },
+
+            {
+                title: <span>科目<br />课程</span>,
+                id: "study",
+                value:Study,
+                type:"AdmToStu,LeaderToStu,HeaderTeacherToStu,StuToStu,ParentsToStu",
+
+                rely:''
+            }
+
+        ];;
       }
     }else {
       return []

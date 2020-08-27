@@ -33,7 +33,9 @@ if (process.env.NODE_ENV === 'development'){
 
     config = {
 
-        moniProxy:'http://192.168.2.202:7300/mock/5f40ff6044c5b010dca04032/userPersona'
+        moniProxy:'http://192.168.2.202:7300/mock/5f40ff6044c5b010dca04032/userPersona',
+
+        ceshiProxy:'http://192.168.129.2:30103'
 
     }
 
@@ -44,7 +46,9 @@ if (process.env.NODE_ENV === 'production'){
 
     config = {
 
-        moniProxy:RootUrl
+        moniProxy:RootUrl,
+
+        ceshiProxy:''
 
     }
 

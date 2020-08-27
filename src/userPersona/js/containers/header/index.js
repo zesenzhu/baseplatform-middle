@@ -99,6 +99,16 @@ function Header(props) {
 
     },[]);
 
+
+    //跳转到个人账号管理界面
+    const seePersonalMgr = useCallback(()=>{
+
+        const token = sessionStorage.getItem("token");
+
+        window.open(`/html/personalMgr?lg_tk=${token}`);
+
+    },[]);
+
     return(
 
         <div className={"app-header-wrapper"}>
@@ -147,9 +157,9 @@ function Header(props) {
 
                         <div className={"header-menu-item user"}>
 
-                            <i className={"header-icon"} style={{backgroundImage:`url(${PhotoPath})`}}></i>
+                            <i className={"header-icon"} onClick={seePersonalMgr} style={{backgroundImage:`url(${PhotoPath})`}}></i>
 
-                            <div className={"user-name"}>{UserName}</div>
+                            <div className={"user-name"} onClick={seePersonalMgr}>{UserName}</div>
 
                             <i className={"log-out"} onClick={logout}></i>
 
