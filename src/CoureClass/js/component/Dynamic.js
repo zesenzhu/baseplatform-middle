@@ -433,13 +433,19 @@ class Dynamic extends React.Component {
     } else {
       checkedList = [];
     }
+
     this.setState({
-      checkAll: e.target.checked,
-      checkedList: checkedList
+
+        checkAll: e.target.checked,
+
+        checkedList: checkedList
+
     });
+
   };
   //全选选择
   onSelectAllClick = e => {
+
     const { dispatch, DataState } = this.props;
 
     let url = "/GourseClassLogReaded";
@@ -450,7 +456,7 @@ class Dynamic extends React.Component {
     let len = checkedList.length;
     let LogID = "";
     let source = this.state.dataSource;
-    console.log(checkedList, source)
+
     checkedList.map((child, index) => {
       if (index !== len - 1) LogID += source[child].LogID + ",";
       else LogID += source[child].LogID;
