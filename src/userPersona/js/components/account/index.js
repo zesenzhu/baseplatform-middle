@@ -462,7 +462,7 @@ function Account(props) {
 
       const token = sessionStorage.getItem('token');
 
-      window.open(`/html/userPersona?lg_tk=${token}&userID=${userID}&userType=1`);
+      window.open(`/html/userPersona?userID=${userID}&userType=1&lg_tk=${token}`);
 
     };
 
@@ -495,7 +495,7 @@ function Account(props) {
 
                     {
 
-                        ['AdmToStu','LeaderToStu','HeaderTeacherToStu','StuToStu','AdmToTeacher','LeaderToTeacher','TeacherToTeacher'].includes(UsedType)?
+                        ['AdmToStu','LeaderToStu','ParentsToStu','HeaderTeacherToStu','StuToStu','AdmToTeacher','LeaderToTeacher','TeacherToTeacher'].includes(UsedType)?
 
                             <tbody>
 
@@ -526,7 +526,9 @@ function Account(props) {
                                     </div>
 
                                 </td>
+
                             </tr>
+
                             <tr>
                                 <td className={"col1 props"}>QQ:</td>
                                 <td className={"col2"}>{isHasValue(userArchives.QQ)}</td>

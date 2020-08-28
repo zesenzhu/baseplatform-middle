@@ -176,7 +176,7 @@ class App extends Component{
 
             $(document).on('click',()=>{
 
-               window.parent.postMessage("schedule");
+               window.parent.postMessage("schedule",'*');
 
             });
 

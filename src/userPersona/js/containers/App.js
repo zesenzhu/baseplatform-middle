@@ -228,11 +228,11 @@ function App(props) {
 
                    if (parseInt(LockerVersion)===1){
 
-                        if (CopyUserInfo['UserType']===1){
+                        if (targetUserType===1){
 
                             dispatch(pageUsedChange({user:'Other',targetUser:'Teacher',usedType:'OtherToTeacher'}));
 
-                        }else{
+                        }else if (targetUserType===2) {
 
                             dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
 
@@ -331,6 +331,18 @@ function App(props) {
                                }
 
                                break;
+
+                           default:
+
+                               if (targetUserType===1){
+
+                                   dispatch(pageUsedChange({user:'Other',targetUser:'Teacher',usedType:'OtherToTeacher'}));
+
+                               }else if (targetUserType===2) {
+
+                                   dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
+
+                               }
 
                        }
 

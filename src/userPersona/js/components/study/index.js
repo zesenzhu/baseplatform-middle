@@ -91,89 +91,94 @@ function SchoolLife(props) {
 
               </div>
 
-              <ul className={"study-content clearfix"}>
+                {
+
+                    studyData.Item.length>0?
+
+                        <ul className={"study-content clearfix"}>
 
 
-                  {
+                            {
 
-                      studyData.Item.length>0?
+                                studyData.Item.map(i=>{
 
-                          studyData.Item.map(i=>{
+                                    return(
 
-                             return(
+                                        <li key={i.SubjectID} className={"study-item"}>
 
-                                 <li key={i.SubjectID} className={"study-item"}>
+                                            <div className={"title clearfix"}>
 
-                                    <div className={"title clearfix"}>
+                                                <span className={`subject-name ${!i.ClassID?'has-span':''}`}>{i.SubjectName}</span>
 
-                                        <span className={`subject-name ${!i.ClassID?'has-span':''}`}>{i.SubjectName}</span>
+                                                {
 
-                                        {
+                                                    !i.ClassID?
 
-                                            !i.ClassID?
+                                                        <span className={"isCourseClass"}>走班</span>
 
-                                                <span className={"isCourseClass"}>走班</span>
+                                                        :null
 
-                                                :null
+                                                }
 
-                                        }
+                                            </div>
 
-                                    </div>
+                                            <table className={"study-table"}>
 
-                                    <table className={"study-table"}>
+                                                <tbody>
 
-                                        <tbody>
+                                                <tr>
 
-                                            <tr>
+                                                    <td className={"col1"}>任课教师:</td>
 
-                                                <td className={"col1"}>任课教师:</td>
+                                                    <td className={"col2"}>
 
-                                                <td className={"col2"}>
+                                                        <div className={"teacher-name"} title={i.TeacherName}>{i.TeacherName}</div>
 
-                                                    <div className={"teacher-name"} title={i.TeacherName}>{i.TeacherName}</div>
+                                                    </td>
 
-                                                </td>
+                                                </tr>
 
-                                            </tr>
+                                                <tr>
 
-                                            <tr>
+                                                    <td className={"col1"}>班级名称:</td>
 
-                                                <td className={"col1"}>班级名称:</td>
+                                                    <td className={"col2"}>
 
-                                                <td className={"col2"}>
+                                                        <div className={"class-name"} title={i.ClassName?i.ClassName:i.CourseClassName}>{i.ClassName?i.ClassName:i.CourseClassName}</div>
 
-                                                    <div className={"class-name"} title={i.ClassName?i.ClassName:i.CourseClassName}>{i.ClassName?i.ClassName:i.CourseClassName}</div>
+                                                    </td>
 
-                                                </td>
+                                                </tr>
 
-                                            </tr>
+                                                <tr>
 
-                                            <tr>
+                                                    <td className={"col1"}>课程安排:</td>
 
-                                                <td className={"col1"}>课程安排:</td>
+                                                    <td className={"col2"}>{i.ScheduleCount}节课</td>
 
-                                                <td className={"col2"}>{i.ScheduleCount}节课</td>
+                                                </tr>
 
-                                            </tr>
+                                                </tbody>
 
-                                        </tbody>
-
-                                    </table>
+                                            </table>
 
 
-                                 </li>
+                                        </li>
 
-                             )
+                                    )
 
-                          })
+                                })
 
-                          :
+                            }
 
-                          <Empty type={"3"} title={"暂无学习科目和课程"}></Empty>
+                        </ul>
 
-                  }
 
-              </ul>
+                        :
+
+                        <Empty type={"4"} title={"暂无学习科目和课程"}></Empty>
+
+                }
 
               <ModuleLoading loading={loading}></ModuleLoading>
 

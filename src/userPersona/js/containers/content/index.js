@@ -108,7 +108,7 @@ function Content(props){
                 title: <span>科目<br />课程</span>,
                 id: "study",
                 value:Study,
-                type:"AdmToStu,LeaderToStu,HeaderTeacherToStu,StuToStu,ParentsToStu",
+                type:"AdmToStu,LeaderToStu,HeaderTeacherToStu,StuToStu,ParentsToStu,OtherToStu",
 
                 rely:''
             },
@@ -222,8 +222,7 @@ function Content(props){
                 title: <span>科目<br />课程</span>,
                 id: "study",
                 value:Study,
-                type:"AdmToStu,LeaderToStu,HeaderTeacherToStu,StuToStu,ParentsToStu",
-
+                type:"AdmToStu,LeaderToStu,HeaderTeacherToStu,StuToStu,ParentsToStu,OtherToStu",
                 rely:''
             }
 
@@ -238,6 +237,8 @@ function Content(props){
   const anchorList = useMemo(() => {
 
     if (moduleList instanceof Array&&moduleList.length > 0) {
+
+        console.log(UsedType);
 
         console.log(moduleList.filter(i =>i.type.includes(UsedType)).map(i =>({ id: i.id, title: i.title })));
 

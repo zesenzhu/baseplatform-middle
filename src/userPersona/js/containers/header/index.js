@@ -93,8 +93,6 @@ function Header(props) {
     //用户档案记录关闭
     const closeArchivesLog = useCallback(()=>{
 
-        console.log(111);
-
         setArchivesModal(false);
 
     },[]);
@@ -159,7 +157,7 @@ function Header(props) {
 
                             <i className={"header-icon"} onClick={seePersonalMgr} style={{backgroundImage:`url(${PhotoPath})`}}></i>
 
-                            <div className={"user-name"} onClick={seePersonalMgr}>{UserName}</div>
+                            <div className={"user-name"} onClick={seePersonalMgr}>{loginUser.UserName}</div>
 
                             <i className={"log-out"} onClick={logout}></i>
 
