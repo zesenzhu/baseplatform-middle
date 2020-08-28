@@ -529,7 +529,7 @@ function Archives(props) {
 
                                     <td className={"col1 props"}>民族</td>
 
-                                    <td className={"col2"}>{isHasValue('汉族')}</td>
+                                    <td className={"col2"}>{isHasValue(userStatus.nation)}</td>
 
                                     <td className={"col3 props"}>职称</td>
 
@@ -551,7 +551,7 @@ function Archives(props) {
 
                                     <td className={"col2"}>
 
-                                        {isHasValue("2017-04")}
+                                        {isHasValue(userStatus.birthday)}
 
                                     </td>
 
@@ -629,9 +629,9 @@ function Archives(props) {
 
                                     <td className={"col1 props"}>教育背景</td>
 
-                                    <td className={"col2"} colSpan={6} dangerouslySetInnerHTML={{__html:userStatus.educationBackgroundDetail?userStatus.educationBackgroundDetail:'--'}}>
+                                    <td className={"col2"} colSpan={6}>
 
-
+                                        <div className={"education-background"} dangerouslySetInnerHTML={{__html:userStatus.educationBackgroundDetail?userStatus.educationBackgroundDetail:'--'}}></div>
 
                                     </td>
 
@@ -641,7 +641,11 @@ function Archives(props) {
 
                                     <td className={"col1 props"}>工作经历</td>
 
-                                    <td className={"col2"} colSpan={6}  dangerouslySetInnerHTML={{__html:userStatus.workExperience?userStatus.workExperience:'--'}}></td>
+                                    <td className={"col2"} colSpan={6}>
+
+                                        <div className={"work-experience"} dangerouslySetInnerHTML={{__html:userStatus.workExperience?userStatus.workExperience:'--'}}></div>
+
+                                    </td>
 
                                 </tr>
 
@@ -653,7 +657,20 @@ function Archives(props) {
 
                                         <div className={"award"}>
 
-                                            {isHasValue(awards)}
+                                            {
+
+
+                                                awards&&awards.length>0?
+
+                                                    awards.map((i,k)=>{
+
+                                                        return  <p key={k} className={"award-item"}>{i.title}</p>
+
+                                                    })
+
+                                                    :'--'
+
+                                            }
 
                                         </div>
 
