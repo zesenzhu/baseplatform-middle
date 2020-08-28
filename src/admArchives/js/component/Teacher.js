@@ -983,11 +983,26 @@ class Teacher extends React.Component {
     // });
   };
   onUserNameClick = (key) => {
-    const { DataState } = this.props;
-    this.setState({
-      TeacherDetailsMsgModalVisible: true,
-      detailData: DataState.SubjectTeacherPreview.pensonalList[key],
-    });
+    const {
+      DataState: {
+        SubjectTeacherPreview: { pensonalList },
+      },
+    } = this.props;
+    if (pensonalList[key]) {
+      let token = sessionStorage.getItem("token");
+      window.open(
+        "/html/userPersona#/?&userType=" +
+          1 +
+          "&userID=" +
+          pensonalList[key].userID +
+          "&lg_tk=" +
+          token
+      );
+    }
+    // this.setState({
+    //   TeacherDetailsMsgModalVisible: true,
+    //   detailData: DataState.SubjectTeacherPreview.pensonalList[key],
+    // });
   };
   TeacherDetailsMsgModalOk = () => {
     this.setState({
@@ -1164,7 +1179,9 @@ class Teacher extends React.Component {
     // };
     let { LockerVersion } = JSON.parse(//校园基础信息管理 XG5.2-免费版,1为基础版
       sessionStorage.getItem("LgBasePlatformInfo")
-    );
+    )?JSON.parse(//校园基础信息管理 XG5.2-免费版,1为基础版
+      sessionStorage.getItem("LgBasePlatformInfo")
+    ):{};
     return (
       <div className="Teacher">
         <div className="Teacher-box">

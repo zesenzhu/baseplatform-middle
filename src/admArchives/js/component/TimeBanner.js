@@ -58,7 +58,9 @@ class TimeBanner extends React.Component {
     // }
     let { LockerVersion } = JSON.parse(
       sessionStorage.getItem("LgBasePlatformInfo")
-    );
+    )?JSON.parse(//校园基础信息管理 XG5.2-免费版,1为基础版
+      sessionStorage.getItem("LgBasePlatformInfo")
+    ):{};
     let token =  
       sessionStorage.getItem("token")
      

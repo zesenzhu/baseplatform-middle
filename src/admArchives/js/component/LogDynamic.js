@@ -326,7 +326,7 @@ class LogDynamic extends React.Component {
           this.setState({
             checkedList: [],
             checkAll: false,
-            pagination: 1
+            pagination: 1,
           });
           dispatch(actions.UpUIState.hideErrorAlert());
           dispatch(
@@ -426,11 +426,24 @@ class LogDynamic extends React.Component {
       UserType: userInfo.UserType,
     });
     if (!userInfo.Deleted) {
-      dispatch(
-        actions.UpDataState.getUserMsg(
-          "/GetUserDetail?userid=" + userInfo.UserName.UserID
-        )
-      );
+      if (userInfo.UserType === 1 || userInfo.UserType === 2) {
+        //学生教师调到个人画像
+        let token = sessionStorage.getItem("token");
+        window.open(
+          "/html/userPersona#/?&userType=" +
+            userInfo.UserType +
+            "&userID=" +
+            userInfo.userID +
+            "&lg_tk=" +
+            token
+        );
+      } else {
+        dispatch(
+          actions.UpDataState.getUserMsg(
+            "/GetUserDetail?userid=" + userInfo.UserName.UserID
+          )
+        );
+      }
     } else {
       // dispatch(actions.UpUIState.showErrorAlert({
       //     type: 'btn-warn',
@@ -687,7 +700,7 @@ class LogDynamic extends React.Component {
     this.setState({
       checkedList: [],
       checkAll: false,
-      pagination: value
+      pagination: value,
     });
   };
   // 改变显示条目数

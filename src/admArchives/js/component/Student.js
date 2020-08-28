@@ -848,11 +848,27 @@ class Student extends React.Component {
     );
   };
   onUserNameClick = (key) => {
-    const { DataState } = this.props;
-    this.setState({
-      StudentDetailsMsgModalVisible: true,
-      detailData: DataState.GradeStudentPreview.pensonalList[key],
-    });
+    const {
+      DataState: {
+        GradeStudentPreview: { pensonalList },
+      },
+    } = this.props;
+    if (pensonalList[key]) {
+      let token = sessionStorage.getItem("token");
+      window.open(
+        "/html/userPersona#/?&userType=" +
+          2 +
+          "&userID=" +
+          pensonalList[key].userID +
+          "&lg_tk=" +
+          token
+      );
+    }
+
+    // this.setState({
+    //   StudentDetailsMsgModalVisible: true,
+    //   detailData: DataState.GradeStudentPreview.pensonalList[key],
+    // });
   };
   StudentDetailsMsgModalOk = () => {
     this.setState({
@@ -1221,9 +1237,13 @@ class Student extends React.Component {
     //     userAddress: '蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团'
     // };
     //  console.log(this.state.pagination)
-    let { LockerVersion } = JSON.parse(//校园基础信息管理 XG5.2-免费版,1为基础版
+    let { LockerVersion } = JSON.parse(
+      //校园基础信息管理 XG5.2-免费版,1为基础版
       sessionStorage.getItem("LgBasePlatformInfo")
-    );
+    )?JSON.parse(
+      //校园基础信息管理 XG5.2-免费版,1为基础版
+      sessionStorage.getItem("LgBasePlatformInfo")
+    ):{};
 
     return (
       <div className="Student">

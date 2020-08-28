@@ -49,6 +49,7 @@ function handleData(data,pageIndex,pageSize) {
             userClass: child.ClassName,
             userIDCard: child.IDCardNo,
             userPhone: child.Telephone,
+            userType:child.UserType,
             userMail: child.Email,
             userAddress: child.HomeAddress
         }

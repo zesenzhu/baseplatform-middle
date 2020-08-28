@@ -94,7 +94,7 @@ class App extends Component {
           dispatch({ type: actions.UpDataState.GET_PIC_URL, data: json.Data });
         }
       });
-    this.requestData(route);
+    // this.requestData(route);
     if (
       history.location.pathname === "/" ||
       history.location.pathname === "/UserArchives"
@@ -127,7 +127,7 @@ class App extends Component {
     });
 
     // 获取人脸库地址
-    dispatch(UpDataState.GetSubSystemsMainServerBySubjectID())
+    dispatch(UpDataState.GetSubSystemsMainServerBySubjectID());
   }
   componentWillUpdate() {}
   componentDidUpdate() {}
@@ -230,7 +230,12 @@ class App extends Component {
     let { LockerVersion } = JSON.parse(
       //校园基础信息管理 XG5.2-免费版,1为基础版
       sessionStorage.getItem("LgBasePlatformInfo")
-    );
+    )
+      ? JSON.parse(
+          //校园基础信息管理 XG5.2-免费版,1为基础版
+          sessionStorage.getItem("LgBasePlatformInfo")
+        )
+      : {};
     havePower.then((res) => {
       // console.log(res)
       if (res) {
