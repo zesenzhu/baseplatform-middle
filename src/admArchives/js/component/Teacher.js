@@ -84,10 +84,10 @@ class Teacher extends React.Component {
                   onClick={this.onUserNameClick.bind(this, arr.key)}
                   className="name-img"
                   style={{
-                    width: "47px",
+                    width: "37.5px",
                     height: "47px",
                     display: "inline-block",
-                    background: `url(${arr.UserImg}) no-repeat center center / 47px`,
+                    background: `url(${arr.UserImg}) no-repeat center center / 100% auto`,
                   }}
                 ></i>
               </div>
@@ -1162,6 +1162,9 @@ class Teacher extends React.Component {
     //     userMail: '1519406168@qq.com',
     //     userAddress: '蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团'
     // };
+    let { LockerVersion } = JSON.parse(//校园基础信息管理 XG5.2-免费版,1为基础版
+      sessionStorage.getItem("LgBasePlatformInfo")
+    );
     return (
       <div className="Teacher">
         <div className="Teacher-box">
@@ -1170,7 +1173,7 @@ class Teacher extends React.Component {
               <span className="tips menu33 ">教师档案管理</span>
             </span>
             <div className="top-nav">
-              <a
+              {LockerVersion!=='1'?<><a
                 className="link"
                 // target="_blank"
                 // to="/TeacherRegisterExamine"
@@ -1183,7 +1186,7 @@ class Teacher extends React.Component {
               >
                 <span className="RegisterExamine">教师注册审核</span>
               </a>
-              <span className="divide">|</span>
+              <span className="divide">|</span></>:''}
               <span
                 className="link"
                 style={{ cursor: "pointer" }}

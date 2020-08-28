@@ -7,7 +7,7 @@ import {
   HashRouter as Router,
   Route,
   Link,
-  BrowserRouter
+  BrowserRouter,
 } from "react-router-dom";
 import history from "./history";
 import logo from "../../images/img-userPower.png";
@@ -18,7 +18,7 @@ import { postData, getData } from "../../../common/js/fetch";
 import {
   TokenCheck_Connect,
   TokenCheck,
-  getUserInfo
+  getUserInfo,
 } from "../../../common/js/disconnect";
 import { QueryPower, QueryAdminPower } from "../../../common/js/power";
 
@@ -31,11 +31,11 @@ class App extends Component {
     super(props);
     const { dispatch } = props;
     this.state = {
-      PowerMsg: []
+      PowerMsg: [],
     };
   }
 
-  QuerySelfPower(){
+  QuerySelfPower() {
     const { DataState, UIState, dispatch } = this.props;
 
     let userMsg = DataState.LoginUser.SchoolID
@@ -43,9 +43,9 @@ class App extends Component {
       : JSON.parse(sessionStorage.getItem("UserInfo"));
     let havePower = QueryPower({
       UserInfo: userMsg,
-      ModuleID: POWER_MODULEID
+      ModuleID: POWER_MODULEID,
     });
-    havePower.then(res => {
+    havePower.then((res) => {
       if (res) {
         dispatch(
           actions.UpDataState.getUserPowerMsg(
@@ -57,17 +57,25 @@ class App extends Component {
         dispatch({ type: actions.UpUIState.RIGHT_LOADING_OPEN });
       }
     });
-  };
+  }
 
   componentDidMount() {
     const { dispatch, DataState } = this.props;
     let route = history.location.pathname;
     //判断token是否存在
     //判断token是否存在
-    let that = this
+    let that = this;
 
-    TokenCheck_Connect(false,()=>{
+    TokenCheck_Connect(false, () => {
       let token = sessionStorage.getItem("token");
+      let { LockerVersion } = JSON.parse(
+        //校园基础信息管理 XG5.2-免费版,1为基础版
+        sessionStorage.getItem("LgBasePlatformInfo")
+      );
+      if (LockerVersion === "1") {
+        window.location.href =
+          config.ErrorProxy + "/LockerMgr/ErrorTips.aspx?ErrorCode=-3";
+      }
       // sessionStorage.setItem('UserInfo', '')
       if (sessionStorage.getItem("UserInfo")) {
         dispatch(
@@ -78,7 +86,7 @@ class App extends Component {
         that.QuerySelfPower();
       } else {
         getUserInfo(token, "000");
-        let timeRun = setInterval(function() {
+        let timeRun = setInterval(function () {
           if (sessionStorage.getItem("UserInfo")) {
             dispatch(
               actions.UpDataState.getLoginUser(
@@ -92,7 +100,6 @@ class App extends Component {
         //dispatch(actions.UpDataState.getLoginUser(JSON.parse(sessionStorage.getItem('UserInfo'))));
       }
     });
-    
 
     //
 
@@ -103,7 +110,7 @@ class App extends Component {
       //this.requestData(route);
     });
   }
- 
+
   componentWillUpdate() {
     //this.requestData(route);
   }
@@ -141,7 +148,7 @@ class App extends Component {
 
   render() {
     const { UIState, DataState } = this.props;
-    let UserID = DataState.LoginUser.UserID
+    let UserID = DataState.LoginUser.UserID;
 
     return (
       <React.Fragment>
@@ -154,26 +161,30 @@ class App extends Component {
           <Frame
             userInfo={{
               name: DataState.LoginUser.UserName,
-              image: DataState.LoginUser.PhotoPath
+              image: DataState.LoginUser.PhotoPath,
             }}
             module={{
               cnname: "用户权限管理",
               enname: "User Access Management",
-              image: logo
+              image: logo,
             }}
             type="triangle"
             showBarner={false}
             showLeftMenu={false}
           >
             <div ref="frame-right-content">
-             { UserID?<Loading
-                opacity={false}
-                tip="加载中..."
-                size="large"
-                spinning={UIState.AppLoading.rightLoading}
-              >
-                <PowerContent></PowerContent>
-              </Loading>:''}
+              {UserID ? (
+                <Loading
+                  opacity={false}
+                  tip="加载中..."
+                  size="large"
+                  spinning={UIState.AppLoading.rightLoading}
+                >
+                  <PowerContent></PowerContent>
+                </Loading>
+              ) : (
+                ""
+              )}
             </div>
           </Frame>
         </Loading>
@@ -191,11 +202,11 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   let { UIState, DataState } = state;
   return {
     UIState,
-    DataState
+    DataState,
   };
 };
 export default connect(mapStateToProps)(App);

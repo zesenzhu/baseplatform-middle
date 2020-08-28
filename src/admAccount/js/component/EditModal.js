@@ -77,7 +77,7 @@ class EditModal extends React.Component {
         actions.UpDataState.setAdminPreview({
           UserID: this.state.data.UserName.UserID,
           UserName: this.state.data.UserName.Name,
-          PhotoPath: this.state.data.UserImg,
+          PhotoPath: this.state.data.Others.AvatarPath,
           Telephone: this.state.data.Others.Telephone,
           QQ: this.state.data.Others.QQ,
           Weixin: this.state.data.Others.Weixin,
@@ -88,7 +88,7 @@ class EditModal extends React.Component {
         actions.UpDataState.setAdminInitPreview({
           UserID: this.state.data.UserName.UserID,
           UserName: this.state.data.UserName.Name,
-          PhotoPath: this.state.data.UserImg,
+          PhotoPath: this.state.data.Others.AvatarPath,
           Telephone: this.state.data.Others.Telephone,
           QQ: this.state.data.Others.QQ,
           Weixin: this.state.data.Others.Weixin,
@@ -182,7 +182,7 @@ class EditModal extends React.Component {
           ModuleIDs: ModulesID.join(),
         })
       );
-      curImgPath = this.state.data.UserImg;
+      curImgPath = this.state.data.Others.AvatarPath;
     } else if (this.state.UserKey === "add") {
       curImgPath = "";
       this.state.PowerList.map((power, index) => {
@@ -242,6 +242,7 @@ class EditModal extends React.Component {
     // 图片上传
     let option = {
       token: token,
+      UploadType:'Avatar',//头像
       resWebUrl: DataState.GetPicUrl.picUrl, //资源站点地址
       userType: userType, //用户类型，可选值Admin、Student、Teacher、SchoolLeader
       userID: handleUserID, //新增时传空字符串、编辑时传相应UserID

@@ -165,7 +165,7 @@ class AuthorSetting extends Component{
 
                                             <div className="account-wrapper">
 
-                                                <i className="account-icon" style={{backgroundImage:`url(${QQAccount.PhotoPath})`}}></i>
+                                                <i className="account-icon" style={{backgroundImage:`url(${QQAccount.AvatarPath})`}}></i>
 
                                                 <span className="account-nickname">{QQAccount.NickName}</span>
 
@@ -216,7 +216,7 @@ class AuthorSetting extends Component{
 
                                             <div className="account-wrapper">
 
-                                                <i className="account-icon" style={{backgroundImage:`url(${WeiboAccount.PhotoPath})`}}></i>
+                                                <i className="account-icon" style={{backgroundImage:`url(${WeiboAccount.AvatarPath})`}}></i>
 
                                                 <span className="account-nickname">{WeiboAccount.NickName}</span>
 
@@ -267,7 +267,7 @@ class AuthorSetting extends Component{
                                             <div className="account-wrapper">
 
                                                 <i className="account-icon"
-                                                   style={{backgroundImage: `url(${WeChatAccount.PhotoPath})`}}></i>
+                                                   style={{backgroundImage: `url(${WeChatAccount.AvatarPath})`}}></i>
 
                                                 <span className="account-nickname">{WeChatAccount.NickName}</span>
 

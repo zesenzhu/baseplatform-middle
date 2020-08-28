@@ -76,10 +76,10 @@ class Student extends React.Component {
                   onClick={this.onUserNameClick.bind(this, arr.key)}
                   className="name-img"
                   style={{
-                    width: "47px",
+                    width: "37.5px",
                     height: "47px",
                     display: "inline-block",
-                    background: `url(${arr.PhotoPath}) no-repeat center center / 47px`,
+                    background: `url(${arr.PhotoPath}) no-repeat center center / 100% auto`,
                   }}
                 ></i>
               </div>
@@ -1221,6 +1221,10 @@ class Student extends React.Component {
     //     userAddress: '蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团'
     // };
     //  console.log(this.state.pagination)
+    let { LockerVersion } = JSON.parse(//校园基础信息管理 XG5.2-免费版,1为基础版
+      sessionStorage.getItem("LgBasePlatformInfo")
+    );
+
     return (
       <div className="Student">
         <div className="Student-box">
@@ -1238,19 +1242,26 @@ class Student extends React.Component {
                 <span className="Graduate">毕业生档案管理</span>
               </a>
               <span className="divide">|</span> */}
-              <a className="link">
-                <span
-                  onClick={this.onLinkClick.bind(
-                    this,
-                    "学生注册审核",
-                    "#/RegisterExamine/RegisterWillExamine"
-                  )}
-                  className="RegisterExamine"
-                >
-                  学生注册审核
-                </span>
-              </a>
-              <span className="divide">|</span>
+              {LockerVersion !== "1" ? (
+                <>
+                  {" "}
+                  <a className="link">
+                    <span
+                      onClick={this.onLinkClick.bind(
+                        this,
+                        "学生注册审核",
+                        "#/RegisterExamine/RegisterWillExamine"
+                      )}
+                      className="RegisterExamine"
+                    >
+                      学生注册审核
+                    </span>
+                  </a>
+                  <span className="divide">|</span>
+                </>
+              ) : (
+                ""
+              )}
               <span
                 className="link"
                 style={{ cursor: "pointer" }}

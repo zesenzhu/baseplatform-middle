@@ -13,7 +13,7 @@ import {
   Tips,
   Modal,
   Empty,
-  Loading
+  Loading,
 } from "../../../common/index";
 //import '../../../common/scss/_left_menu.scss'
 import { Link } from "react-router-dom";
@@ -27,6 +27,8 @@ import history from "../containers/history";
 //import EditModal from './EditModal'
 //import IconLocation from '../../images/icon-location.png'
 import actions from "../actions";
+import Config from "../../../common/js/config";
+
 //import LeaderChangeRecord from './LeaderChangeRecord'
 class Leader extends React.Component {
   constructor(props) {
@@ -43,7 +45,7 @@ class Leader extends React.Component {
           key: "key",
           align: "left",
           width: 68,
-          render: key => {
+          render: (key) => {
             return (
               <div className="registerTime-content">
                 <label style={{ whiteSpace: "nowrap" }}>
@@ -55,16 +57,43 @@ class Leader extends React.Component {
                 </label>
               </div>
             );
-          }
+          },
+        },
+        {
+          title: "",
+          align: "right",
+          key: "UserImg",
+          width: 70,
+          colSpan: 0,
+          // dataIndex: "UserName",
+          render: (arr) => {
+            return (
+              <div className="name-content">
+                <i
+                  alt={arr.UserName.UserName}
+                  onClick={this.onUserNameClick.bind(this, arr.UserName.key)}
+                  className="name-img"
+                  style={{
+                    width: "47px",
+                    height: "47px",
+                    display: "inline-block",
+                    background: `url(${arr.Others.AvatarPath}) no-repeat center center / 47px`,
+                  }}
+                ></i>
+              </div>
+            );
+          },
         },
         {
           title: "姓名",
-          align: "center",
+          align: "left",
           key: "UserName",
+          colSpan: 2,
+
           dataIndex: "UserName",
-          width: 180,
+          width: 130,
           sorter: true,
-          render: arr => {
+          render: (arr) => {
             return (
               <div className="name-content">
                 <span
@@ -84,7 +113,7 @@ class Leader extends React.Component {
                 </span>
               </div>
             );
-          }
+          },
         },
         {
           title: "用户名",
@@ -93,13 +122,13 @@ class Leader extends React.Component {
           key: "ShortName",
           width: 170,
           sorter: true,
-          render: ShortName => {
+          render: (ShortName) => {
             return (
               <span title={ShortName} className="UserName ShortName">
                 {ShortName ? ShortName : "--"}
               </span>
             );
-          }
+          },
         },
         {
           title: "最后一次登录",
@@ -231,7 +260,7 @@ class Leader extends React.Component {
           width: 132,
           key: "handle",
           // dataIndex: "key",
-          render: data => {
+          render: (data) => {
             return (
               <div className="handle-content">
                 <Button
@@ -252,8 +281,8 @@ class Leader extends React.Component {
                 </Button>
               </div>
             );
-          }
-        }
+          },
+        },
       ],
       data: [
         {
@@ -262,14 +291,14 @@ class Leader extends React.Component {
             key: "01",
             PhotoPath:
               "http://192.168.129.1:10101/LgTTFtp/UserInfo/Photo/Default/Nopic001.jpg",
-            UserName: "祝泽森"
+            UserName: "祝泽森",
           },
           UserID: "S00001",
           Grader: "男",
           GradeName: "一年级",
           ClassName: "一年1班",
-          Others: {}
-        }
+          Others: {},
+        },
       ],
 
       pagination: 1,
@@ -297,17 +326,15 @@ class Leader extends React.Component {
       PwdTipsTitle:
         "密码应由8-20位字母、数字及特殊字符`~!@#$%^&*()_+-={}|[]:\";'<>?,./\\的任意两种及以上组成",
       ChangeAllPwdMadalVisible: false,
-      PwdStrong:0,
-      pageSize:10
-
-
+      PwdStrong: 0,
+      pageSize: 10,
     };
     window.LeaderCancelSearch = this.LeaderCancelSearch.bind(this);
   }
   LeaderCancelSearch = () => {
     this.setState({
       checkedList: [],
-      checkAll: false
+      checkAll: false,
     });
   };
   componentWillMount() {
@@ -330,16 +357,16 @@ class Leader extends React.Component {
     }
 
     this.setState({
-      GradeArr: GradeArr
+      GradeArr: GradeArr,
     });
   }
 
-  onSelectChange = e => {
+  onSelectChange = (e) => {
     //  console.log(e)
     //this.setState({ selectedRowKeys });
   };
 
-  onUserContactClick = UserContact => {
+  onUserContactClick = (UserContact) => {
     //  console.log(UserContact)
     // this.setState({
     //     LeaderChangeMadalVisible: true,
@@ -355,22 +382,22 @@ class Leader extends React.Component {
   // }
 
   onMouseEnterName = () => {};
-  OnCheckAllChange = e => {
+  OnCheckAllChange = (e) => {
     const { dispatch, DataState } = this.props;
     //  console.log(e)
     if (e.target.checked) {
       this.setState({
         checkedList: DataState.SchoolLeaderPreview.keyList,
-        checkAll: e.target.checked
+        checkAll: e.target.checked,
       });
     } else {
       this.setState({
         checkedList: [],
-        checkAll: e.target.checked
+        checkAll: e.target.checked,
       });
     }
   };
-  onCheckBoxGroupChange = checkedList => {
+  onCheckBoxGroupChange = (checkedList) => {
     const { dispatch, DataState } = this.props;
 
     //  console.log(checkedList)
@@ -379,31 +406,31 @@ class Leader extends React.Component {
       checkAll:
         checkedList.length === DataState.SchoolLeaderPreview.keyList.length
           ? true
-          : false
+          : false,
     });
   };
-  handleLeaderModalOk = e => {
+  handleLeaderModalOk = (e) => {
     //  console.log(e)
     this.setState({
-      LeaderModalVisible: false
+      LeaderModalVisible: false,
     });
   };
-  handleLeaderModalCancel = e => {
+  handleLeaderModalCancel = (e) => {
     //  console.log(e)
     this.setState({
-      LeaderModalVisible: false
+      LeaderModalVisible: false,
     });
   };
-  ChangePwdMadalOk = e => {
+  ChangePwdMadalOk = (e) => {
     //  console.log(e)
     this.setState({
-      ChangePwdMadalVisible: false
+      ChangePwdMadalVisible: false,
     });
   };
-  ChangePwdMadalOk = e => {
+  ChangePwdMadalOk = (e) => {
     //  console.log(e)
     this.setState({
-      ChangePwdMadalVisible: false
+      ChangePwdMadalVisible: false,
     });
   };
 
@@ -418,7 +445,7 @@ class Leader extends React.Component {
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
           close: this.onAlertWarnClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
     } else {
@@ -432,17 +459,17 @@ class Leader extends React.Component {
       //   })
       // );
       this.setState({
-        ChangeAllPwdMadalVisible: true
+        ChangeAllPwdMadalVisible: true,
       });
     }
   };
-  onChangePwdClick = key => {
+  onChangePwdClick = (key) => {
     const { dispatch, DataState } = this.props;
     let data = this.state.LeaderAccountData;
     let pwd = "pwd888888";
     this.setState({
       ChangePwdMadalVisible: true,
-      onClickKey: key
+      onClickKey: key,
     });
   };
   onChangeEnableClick = (key, isEnable) => {
@@ -466,7 +493,7 @@ class Leader extends React.Component {
             actions.UpUIState.showErrorAlert({
               type: "success",
               title: "操作成功",
-              onHide: this.onAlertWarnHide.bind(this)
+              onHide: this.onAlertWarnHide.bind(this),
             })
           );
           this.setState({
@@ -474,7 +501,7 @@ class Leader extends React.Component {
             defaultPwd: "pwd888888",
             checkedList: [],
             checkAll: false,
-            PwdStrong:0
+            PwdStrong: 0,
           });
 
           dispatch(
@@ -489,7 +516,7 @@ class Leader extends React.Component {
       })
     );
   };
-  onPwdchangeOk = pwd => {
+  onPwdchangeOk = (pwd) => {
     //  console.log(pwd);
     const { dispatch, DataState, UIState } = this.props;
     let url = "/ResetPwd";
@@ -508,20 +535,20 @@ class Leader extends React.Component {
             DataState.SchoolLeaderPreview.newList[this.state.onClickKey].Others
               .UserID,
           userType: 7,
-          newPwd: md5(this.state.defaultPwd)
+          newPwd: md5(this.state.defaultPwd),
         },
         2
       )
-        .then(res => {
+        .then((res) => {
           return res.json();
         })
-        .then(json => {
+        .then((json) => {
           if (json.StatusCode === 200) {
             dispatch(
               actions.UpUIState.showErrorAlert({
                 type: "success",
                 title: "操作成功",
-                onHide: this.onAlertWarnHide.bind(this)
+                onHide: this.onAlertWarnHide.bind(this),
               })
             );
             this.setState({
@@ -529,7 +556,7 @@ class Leader extends React.Component {
               defaultPwd: "pwd888888",
               checkedList: [],
               checkAll: false,
-              PwdStrong:0
+              PwdStrong: 0,
             });
 
             dispatch(
@@ -545,7 +572,7 @@ class Leader extends React.Component {
     }
   };
   // 批量
-  onAllPwdchangeOk = pwd => {
+  onAllPwdchangeOk = (pwd) => {
     //  console.log(pwd);
     const { dispatch, DataState, UIState } = this.props;
     let url = "/ResetPwd";
@@ -565,14 +592,14 @@ class Leader extends React.Component {
         {
           userID: userIDs.join(),
           userType: 7,
-          newPwd: md5(this.state.defaultPwd)
+          newPwd: md5(this.state.defaultPwd),
         },
         2
       )
-        .then(res => {
+        .then((res) => {
           return res.json();
         })
-        .then(json => {
+        .then((json) => {
           if (json.StatusCode === 200) {
             dispatch(actions.UpUIState.hideErrorAlert());
 
@@ -580,7 +607,7 @@ class Leader extends React.Component {
               actions.UpUIState.showErrorAlert({
                 type: "success",
                 title: "操作成功",
-                onHide: this.onAlertWarnHide.bind(this)
+                onHide: this.onAlertWarnHide.bind(this),
               })
             );
             this.setState({
@@ -588,7 +615,7 @@ class Leader extends React.Component {
               checkAll: false,
               ChangeAllPwdMadalVisible: false,
               defaultPwd: "pwd888888",
-              PwdStrong:0
+              PwdStrong: 0,
             });
             dispatch(
               actions.UpDataState.getSchoolLeaderPreview(
@@ -610,24 +637,24 @@ class Leader extends React.Component {
     this.setState({
       ChangePwdMadalVisible: false,
       defaultPwd: "pwd888888",
-      PwdStrong:0
+      PwdStrong: 0,
     });
   };
-  onPwdchange = e => {
+  onPwdchange = (e) => {
     const { dispatch } = this.props;
     //  console.log(e.target.value)
     this.setState({
-      defaultPwd: e.target.value
+      defaultPwd: e.target.value,
     });
   };
-  onPwdBlur = e => {
+  onPwdBlur = (e) => {
     const { dispatch } = this.props;
     let value = e.target.value;
     const { isOK, txt } = this.UserComm_ValidatePwd(value);
-    let PwdStrong = this.UserComm_PwdStrong(value)
+    let PwdStrong = this.UserComm_PwdStrong(value);
     this.setState({
-      PwdStrong:PwdStrong
-    })
+      PwdStrong: PwdStrong,
+    });
     if (!isOK) {
       dispatch({ type: actions.UpUIState.PWD_TIPS_OPEN });
       return;
@@ -655,25 +682,25 @@ class Leader extends React.Component {
     this.setState({
       ChangeAllPwdMadalVisible: false,
       defaultPwd: "pwd888888",
-      PwdStrong:0
+      PwdStrong: 0,
     });
   };
-  onAllPwdchange = e => {
+  onAllPwdchange = (e) => {
     const { dispatch } = this.props;
     //  console.log(e.target.value)
     this.setState({
-      defaultPwd: e.target.value.trim()
+      defaultPwd: e.target.value.trim(),
     });
   };
-  onAllPwdBlur = e => {
+  onAllPwdBlur = (e) => {
     const { dispatch } = this.props;
     //  console.log(e.target.value)
     let value = e.target.value;
     const { isOK, txt } = this.UserComm_ValidatePwd(value);
-    let PwdStrong = this.UserComm_PwdStrong(value)
+    let PwdStrong = this.UserComm_PwdStrong(value);
     this.setState({
-      PwdStrong:PwdStrong
-    })
+      PwdStrong: PwdStrong,
+    });
     if (!isOK) {
       dispatch({ type: actions.UpUIState.PWD_TIPS_OPEN });
       return;
@@ -705,7 +732,7 @@ class Leader extends React.Component {
     const { dispatch } = this.props;
     dispatch(actions.UpUIState.hideErrorAlert());
   };
-  onAlertQueryOk = pwd => {
+  onAlertQueryOk = (pwd) => {
     let url = "/ResetPwd";
     const { dispatch, DataState } = this.props;
     let userIDs = this.state.checkedList.map((child, index) => {
@@ -716,14 +743,14 @@ class Leader extends React.Component {
       {
         userID: userIDs.join(),
         userType: 7,
-        newPwd: md5(this.state.defaultPwd)
+        newPwd: md5(this.state.defaultPwd),
       },
       2
     )
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         if (json.StatusCode === 200) {
           dispatch(actions.UpUIState.hideErrorAlert());
 
@@ -731,12 +758,12 @@ class Leader extends React.Component {
             actions.UpUIState.showErrorAlert({
               type: "success",
               title: "操作成功",
-              onHide: this.onAlertWarnHide.bind(this)
+              onHide: this.onAlertWarnHide.bind(this),
             })
           );
           this.setState({
             checkedList: [],
-            checkAll: false
+            checkAll: false,
           });
           dispatch(
             actions.UpDataState.getSchoolLeaderPreview(
@@ -751,51 +778,53 @@ class Leader extends React.Component {
     //  console.log(pwd);
     this.setState({
       checkedList: [],
-      checkAll: false
+      checkAll: false,
     });
   };
-  onPagiNationChange = e => {
+  onPagiNationChange = (e) => {
     //  console.log(e)
   };
-  onUserNameClick = UserID => {
+  onUserNameClick = (UserID) => {
     const { dispatch } = this.props;
-    dispatch(actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID,()=>{
-      this.setState({
-        LeaderDetailsMsgModalVisible: true
-      });
-    }));
+    dispatch(
+      actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID, () => {
+        this.setState({
+          LeaderDetailsMsgModalVisible: true,
+        });
+      })
+    );
 
     this.setState({
-      LeaderDetailsMsgModalVisible: true
+      LeaderDetailsMsgModalVisible: true,
     });
   };
   LeaderDetailsMsgModalOk = () => {
     this.setState({
-      LeaderDetailsMsgModalVisible: false
+      LeaderDetailsMsgModalVisible: false,
     });
   };
   LeaderDetailsMsgModalCancel = () => {
     this.setState({
-      LeaderDetailsMsgModalVisible: false
+      LeaderDetailsMsgModalVisible: false,
     });
   };
-  onAddLeader = e => {
+  onAddLeader = (e) => {
     //  console.log(e)
     this.setState({
       addLeaderModalVisible: true,
-      userKey: "add"
+      userKey: "add",
     });
   };
-  handleAddLeaderModalOk = e => {
+  handleAddLeaderModalOk = (e) => {
     //  console.log(e)
     this.setState({
-      addLeaderModalVisible: false
+      addLeaderModalVisible: false,
     });
   };
-  handleAddLeaderModalCancel = e => {
+  handleAddLeaderModalCancel = (e) => {
     //  console.log(e)
     this.setState({
-      addLeaderModalVisible: false
+      addLeaderModalVisible: false,
     });
   };
   //table改变，进行排序操作
@@ -820,7 +849,7 @@ class Leader extends React.Component {
         sortType: "&" + sortType,
         sortFiled: "&sortFiled=" + sorter.columnKey,
         checkedList: [],
-        checkAll: false
+        checkAll: false,
       });
       dispatch(
         actions.UpDataState.getSchoolLeaderPreview(
@@ -837,7 +866,7 @@ class Leader extends React.Component {
         sortType: "",
         sortFiled: "",
         checkedList: [],
-        checkAll: false
+        checkAll: false,
       });
       dispatch(
         actions.UpDataState.getSchoolLeaderPreview(
@@ -853,7 +882,7 @@ class Leader extends React.Component {
     dispatch(actions.UpUIState.hideErrorAlert());
   };
   //密码合法判断
-  UserComm_ValidatePwd = pwd => {
+  UserComm_ValidatePwd = (pwd) => {
     let lengthOver8 = true;
     let lengthLess20 = true;
     let containNumber = true;
@@ -902,44 +931,37 @@ class Leader extends React.Component {
       return { isOK: false, txt: txt };
     }
   };
-// 密码强度
-  UserComm_PwdStrong=(pwd)=>{
-
+  // 密码强度
+  UserComm_PwdStrong = (pwd) => {
     const containNumber = /[0-9]+/.test(pwd);
 
     const containLetters = /[a-zA-Z]+/.test(pwd);
 
-    const containSymbol = /[`~\!@#$%\^&*\(\)_\+={}|\[\]:\";\'<>\?,.\/\\-]+/.test(pwd);
+    const containSymbol = /[`~\!@#$%\^&*\(\)_\+={}|\[\]:\";\'<>\?,.\/\\-]+/.test(
+      pwd
+    );
 
     //判断是否是强
 
-    if (containLetters&&containNumber&&containSymbol){
+    if (containLetters && containNumber && containSymbol) {
+      return 3;
+    } else if (
+      (containLetters && !containSymbol && !containNumber) ||
+      (containSymbol && !containLetters && !containNumber) ||
+      (containNumber && !containLetters && !containSymbol)
+    ) {
+      //判断是否是弱类型
 
-        return 3
+      return 1;
+    } else if (!containLetters && !containNumber && !containSymbol) {
+      //是否是这样的类型
+      return 0;
+    } else {
+      //是否是中等类型
 
-    }else if (
-
-        (containLetters&&(!containSymbol)&&(!containNumber))||
-
-        (containSymbol&&(!containLetters)&&(!containNumber))||
-
-        (containNumber&&(!containLetters)&&(!containSymbol))
-
-    ){//判断是否是弱类型
-
-        return 1
-
-    }else if (!containLetters&&!containNumber&&!containSymbol) {
-        //是否是这样的类型
-        return 0;
-
-    }else{//是否是中等类型
-
-        return 2;
-
+      return 2;
     }
-
-}
+  };
   render() {
     const { UIState, DataState } = this.props;
     const data = {
@@ -954,7 +976,7 @@ class Leader extends React.Component {
       userIDCard: "",
       userPhone: "15626248624",
       userMail: "1519406168@qq.com",
-      userAddress: "蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团"
+      userAddress: "蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团蓝鸽集团",
     };
     return (
       <div className="Leader">
@@ -963,6 +985,21 @@ class Leader extends React.Component {
             <span className="top-tips">
               <span className="tips menu35 ">领导账号管理</span>
             </span>
+            <div className="top-nav">
+              <span className="goto">
+                如需添加领导，请前往
+                <a
+                  target="_black"
+                  href={
+                    Config.BasicProxy +
+                    "/html/admArchives/index.html#/UserArchives/Leader/all"
+                  }
+                  className="link"
+                >
+                  领导档案管理
+                </a>
+              </span>
+            </div>
           </div>
           <div className="Leader-hr"></div>
           <div className="Leader-content">
@@ -1106,7 +1143,7 @@ class Leader extends React.Component {
                 overlayClassName="tips"
                 visible={UIState.TipsVisible.PwdTipsShow}
                 title={this.state.PwdTipsTitle}
-                getPopupContainer={e => e.parentNode}
+                getPopupContainer={(e) => e.parentNode}
               >
                 <Input
                   size="small"
@@ -1116,14 +1153,33 @@ class Leader extends React.Component {
                   value={this.state.defaultPwd}
                 ></Input>
               </Tips>
-              <div className='PwdStrong' style={{ display: this.state.PwdStrong ? "block" : "none" }}>
+              <div
+                className="PwdStrong"
+                style={{ display: this.state.PwdStrong ? "block" : "none" }}
+              >
                 <span className="strongTips">密码强度：</span>
                 <span className="pwd-box">
-                  <span className={`color-first-${this.state.PwdStrong} box-first `}></span>
-                  <span className={`color-second-${this.state.PwdStrong} box-second`}></span>
-                  <span className={`color-third-${this.state.PwdStrong} box-third`} ></span>
+                  <span
+                    className={`color-first-${this.state.PwdStrong} box-first `}
+                  ></span>
+                  <span
+                    className={`color-second-${this.state.PwdStrong} box-second`}
+                  ></span>
+                  <span
+                    className={`color-third-${this.state.PwdStrong} box-third`}
+                  ></span>
                 </span>
-                <span className={`strongTips tips-color-${this.state.PwdStrong} `}>{this.state.PwdStrong===1?'弱':this.state.PwdStrong===2?'中':this.state.PwdStrong===3?'强':''}</span>
+                <span
+                  className={`strongTips tips-color-${this.state.PwdStrong} `}
+                >
+                  {this.state.PwdStrong === 1
+                    ? "弱"
+                    : this.state.PwdStrong === 2
+                    ? "中"
+                    : this.state.PwdStrong === 3
+                    ? "强"
+                    : ""}
+                </span>
               </div>
               {/* <br></br>
             <span className='PwdTips' style={{display:UIState.TipsVisible.PwdTipsShow?'inline-block':'false'}}>{this.state.PwdTipsTitle}</span> */}
@@ -1180,7 +1236,7 @@ class Leader extends React.Component {
                 overlayClassName="tips"
                 visible={UIState.TipsVisible.PwdTipsShow}
                 title={this.state.PwdTipsTitle}
-                getPopupContainer={e => e.parentNode}
+                getPopupContainer={(e) => e.parentNode}
               >
                 <Input
                   size="small"
@@ -1190,14 +1246,33 @@ class Leader extends React.Component {
                   value={this.state.defaultPwd}
                 ></Input>
               </Tips>
-              <div className='PwdStrong' style={{ display: this.state.PwdStrong ? "block" : "none" }}>
+              <div
+                className="PwdStrong"
+                style={{ display: this.state.PwdStrong ? "block" : "none" }}
+              >
                 <span className="strongTips">密码强度：</span>
                 <span className="pwd-box">
-                  <span className={`color-first-${this.state.PwdStrong} box-first `}></span>
-                  <span className={`color-second-${this.state.PwdStrong} box-second`}></span>
-                  <span className={`color-third-${this.state.PwdStrong} box-third`} ></span>
+                  <span
+                    className={`color-first-${this.state.PwdStrong} box-first `}
+                  ></span>
+                  <span
+                    className={`color-second-${this.state.PwdStrong} box-second`}
+                  ></span>
+                  <span
+                    className={`color-third-${this.state.PwdStrong} box-third`}
+                  ></span>
                 </span>
-                <span className={`strongTips tips-color-${this.state.PwdStrong} `}>{this.state.PwdStrong===1?'弱':this.state.PwdStrong===2?'中':this.state.PwdStrong===3?'强':''}</span>
+                <span
+                  className={`strongTips tips-color-${this.state.PwdStrong} `}
+                >
+                  {this.state.PwdStrong === 1
+                    ? "弱"
+                    : this.state.PwdStrong === 2
+                    ? "中"
+                    : this.state.PwdStrong === 3
+                    ? "强"
+                    : ""}
+                </span>
               </div>
               {/* <br></br>
             <span className='PwdTips' style={{display:UIState.TipsVisible.PwdTipsShow?'inline-block':'false'}}>{this.state.PwdTipsTitle}</span> */}
@@ -1249,11 +1324,11 @@ class Leader extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   let { UIState, DataState } = state;
   return {
     UIState,
-    DataState
+    DataState,
   };
 };
 export default connect(mapStateToProps)(Leader);

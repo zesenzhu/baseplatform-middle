@@ -68,8 +68,8 @@ class MainContent extends Component {
       },
       route: false,
       List: [
-        { value: "Semester", title: "学年学期设置", icon: "Semester" },
         { value: "School", title: "学校基础资料设置", icon: "School" },
+        { value: "Semester", title: "学年学期设置", icon: "Semester" },
         {
           value: "TextBookSetting",
           title: "教材设置",
@@ -187,8 +187,8 @@ class MainContent extends Component {
     let handleRoute = pathArr[1];
     let Params = pathArr[2];
     if (handleRoute !== "MainContent") {
-      history.push("/MainContent/Semester");
-      this.handleMenu("Semester");
+      history.push("/MainContent/School");
+      this.handleMenu("School");
 
       //   return;
     } else if (
@@ -200,8 +200,8 @@ class MainContent extends Component {
       history.push("/MainContent/" + Params);
       this.handleMenu(Params);
     } else {
-      history.push("/MainContent/Semester");
-      this.handleMenu("Semester");
+      history.push("/MainContent/School");
+      this.handleMenu("School");
 
       //   return;
     }
@@ -233,7 +233,7 @@ class MainContent extends Component {
       path !== "Subsystem" &&
       path !== "TextBookSetting"
     ) {
-      history.push("/MainContent/Semester");
+      history.push("/MainContent/School");
     }
     let {
       DataState: { LoginUser },

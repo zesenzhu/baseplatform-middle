@@ -69,8 +69,10 @@
         overflow: hidden;
         img {
             @include Center();
-            max-width: 118px;
-            max-height: 118px;
+            // max-width: 118px;
+            // max-height: 118px;
+            width: 124px;
+            height: 124px;
             border-radius: 50%;
         }
     }

@@ -64,9 +64,36 @@ class Admin extends React.Component {
           },
         },
         {
+          title: "",
+          align: "right",
+          key: "UserImg",
+          width: 70,
+          colSpan: 0,
+          // dataIndex: "UserName",
+          render: (arr) => {
+            return (
+              <div className="name-content">
+                <i
+                  alt={arr.UserName.UserName}
+                  onClick={this.onUserNameClick.bind(this, arr.UserName.key)}
+                  className="name-img"
+                  style={{
+                    width: "47px",
+                    height: "47px",
+                    display: "inline-block",
+                    background: `url(${arr.Others.AvatarPath}) no-repeat center center / 47px`,
+                  }}
+                ></i>
+              </div>
+            );
+          },
+        },
+        {
           title: "姓名",
-          align: "center",
-          width: 180,
+          align: "left",
+          width: 130,
+          colSpan: 2,
+
           key: "UserName",
           dataIndex: "UserName",
           sorter: true,
@@ -795,7 +822,7 @@ class Admin extends React.Component {
           userID: DataState.AdminPreview.TrasferData.UserID,
           UserName: DataState.AdminPreview.TrasferData.UserName,
           ModuleIDs: DataState.AdminPreview.TrasferData.ModuleIDs,
-          PhotoPath: picObj.picUploader.getCurImgPath(),
+          AvatarPath: picObj.picUploader.getCurImgPath(),
           Pwd: "0",
           Telephone: DataState.AdminPreview.TrasferData.Telephone,
           QQ: DataState.AdminPreview.TrasferData.QQ,
@@ -1015,7 +1042,7 @@ class Admin extends React.Component {
           userID: DataState.AdminPreview.TrasferData.UserID,
           UserName: DataState.AdminPreview.TrasferData.UserName,
           ModuleIDs: DataState.AdminPreview.TrasferData.ModuleIDs,
-          PhotoPath: picObj.picUploader.getCurImgPath(),
+          AvatarPath: picObj.picUploader.getCurImgPath(),
           Pwd: "0",
           PhotoEdit: PhotoEdit,
           EditPower: ModulesIsChange ? 1 : 0,

@@ -13,7 +13,7 @@ import {
   CheckBoxGroup,
   Modal,
   Empty,
-  Loading
+  Loading,
 } from "../../../common/index";
 //import '../../../common/scss/_left_menu.scss'
 import { postData, getData } from "../../../common/js/fetch";
@@ -27,6 +27,8 @@ import history from "../containers/history";
 //import EditModal from './EditModal'
 //import IconLocation from '../../images/icon-location.png'
 import actions from "../actions";
+import Config from "../../../common/js/config";
+
 //import TeacherChangeRecord from './TeacherChangeRecord'
 class Teacher extends React.Component {
   constructor(props) {
@@ -42,7 +44,7 @@ class Teacher extends React.Component {
           width: 68,
           key: "key",
           align: "left",
-          render: handle => {
+          render: (handle) => {
             return (
               <div className="registerTime-content">
                 <label style={{ whiteSpace: "nowrap" }}>
@@ -60,16 +62,43 @@ class Teacher extends React.Component {
                 </label>
               </div>
             );
-          }
+          },
+        },
+        {
+          title: "",
+          align: "right",
+          key: "UserImg",
+          width: 70,
+          colSpan: 0,
+          // dataIndex: "UserName",
+          render: (arr) => {
+            return (
+              <div className="name-content">
+                <i
+                  alt={arr.UserName.UserName}
+                  onClick={this.onUserNameClick.bind(this, arr.UserName.key)}
+                  className="name-img"
+                  style={{
+                    width: "47px",
+                    height: "47px",
+                    display: "inline-block",
+                    background: `url(${arr.Others.AvatarPath}) no-repeat center center / 47px`,
+                  }}
+                ></i>
+              </div>
+            );
+          },
         },
         {
           title: "姓名",
-          align: "center",
+          align: "left",
           key: "UserName",
           dataIndex: "UserName",
-          width: 180,
+          width: 130,
           sorter: true,
-          render: arr => {
+          colSpan: 2,
+
+          render: (arr) => {
             return (
               <div className="name-content">
                 <span
@@ -85,7 +114,7 @@ class Teacher extends React.Component {
                 </span>
               </div>
             );
-          }
+          },
         },
         {
           title: "用户名",
@@ -94,13 +123,13 @@ class Teacher extends React.Component {
           dataIndex: "ShortName",
           key: "ShortName",
           sorter: true,
-          render: ShortName => {
+          render: (ShortName) => {
             return (
               <span title={ShortName} className="UserName">
                 {ShortName ? ShortName : "--"}
               </span>
             );
-          }
+          },
         },
         {
           title: "最后一次登录",
@@ -232,7 +261,7 @@ class Teacher extends React.Component {
           align: "center",
           key: "handle",
           // dataIndex: "key",
-          render: data => {
+          render: (data) => {
             return (
               <div className="handle-content">
                 <Button
@@ -253,8 +282,8 @@ class Teacher extends React.Component {
                 </Button>
               </div>
             );
-          }
-        }
+          },
+        },
       ],
       data: [
         {
@@ -263,14 +292,14 @@ class Teacher extends React.Component {
             key: "01",
             PhotoPath:
               "http://192.168.129.1:10101/LgTTFtp/UserInfo/Photo/Default/Nopic001.jpg",
-            UserName: "祝泽森"
+            UserName: "祝泽森",
           },
           UserID: "S00001",
           Grader: "男",
           GradeName: "一年级",
           ClassName: "一年1班",
-          Others: {}
-        }
+          Others: {},
+        },
       ],
 
       TeacherAccountData: [
@@ -279,7 +308,7 @@ class Teacher extends React.Component {
           Name: {
             Name: "张心仪",
             UserID: "201700121245",
-            key: 0
+            key: 0,
           },
           UserName: "ZXSTU_001",
           Sign:
@@ -289,18 +318,18 @@ class Teacher extends React.Component {
             PhotoPath:
               "http://192.168.129.1:10101/LgTTFtp/UserInfo/Photo/Default/Nopic001.jpg",
             PhotoPath_NOcache:
-              "http://192.168.129.1:10101/LgTTFtp/UserInfo/Photo/Default/Nopic001.jpg"
+              "http://192.168.129.1:10101/LgTTFtp/UserInfo/Photo/Default/Nopic001.jpg",
           },
           UserContact: {
             QQ: "1519406168",
             WeiXin: "asd1519406168",
             Telephone: "15626248624",
-            Weibo: "15626248624"
+            Weibo: "15626248624",
           },
           handle: {
-            key: 0
-          }
-        }
+            key: 0,
+          },
+        },
       ],
       pagination: 1,
       loading: false,
@@ -331,9 +360,8 @@ class Teacher extends React.Component {
       PwdTipsTitle:
         "密码应由8-20位字母、数字及特殊字符`~!@#$%^&*()_+-={}|[]:\";'<>?,./\\的任意两种及以上组成",
       ChangeAllPwdMadalVisible: false,
-      PwdStrong:0,
-      pageSize:10
-
+      PwdStrong: 0,
+      pageSize: 10,
     };
     window.TeacherCancelSearch = this.TeacherCancelSearch.bind(this);
   }
@@ -345,7 +373,7 @@ class Teacher extends React.Component {
       checkedList: [],
       pagination: 1,
       checkAll: false,
-      SubjectSelect: { value: 0, title: "全部学科" }
+      SubjectSelect: { value: 0, title: "全部学科" },
     });
   };
   componentWillMount() {
@@ -369,7 +397,7 @@ class Teacher extends React.Component {
   }
 
   //下拉
-  TeacherDropMenu = e => {
+  TeacherDropMenu = (e) => {
     const { dispatch } = this.props;
     this.setState({
       SubjectSelect: e,
@@ -378,14 +406,16 @@ class Teacher extends React.Component {
       CancelBtnShow: "n",
       checkedList: [],
       checkAll: false,
-      keyword: ""
+      keyword: "",
     });
     if (e.value !== 0)
       dispatch(
         actions.UpDataState.getSubjectTeacherPreview(
           "/GetTeacherToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize="+this.state.pageSize+ "&SubjectIDs=" +
+            "&PageIndex=0&PageSize=" +
+            this.state.pageSize +
+            "&SubjectIDs=" +
             e.value +
             this.state.sortFiled +
             this.state.sortType
@@ -396,14 +426,16 @@ class Teacher extends React.Component {
         actions.UpDataState.getSubjectTeacherPreview(
           "/GetTeacherToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize="+this.state.pageSize+ "" +
+            "&PageIndex=0&PageSize=" +
+            this.state.pageSize +
+            "" +
             this.state.sortFiled +
             this.state.sortType
         )
       );
   };
 
-  TeacherSearch = e => {
+  TeacherSearch = (e) => {
     const { dispatch } = this.props;
 
     if (e.value === "") {
@@ -414,7 +446,7 @@ class Teacher extends React.Component {
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
           close: this.onAlertWarnClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
       return;
@@ -429,7 +461,7 @@ class Teacher extends React.Component {
           title: "输入的工号或姓名格式不正确",
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
-          close: this.onAlertWarnClose.bind(this)
+          close: this.onAlertWarnClose.bind(this),
         })
       );
       return;
@@ -439,13 +471,15 @@ class Teacher extends React.Component {
       CancelBtnShow: "y",
       pagination: 1,
       checkedList: [],
-      checkAll: false
+      checkAll: false,
     });
     dispatch(
       actions.UpDataState.getSubjectTeacherPreview(
         "/GetTeacherToPage?SchoolID=" +
           this.state.userMsg.SchoolID +
-          "&PageIndex=0&PageSize="+this.state.pageSize+ "&keyword=" +
+          "&PageIndex=0&PageSize=" +
+          this.state.pageSize +
+          "&keyword=" +
           e.value +
           "&SubjectIDs=" +
           (this.state.SubjectSelect.value
@@ -457,13 +491,13 @@ class Teacher extends React.Component {
     );
   };
   //搜索change
-  onChangeSearch = e => {
+  onChangeSearch = (e) => {
     this.setState({
-      searchValue: e.target.value.trim()
+      searchValue: e.target.value.trim(),
     });
   };
   // 取消搜索
-  onCancelSearch = e => {
+  onCancelSearch = (e) => {
     const { dispatch } = this.props;
 
     this.setState({
@@ -472,7 +506,7 @@ class Teacher extends React.Component {
       searchValue: e.value,
       checkedList: [],
       pagination: 1,
-      checkAll: false
+      checkAll: false,
     });
     dispatch(
       actions.UpDataState.getSubjectTeacherPreview(
@@ -480,7 +514,9 @@ class Teacher extends React.Component {
           this.state.userMsg.SchoolID +
           "&PageIndex=" +
           0 +
-          "&PageSize="+this.state.pageSize+ "" +
+          "&PageSize=" +
+          this.state.pageSize +
+          "" +
           "&SubjectIDs=" +
           (this.state.SubjectSelect.value
             ? this.state.SubjectSelect.value
@@ -490,12 +526,12 @@ class Teacher extends React.Component {
       )
     );
   };
-  onSelectChange = e => {
+  onSelectChange = (e) => {
     // console.log(e)
     //this.setState({ selectedRowKeys });
   };
 
-  onUserContactClick = UserContact => {
+  onUserContactClick = (UserContact) => {
     // console.log(UserContact)
     // this.setState({
     //     TeacherChangeMadalVisible: true,
@@ -511,54 +547,54 @@ class Teacher extends React.Component {
   // }
 
   onMouseEnterName = () => {};
-  OnCheckAllChange = e => {
+  OnCheckAllChange = (e) => {
     const { DataState, dispatch } = this.props;
     // console.log(e)
     if (e.target.checked) {
       this.setState({
         checkedList: DataState.SubjectTeacherPreview.keyList,
-        checkAll: e.target.checked
+        checkAll: e.target.checked,
       });
     } else {
       this.setState({
         checkedList: [],
-        checkAll: e.target.checked
+        checkAll: e.target.checked,
       });
     }
   };
-  onCheckBoxGroupChange = checkedList => {
+  onCheckBoxGroupChange = (checkedList) => {
     const { DataState, dispatch } = this.props;
     this.setState({
       checkedList,
       checkAll:
         checkedList.length === DataState.SubjectTeacherPreview.keyList.length
           ? true
-          : false
+          : false,
     });
   };
-  handleTeacherModalOk = e => {
+  handleTeacherModalOk = (e) => {
     // console.log(e)
     this.setState({
-      TeacherModalVisible: false
+      TeacherModalVisible: false,
     });
   };
-  handleTeacherModalCancel = e => {
+  handleTeacherModalCancel = (e) => {
     // console.log(e)
     this.setState({
-      TeacherModalVisible: false
+      TeacherModalVisible: false,
     });
   };
-  ChangePwdMadalOk = e => {
+  ChangePwdMadalOk = (e) => {
     // console.log(e)
     this.setState({
-      ChangePwdMadalVisible: false
+      ChangePwdMadalVisible: false,
     });
   };
   // 批量
-  ChangeAllPwdMadalOk = e => {
+  ChangeAllPwdMadalOk = (e) => {
     // console.log(e)
     this.setState({
-      ChangeAllPwdMadalVisible: false
+      ChangeAllPwdMadalVisible: false,
     });
   };
 
@@ -573,7 +609,7 @@ class Teacher extends React.Component {
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
           close: this.onAlertWarnClose.bind(this),
-          onHide: this.onAlertWarnHide.bind(this)
+          onHide: this.onAlertWarnHide.bind(this),
         })
       );
     } else {
@@ -587,28 +623,28 @@ class Teacher extends React.Component {
       //   })
       // );
       this.setState({
-        ChangeAllPwdMadalVisible: true
+        ChangeAllPwdMadalVisible: true,
       });
     }
   };
-  onChangePwdClick = key => {
+  onChangePwdClick = (key) => {
     const { dispatch, DataState } = this.props;
     let data = this.state.TeacherAccountData;
     let pwd = "pwd888888";
     this.setState({
       ChangePwdMadalVisible: true,
-      onClickKey: key
+      onClickKey: key,
     });
   };
-  onPwdBlur = e => {
+  onPwdBlur = (e) => {
     const { dispatch } = this.props;
     //  console.log(e.target.value)
     let value = e.target.value;
     const { isOK, txt } = this.UserComm_ValidatePwd(value);
-    let PwdStrong = this.UserComm_PwdStrong(value)
+    let PwdStrong = this.UserComm_PwdStrong(value);
     this.setState({
-      PwdStrong:PwdStrong
-    })
+      PwdStrong: PwdStrong,
+    });
     if (!isOK) {
       dispatch({ type: actions.UpUIState.PWD_TIPS_OPEN });
       return;
@@ -628,15 +664,15 @@ class Teacher extends React.Component {
     // }
   };
   // 批量
-  onAllPwdBlur = e => {
+  onAllPwdBlur = (e) => {
     const { dispatch } = this.props;
     //  console.log(e.target.value)
     let value = e.target.value;
     const { isOK, txt } = this.UserComm_ValidatePwd(value);
-    let PwdStrong = this.UserComm_PwdStrong(value)
+    let PwdStrong = this.UserComm_PwdStrong(value);
     this.setState({
-      PwdStrong:PwdStrong
-    })
+      PwdStrong: PwdStrong,
+    });
     if (!isOK) {
       dispatch({ type: actions.UpUIState.PWD_TIPS_OPEN });
       return;
@@ -655,7 +691,7 @@ class Teacher extends React.Component {
     //   return;
     // }
   };
-  onPwdchangeOk = pwd => {
+  onPwdchangeOk = (pwd) => {
     const { dispatch, DataState, UIState } = this.props;
     let url = "/ResetPwd";
     let UserMsg = DataState.LoginUser;
@@ -674,17 +710,17 @@ class Teacher extends React.Component {
             DataState.SubjectTeacherPreview.newList[this.state.onClickKey]
               .Others.UserID,
           userType: 1,
-          newPwd: md5(this.state.defaultPwd)
+          newPwd: md5(this.state.defaultPwd),
         },
         2
       )
-        .then(res => {
+        .then((res) => {
           if (res.StatusCode === "401") {
             // console.log('错误码：' + res.StatusCode)
           }
           return res.json();
         })
-        .then(json => {
+        .then((json) => {
           if (json.StatusCode === 400) {
             // console.log(json.StatusCode)
           } else if (json.StatusCode === 200) {
@@ -692,7 +728,7 @@ class Teacher extends React.Component {
               actions.UpUIState.showErrorAlert({
                 type: "success",
                 title: "操作成功",
-                onHide: this.onAlertWarnHide.bind(this)
+                onHide: this.onAlertWarnHide.bind(this),
               })
             );
             this.setState({
@@ -700,7 +736,7 @@ class Teacher extends React.Component {
               defaultPwd: "pwd888888",
               checkedList: [],
               checkAll: false,
-              PwdStrong:0
+              PwdStrong: 0,
             });
             dispatch(
               actions.UpDataState.getSubjectTeacherPreview(
@@ -708,7 +744,9 @@ class Teacher extends React.Component {
                   this.state.userMsg.SchoolID +
                   "&PageIndex=" +
                   (this.state.pagination - 1) +
-                  "&PageSize="+this.state.pageSize+ "&keyword=" +
+                  "&PageSize=" +
+                  this.state.pageSize +
+                  "&keyword=" +
                   this.state.keyword +
                   "&SubjectIDs=" +
                   (this.state.SubjectSelect.value
@@ -743,7 +781,7 @@ class Teacher extends React.Component {
             actions.UpUIState.showErrorAlert({
               type: "success",
               title: "操作成功",
-              onHide: this.onAlertWarnHide.bind(this)
+              onHide: this.onAlertWarnHide.bind(this),
             })
           );
           this.setState({
@@ -751,7 +789,7 @@ class Teacher extends React.Component {
             defaultPwd: "pwd888888",
             checkedList: [],
             checkAll: false,
-            PwdStrong:0
+            PwdStrong: 0,
           });
           dispatch(
             actions.UpDataState.getSubjectTeacherPreview(
@@ -759,7 +797,9 @@ class Teacher extends React.Component {
                 this.state.userMsg.SchoolID +
                 "&PageIndex=" +
                 (this.state.pagination - 1) +
-                "&PageSize="+this.state.pageSize+ "&keyword=" +
+                "&PageSize=" +
+                this.state.pageSize +
+                "&keyword=" +
                 this.state.keyword +
                 "&SubjectIDs=" +
                 (this.state.SubjectSelect.value
@@ -774,7 +814,7 @@ class Teacher extends React.Component {
     );
   };
   // 批量
-  onAllPwdchangeOk = pwd => {
+  onAllPwdchangeOk = (pwd) => {
     const { dispatch, DataState, UIState } = this.props;
     let url = "/ResetPwd";
     let UserMsg = DataState.LoginUser;
@@ -794,17 +834,17 @@ class Teacher extends React.Component {
         {
           userID: userIDs.join(),
           userType: 1,
-          newPwd: md5(this.state.defaultPwd)
+          newPwd: md5(this.state.defaultPwd),
         },
         2
       )
-        .then(res => {
+        .then((res) => {
           if (res.StatusCode === "401") {
             // console.log('错误码：' + res.StatusCode)
           }
           return res.json();
         })
-        .then(json => {
+        .then((json) => {
           if (json.StatusCode === 400) {
             // console.log(json.StatusCode)
           } else if (json.StatusCode === 200) {
@@ -812,7 +852,7 @@ class Teacher extends React.Component {
               actions.UpUIState.showErrorAlert({
                 type: "success",
                 title: "操作成功",
-                onHide: this.onAlertWarnHide.bind(this)
+                onHide: this.onAlertWarnHide.bind(this),
               })
             );
             this.setState({
@@ -820,7 +860,7 @@ class Teacher extends React.Component {
               defaultPwd: "pwd888888",
               checkedList: [],
               checkAll: false,
-              PwdStrong:0
+              PwdStrong: 0,
             });
             dispatch(
               actions.UpDataState.getSubjectTeacherPreview(
@@ -828,7 +868,9 @@ class Teacher extends React.Component {
                   this.state.userMsg.SchoolID +
                   "&PageIndex=" +
                   (this.state.pagination - 1) +
-                  "&PageSize="+this.state.pageSize+ "&keyword=" +
+                  "&PageSize=" +
+                  this.state.pageSize +
+                  "&keyword=" +
                   this.state.keyword +
                   "&SubjectIDs=" +
                   (this.state.SubjectSelect.value
@@ -857,14 +899,14 @@ class Teacher extends React.Component {
     this.setState({
       ChangePwdMadalVisible: false,
       defaultPwd: "pwd888888",
-      PwdStrong:0
+      PwdStrong: 0,
     });
   };
-  onPwdchange = e => {
+  onPwdchange = (e) => {
     const { dispatch } = this.props;
     // console.log(e.target.value)
     this.setState({
-      defaultPwd: e.target.value
+      defaultPwd: e.target.value,
     });
   };
   // 批量重置密码close
@@ -876,14 +918,14 @@ class Teacher extends React.Component {
     this.setState({
       ChangeAllPwdMadalVisible: false,
       defaultPwd: "pwd888888",
-      PwdStrong:0
+      PwdStrong: 0,
     });
   };
-  onAllPwdchange = e => {
+  onAllPwdchange = (e) => {
     const { dispatch } = this.props;
     // console.log(e.target.value)
     this.setState({
-      defaultPwd: e.target.value.trim()
+      defaultPwd: e.target.value.trim(),
     });
   };
   onAlertWarnClose = () => {
@@ -899,7 +941,7 @@ class Teacher extends React.Component {
     dispatch(actions.UpUIState.hideErrorAlert());
   };
   //确认重置
-  onAlertQueryOk = pwd => {
+  onAlertQueryOk = (pwd) => {
     let url = "/ResetPwd";
     const { dispatch, DataState } = this.props;
     dispatch(actions.UpUIState.hideErrorAlert());
@@ -911,17 +953,17 @@ class Teacher extends React.Component {
       {
         userID: userIDs.join(),
         userType: 1,
-        newPwd: md5(this.state.defaultPwd)
+        newPwd: md5(this.state.defaultPwd),
       },
       2
     )
-      .then(res => {
+      .then((res) => {
         if (res.StatusCode === "401") {
           // console.log('错误码：' + res.StatusCode)
         }
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         if (json.StatusCode === 400) {
           // console.log(json.StatusCode)
         } else if (json.StatusCode === 200) {
@@ -929,12 +971,12 @@ class Teacher extends React.Component {
             actions.UpUIState.showErrorAlert({
               type: "success",
               title: "操作成功",
-              onHide: this.onAlertWarnHide.bind(this)
+              onHide: this.onAlertWarnHide.bind(this),
             })
           );
           this.setState({
             checkedList: [],
-            checkAll: false
+            checkAll: false,
           });
           dispatch(
             actions.UpDataState.getSubjectTeacherPreview(
@@ -942,7 +984,9 @@ class Teacher extends React.Component {
                 this.state.userMsg.SchoolID +
                 "&PageIndex=" +
                 (this.state.pagination - 1) +
-                "&PageSize="+this.state.pageSize+ "&keyword=" +
+                "&PageSize=" +
+                this.state.pageSize +
+                "&keyword=" +
                 this.state.keyword +
                 "&SubjectIDs=" +
                 (this.state.SubjectSelect.value
@@ -956,12 +1000,12 @@ class Teacher extends React.Component {
       });
   };
   //分页
-  onPagiNationChange = value => {
+  onPagiNationChange = (value) => {
     const { dispatch } = this.props;
     this.setState({
       pagination: value,
       checkedList: [],
-      checkAll: false
+      checkAll: false,
     });
 
     let SubjectIDs = "";
@@ -979,7 +1023,9 @@ class Teacher extends React.Component {
           this.state.userMsg.SchoolID +
           "&PageIndex=" +
           (value - 1) +
-          "&PageSize="+this.state.pageSize+ "" +
+          "&PageSize=" +
+          this.state.pageSize +
+          "" +
           keyword +
           SubjectIDs +
           this.state.sortFiled +
@@ -988,17 +1034,15 @@ class Teacher extends React.Component {
     );
   };
   // 改变显示条目数
-onShowSizeChange = (current, pageSize) => {
-  // console.log(current, pageSize);
-  const { dispatch } = this.props;
- 
+  onShowSizeChange = (current, pageSize) => {
+    // console.log(current, pageSize);
+    const { dispatch } = this.props;
+
     this.setState({
       checkedList: [],
-    checkAll: false,
-    pageSize,
-    pagination:1,
- 
- 
+      checkAll: false,
+      pageSize,
+      pagination: 1,
     });
     let SubjectIDs = "";
     let keyword = "";
@@ -1015,51 +1059,53 @@ onShowSizeChange = (current, pageSize) => {
           this.state.userMsg.SchoolID +
           "&PageIndex=" +
           0 +
-          "&PageSize="+ pageSize+ "" +
+          "&PageSize=" +
+          pageSize +
+          "" +
           keyword +
           SubjectIDs +
           this.state.sortFiled +
           this.state.sortType
       )
     );
-  
-};
-  onUserNameClick = UserID => {
+  };
+  onUserNameClick = (UserID) => {
     const { dispatch } = this.props;
-    dispatch(actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID,()=>{
-      this.setState({
-        TeacherDetailsMsgModalVisible: true
-      });
-    }));
-   
+    dispatch(
+      actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID, () => {
+        this.setState({
+          TeacherDetailsMsgModalVisible: true,
+        });
+      })
+    );
   };
   TeacherDetailsMsgModalOk = () => {
     this.setState({
-      TeacherDetailsMsgModalVisible: false
+      TeacherDetailsMsgModalVisible: false,
     });
   };
   TeacherDetailsMsgModalCancel = () => {
     this.setState({
-      TeacherDetailsMsgModalVisible: false
+      TeacherDetailsMsgModalVisible: false,
     });
   };
-  onAddTeacher = e => {
+  onAddTeacher = (e) => {
     // console.log(e)
     this.setState({
       addTeacherModalVisible: true,
-      userKey: "add"
+      userKey: "add",
     });
   };
-  handleAddTeacherModalOk = e => {
+  handleAddTeacherModalOk = (e) => {
     // console.log(e)
     this.setState({
-      addTeacherModalVisible: false
+      addTeacherModalVisible: false,
     });
   };
-  handleAddTeacherModalCancel = e => {
+  handleAddTeacherModalCancel = (e) => {
     // console.log(e)
     this.setState({
-      addTeacherModalVisible: false
+      addTeacherModalVisible: false,
     });
   };
   //table改变，进行排序操作
@@ -1089,7 +1135,7 @@ onShowSizeChange = (current, pageSize) => {
         sortType: "&" + sortType,
         sortFiled: "&sortFiled=" + sorter.columnKey,
         checkedList: [],
-        checkAll: false
+        checkAll: false,
       });
       dispatch(
         actions.UpDataState.getSubjectTeacherPreview(
@@ -1097,7 +1143,9 @@ onShowSizeChange = (current, pageSize) => {
             this.state.userMsg.SchoolID +
             "&sortFiled=" +
             sorter.columnKey +
-            "&PageSize="+this.state.pageSize+ "&" +
+            "&PageSize=" +
+            this.state.pageSize +
+            "&" +
             sortType +
             "&PageIndex=" +
             (this.state.pagination - 1) +
@@ -1110,13 +1158,15 @@ onShowSizeChange = (current, pageSize) => {
         sortType: "",
         sortFiled: "",
         checkedList: [],
-        checkAll: false
+        checkAll: false,
       });
       dispatch(
         actions.UpDataState.getSubjectTeacherPreview(
           "/GetTeacherToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageSize="+this.state.pageSize+ "" +
+            "&PageSize=" +
+            this.state.pageSize +
+            "" +
             "&PageIndex=" +
             (this.state.pagination - 1) +
             keyword +
@@ -1154,7 +1204,7 @@ onShowSizeChange = (current, pageSize) => {
 
   // };
   //密码合法判断
-  UserComm_ValidatePwd = pwd => {
+  UserComm_ValidatePwd = (pwd) => {
     let lengthOver8 = true;
     let lengthLess20 = true;
     let containNumber = true;
@@ -1203,44 +1253,37 @@ onShowSizeChange = (current, pageSize) => {
       return { isOK: false, txt: txt };
     }
   };
-// 密码强度
-  UserComm_PwdStrong=(pwd)=>{
-
+  // 密码强度
+  UserComm_PwdStrong = (pwd) => {
     const containNumber = /[0-9]+/.test(pwd);
 
     const containLetters = /[a-zA-Z]+/.test(pwd);
 
-    const containSymbol = /[`~\!@#$%\^&*\(\)_\+={}|\[\]:\";\'<>\?,.\/\\-]+/.test(pwd);
+    const containSymbol = /[`~\!@#$%\^&*\(\)_\+={}|\[\]:\";\'<>\?,.\/\\-]+/.test(
+      pwd
+    );
 
     //判断是否是强
 
-    if (containLetters&&containNumber&&containSymbol){
+    if (containLetters && containNumber && containSymbol) {
+      return 3;
+    } else if (
+      (containLetters && !containSymbol && !containNumber) ||
+      (containSymbol && !containLetters && !containNumber) ||
+      (containNumber && !containLetters && !containSymbol)
+    ) {
+      //判断是否是弱类型
 
-        return 3
+      return 1;
+    } else if (!containLetters && !containNumber && !containSymbol) {
+      //是否是这样的类型
+      return 0;
+    } else {
+      //是否是中等类型
 
-    }else if (
-
-        (containLetters&&(!containSymbol)&&(!containNumber))||
-
-        (containSymbol&&(!containLetters)&&(!containNumber))||
-
-        (containNumber&&(!containLetters)&&(!containSymbol))
-
-    ){//判断是否是弱类型
-
-        return 1
-
-    }else if (!containLetters&&!containNumber&&!containSymbol) {
-        //是否是这样的类型
-        return 0;
-
-    }else{//是否是中等类型
-
-        return 2;
-
+      return 2;
     }
-
-}
+  };
   render() {
     const { UIState, DataState } = this.props;
     // console.log(this.state.pageSize)
@@ -1252,15 +1295,38 @@ onShowSizeChange = (current, pageSize) => {
             <span className="top-tips">
               <span className="tips menu33 ">教师账号管理</span>
             </span>
-            {/* <div className='top-nav'>
-                            <Link className='link'  to='/GraduteArchives' replace>查看毕业生档案</Link>
-                            <span className='divide'>|</span>
-                            <Link className='link' target='_blank' to='/RegisterExamine' replace>学生注册审核</Link>
-                            <span className='divide'>|</span>
-                            <span className='link' style={{cursor:'pointer'}}  onClick={this.onAddTeacher}>添加学生</span>
-                            <span className='divide'>|</span>
-                            <Link className='link' to='/ImportTeacher' replace>导入学生</Link>
-                        </div> */}
+            <div className="top-nav">
+              {/* <Link className="link" to="/GraduteArchives" replace>
+                查看毕业生档案
+              </Link>
+              <span className="divide">|</span>
+              <Link
+                className="link"
+                target="_blank"
+                to="/RegisterExamine"
+                replace
+              >
+                学生注册审核
+              </Link>
+              <span className="divide">|</span>
+              <span
+                className="link"
+                style={{ cursor: "pointer" }}
+                onClick={this.onAddTeacher}
+              >
+                添加学生
+              </span>
+              <span className="divide">|</span>
+              <Link className="link" to="/ImportTeacher" replace>
+                导入学生
+              </Link> */}
+              <span className="goto">
+                如需添加教师，请前往
+                <a target="_black" href={Config.BasicProxy+'/html/admArchives/index.html#/UserArchives/Teacher/all'} className="link">
+                  教师档案管理
+                </a>
+              </span>
+            </div>
           </div>
           <div className="Teacher-hr"></div>
           <div className="Teacher-content">
@@ -1334,7 +1400,7 @@ onShowSizeChange = (current, pageSize) => {
                           display:
                             DataState.SubjectTeacherPreview.Total === 0
                               ? "none"
-                              : "inline-block"
+                              : "inline-block",
                         }}
                         className="checkAll-box"
                         onChange={this.OnCheckAllChange}
@@ -1357,7 +1423,11 @@ onShowSizeChange = (current, pageSize) => {
                   <div className="pagination-box">
                     <PagiNation
                       showQuickJumper
-                      hideOnSinglePage={DataState.SubjectTeacherPreview.Total===0?true:false}
+                      hideOnSinglePage={
+                        DataState.SubjectTeacherPreview.Total === 0
+                          ? true
+                          : false
+                      }
                       current={this.state.pagination}
                       total={DataState.SubjectTeacherPreview.Total}
                       onChange={this.onPagiNationChange}
@@ -1447,7 +1517,7 @@ onShowSizeChange = (current, pageSize) => {
                 overlayClassName="tips"
                 visible={UIState.TipsVisible.PwdTipsShow}
                 title={this.state.PwdTipsTitle}
-                getPopupContainer={e => e.parentNode}
+                getPopupContainer={(e) => e.parentNode}
               >
                 <Input
                   size="small"
@@ -1457,14 +1527,33 @@ onShowSizeChange = (current, pageSize) => {
                   value={this.state.defaultPwd}
                 ></Input>
               </Tips>
-              <div className='PwdStrong' style={{ display: this.state.PwdStrong ? "block" : "none" }}>
+              <div
+                className="PwdStrong"
+                style={{ display: this.state.PwdStrong ? "block" : "none" }}
+              >
                 <span className="strongTips">密码强度：</span>
                 <span className="pwd-box">
-                  <span className={`color-first-${this.state.PwdStrong} box-first `}></span>
-                  <span className={`color-second-${this.state.PwdStrong} box-second`}></span>
-                  <span className={`color-third-${this.state.PwdStrong} box-third`} ></span>
+                  <span
+                    className={`color-first-${this.state.PwdStrong} box-first `}
+                  ></span>
+                  <span
+                    className={`color-second-${this.state.PwdStrong} box-second`}
+                  ></span>
+                  <span
+                    className={`color-third-${this.state.PwdStrong} box-third`}
+                  ></span>
                 </span>
-                <span className={`strongTips tips-color-${this.state.PwdStrong} `}>{this.state.PwdStrong===1?'弱':this.state.PwdStrong===2?'中':this.state.PwdStrong===3?'强':''}</span>
+                <span
+                  className={`strongTips tips-color-${this.state.PwdStrong} `}
+                >
+                  {this.state.PwdStrong === 1
+                    ? "弱"
+                    : this.state.PwdStrong === 2
+                    ? "中"
+                    : this.state.PwdStrong === 3
+                    ? "强"
+                    : ""}
+                </span>
               </div>
             </div>
           }
@@ -1523,7 +1612,7 @@ onShowSizeChange = (current, pageSize) => {
                 overlayClassName="tips"
                 visible={UIState.TipsVisible.PwdTipsShow}
                 title={this.state.PwdTipsTitle}
-                getPopupContainer={e => e.parentNode}
+                getPopupContainer={(e) => e.parentNode}
               >
                 <Input
                   size="small"
@@ -1533,14 +1622,33 @@ onShowSizeChange = (current, pageSize) => {
                   value={this.state.defaultPwd}
                 ></Input>
               </Tips>
-              <div className='PwdStrong' style={{ display: this.state.PwdStrong ? "block" : "none" }}>
+              <div
+                className="PwdStrong"
+                style={{ display: this.state.PwdStrong ? "block" : "none" }}
+              >
                 <span className="strongTips">密码强度：</span>
                 <span className="pwd-box">
-                  <span className={`color-first-${this.state.PwdStrong} box-first `}></span>
-                  <span className={`color-second-${this.state.PwdStrong} box-second`}></span>
-                  <span className={`color-third-${this.state.PwdStrong} box-third`} ></span>
+                  <span
+                    className={`color-first-${this.state.PwdStrong} box-first `}
+                  ></span>
+                  <span
+                    className={`color-second-${this.state.PwdStrong} box-second`}
+                  ></span>
+                  <span
+                    className={`color-third-${this.state.PwdStrong} box-third`}
+                  ></span>
                 </span>
-                <span className={`strongTips tips-color-${this.state.PwdStrong} `}>{this.state.PwdStrong===1?'弱':this.state.PwdStrong===2?'中':this.state.PwdStrong===3?'强':''}</span>
+                <span
+                  className={`strongTips tips-color-${this.state.PwdStrong} `}
+                >
+                  {this.state.PwdStrong === 1
+                    ? "弱"
+                    : this.state.PwdStrong === 2
+                    ? "中"
+                    : this.state.PwdStrong === 3
+                    ? "强"
+                    : ""}
+                </span>
               </div>
             </div>
           }
@@ -1594,11 +1702,11 @@ onShowSizeChange = (current, pageSize) => {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   let { UIState, DataState } = state;
   return {
     UIState,
-    DataState
+    DataState,
   };
 };
 export default connect(mapStateToProps)(Teacher);
