@@ -208,8 +208,15 @@ class Subject extends React.Component {
     dispatch(actions.UpUIState.addSubjectModalOpen());
   };
   onClickTeacherName = id => {
-    const { dispatch } = this.props;
-    dispatch(actions.UpDataState.getTeacherMsg("/GetUserDetail?userID=" + id));
+
+      const { dispatch } = this.props;
+
+      // dispatch(actions.UpDataState.getTeacherMsg("/GetUserDetail?userID=" + id));
+
+      const token = sessionStorage.getItem("token");
+
+      window.open(`/html/userPersona/index.html?userID=${id}&userType=1&lg_tk=${token}`);
+
   };
   onClickTeacherNameNo = () => {};
   //操作分页
