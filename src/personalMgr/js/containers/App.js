@@ -20,7 +20,7 @@ import MCIActions from '../actions/ModuleCommonInfoActions';
 
 import LoginUserActions from '../actions/LoginUserActions';
 
-import logo from "../../images/logo.png";
+import logo from "../../images/个人账号管理.png";
 
 import {getBaseInfo} from '../actions/BaseActions';
 
@@ -104,11 +104,11 @@ class App extends Component{
 
             if (data){
 
-                if (data.PhotoPath===BaseSetting.PhotoPath) {//不需要刷新photo头像
+                if (data.AvatarPath===BaseSetting.AvatarPath) {//不需要刷新photo头像
 
-                    delete data.PhotoPath;
+                    delete data.AvatarPath;
 
-                    delete data.PhotoPath_NoCache;
+                    delete data.AvatarPath;
 
                 }
 
@@ -175,7 +175,7 @@ class App extends Component{
                 }}
                 /*userInfo={{
                     name:LoginUser.UserName,
-                    image:BaseSettings.PhotoPath_NoCache?BaseSettings.PhotoPath_NoCache:LoginUser.PhotoPath_NoCache
+                    image:BaseSettings.AvatarPath?BaseSettings.AvatarPath:LoginUser.AvatarPath
                 }}*/
 
                 type="triangle"
@@ -188,7 +188,7 @@ class App extends Component{
 
                     <div className="frame_left_menu_pic clearfix">
 
-                        <div className="header-pic" style={{backgroundImage:`url(${BaseSettings.PhotoPath_NoCache?BaseSettings.PhotoPath_NoCache:LoginUser.PhotoPath_NoCache})`}}></div>
+                        <div className="header-pic" style={{backgroundImage:`url(${BaseSettings.AvatarPath?BaseSettings.AvatarPath:LoginUser.AvatarPath})`}}></div>
 
                         <div className="user-name">{LoginUser.UserName}</div>
 

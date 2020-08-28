@@ -77,8 +77,11 @@ $image-url: "../images";
                 position: relative;
                 .table {
                     .ant-table-thead {
-                        th:nth-child(1),
-                        th:nth-child(2),
+                        th:nth-child(2) {
+                            // text-align: left;
+                            padding-left: 60px;
+                        }
+                        th:nth-child(1), // th:nth-child(2),
                         th:nth-child(3) {
                             padding: 0 10px;
                         }

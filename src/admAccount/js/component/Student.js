@@ -28,6 +28,7 @@ import history from "../containers/history";
 //import IconLocation from '../../images/icon-location.png'
 import actions from "../actions";
 import UpDataState from "../actions/UpDataState";
+import Config from "../../../common/js/config";
 //import StudentChangeRecord from './StudentChangeRecord'
 class Student extends React.Component {
   constructor(props) {
@@ -65,10 +66,36 @@ class Student extends React.Component {
           },
         },
         {
+          title: "",
+          align: "right",
+          key: "UserImg",
+          width: 70,
+          colSpan: 0,
+          // dataIndex: "UserName",
+          render: (arr) => {
+            return (
+              <div className="name-content">
+                <i
+                  alt={arr.UserName.UserName}
+                  onClick={this.onUserNameClick.bind(this, arr.UserName.key)}
+                  className="name-img"
+                  style={{
+                    width: "47px",
+                    height: "47px",
+                    display: "inline-block",
+                    background: `url(${arr.Others.AvatarPath}) no-repeat center center / 47px`,
+                  }}
+                ></i>
+              </div>
+            );
+          },
+        },
+        {
           title: "姓名",
-          align: "center",
+          align: "left",
           key: "UserName",
-          width: 180,
+          width: 130,
+          colSpan: 2,
           dataIndex: "UserName",
           sorter: true,
           render: (arr) => {
@@ -239,7 +266,12 @@ class Student extends React.Component {
           key: "handle",
           // dataIndex: "key",
           render: (data) => {
-            console.log(data.Others.IsEnable,data.key,props.DataState.GradeStudentPreview.newList,data.Others.IsEnable ? "red" : "green" )
+            console.log(
+              data.Others.IsEnable,
+              data.key,
+              props.DataState.GradeStudentPreview.newList,
+              data.Others.IsEnable ? "red" : "green"
+            );
             return (
               <div className="handle-content">
                 <Button
@@ -293,7 +325,7 @@ class Student extends React.Component {
         "密码应由8-20位字母、数字及特殊字符`~!@#$%^&*()_+-={}|[]:\";'<>?,./\\的任意两种及以上组成",
       ChangeAllPwdMadalVisible: false,
       PwdStrong: 0,
-      pageSize:10
+      pageSize: 10,
     };
     window.StudentCancelSearch = this.StudentCancelSearch.bind(this);
   }
@@ -353,7 +385,9 @@ class Student extends React.Component {
         actions.UpDataState.getGradeStudentPreview(
           "/GetStudentToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize="+this.state.pageSize+ "&gradeID=" +
+            "&PageIndex=0&PageSize=" +
+            this.state.pageSize +
+            "&gradeID=" +
             e.value +
             this.state.sortFiled +
             this.state.sortType
@@ -376,7 +410,9 @@ class Student extends React.Component {
         actions.UpDataState.getGradeStudentPreview(
           "/GetStudentToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize="+this.state.pageSize+ "" +
+            "&PageIndex=0&PageSize=" +
+            this.state.pageSize +
+            "" +
             this.state.sortFiled +
             this.state.sortType
         )
@@ -411,7 +447,9 @@ class Student extends React.Component {
         actions.UpDataState.getGradeStudentPreview(
           "/GetStudentToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize="+this.state.pageSize+ "&gradeID=" +
+            "&PageIndex=0&PageSize=" +
+            this.state.pageSize +
+            "&gradeID=" +
             this.state.firstSelect.value +
             "&classID=" +
             e.value +
@@ -424,7 +462,9 @@ class Student extends React.Component {
         actions.UpDataState.getGradeStudentPreview(
           "/GetStudentToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageIndex=0&PageSize="+this.state.pageSize+ "&gradeID=" +
+            "&PageIndex=0&PageSize=" +
+            this.state.pageSize +
+            "&gradeID=" +
             this.state.firstSelect.value +
             this.state.sortFiled +
             this.state.sortType
@@ -467,7 +507,9 @@ class Student extends React.Component {
       actions.UpDataState.getGradeStudentPreview(
         "/GetStudentToPage?SchoolID=" +
           this.state.userMsg.SchoolID +
-          "&PageIndex=0&PageSize="+this.state.pageSize+ "&keyword=" +
+          "&PageIndex=0&PageSize=" +
+          this.state.pageSize +
+          "&keyword=" +
           e.value +
           (this.state.firstSelect.value
             ? "&gradeID=" + this.state.firstSelect.value
@@ -511,7 +553,9 @@ class Student extends React.Component {
           this.state.userMsg.SchoolID +
           "&PageIndex=" +
           0 +
-          "&PageSize="+this.state.pageSize+ "" +
+          "&PageSize=" +
+          this.state.pageSize +
+          "" +
           (this.state.firstSelect.value
             ? "&gradeID=" + this.state.firstSelect.value
             : "") +
@@ -718,7 +762,9 @@ class Student extends React.Component {
                 this.state.userMsg.SchoolID +
                 "&PageIndex=" +
                 (this.state.pagination - 1) +
-                "&PageSize="+this.state.pageSize+ "&keyword=" +
+                "&PageSize=" +
+                this.state.pageSize +
+                "&keyword=" +
                 this.state.keyword +
                 (this.state.firstSelect.value
                   ? "&gradeID=" + this.state.firstSelect.value
@@ -782,7 +828,9 @@ class Student extends React.Component {
                   this.state.userMsg.SchoolID +
                   "&PageIndex=" +
                   (this.state.pagination - 1) +
-                  "&PageSize="+this.state.pageSize+ "&keyword=" +
+                  "&PageSize=" +
+                  this.state.pageSize +
+                  "&keyword=" +
                   this.state.keyword +
                   (this.state.firstSelect.value
                     ? "&gradeID=" + this.state.firstSelect.value
@@ -848,7 +896,9 @@ class Student extends React.Component {
                   this.state.userMsg.SchoolID +
                   "&PageIndex=" +
                   (this.state.pagination - 1) +
-                  "&PageSize="+this.state.pageSize+ "&keyword=" +
+                  "&PageSize=" +
+                  this.state.pageSize +
+                  "&keyword=" +
                   this.state.keyword +
                   (this.state.firstSelect.value
                     ? "&gradeID=" + this.state.firstSelect.value
@@ -957,7 +1007,9 @@ class Student extends React.Component {
                 this.state.userMsg.SchoolID +
                 "&PageIndex=" +
                 (this.state.pagination - 1) +
-                "&PageSize="+this.state.pageSize+ "&keyword=" +
+                "&PageSize=" +
+                this.state.pageSize +
+                "&keyword=" +
                 this.state.keyword +
                 (this.state.firstSelect.value
                   ? "&gradeID=" + this.state.firstSelect.value
@@ -1003,7 +1055,9 @@ class Student extends React.Component {
           this.state.userMsg.SchoolID +
           "&PageIndex=" +
           --value +
-          "&PageSize="+this.state.pageSize+ "" +
+          "&PageSize=" +
+          this.state.pageSize +
+          "" +
           keyword +
           firstSelect +
           secondSelect +
@@ -1051,7 +1105,9 @@ class Student extends React.Component {
             this.state.userMsg.SchoolID +
             "&sortFiled=" +
             sorter.columnKey +
-            "&PageSize="+this.state.pageSize+ "&" +
+            "&PageSize=" +
+            this.state.pageSize +
+            "&" +
             sortType +
             "&PageIndex=" +
             (this.state.pagination - 1) +
@@ -1076,7 +1132,9 @@ class Student extends React.Component {
         actions.UpDataState.getGradeStudentPreview(
           "/GetStudentToPage?SchoolID=" +
             this.state.userMsg.SchoolID +
-            "&PageSize="+this.state.pageSize+ "" +
+            "&PageSize=" +
+            this.state.pageSize +
+            "" +
             "&PageIndex=" +
             (this.state.pagination - 1) +
             keyword +
@@ -1223,7 +1281,7 @@ class Student extends React.Component {
       checkedList: [],
       checkAll: false,
       pageSize,
-      pagination:1,
+      pagination: 1,
       firstSelectStr: firstSelect,
       secondSelectStr: secondSelect,
       keywordStr: keyword,
@@ -1241,7 +1299,9 @@ class Student extends React.Component {
           this.state.userMsg.SchoolID +
           "&PageIndex=" +
           0 +
-          "&PageSize="+pageSize+ "" +
+          "&PageSize=" +
+          pageSize +
+          "" +
           keyword +
           firstSelect +
           secondSelect +
@@ -1274,15 +1334,21 @@ class Student extends React.Component {
             <span className="top-tips">
               <span className="tips menu39 ">学生账号管理</span>
             </span>
-            {/* <div className='top-nav'>
-                            <Link className='link'  to='/GraduteArchives' replace>查看毕业生档案</Link>
+            <div className="top-nav">
+              {/* <Link className='link'  to='/GraduteArchives' replace>查看毕业生档案</Link>
                             <span className='divide'>|</span>
                             <Link className='link' target='_blank' to='/RegisterExamine' replace>学生注册审核</Link>
                             <span className='divide'>|</span>
                             <span className='link' style={{cursor:'pointer'}}  onClick={this.onAddStudent}>添加学生</span>
                             <span className='divide'>|</span>
-                            <Link className='link' to='/ImportStudent' replace>导入学生</Link>
-                        </div> */}
+                            <Link className='link' to='/ImportStudent' replace>导入学生</Link> */}
+              <span className="goto">
+                如需添加学生，请前往
+                <a target="_black" href={Config.BasicProxy+'/html/admArchives/index.html#/UserArchives/Student/all'} className="link">
+                  学生档案管理
+                </a>
+              </span>
+            </div>
           </div>
           <div className="Student-hr"></div>
           <div className="Student-content">
@@ -1394,7 +1460,9 @@ class Student extends React.Component {
                       showSizeChanger
                       pageSize={this.state.pageSize}
                       current={this.state.pagination}
-                      hideOnSinglePage={DataState.GradeStudentPreview.Total===0?true:false}
+                      hideOnSinglePage={
+                        DataState.GradeStudentPreview.Total === 0 ? true : false
+                      }
                       total={DataState.GradeStudentPreview.Total}
                       onChange={this.onPagiNationChange}
                       onShowSizeChange={this.onShowSizeChange}

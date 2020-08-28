@@ -14,7 +14,8 @@ class TopMenu extends React.Component {
       ],
     };
   }
-  onSelectMenu = (key) => {
+  onSelectMenu = (data) => {
+    let { value: key, icon } = data;
     let route = history.location.pathname;
 
     let pathArr = route.split("/");
@@ -23,18 +24,22 @@ class TopMenu extends React.Component {
       // console.log(key)
       if (handleRoute === "Student") {
         window.StudentCancelSearch();
+        history.push("/UserArchives/" + key + "/all");
       } else if (handleRoute === "Teacher") {
         window.TeacherCancelSearch();
+        history.push("/UserArchives/" + key + "/all");
       } else if (handleRoute === "Leader") {
         window.LeaderCancelSearch();
+        history.push("/UserArchives/" + key + "/all");
+      } else if (icon === "Face") {
+        window.location.href = key;
+      } else {
+        history.push("/UserArchives/" + key + "/all");
       }
-      history.push("/UserArchives/" + key + "/all");
     } else {
       history.push("/UserArchives/" + key);
     }
     // history.push('/'+key)
-
-   
   };
 
   render() {
@@ -48,12 +53,13 @@ class TopMenu extends React.Component {
       <div className="top-menu">
         {List instanceof Array &&
           List.map((child, index) => {
-
             return (
               <span
-              key={index}
-                onClick={this.onSelectMenu.bind(this, child.value)}
-                className={`menu-bar ${handleRoute === child.value?'active':''}`}
+                key={index}
+                onClick={this.onSelectMenu.bind(this, child)}
+                className={`menu-bar ${
+                  handleRoute === child.value ? "active" : ""
+                }`}
               >
                 <span className={`bar-content ${"bar-icon-" + child.icon}`}>
                   {child.title}

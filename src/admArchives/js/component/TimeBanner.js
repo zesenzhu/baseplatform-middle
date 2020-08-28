@@ -8,7 +8,7 @@ import {
   BrowserRouter,
 } from "react-router-dom";
 import history from "../containers/history";
-import TopMenu from './newEdition/TopMenu'
+import TopMenu from "./newEdition/TopMenu";
 import { Button } from "../../../common";
 class TimeBanner extends React.Component {
   constructor(props) {
@@ -20,6 +20,7 @@ class TimeBanner extends React.Component {
         { value: "Teacher", title: "教师档案", icon: "Teacher" },
         { value: "Leader", title: "领导档案", icon: "Leader" },
         { value: "Graduate", title: "毕业生档案 ", icon: "Graduate" },
+        // { value: "Graduate", title: "毕业生档案 ", icon: "Graduate" },
       ],
     };
   }
@@ -46,23 +47,35 @@ class TimeBanner extends React.Component {
   render() {
     const { DataState, UIState, route } = this.props;
     // let {List} = this.state
+    let {
+      MainData: { SysUrl },
+ 
+    } = DataState;
     let userMsg = DataState.LoginUser;
     let AdminPower = true;
     // if (userMsg.UserType === "7" && userMsg.UserClass === "2") {
     //   AdminPower = false;
     // }
+    let { LockerVersion } = JSON.parse(
+      sessionStorage.getItem("LgBasePlatformInfo")
+    )?JSON.parse(//校园基础信息管理 XG5.2-免费版,1为基础版
+      sessionStorage.getItem("LgBasePlatformInfo")
+    ):{};
+    let token =  
+      sessionStorage.getItem("token")
+     
     let pathname = history.location.pathname;
 
     let pathArr = pathname.split("/");
     let handleRoute = pathArr[2];
     // console.log(handleRoute);
-    let List = []
-    if(userMsg.UserType === "7" ){
-        this.state.List.map((child,index)=>{
-        if(child.value!=='Leader'){
-          List.push(child)
+    let List = [];
+    if (userMsg.UserType === "7") {
+      this.state.List.map((child, index) => {
+        if (child.value !== "Leader") {
+          List.push(child);
         }
-      })
+      });
       // if(children[children.length-1].key==='Leader'){
       //   Menu.children.pop();
       // }
@@ -73,10 +86,31 @@ class TimeBanner extends React.Component {
       //     MenuParams:Menu
       //   }
       // )
-    }else{
-      List = this.state.List
+    } else {
+      List = this.state.List;
     }
-    
+    if (LockerVersion === "1") {
+      //校园基础信息管理 XG5.2-免费版,1为基础版
+      let CopyList = List;
+      List = [];
+      CopyList.map((child, index) => {
+        if (child.value !== "Graduate") {
+          List.push(child);
+        }
+      });
+    }
+    if (SysUrl instanceof Array && SysUrl.length > 0&&userMsg.UserType === "0") {
+      let CopyList = List;
+      List = [];
+      CopyList.map((child, index) => {
+          List.push(child);
+      });
+      List.push({
+        value: SysUrl[0].WebSvrAddr+'?lg_tk='+token,
+        title: "人脸库 ",
+        icon: "Face",
+      });
+    }
     return (
       <Router>
         <TopMenu List={List}></TopMenu>

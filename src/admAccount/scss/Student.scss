@@ -28,11 +28,19 @@ $image-url: "../images";
             }
             .top-nav {
                 float: right;
+                line-height: 37px;
+                .goto {
+                    color: #999;
+                    font-size: 14px;
+                }
                 .link {
                     color: #0099ff;
                     font-size: 14px;
                     line-height: 37px;
                     text-decoration: underline;
+                    &:hover {
+                        color: #ff6600;
+                    }
                 }
                 .divide {
                     position: relative;
@@ -77,8 +85,11 @@ $image-url: "../images";
                 position: relative;
                 .table {
                     .ant-table-thead {
-                        th:nth-child(1),
-                        th:nth-child(2),
+                        th:nth-child(2) {
+                            // text-align: left;
+                            padding-left: 60px;
+                        }
+                        th:nth-child(1), // th:nth-child(2),
                         th:nth-child(3) {
                             padding: 0 10px;
                         }

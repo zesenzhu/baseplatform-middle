@@ -5,14 +5,14 @@ import UserArchives from "../component/UserArchives";
 import {
   TokenCheck_Connect,
   TokenCheck,
-  getUserInfo
+  getUserInfo,
 } from "../../../common/js/disconnect";
 import config from "../../../common/js/config";
 import {
   HashRouter as Router,
   Route,
   Link,
-  BrowserRouter
+  BrowserRouter,
 } from "react-router-dom";
 import history from "./history";
 import RegisterExamine from "../component/RegisterExamine";
@@ -30,6 +30,7 @@ import { getData } from "../../../common/js/fetch";
 import actions from "../actions";
 import { urlAll, proxy } from "./config";
 import { QueryPower, QueryAdminPower } from "../../../common/js/power";
+import UpDataState from "../actions/UpDataState";
 
 const PROFILE_MODULEID = "000-2-0-05"; //用户档案管理模块ID
 
@@ -38,7 +39,7 @@ class App extends Component {
     super(props);
     const { dispatch } = props;
     this.state = {
-      AdminPower: true
+      AdminPower: true,
     };
     let route = history.location.pathname;
     //判断token是否存在
@@ -58,7 +59,7 @@ class App extends Component {
         that.requestData(route);
       } else {
         getUserInfo(token, "000");
-        let timeRun = setInterval(function() {
+        let timeRun = setInterval(function () {
           if (sessionStorage.getItem("UserInfo")) {
             dispatch(
               actions.UpDataState.getLoginUser(
@@ -82,10 +83,10 @@ class App extends Component {
     let route = history.location.pathname;
     // 获取接口数据
     getData(config.PicProxy + "/Global/GetResHttpServerAddr")
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         if (json.StatusCode === 400) {
           //console.log(json.StatusCode)
         } else if (json.StatusCode === 200) {
@@ -93,7 +94,7 @@ class App extends Component {
           dispatch({ type: actions.UpDataState.GET_PIC_URL, data: json.Data });
         }
       });
-    this.requestData(route);
+    // this.requestData(route);
     if (
       history.location.pathname === "/" ||
       history.location.pathname === "/UserArchives"
@@ -124,6 +125,9 @@ class App extends Component {
         // console.log(this.state)
       }
     });
+
+    // 获取人脸库地址
+    dispatch(UpDataState.GetSubSystemsMainServerBySubjectID());
   }
   componentWillUpdate() {}
   componentDidUpdate() {}
@@ -208,7 +212,7 @@ class App extends Component {
     dispatch(actions.UpUIState.hideErrorAlert());
   }
   // 请求每个组件主要渲染的数据
-  requestData = route => {
+  requestData = (route) => {
     const { dispatch, DataState } = this.props;
     if (
       !DataState.LoginUser.SchoolID &&
@@ -221,9 +225,18 @@ class App extends Component {
       : JSON.parse(sessionStorage.getItem("UserInfo"));
     let havePower = QueryPower({
       UserInfo: userMsg,
-      ModuleID: PROFILE_MODULEID
+      ModuleID: PROFILE_MODULEID,
     });
-    havePower.then(res => {
+    let { LockerVersion } = JSON.parse(
+      //校园基础信息管理 XG5.2-免费版,1为基础版
+      sessionStorage.getItem("LgBasePlatformInfo")
+    )
+      ? JSON.parse(
+          //校园基础信息管理 XG5.2-免费版,1为基础版
+          sessionStorage.getItem("LgBasePlatformInfo")
+        )
+      : {};
+    havePower.then((res) => {
       // console.log(res)
       if (res) {
         let AdminPower = true;
@@ -278,22 +291,22 @@ class App extends Component {
             } else if (handleRoute === "Teacher") {
               // console.log("Teacher：" + DataState.SubjectTeacherMsg.returnData);
               // if (!DataState.SubjectTeacherMsg.returnData || ID !== "all") {
-                //学科信息
-                console.log(ID);
-                dispatch(
-                  actions.UpDataState.getSubjectTeacherMsg(
-                    "/GetSubject?schoolID=" + userMsg.SchoolID,
-                    ID
-                  )
-                );
+              //学科信息
+              console.log(ID);
+              dispatch(
+                actions.UpDataState.getSubjectTeacherMsg(
+                  "/GetSubject?schoolID=" + userMsg.SchoolID,
+                  ID
+                )
+              );
               // }
               // if (!DataState.TeacherTitleMsg.returnData) {
-                //职称
-                dispatch(
-                  actions.UpDataState.getTeacherTitleMsg(
-                    "/GetTitle?schoolID=" + userMsg.SchoolID
-                  )
-                );
+              //职称
+              dispatch(
+                actions.UpDataState.getTeacherTitleMsg(
+                  "/GetTitle?schoolID=" + userMsg.SchoolID
+                )
+              );
               // }
               // console.log(ID);
               if (ID === "all") {
@@ -329,44 +342,59 @@ class App extends Component {
                 )
               );
             } else if (handleRoute === "Graduate") {
-              if (DataState.GetGraduateGradeClassMsg.Grade.length <= 1)
+              if (LockerVersion !== "1") {
+                if (DataState.GetGraduateGradeClassMsg.Grade.length <= 1)
+                  dispatch(
+                    actions.UpDataState.getGraduateGradeClassMsg(
+                      "/GetGradeClassOfGraduate?SchoolID=" + userMsg.SchoolID
+                    )
+                  );
                 dispatch(
-                  actions.UpDataState.getGraduateGradeClassMsg(
-                    "/GetGradeClassOfGraduate?SchoolID=" + userMsg.SchoolID
+                  actions.UpDataState.getGraduatePreview(
+                    "/GetGraduate?PageIndex=0&PageSize=10&schoolID=" +
+                      userMsg.SchoolID
                   )
                 );
-              dispatch(
-                actions.UpDataState.getGraduatePreview(
-                  "/GetGraduate?PageIndex=0&PageSize=10&schoolID=" +
-                    userMsg.SchoolID
-                )
-              );
+              } else {
+                window.location.href =
+                  config.ErrorProxy + "/LockerMgr/ErrorTips.aspx?ErrorCode=-3";
+              }
             } else if (handleRoute === "LogDynamic") {
-              if (!AdminPower) {
-                history.push("/UserArchives/All");
-                return;
-              }
-              dispatch(actions.UpUIState.RightLoadingOpen());
+              if (LockerVersion !== "1") {
+                if (!AdminPower) {
+                  history.push("/UserArchives/All");
+                  return;
+                }
+                dispatch(actions.UpUIState.RightLoadingOpen());
 
-              dispatch(
-                actions.UpDataState.getUnreadLogPreview(
-                  "/GetUnreadLogToPage?UserType=-1&OperationType=-1&PageIndex=0&PageSize=10&OnlineUserID=" +
-                    userMsg.UserID
-                )
-              );
-            } else if (handleRoute === "LogRecord") {
-              if (!AdminPower) {
-                history.push("/UserArchives/All");
-                return;
+                dispatch(
+                  actions.UpDataState.getUnreadLogPreview(
+                    "/GetUnreadLogToPage?UserType=-1&OperationType=-1&PageIndex=0&PageSize=10&OnlineUserID=" +
+                      userMsg.UserID
+                  )
+                );
+              } else {
+                window.location.href =
+                  config.ErrorProxy + "/LockerMgr/ErrorTips.aspx?ErrorCode=-3";
               }
-              dispatch(actions.UpUIState.RightLoadingOpen());
-              dispatch(
-                actions.UpDataState.getLogRecordPreview(
-                  "/GetAllLogToPage?SchoolID=" +
-                    userMsg.SchoolID +
-                    "&UserType=-1&OperationType=-1&PageIndex=0&PageSize=10"
-                )
-              );
+            } else if (handleRoute === "LogRecord") {
+              if (LockerVersion !== "1") {
+                if (!AdminPower) {
+                  history.push("/UserArchives/All");
+                  return;
+                }
+                dispatch(actions.UpUIState.RightLoadingOpen());
+                dispatch(
+                  actions.UpDataState.getLogRecordPreview(
+                    "/GetAllLogToPage?SchoolID=" +
+                      userMsg.SchoolID +
+                      "&UserType=-1&OperationType=-1&PageIndex=0&PageSize=10"
+                  )
+                );
+              } else {
+                window.location.href =
+                  config.ErrorProxy + "/LockerMgr/ErrorTips.aspx?ErrorCode=-3";
+              }
             } else if (handleRoute === "All") {
               dispatch(actions.UpDataState.getAllUserPreview("/GetSummary"));
               dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
@@ -512,7 +540,7 @@ class App extends Component {
           //     }
           //   });
           // }
-          
+
           // dispatch(
           //   actions.UpDataState.GetCollege_Univ(
           //     "/GetCollege_Univ?schoolID=" + userMsg.SchoolID
@@ -525,9 +553,7 @@ class App extends Component {
           ) {
             history.push("/TeacherRegisterExamine/TeacherRegisterWillExamine");
           }
-
-         
-        }else if (
+        } else if (
           (userMsg.UserType === "0" || userMsg.UserType === "7") &&
           route.split("/")[1] === "ImportFile"
         ) {
@@ -540,10 +566,16 @@ class App extends Component {
           ) {
             history.push("/UserArchives/All");
           }
-          let role = route.split("/")[2]
+          let role = route.split("/")[2];
           dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
-        document.title=role === 'Teacher' ? '导入教师档案' :role === 'Leader'?'导入领导档案'  :role === 'Student'?'导入学生档案':'导入毕业生档案'
-
+          document.title =
+            role === "Teacher"
+              ? "导入教师档案"
+              : role === "Leader"
+              ? "导入领导档案"
+              : role === "Student"
+              ? "导入学生档案"
+              : "导入毕业生档案";
         } else {
           if (userMsg.UserType === "0" || userMsg.UserType === "7") {
             history.push("/UserArchives/All");
@@ -568,12 +600,12 @@ class App extends Component {
     }
   };
   //左侧菜单每项的点击事件
-  handleClick = key => {
+  handleClick = (key) => {
     // console.log(key);
     history.push("/" + key);
   };
   //每个组件的下拉菜单的数据请求
-  AllDropDownMenu = route => {};
+  AllDropDownMenu = (route) => {};
 
   render() {
     const { UIState, DataState } = this.props;
@@ -586,20 +618,20 @@ class App extends Component {
           size="large"
           spinning={UIState.AppLoading.appLoading}
         > */}
-          {UserID ? (
-            <Router>
-              <Route path="/UserArchives" component={UserArchives}></Route>
-              <Route
-                path="/RegisterExamine"
-                component={RegisterExamine}
-              ></Route>
-            <Route path="/TeacherRegisterExamine" component={TeacherRegisterExamine}></Route>
+        {UserID ? (
+          <Router>
+            <Route path="/UserArchives" component={UserArchives}></Route>
+            <Route path="/RegisterExamine" component={RegisterExamine}></Route>
+            <Route
+              path="/TeacherRegisterExamine"
+              component={TeacherRegisterExamine}
+            ></Route>
 
-              <Route path="/ImportFile/:role" component={ImportFile}></Route>
-            </Router>
-          ) : (
-            ""
-          )}
+            <Route path="/ImportFile/:role" component={ImportFile}></Route>
+          </Router>
+        ) : (
+          ""
+        )}
         {/* </Loading> */}
         <Alert
           show={UIState.AppAlert.appAlert}
@@ -614,11 +646,11 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   let { UIState, DataState } = state;
   return {
     UIState,
-    DataState
+    DataState,
   };
 };
 export default connect(mapStateToProps)(App);

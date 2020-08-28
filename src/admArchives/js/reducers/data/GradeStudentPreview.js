@@ -44,6 +44,7 @@ function handleData(data,pageIndex,pageSize){
             userIDCard:child.IDCardNo,
             userPhone:child.Telephone,
             userMail:child.Email,
+            userType:child.UserType,
             userAddress:child.HomeAddress
         }
         pensonalList.push(person)

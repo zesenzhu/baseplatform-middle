@@ -73,10 +73,11 @@ class Graduate extends React.Component {
                   onClick={this.onUserNameClick.bind(this, arr.key)}
                   className="name-img"
                   style={{
-                    width: "47px",
+                    width: "37.5px",
                     height: "47px",
                     display: "inline-block",
-                    background: `url(${arr.UserImg}) no-repeat center center / 47px`,
+                    background: `url(${arr.UserImg}) no-repeat center center / 100% auto`,
+                    
                   }}
                 ></i>
               </div>

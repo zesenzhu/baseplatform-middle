@@ -20,7 +20,7 @@ import LogRecordPreview from './data/LogRecordPreview';
 import GetPicUrl from './data/GetPicUrl';
 import GetUserLog from './data/GetUserLog';
 import GetTeacherSignUpLog from './data/GetTeacherSignUpLog';
-
+import MainData from './data/MainData'
 const DataState=combineReducers(
     {
         LoginUser,
@@ -43,6 +43,6 @@ const DataState=combineReducers(
         LogRecordPreview,
         GetPicUrl,
         GetUserLog,
-        GetTeacherSignUpLog
+        GetTeacherSignUpLog,MainData
     });
 export default DataState;

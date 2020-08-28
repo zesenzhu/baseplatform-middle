@@ -78,10 +78,10 @@ class LogRecord extends React.Component {
                   onClick={this.onUserNameClick.bind(this, arr.key)}
                   className="name-img"
                   style={{
-                    width: "47px",
+                    width: "37.5px",
                     height: "47px",
                     display: "inline-block",
-                    background: `url(${arr.PhotoPath}) no-repeat center center / 47px`,
+                    background: `url(${arr.PhotoPath}) no-repeat center center / 100% auto`,
                   }}
                 ></i>
               </div>
@@ -264,7 +264,8 @@ class LogRecord extends React.Component {
           e.value +
           "&PageIndex=" +
           (this.state.pagination - 1) +
-          "&pageSize="+this.state.pageSize +
+          "&pageSize=" +
+          this.state.pageSize +
           this.state.SortType +
           this.state.sortFiled
       )
@@ -291,7 +292,8 @@ class LogRecord extends React.Component {
           this.state.FileTypeSelect.value +
           "&PageIndex=" +
           (this.state.pagination - 1) +
-          "&pageSize="+this.state.pageSize +
+          "&pageSize=" +
+          this.state.pageSize +
           this.state.SortType +
           this.state.sortFiled
       )
@@ -348,7 +350,8 @@ class LogRecord extends React.Component {
                 this.state.HandleTypeSelect.value +
                 "&UserType=" +
                 this.state.FileTypeSelect.value +
-                "&PageIndex=0&pageSize="+this.state.pageSize
+                "&PageIndex=0&pageSize=" +
+                this.state.pageSize
             )
           );
           this.setState({
@@ -409,7 +412,8 @@ class LogRecord extends React.Component {
                 this.state.HandleTypeSelect.value +
                 "&UserType=" +
                 this.state.FileTypeSelect.value +
-                "&PageIndex=0&pageSize="+this.state.pageSize
+                "&PageIndex=0&pageSize=" +
+                this.state.pageSize
             )
           );
           this.setState({
@@ -429,11 +433,24 @@ class LogRecord extends React.Component {
       UserType: userInfo.UserType,
     });
     if (!userInfo.Deleted) {
-      dispatch(
-        actions.UpDataState.getUserMsg(
-          "/GetUserDetail?userid=" + userInfo.UserName.UserID
-        )
-      );
+      if (userInfo.UserType === 1 || userInfo.UserType === 2) {
+        //学生教师调到个人画像
+        let token = sessionStorage.getItem("token");
+        window.open(
+          "/html/userPersona#/?&userType=" +
+            userInfo.UserType +
+            "&userID=" +
+            userInfo.userID +
+            "&lg_tk=" +
+            token
+        );
+      } else {
+        dispatch(
+          actions.UpDataState.getUserMsg(
+            "/GetUserDetail?userid=" + userInfo.UserName.UserID
+          )
+        );
+      }
     } else {
       // dispatch(actions.UpUIState.showErrorAlert({
       //     type: 'btn-warn',
@@ -598,7 +615,8 @@ class LogRecord extends React.Component {
                 this.state.HandleTypeSelect.value +
                 "&UserType=" +
                 this.state.FileTypeSelect.value +
-                "&PageIndex=0&pageSize="+this.state.pageSize
+                "&PageIndex=0&pageSize=" +
+                this.state.pageSize
             )
           );
           this.setState({
@@ -639,7 +657,8 @@ class LogRecord extends React.Component {
             this.state.FileTypeSelect.value +
             "&PageIndex=" +
             (this.state.pagination - 1) +
-            "&pageSize="+this.state.pageSize +
+            "&pageSize=" +
+            this.state.pageSize +
             sortType +
             sortFiled
         )
@@ -663,7 +682,8 @@ class LogRecord extends React.Component {
             this.state.FileTypeSelect.value +
             "&PageIndex=" +
             (this.state.pagination - 1) +
-            "&pageSize="+this.state.pageSize
+            "&pageSize=" +
+            this.state.pageSize
         )
       );
       this.setState({
@@ -690,7 +710,9 @@ class LogRecord extends React.Component {
           this.state.FileTypeSelect.value +
           "&PageIndex=" +
           (value - 1) +
-          "&pageSize="+this.state.pageSize+"&" +
+          "&pageSize=" +
+          this.state.pageSize +
+          "&" +
           this.state.SortType +
           this.state.sortFiled
       )
@@ -740,7 +762,8 @@ class LogRecord extends React.Component {
           this.state.HandleTypeSelect.value +
           "&UserType=" +
           this.state.FileTypeSelect.value +
-          "&PageIndex=0&pageSize="+this.state.pageSize
+          "&PageIndex=0&pageSize=" +
+          this.state.pageSize
       )
     );
     this.setState({
@@ -760,7 +783,8 @@ class LogRecord extends React.Component {
             this.state.HandleTypeSelect.value +
             "&UserType=" +
             this.state.FileTypeSelect.value +
-            "&PageIndex=0&pageSize="+this.state.pageSize
+            "&PageIndex=0&pageSize=" +
+            this.state.pageSize
         )
       );
       this.setState({
@@ -785,7 +809,8 @@ class LogRecord extends React.Component {
           this.state.HandleTypeSelect.value +
           "&UserType=" +
           this.state.FileTypeSelect.value +
-          "&PageIndex=0&pageSize="+this.state.pageSize
+          "&PageIndex=0&pageSize=" +
+          this.state.pageSize
       )
     );
     this.setState({
@@ -806,7 +831,8 @@ class LogRecord extends React.Component {
             this.state.HandleTypeSelect.value +
             "&UserType=" +
             this.state.FileTypeSelect.value +
-            "&PageIndex=0&pageSize="+this.state.pageSize
+            "&PageIndex=0&pageSize=" +
+            this.state.pageSize
         )
       );
       this.setState({
@@ -837,7 +863,7 @@ class LogRecord extends React.Component {
       pageSize,
       checkedList: [],
       checkAll: false,
-      pagination:1
+      pagination: 1,
     });
 
     dispatch(
@@ -852,7 +878,9 @@ class LogRecord extends React.Component {
           this.state.FileTypeSelect.value +
           "&PageIndex=" +
           0 +
-          "&PageSize="+pageSize+"&" +
+          "&PageSize=" +
+          pageSize +
+          "&" +
           this.state.SortType +
           this.state.sortFiled
       )

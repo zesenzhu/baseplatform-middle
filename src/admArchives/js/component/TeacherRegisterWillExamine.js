@@ -83,45 +83,45 @@ class TeacherRegisterWillExamine extends React.Component {
             );
           },
         },
-        {
-          title: "",
-          align: "right",
-          dataIndex: "UserName",
-          colSpan: 0,
-          key: "UserImg",
-          width: 60,
-          render: (arr) => {
-            return (
-              <div className="name-content">
-                {/* <img
-                  alt={arr.UserName}
-                  onClick={this.onUserNameClick.bind(this, arr.key)}
-                  className="name-img"
-                  width="47"
-                  height="47"
-                  src={arr.PhotoPath}
-                ></img> */}
-                <i
-                  alt={arr.UserName}
-                  onClick={this.onUserNameClick.bind(this, arr.key)}
-                  className="name-img"
-                  style={{
-                    width: "47px",
-                    height: "47px",
-                    display: "inline-block",
-                    background: `url(${arr.PhotoPath}) no-repeat center center / 47px`,
-                  }}
-                ></i>
-              </div>
-            );
-          },
-        },
+        // {
+        //   title: "",
+        //   align: "right",
+        //   dataIndex: "UserName",
+        //   colSpan: 0,
+        //   key: "UserImg",
+        //   width: 60,
+        //   render: (arr) => {
+        //     return (
+        //       <div className="name-content">
+        //         {/* <img
+        //           alt={arr.UserName}
+        //           onClick={this.onUserNameClick.bind(this, arr.key)}
+        //           className="name-img"
+        //           width="47"
+        //           height="47"
+        //           src={arr.PhotoPath}
+        //         ></img> */}
+        //         <i
+        //           alt={arr.UserName}
+        //           onClick={this.onUserNameClick.bind(this, arr.key)}
+        //           className="name-img"
+        //           style={{
+        //             width: "47px",
+        //             height: "47px",
+        //             display: "inline-block",
+        //             background: `url(${arr.PhotoPath}) no-repeat center center / 47px`,
+        //           }}
+        //         ></i>
+        //       </div>
+        //     );
+        //   },
+        // },
         {
           title: "姓名",
-          align: "left",
+          align: "center",
           dataIndex: "UserName",
-          colSpan: 2,
-          width: 100,
+          colSpan: 1,
+          width: 160,
           key: "UserName",
           sorter: true,
           render: (arr) => {
@@ -130,7 +130,7 @@ class TeacherRegisterWillExamine extends React.Component {
                 <span
                   title={arr.UserName}
                   className="name-UserName"
-                  onClick={this.onUserNameClick.bind(this, arr.key)}
+                  // onClick={this.onUserNameClick.bind(this, arr.key)}
                 >
                   {arr.UserName}
                 </span>

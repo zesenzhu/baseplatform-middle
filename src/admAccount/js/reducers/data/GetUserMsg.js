@@ -22,7 +22,7 @@ function handleData(data) {
   }
   return {
     userName: data.UserName,
-    userImg: data.PhotoPath_NoCache || data.PhotoPath,
+    userImg: data.AvatarPath  ,
     Gende: data.Gender,
     userText: data.Sign,
     userID: data.UserID,

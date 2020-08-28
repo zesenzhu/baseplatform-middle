@@ -27,6 +27,9 @@
             &.bar-icon-Graduate {
                 background: url(../../images/menu-icon28.png)no-repeat 20px center /15px 15px;
             }
+            &.bar-icon-Face {
+                background: url(../../images/人脸库.png)no-repeat 20px center /15px 15px;
+            }
         }
         &:last-of-type {
             .bar-content {
@@ -51,6 +54,9 @@
                 }
                 &.bar-icon-Graduate {
                     background: url(../../images/menu-icon28-hover.png)no-repeat 20px center /15px 15px;
+                }
+                &.bar-icon-Face {
+                    background: url(../../images/人脸库_9.png)no-repeat 20px center /15px 15px;
                 }
             }
         }
