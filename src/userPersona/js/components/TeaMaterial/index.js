@@ -43,7 +43,7 @@ class TeaMaterial extends Component {
         },
       },
       systemUrl: { Urls },
-      loginUser: { SchoolID },
+      loginUser: { SchoolID,SubjectIDs },
       targetUser: { UserID, UserType },
       termInfo: { Term },
       userArchives: { ShortName, ClassID, GradeID, UserName },
@@ -101,8 +101,10 @@ class TeaMaterial extends Component {
     }
     // 教案
     if (!secondShow && token && StartTime && EndTime && Urls["310"].WebUrl) {
+     
       this.setState({
         secondShow: true,
+        secondSubjectID: SubjectIDs.split(',')[0],
       });
       dispatch(
         CommonActions.SetTeaMaterialParams({
@@ -114,7 +116,7 @@ class TeaMaterial extends Component {
           // SelectBar: "NearExam",
         })
       );
-
+       
       dispatch(
         MainActions.GetTeachPlanStatistics({
           func: this.TeachPlanChart,
@@ -574,7 +576,7 @@ class TeaMaterial extends Component {
       seriesName !== "同学科" &&
       Urls["300"] &&
       Urls["300"].WebUrl &&
-      type === "second"
+      type === "second"&&SubjectID
     ) {
       window.open(
         Urls["300"].WebUrl +
@@ -729,7 +731,7 @@ class TeaMaterial extends Component {
                       onClick={
                         TeachPlan.UploadCount ||
                         TeachPlan.UploadCount === 0
-                          ? this.ClickBar.bind(this, {},'sercond', secondSubjectID)
+                          ? this.ClickBar.bind(this, {},'second', secondSubjectID)
                           : () => {}
                       }
                     >
