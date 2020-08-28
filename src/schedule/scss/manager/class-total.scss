@@ -17,23 +17,7 @@
         }
     }
 
-    /*&.full-screen{
 
-        position:fixed;
-
-        z-index: 1090;
-
-        background-color: #fff;
-
-        //margin-left:0;
-
-        @include animation(FullScreen 0.2s);
-
-        @include animation-fill-mode(forwards);
-
-        border-top:0;
-
-    }*/
 
     &.full-screen-enter{
 
@@ -94,6 +78,15 @@
         padding-right: 30px;
 
         margin-left:0;
+
+    }
+
+
+    &.work-plant-form{
+
+        width: 1200px;
+
+        margin: 0 auto;
 
     }
 

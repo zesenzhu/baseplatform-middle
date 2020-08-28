@@ -2,6 +2,8 @@ import {getData,postData} from "../../../common/js/fetch";
 
 import config from '../../../common/js/config';
 
+//import config from './config';
+
 
 //获取数据以及封装数据格式
 export const getGetData =  async (url,level,api=config.UserPersonaProxy,mode='cors',arr=false) =>{

@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import ContentItem from '../contentItem';
 
-import {GetStuActivities,GetStuWaring,GetStuDormitory} from "../../actions/apiActions";
+import {GetStudentStudyInfo} from "../../actions/apiActions";
+
+import {Empty} from "../../../../common";
 
 import ModuleLoading from "../moduleLoading";
 
@@ -17,50 +19,17 @@ function SchoolLife(props) {
     const [loading,setLoading] = useState(true);
 
 
-    //学生宿舍
-    const [dormitory,setDormitory] = useState('');
+    //学生学习数据
+    const [studyData,setStudyData] = useState({
 
-    //学生活动
-    const [stuActivities,setStuActivities] = useState({
+        CourseCount:0,
 
-        attence:{
+        ScheduleCount:0,
 
-            value:'',
-
-            classAvg:'',
-
-            count:0
-
-        },
-
-        homework:{
-
-            value:'',
-
-            classAvg:''
-
-        },
-
-        stayInSchool:{
-
-            value:'',
-
-            classAvg:''
-
-        },
-
-        online:{
-
-            value:'',
-
-            classAvg:''
-
-        }
+        Item:[]
 
     });
 
-    //学生异常
-    const [stuLateWarning,setStuLateWarning] = useState(0);
 
     const userArchives = useSelector(state=>state.userArchives);
 
@@ -71,83 +40,27 @@ function SchoolLife(props) {
     const dispatch = useDispatch();
 
 
-    //代理
-    const proxy = useMemo(()=>{
-
-        return 'http://192.168.2.202:7300/mock/5f40ff6044c5b010dca04032/userPersona';
-
-    },[]);
 
 
     useEffect(()=>{
 
         const {SchoolID} = JSON.parse(sessionStorage.getItem("UserInfo"));
 
-        const getActivities = GetStuActivities({StudentId:UserID,ClassId:userArchives.ClassID,GradeId:userArchives.GradeID,proxy,dispatch});
+        GetStudentStudyInfo({schoolID:SchoolID,userID:UserID,dispatch}).then(data=>{
 
-        const getWaring = GetStuWaring({StudentId:UserID,ClassId:userArchives.ClassID,GradeId:userArchives.GradeID,proxy,dispatch});
+            if (data){
 
-        const getDormitory = GetStuDormitory({schoolId:SchoolID,userId:UserID,userType:UserType,proxy,dispatch});
+                const ScheduleCount = data.ScheduleCount&&data.ScheduleCount>0?data.ScheduleCount:0;
 
-        Promise.all([getActivities,getWaring,getDormitory]).then(res=>{
+                const CourseCount = data.CourseCount&&data.CourseCount>0?data.CourseCount:0;
 
-            if (res[0]){
+                const Item = data.Item&&data.Item.length>0?data.Item:[];
 
-                const data = res[0][0].ActiveList;
+                setStudyData(d=>({...d,
 
-                const attence = {
+                    Item,CourseCount,ScheduleCount
 
-                        value:data.find(i=>i.Type===1).Value,
-
-                        classAvg:data.find(i=>i.Type===1).AvgClass,
-
-                        count:data.find(i=>i.Type===2).Value
-
-                };
-
-                const homework ={
-
-                    value:data.find(i=>i.Type===4).Value,
-
-                    classAvg:data.find(i=>i.Type===4).AvgClass
-
-                };
-
-                const stayInSchool = {
-
-                    value:data.find(i=>i.Type===6).Value,
-
-                    classAvg:data.find(i=>i.Type===6).AvgClass
-
-                };
-
-                const online = {
-
-                    value:data.find(i=>i.Type===5).Value,
-
-                    classAvg:data.find(i=>i.Type===5).AvgClass
-
-                };
-
-                setStuActivities(d=>{
-
-                   return {...d,attence,homework,stayInSchool,online};
-
-                });
-
-            }
-
-            if (res[1]){
-
-                setStuLateWarning(res[1].Count&&res[1].Count>0?res[1].Count:0);
-
-            }
-
-            if (res[2]){
-
-              const data = res[2];
-
-              setDormitory(`${data.buildingName}>${data.floorName}>${data.roomName}>${data.bedName}`)
+                }));
 
             }
 
@@ -174,35 +87,91 @@ function SchoolLife(props) {
 
               <div className={"study-header clearfix"}>
 
+                  共<span className={"red course-count"}>{studyData.CourseCount}</span>门课程,共<span className={"red schedule-count"}>{studyData.ScheduleCount}</span>节课
+
               </div>
 
               <ul className={"study-content clearfix"}>
 
-                  <li className={"study-item clearfix"}>
 
-                      <i className={"icon"}></i>
+                  {
 
-                      <div className={"detail-content"}>
+                      studyData.Item.length>0?
 
-                          <div className={"title"}>考勤</div>
+                          studyData.Item.map(i=>{
 
-                          <div className={"rate"}>
+                             return(
 
-                              请假<span className={"rate-red"}>{stuActivities.attence.count}</span>次,
+                                 <li key={i.SubjectID} className={"study-item"}>
 
-                              出勤率<span className={"rate-green"}>{stuActivities.attence.value}</span>
+                                    <div className={"title clearfix"}>
 
-                          </div>
+                                        <span className={`subject-name ${!i.ClassID?'has-span':''}`}>{i.SubjectName}</span>
 
-                          <div className={"agv-rate"}>
+                                        {
 
-                              班级平均值:{stuActivities.attence.classAvg}
+                                            !i.ClassID?
 
-                          </div>
+                                                <span className={"isCourseClass"}>走班</span>
 
-                      </div>
+                                                :null
 
-                  </li>
+                                        }
+
+                                    </div>
+
+                                    <table className={"study-table"}>
+
+                                        <tbody>
+
+                                            <tr>
+
+                                                <td className={"col1"}>任课教师:</td>
+
+                                                <td className={"col2"}>
+
+                                                    <div className={"teacher-name"} title={i.TeacherName}>{i.TeacherName}</div>
+
+                                                </td>
+
+                                            </tr>
+
+                                            <tr>
+
+                                                <td className={"col1"}>班级名称:</td>
+
+                                                <td className={"col2"}>
+
+                                                    <div className={"class-name"} title={i.ClassName?i.ClassName:i.CourseClassName}>{i.ClassName?i.ClassName:i.CourseClassName}</div>
+
+                                                </td>
+
+                                            </tr>
+
+                                            <tr>
+
+                                                <td className={"col1"}>课程安排:</td>
+
+                                                <td className={"col2"}>{i.ScheduleCount}节课</td>
+
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
+
+
+                                 </li>
+
+                             )
+
+                          })
+
+                          :
+
+                          <Empty type={"3"} title={"暂无学习科目和课程"}></Empty>
+
+                  }
 
               </ul>
 

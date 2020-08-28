@@ -79,7 +79,7 @@ class Index extends Component{
 
             }else {
 
-                // window.location.href='/Error.aspx?errcode=E011';
+                 window.location.href='/Error.aspx?errcode=E011';
 
             }
 

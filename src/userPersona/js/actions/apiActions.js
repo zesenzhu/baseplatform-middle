@@ -4,6 +4,11 @@ import { btnErrorAlertShow } from './appAlertActions';
 
 import {fetch} from 'whatwg-fetch'
 
+import $ from 'jquery'
+
+import config from './config'
+
+
 //get
 
 //获取基础信息
@@ -113,10 +118,10 @@ export const getTeacherDetailIntroduction =  async ({teacherId,proxy,dispatch})=
 
 };
 
-
+//获取科研以及获奖情况
 export const getScientificCaseDetail =  async ({userId,scientificType,proxy,dispatch})=>{
 
-    const res = await getGetData(`/admin/getScientificCaseDetail?userId=${userId}&scientificType=${scientificType}`,1,proxy);
+    const res = await getGetData(`/admin/getScientificCaseDetail?userId=${userId}&scientificType=${scientificType}`,1,removeSlashUrl(proxy));
 
     if (res.code===0){
 
@@ -142,9 +147,9 @@ export const getScientificCaseDetail =  async ({userId,scientificType,proxy,disp
 
 //获取用户详情For画像
 
-export const GetUserDetailForHX =  async ({UserID,UserType,proxy='',dispatch})=>{
+export const GetUserDetailForHX =  async ({UserID,UserType,dispatch})=>{
 
-    const res = await getGetData(`/UserMgr/UserInfoMgr/GetUserDetailForHX?UserID=${UserID}&UserType=${UserType}`,2,proxy);
+    const res = await getGetData(`/UserMgr/UserInfoMgr/GetUserDetailForHX?UserID=${UserID}&UserType=${UserType}`,2);
 
     if (res.StatusCode===200){
 
@@ -162,9 +167,9 @@ export const GetUserDetailForHX =  async ({UserID,UserType,proxy='',dispatch})=>
 
 //获取用户详情For画像
 
-export const GetUserLogForHX =  async ({UserID,UserType,proxy='',dispatch})=>{
+export const GetUserLogForHX =  async ({UserID,UserType,dispatch})=>{
 
-    const res = await getGetData(`/UserMgr/UserInfoMgr/GetUserLogForHX?UserID=${UserID}&UserType=${UserType}`,2,proxy);
+    const res = await getGetData(`/UserMgr/UserInfoMgr/GetUserLogForHX?UserID=${UserID}&UserType=${UserType}`,2);
 
     if (res.StatusCode===200){
 
@@ -180,11 +185,13 @@ export const GetUserLogForHX =  async ({UserID,UserType,proxy='',dispatch})=>{
 
 
 
-//获取学生活动日常
 
-export const GetStuActivities =  async ({StudentId,ClassId,GradeId,ActiveType=0,TimeStamp=new Date().getTime(),Key=new Date().getTime(),IsCourseClass=false,proxy='',dispatch})=>{
 
-    const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/Student/Active/Class/One?StudentId=${StudentId}&ClassId=${ClassId}&GradeId=${GradeId}&ActiveType=${ActiveType}&TimeStamp=${TimeStamp}&Key=${Key}&IsCourseClass=${IsCourseClass}`);
+//获取个人空间的学习科目和课程
+
+export const GetStudentStudyInfo =  async ({schoolID,userID,termID='',dispatch})=>{
+
+    const res = await getGetData(`/CourseClass/api/GetStudentStudyInfo?schoolID=${schoolID}&userID=${userID}&termID=${termID}`,2);
 
     if (res.StatusCode===200){
 
@@ -192,10 +199,29 @@ export const GetStuActivities =  async ({StudentId,ClassId,GradeId,ActiveType=0,
 
     }else{
 
-        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取学生活动失败'}));
+        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取学生学习科目和课程失败'}));
 
     }
 
+};
+
+
+
+
+
+//获取学生活动日常
+
+export const GetStuActivities =  async ({StudentId,ClassId,GradeId,ActiveType=0,TimeStamp=new Date().getTime(),Key=new Date().getTime(),IsCourseClass=false,proxy='',dispatch})=>{
+
+     const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/api/v1/Student/Active/Class/One?StudentId=${StudentId}&ClassId=${ClassId}&GradeId=${GradeId}&ActiveType=${ActiveType}&TimeStamp=${TimeStamp}&Key=${Key}&IsCourseClass=${IsCourseClass}`);
+
+    // const res = transferInterface({appid:'860',reqUrl:`${removeSlashUrl(proxy)}/api/v1/Student/Active/Class/One?StudentId=${StudentId}&ClassId=${ClassId}&GradeId=${GradeId}&ActiveType=${ActiveType}&TimeStamp=${TimeStamp}&Key=${Key}&IsCourseClass=${IsCourseClass}`});
+
+    if (res&&res.length>0){
+
+        return res[0];
+
+    }
 };
 
 
@@ -203,15 +229,12 @@ export const GetStuActivities =  async ({StudentId,ClassId,GradeId,ActiveType=0,
 
 export const GetStuWaring =  async ({StudentId,WarningId='',WarningType=7,ClassId,GradeId,TimeStamp=new Date().getTime(),Key=new Date().getTime(),IsCourseClass=false,proxy='',dispatch})=>{
 
-    const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/Student/Warning/Class/One/Detail?StudentId=${StudentId}&ClassId=${ClassId}&GradeId=${GradeId}&WarningId=${WarningId}&WarningType=${WarningType}&TimeStamp=${TimeStamp}&Key=${Key}&IsCourseClass=${IsCourseClass}`);
+    const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/api/v1/Student/Warning/Class/One/Detail?StudentId=${StudentId}&ClassId=${ClassId}&GradeId=${GradeId}&WarningId=${WarningId}&WarningType=${WarningType}&TimeStamp=${TimeStamp}&Key=${Key}&IsCourseClass=${IsCourseClass}`);
 
-    if (res.StatusCode===200){
 
-        return res.Data;
+    if (res&&res.length>0){
 
-    }else{
-
-        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取学生活动失败'}));
+        return res;
 
     }
 
@@ -222,17 +245,59 @@ export const GetStuWaring =  async ({StudentId,WarningId='',WarningType=7,ClassI
 
 export const GetStuDormitory  =  async ({userId,userType,schoolId,proxy='',dispatch})=>{
 
-    const res = await dataSetsGetData(`${removeSlashUrl(proxy)}/student/bedAndStatus?userId=${userId}&userType=${userType}&schoolId=${schoolId}`);
+    const res = await transferInterface({appid:'E48',reqUrl:`${removeSlashUrl(proxy)}/student/bedAndStatus?userId=${userId}&userType=${userType}&schoolId=${schoolId}`})
 
-    if (res.code===1){
+   if (res.StatusCode===200&&res.Data.code===1){
 
-        return res.result;
+       return res.Data.data;
 
-    }else{
+   }
 
-        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取学生宿舍失败'}));
+};
+
+
+
+//第三方接口中转接口
+
+export const transferInterface = async ({appid,reqUrl}) =>{
+
+    const token = sessionStorage.getItem("token");
+
+    const url = encodeURIComponent(reqUrl);
+
+    const res = await getGetData(`/Global/GetHttpRequestTransfer?appid=${appid}&token=${token}&reqUrl=${url}`,1,config.ceshiProxy);
+
+    let response = '';
+
+    try {
+
+        const data = JSON.parse(res);
+
+        response = {
+
+            StatusCode:200,
+
+            Msg:'success',
+
+            Data:data
+
+        }
+
+    }catch (e) {
+
+        response = {
+
+            StatusCode:400,
+
+            Msg:'接口错误',
+
+            Data:null
+
+        }
 
     }
+
+    return response;
 
 };
 
@@ -261,6 +326,9 @@ export const ResetPwd = async ({userID,userType,newPwd,dispatch}) =>{
     }
 
 };
+
+
+
 
 
 
@@ -301,7 +369,75 @@ const dataSetsGetData = async (url)=>{
 
   const data = await res.json();
 
+ /* $.ajax({
+
+      url,
+
+      dataType:'jsonp',
+
+      jsonp: "jsoncallback",
+
+      headers:{
+
+          'Content-Type':'application/json',
+
+          'Accept':"application/json",
+
+          'Lg_MgrCenter_Token':sessionStorage.getItem("token"),
+
+          'Lg_MgrCenter_UserId':JSON.parse(sessionStorage.getItem("UserInfo")).UserID,
+
+          "Lg_MgrCenter_Client":0
+
+      },
+
+      success:(data)=>{
+
+          console.log(data);
+
+      },
+
+      error:(e,err)=>{
+
+          console.log(e,err);
+
+      }
+
+  });*/
+
   return data;
+
+};
+
+
+
+//宿舍请求
+
+const dormitoryGetData =  (url) =>{
+
+    $.ajax({
+
+        type:"get",
+
+        url,
+
+        dataType: "jsonp",
+
+        jsonp: "jsoncallback",
+
+        success:(data)=>{
+
+            console.log(data);
+
+        },
+
+        error:(e,err)=>{
+
+            console.log(e,err);
+
+        }
+
+    })
 
 };
 
@@ -329,7 +465,11 @@ export default {
 
     GetStuActivities,
 
-    GetStuWaring
+    GetStuWaring,
+
+    transferInterface,
+
+    GetStuDormitory
 
 }
 

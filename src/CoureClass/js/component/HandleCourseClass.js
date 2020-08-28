@@ -2,10 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import actions from "../actions";
 import "../../scss/HandleCourseClass.scss";
+
 import { postData, getData } from "../../../common/js/fetch";
+
 import { Scrollbars } from "react-custom-scrollbars";
 
-import history from "../containers/history";
 import { Input } from "antd";
 import CONFIG from "../../../common/js/config";
 import {
@@ -441,7 +442,7 @@ class HandleCourseClass extends React.Component {
 
     render() {
 
-    const { DataState, UIState,isFrame } = this.props;
+    const { DataState, UIState,isFrame,history } = this.props;
 
     let data = DataState.GetCourseClassDetailsHandleClassMsg;
 
@@ -465,6 +466,8 @@ class HandleCourseClass extends React.Component {
     let subjectID = pathArr[3];
 
     let classID = pathArr[4];
+
+    console.log(handleRoute);
 
     return (
 

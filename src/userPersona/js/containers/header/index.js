@@ -6,6 +6,8 @@ import {LogOut} from '../../../../common/js/disconnect';
 
 import {btnQueryAlertShow} from "../../actions/appAlertActions";
 
+import ArchivesLogModal from '../../components/archivesLogModal';
+
 import './index.scss';
 
 function Header(props) {
@@ -15,6 +17,10 @@ function Header(props) {
 
     //主页地址
     const [indexUrl,setIndexUrl] = useState('');
+
+
+    //主页地址
+    const [archivesModal,setArchivesModal] = useState(false);
 
     const UserInfo = useSelector(state=>state.userArchives);
 
@@ -77,6 +83,32 @@ function Header(props) {
 
     },[]);
 
+    //用户档案记录弹出
+    const showArchivesLog = useCallback(()=>{
+
+        setArchivesModal(true);
+
+    },[]);
+
+    //用户档案记录关闭
+    const closeArchivesLog = useCallback(()=>{
+
+        console.log(111);
+
+        setArchivesModal(false);
+
+    },[]);
+
+
+    //跳转到个人账号管理界面
+    const seePersonalMgr = useCallback(()=>{
+
+        const token = sessionStorage.getItem("token");
+
+        window.open(`/html/personalMgr?lg_tk=${token}`);
+
+    },[]);
+
     return(
 
         <div className={"app-header-wrapper"}>
@@ -125,9 +157,9 @@ function Header(props) {
 
                         <div className={"header-menu-item user"}>
 
-                            <i className={"header-icon"} style={{backgroundImage:`url(${PhotoPath})`}}></i>
+                            <i className={"header-icon"} onClick={seePersonalMgr} style={{backgroundImage:`url(${PhotoPath})`}}></i>
 
-                            <div className={"user-name"}>{UserName}</div>
+                            <div className={"user-name"} onClick={seePersonalMgr}>{UserName}</div>
 
                             <i className={"log-out"} onClick={logout}></i>
 
@@ -179,7 +211,7 @@ function Header(props) {
 
                     ['AdmToStu','LeaderToStu','HeaderTeacherToStu'].includes(UsedType)?
 
-                        <a className={"log"}>{userInfoLogs?userInfoLogs[0].Content:''}</a>
+                        <a className={"log"} onClick={showArchivesLog}>{userInfoLogs[0]?userInfoLogs[0].Content:''}</a>
 
                         :null
 
@@ -188,6 +220,8 @@ function Header(props) {
 
 
             </div>
+
+            <ArchivesLogModal closeArchivesLog={closeArchivesLog} show={archivesModal}></ArchivesLogModal>
 
         </div>
 

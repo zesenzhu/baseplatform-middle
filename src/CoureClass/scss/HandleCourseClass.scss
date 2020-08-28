@@ -10,6 +10,9 @@
             height: 28px;
             display: inline-block;
             width: 50%;
+
+            vertical-align: middle;
+
             .left {
                 position: relative;
                 display: inline-block;
@@ -19,6 +22,9 @@
                 text-align: right;
                 font-size: 14px;
                 color: #666;
+
+                vertical-align: middle;
+
             }
             .right {
                 position: relative;
@@ -27,6 +33,9 @@
                 width: 70%;
                 height: 28px;
                 line-height: 28px;
+
+                vertical-align: middle;
+
                 .dropdown_container .dropdown_wrapper {
                     margin-left: 0;
                 }

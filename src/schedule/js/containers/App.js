@@ -104,9 +104,7 @@ class App extends Component{
 
         }
 
-
         //判断权限
-
         if (parseInt(UserType)===0||parseInt(UserType)===1||parseInt(UserType)===2||parseInt(UserType)===7||parseInt(UserType)===10){
 
             if (parseInt(UserType)===0){//判断管理员权限
@@ -171,9 +169,16 @@ class App extends Component{
 
         }
 
+
         if (getQueryVariable('isWorkPlantform')){
 
             this.setState({isWorkPlantform:true});
+
+            $(document).on('click',()=>{
+
+               window.parent.postMessage("schedule");
+
+            });
 
         }
 

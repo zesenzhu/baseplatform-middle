@@ -1,6 +1,6 @@
 import {USER_INFO_LOGS_UPDATE} from "../../actions/userInfoLogsActions";
 
-const defaultState = '';
+const defaultState = [];
 
 const userInfoLogs = (state=defaultState,actions)=>{
 
@@ -8,7 +8,7 @@ const userInfoLogs = (state=defaultState,actions)=>{
 
         case USER_INFO_LOGS_UPDATE:
 
-            return {...state,...actions.data};
+            return [...actions.data];
 
         default:
 

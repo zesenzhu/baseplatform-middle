@@ -620,6 +620,7 @@ class Record extends React.Component {
                   pagination={{
                     pageSize: this.state.pageSize,
                     hideOnSinglepage: true,
+                    pageSizeOptions:['10','20','50','100'],
                     showQuickJumper: {
                       goButton: (
                         <Button className="go-btn" color="blue" size="small">

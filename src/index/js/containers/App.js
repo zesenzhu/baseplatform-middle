@@ -88,7 +88,7 @@ class App extends Component {
         //填充产品信息
 
 
-        if (parseInt(UserType)===1&&parseInt(UserClass)===2){
+        if ((parseInt(UserType)===1&&parseInt(UserClass)===2)||parseInt(UserType)===6){
 
             ProductInfo['MessageShow'] = false;
 
