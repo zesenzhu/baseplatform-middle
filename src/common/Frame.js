@@ -78,33 +78,7 @@ class FrameContainer extends Component{
 
             }else{
 
-                if (sessionStorage.getItem("LgBasePlatformInfo")){
-
-                    const {WebIndexUrl,ProductName,ProVersion,WebRootUrl} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
-
-                    const rootUrl = WebRootUrl[WebRootUrl.length-1]==='/'?WebRootUrl.substring(0,WebRootUrl.length-1):WebRootUrl;
-
-                    this.setState({WebIndexUrl,ProVersion,ProductName,WebRootUrl:rootUrl});
-
-                    firstPageLoad(()=>{
-
-                        this.IntegrateMsg();
-
-                        const { UserName,PhotoPath } = JSON.parse(sessionStorage.getItem("UserInfo"));
-
-                        this.setState({UserInfo:{name:UserName,image:PhotoPath},childrenLoad:true});
-
-                        if (pageInit){
-
-                            pageInit();
-
-                        }
-
-                    });
-
-                }else{
-
-                    this.GetProduct().then(data=>{
+                this.GetProduct().then(data=>{
 
                         if (data){
 
@@ -133,8 +107,6 @@ class FrameContainer extends Component{
                         }
 
                     });
-
-                }
 
             }
 

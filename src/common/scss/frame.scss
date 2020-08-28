@@ -434,6 +434,11 @@ $img_url:'#{$image_url}/frame';
   background-color: #fff;
   @include box-shadow(0 3px 5px 0 rgba(0, 0, 0, 0.03));
 
+  &.in-work-plant-form{
+
+    box-shadow: none;
+
+  }
 
 }
 .frame-nav-content{

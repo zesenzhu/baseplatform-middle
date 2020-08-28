@@ -16,6 +16,8 @@ import 'moment/locale/zh-cn';
 
 import utils from "../../actions/utils";
 
+import {Scrollbars} from 'react-custom-scrollbars';
+
 moment.locale('zh-cn');
 
 class ReplaceSchedule extends Component{
@@ -303,73 +305,75 @@ class ReplaceSchedule extends Component{
 
     return (
 
-                <div className="replace-schedule-wrapper">
+        <Scrollbars style={{width:840,height:300}}>
 
-                    <div className="subject-wrapper clearfix">
+            <div className="replace-schedule-wrapper">
 
-                        <div className="props">学科:</div>
+                <div className="subject-wrapper clearfix">
 
-                        <Tooltip placement="right" visible={originTeacherTips} title={originTeacherTipsTitle} getPopupContainer={triggerNode =>triggerNode.parentNode}>
+                    <div className="props">学科:</div>
 
-                            {
+                    <Tooltip placement="right" visible={originTeacherTips} title={originTeacherTipsTitle} getPopupContainer={triggerNode =>triggerNode.parentNode}>
 
-                                teacherSubject.dropShow?
+                        {
 
-                                    <DropDown onChange={this.SubjectChange.bind(this)} width={90} dropSelectd={teacherSubject.select.dropSelectd} style={{zIndex:7}} dropList={teacherSubject.select.dropList}></DropDown>
+                            teacherSubject.dropShow?
 
-                                    :
+                                <DropDown onChange={this.SubjectChange.bind(this)} width={90} dropSelectd={teacherSubject.select.dropSelectd} style={{zIndex:7}} dropList={teacherSubject.select.dropList}></DropDown>
 
-                                    <span className={`subject-name ${teacherSubject.name?'':'unset'}`}>{teacherSubject.name?teacherSubject.name:"暂无可调整的课程"}</span>
+                                :
 
-                            }
+                                <span className={`subject-name ${teacherSubject.name?'':'unset'}`}>{teacherSubject.name?teacherSubject.name:"暂无可调整的课程"}</span>
 
-                        </Tooltip>
+                        }
 
-                        {/*<span className="error-tips" style={{display:`${originTeacherTips?'inline-block':'none'}`,marginLeft:10}}>{originTeacherTipsTitle}</span>*/}
+                    </Tooltip>
 
-                    </div>
+                    {/*<span className="error-tips" style={{display:`${originTeacherTips?'inline-block':'none'}`,marginLeft:10}}>{originTeacherTipsTitle}</span>*/}
 
-                    <div className="class-wrapper clearfix">
+                </div>
 
-                        <div className="props">代课班级:</div>
+                <div className="class-wrapper clearfix">
 
-                        <div className={`class-pick-wrapper clearfix ${classList.length>0?'':'unset'}`}>
+                    <div className="props">代课班级:</div>
 
-                            <Tooltip placement="right" visible={classTips} title={classTipsTitle} getPopupContainer={triggerNode =>triggerNode.parentNode}>
+                    <div className={`class-pick-wrapper clearfix ${classList.length>0?'':'unset'}`}>
+
+                        <Tooltip placement="right" visible={classTips} title={classTipsTitle} getPopupContainer={triggerNode =>triggerNode.parentNode}>
 
                             {
 
                                 classList.length>0?classList.map((item,key) => {
 
-                                  return <div key={key} className={`class-item check-item ${classCheckedList.includes(item.id)?'active':''}`} onClick={this.classChecked.bind(this,item.id)}>
+                                        return <div key={key} className={`class-item check-item ${classCheckedList.includes(item.id)?'active':''}`} onClick={this.classChecked.bind(this,item.id)}>
 
-                                          {
+                                            {
 
-                                              item.name
+                                                item.name
 
-                                          }
+                                            }
 
-                                         </div>
+                                        </div>
 
-                                })
+                                    })
 
                                     :'暂无可调整的课程'
 
                             }
 
-                            </Tooltip>
-
-                        </div>
-
-                        {/*<span className="error-tips" style={{display:`${classTips?'inline-block':'none'}`}}>{classTipsTitle}</span>*/}
+                        </Tooltip>
 
                     </div>
 
-                    <div className="replace-teacher-wrapper clearfix">
+                    {/*<span className="error-tips" style={{display:`${classTips?'inline-block':'none'}`}}>{classTipsTitle}</span>*/}
 
-                        <div className="props">代课老师:</div>
+                </div>
 
-                        <Tooltip placement="right" visible={replaceTeacherTips} title={replaceTeacherTipsTitle} getPopupContainer={triggerNode =>triggerNode.parentNode}>
+                <div className="replace-teacher-wrapper clearfix">
+
+                    <div className="props">代课老师:</div>
+
+                    <Tooltip placement="right" visible={replaceTeacherTips} title={replaceTeacherTipsTitle} getPopupContainer={triggerNode =>triggerNode.parentNode}>
 
                         <DropDown
                             width={160}
@@ -390,43 +394,43 @@ class ReplaceSchedule extends Component{
 
                         </DropDown>
 
-                        </Tooltip>
+                    </Tooltip>
 
-                        {/*<span className="error-tips" style={{display:`${replaceTeacherTips?'inline-block':'none'}`}}>{replaceTeacherTipsTitle}</span>*/}
+                    {/*<span className="error-tips" style={{display:`${replaceTeacherTips?'inline-block':'none'}`}}>{replaceTeacherTipsTitle}</span>*/}
 
-                    </div>
+                </div>
 
-                    <div className="deadline-wrapper clearfix">
+                <div className="deadline-wrapper clearfix">
 
-                        <div className="props">代课期限:</div>
+                    <div className="props">代课期限:</div>
 
-                        <div className="radios-wrapper">
+                    <div className="radios-wrapper">
 
-                            {
+                        {
 
-                                radios.map((item,key) => {
+                            radios.map((item,key) => {
 
-                                    return <span key={key} className={`radio-item ${activeRadio === item.id?'active':''}`} onClick={this.radioChange.bind(this,item.id)}>{item.name}</span>
+                                return <span key={key} className={`radio-item ${activeRadio === item.id?'active':''}`} onClick={this.radioChange.bind(this,item.id)}>{item.name}</span>
 
-                                })
+                            })
 
-                            }
-
-                        </div>
+                        }
 
                     </div>
 
-                    {
+                </div>
 
-                        activeRadio==='month'?
+                {
 
-                            <div className="byMonth dateline-pick-wrapper clearfix">
+                    activeRadio==='month'?
 
-                                <Loading spinning={monthLoading}>
+                        <div className="byMonth dateline-pick-wrapper clearfix">
 
-                                    {
+                            <Loading spinning={monthLoading}>
 
-                                        monthsList.length>0?
+                                {
+
+                                    monthsList.length>0?
 
                                         monthsList.map((item,key) => {
 
@@ -464,32 +468,32 @@ class ReplaceSchedule extends Component{
 
                                         :<div style={{color:'#999999'}}>当前学期没有未结束的月份，不可调整课程</div>
 
-                                    }
+                                }
 
-                                </Loading>
+                            </Loading>
 
 
-                                <div className="trangle"></div>
+                            <div className="trangle"></div>
 
-                                {/*<span className="error-tips" style={{display:`${monthTips?'inline-block':'none'}`}}>{monthTipsTitle}</span>*/}
+                            {/*<span className="error-tips" style={{display:`${monthTips?'inline-block':'none'}`}}>{monthTipsTitle}</span>*/}
 
-                            </div>
+                        </div>
 
-                            :''
+                        :''
 
-                    }
+                }
 
-                    {
+                {
 
-                        activeRadio==='week'?
+                    activeRadio==='week'?
 
-                            <div className="byWeek dateline-pick-wrapper clearfix">
+                        <div className="byWeek dateline-pick-wrapper clearfix">
 
-                                <Loading spinning={weekLoading}>
+                            <Loading spinning={weekLoading}>
 
-                                    {
+                                {
 
-                                        weeksList.length>0?
+                                    weeksList.length>0?
 
                                         weeksList.map((item,key) => {
 
@@ -524,92 +528,92 @@ class ReplaceSchedule extends Component{
                                         <div style={{color:'#999999'}}>当前学期没有未结束的周次，不可调整课程</div>
 
 
-                                    }
-
-                                </Loading>
-
-
-                                <div className="trangle"></div>
-
-                                {/*<span className="error-tips" style={{display:`${weekTips?'inline-block':'none'}`}}>{weekTipsTitle}</span>*/}
-
-
-                            </div>
-
-                            :''
-
-                    }
-
-                    {
-
-                        activeRadio==='date'?
-
-                            <div className="byDate dateline-pick-wrapper clearfix">
-
-                                    <ConfigProvider locale={zhCN}>
-
-                                        <Tooltip visible={dateTips} title={dateTipsTitle} getPopupContainer={triggerNode => triggerNode.parentNode} placement="right">
-
-                                            <DatePicker disabledDate={this.dateDisabled.bind(this)} showToday={false} dateRender={this.dateRander.bind(this)} onChange={this.dateChecked.bind(this)} style={{width:626}}></DatePicker>
-
-                                        </Tooltip>
-
-                                    </ConfigProvider>
-
-                                <div className="date-wrapper" title={dateCheckedList.length>0?dateCheckedList.join(','):'请选择日期'}>{dateCheckedList.length>0?dateCheckedList.join(','):'请选择日期'}</div>
-
-                                <div className="trangle"></div>
-
-                                {/*<span className="error-tips" style={{display:`${dateTips?'inline-block':'none'}`}}>{dateTipsTitle}</span>*/}
-
-                            </div>
-
-                            :''
-
-                    }
-
-                    {
-
-                        activeRadio==='classHour'?
-
-                            <div className="byClassHour dateline-pick-wrapper clearfix">
-
-                                <span className="title">时间:</span>
-
-                                <ConfigProvider locale={zhCN}>
-
-                                    <Tooltip visible={classHourDateTips} title={classHourDateTipsTitle} getPopupContainer={triggerNode => triggerNode.parentNode} placement="right">
-
-                                        <DatePicker disabledDate={this.dateDisabled.bind(this)} showToday={false} value={classHourDate?moment(classHourDate,'YYYY-MM-DD'):null} onChange={this.classHourDateChecked.bind(this)}></DatePicker>
-
-                                    </Tooltip>
-
-                                </ConfigProvider>
-
-                                {
-
-                                    classHourDate?
-
-                                        <Loading  className="date-loading" spinning={dateLoadingShow} opacity={false} type="loading">
-
-                                                <span className="week-date">(第{WeekNO}周 {WeekDay})</span>
-
-                                        </Loading>
-
-                                        :''
-
                                 }
 
-                                {/*<span className="error-tips" style={{display:`${classHourDateTips?'inline-block':'none'}`}}>{classHourDateTipsTitle}</span>*/}
+                            </Loading>
 
 
-                                <Loading opacity={false} className="class-hour-loading" type="loading"  spinning={classHourLoadingShow}>
+                            <div className="trangle"></div>
 
-                                    <div className="title">节次:</div>
+                            {/*<span className="error-tips" style={{display:`${weekTips?'inline-block':'none'}`}}>{weekTipsTitle}</span>*/}
 
-                                    <Tooltip visible={classHourTips} title={classHourTipsTitle} getPopupContainer={triggerNode => triggerNode.parentNode} placement="right">
 
-                                        <div className="classHour-wrapper">
+                        </div>
+
+                        :''
+
+                }
+
+                {
+
+                    activeRadio==='date'?
+
+                        <div className="byDate dateline-pick-wrapper clearfix">
+
+                            <ConfigProvider locale={zhCN}>
+
+                                <Tooltip visible={dateTips} title={dateTipsTitle} getPopupContainer={triggerNode => triggerNode.parentNode} placement="right">
+
+                                    <DatePicker disabledDate={this.dateDisabled.bind(this)} showToday={false} dateRender={this.dateRander.bind(this)} onChange={this.dateChecked.bind(this)} style={{width:626}}></DatePicker>
+
+                                </Tooltip>
+
+                            </ConfigProvider>
+
+                            <div className="date-wrapper" title={dateCheckedList.length>0?dateCheckedList.join(','):'请选择日期'}>{dateCheckedList.length>0?dateCheckedList.join(','):'请选择日期'}</div>
+
+                            <div className="trangle"></div>
+
+                            {/*<span className="error-tips" style={{display:`${dateTips?'inline-block':'none'}`}}>{dateTipsTitle}</span>*/}
+
+                        </div>
+
+                        :''
+
+                }
+
+                {
+
+                    activeRadio==='classHour'?
+
+                        <div className="byClassHour dateline-pick-wrapper clearfix">
+
+                            <span className="title">时间:</span>
+
+                            <ConfigProvider locale={zhCN}>
+
+                                <Tooltip visible={classHourDateTips} title={classHourDateTipsTitle} getPopupContainer={triggerNode => triggerNode.parentNode} placement="right">
+
+                                    <DatePicker disabledDate={this.dateDisabled.bind(this)} showToday={false} value={classHourDate?moment(classHourDate,'YYYY-MM-DD'):null} onChange={this.classHourDateChecked.bind(this)}></DatePicker>
+
+                                </Tooltip>
+
+                            </ConfigProvider>
+
+                            {
+
+                                classHourDate?
+
+                                    <Loading  className="date-loading" spinning={dateLoadingShow} opacity={false} type="loading">
+
+                                        <span className="week-date">(第{WeekNO}周 {WeekDay})</span>
+
+                                    </Loading>
+
+                                    :''
+
+                            }
+
+                            {/*<span className="error-tips" style={{display:`${classHourDateTips?'inline-block':'none'}`}}>{classHourDateTipsTitle}</span>*/}
+
+
+                            <Loading opacity={false} className="class-hour-loading" type="loading"  spinning={classHourLoadingShow}>
+
+                                <div className="title">节次:</div>
+
+                                <Tooltip visible={classHourTips} title={classHourTipsTitle} getPopupContainer={triggerNode => triggerNode.parentNode} placement="right">
+
+                                    <div className="classHour-wrapper">
 
                                         {
 
@@ -639,27 +643,27 @@ class ReplaceSchedule extends Component{
 
                                                 return <div key={key} className="class-hour-item-wrapper clearfix">
 
-                                                                <div className="noon">
+                                                    <div className="noon">
 
-                                                                    <div className={`class-hour-item check-item ${noonChecked?'active':''}`} onClick={this.classHourChecked.bind(this,{type:'noon',id:item.id})}>
+                                                        <div className={`class-hour-item check-item ${noonChecked?'active':''}`} onClick={this.classHourChecked.bind(this,{type:'noon',id:item.id})}>
 
-                                                                        {item.name}
-
-                                                                    </div>
-
-                                                                </div>
-
-                                                                {
-
-                                                                    item.list.map((i,k)=> {
-
-                                                                        return <div key={k} className={`class-hour-item check-item ${itemList.includes(i)?'active':''}`} onClick={this.classHourChecked.bind(this,{type:'item',pid:item.id,id:i})}>第{i}节</div>
-
-                                                                    })
-
-                                                                }
+                                                            {item.name}
 
                                                         </div>
+
+                                                    </div>
+
+                                                    {
+
+                                                        item.list.map((i,k)=> {
+
+                                                            return <div key={k} className={`class-hour-item check-item ${itemList.includes(i)?'active':''}`} onClick={this.classHourChecked.bind(this,{type:'item',pid:item.id,id:i})}>第{i}节</div>
+
+                                                        })
+
+                                                    }
+
+                                                </div>
 
                                             })
 
@@ -667,21 +671,23 @@ class ReplaceSchedule extends Component{
 
                                     </div>
 
-                                    </Tooltip>
+                                </Tooltip>
 
-                                </Loading>
+                            </Loading>
 
-                                <div className="trangle"></div>
+                            <div className="trangle"></div>
 
-                                {/*<span className="error-tips" style={{display:`${classHourTips?'inline-block':'none'}`}}>{classHourTipsTitle}</span>*/}
+                            {/*<span className="error-tips" style={{display:`${classHourTips?'inline-block':'none'}`}}>{classHourTipsTitle}</span>*/}
 
-                            </div>
+                        </div>
 
-                            :''
+                        :''
 
-                    }
+                }
 
-                </div>
+            </div>
+
+        </Scrollbars>
 
         );
     }
