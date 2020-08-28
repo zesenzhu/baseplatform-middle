@@ -94,8 +94,15 @@ class CourseClassDetails extends React.Component {
 
   //点击头部任课教师
   onTeacherNameClick = id => {
+
     const { dispatch } = this.props;
-    dispatch(actions.UpDataState.getTeacherMsg("/GetUserDetail?userID=" + id));
+
+      const token = sessionStorage.getItem("token");
+
+      window.open(`/html/userPersona/index.html?userID=${id}&userType=1&lg_tk=${token}`);
+
+
+      // dispatch(actions.UpDataState.getTeacherMsg("/GetUserDetail?userID=" + id));
   };
   //关闭教师详情弹窗
   TeacherMsgModalCancel = () => {

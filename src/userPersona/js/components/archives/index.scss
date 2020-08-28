@@ -255,6 +255,21 @@
 
       }
 
+      .education-background,.work-experience,.award{
+
+        min-height: 60px;
+
+        .empty{
+
+          height: 60px;
+
+          line-height: 60px;
+
+        }
+
+      }
+
+
     }
 
   }

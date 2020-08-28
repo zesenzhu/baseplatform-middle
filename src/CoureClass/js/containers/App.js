@@ -1035,7 +1035,9 @@ class App extends Component {
             opacity={false}
             spinning={UIState.AppLoading.modalLoading}
           >
-            <CourseClassDetails></CourseClassDetails>
+
+              <CourseClassDetails></CourseClassDetails>
+
           </Loading>
         </Modal>
         <Modal
@@ -1055,7 +1057,9 @@ class App extends Component {
             opacity={false}
             spinning={AppLoading}
           >
+
             <HandleCourseClass onRef={ref=>this.EditClassRef=ref} history={history} isFrame={this.state.isFrame}></HandleCourseClass>
+
           </Loading>
         </Modal>
         <Modal

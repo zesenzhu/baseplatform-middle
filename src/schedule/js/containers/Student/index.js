@@ -71,9 +71,9 @@ class Index extends Component{
 
                 HeaderLinkList = [
 
-                    {link:"/student/class",name:"班级课表",logo:"class"},
+                    {link:"/student/mine",name:"我的课表",logo:"mine"},
 
-                    {link:"/student/mine",name:"我的课表",logo:"mine"}
+                    {link:"/student/class",name:"班级课表",logo:"class"}
 
                 ];
 
@@ -99,9 +99,9 @@ class Index extends Component{
 
                     <Switch>
 
-                        <Route key={"mine"} path="/student/mine" component={StudentPersonalSchedule}></Route>
-
                         <Route key={"class"} path="/student/class" component={ClassSchedule}></Route>
+
+                        <Route key={"mine"} path="/student/mine" component={StudentPersonalSchedule}></Route>
 
                         <Redirect path="/student*" to={{pathname:"/student/mine"}}></Redirect>
 

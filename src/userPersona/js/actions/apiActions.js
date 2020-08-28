@@ -249,7 +249,9 @@ export const GetStuDormitory  =  async ({userId,userType,schoolId,proxy='',dispa
 
    if (res.StatusCode===200&&res.Data.code===1){
 
-       return res.Data.data;
+       //const data = JSON.parse(res.Data);
+
+       return res.Data.result;
 
    }
 

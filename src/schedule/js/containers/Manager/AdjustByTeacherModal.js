@@ -159,6 +159,7 @@ class AdjustByTeacherModal extends Component{
                    type={1}
                    visible={show}
                    width={840}
+                   bodyStyle={{height:340}}
                    mask={true}
                    cancelText="取消"
                    onCancel={this.CloseModal.bind(this)}

@@ -22,6 +22,8 @@ import '../../../scss/teacher/teacher-adjust-schedule.scss'
 
 import appAlert from "../../actions/AppAlertActions";
 
+import {Scrollbars} from "react-custom-scrollbars";
+
 
 const { TabPane  } = Tabs;
 
@@ -158,91 +160,92 @@ class AdjustByTeacherModal extends Component{
                    visible={show}
                    width={840}
                    mask={true}
+                   bodyStyle={{height:340}}
                    cancelText="取消"
                    onCancel={this.CloseModal.bind(this)}
                    onOk={this.ModalOk.bind(this)} >
 
-                <Loading tip="加载中..."  type="loading" opacity={false} spinning={LoadingShow}>
+                    <Loading tip="加载中..."  type="loading" opacity={false} spinning={LoadingShow}>
 
-                    <div className="modal-wrapper">
+                        <div className="modal-wrapper">
 
-                        <Tabs type="card" onChange={this.tabChange.bind(this)} activeKey={activeKey} tabBarStyle={{width:840}} tabBarGutter={0}>
+                            <Tabs type="card" onChange={this.tabChange.bind(this)} activeKey={activeKey} tabBarStyle={{width:840}} tabBarGutter={0}>
 
-                            <TabPane tab="找人代课" key="1" >
+                                <TabPane tab="找人代课" key="1" >
 
-                                {
+                                    {
 
-                                    activeKey==='1'?
+                                        activeKey==='1'?
 
-                                        <ReplaceSchedule></ReplaceSchedule>
+                                            <ReplaceSchedule></ReplaceSchedule>
 
-                                        :''
+                                            :''
 
-                                }
+                                    }
 
-                            </TabPane>
+                                </TabPane>
 
-                            <TabPane tab="与人换课" key="2">
+                                <TabPane tab="与人换课" key="2">
 
-                                {
+                                    {
 
-                                    activeKey==='2'?
+                                        activeKey==='2'?
 
-                                        <ChangeSchedule></ChangeSchedule>
+                                            <ChangeSchedule></ChangeSchedule>
 
-                                        :''
+                                            :''
 
-                                }
+                                    }
 
-                            </TabPane>
+                                </TabPane>
 
-                            <TabPane tab="调整时间" key="3">
+                                <TabPane tab="调整时间" key="3">
 
-                                {
+                                    {
 
-                                    activeKey === '3' ?
+                                        activeKey === '3' ?
 
-                                        <ChangeTime ref={ref=>this.changeTimeRef=ref}></ChangeTime>
+                                            <ChangeTime ref={ref=>this.changeTimeRef=ref}></ChangeTime>
 
-                                        : ''
+                                            : ''
 
-                                }
+                                    }
 
-                            </TabPane>
+                                </TabPane>
 
-                            <TabPane tab="更换教室" key="4" >
+                                <TabPane tab="更换教室" key="4" >
 
-                                {
+                                    {
 
-                                    activeKey === '4' ?
+                                        activeKey === '4' ?
 
-                                        <ChangeClassRoom ref={ref=>this.changeClassRoomRef=ref}></ChangeClassRoom>
+                                            <ChangeClassRoom ref={ref=>this.changeClassRoomRef=ref}></ChangeClassRoom>
 
-                                    :""
+                                            :""
 
-                                }
+                                    }
 
-                            </TabPane>
+                                </TabPane>
 
-                            <TabPane tab="停课" key="5">
+                                <TabPane tab="停课" key="5">
 
-                                {
+                                    {
 
-                                    activeKey === '5' ?
+                                        activeKey === '5' ?
 
-                                        <StopSchedule></StopSchedule>
+                                            <StopSchedule></StopSchedule>
 
-                                        :''
+                                            :''
 
-                                }
+                                    }
 
-                            </TabPane>
+                                </TabPane>
 
-                        </Tabs>
+                            </Tabs>
 
-                </div>
+                        </div>
 
-                </Loading>
+                    </Loading>
 
             </Modal>
 

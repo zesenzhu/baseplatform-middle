@@ -839,6 +839,20 @@ function AddTempScheduleModal(props){
 
                                 <tr>
 
+                                    <td className="props">上课老师:</td>
+
+                                    <td>
+
+                                        <div className="teacher-name" >{UserName}</div>
+
+                                    </td>
+
+
+
+                                </tr>
+
+                                <tr>
+
                                     <td className="props">学科:</td>
 
                                     <td style={{position:'relative',zIndex:4}}>
@@ -871,33 +885,6 @@ function AddTempScheduleModal(props){
                                         </Tips>
 
                                     </td>
-
-                                    {/*<td>
-
-                                        {
-
-                                            subjectInput.edit?
-
-                                                <>
-
-                                                    <Tips title={subjectInput.tipTitle} visible={subjectInput.tip} autoAdjustOverflow={false}>
-
-                                                        <Input value={subjectInput.value} onBlur={subjectInputBlur} onChange={e=>{e.persist();setSubInput(data=>({...data,value:e.target.value}))}}/>
-
-                                                    </Tips>
-
-                                                    <Button type={"link"} onClick={addSubClose}>取消</Button>
-
-                                                </>
-
-                                                :
-
-                                                <Button type={"link"} onClick={addSubShow}>+添加临时学科</Button>
-
-
-                                        }
-
-                                    </td>*/}
 
                                 </tr>
 
@@ -962,20 +949,6 @@ function AddTempScheduleModal(props){
                                         }
 
                                     </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td className="props">上课老师:</td>
-
-                                    <td>
-
-                                       <div className="teacher-name" >{UserName}</div>
-
-                                    </td>
-
-
 
                                 </tr>
 

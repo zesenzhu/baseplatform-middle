@@ -631,7 +631,21 @@ function Archives(props) {
 
                                     <td className={"col2"} colSpan={6}>
 
-                                        <div className={"education-background"} dangerouslySetInnerHTML={{__html:userStatus.educationBackgroundDetail?userStatus.educationBackgroundDetail:'--'}}></div>
+                                        {
+
+                                            userStatus.educationBackgroundDetail?
+
+                                            <div className={"education-background"} dangerouslySetInnerHTML={{__html:userStatus.educationBackgroundDetail}}></div>
+
+                                             :
+
+                                            <div className={"education-background"}>
+
+                                                <div className="empty">--</div>
+
+                                            </div>
+
+                                        }
 
                                     </td>
 
@@ -643,7 +657,21 @@ function Archives(props) {
 
                                     <td className={"col2"} colSpan={6}>
 
-                                        <div className={"work-experience"} dangerouslySetInnerHTML={{__html:userStatus.workExperience?userStatus.workExperience:'--'}}></div>
+                                        {
+
+                                            userStatus.workExperience?
+
+                                                <div className={"work-experience"} dangerouslySetInnerHTML={{__html:userStatus.workExperience}}></div>
+
+                                                :
+
+                                                <div className={"work-experience"}>
+
+                                                    <div className="empty">--</div>
+
+                                                </div>
+
+                                        }
 
                                     </td>
 
@@ -657,20 +685,21 @@ function Archives(props) {
 
                                         <div className={"award"}>
 
-                                            {
+                                        {
 
+                                            awards&&awards.length>0?
 
-                                                awards&&awards.length>0?
+                                                awards.map((i,k)=>{
 
-                                                    awards.map((i,k)=>{
+                                                    return  <p key={k} className={"award-item"}>{i.title}</p>
 
-                                                        return  <p key={k} className={"award-item"}>{i.title}</p>
+                                                })
 
-                                                    })
+                                                :
 
-                                                    :'--'
+                                                <div className="empty">--</div>
 
-                                            }
+                                        }
 
                                         </div>
 

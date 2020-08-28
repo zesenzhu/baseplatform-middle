@@ -148,7 +148,7 @@ function SchoolLife(props) {
 
                 }
 
-                if (res[2]){
+                if (res[2]&&res[2].buildingName){
 
                     const data = res[2];
 
@@ -253,7 +253,7 @@ function SchoolLife(props) {
 
                   {
 
-                      userStatus&&userStatus.studentStatus&&userStatus.studentStatus.length>0&&userStatus.studentStatus[0].studyingWay==='寄宿'?
+                      userStatus&&userStatus.studentStatus&&userStatus.studentStatus.length>0&&userStatus.studentStatus[0].studyingWay!=='走读'?
 
                           <>
 
