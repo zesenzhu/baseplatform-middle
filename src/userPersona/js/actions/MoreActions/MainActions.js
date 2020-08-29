@@ -4,7 +4,7 @@ import CONFIG from "../../../../common/js/config";
 import "whatwg-fetch";
 import CommonActions from "./CommonActions";
 import Public from "../../../../common/js/public";
-const { HashPrevProxy, UserScheduleProxy } = CONFIG;
+const { HashPrevProxy, UserScheduleProxy, BasicProxy } = CONFIG;
 // 查询我的班级德育信息
 const MAIN_GET_CLASS_MORAL_EDU_INFO_BY_CRITERIAS =
   "MAIN_GET_CLASS_MORAL_EDU_INFO_BY_CRITERIAS";
@@ -599,12 +599,21 @@ const getTeacherResView = async ({
     "&SubjectNames=" +
     subjectNames +
     "&startTime=" +
-    startTime +
+    startTime+' 00:00:00' +
     "&endTime=" +
-    endTime;
+    endTime+' 23:59:59';
+  let TransUrl =
+    BasicProxy +
+    "/Global/GetHttpRequestTransfer?appid=000&token=" +
+    token +
+    "&reqUrl=" +
+    encodeURIComponent(url);
   let data = "";
-  let res = await getData(url, 2);
+  let res = await getData(TransUrl, 2,'cors',false,false);
   let json = await res.json();
+  json = JSON.parse(json)
+  // console.log(json)
+
   if (json.error === 0) {
     data = json;
   } else {
@@ -677,7 +686,7 @@ const GetTeachPlanStatistics = ({
       token,
     }).then((res) => {
       if (res) {
-        dispatch({ type: MAIN_GET_TEACHER_PLAN_STATISTICS, data: res.data });
+        dispatch({ type: MAIN_GET_TEACHER_PLAN_STATISTICS, data: res.Data });
         func(getState());
       }
     });
@@ -694,17 +703,25 @@ const getTeachPlanStatistics = async ({
 }) => {
   let url =
     Proxy +
-    "/TeachingPlan/GetTeachPlanStatistics?UserID=" +
+    "TeachingPlan/ApiForOutside/GetTeachPlanStatistics?UserID=" +
     userID +
     // "&Token=" +
     // token +
     "&StartTime=" +
-    startTime +
+    startTime+' 00:00:00' +
     "&EndTime=" +
-    endTime;
+    endTime+' 23:59:59';
+    // let TransUrl =
+    // BasicProxy +
+    // "/Global/GetHttpRequestTransfer?appid=000&token=" +
+    // token +
+    // "&reqUrl=" +
+    // encodeURIComponent(url);
   let data = "";
   let res = await getData(url, 2);
   let json = await res.json();
+  // json = JSON.parse(json)
+
   if (json.StatusCode === 200) {
     data = json;
   } else {
@@ -797,19 +814,27 @@ const teacherpercentage = async ({
 }) => {
   let url =
     Proxy +
-    "/api/common/teacherpercentage?teacherId=" +
+    "api/common/teacherpercentage?teacherId=" +
     userID +
-    "&Token=" +
-    token +
+    // "&Token=" +
+    // token +
     "&StartTime=" +
-    startTime +
+    startTime +' 00:00:00'+
     "&EndTime=" +
-    endTime +
+    endTime+' 23:59:59' +
     "&schoolId=" +
     schoolId;
+    let TransUrl =
+    BasicProxy +
+    "/Global/GetHttpRequestTransfer?appid=000&token=" +
+    token +
+    "&reqUrl=" +
+    encodeURIComponent(url);
   let data = "";
-  let res = await getData(url, 2);
+  let res = await getData(TransUrl, 2,'cors',false,false);
   let json = await res.json();
+  json = JSON.parse(json)
+
   if (json.code === 0) {
     data = json;
   } else {

@@ -50,7 +50,7 @@ class NearExam extends Component {
         SubNamesList.push(SubjectName);
         SubContent.push(
           <span
-          key={index}
+            key={index}
             className={`Sub-score-box ${
               Score >= 90 ? "score-1" : Score >= 60 ? "score-2" : "score-3"
             }`}
@@ -94,7 +94,7 @@ class NearExam extends Component {
         <div className="NE-box">
           <div className="NEb-content">
             <div className="NEbc-box">
-              <Progress
+              {/* <Progress
                 type="circle"
                 width={96}
                 // strokeWidth={8}
@@ -115,47 +115,59 @@ class NearExam extends Component {
                 }}
                 className="Progress-RankClass"
                 percent={100}
-              />
+              /> */}
+              <div className="Progress-RankClass">
+                <span className="Progress-content">
+                  {RankClass}
+                  <span>分</span>
+                </span>
+              </div>
               <p className="Progress-title">总分</p>
             </div>
             <div className="NEbc-box">
-              <Progress
+              {/* <Progress
                 type="circle"
                 width={96}
                 strokeColor={
                   // {
                   // "0%": "#93d700",
                   // "100%":
-                   "#489200"
-                //    ,
-                // }
-              }
+                  "#489200"
+                  //    ,
+                  // }
+                }
                 format={() => {
                   return <span className="Progress-content">{TotalScore}</span>;
                 }}
                 className="Progress-TotalScore"
                 percent={100}
-              />
+              /> */}
+              <div className="Progress-TotalScore">
+                <span className="Progress-content">{TotalScore}</span>
+              </div>
               <p className="Progress-title">班级排名</p>
             </div>
             <div className="NEbc-box">
-              <Progress
+              {/* <Progress
                 type="circle"
                 width={96}
                 strokeColor={
                   // {
                   // "0%": "#ffa17b",
-                  // "100%": 
+                  // "100%":
                   "#ff586c"
-                //   ,
-                // }
-              }
+                  //   ,
+                  // }
+                }
                 format={() => {
                   return <span className="Progress-content">{RankGrade}</span>;
                 }}
                 className="Progress-RankGrade"
                 percent={100}
-              />
+              /> */}
+              <div className="Progress-RankGrade">
+                <span className="Progress-content">{RankGrade}</span>
+              </div>
               <p className="Progress-title">年级排名</p>
             </div>
           </div>

@@ -30,7 +30,7 @@ class StuQuality extends Component {
         CommonData: { StuResultParams },
       },
       systemUrl: { Urls },
-      loginUser:{SchoolID},
+      loginUser: { SchoolID },
 
       targetUser: { UserID },
       termInfo: { Term },
@@ -92,6 +92,9 @@ class StuQuality extends Component {
           StuResultParams: { SelectBar, TabLoadingVisible },
         },
       },
+      systemUrl: {
+        Urls: { E34 },
+      },
     } = this.props;
     let { firstTime } = this.state;
     return (
@@ -123,7 +126,22 @@ class StuQuality extends Component {
                   期末总评
                 </span>
               </div>
-              <LinkBtn type='score' className="SRt-go">学生成绩查询</LinkBtn>
+              {E34 && E34.WebUrl ? (
+                <LinkBtn
+                  type="score"
+                  onClick={() => {
+                    let token = sessionStorage.getItem("token");
+                    window.open(
+                      E34.WebUrl + "/index_user.html?lg_tk=" + token + "#6|1|0"
+                    );
+                  }}
+                  className="SRt-go"
+                >
+                  学生成绩查询
+                </LinkBtn>
+              ) : (
+                ""
+              )}
             </div>
             <Loading
               //  tip="加载中..."

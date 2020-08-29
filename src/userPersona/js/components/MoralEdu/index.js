@@ -53,11 +53,11 @@ class MoralEdu extends Component {
           // SelectBar: "NearExam",
         })
       );
-      // dispatch(
-      //   MainActions.GetClassMoralEduInfoByCriterias({
-      //     func: () => {},
-      //   })
-      // );
+      dispatch(
+        MainActions.GetClassMoralEduInfoByCriterias({
+          func: () => {},
+        })
+      );
     }
   }
   onShowAllClick = () => {

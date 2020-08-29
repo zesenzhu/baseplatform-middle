@@ -30,7 +30,7 @@ class StuQuality extends Component {
       systemUrl: { Urls },
       targetUser: { UserID },
       termInfo: { Term },
-      loginUser:{SchoolID},
+      loginUser: { SchoolID },
 
       userArchives: { ClassID, GradeID },
     } = nextProps;
@@ -65,6 +65,9 @@ class StuQuality extends Component {
         CommonData: { StuQualityParams },
         MainData: { StuQualityData },
       },
+      systemUrl: {
+        Urls: { E34 },
+      },
     } = this.props;
     let { firstTime } = this.state;
     let List = [];
@@ -96,9 +99,20 @@ class StuQuality extends Component {
         >
           <div className="StuQuality">
             <div className="SR-top">
-              <LinkBtn type="comment" className="SRt-go">
-                综合素养评价
-              </LinkBtn>
+              {E34 && E34.WebUrl ? (
+                <LinkBtn type="comment" className="SRt-go"
+                onClick={() => {
+                  let token = sessionStorage.getItem("token");
+                  window.open(
+                    E34.WebUrl + "/index_user.html?lg_tk=" + token + "#6|3|0"
+                  );
+                }}
+                >
+                  综合素养查询
+                </LinkBtn>
+              ) : (
+                ""
+              )}
             </div>
             <div className="SQ-box">
               {StuQualityList instanceof Array && StuQualityList.length > 0 ? (

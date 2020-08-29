@@ -365,37 +365,37 @@ const MainData = (
       SubjectName: "",
       Url: "",
       UploadCount: 0, //上传资源数量
-      BrowseCount: 10, //浏览数
-      UploadAllScale: 0.5,
+      BrowseCount: 0, //浏览数
+      UploadAllScale: 0,
       SubjectScale: 0,
       UploadSubjectScale: [
-        { SubjectScale: 0.562, SubjectID: "111", SubjectName: "语文" },
-        { SubjectScale: 1, SubjectID: "111", SubjectName: "英语" },
+        // { SubjectScale: 0.562, SubjectID: "111", SubjectName: "语文" },
+        // { SubjectScale: 1, SubjectID: "111", SubjectName: "英语" },
       ],
     },
     TeachPlan: {
-      PCLink: "html/TeachingPlan/",
-      PCType: 1,
-      SysID: "300",
-      UploadAllScale: 0.6, //上传数量领先全校比值
+      PCLink: "",
+      PCType: -1,
+      SysID: "",
+      UploadAllScale: 0, //上传数量领先全校比值
       UploadCount: 0,
       SubjectScale: 0, //上传数量领先本学科比值
       UploadSubjectScale: [
-        { SubjectScale: 0.562, SubjectID: "111", SubjectName: "语文" },
-        { SubjectScale: 1, SubjectID: "111", SubjectName: "英语" },
+        // { SubjectScale: 0.562, SubjectID: "111", SubjectName: "语文" },
+        // { SubjectScale: 1, SubjectID: "111", SubjectName: "英语" },
       ],
-      UseCount: 20, //浏览数
+      UseCount: 0, //浏览数
     },
     TeachPercent: {
-      teacherID: "dqxxyy002",
-      url: "http://172.16.52.123:10103/psi/#/schedule/",
+      teacherID: "",
+      url: "",
       uploadCount: 0, //上传精品资源数量
-      browseCount: 30, //浏览量
-      uploadAllScale: 0.2857143, //上传资源领先全校百分比
+      browseCount: 0, //浏览量
+      uploadAllScale: 0, //上传资源领先全校百分比
 
       UploadSubjectScale: [
-        { SubjectScale: 0.562, SubjectID: "111", SubjectName: "语文" },
-        { SubjectScale: 1, SubjectID: "111", SubjectName: "英语" },
+        // { SubjectScale: 0.562, SubjectID: "111", SubjectName: "语文" },
+        // { SubjectScale: 1, SubjectID: "111", SubjectName: "英语" },
       ],
     },
     TermAndPeriod: {

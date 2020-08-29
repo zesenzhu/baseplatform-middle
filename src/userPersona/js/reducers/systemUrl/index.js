@@ -30,7 +30,10 @@ const defaultState = {
 
    //ai大数据
 
-   "860":{SysID:'860',WebUrl:'',WsUrl:''}
+   "860":{SysID:'860',WebUrl:'',WsUrl:''},
+// 教学方案
+   "300":{SysID:'300',WebUrl:'',WsUrl:''},
+
 
   },
 
