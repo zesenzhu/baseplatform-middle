@@ -478,7 +478,7 @@ function Index(props) {
 
                 title:'任课教师',
 
-                align:'center',
+                align:'left',
 
                 render:(i)=>{
 

@@ -147,7 +147,15 @@ class App extends Component{
 
                     if (Hash.includes('Import')){
 
-                        dispatch({type:RouterSetActions.ROUTER_SET_TO_IMPORT})
+                        if (!res[1]){
+
+                            window.location.href='/Error.aspx?errcode=E011';
+
+                        }else{
+
+                            dispatch({type:RouterSetActions.ROUTER_SET_TO_IMPORT})
+
+                        }
 
                     }else{
 
