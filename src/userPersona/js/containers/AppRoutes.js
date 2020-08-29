@@ -1,3 +1,4 @@
+/*
 import React,{useState,useRef,useMemo,memo,useEffect,useCallback} from 'react';
 
 import {useSelector,useDispatch} from 'react-redux';
@@ -56,4 +57,4 @@ function AppRoutes(props) {
 
 }
 
-export default memo(AppRoutes);
+export default memo(AppRoutes);*/

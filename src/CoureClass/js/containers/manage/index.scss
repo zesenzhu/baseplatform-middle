@@ -269,7 +269,7 @@
 
     }
 
-    .teacher-info{
+    /*.teacher-info{
 
       @include flex;
 
@@ -329,6 +329,63 @@
 
       color: #999999;
 
+
+    }*/
+
+    .teacher-info{
+
+      @include flex;
+
+    }
+
+    .teacher-msg{
+
+      margin-left: 8px;
+
+      text-align: left;
+
+      .name,.id{
+
+        max-width: 84px;
+
+        @include textOverFlow;
+
+      }
+
+      .name{
+
+        color: #333333;
+
+        margin-top: 4px;
+
+      }
+
+      .id{
+
+        color: #999999;
+
+      }
+
+    }
+
+    .teacher-pic{
+
+      width: 38px;
+      height: 48px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      border-radius: 3px
+
+    }
+
+    .emp{
+
+      text-align: center;
+
+      color: #999999;
+
+      width: 56px;
 
     }
 

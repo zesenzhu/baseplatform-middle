@@ -440,7 +440,7 @@ class AdjustByClassRoomContent extends Component{
 
                     <div className="deadline-wrapper clearfix">
 
-                        <div className="props">代课期限:</div>
+                        <div className="props">调整期限:</div>
 
                         <div className="radios-wrapper">
 

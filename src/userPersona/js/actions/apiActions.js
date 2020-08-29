@@ -40,7 +40,7 @@ export const GetSubSystemsMainServerBySubjectID = async ({appid='000',access_tok
 
     }else{
 
-        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'未知错误'}));
+        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'获取子系统地址失败'}));
 
     }
 
@@ -129,15 +129,7 @@ export const getScientificCaseDetail =  async ({userId,scientificType,proxy,disp
 
             return res.data;
 
-        }else{
-
-            dispatch(btnErrorAlertShow({title:'该用户不存在或已被删除'}));
-
         }
-
-    }else{
-
-        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取用户信息失败'}));
 
     }
 

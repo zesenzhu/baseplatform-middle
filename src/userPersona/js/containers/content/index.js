@@ -29,10 +29,7 @@ import SchoolLife from "../../components/schoolLife";
 
 import Study from "../../components/study";
 
-
-
 import "./index.scss";
-import systemUrl from "../../reducers/systemUrl";
 
 function Content(props){
 

@@ -218,9 +218,9 @@ function Archives(props) {
 
                                     <td className={"col2"} colSpan={2}>
 
-                                        <div className={"stu-no"} title={userStatus.studentStatus[0].stuStatusNum}>
+                                        <div className={"stu-no"} title={UserID}>
 
-                                            {isHasValue(userStatus.studentStatus[0].stuStatusNum)}
+                                            {isHasValue(UserID)}
 
                                         </div>
 
@@ -342,101 +342,121 @@ function Archives(props) {
 
                             </table>
 
+                            <table className={"tb2"} border="1">
 
-                            {
+                                <tbody>
 
-                                userStatus.resume.length>0?
+                                    <tr>
 
-                                    <table className={"tb2"} border="1">
+                                        <td className={"col1 props"} rowSpan={userStatus.resume&&userStatus.resume.length>0?userStatus.resume.length+1:2}>学习经历</td>
 
-                                        <tbody>
+                                        <td className={"col2 props"}>学习起始时间</td>
+
+                                        <td className={"col3 props"}>学习结束时间</td>
+
+                                        <td className={"col4 props"}>学习单位</td>
+
+                                        <td className={"col5 props"}>学习内容</td>
+
+                                        <td className={"col6 props"}>担任职务</td>
+
+                                        <td className={"col7 props"}>学习证明人</td>
+
+                                    </tr>
+
+
+                                    {
+
+                                        userStatus.resume&&userStatus.resume.length>0?
+
+                                            userStatus.resume.map((i,k)=>{
+
+                                                return <tr key={i.id}>
+
+                                                    <td className={"col2"}>{isHasValue(i.semesterStartTime)}</td>
+                                                    <td className={"col3"}>{isHasValue(i.semesterEndTime)}</td>
+                                                    <td className={"col4"}>
+
+                                                        <div className={"school-name"} title={i.school}>{isHasValue(i.school)}</div>
+
+                                                    </td>
+                                                    <td className={"col5"}>
+
+                                                        <div className={"learn-content"} title={i.learningContent}>{isHasValue(i.learningContent)}</div>
+
+                                                    </td>
+                                                    <td className={"col6"}>
+
+                                                        <div className={"duty"} title={i.duty}>{isHasValue(i.duty)}</div>
+
+                                                    </td>
+                                                    <td className={"col7"}>
+
+                                                        <div className={"certifier"} title={i.certifier}>{isHasValue(i.certifier)}</div>
+
+                                                    </td>
+
+                                                </tr>
+
+                                            })
+
+                                            :
 
                                             <tr>
 
-                                                <td className={"col1 props"} rowSpan={userStatus.resume.length+1}>学习经历</td>
+                                                <td className={"col2"}>--</td>
+                                                <td className={"col3"}>--</td>
+                                                <td className={"col4"}>
 
-                                                <td className={"col2 props"}>学习起始时间</td>
+                                                    <div className={"school-name"}>--</div>
 
-                                                <td className={"col3 props"}>学习结束时间</td>
+                                                </td>
+                                                <td className={"col5"}>
 
-                                                <td className={"col4 props"}>学习单位</td>
+                                                    <div className={"learn-content"}>--</div>
 
-                                                <td className={"col5 props"}>学习内容</td>
+                                                </td>
+                                                <td className={"col6"}>
 
-                                                <td className={"col6 props"}>担任职务</td>
+                                                    <div className={"duty"}>--</div>
 
-                                                <td className={"col7 props"}>学习证明人</td>
+                                                </td>
+                                                <td className={"col7"}>
+
+                                                    <div className={"certifier"}>--</div>
+
+                                                </td>
 
                                             </tr>
 
+                                    }
 
-                                            {
+                                </tbody>
 
-                                                userStatus.resume.map((i,k)=>{
+                            </table>
 
-                                                    return <tr key={i.id}>
+                            <table className={"tb3"} border="1">
 
-                                                        <td className={"col2"}>{isHasValue(i.semesterStartTime)}</td>
-                                                        <td className={"col3"}>{isHasValue(i.semesterEndTime)}</td>
-                                                        <td className={"col4"}>
+                                <tbody>
 
-                                                            <div className={"school-name"} title={i.school}>{isHasValue(i.school)}</div>
+                                    <tr>
 
-                                                        </td>
-                                                        <td className={"col5"}>
+                                        <td className={"col1 props"} rowSpan={userStatus.guardian&&userStatus.guardian.length>0?userStatus.guardian.length+1:2}>监护人信息</td>
 
-                                                            <div className={"learn-content"} title={i.learningContent}>{isHasValue(i.learningContent)}</div>
+                                        <td className={"col2 props"}>姓名</td>
 
-                                                        </td>
-                                                        <td className={"col6"}>
+                                        <td className={"col3 props"}>关系</td>
 
-                                                            <div className={"duty"} title={i.duty}>{isHasValue(i.duty)}</div>
+                                        <td className={"col4 props"}>工作单位</td>
 
-                                                        </td>
-                                                        <td className={"col7"}>
+                                        <td className={"col5 props"}>联系方式</td>
 
-                                                            <div className={"certifier"} title={i.certifier}>{isHasValue(i.certifier)}</div>
-
-                                                        </td>
-
-                                                    </tr>
-
-                                                })
-
-                                            }
-
-                                        </tbody>
-
-                                    </table>
-
-                                    :null
-
-                            }
-
-                            {
-
-                                userStatus.guardian.length>0?
-
-                                    <table className={"tb3"} border="1">
-
-                                        <tbody>
-
-                                        <tr>
-
-                                            <td className={"col1 props"} rowSpan={userStatus.guardian.length+1}>监护人信息</td>
-
-                                            <td className={"col2 props"}>姓名</td>
-
-                                            <td className={"col3 props"}>关系</td>
-
-                                            <td className={"col4 props"}>工作单位</td>
-
-                                            <td className={"col5 props"}>联系方式</td>
-
-                                        </tr>
+                                    </tr>
 
 
-                                        {
+                                    {
+
+                                        userStatus.guardian&&userStatus.guardian.length>0?
 
                                             userStatus.guardian.map((i,k)=>{
 
@@ -452,7 +472,7 @@ function Archives(props) {
 
                                                         <div className={"serviceUnit"} title={i.serviceUnit}>{isHasValue(i.serviceUnit)}</div>
 
-                                                       </td>
+                                                    </td>
                                                     <td className={"col5"}>
 
                                                         <div className={"tel"} title={i.tel}>
@@ -467,15 +487,38 @@ function Archives(props) {
 
                                             })
 
-                                        }
+                                            :
 
-                                        </tbody>
+                                            <tr>
 
-                                    </table>
+                                                <td className={"col2"}>
 
-                                    :null
+                                                    <div className={"name"}>--</div>
 
-                            }
+                                                </td>
+                                                <td className={"col3"}>--</td>
+                                                <td className={"col4"}>
+
+                                                    <div className={"serviceUnit"}>--</div>
+
+                                                </td>
+                                                <td className={"col5"}>
+
+                                                    <div className={"tel"}>
+
+                                                        --
+
+                                                    </div>
+
+                                                </td>
+
+                                            </tr>
+
+                                    }
+
+                                </tbody>
+
+                            </table>
 
                         </div>
 
