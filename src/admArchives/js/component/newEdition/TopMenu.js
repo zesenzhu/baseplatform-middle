@@ -32,7 +32,7 @@ class TopMenu extends React.Component {
         window.LeaderCancelSearch();
         history.push("/UserArchives/" + key + "/all");
       } else if (icon === "Face") {
-        window.location.href = key;
+        window.open(key) ;
       } else {
         history.push("/UserArchives/" + key + "/all");
       }
