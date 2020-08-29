@@ -89,12 +89,13 @@ function SchoolLife(props) {
 
         const getWaring = GetStuWaring({StudentId:UserID,ClassId:userArchives.ClassID,GradeId:userArchives.GradeID,proxy:Urls['860'].WebUrl,dispatch});
 
+        const timeout = setTimeout(()=>{ console.log("请求超时了");setLoading(false); },15000);
 
         if (Urls['E48'].WebUrl){
 
             const getDormitory = GetStuDormitory({schoolId:SchoolID,userId:UserID,userType:UserType,proxy:Urls['E48'].WebUrl,dispatch});
 
-            Promise.all([getActivities,getWaring,getDormitory]).then(res=>{
+            const promiseAll = Promise.all([getActivities,getWaring,getDormitory]).then(res=>{
 
                 if (res[0]){
 
@@ -160,9 +161,11 @@ function SchoolLife(props) {
 
             });
 
+            Promise.race([promiseAll,timeout]);
+
         }else{
 
-            Promise.all([getActivities,getWaring]).then(res=>{
+            const promiseAll = Promise.all([getActivities,getWaring]).then(res=>{
 
                 if (res[0]){
 
@@ -219,6 +222,8 @@ function SchoolLife(props) {
                 setLoading(false);
 
             });
+
+            Promise.race([promiseAll,timeout]);
 
         }
 
