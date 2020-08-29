@@ -197,7 +197,7 @@ const Init = () => {
 
     let gender = "";
 
-    switch (UserType) {
+    switch (Number(UserType)) {
       case 0:
         userType = "Admin";
 
@@ -210,6 +210,14 @@ const Init = () => {
 
       case 2:
         userType = "Student";
+
+        break;
+      case 3:
+        userType = "Parent";
+
+        break;
+      case 7:
+        userType = "SchoolLeader";
 
         break;
 
@@ -245,9 +253,7 @@ const Init = () => {
 
           userID: UserID, //新增时传空字符串、编辑时传相应UserID
 
-          curImgPath: AvatarPath
-            ? AvatarPath
-            : BaseSetting.AvatarPath, //用户当前头像，新增时可不传
+          curImgPath: AvatarPath ? AvatarPath : BaseSetting.AvatarPath, //用户当前头像，新增时可不传
 
           size: "small",
 

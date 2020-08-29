@@ -75,7 +75,7 @@ class Admin extends React.Component {
               <div className="name-content">
                 <i
                   alt={arr.UserName.UserName}
-                  onClick={this.onUserNameClick.bind(this, arr.UserName.key)}
+                  onClick={this.onUserNameClick.bind(this, arr.UserName.UserID)}
                   className="name-img"
                   style={{
                     width: "47px",
