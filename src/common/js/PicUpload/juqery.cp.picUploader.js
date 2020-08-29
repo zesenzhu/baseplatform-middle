@@ -577,8 +577,7 @@
       _up_obj.defultPreImgPath =
         _up_obj.resWebUrl + "UserInfo/Photo/Default/Nopic.jpg";
     } else {
-      _up_obj.defultPreImgPath =
-        _up_obj.resWebUrl + "UserInfo/Avatar/Default/Nopic.jpg";
+      _up_obj.defultPreImgPath = _userPhoto_getDefaultPhoto();
     }
     _up_obj.uploadSubmitUrl = _up_obj.resWebUrl + "UploadSubmit.ashx";
 
