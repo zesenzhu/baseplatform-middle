@@ -169,8 +169,16 @@ class StudentWrapper extends Component{
     DetailModalShow(Params){
 
         const { dispatch } = this.props;
-
-        dispatch(DMActions.Init(Params))
+        let token = sessionStorage.getItem("token");
+        window.open(
+          "/html/userPersona#/?userType=" +
+            Params.UserType +
+            "&userID=" +
+            Params.UserID +
+            "&lg_tk=" +
+            token
+        );
+        // dispatch(DMActions.Init(Params))
 
     }
 

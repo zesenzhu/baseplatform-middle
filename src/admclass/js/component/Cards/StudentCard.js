@@ -59,6 +59,7 @@ class StudentCard extends React.Component {
       SubjectName,
       UserType
     } = data ? data : {};
+    // console.log(data)
 
     return (
       <div
