@@ -63,7 +63,7 @@ class ImportFile extends React.Component {
                 </div> */}
 
 
-               <ImportExcel ImportTitle='导入教学班' ImportTarget='courseclass'></ImportExcel>
+               <ImportExcel ImportTitle='导入教学班' ImportTarget='courseclass_k12'></ImportExcel>
             </React.Fragment>
         )
     }
