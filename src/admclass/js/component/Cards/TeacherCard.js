@@ -52,6 +52,7 @@ class TeacherCard extends React.Component {
       UserName,
       SubjectID,
       SubjectName,
+      UserType
     } = data?data:{};
     let SubjectColor = "other";
     if (SubjectName === "英语" || SubjectName === "生物") {
@@ -75,7 +76,7 @@ class TeacherCard extends React.Component {
       >
         {/* <div className="card-bg"></div> */}
         {/* <div className="card-main"> */}
-        <div className="cm-content" onClick={type !== "ganger"||IsSet?()=>onDetailModalShow('teacher',UserID):()=>{}}>
+        <div className="cm-content" onClick={type !== "ganger"||IsSet?()=>onDetailModalShow('teacher',UserID,UserType):()=>{}}>
           <div
             className="cm-img"
             style={

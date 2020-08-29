@@ -57,6 +57,7 @@ class StudentCard extends React.Component {
       UserClass,
       SubjectID,
       SubjectName,
+      UserType
     } = data ? data : {};
 
     return (
@@ -69,7 +70,7 @@ class StudentCard extends React.Component {
         <div className="StudentCard-main">
           <div
             className="cm-content"
-            onClick={() => onDetailModalShow("student", UserID)}
+            onClick={() => onDetailModalShow("student", UserID,UserType)}
           >
             <div
               className="cm-img"

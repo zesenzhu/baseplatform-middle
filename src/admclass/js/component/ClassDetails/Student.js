@@ -66,11 +66,20 @@ class Student extends Component {
       dispatch(UpDataState.GetStudentToPage({}));
     }
   };
-  onDetailModalShow = (role, UserID) => {
+  onDetailModalShow = (role, UserID, UserType) => {
     let { dispatch } = this.props;
-    dispatch(UpDataState.SetDetailsModalRole(role));
-    dispatch(UpDataState.GetUserDetail({ UserID }));
-    dispatch(UpDataState.SetModalVisible({ DetailsMsgModalVisible: true }));
+    let token = sessionStorage.getItem("token");
+    window.open(
+      "/html/userPersona#/?userType=" +
+        UserType +
+        "&userID=" +
+        UserID +
+        "&lg_tk=" +
+        token
+    );
+    // dispatch(UpDataState.SetDetailsModalRole(role));
+    // dispatch(UpDataState.GetUserDetail({ UserID }));
+    // dispatch(UpDataState.SetModalVisible({ DetailsMsgModalVisible: true }));
   };
   onCheckAllEndClick = (type) => {
     let {
@@ -137,7 +146,7 @@ class Student extends Component {
             // onSetMonitorClick={this.onSetMonitorClick}
             // onSelectStudentClick={this.onSelectStudentClick}
             // onDeleteMonitorClick={this.onDeleteMonitorClick}
-            onDetailModalShow = {this.onDetailModalShow}
+            onDetailModalShow={this.onDetailModalShow}
             onGetStudentPageClick={this.onGetStudentPageClick}
             canControl={false}
             // type={"Student"}
