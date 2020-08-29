@@ -96,7 +96,7 @@ const getClassMoralEduInfoByCriterias = async ({
     "&token=" +
     token;
   let data = "";
-  let res = await getData(url, 2);
+  let res = await getData(url, 2, "cors", false, false);
   let json = await res.json();
   if (json.code === 0) {
     data = json;
@@ -198,7 +198,7 @@ const getStudentReport = async ({
     "&SchoolID=" +
     SchoolID;
   let data = "";
-  let res = await getData(url, 2);
+  let res = await getData(url, 2, "cors", false, false);
   let json = await res.json();
   if (json.success === true) {
     data = json;
@@ -286,7 +286,7 @@ const getStuNearExam = async ({
     "&SchoolID=" +
     SchoolID;
   let data = "";
-  let res = await getData(url, 2);
+  let res = await getData(url, 2, "cors", false, false);
   let json = await res.json();
   if (json.success === true) {
     data = json;
@@ -338,7 +338,7 @@ const getStudentQuality = async ({
 }) => {
   let url = Proxy + "/api/JWCJZP/GetStudentQuality?Term=" + Term + "&XH=" + XH;
   let data = "";
-  let res = await getData(url, 2);
+  let res = await getData(url, 2, "cors", false, false);
   let json = await res.json();
   if (json.success === true) {
     data = json;
@@ -421,7 +421,7 @@ const getTeacherWork = async ({
     "&token=" +
     token;
   let data = "";
-  let res = await getData(url, 2);
+  let res = await getData(url, 2, "cors", false, false);
   let json = await res.json();
   if (json.code === 0) {
     data = json;
@@ -490,7 +490,7 @@ const getAllTerm = async ({
 }) => {
   let url = Proxy + "/getAllTerm";
   let data = "";
-  let res = await getData(url, 2);
+  let res = await getData(url, 2, "cors", false, false);
   let json = await res.json();
   if (json.code === 0) {
     data = json;
@@ -599,9 +599,11 @@ const getTeacherResView = async ({
     "&SubjectNames=" +
     subjectNames +
     "&startTime=" +
-    startTime+' 00:00:00' +
+    startTime +
+    " 00:00:00" +
     "&endTime=" +
-    endTime+' 23:59:59';
+    endTime +
+    " 23:59:59";
   let TransUrl =
     BasicProxy +
     "/Global/GetHttpRequestTransfer?appid=000&token=" +
@@ -609,9 +611,9 @@ const getTeacherResView = async ({
     "&reqUrl=" +
     encodeURIComponent(url);
   let data = "";
-  let res = await getData(TransUrl, 2,'cors',false,false);
+  let res = await getData(TransUrl, 2, "cors", false, false);
   let json = await res.json();
-  json = JSON.parse(json)
+  json = JSON.parse(json);
   // console.log(json)
 
   if (json.error === 0) {
@@ -708,17 +710,19 @@ const getTeachPlanStatistics = async ({
     // "&Token=" +
     // token +
     "&StartTime=" +
-    startTime+' 00:00:00' +
+    startTime +
+    " 00:00:00" +
     "&EndTime=" +
-    endTime+' 23:59:59';
-    // let TransUrl =
-    // BasicProxy +
-    // "/Global/GetHttpRequestTransfer?appid=000&token=" +
-    // token +
-    // "&reqUrl=" +
-    // encodeURIComponent(url);
+    endTime +
+    " 23:59:59";
+  // let TransUrl =
+  // BasicProxy +
+  // "/Global/GetHttpRequestTransfer?appid=000&token=" +
+  // token +
+  // "&reqUrl=" +
+  // encodeURIComponent(url);
   let data = "";
-  let res = await getData(url, 2);
+  let res = await getData(url, 2, "cors", false, false);
   let json = await res.json();
   // json = JSON.parse(json)
 
@@ -819,21 +823,23 @@ const teacherpercentage = async ({
     // "&Token=" +
     // token +
     "&StartTime=" +
-    startTime +' 00:00:00'+
+    startTime +
+    " 00:00:00" +
     "&EndTime=" +
-    endTime+' 23:59:59' +
+    endTime +
+    " 23:59:59" +
     "&schoolId=" +
     schoolId;
-    let TransUrl =
+  let TransUrl =
     BasicProxy +
     "/Global/GetHttpRequestTransfer?appid=000&token=" +
     token +
     "&reqUrl=" +
     encodeURIComponent(url);
   let data = "";
-  let res = await getData(TransUrl, 2,'cors',false,false);
+  let res = await getData(TransUrl, 2, "cors", false, false);
   let json = await res.json();
-  json = JSON.parse(json)
+  json = JSON.parse(json);
 
   if (json.code === 0) {
     data = json;
@@ -945,7 +951,7 @@ const getTermAndPeriodAndWeekNOInfo = async ({
     "&schoolId=" +
     schoolId;
   let data = "";
-  let res = await getData(url, 2);
+  let res = await getData(url, 2, "cors", false, false);
   let json = await res.json();
   if (json.StatusCode === 200) {
     data = json;
