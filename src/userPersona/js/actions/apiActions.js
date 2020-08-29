@@ -22,7 +22,7 @@ export const GetBaseInfoForPages = async ({dispatch})=>{
 
     }else{
 
-        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'初始化界面错误'}));
+        window.location.href='/Error.aspx?errcode=E001';
 
     }
 
@@ -38,10 +38,6 @@ export const GetSubSystemsMainServerBySubjectID = async ({appid='000',access_tok
 
         return res.Data;
 
-    }else{
-
-        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'获取子系统地址失败'}));
-
     }
 
 };
@@ -55,10 +51,6 @@ export const GetCurrentTermInfo =  async ({SchoolID,dispatch})=>{
     if (res.StatusCode===200){
 
         return res.Data;
-
-    }else{
-
-        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'未获取到学年学期信息'}));
 
     }
 
@@ -77,15 +69,7 @@ export const getDetailStuStatus =  async ({userId,proxy,dispatch})=>{
 
             return res.data;
 
-        }else{
-
-            dispatch(btnErrorAlertShow({title:'该用户不存在或已被删除'}));
-
         }
-
-    }else{
-
-        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取用户信息失败'}));
 
     }
 
@@ -104,15 +88,7 @@ export const getTeacherDetailIntroduction =  async ({teacherId,proxy,dispatch})=
 
             return res.data;
 
-        }else{
-
-            dispatch(btnErrorAlertShow({title:'该用户不存在或已被删除'}));
-
         }
-
-    }else{
-
-        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取用户信息失败'}));
 
     }
 
@@ -149,7 +125,11 @@ export const GetUserDetailForHX =  async ({UserID,UserType,dispatch})=>{
 
     }else{
 
-        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取用户详情失败'}));
+        if (res.ErrCode===-2){
+
+            window.location.href='/Error.aspx?errcode=E001';
+
+        }
 
     }
 
@@ -166,10 +146,6 @@ export const GetUserLogForHX =  async ({UserID,UserType,dispatch})=>{
     if (res.StatusCode===200){
 
         return res.Data;
-
-    }else{
-
-        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取用户详情失败'}));
 
     }
 
@@ -188,10 +164,6 @@ export const GetStudentStudyInfo =  async ({schoolID,userID,termID='',dispatch})
     if (res.StatusCode===200){
 
         return res.Data;
-
-    }else{
-
-        dispatch(btnErrorAlertShow({title:res.msg?res.msg:'获取学生学习科目和课程失败'}));
 
     }
 

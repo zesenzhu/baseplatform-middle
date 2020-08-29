@@ -366,7 +366,7 @@ function App(props) {
 
         }else{
 
-            dispatch(btnErrorAlertShow({title:'参数错误'}));
+            window.location.href='/Error.aspx?errcode=E012';
 
         }
 
