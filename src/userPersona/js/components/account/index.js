@@ -85,7 +85,7 @@ function Account(props) {
 
             dispatch(btnQueryAlertShow({
 
-                title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.ShortName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
+                title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.UserName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
 
                 abstract:<div className={"new-pwd gray"}>
 
@@ -162,7 +162,7 @@ function Account(props) {
 
            dispatch(btnQueryAlertShow({
 
-                title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.ShortName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
+                title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.UserName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
 
                 abstract:<div className={"new-pwd gray"}>
 
@@ -241,7 +241,7 @@ function Account(props) {
 
         dispatch(btnQueryAlertShow({
 
-            title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.ShortName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
+            title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.UserName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
 
             abstract:<div className={"new-pwd gray"}>
 
