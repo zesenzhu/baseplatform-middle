@@ -16,6 +16,8 @@ import {Input} from "antd";
 
 import {UserComm_PwdStrong,UserComm_ValidatePwd} from '../../actions/utils';
 
+import md5 from 'md5';
+
 import "./index.scss";
 
 function Account(props) {
@@ -85,7 +87,7 @@ function Account(props) {
 
             dispatch(btnQueryAlertShow({
 
-                title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.ShortName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
+                title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.UserName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
 
                 abstract:<div className={"new-pwd gray"}>
 
@@ -162,7 +164,7 @@ function Account(props) {
 
            dispatch(btnQueryAlertShow({
 
-                title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.ShortName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
+                title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.UserName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
 
                 abstract:<div className={"new-pwd gray"}>
 
@@ -241,7 +243,7 @@ function Account(props) {
 
         dispatch(btnQueryAlertShow({
 
-            title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.ShortName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
+            title:<div className={"account-title"}>确定重置<span className="user-name red">{userArchives.UserName}</span><span className={"gray user-id"}>({UserID})</span>的密码?</div>,
 
             abstract:<div className={"new-pwd gray"}>
 
@@ -265,7 +267,9 @@ function Account(props) {
 
             if (!tip){
 
-                ResetPwd({userID:UserID,userType:UserType,newPwd:value,dispatch}).then(data=>{
+                const newPwd = md5(value);
+
+                ResetPwd({userID:UserID,userType:UserType,newPwd,dispatch}).then(data=>{
 
                     if (data===0){
 

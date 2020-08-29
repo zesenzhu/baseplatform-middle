@@ -89,7 +89,7 @@ function SchoolLife(props) {
 
         const getWaring = GetStuWaring({StudentId:UserID,ClassId:userArchives.ClassID,GradeId:userArchives.GradeID,proxy:Urls['860'].WebUrl,dispatch});
 
-        const timeout = setTimeout(()=>{ console.log("请求超时了");setLoading(false); },15000);
+        const timeout = setTimeout(()=>{ console.log("请求超时了");setLoading(false); },10000);
 
         if (Urls['E48'].WebUrl){
 
