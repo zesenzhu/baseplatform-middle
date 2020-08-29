@@ -440,7 +440,7 @@ class LogRecord extends React.Component {
           "/html/userPersona#/?userType=" +
             userInfo.UserType +
             "&userID=" +
-            userInfo.userID +
+            userInfo.UserName.UserID +
             "&lg_tk=" +
             token
         );
