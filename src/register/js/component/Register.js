@@ -16,7 +16,7 @@ import {
   Tips,
 } from "../../../common";
 import md5 from "md5";
-
+import Code from "./Code";
 import { Scrollbars } from "react-custom-scrollbars";
 import history from "../containers/history";
 
@@ -73,7 +73,8 @@ class Register extends Component {
       Read: false,
       VCCodeImg: CONFIG.RegisterProxy + "/VCCode?ramdon=" + Math.random(),
       VCCode: "",
-      TestCodeTest:false
+      TestCodeTest: false,
+      code: "",
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -177,7 +178,7 @@ class Register extends Component {
     let Test = /^[a-zA-Z0-9_\u4e00-\u9fa5][a-zA-Z0-9_\u4e00-\u9fa5 ]{0,20}[a-zA-Z0-9_\u4e00-\u9fa5]$|^[a-zA-Z0-9_\u4e00-\u9fa5]{1,20}$/.test(
       value
     );
-    if (value!==''&&!Test) {
+    if (value !== "" && !Test) {
       dispatch(
         actions.UpUIState.AppTipsVisible({
           ShortNameTipsVisible: true,
@@ -207,8 +208,8 @@ class Register extends Component {
     const { dispatch } = this.props;
     let value = e.target.value;
     let Test = /^[a-zA-Z0-9]{5}$/.test(value);
-    if(value===''){
-      return ;
+    if (value === "") {
+      return;
     }
     if (!Test) {
       dispatch(
@@ -217,56 +218,62 @@ class Register extends Component {
         })
       );
       this.setState({
-        TestCodeTest:false
-      })
+        TestCodeTest: false,
+      });
     } else {
-      dispatch(
-        actions.UpDataState.VCCodeEquals({
-          VCCode: this.state.TestCode,
-          func: (data, state) => {
-            console.log(data);
-            if (data) {
-              dispatch(
-                actions.UpUIState.AppTipsVisible({
-                  TestCodeTipsVisible: true,
-                })
-              );
-              this.setState({
-                TestCodeTest:true
-              })
-            } else {
-              dispatch(
-                actions.UpUIState.AppTipsVisible({
-                  TestCodeTipsVisible: true,
-                })
-              );
-              this.setState({
-                TestCodeTest:false
-              })
-              // dispatch(
-              //   actions.UpUIState.showErrorAlert({
-              //     type: "warn",
-              //     title: "验证码输入错误，请重试",
-              //     ok: this.onAppAlertOK.bind(this),
-              //     cancel: this.onAppAlertCancel.bind(this),
-              //     close: this.onAppAlertClose.bind(this),
-              //     onHide: this.onAlertWarnHide.bind(this),
-              //   })
-              // );
-              // this.onGetTestCodeClick();
-            }
-          },
-        })
-      );
+      // dispatch(
+      //   actions.UpDataState.VCCodeEquals({
+      //     VCCode: this.state.TestCode,
+      //     func: (data, state) => {
+      let data =
+        this.state.TestCode.toLowerCase() === this.state.code.toLowerCase();
+      console.log(data);
+      if (data) {
+        dispatch(
+          actions.UpUIState.AppTipsVisible({
+            TestCodeTipsVisible: true,
+          })
+        );
+        this.setState({
+          TestCodeTest: true,
+        });
+      } else {
+        dispatch(
+          actions.UpUIState.AppTipsVisible({
+            TestCodeTipsVisible: true,
+          })
+        );
+        this.setState({
+          TestCodeTest: false,
+        });
+        // dispatch(
+        //   actions.UpUIState.showErrorAlert({
+        //     type: "warn",
+        //     title: "验证码输入错误，请重试",
+        //     ok: this.onAppAlertOK.bind(this),
+        //     cancel: this.onAppAlertCancel.bind(this),
+        //     close: this.onAppAlertClose.bind(this),
+        //     onHide: this.onAlertWarnHide.bind(this),
+        //   })
+        // );
+        // this.onGetTestCodeClick();
+        //     }
+      }
+      // })
+      // );
       // this.setState({
       //   TestCode: value,
       // });
     }
   };
   onGetTestCodeClick = () => {
+    let code = this.reloadPic();
     this.setState({
-      VCCodeImg: CONFIG.RegisterProxy + "/VCCode?ramdon=" + Math.random(),
+      code,
     });
+    // this.setState({
+    //   VCCodeImg: CONFIG.RegisterProxy + "/VCCode?ramdon=" + Math.random(),
+    // });
   };
   // onTestCodeChange
   // 密码 change
@@ -542,7 +549,7 @@ class Register extends Component {
       );
       return;
     }
-    if (this.state.TestCodeTest ===false) {
+    if (this.state.TestCodeTest === false) {
       dispatch(
         actions.UpUIState.showErrorAlert({
           type: "warn",
@@ -605,7 +612,7 @@ class Register extends Component {
           }
         }
         if (
-          ( DataState.RegisterMsg[child] === ""&&child!=='ShortName')||
+          (DataState.RegisterMsg[child] === "" && child !== "ShortName") ||
           DataState.RegisterMsg[child] === [] ||
           ((child === "ClassID" ||
             child === "GradeID" ||
@@ -639,7 +646,7 @@ class Register extends Component {
           }
         }
         if (
-         ( DataState.RegisterMsg[child] === ""&&child!=='ShortName') ||
+          (DataState.RegisterMsg[child] === "" && child !== "ShortName") ||
           (DataState.RegisterMsg[child] instanceof Array &&
             DataState.RegisterMsg[child].length === 0) ||
           (child === "SchoolID" && DataState.RegisterMsg[child] === 0)
@@ -671,7 +678,7 @@ class Register extends Component {
       CONFIG.RegisterProxy + url,
       {
         ...SubmitMsg,
-        VCCode:this.state.TestCode
+        // VCCode: this.state.TestCode,
       },
       2,
       "urlencoded",
@@ -762,6 +769,7 @@ class Register extends Component {
   render() {
     const { DataState, UIState } = this.props;
     // console.log(this.props.role);
+    console.log(this.state.code);
     return (
       <div id="Register" className="Register">
         {/* <p className="top-tips">账号注册</p> */}
@@ -1184,19 +1192,31 @@ class Register extends Component {
                 placeholder={"请输入验证码"}
               ></Input>
               <i
-                className={`TestCodeTest ${this.state.TestCodeTest?'isSuccess':'isError'}`}
+                className={`TestCodeTest ${
+                  this.state.TestCodeTest ? "isSuccess" : "isError"
+                }`}
                 style={{
                   display: UIState.AppTipsVisible.TestCodeTipsVisible
                     ? "inline-block"
                     : "none",
                 }}
               ></i>
-              <img
+              {/* <img
                 alt="vccode"
                 src={this.state.VCCodeImg}
                 onClick={this.onGetTestCodeClick}
                 className="testCodeImg"
-              ></img>
+              ></img> */}
+              <Code
+                className={"testCodeImg"}
+                getCode={(reloadPic, code) => {
+                  this.reloadPic = reloadPic;
+                  this.setState({
+                    code,
+                  });
+                  // console.log(code);
+                }}
+              ></Code>
               <span onClick={this.onGetTestCodeClick} className="testCodeTips">
                 看不清，换一张
               </span>

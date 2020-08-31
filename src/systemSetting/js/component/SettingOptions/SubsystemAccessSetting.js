@@ -274,7 +274,7 @@ class SubsystemAccessSetting extends Component {
                             <div className="grey-bg"></div>
                             <div className="subsystem-content">
                                 <div className="pic-bg"> <img src={item.SubSystemImgUrl} alt="图片丢失" title={item.SubSystemName} /></div>
-                                <span className="subsystemName">{item.SubSystemName}</span>
+                                <span className="subsystemName" title={item.SubSystemName}>{item.SubSystemName}</span>
                                 <div className="user-type"> <span title="可访问的用户类别"></span>{item.UserTypeString}</div>
                                 <div className="split-line"></div>
                                 <div className="access-state"> 当前状态:
