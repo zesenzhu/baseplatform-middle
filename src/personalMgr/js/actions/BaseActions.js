@@ -239,7 +239,7 @@ const Init = () => {
       default:
         gender = "-1";
     }
-
+console.log(AvatarPath)
     ApiActions.GetResHttpServerAddr({ dispatch }).then((data) => {
       if (data) {
         var option = {
