@@ -32,7 +32,8 @@ import animationPic3 from '../assets/images/dark-tech/dark-tech-pic3.png';
 
 import animationPic4 from '../assets/images/dark-tech/dark-tech-pic4.png';
 
-import {getNewTkUrl,goToNextPage,decodeObjValue} from "../api/utils";
+import {goToNextPage,decodeObjValue} from "../api/utils";
+
 import {introduceChange} from "../store/introduce";
 
 
@@ -649,17 +650,18 @@ function Content(props) {
 
                                 sessionStorage.setItem("UserInfo",JSON.stringify(UserInfo));
 
-                                goToNextPage({token:res.data.token,WebIndexUrl,UserType:UserInfo.UserType});
+
+                                goToNextPage({token:res.data.token,WebIndexUrl,UserType:UserInfo.UserType,dispatch});
 
                             }else{
 
-                                goToNextPage({token:res.data.token,WebIndexUrl,UserType:''});
+                                goToNextPage({token:res.data.token,WebIndexUrl,UserType:'',dispatch});
 
                             }
 
                         },err=>{
 
-                            goToNextPage({token:res.data.token,WebIndexUrl,UserType:''});
+                            goToNextPage({token:res.data.token,WebIndexUrl,UserType:'',dispatch});
 
                         });
 

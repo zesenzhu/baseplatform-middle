@@ -12,8 +12,6 @@ import {getNewTkUrl,goToNextPage,decodeObjValue,removeSlashUrl,downLoadFile} fro
 
 import { GetBaseInfo,loginApi,GetSystemsMainServer } from './api/index';
 
-import { introduceChange } from './store/introduce';
-
 import { changeSkin,changeSetting,changePluginStatus,getMacID } from './store/commSetting';
 
 import { showWarnAlert,hideAlert } from './store/appAlert';
@@ -242,17 +240,17 @@ function App(props){
 
                                 sessionStorage.setItem("UserInfo",JSON.stringify(UserInfo));
 
-                                goToNextPage({token,WebIndexUrl:data.WebIndexUrl,UserType:UserInfo.UserType});
+                                goToNextPage({token,WebIndexUrl:data.WebIndexUrl,UserType:UserInfo.UserType,dispatch});
 
                             }else{
 
-                                goToNextPage({token,WebIndexUrl:data.WebIndexUrl,UserType:''});
+                                goToNextPage({token,WebIndexUrl:data.WebIndexUrl,UserType:'',dispatch});
 
                             }
 
                         },err=>{
 
-                            goToNextPage({token,WebIndexUrl:data.WebIndexUrl,UserType:''});
+                            goToNextPage({token,WebIndexUrl:data.WebIndexUrl,UserType:'',dispatch});
 
                         });
 
@@ -579,11 +577,11 @@ function App(props){
 
                                 sessionStorage.setItem("UserInfo",JSON.stringify(UserInfo));
 
-                                goToNextPage({token:d.data.token,WebIndexUrl,UserType:UserInfo.UserType});
+                                goToNextPage({token:d.data.token,WebIndexUrl,UserType:UserInfo.UserType,dispatch});
 
                             }else{
 
-                                goToNextPage({token:d.data.token,WebIndexUrl,UserType:''});
+                                goToNextPage({token:d.data.token,WebIndexUrl,UserType:'',dispatch});
 
                             }
 
@@ -591,7 +589,7 @@ function App(props){
 
                         },err=>{
 
-                            goToNextPage({token:d.data.token,WebIndexUrl,UserType:''});
+                            goToNextPage({token:d.data.token,WebIndexUrl,UserType:'',dispatch});
 
                             setAppLoading(false);
 
@@ -772,11 +770,11 @@ function App(props){
 
                                     sessionStorage.setItem("UserInfo",JSON.stringify(UserInfo));
 
-                                    goToNextPage({token:d.data.token,WebIndexUrl,UserType:UserInfo.UserType});
+                                    goToNextPage({token:d.data.token,WebIndexUrl,UserType:UserInfo.UserType,dispatch});
 
                                 }else{
 
-                                    goToNextPage({token:d.data.token,WebIndexUrl,UserType:''});
+                                    goToNextPage({token:d.data.token,WebIndexUrl,UserType:'',dispatch});
 
                                 }
 
@@ -784,7 +782,7 @@ function App(props){
 
                             },err=>{
 
-                                goToNextPage({token:d.data.token,WebIndexUrl,UserType:''});
+                                goToNextPage({token:d.data.token,WebIndexUrl,UserType:'',dispatch});
 
                                 setAppLoading(false);
 
