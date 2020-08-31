@@ -130,7 +130,7 @@ class App extends Component {
                   <p className='tb-name' ><i></i>{ProductName ? ProductName : "--"}</p>
                   <div className="tb-hr"></div>
                   <p className="bt-title">
-                    欢迎来到智慧校园一体化平台，请填写资料完成注册
+                    欢迎来到{ProductName}，请填写资料完成注册
                   </p>
                 </div>
                 <div className='ball-1'></div>

@@ -553,7 +553,7 @@ class Register extends Component {
       dispatch(
         actions.UpUIState.showErrorAlert({
           type: "warn",
-          title: "请输入完整的验证码",
+          title: "验证码错误",
           ok: this.onAppAlertOK.bind(this),
           cancel: this.onAppAlertCancel.bind(this),
           close: this.onAppAlertClose.bind(this),
@@ -1260,6 +1260,7 @@ class Register extends Component {
           visible={UIState.AppModal.AgreementModal}
           type="2"
           height={600}
+          footer={null}
           onClose={this.onAgreementClose.bind(this)}
           onCancel={this.onAgreementClose.bind(this)}
         >
