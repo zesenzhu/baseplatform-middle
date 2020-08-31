@@ -277,6 +277,8 @@ function DoubleSingleTable(props){
     },[ItemClassHour]);
 
 
+    console.log(schedule,ItemClassHour);
+
     useEffect(()=>{
 
         if ($('.ant-table-fixed-header .ant-table-scroll .ant-table-hide-scrollbar').css("overflow")==='auto'){

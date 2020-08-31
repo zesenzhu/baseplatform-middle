@@ -1,0 +1,51 @@
+.self-double-single-table-wrapper{
+
+  max-height: 500px;
+
+  table{
+
+    position:absolute;
+
+    th,td{
+
+      border: 1px solid #aaddea;
+
+    }
+
+  }
+
+  #double-single-table1{
+
+    width: 10.5%;
+
+    z-index: 3;
+
+  }
+
+  #double-single-table2{
+
+    width:100%;
+
+    z-index: 2;
+
+    .blank{
+
+      width: 10.5%;
+
+    }
+
+  }
+
+  #double-single-table2,#double-single-table1{
+
+    th{
+
+      height: 84px;
+
+      background-color: #d6efff;
+
+    }
+
+  }
+
+}

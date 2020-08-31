@@ -12,6 +12,8 @@ import {DropDown, Empty, Loading} from "../../../../common";
 
 import DoubleSingleTable from "../../component/DoubleSingleTable";
 
+import SelfDoubleSingleTable from "../../component/selfDoubleSingleTable";
+
 import $ from 'jquery';
 
 import ComPageRefresh from "../../actions/ComPageRefresh";
@@ -280,6 +282,37 @@ class Subject extends Component{
                                     <Empty type="3" title="暂无学科教师课表数据"></Empty>
 
                             }
+
+
+                        {
+
+                            SubjectTeacherSubjectSchedule.schedule.length>0?
+
+                                <SelfDoubleSingleTable
+
+                                    ItemClassHourCount={SubjectCourseGradeClassRoom.ItemClassHourCount}
+                                    ItemClassHour={SubjectCourseGradeClassRoom.ItemClassHour}
+                                    ItemWeek = {PeriodWeekTerm.ItemWeek}
+                                    NowWeekNo={PeriodWeekTerm.NowWeekNo}
+                                    leftColWidth={136}
+                                    commonColWidth={128}
+                                    rowOneHeight={46}
+                                    rowTowHeight={64}
+                                    commonRowHeight={90}
+                                    schedule={SubjectTeacherSubjectSchedule.schedule}
+                                    onClickRow={(record) => this.clickRow.bind(this,record)}
+                                    scrollToBottom={this.scrollToBottom.bind(this)}
+                                    ScheduleDetailShow={this.ScheduleDetailShow.bind(this)}
+                                >
+
+
+
+                                </SelfDoubleSingleTable>
+
+                                :null
+
+                        }
+
 
                     </Loading>
 
