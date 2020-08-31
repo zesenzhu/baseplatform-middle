@@ -50,7 +50,23 @@ $image-url:'../images';
 
     background-color: #ffffff;
 
-    @include flex;
+    .ant-spin-dot-spin{
+
+      top:48%;
+
+    }
+
+    .ant-spin-text{
+
+      position: absolute;
+
+      top:calc(48% + 36px);
+
+      left: 50%;
+
+      transform: translateX(-50%);
+
+    }
 
   }
 
