@@ -1568,7 +1568,7 @@ function Content(props) {
 
                             {
 
-                                !commSetting.LockerVersion||parseInt(commSetting.LockerVersion)===1?
+                                !commSetting.LockerVersion||parseInt(commSetting.LockerVersion)!==1?
 
                                     <div className={"sign_up_wrapper"}>
 
