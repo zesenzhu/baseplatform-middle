@@ -1,3 +1,6 @@
+@import "../../../scss/base";
+
+
 .self-double-single-table-wrapper{
 
   max-height: 500px;
@@ -6,9 +9,25 @@
 
     position:absolute;
 
+    table-layout: fixed;
+
+    word-break: break-word;
+
     th,td{
 
       border: 1px solid #aaddea;
+
+    }
+
+    .col2{
+
+      border-left:0;
+
+    }
+
+    .row2{
+
+      border-top:0;
 
     }
 
@@ -16,7 +35,7 @@
 
   #double-single-table1{
 
-    width: 10.5%;
+    min-width: 10.5%;
 
     z-index: 3;
 
@@ -43,6 +62,110 @@
       height: 84px;
 
       background-color: #d6efff;
+
+    }
+
+  }
+
+  #double-single-table3{
+
+    min-width: 10.5%;
+
+    z-index: 2;
+
+    tr{
+
+      td{
+
+        height: 90px;
+
+        background-color: #d6efff;
+
+      }
+
+      &:first-child{
+
+         td{
+
+           height: 84px;
+
+         }
+
+      }
+
+    }
+
+  }
+
+  #double-single-table4{
+
+    width: 100%;
+
+      tr{
+
+        th{
+
+          height: 84px;
+
+          min-width: 10.5%;
+
+        }
+
+        td{
+
+          min-width: 10.5%;
+
+          height: 90px;
+
+
+
+        }
+
+      }
+
+  }
+
+
+  .row-name{
+
+    text-align: center;
+
+    margin: 0 6px;
+
+    @include textOverFlow;
+
+    color: #399cd0;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+  }
+
+
+  .class-hour-wrapper{
+
+    .class-hour-name{
+
+      text-align: center;
+
+      font-size: 16px;
+
+      font-weight: bold;
+
+      color: #399cd0;
+
+    }
+
+    .time{
+
+      text-align: center;
+
+      font-size: 14px;
+
+      color: #399cd0;
+
+      font-weight: normal;
 
     }
 
