@@ -235,10 +235,6 @@ function Content(props){
 
     if (moduleList instanceof Array&&moduleList.length > 0) {
 
-        console.log(UsedType);
-
-        console.log(moduleList.filter(i =>i.type.includes(UsedType)).map(i =>({ id: i.id, title: i.title })));
-
       return moduleList.filter(i =>i.type.includes(UsedType)).map(i => ({ id: i.id, title: i.title }));
 
     } else {
@@ -264,7 +260,7 @@ function Content(props){
 
         {
 
-          UsedType!=='OtherToStu'?
+          UsedType!=='OtherToStu'&&anchorList.length>=3?
 
               <AnchorPoint anchorList={anchorList}></AnchorPoint>
 
