@@ -37,6 +37,8 @@ import {goToNextPage,decodeObjValue} from "../api/utils";
 import {introduceChange} from "../store/introduce";
 
 
+
+
 function Content(props) {
 
     const [bluePicList,setBluePicList] = useState([0,1,2,3]);
@@ -1563,11 +1565,21 @@ function Content(props) {
 
                             }
 
-                            <div className={"sign_up_wrapper"}>
 
-                                还没有账号？<a target={"_blank"} href={`/html/register`} className={"sign_up_link link"}>立即注册</a>
+                            {
 
-                            </div>
+                                !commSetting.LockerVersion||parseInt(commSetting.LockerVersion)===1?
+
+                                    <div className={"sign_up_wrapper"}>
+
+                                        还没有账号？<a target={"_blank"} href={`/html/register`} className={"sign_up_link link"}>立即注册</a>
+
+                                    </div>
+
+                                    :null
+
+                            }
+
 
                         </div>
 
