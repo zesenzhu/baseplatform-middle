@@ -85,9 +85,9 @@ if (process.env.NODE_ENV === 'development'){
 
         GlobalProxy:'http://192.168.129.1:30103/Global',
 
-        UserPersonaProxy:'http://192.168.129.64:20102',
+        UserPersonaProxy:'http://192.168.129.1:30103',
 
-        UserScheduleProxy:'http://192.168.129.64:20102/Schedule/api/',
+        UserScheduleProxy:'http://192.168.129.1:30103/Schedule/api/',
 
     }
 
