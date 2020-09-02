@@ -10,7 +10,7 @@ import SDActions from '../../actions/ScheduleDetailActions';
 
 import ComPageRefresh from '../../actions/ComPageRefresh';
 
-import DoubleSingleTable from '../../component/DoubleSingleTable';
+import SelfDoubleSingleTable from '../../component/selfDoubleSingleTable';
 
 import $ from 'jquery';
 
@@ -85,8 +85,6 @@ class Subject extends Component{
 
         const { pageIndex,TeacherCount } = Manager.SubjectTeacherSchedule;
 
-        console.log(123);
-
         if (pageIndex < Math.ceil(TeacherCount/10) ){
 
             dispatch(STSAction.STSPageUpdate({nextPage:true}));
@@ -128,7 +126,6 @@ class Subject extends Component{
 
         const { dispatch,Manager } = this.props;
 
-
         //旧代码
         //dispatch(STSAction.ScheduleDetailShow(Params));
 
@@ -160,25 +157,6 @@ class Subject extends Component{
 
 
     }
-
-    /*//点击全屏按钮
-    FullScreenClick(e){
-
-        this.setState({fullScreen:!this.state.fullScreen},()=>{
-
-            if (this.state.fullScreen){
-
-                document.body.style.overflowY="hidden";
-
-            }else{
-
-                document.body.style.overflowY="scroll";
-
-            }
-
-        });
-
-    }*/
 
 
     render() {
@@ -271,25 +249,13 @@ class Subject extends Component{
 
                                 SubjectTeacherSchedule.schedule.length>0?
 
-                                    <DoubleSingleTable
-                                        ItemClassHourCount={SubjectCourseGradeClassRoom.ItemClassHourCount}
+                                    <SelfDoubleSingleTable
                                         ItemClassHour={SubjectCourseGradeClassRoom.ItemClassHour}
-                                        ItemWeek = {PeriodWeekTerm.ItemWeek}
-                                        NowWeekNo={PeriodWeekTerm.NowWeekNo}
-                                        leftColWidth={136}
-                                        commonColWidth={128}
-                                        rowOneHeight={32}
-                                        rowTowHeight={52}
-                                        commonRowHeight={90}
                                         schedule={SubjectTeacherSchedule.schedule}
-                                        scheduleCount={SubjectTeacherSchedule.TeacherCount}
-                                        schedulePageIndex={SubjectTeacherSchedule.pageIndex}
-                                        schedulePageSize={10}
-                                        onClickRow={(record) => this.clickRow.bind(this,record)}
                                         scrollToBottom={this.scrollToBottom.bind(this)}
                                         ScheduleDetailShow={this.ScheduleDetailShow.bind(this)}>
 
-                                    </DoubleSingleTable>
+                                    </SelfDoubleSingleTable>
 
                                     :
 

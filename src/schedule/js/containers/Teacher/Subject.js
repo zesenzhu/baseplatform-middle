@@ -184,11 +184,7 @@ class Subject extends Component{
 
         return (
 
-            <CSSTransition in={this.state.fullScreen} timeout={200} classNames={"full-screen"}>
-
-                <div className={`subject-teacher-subject-content ${this.state.fullScreen?'full-screen-doing':''}`}>
-
-                    {/*<div className="full-screen-btn" onClick={this.FullScreenClick.bind(this)}>{this.state.fullScreen?'退出全屏':'全屏'}</div>*/}
+                <div className={`subject-teacher-subject-content`}>
 
                     <Loading spinning={SubjectTeacherSubjectSchedule.loadingShow} tip="正在为您查找，请稍后...">
 
@@ -236,89 +232,27 @@ class Subject extends Component{
 
                         </WeekDayPick>
 
-                        {/*<TermPick
-
-                            ItemTermName={PeriodWeekTerm.ItemTerm?PeriodWeekTerm.ItemTerm.TermName:''}
-
-                            NowWeekNo={SubjectTeacherSubjectSchedule.NowWeekNo}
-
-                            ItemWeek ={ItemWeek}
-
-                            weekPickEvent = {this.weekPickEvent.bind(this)}
-
-                            weekNextEvent = {this.weekNextEvent.bind(this)}
-
-                            weekPrevEvent = {this.weekPrevEvent.bind(this)}
-
-                            WeekNO={PeriodWeekTerm.WeekNO?PeriodWeekTerm.WeekNO:''}
-
-                            >
-
-                        </TermPick>*/}
-
-                            {
-
-                                SubjectTeacherSubjectSchedule.schedule.length>0?
-
-                                    <DoubleSingleTable
-                                        ItemClassHourCount={SubjectCourseGradeClassRoom.ItemClassHourCount}
-                                        ItemClassHour={SubjectCourseGradeClassRoom.ItemClassHour}
-                                        ItemWeek = {PeriodWeekTerm.ItemWeek}
-                                        NowWeekNo={PeriodWeekTerm.NowWeekNo}
-                                        leftColWidth={136}
-                                        commonColWidth={128}
-                                        rowOneHeight={46}
-                                        rowTowHeight={64}
-                                        commonRowHeight={90}
-                                        schedule={SubjectTeacherSubjectSchedule.schedule}
-                                        onClickRow={(record) => this.clickRow.bind(this,record)}
-                                        scrollToBottom={this.scrollToBottom.bind(this)}
-                                        ScheduleDetailShow={this.ScheduleDetailShow.bind(this)}>
-
-                                    </DoubleSingleTable>
-
-                                    :
-
-                                    <Empty type="3" title="暂无学科教师课表数据"></Empty>
-
-                            }
-
-
                         {
 
                             SubjectTeacherSubjectSchedule.schedule.length>0?
 
                                 <SelfDoubleSingleTable
-
-                                    ItemClassHourCount={SubjectCourseGradeClassRoom.ItemClassHourCount}
                                     ItemClassHour={SubjectCourseGradeClassRoom.ItemClassHour}
-                                    ItemWeek = {PeriodWeekTerm.ItemWeek}
-                                    NowWeekNo={PeriodWeekTerm.NowWeekNo}
-                                    leftColWidth={136}
-                                    commonColWidth={128}
-                                    rowOneHeight={46}
-                                    rowTowHeight={64}
-                                    commonRowHeight={90}
                                     schedule={SubjectTeacherSubjectSchedule.schedule}
-                                    onClickRow={(record) => this.clickRow.bind(this,record)}
                                     scrollToBottom={this.scrollToBottom.bind(this)}
-                                    ScheduleDetailShow={this.ScheduleDetailShow.bind(this)}
-                                >
-
-
+                                    ScheduleDetailShow={this.ScheduleDetailShow.bind(this)}>
 
                                 </SelfDoubleSingleTable>
 
-                                :null
+                                :
+
+                                <Empty type="3" title="暂无学科教师课表数据"></Empty>
 
                         }
-
 
                     </Loading>
 
                 </div>
-
-            </CSSTransition>
 
         );
 

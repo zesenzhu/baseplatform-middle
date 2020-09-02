@@ -57,19 +57,19 @@ function SelfDoubleSingleTable(props){
 
         const width = $('.self-double-single-table-wrapper').width();
 
-        const itemLen = ItemClassHour.length;
+        let itemLen = ItemClassHour.length;
 
         if (itemLen>8){
 
-            setColWidth(width/9);
-
-        }else{
-
-            setColWidth(width/(itemLen+1));
+            itemLen = 9;
 
         }
 
-    },[]);
+        const colWh = Math.floor(width/(itemLen+1))- 1;
+
+        setColWidth(colWh);
+
+    });
 
 
     //左右滚动条滚动
@@ -96,7 +96,7 @@ function SelfDoubleSingleTable(props){
 
         <div className={"self-double-single-table-wrapper"}>
 
-            <Scrollbars style={{height:500}} onScrollFrame={tableScroll}>
+            <Scrollbars style={{height:600}} onScrollFrame={tableScroll}>
 
                 {/*<div className={"table-scroll-wrapper"}>
 
@@ -266,7 +266,6 @@ function SelfDoubleSingleTable(props){
                     </table>
 
                 </div>*/}
-
 
                 {/*<div className={"table-scroll-wrapper"}>
 
@@ -439,11 +438,15 @@ function SelfDoubleSingleTable(props){
 
                     <thead>
 
-                    <th className={"col1 row1"}>
+                        <tr>
 
-                        <div className="blank" style={{width:colWidth}}></div>
+                            <th className={"col1 row1"}>
 
-                    </th>
+                                <div className="blank" style={{width:colWidth}}></div>
+
+                            </th>
+
+                        </tr>
 
                     </thead>
 
@@ -453,31 +456,35 @@ function SelfDoubleSingleTable(props){
 
                     <thead>
 
-                    <th className={"col1 row1"}>
+                        <tr>
 
-                        <div className={"blank"} style={{width:colWidth}}></div>
+                            <th className={"col1 row1"}>
 
-                    </th>
-
-                    {
-
-                        ItemClassHour.map((i,k)=>{
-
-                            return <th className={`col${k+2} row1`}>
-
-                                <div className={"class-hour-wrapper"} style={{width:colWidth}}>
-
-                                    <div className={"class-hour-name"}>{i.ClassHourName}</div>
-
-                                    <div className={"time"}>{i.StartTime}-{i.EndTime}</div>
-
-                                </div>
+                                <div className={"blank"} style={{width:colWidth}}></div>
 
                             </th>
 
-                        })
+                            {
 
-                    }
+                                ItemClassHour.map((i,k)=>{
+
+                                    return <th key={i.ClassHourNO} className={`col${k+2} row1`}>
+
+                                        <div className={"class-hour-wrapper"} style={{width:colWidth}}>
+
+                                            <div className={"class-hour-name"}>{i.ClassHourName}</div>
+
+                                            <div className={"time"}>{i.StartTime}-{i.EndTime}</div>
+
+                                        </div>
+
+                                    </th>
+
+                                })
+
+                            }
+
+                        </tr>
 
                     </thead>
 
@@ -503,7 +510,7 @@ function SelfDoubleSingleTable(props){
 
                             return(
 
-                                <tr>
+                                <tr key={i.id}>
 
                                     <td className={`row${k+2} col1`}>
 
@@ -527,32 +534,30 @@ function SelfDoubleSingleTable(props){
 
                     <thead>
 
+                        <tr>
 
-                    <tr>
+                            <th className={"col1 row1"}>
 
-                        <th className={"col1 row1"}>
+                                <div className={"blank"} style={{width:colWidth}}></div>
 
-                            <div className={"blank"} style={{width:colWidth}}></div>
-
-                        </th>
+                            </th>
 
 
-                        {
+                            {
 
-                            ItemClassHour.map((i,k)=>{
+                                ItemClassHour.map((i,k)=>{
 
-                                return <th className={`col${k+2} row1`}>
+                                    return <th key={i.ClassHourNO} className={`col${k+2} row1`}>
 
-                                    <div className={"top-blank"} style={{width:colWidth}}></div>
+                                        <div className={"top-blank"} style={{width:colWidth}}></div>
 
-                                </th>
+                                    </th>
 
-                            })
+                                })
 
-                        }
+                            }
 
-                    </tr>
-
+                        </tr>
 
                     </thead>
 
@@ -564,7 +569,7 @@ function SelfDoubleSingleTable(props){
 
                             return(
 
-                                <tr>
+                                <tr key={i.id}>
 
                                     <td className={`row${k+2} col1`}>
 
@@ -600,11 +605,7 @@ function SelfDoubleSingleTable(props){
 
                                                                 :
 
-                                                                (findItem.ScheduleType===2?
-
-                                                                    <div className="ongoing-flag"><span>进行中</span></div>
-
-                                                                    :'')
+                                                                null
 
                                                             :''
 
@@ -616,7 +617,7 @@ function SelfDoubleSingleTable(props){
 
                                             return(
 
-                                                <td className={`row${k+2} col${key+2}`}>
+                                                <td key={item.ClassHourNO} className={`row${k+2} col${key+2}`}>
 
                                                     <div className={`schedule-wrapper`} style={{width:colWidth}}>{scheduleDom}</div>
 

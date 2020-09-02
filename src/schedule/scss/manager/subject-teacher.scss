@@ -22,86 +22,11 @@
         }
     }
 
-    /*&.full-screen{
+    .self-double-single-table-wrapper{
 
-        position:fixed;
-
-        z-index: 1090;
-
-        background-color: #fff;
-
-        //margin-left:0;
-
-        @include animation(FullScreen 0.2s);
-
-        @include animation-fill-mode(forwards);
-
-        border-top:0;
-
-    }*/
-
-    &.full-screen-enter{
-
-        position:fixed;
-
-        z-index: 1090;
-
-        background-color: #fff;
-
-        border-top:0;
-
-        left:calc(50% - 615px);
-
-        top:calc(50% - 200px);
-
-        padding-left: 0;
-
-        padding-right: 0;
+        margin-top: 24px;
 
     }
-
-    &.full-screen-enter-active{
-
-        position:fixed;
-
-        z-index: 1090;
-
-        background-color: #fff;
-
-        border-top:0;
-
-        @include animation(FullScreen 0.2s);
-
-        @include animation-fill-mode(forwards);
-
-    }
-
-    &.full-screen-enter-done{
-
-        position:fixed;
-
-        z-index: 1090;
-
-        background-color: #fff;
-
-        border-top:0;
-
-        width: 100%;
-
-        height: 100%;
-
-        left:0;
-
-        top:0;
-
-        padding-left:30px;
-
-        padding-right: 30px;
-
-        margin-left:0;
-
-    }
-
 
 }
 

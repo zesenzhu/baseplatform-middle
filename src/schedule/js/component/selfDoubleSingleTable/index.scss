@@ -3,7 +3,7 @@
 
 .self-double-single-table-wrapper{
 
-  max-height: 500px;
+  max-height: 600px;
 
   /*table{
 
@@ -251,9 +251,13 @@
 
   #double-single-table2,#double-single-table1{
 
+    left: 0;
+
+    top:0;
+
     th{
 
-      height: 84px;
+      height: 64px;
 
       background-color: #d6efff;
 
@@ -264,6 +268,10 @@
   #double-single-table3{
 
     z-index: 2;
+
+    left: 0;
+
+    top: 0;
 
     tr{
 
@@ -279,7 +287,7 @@
 
         td{
 
-          height: 84px;
+          height: 64px;
 
         }
 
@@ -291,11 +299,15 @@
 
   #double-single-table4{
 
+    left: 0;
+
+    top: 0;
+
     tr{
 
       th{
 
-        height: 84px;
+        height: 64px;
 
       }
 
@@ -314,6 +326,8 @@
     }
 
     .schedule-wrapper{
+
+      position: relative;
 
       text-align: center;
 
@@ -394,6 +408,35 @@
       font-weight: normal;
 
     }
+
+  }
+
+
+  .stoped-flag{
+
+    position: absolute;
+
+    font-size: 12px;
+
+    right: 0;
+
+    top: -12px;
+
+    color: #ffffff;
+
+    background-color: #ff6600;
+
+    width: 40px;
+
+    height: 16px;
+
+    line-height: 16px;
+
+    text-align: center;
+
+    border-radius: 2px;
+
+    vertical-align: middle;
 
   }
 
