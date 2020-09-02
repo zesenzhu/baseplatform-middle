@@ -32,8 +32,11 @@ import animationPic3 from '../assets/images/dark-tech/dark-tech-pic3.png';
 
 import animationPic4 from '../assets/images/dark-tech/dark-tech-pic4.png';
 
-import {getNewTkUrl,goToNextPage,decodeObjValue} from "../api/utils";
+import {goToNextPage,decodeObjValue} from "../api/utils";
+
 import {introduceChange} from "../store/introduce";
+
+
 
 
 function Content(props) {
@@ -649,17 +652,18 @@ function Content(props) {
 
                                 sessionStorage.setItem("UserInfo",JSON.stringify(UserInfo));
 
-                                goToNextPage({token:res.data.token,WebIndexUrl,UserType:UserInfo.UserType});
+
+                                goToNextPage({token:res.data.token,WebIndexUrl,UserType:UserInfo.UserType,dispatch});
 
                             }else{
 
-                                goToNextPage({token:res.data.token,WebIndexUrl,UserType:''});
+                                goToNextPage({token:res.data.token,WebIndexUrl,UserType:'',dispatch});
 
                             }
 
                         },err=>{
 
-                            goToNextPage({token:res.data.token,WebIndexUrl,UserType:''});
+                            goToNextPage({token:res.data.token,WebIndexUrl,UserType:'',dispatch});
 
                         });
 
@@ -1561,11 +1565,21 @@ function Content(props) {
 
                             }
 
-                            <div className={"sign_up_wrapper"}>
 
-                                还没有账号？<a target={"_blank"} href={`/html/register`} className={"sign_up_link link"}>立即注册</a>
+                            {
 
-                            </div>
+                                !commSetting.LockerVersion||parseInt(commSetting.LockerVersion)!==1?
+
+                                    <div className={"sign_up_wrapper"}>
+
+                                        还没有账号？<a target={"_blank"} href={`/html/register`} className={"sign_up_link link"}>立即注册</a>
+
+                                    </div>
+
+                                    :null
+
+                            }
+
 
                         </div>
 

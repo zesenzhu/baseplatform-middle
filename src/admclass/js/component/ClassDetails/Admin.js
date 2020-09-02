@@ -142,7 +142,7 @@ class Admin extends Component {
     let { dispatch } = this.props;
     let token = sessionStorage.getItem("token");
         window.open(
-          "/html/userPersona#/?userType=" +
+          "/html/userPersona/index.html?userType=" +
              UserType +
             "&userID=" +
              UserID +

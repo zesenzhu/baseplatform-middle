@@ -189,7 +189,7 @@ class TeacherWrapper extends Component {
     const { dispatch } = this.props;
     let token = sessionStorage.getItem("token");
     window.open(
-      "/html/userPersona#/?userType=" +
+      "/html/userPersona/index.html?userType=" +
         Params.UserType +
         "&userID=" +
         Params.UserID +

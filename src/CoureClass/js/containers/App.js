@@ -970,12 +970,12 @@ class App extends Component {
         >
           <Frame
             pageInit={this.pageInit.bind(this)}
-
             module={{
               cnname: cnname,
               enname: enname,
               image: logo
             }}
+
             type="triangle"
             showBarner={bannerState.show}
             showLeftMenu={leftMenu.show}

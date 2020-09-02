@@ -430,7 +430,7 @@ class LogDynamic extends React.Component {
         //学生教师调到个人画像
         let token = sessionStorage.getItem("token");
         window.open(
-          "/html/userPersona#/?userType=" +
+          "/html/userPersona/index.html?userType=" +
             userInfo.UserType +
             "&userID=" +
             userInfo.UserName.UserID +

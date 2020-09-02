@@ -1,6 +1,8 @@
 import {getData,postData} from "../../common/js/fetch";
 
-import {getQueryVariable} from "../../common/js/disconnect";
+import {getQueryVariable,LogOut} from "../../common/js/disconnect";
+
+import {hideAlert, showErrorAlert} from "../store/appAlert";
 
 
 //获取数据以及封装数据格式
@@ -106,7 +108,7 @@ export const getNewTkUrl = ({preUrl,jointParam}) => {
 
 
 //判断跳转
-export const goToNextPage = ({token,WebIndexUrl,UserType}) =>{
+export const goToNextPage = ({token,WebIndexUrl,UserType,dispatch}) =>{
 
     if (parseInt(UserType)===6){
 
@@ -147,17 +149,34 @@ export const goToNextPage = ({token,WebIndexUrl,UserType}) =>{
 
             }
 
-        }else{
+            window.location.href= nexUrl;
+
+        }else if (parseInt(UserInfo.UserType)===0){
 
             nexUrl = `/html/initGuide?lg_tk=${token}${preUri?'&lg_preurl='+preUri:''}`
 
-        }
+            window.location.href= nexUrl;
 
-        window.location.href= nexUrl;
+        }else{
+
+            dispatch(showErrorAlert({title:"登录异常,登录失败",cancelShow:'n',close:e=>logErr(dispatch),ok:e=>logErr(dispatch)}));
+
+        }
 
     }
 
 };
+
+
+
+const logErr = (dispatch)=>{
+
+    LogOut();
+
+    dispatch(hideAlert(dispatch));
+
+};
+
 
 //将对象值解码后返回
 export const decodeObjValue = (obj) => {

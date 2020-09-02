@@ -167,7 +167,7 @@ class ScheduleDetailModal extends Component{
 
                                 {
 
-                                    CanOperate?
+                                    CanOperate&&NowTeacherName?
 
                                     ScheduleType!==1?
 
@@ -211,7 +211,7 @@ class ScheduleDetailModal extends Component{
 
                                 {
 
-                                    CanOperate?
+                                    CanOperate&&NowTeacherName?
 
                                     IsOver===0&&ScheduleType!==1?
 
@@ -243,7 +243,7 @@ class ScheduleDetailModal extends Component{
 
                                 {
 
-                                    CanOperate?
+                                    CanOperate&&NowTeacherName?
 
                                         IsOver===0&&ScheduleType!==1?
 
@@ -279,13 +279,13 @@ class ScheduleDetailModal extends Component{
 
                                 {
 
-                                    CanOperate?
+                                    CanOperate&&NowTeacherName?
 
                                     IsOver === 0&&ScheduleType!==1?
 
                                         ReplaceTeacherID!==UserID?
 
-                                            ReplaceTeacherID&&NowTeacherID?
+                                            ReplaceTeacherID?
 
                                                 <button className="reback adjust-btn" onClick={e=>RebackReplaceSchedule({ClassDate:NowClassDate,ClassHourNO:NowClassHourNO,TeacherID:NowTeacherID,ScheduleID})}>恢复教师</button>
 
@@ -315,7 +315,7 @@ class ScheduleDetailModal extends Component{
 
                                 {
 
-                                    CanOperate?
+                                    CanOperate&&NowTeacherName?
 
                                     IsOver===0&&ScheduleType!==1?
 
