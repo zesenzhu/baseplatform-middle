@@ -1,0 +1,668 @@
+@import "../../../scss/base";
+
+
+.self-double-single-table-wrapper{
+
+  max-height: 600px;
+
+  /*table{
+
+    position:absolute;
+
+    table-layout: fixed;
+
+    word-break: break-word;
+
+    th,td{
+
+      border: 1px solid #aaddea;
+
+    }
+
+    .col2{
+
+      border-left:0;
+
+    }
+
+    .row2{
+
+      border-top:0;
+
+    }
+
+  }
+
+  #double-single-table1{
+
+    min-width: 10.5%;
+
+    z-index: 3;
+
+  }
+
+  #double-single-table2{
+
+    width: 100%;
+
+    z-index: 2;
+
+    .blank{
+
+      width: 10.5%;
+
+    }
+
+  }
+
+  #double-single-table2,#double-single-table1{
+
+    th{
+
+      height: 84px;
+
+      background-color: #d6efff;
+
+    }
+
+  }
+
+  #double-single-table3{
+
+    min-width: 10.5%;
+
+    z-index: 2;
+
+    tr{
+
+      td{
+
+        height: 90px;
+
+        background-color: #d6efff;
+
+      }
+
+      &:first-child{
+
+         td{
+
+           height: 84px;
+
+         }
+
+      }
+
+    }
+
+  }
+
+  #double-single-table4{
+
+    width: 100%;
+
+    tr{
+
+      th{
+
+        height: 84px;
+
+        min-width: 10.5%;
+
+      }
+
+      td{
+
+        min-width: 10.5%;
+
+        height: 90px;
+
+
+
+      }
+
+      &:nth-child(even){
+
+        background-color:rgba(229, 240, 243, 0.24);
+
+      }
+
+    }
+
+    .schedule-wrapper{
+
+      text-align: center;
+
+      color: #999999;
+
+      margin: 0 6px;
+
+    }
+
+    .title,.second-title,.third-title{
+
+      font-size: 14px;
+      
+      &.title{
+
+        cursor: pointer;
+
+        font-weight: bold;
+
+        text-decoration: underline;
+
+        &:hover{
+
+          color: #ff6600;
+
+        }
+
+        &.unend{
+
+            color: #333333;
+
+        }
+
+      }
+
+    }
+
+  }
+
+  .row-name{
+
+    text-align: center;
+
+    margin: 0 6px;
+
+    @include textOverFlow;
+
+    color: #399cd0;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+  }
+
+  .class-hour-wrapper{
+
+    .class-hour-name{
+
+      text-align: center;
+
+      font-size: 16px;
+
+      font-weight: bold;
+
+      color: #399cd0;
+
+    }
+
+    .time{
+
+      text-align: center;
+
+      font-size: 14px;
+
+      color: #399cd0;
+
+      font-weight: normal;
+
+    }
+
+  }*/
+
+  table{
+
+    position:absolute;
+
+    th,td{
+
+      border: 1px solid #aaddea;
+
+    }
+
+    .col2{
+
+      border-left:0;
+
+    }
+
+    .row2{
+
+      border-top:0;
+
+    }
+
+  }
+
+  #double-single-table1{
+
+    z-index: 3;
+
+  }
+
+  #double-single-table2{
+
+    z-index: 2;
+
+  }
+
+  #double-single-table2,#double-single-table1{
+
+    left: 0;
+
+    top:0;
+
+    th{
+
+      height: 64px;
+
+      background-color: #d6efff;
+
+    }
+
+  }
+
+  #double-single-table3{
+
+    z-index: 2;
+
+    left: 0;
+
+    top: 0;
+
+    tr{
+
+      td{
+
+        height: 90px;
+
+        background-color: #d6efff;
+
+      }
+
+      &:first-child{
+
+        td{
+
+          height: 64px;
+
+        }
+
+      }
+
+    }
+
+  }
+
+  #double-single-table4{
+
+    left: 0;
+
+    top: 0;
+
+    tr{
+
+      th{
+
+        height: 64px;
+
+      }
+
+      td{
+
+        height: 90px;
+
+      }
+
+      &:nth-child(even){
+
+        background-color:rgba(229, 240, 243, 0.24);
+
+      }
+
+    }
+
+    .schedule-wrapper{
+
+      position: relative;
+
+      text-align: center;
+
+      color: #999999;
+
+      padding:0 6px;
+
+    }
+
+    .title,.second-title,.third-title{
+
+      font-size: 14px;
+
+      &.title{
+
+        cursor: pointer;
+
+        font-weight: bold;
+
+        text-decoration: underline;
+
+        &:hover{
+
+          color: #ff6600;
+
+        }
+
+        &.unend{
+
+          color: #333333;
+
+        }
+
+      }
+
+    }
+
+  }
+
+  .row-name{
+
+    text-align: center;
+
+    padding: 0 6px;
+
+    @include textOverFlow;
+
+    color: #399cd0;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+  }
+
+  .class-hour-wrapper{
+
+    .class-hour-name{
+
+      text-align: center;
+
+      font-size: 16px;
+
+      font-weight: bold;
+
+      color: #399cd0;
+
+    }
+
+    .time{
+
+      text-align: center;
+
+      font-size: 14px;
+
+      color: #399cd0;
+
+      font-weight: normal;
+
+    }
+
+  }
+
+
+  .stoped-flag{
+
+    position: absolute;
+
+    font-size: 12px;
+
+    right: 0;
+
+    top: -12px;
+
+    color: #ffffff;
+
+    background-color: #ff6600;
+
+    width: 40px;
+
+    height: 16px;
+
+    line-height: 16px;
+
+    text-align: center;
+
+    border-radius: 2px;
+
+    vertical-align: middle;
+
+  }
+
+
+/*  .table{
+
+    display: table;
+
+    position:absolute;
+
+    table-layout: fixed;
+
+    word-break: break-word;
+
+    .th,.td{
+
+      display: table-cell;
+
+      border: 1px solid #aaddea;
+
+    }
+
+    .col2{
+
+      border-left:0;
+
+    }
+
+    .row2{
+
+      border-top:0;
+
+    }
+
+    .thead{
+
+      display: table-header-group;
+
+    }
+
+    .tr{
+
+      display: table-row;
+
+    }
+
+  }
+
+  #double-single-table1{
+
+    min-width: 10.5%;
+
+    z-index: 3;
+
+  }
+
+  #double-single-table2{
+
+    width: 100%;
+
+    z-index: 2;
+
+    .blank{
+
+      width: 10.5%;
+
+    }
+
+  }
+
+  #double-single-table2,#double-single-table1{
+
+    .th{
+
+      height: 84px;
+
+      background-color: #d6efff;
+
+    }
+
+  }
+
+  #double-single-table3{
+
+    min-width: 10.5%;
+
+    z-index: 2;
+
+    .tr{
+
+      .td{
+
+        height: 90px;
+
+        background-color: #d6efff;
+
+      }
+
+      &:first-child{
+
+        .td{
+
+          height: 84px;
+
+        }
+
+      }
+
+    }
+
+  }
+
+  #double-single-table4{
+
+    width: 100%;
+
+    .tr{
+
+      .th{
+
+        height: 84px;
+
+        min-width: 10.5%;
+
+      }
+
+      .td{
+
+        min-width: 10.5%;
+
+        height: 90px;
+
+
+
+      }
+
+      &:nth-child(even){
+
+        background-color:rgba(229, 240, 243, 0.24);
+
+      }
+
+    }
+
+    .schedule-wrapper{
+
+      text-align: center;
+
+      color: #999999;
+
+      margin: 0 6px;
+
+    }
+
+    .title,.second-title,.third-title{
+
+      font-size: 14px;
+
+      &.title{
+
+        cursor: pointer;
+
+        font-weight: bold;
+
+        text-decoration: underline;
+
+        &:hover{
+
+          color: #ff6600;
+
+        }
+
+        &.unend{
+
+          color: #333333;
+
+        }
+
+      }
+
+    }
+
+  }
+
+  .row-name{
+
+    text-align: center;
+
+    margin: 0 6px;
+
+    @include textOverFlow;
+
+    color: #399cd0;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+  }
+
+  .class-hour-wrapper{
+
+    .class-hour-name{
+
+      text-align: center;
+
+      font-size: 16px;
+
+      font-weight: bold;
+
+      color: #399cd0;
+
+    }
+
+    .time{
+
+      text-align: center;
+
+      font-size: 14px;
+
+      color: #399cd0;
+
+      font-weight: normal;
+
+    }
+
+  }*/
+
+}

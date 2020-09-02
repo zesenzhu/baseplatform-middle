@@ -1,4 +1,5 @@
 .single-double-table {
+
     th,
     td {
         border: solid 1px #96d4e3;
@@ -199,179 +200,181 @@
     }
 
 
+    .table-wrapper{
 
+        &.work-plant-form{
 
-    &.work-plant-form{
-
-        th,
-        td{
-            border: solid 1px #b0e0ff;
-        }
-
-        th{
-
-            @include background-image(none);
-
-            background-color: #d6efff;
-
-            .week{
-
-                font-size: 16px;
-
-                color: #399cd0;
-
+            th,
+            td{
+                border: solid 1px #b0e0ff;
             }
 
-            .date{
+            th{
 
-                font-size: 14px;
+                @include background-image(none);
 
-                color: #399cd0;
-
-                font-weight: normal;
-
-            }
-
-        }
-
-        .noon{
-
-            @include background-image(none);
-
-            background-color: #d6efff;
-
-            color: #399cd0;
-
-            font-size: 14px;
-
-        }
-
-        .course-time{
-
-            @include background-image(none);
-
-            background-color: #f5fbff;
-
-        }
-
-        .course-time-title{
-
-            color: #399cd0;
-
-            font-size: 14px;
-
-            font-weight: normal;
-
-        }
-
-        .course-time-time{
-
-            font-size: 12px;
-
-            color: #399cd0;
-
-        }
-
-        .scheduleDiv{
-
-            padding-top: 20px;
-
-            &.active{
-
-                background-image: none;
-
-                &:after,&:before{
-
-                    box-shadow:none;
-
-                }
-
-            }
-
-            &.empty{
-
-                padding: 0;
-
-                text-align: center;
-
-            }
-
-        }
-
-        .title{
-
-            padding:0 10px;
-
-            text-align: center;
-
-            font-size: 14px;
-
-            font-weight: bold;
-
-            height: 24px;
-
-            line-height: 24px;
-
-        }
-
-        .third-title,.second-title{
-
-            padding: 0 4px;
-
-            text-align: center;
-
-            color: #999999;
-
-            font-size: 12px;
-
-            height: 20px;
-
-            line-height: 20px;
-
-        }
-
-
-        .week-wrapper{
-
-            &.active{
-
-                background-image: linear-gradient(-90deg,
-                        #0fc1fc 0%,
-                        #1da4fe 100%),
-                linear-gradient(
-                                #d6efff,
-                                #d6efff);
+                background-color: #d6efff;
 
                 .week{
 
-                    color: #ffffff;
+                    font-size: 16px;
+
+                    color: #399cd0;
 
                 }
 
                 .date{
 
-                    color: #abe4fe;
+                    font-size: 14px;
+
+                    color: #399cd0;
+
+                    font-weight: normal;
 
                 }
 
+            }
 
-                &:before{
+            .noon{
 
-                    box-shadow: none;
+                @include background-image(none);
+
+                background-color: #d6efff;
+
+                color: #399cd0;
+
+                font-size: 14px;
+
+            }
+
+            .course-time{
+
+                @include background-image(none);
+
+                background-color: #f5fbff;
+
+            }
+
+            .course-time-title{
+
+                color: #399cd0;
+
+                font-size: 14px;
+
+                font-weight: normal;
+
+            }
+
+            .course-time-time{
+
+                font-size: 12px;
+
+                color: #399cd0;
+
+            }
+
+            .scheduleDiv{
+
+                padding-top: 20px;
+
+                &.active{
+
+                    background-image: none;
+
+                    &:after,&:before{
+
+                        box-shadow:none;
+
+                    }
 
                 }
 
-                &:after{
+                &.empty{
 
-                    top: 58px;
+                    padding: 0;
 
-                    left: 0;
+                    text-align: center;
 
-                    width: 100%;
+                }
 
-                    height: 6px;
+            }
 
-                    box-shadow: 0 4px 5px 1px #b0e0ff;
+            .title{
+
+                padding:0 10px;
+
+                text-align: center;
+
+                font-size: 14px;
+
+                font-weight: bold;
+
+                height: 24px;
+
+                line-height: 24px;
+
+            }
+
+            .third-title,.second-title{
+
+                padding: 0 4px;
+
+                text-align: center;
+
+                color: #999999;
+
+                font-size: 12px;
+
+                height: 20px;
+
+                line-height: 20px;
+
+            }
+
+
+            .week-wrapper{
+
+                &.active{
+
+                    background-image: linear-gradient(-90deg,
+                            #0fc1fc 0%,
+                            #1da4fe 100%),
+                    linear-gradient(
+                                    #d6efff,
+                                    #d6efff);
+
+                    .week{
+
+                        color: #ffffff;
+
+                    }
+
+                    .date{
+
+                        color: #abe4fe;
+
+                    }
+
+
+                    &:before{
+
+                        box-shadow: none;
+
+                    }
+
+                    &:after{
+
+                        top: 58px;
+
+                        left: 0;
+
+                        width: 100%;
+
+                        height: 6px;
+
+                        box-shadow: 0 4px 5px 1px #b0e0ff;
+
+                    }
 
                 }
 

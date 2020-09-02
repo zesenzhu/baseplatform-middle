@@ -14,7 +14,7 @@ import WeekDayPick from '../../component/WeekDayPick';
 
 import $ from "jquery";
 
-import DoubleSingleTable from "../../component/DoubleSingleTable";
+import SelfDoubleSingleTable from "../../component/selfDoubleSingleTable";
 
 import SDActions from "../../actions/ScheduleDetailActions";
 
@@ -232,42 +232,18 @@ class ClassTotal extends Component{
 
                         </WeekDayPick>
 
-
-
-                            {/*<NewScheduleTable
-                                ItemClassHourCount={SubjectCourseGradeClassRoom.ItemClassHourCount}
-                                ItemClassHour={SubjectCourseGradeClassRoom.ItemClassHour}
-                                ItemWeek = {PeriodWeekTerm.ItemWeek}
-                                NowWeekNo={PeriodWeekTerm.NowWeekNo}
-                                schedule={ClassTotal.Schedule}
-                                onClickRow={(record) => this.clickRow.bind(this,record)}
-                                scrollToBottom={this.scrollToBottom.bind(this)}
-                                ScheduleDetailShow={this.ScheduleDetailShow.bind(this)}
-                            >
-
-                            </NewScheduleTable>*/}
-
                              {
 
                                 ClassTotal.Schedule.length>0?
 
-                                    <DoubleSingleTable
-                                        ItemClassHourCount={SubjectCourseGradeClassRoom.ItemClassHourCount}
+                                    <SelfDoubleSingleTable
                                         ItemClassHour={SubjectCourseGradeClassRoom.ItemClassHour}
-                                        ItemWeek = {PeriodWeekTerm.ItemWeek}
-                                        NowWeekNo={PeriodWeekTerm.NowWeekNo}
-                                        leftColWidth={136}
-                                        commonColWidth={128}
-                                        rowOneHeight={46}
-                                        rowTowHeight={64}
-                                        commonRowHeight={90}
                                         schedule={ClassTotal.Schedule}
-                                        onClickRow={(record) => this.clickRow.bind(this,record)}
                                         scrollToBottom={this.scrollToBottom.bind(this)}
                                         ScheduleDetailShow={this.ScheduleDetailShow.bind(this)}
                                     >
 
-                                    </DoubleSingleTable>
+                                    </SelfDoubleSingleTable>
 
                                     :
 

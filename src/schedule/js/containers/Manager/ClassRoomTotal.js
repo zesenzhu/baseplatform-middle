@@ -11,7 +11,7 @@ import CRTActions from '../../actions/Manager/ClassRoomTotalActions';
 
 import $ from "jquery";
 
-import DoubleSingleTable from "../../component/DoubleSingleTable";
+import SelfDoubleSingleTable from "../../component/selfDoubleSingleTable";
 
 import ComPageRefresh from "../../actions/ComPageRefresh";
 
@@ -162,43 +162,17 @@ class ClassRoomTotal extends Component{
     }
 
 
-    //点击全屏按钮
-
-    /*FullScreenClick(e){
-
-        this.setState({fullScreen:!this.state.fullScreen},()=>{
-
-            if (this.state.fullScreen){
-
-                document.body.style.overflowY="hidden";
-
-            }else{
-
-                document.body.style.overflowY="scroll";
-
-            }
-
-        });
-
-    }*/
-
-
     render(){
 
         const { PeriodWeekTerm,SubjectCourseGradeClassRoom,ClassRoomTotal } = this.props;
 
         const { ScheduleDetail,ChangeTime,AdjustClassRoom,ReplaceSchedule } = ClassRoomTotal;
 
-
-
-
         return(
 
             <CSSTransition in={this.state.fullScreen} timeout={200} classNames={"full-screen"}>
 
                 <div className={`class-total-content ${this.state.fullScreen?'full-screen-doing':''}`}>
-
-                    {/*<div className="full-screen-btn" onClick={this.FullScreenClick.bind(this)}>{this.state.fullScreen?'退出全屏':'全屏'}</div>*/}
 
                     <Loading spinning={ClassRoomTotal.LoadingShow} tip="正在为您查找，请稍后...">
 
@@ -234,47 +208,18 @@ class ClassRoomTotal extends Component{
 
                         </WeekDayPick>
 
-                       {/* <TermPick
-
-                            ItemTermName={PeriodWeekTerm.ItemTerm?PeriodWeekTerm.ItemTerm.TermName:''}
-
-                            NowWeekNo={ClassRoomTotal.WeekNO}
-
-                            ItemWeek ={ClassRoomTotal.WeekList}
-
-                            weekPickEvent = {this.weekPickEvent.bind(this)}
-
-                            weekNextEvent = {this.weekNextEvent.bind(this)}
-
-                            weekPrevEvent = {this.weekPrevEvent.bind(this)}
-
-                            WeekNO={PeriodWeekTerm.WeekNO?PeriodWeekTerm.WeekNO:''}
-                        >
-
-                        </TermPick>*/}
-
-
                             {
 
                                 ClassRoomTotal.Schedule.length>0?
 
-                                    <DoubleSingleTable
-                                        ItemClassHourCount={SubjectCourseGradeClassRoom.ItemClassHourCount}
+                                    <SelfDoubleSingleTable
                                         ItemClassHour={SubjectCourseGradeClassRoom.ItemClassHour}
-                                        ItemWeek = {PeriodWeekTerm.ItemWeek}
-                                        NowWeekNo={PeriodWeekTerm.NowWeekNo}
-                                        leftColWidth={136}
-                                        commonColWidth={128}
-                                        rowOneHeight={46}
-                                        rowTowHeight={64}
-                                        commonRowHeight={90}
                                         schedule={ClassRoomTotal.Schedule}
-                                        onClickRow={(record) => this.clickRow.bind(this,record)}
                                         scrollToBottom={this.scrollToBottom.bind(this)}
                                         ScheduleDetailShow={this.ScheduleDetailShow.bind(this)}
                                     >
 
-                                    </DoubleSingleTable>
+                                    </SelfDoubleSingleTable>
 
                                     :
 
