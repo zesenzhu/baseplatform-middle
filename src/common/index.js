@@ -505,6 +505,7 @@ class Modal extends React.Component {
       visible: props.visible /*对话框是否可见*/,
       className: props.className ? props.className : "" /**/,
       destroyOnClose: props.destroyOnClose ? props.destroyOnClose : true,
+      ModalStyle:"Modal-1"
     };
   }
 
@@ -693,6 +694,7 @@ class Modal extends React.Component {
         visible={this.props.visible}
         centered={this.props.centered ? this.props.centered : true}
         width={this.state.width}
+        closeIcon={this.state.ModalStyle==='Modal-1'?<i className={"modal-close-icon"}></i>:null}
         footer={
           this.state.footer === null
             ? null
