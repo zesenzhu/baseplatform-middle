@@ -17,7 +17,7 @@ export const GetBaseInfoForPages = async ({dispatch})=>{
 
     }else{
 
-        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'未知错误'}));
+        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'界面初始化失败'}));
 
     }
 
@@ -33,10 +33,6 @@ export const GetProvince = async ({dispatch})=>{
 
         return res.Data;
 
-    }else{
-
-        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'未知错误'}));
-
     }
 
 };
@@ -50,10 +46,6 @@ export const GetCity = async ({dispatch,ProvinceID})=>{
     if (res.StatusCode === 200){
 
         return res.Data;
-
-    }else{
-
-        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'未知错误'}));
 
     }
 
@@ -69,10 +61,6 @@ export const GetCounty = async ({dispatch,CityID})=>{
 
         return res.Data;
 
-    }else{
-
-        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'未知错误'}));
-
     }
 
 };
@@ -86,10 +74,6 @@ export const GetCurrentTermInfo = async ({dispatch,SchoolID})=>{
     if (res.StatusCode === 200){
 
         return res.Data;
-
-    }else{
-
-        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'未知错误'}));
 
     }
 
@@ -107,7 +91,7 @@ export const GetSchoolInfo = async ({dispatch,SchoolID})=>{
 
     }else{
 
-        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'未知错误'}));
+        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'获取学校基础信息失败'}));
 
     }
 
@@ -125,7 +109,7 @@ export const GetCollegeList = async ({dispatch,SchoolID,keyword='',index=1,pageS
 
     }else{
 
-        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'未知错误'}));
+        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'获取学校基础信息失败'}));
 
     }
 
@@ -176,7 +160,7 @@ export const DeleteCollege = async ({SchoolID,CollegeIDs,dispatch}) =>{
 
         return res.ErrCode;
 
-    }else if (res.StatusCode===400){
+    }else{
 
         dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'未知错误'}));
 
@@ -198,7 +182,7 @@ export const EditCollege = async ({SchoolID,CollegeID,CollegeCode,CollegeName,di
 
         return res.ErrCode;
 
-    }else if (res.StatusCode===400){
+    }else{
 
         dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'未知错误'}));
 
@@ -220,7 +204,7 @@ export const SetTermInfo = async ({SchoolID,UserID,StartDate,EndDate,TermName,di
 
         return res.ErrCode;
 
-    }else if (res.StatusCode===400){
+    }else{
 
         dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'未知错误'}));
 
@@ -242,7 +226,7 @@ export const EditSchoolInfo_Middle = async ({UserID,SchoolID,SchoolName,SchoolCo
 
         return res.ErrCode;
 
-    }else if (res.StatusCode===400){
+    }else{
 
         dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'未知错误'}));
 
@@ -264,7 +248,7 @@ export const EditSchoolInfo_University = async ({UserID,SchoolID,SchoolName,Scho
 
         return res.ErrCode;
 
-    }else if (res.StatusCode===400){
+    }else{
 
         dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'未知错误'}));
 
@@ -286,7 +270,7 @@ export const AddSchoolInfo = async ({UserID,SchoolID='',SchoolName,SchoolCode,Sc
 
         return res.Data;
 
-    }else if (res.StatusCode===400){
+    }else{
 
         dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'未知错误'}));
 

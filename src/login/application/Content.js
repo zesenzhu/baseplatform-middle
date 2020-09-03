@@ -347,162 +347,6 @@ function Content(props) {
 
     },[active]);
 
-
- /*   //四个动画函数
-
-    const canvasDraw1 = ()=>{
-
-        const ctx = CtxRef.current;
-
-        const moveTotal = ImgAnimationRef.current.move;
-
-        const direction = ImgAnimationRef.current.dir;
-
-        const {img,maxCount} = ImgAnimationRef.current;
-
-        ctx.clearRect(0,0,640,400);
-
-        ctx.drawImage(img,moveTotal,0,15216,400);
-
-        if (animationCount1>=maxCount){
-
-            animationCount1 = 1;
-
-            if (ImgAnimationRef.current.move<=-14582){
-
-                ImgAnimationRef.current.move = 0;
-
-            }else{
-
-                ImgAnimationRef.current.move = moveTotal - 634;
-
-            }
-
-        }else{
-
-            animationCount1 = animationCount1 + 1;
-
-        }
-
-        requestAnimationFrame(canvasDraw1);
-
-    };
-
-    const canvasDraw2 = ()=>{
-
-        const ctx = CtxRef.current;
-
-        const moveTotal = ImgAnimationRef.current.move;
-
-        const direction = ImgAnimationRef.current.dir;
-
-        const {img,maxCount} = ImgAnimationRef.current;
-
-        ctx.clearRect(0,0,640,400);
-
-        ctx.drawImage(img,moveTotal,0,15216,400);
-
-        if (animationCount2>=maxCount){
-
-            animationCount2 = 1;
-
-            if (ImgAnimationRef.current.move<=-14582){
-
-                ImgAnimationRef.current.move = 0;
-
-            }else{
-
-                ImgAnimationRef.current.move = moveTotal - 634;
-
-            }
-
-        }else{
-
-            animationCount2 = animationCount2 + 1;
-
-        }
-
-        requestAnimationFrame(canvasDraw2);
-
-    };
-
-    const canvasDraw3 = ()=>{
-
-        const ctx = CtxRef.current;
-
-        const moveTotal = ImgAnimationRef.current.move;
-
-        const direction = ImgAnimationRef.current.dir;
-
-        const {img,maxCount} = ImgAnimationRef.current;
-
-        ctx.clearRect(0,0,640,400);
-
-        ctx.drawImage(img,moveTotal,0,15216,400);
-
-        if (animationCount3>=maxCount){
-
-            animationCount3 = 1;
-
-            if (ImgAnimationRef.current.move<=-14582){
-
-                ImgAnimationRef.current.move = 0;
-
-            }else{
-
-                ImgAnimationRef.current.move = moveTotal - 634;
-
-            }
-
-        }else{
-
-            animationCount3 = animationCount3 + 1;
-
-        }
-
-        requestAnimationFrame(canvasDraw3);
-
-    };
-
-    const canvasDraw4 = ()=>{
-
-        const ctx = CtxRef.current;
-
-        const moveTotal = ImgAnimationRef.current.move;
-
-        const direction = ImgAnimationRef.current.dir;
-
-        const {img,maxCount} = ImgAnimationRef.current;
-
-        ctx.clearRect(0,0,640,400);
-
-        ctx.drawImage(img,moveTotal,0,15216,400);
-
-        if (animationCount4>=maxCount){
-
-            animationCount4 = 1;
-
-            if (ImgAnimationRef.current.move<=-14582){
-
-                ImgAnimationRef.current.move = 0;
-
-            }else{
-
-                ImgAnimationRef.current.move = moveTotal - 634;
-
-            }
-
-        }else{
-
-            animationCount4 = animationCount4 + 1;
-
-        }
-
-        requestAnimationFrame(canvasDraw4);
-
-    };*/
-
-
     //点击注册按钮
     const signIn = () => {
 
@@ -568,8 +412,6 @@ function Content(props) {
     const downLoadBase = () => {
 
         dispatch(hideAlert(dispatch));
-
-        //window.open(ClinetDownUrl);
 
         downLoadFile(ClinetDownUrl);
 
@@ -652,18 +494,21 @@ function Content(props) {
 
                                 sessionStorage.setItem("UserInfo",JSON.stringify(UserInfo));
 
-
-                                goToNextPage({token:res.data.token,WebIndexUrl,UserType:UserInfo.UserType,dispatch});
+                                goToNextPage({token:res.data.token,WebIndexUrl,UserType:UserInfo.UserType,dispatch,loadingHide:setLoginLoading});
 
                             }else{
 
-                                goToNextPage({token:res.data.token,WebIndexUrl,UserType:'',dispatch});
+                                dispatch(showErrorAlert({title:"登录失败，用户信息获取异常",okShow:'n',cancelTitle:'确定',cancel:accountFoucs,close:accountFoucs,cancelShow:'y'}));
+
+                                setLoginLoading(false);
 
                             }
 
                         },err=>{
 
-                            goToNextPage({token:res.data.token,WebIndexUrl,UserType:'',dispatch});
+                            dispatch(showErrorAlert({title:"登录失败，用户信息获取异常",okShow:'n',cancelTitle:'确定',cancel:accountFoucs,close:accountFoucs,cancelShow:'y'}));
+
+                            setLoginLoading(false);
 
                         });
 

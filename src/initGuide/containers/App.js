@@ -43,15 +43,7 @@ function App(props) {
 
     useEffect(()=>{
 
-        const LgBasePlatformInfo = sessionStorage.getItem("LgBasePlatformInfo");
-
-        if (LgBasePlatformInfo){
-
-            firstPageLoad(firstLoad);
-
-        }else{
-
-            GetBaseInfoForPages({dispatch}).then(data=>{
+        GetBaseInfoForPages({dispatch}).then(data=>{
 
                 if (data){
 
@@ -61,9 +53,7 @@ function App(props) {
 
                 }
 
-            })
-
-        }
+            });
 
     },[]);
 

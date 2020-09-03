@@ -4,6 +4,8 @@ import {getQueryVariable,LogOut} from "../../common/js/disconnect";
 
 import {hideAlert, showErrorAlert} from "../store/appAlert";
 
+import {GetCurrentTermInfo} from './index';
+
 
 //获取数据以及封装数据格式
 const getGetData =  async (url,level,api='',mode='cors',arr=false) =>{
@@ -108,62 +110,91 @@ export const getNewTkUrl = ({preUrl,jointParam}) => {
 
 
 //判断跳转
-export const goToNextPage = ({token,WebIndexUrl,UserType,dispatch}) =>{
+export const goToNextPage = ({dispatch,loadingHide}) =>{
 
+    const {UserType,SchoolID} = JSON.parse(sessionStorage.getItem("UserInfo"));
+
+    const { WebIndexUrl } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+
+    const token = sessionStorage.getItem("token");
+
+    const preUri = getQueryVariable('lg_preurl');
+
+    let nexUrl = '';
+    
     if (parseInt(UserType)===6){
 
         window.location.href= '/html/admSchoolSetting/';
 
-    }else{
+    }else if(SchoolID){
 
+        const urlObj = preUri?getNewTkUrl({preUrl:preUri,jointParam:`?lg_tk=${token}`}):getNewTkUrl({preUrl:WebIndexUrl,jointParam:`?lg_tk=${token}`});
 
-        let nexUrl = '';
+        switch (urlObj.type) {
 
-        const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
+            case 1:
 
-        const preUri = getQueryVariable('lg_preurl');
+                nexUrl = urlObj.newUrl;
 
-        if (UserInfo&&UserInfo.SchoolID){
+                break;
 
-            const urlObj = preUri?getNewTkUrl({preUrl:preUri,jointParam:`?lg_tk=${token}`}):getNewTkUrl({preUrl:WebIndexUrl,jointParam:`?lg_tk=${token}`});
+            case 2:
 
-            switch (urlObj.type) {
+                nexUrl = urlObj.newUrl + '&lg_tk=' + token;
 
-                case 1:
+                break;
 
-                    nexUrl = urlObj.newUrl;
+            case 3:
 
-                    break;
+                nexUrl = urlObj.newUrl + '?lg_tk=' + token;
 
-                case 2:
-
-                    nexUrl = urlObj.newUrl+'&lg_tk='+token;
-
-                    break;
-
-                case 3:
-
-                    nexUrl = urlObj.newUrl+'?lg_tk='+token;
-
-                    break;
-
-            }
-
-            window.location.href= nexUrl;
-
-        }else if (parseInt(UserInfo.UserType)===0){
-
-            nexUrl = `/html/initGuide?lg_tk=${token}${preUri?'&lg_preurl='+preUri:''}`
-
-            window.location.href= nexUrl;
-
-        }else{
-
-            dispatch(showErrorAlert({title:"登录异常,登录失败",cancelShow:'n',close:e=>logErr(dispatch),ok:e=>logErr(dispatch)}));
+                break;
 
         }
 
+        GetCurrentTermInfo({SchoolId:SchoolID}).then(data=>{
+
+            if(data){
+
+                window.location.href = nexUrl;
+
+            }else{
+
+               console.log(data);
+
+               if (parseInt(UserType)===0){
+
+                   nexUrl = `/html/initGuide?lg_tk=${token}${preUri?'&lg_preurl='+preUri:''}`;
+
+                   window.location.href= nexUrl;
+
+               }else{
+
+                   dispatch(showErrorAlert({title:"登录异常,登录失败",cancelShow:'n',cancel:e=>logErr(dispatch),close:e=>logErr(dispatch),ok:e=>logErr(dispatch)}));
+
+                   loadingHide(false);
+
+               }
+
+            }
+
+        });
+
+    }else if(parseInt(UserType)===0){
+
+        nexUrl = `/html/initGuide?lg_tk=${token}${preUri?'&lg_preurl='+preUri:''}`;
+
+        window.location.href= nexUrl;
+
+    }else{
+
+        dispatch(showErrorAlert({title:"登录异常,登录失败",cancelShow:'n',cancel:e=>logErr(dispatch),close:e=>logErr(dispatch),ok:e=>logErr(dispatch)}));
+
+        loadingHide(false);
+
     }
+
+
 
 };
 

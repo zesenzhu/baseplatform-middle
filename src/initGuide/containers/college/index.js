@@ -4,7 +4,7 @@ import {useSelector,useDispatch} from 'react-redux';
 
 import GuideTitle from '../../components/guideTitle';
 
-import {Tips,Table,Loading,PagiNation} from "../../../common";
+import {Tips,Table,Loading,PagiNation,Empty} from "../../../common";
 
 import {Button} from "antd";
 
@@ -368,9 +368,9 @@ function College(props) {
 
         setAddEditCollege(d=>{
 
-            modalInit();
+           modalInit();
 
-           return {...d,show:false};
+           return {...d,show:false,CollegeCode:'',CollegeName:'',CollegeID:''};
 
         });
 
@@ -388,7 +388,7 @@ function College(props) {
 
             updateTable();
 
-            return {...d,show:false};
+            return {...d,show:false,CollegeCode:'',CollegeName:'',CollegeID:''};
 
         });
 
@@ -476,9 +476,24 @@ function College(props) {
 
                     <Loading spinning={tableLoading} tip={"加载中,请稍候..."}>
 
-                        <Table columns={columns} pagination={false} dataSource={dataSource}></Table>
+                        {
 
-                        <PagiNation  onShowSizeChange={pageSizeChange} onChange={pageChange} hideOnSinglePage={pagination.pageSize===10} showSizeChanger current={pagination.current} total={pagination.total} pageSize={pagination.pageSize}></PagiNation>
+                            dataSource.length>0?
+
+                                <>
+
+                                    <Table columns={columns} pagination={false} dataSource={dataSource}></Table>
+
+                                    <PagiNation  onShowSizeChange={pageSizeChange} onChange={pageChange} hideOnSinglePage={pagination.pageSize===10} showSizeChanger current={pagination.current} total={pagination.total} pageSize={pagination.pageSize}></PagiNation>
+
+                                </>
+
+                            :
+
+                            <Empty type={"3"} title={"暂无院系信息"}></Empty>
+
+                        }
+
 
                     </Loading>
 
