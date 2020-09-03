@@ -76,6 +76,10 @@ const SubjectTeacherSubjectSchedule = (state={
 
             return {...state,pageIndex:state.pageIndex+1};
 
+        case STSActions.TEACHER_STS_PAGE_CHANGE:
+
+            return {...state,pageIndex:actions.data};
+
         case STSActions.LOADING_HIDE:
 
             return {...state,loadingShow:false};

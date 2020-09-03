@@ -76,7 +76,9 @@ class ClassRoomTotal extends Component{
 
         dispatch({type:CRTActions.MANAGER_CRT_NOW_CLASS_DATE_CHANGE,data:date});
 
-        $('#tb').find('div.ant-table-body').scrollTop(0);
+        // $('#tb').find('div.ant-table-body').scrollTop(0);
+
+        this.tableRef.scrollToTop();
 
         dispatch(CRTActions.ClassTotalPageUpdate());
 
@@ -213,6 +215,7 @@ class ClassRoomTotal extends Component{
                                 ClassRoomTotal.Schedule.length>0?
 
                                     <SelfDoubleSingleTable
+                                        ref={ref=>this.tableRef=ref}
                                         ItemClassHour={SubjectCourseGradeClassRoom.ItemClassHour}
                                         schedule={ClassRoomTotal.Schedule}
                                         scrollToBottom={this.scrollToBottom.bind(this)}

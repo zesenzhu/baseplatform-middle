@@ -72,7 +72,9 @@ class Subject extends Component{
 
         dispatch({type:STSAction.MANAGER_STS_NOW_CLASS_DATE_CHANGE,data:date});
 
-        $('#tb').find('div.ant-table-body').scrollTop(0);
+        // $('#tb').find('div.ant-table-body').scrollTop(0);
+
+        this.tableRef.scrollToTop();
 
         dispatch(STSAction.STSPageUpdate());
 
@@ -250,6 +252,7 @@ class Subject extends Component{
                                 SubjectTeacherSchedule.schedule.length>0?
 
                                     <SelfDoubleSingleTable
+                                        ref={ref=>this.tableRef=ref}
                                         ItemClassHour={SubjectCourseGradeClassRoom.ItemClassHour}
                                         schedule={SubjectTeacherSchedule.schedule}
                                         scrollToBottom={this.scrollToBottom.bind(this)}

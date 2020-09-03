@@ -1,4 +1,4 @@
-import React,{useCallback,memo,useEffect,useState} from 'react';
+import React,{useCallback,memo,useEffect,useState,useImperativeHandle,useRef,forwardRef} from 'react';
 
 import './index.scss';
 
@@ -8,7 +8,7 @@ import {Scrollbars} from 'react-custom-scrollbars';
 
 
 
-function SelfDoubleSingleTable(props){
+function SelfDoubleSingleTable(props,ref){
 
     //列宽
 
@@ -29,6 +29,9 @@ function SelfDoubleSingleTable(props){
     } = props;
 
     const {onClickRow,scrollToBottom,ScheduleDetailShow} = props;
+
+
+    const ScrollRef = useRef();
 
 
     const openScheduleDetail = ({Event,Params}) =>{
@@ -90,13 +93,21 @@ function SelfDoubleSingleTable(props){
 
       }
 
+
+
     },[]);
+
+    useImperativeHandle(ref,()=>({
+
+        scrollToTop:ScrollRef.current.scrollToTop
+
+    }),[]);
 
     return (
 
-        <div className={"self-double-single-table-wrapper"}>
+        <div ref={ref} className={"self-double-single-table-wrapper"}>
 
-            <Scrollbars style={{height:600}} onScrollFrame={tableScroll}>
+            <Scrollbars ref={ScrollRef} style={{height:600}} onScrollFrame={tableScroll}>
 
                 {/*<div className={"table-scroll-wrapper"}>
 
@@ -658,4 +669,4 @@ SelfDoubleSingleTable.defaultProps = {
 
 };
 
-export default memo(SelfDoubleSingleTable);
+export default memo(forwardRef(SelfDoubleSingleTable));
