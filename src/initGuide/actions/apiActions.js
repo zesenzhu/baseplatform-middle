@@ -116,6 +116,34 @@ export const GetCollegeList = async ({dispatch,SchoolID,keyword='',index=1,pageS
 };
 
 
+export const GetSubjectInfo_University = async ({dispatch,schoolID,userID='',userType,key='',pageIndex=1,pageSize=10,orderType='ASC'})=>{
+
+    const res = await getGetData(`/Subject/api/GetSubjectInfo_University?schoolID=${schoolID}&userID=${userID}&userType=${userType}&pageIndex=${pageIndex}&pageSize=${pageSize}&key=${key}&orderType=${orderType}`,2);
+
+    if (res.StatusCode === 200) {
+
+        return res.Data;
+
+    }
+
+};
+
+
+//获取可添加的学科信息
+
+export const GetSubjectInfoValid_University = async ({schoolID,dispatch}) =>{
+
+    const res = await getGetData(`/Subject/api/GetSubjectInfoValid_University?schoolID=${schoolID}`,2);
+
+    if (res.StatusCode===200){
+
+        return res.Data;
+
+    }
+
+};
+
+
 
 
 
@@ -328,3 +356,4 @@ export const uploadSchoolLogo = async (file,dispatch)=>{
     }
 
 };
+

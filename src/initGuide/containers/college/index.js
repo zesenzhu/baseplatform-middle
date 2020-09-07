@@ -456,7 +456,7 @@ function College(props) {
 
             <Loading spinning={loading} tip={"加载中,请稍候..."}>
 
-                <GuideTitle title={"设置院系基础信息"} step={1} tips={"(可跳过，但需要先添加院系才能正常录入用户，后续可通过“系统设置”模块进行管理)"}></GuideTitle>
+                <GuideTitle title={"设置院系基础信息"} step={2} tips={"(可跳过，但需要先添加院系才能正常录入用户，后续可通过“系统设置”模块进行管理)"}></GuideTitle>
 
                 <div className={"college-setting"}>
 

@@ -49,3 +49,24 @@ export const schoolNameReg = (str) =>{
 
 };
 
+//学科名称正则
+export const subNameReg = (str)=>{
+
+    const Reg = /^[,_\->/()（）A-Za-z0-9\u4e00-\u9fa5]{1,50}$/;
+
+    return Reg.test(str);
+
+};
+
+
+//学科编号正则
+
+export const subNumReg = (str) =>{
+
+    const Reg = /^[A-Za-z0-9]+$/;
+
+    return Reg.test(str);
+
+};
+
+

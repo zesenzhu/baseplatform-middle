@@ -8,7 +8,7 @@ import { Loading,Alert,CheckBox } from "../common";
 
 import {getQueryVariable} from "../common/js/disconnect";
 
-import {getNewTkUrl,goToNextPage,decodeObjValue,removeSlashUrl,downLoadFile} from "./api/utils";
+import {getNewTkUrl,goToNextPage,decodeObjValue,removeSlashUrl,downLoadFile,clearSessionStorage} from "./api/utils";
 
 import { GetBaseInfo,loginApi,GetSystemsMainServer } from './api/index';
 
@@ -232,6 +232,8 @@ function App(props){
 
                         localStorage.setItem('token',token);
 
+                        sessionStorage.setItem('token',token);
+
                         loginApi({token,method:'GetUserInfo',params:lg_sysid?lg_sysid:'000'}).then(result=>{
 
                             //如果成功获取到用户信息
@@ -249,7 +251,9 @@ function App(props){
 
                     }else{
 
-                        sessionStorage.clear();
+                        // sessionStorage.clear();
+
+                        clearSessionStorage('LgBasePlatformInfo');
 
                         localStorage.removeItem('token');
 
@@ -262,7 +266,9 @@ function App(props){
 
                 },(resp,err)=>{
 
-                    sessionStorage.clear();
+                    // sessionStorage.clear();
+
+                    clearSessionStorage('LgBasePlatformInfo');
 
                     localStorage.removeItem('token');
 
@@ -289,7 +295,9 @@ function App(props){
 
             document.title=data.ProductName;
 
-            sessionStorage.clear();
+            // sessionStorage.clear();
+
+            clearSessionStorage('LgBasePlatformInfo');
 
             localStorage.removeItem('token');
 

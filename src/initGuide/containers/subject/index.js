@@ -6,7 +6,7 @@ import GuideTitle from '../../components/guideTitle';
 
 import {DatePicker} from "antd";
 
-import {Tips,DropDown, Loading} from "../../../common";
+import {Table, Loading,PagiNation,Empty} from "../../../common";
 
 import GuideFooter from '../../components/guideFooter';
 
@@ -14,27 +14,49 @@ import {guiderStepChange} from "../../store/guideStep";
 
 import {appLoadingHide} from "../../store/appLoading";
 
-
 import './index.scss'
 
-import moment from 'moment';
-
-import {getQueryVariable} from "../../../common/js/disconnect";
 
 
-
-function ScheduleSettinng(props) {
+function Subject(props) {
 
     //states
 
     const [loading,setLoading] = useState(true);
 
-    //step
-    const [step,setStep] = useState(4);
 
-    //iframe高度
+    //分页
 
+    const [pagination,setPagination] = useState({
+
+       total:0,
+
+       pageSize:10,
+
+       current:1
+
+    });
+
+    //数据源头
+
+    const [dataSource,setDataSource] = useState([]);
+
+
+    const [subjectModal,setSubjectModal] = useState({
+
+       show:false,
+
+       isDefault:false,
+
+       subId:'',
+
+       subName:''
+
+    });
+
+    //iframe的高度
     const [iframeHeight,setIframeHeight] = useState(0);
+
 
     const LoginUser = useSelector(state=>state.LoginUser);
 
@@ -48,26 +70,24 @@ function ScheduleSettinng(props) {
 
     const {history} = props;
 
+    //refs
 
-    const iframeRef = useRef();
+    const paginationRef = useRef(pagination);
 
 
     useEffect(()=>{
 
         if (UserID){
 
-            const step = schoolType==='middle'?3:4;
-
-            setStep(step);
+            const step = schoolType==='middle'?4:5;
 
             dispatch(guiderStepChange(step));
+
+            setLoading(false);
 
         }
 
     },[UserID]);
-
-
-
 
 
 
@@ -101,7 +121,6 @@ function ScheduleSettinng(props) {
     },[]);
 
     //上一步
-
     const backStepClick = useCallback(()=>{
 
      /*   if (schoolTypeRef.current==='middle'){
@@ -118,27 +137,17 @@ function ScheduleSettinng(props) {
 
     },[]);
 
-
     //iframe的URL
-    const iframeUrl = useMemo(()=>{
+    const url = useMemo(()=>{
 
         const token = sessionStorage.getItem("token");
 
-        const src = `/html/schedule?lg_tk=${token}&showTop=0&showBottom=0&showBarner=0&isInitGuide=true#/manager/scheduleSetting`;
-
-        return src;
+        return `/html/admSubject/index.html?lg_tk=${token}&showTop=0&showBottom=0&showBarner=0&isInitGuide=true`
 
     },[]);
 
 
-    //iframe加载完毕
-    const iframeLoaded = useCallback(()=>{
-
-        setLoading(false);
-
-    },[]);
-
-
+    //接受消息
     window.addEventListener('message',(e)=>{
 
         if (e.data.height){
@@ -152,16 +161,13 @@ function ScheduleSettinng(props) {
     });
 
 
-
-
-
     return(
 
         <Loading spinning={loading} tip={"加载中,请稍候..."}>
 
-            <GuideTitle title={"设置上课时间"} step={step} tips={"(后续可通过“课程安排管理”模块进行管理)"}></GuideTitle>
+            <GuideTitle title={"设置学科"} step={1} tips={"(后续可通过“学科管理”模块进行管理)"}></GuideTitle>
 
-            <iframe width={'100%'}  ref={iframeRef} frameBorder={0} src={iframeUrl} style={{height:iframeHeight}} onLoad={iframeLoaded}></iframe>
+            <iframe src={url} frameBorder="0"  style={{height:iframeHeight}}></iframe>
 
             <GuideFooter next={true} back={true} backStepClick={backStepClick} nextStepClick={nextStepClick}></GuideFooter>
 
@@ -171,4 +177,4 @@ function ScheduleSettinng(props) {
 
 }
 
-export default memo(ScheduleSettinng)
+export default memo(Subject)

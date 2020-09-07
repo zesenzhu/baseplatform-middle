@@ -8,6 +8,10 @@ import College from '../college';
 
 import YearAndTerm from '../yearAndTerm';
 
+import ScheduleSetting from '../scheduleSetting';
+
+import Subject from '../subject';
+
 
 function AppRoutes(props) {
 
@@ -20,6 +24,10 @@ function AppRoutes(props) {
             <Route path={"/college"} component={College}></Route>
 
             <Route path={"/yearAndTerm"} component={YearAndTerm}></Route>
+
+            <Route path={"/scheduleSetting"} component={ScheduleSetting}></Route>
+
+            <Route path={'/subject'} component={Subject}></Route>
 
             <Redirect path={"/*"} to={"/schoolSetting"}></Redirect>
 

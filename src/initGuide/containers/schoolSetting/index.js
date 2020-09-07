@@ -34,6 +34,8 @@ import {guiderStepChange} from "../../store/guideStep";
 
 import './index.scss';
 
+
+
 function SchoolSetting(props) {
 
 
@@ -169,6 +171,8 @@ function SchoolSetting(props) {
 
     const loginUserRef = useRef(LoginUser);
 
+    const unMount = useRef(false);
+
 
     //存放临时文件
     const tmpFileRef = useRef();
@@ -183,9 +187,17 @@ function SchoolSetting(props) {
 
         loginUserRef.current = LoginUser;
 
+        return ()=>{
+
+            loginUserRef.current = '';
+
+        }
+
     },[LoginUser]);
 
     useEffect(()=>{
+
+        unMount.current  = false;
         
         if (UserID){
 
@@ -195,222 +207,225 @@ function SchoolSetting(props) {
 
                 GetSchoolInfo({dispatch,SchoolID}).then(data=>{
 
-                    if (data){
+                    if (!unMount.current){
 
-                        const {SchoolName,SchoolCode,SchoolLogoUrl,ProvinceID,CityID,CountyID,SchoolType,SchoolSessionType} = data;
+                        if (data){
 
+                            const {SchoolName,SchoolCode,SchoolLogoUrl,ProvinceID,CityID,CountyID,SchoolType,SchoolSessionType} = data;
 
-                        if (schoolType==='middle'){ //中小学的时候判断学段信息
+                            if (schoolType==='middle'){ //中小学的时候判断学段信息
 
-                            const list = SchoolSessionType.split("/");
+                                const list = SchoolSessionType.split("/");
 
-                            switch (parseInt(SchoolType)) {
+                                switch (parseInt(SchoolType)) {
 
-                                case 1:
+                                    case 1:
 
-                                    setPeriod(d=>{
+                                        setPeriod(d=>{
 
-                                        periodRef.current = { ...d,
+                                            periodRef.current = { ...d,
 
-                                            primary:{ checked:list[0],disabled:false,originChecked:list[0]},
+                                                primary:{ checked:list[0],disabled:false,originChecked:list[0]},
 
-                                            middle:{checked:'',disabled:true,originChecked:list[1]}
+                                                middle:{checked:'',disabled:true,originChecked:list[1]}
 
-                                        };
+                                            };
 
-                                        return { ...d,
+                                            return { ...d,
 
-                                            primary:{ checked:list[0],disabled:false,originChecked:list[0]},
+                                                primary:{ checked:list[0],disabled:false,originChecked:list[0]},
 
-                                            middle:{checked:'',disabled:true,originChecked:list[1]}
+                                                middle:{checked:'',disabled:true,originChecked:list[1]}
 
-                                        };
+                                            };
 
-                                    });
+                                        });
 
-                                    break;
+                                        break;
 
-                                case 2:
+                                    case 2:
 
-                                    setPeriod(d=>{
+                                        setPeriod(d=>{
 
-                                        periodRef.current = { ...d,
+                                            periodRef.current = { ...d,
 
-                                            middle:{ checked:list[1],disabled:false,originChecked:list[1]},
+                                                middle:{ checked:list[1],disabled:false,originChecked:list[1]},
 
-                                            primary:{checked:'',disabled:true,originChecked:list[0]}
+                                                primary:{checked:'',disabled:true,originChecked:list[0]}
 
-                                        };
+                                            };
 
-                                        return { ...d,
+                                            return { ...d,
 
-                                            middle:{ checked:list[1],disabled:false,originChecked:list[1]},
+                                                middle:{ checked:list[1],disabled:false,originChecked:list[1]},
 
-                                            primary:{checked:'',disabled:true,originChecked:list[0]}
+                                                primary:{checked:'',disabled:true,originChecked:list[0]}
 
-                                        };
+                                            };
 
-                                    });
+                                        });
 
-                                    break;
+                                        break;
 
-                                case 4:
+                                    case 4:
 
-                                    setPeriod(d=>{
+                                        setPeriod(d=>{
 
-                                        periodRef.current = { ...d,
+                                            periodRef.current = { ...d,
 
-                                            primary:{ checked:'',disabled:false,originChecked:'5'},
+                                                primary:{ checked:'',disabled:false,originChecked:'5'},
 
-                                            middle:{ checked:'',disabled:false,originChecked:'4'},
+                                                middle:{ checked:'',disabled:false,originChecked:'4'},
 
-                                            heigh:{ checked:'3',disabled:false,originChecked:'3'}
+                                                heigh:{ checked:'3',disabled:false,originChecked:'3'}
 
-                                        };
+                                            };
 
-                                        return { ...d,
+                                            return { ...d,
 
-                                            primary:{ checked:'',disabled:false,originChecked:'5'},
+                                                primary:{ checked:'',disabled:false,originChecked:'5'},
 
-                                            middle:{ checked:'',disabled:false,originChecked:'4'},
+                                                middle:{ checked:'',disabled:false,originChecked:'4'},
 
-                                            heigh:{ checked:'3',disabled:false,originChecked:'3'}
+                                                heigh:{ checked:'3',disabled:false,originChecked:'3'}
 
-                                        };
+                                            };
 
-                                    });
+                                        });
 
-                                    break;
+                                        break;
 
-                                case 3:
+                                    case 3:
 
-                                    setPeriod(d=>{
+                                        setPeriod(d=>{
 
-                                        periodRef.current = { ...d,primary:{ checked:list[0],disabled:false,originChecked:list[0]},middle:{ checked:list[1],disabled:false,originChecked:list[1]}};
+                                            periodRef.current = { ...d,primary:{ checked:list[0],disabled:false,originChecked:list[0]},middle:{ checked:list[1],disabled:false,originChecked:list[1]}};
 
-                                        return { ...d,primary:{ checked:list[0],disabled:false,originChecked:list[0]},middle:{ checked:list[1],disabled:false,originChecked:list[1]}};
+                                            return { ...d,primary:{ checked:list[0],disabled:false,originChecked:list[0]},middle:{ checked:list[1],disabled:false,originChecked:list[1]}};
 
-                                    });
+                                        });
 
-                                    break;
+                                        break;
 
-                                case 5:
+                                    case 5:
 
-                                    setPeriod(d=>{
+                                        setPeriod(d=>{
 
-                                        periodRef.current = { ...d,
+                                            periodRef.current = { ...d,
 
-                                            primary:{ checked:list[0],disabled:false,originChecked:list[0]},
+                                                primary:{ checked:list[0],disabled:false,originChecked:list[0]},
 
-                                            middle:{ checked:'',disabled:false,originChecked:list[1]},
+                                                middle:{ checked:'',disabled:false,originChecked:list[1]},
 
-                                            heigh:{ checked:'3',disabled:false,originChecked:'3'}
+                                                heigh:{ checked:'3',disabled:false,originChecked:'3'}
 
-                                        };
+                                            };
 
-                                        return { ...d,
+                                            return { ...d,
 
-                                            primary:{ checked:list[0],disabled:false,originChecked:list[0]},
+                                                primary:{ checked:list[0],disabled:false,originChecked:list[0]},
 
-                                            middle:{ checked:'',disabled:false,originChecked:list[1]},
+                                                middle:{ checked:'',disabled:false,originChecked:list[1]},
 
-                                            heigh:{ checked:'3',disabled:false,originChecked:'3'}
+                                                heigh:{ checked:'3',disabled:false,originChecked:'3'}
 
-                                        };
+                                            };
 
-                                    });
+                                        });
 
-                                    break;
+                                        break;
 
-                                case 6:
+                                    case 6:
 
-                                    setPeriod(d=>{
+                                        setPeriod(d=>{
 
-                                        const list = SchoolSessionType.split("/");
+                                            const list = SchoolSessionType.split("/");
 
-                                        periodRef.current = { ...d,
+                                            periodRef.current = { ...d,
 
-                                            primary:{ checked:'',disabled:false,originChecked:list[0]},
+                                                primary:{ checked:'',disabled:false,originChecked:list[0]},
 
-                                            middle:{ checked:list[1],disabled:false,originChecked:list[1]},
+                                                middle:{ checked:list[1],disabled:false,originChecked:list[1]},
 
-                                            heigh:{ checked:'3',disabled:false,originChecked:'3'}
+                                                heigh:{ checked:'3',disabled:false,originChecked:'3'}
 
-                                        };
+                                            };
 
-                                        return { ...d,
+                                            return { ...d,
 
-                                            primary:{ checked:'',disabled:false,originChecked:list[0]},
+                                                primary:{ checked:'',disabled:false,originChecked:list[0]},
 
-                                            middle:{ checked:list[1],disabled:false,originChecked:list[1]},
+                                                middle:{ checked:list[1],disabled:false,originChecked:list[1]},
 
-                                            heigh:{ checked:'3',disabled:false,originChecked:'3'}
+                                                heigh:{ checked:'3',disabled:false,originChecked:'3'}
 
-                                        };
+                                            };
 
-                                    });
+                                        });
 
-                                    break;
+                                        break;
 
-                                case 7:
+                                    case 7:
 
-                                    setPeriod(d=>{
+                                        setPeriod(d=>{
 
-                                        const list = SchoolSessionType.split("/");
+                                            const list = SchoolSessionType.split("/");
 
-                                        periodRef.current = { ...d,primary:{ checked:list[0],disabled:false,originChecked:list[0]},middle:{ checked:list[1],disabled:false,originChecked:list[1]},heigh:{ checked:'3',disabled:false,originChecked:'3'}};
+                                            periodRef.current = { ...d,primary:{ checked:list[0],disabled:false,originChecked:list[0]},middle:{ checked:list[1],disabled:false,originChecked:list[1]},heigh:{ checked:'3',disabled:false,originChecked:'3'}};
 
-                                        return { ...d,primary:{ checked:list[0],disabled:false,originChecked:list[0]},middle:{ checked:list[1],disabled:false,originChecked:list[1]},heigh:{ checked:'3',disabled:false,originChecked:'3'}};
+                                            return { ...d,primary:{ checked:list[0],disabled:false,originChecked:list[0]},middle:{ checked:list[1],disabled:false,originChecked:list[1]},heigh:{ checked:'3',disabled:false,originChecked:'3'}};
 
-                                    });
+                                        });
 
-                                    break;
+                                        break;
+
+                                }
+
+                            }else{//大学的时候直接使用学制
+
+                                setSystem(d=>{
+
+                                    systemRef.current = { ...d,checked:SchoolSessionType};
+
+                                    return { ...d,checked:SchoolSessionType};
+
+                                });
 
                             }
 
-                        }else{//大学的时候直接使用学制
+                            setSchoolArea(d=>{
 
-                            setSystem(d=>{
+                                schoolAreaRef.current = { ...d,provinceID:ProvinceID,cityID:CityID,countyID:CountyID,ready:true };
 
-                                systemRef.current = { ...d,checked:SchoolSessionType};
-
-                                return { ...d,checked:SchoolSessionType};
+                                return { ...d,provinceID:ProvinceID,cityID:CityID,countyID:CountyID,ready:true };
 
                             });
 
+                            setSchoolName(d=>{
+
+                                schoolNameRef.current = {...d,value:SchoolName};
+
+                                return {...d,value:SchoolName};
+
+                            });
+
+                            setSchoolCode(d=>{
+
+                                schoolCodeRef.current = {...d,value:SchoolCode};
+
+                                return {...d,value:SchoolCode};
+
+                            });
+
+                            logoInit(SchoolLogoUrl);
+
+                            setLoading(false);
+
                         }
 
-                        setSchoolArea(d=>{
-
-                            schoolAreaRef.current = { ...d,provinceID:ProvinceID,cityID:CityID,countyID:CountyID,ready:true };
-
-                            return { ...d,provinceID:ProvinceID,cityID:CityID,countyID:CountyID,ready:true };
-
-                        });
-
-                        setSchoolName(d=>{
-
-                            schoolNameRef.current = {...d,value:SchoolName};
-
-                            return {...d,value:SchoolName};
-
-                        });
-
-                        setSchoolCode(d=>{
-
-                            schoolCodeRef.current = {...d,value:SchoolCode};
-
-                            return {...d,value:SchoolCode};
-
-                        });
-
-                        logoInit(SchoolLogoUrl);
-
-                        setLoading(false);
+                        dispatch(appLoadingHide());
 
                     }
-
-                    dispatch(appLoadingHide());
 
                 })
 
@@ -425,6 +440,12 @@ function SchoolSetting(props) {
             }
 
         }
+
+        return ()=>{
+
+            unMount.current = true;
+
+        }
         
     },[UserID]);
 
@@ -432,6 +453,12 @@ function SchoolSetting(props) {
     useEffect(()=>{
 
         schoolTypeRef.current = schoolType;
+
+        return ()=>{
+
+            schoolTypeRef.current = '';
+
+        }
 
     },[schoolType]);
 
@@ -994,8 +1021,6 @@ function SchoolSetting(props) {
 
         //判断是大学还是中小学,设置学段和学制问题
 
-
-
         if (schoolTypeRef.current==='middle'){
 
             if (periodRef.current.primary.disabled&&periodRef.current.middle.disabled&&periodRef.current.heigh.disabled){
@@ -1023,7 +1048,6 @@ function SchoolSetting(props) {
             }
 
         }else{
-
 
             if (systemRef.current.checked){
 
@@ -1063,7 +1087,6 @@ function SchoolSetting(props) {
 
         }
 
-
         if (!schoolCodeRef.current.value){
 
             setSchoolCode(d=>{
@@ -1088,12 +1111,9 @@ function SchoolSetting(props) {
 
         }
 
-
         let SchoolName='',SchoolCode='',SchoolLevel='',SchoolType='',SchoolSessionType='',SchoolImgUrl='',CountyID='';
 
-
         //在这里请求接口,成功后跳转到下一页
-
 
         if (schoolTypeRef.current==='middle'){ //如果是中小学
 
@@ -1145,13 +1165,17 @@ function SchoolSetting(props) {
 
                         SchoolName,SchoolCode,SchoolLevel,SchoolType,SchoolSessionType,SchoolImgUrl,CountyID}).then(data=>{
 
+                        if (!unMount.current){
+
                             if (data===0){
 
                                 toNextPage();
 
                             }
 
-                        setLoading(false);
+                            setLoading(false);
+
+                        }
 
                     })
 
@@ -1162,6 +1186,8 @@ function SchoolSetting(props) {
                         dispatch,SchoolName,SchoolCode,SchoolLevel,
 
                         SchoolType,SchoolSessionType,SchoolImgUrl,CountyID}).then(data=>{
+
+                        if (!unMount.current){
 
                             if (data){
 
@@ -1178,6 +1204,8 @@ function SchoolSetting(props) {
                             }
 
                             setLoading(false);
+
+                        }
 
                     })
 
@@ -1216,13 +1244,17 @@ function SchoolSetting(props) {
 
                     }).then(data=>{
 
-                        if (data===0){
+                        if (!unMount.current){
 
-                            toNextPage();
+                            if (data===0){
+
+                                toNextPage();
+
+                            }
+
+                            setLoading(false);
 
                         }
-
-                        setLoading(false);
 
                     })
 
@@ -1234,21 +1266,25 @@ function SchoolSetting(props) {
 
                         SchoolType,SchoolSessionType,SchoolImgUrl,CountyID}).then(data=>{
 
-                        if (data){
+                         if (!unMount.current){
 
-                            const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
+                             if (data){
 
-                            UserInfo['SchoolID'] = data;
+                                 const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
 
-                            sessionStorage.setItem("UserInfo",JSON.stringify(UserInfo));
+                                 UserInfo['SchoolID'] = data;
 
-                            dispatch(loginUserUpdate(UserInfo));
+                                 sessionStorage.setItem("UserInfo",JSON.stringify(UserInfo));
 
-                            toNextPage();
+                                 dispatch(loginUserUpdate(UserInfo));
 
-                        }
+                                 toNextPage();
 
-                        setLoading(false);
+                             }
+
+                             setLoading(false);
+
+                         }
 
                     })
 
@@ -1273,7 +1309,7 @@ function SchoolSetting(props) {
 
       }else{
 
-          history.push('/college');
+        history.push('/college');
 
       }
 
@@ -1368,11 +1404,21 @@ function SchoolSetting(props) {
 
                         <td className={"col2"}>
 
-                            <Tips visible={schoolCode.tip} title={schoolCode.title}>
+                        {
 
-                                <Input onBlur={schoolCodeBlur} className={"school-code"} onChange={schoolCodeChange} value={schoolCode.value}/>
+                            SchoolID?
 
-                            </Tips>
+                                <div children={"school-code"}>{schoolCode.value}</div>
+
+                                :
+
+                                <Tips visible={schoolCode.tip} title={schoolCode.title}>
+
+                                    <Input onBlur={schoolCodeBlur} className={"school-code"} onChange={schoolCodeChange} value={schoolCode.value}/>
+
+                                </Tips>
+
+                        }
 
                         </td>
 
