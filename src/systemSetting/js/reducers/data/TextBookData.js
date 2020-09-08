@@ -35,6 +35,7 @@ const TextBookData = (
       NodeList: [],
       OpenNode: [],
     },
+    GradeSubjectList:[],
     TextBookList: [],
     TextBookListForKey: {},
   },
@@ -45,11 +46,16 @@ const TextBookData = (
   let TextBookList = [];
   let NodeInfo = [];
   let SubjectInfoForKey = {};
+  let GradeSubjectList=[];
   switch (actions.type) {
     case UpDataState.GET_SUBJECT_LIST_DATA:
       return Object.assign({}, state, {
         SubjectList: handleSubjectList(actions.data),
       });
+      case UpDataState.GET_GRADE_SUBJECT_LIST_DATA:
+        return Object.assign({}, state, {
+          GradeSubjectList: handleGradeSubjectList(actions.data),
+        });
     case UpDataState.GET_SUBJECT_INFO_DATA:
       // let NewData = InsertData(allClass,actions.Class)
       SubjectInfoForKey = Object.assign(
@@ -80,10 +86,10 @@ let OpenNode = [];
 
 function handleNodeInfo(Data) {
   let NodeList = [];
-
   if (Data instanceof Array) {
     recursionNodeData(Data);
     NodeList = Data;
+    
   }
   return { NodeList, OpenNode };
 }
@@ -143,6 +149,33 @@ function handleSubjectList(Data) {
     });
   }
   return { SubjectList, SubjectListForKey, InitData: Data };
+}
+function handleGradeSubjectList(Data){
+  let  SubjectList = [];
+  if (Data instanceof Array) {
+    Data.map((child) => {
+      if ( child.Subjects instanceof Array) {
+        child.Subjects.map((SubjectArr,id)=>{
+          child.Subjects[id]={
+            value:id,
+            title: SubjectArr.SubjectName,
+            ...SubjectArr,
+          }
+        })
+
+      
+      }
+     
+      SubjectList[child.OrderNo]={
+        value:child.OrderNo,
+        title: child.GradeName,
+        ...child,
+      }
+     
+    })
+  }
+  // console.log(SubjectList);
+  return SubjectList;
 }
 function setSubjectLogo(Subject) {
   let SubjectLogo = Others;
@@ -215,6 +248,10 @@ function handleSubjectInfo(Data, subjectId) {
             TextBook: {
               TextBookId: child.TextBookId,
               TextBookName: child.TextBookName,
+              SubjectID: child.BookSubjectId,
+              // PeriodID: PeriodID,
+              GradeID: child.BookGradeId,
+              TermId:child.BookTermId,
             },
             Subject: {
               SubjectID: child.SubjectId,

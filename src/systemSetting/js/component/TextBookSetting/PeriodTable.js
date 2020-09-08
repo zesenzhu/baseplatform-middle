@@ -35,7 +35,7 @@ class PeriodTable extends Component {
                 }`}
                 onClick={(e) => {
                   if (TextBook.TextBookId)
-                    this.props.onTextBookDetailClick(TextBook.TextBookId);
+                    this.props.onTextBookDetailClick(TextBook.TextBookId,TextBook);
                 }}
               >
                 {TextBook.TextBookId ? TextBook.TextBookName : "--"}
