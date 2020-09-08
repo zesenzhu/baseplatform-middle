@@ -131,8 +131,8 @@ function handleSubjectName(Subject) {
   };
 }
 
-function handleTeacher(teacher) {
-  let teacherArr = teacher.split(",");
+function handleTeacher(teacher='') {
+  let teacherArr = teacher?teacher.split(","):[];
   let allTeacherArr =
     teacherArr instanceof Array &&
     teacherArr.map((child, index) => {

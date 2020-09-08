@@ -144,6 +144,20 @@ export const GetSubjectInfoValid_University = async ({schoolID,dispatch}) =>{
 };
 
 
+//获取学校初始化状态
+
+export const GetSchoolInitStatus = async ({schoolID,dispatch}) =>{
+
+    const res = await getGetData(`/Subject/api/GetSchoolInitStatus?schoolID=${schoolID}`,2);
+
+    if (res.StatusCode===200){
+
+        return res.Data;
+
+    }
+
+};
+
 
 
 
@@ -242,11 +256,11 @@ export const SetTermInfo = async ({SchoolID,UserID,StartDate,EndDate,TermName,di
 
 
 //中小学修改学校基础信息
-export const EditSchoolInfo_Middle = async ({UserID,SchoolID,SchoolName,SchoolCode,SchoolType,SchoolSessionType,SchoolImgUrl,CountyID,dispatch}) =>{
+export const EditSchoolInfo_Middle = async ({UserID,SchoolID,SchoolName,SchoolImgUrl_Long,SchoolCode,SchoolType,SchoolSessionType,SchoolImgUrl,CountyID,dispatch}) =>{
 
     const res = await getPostData(`/SysMgr/Setting/EditSchoolInfo`,{
 
-        UserID,SchoolID,SchoolName,SchoolCode,SchoolType,SchoolSessionType,SchoolImgUrl,CountyID
+        UserID,SchoolID,SchoolName,SchoolImgUrl_Long,SchoolCode,SchoolType,SchoolSessionType,SchoolImgUrl,CountyID
 
     },2);
 
@@ -264,11 +278,11 @@ export const EditSchoolInfo_Middle = async ({UserID,SchoolID,SchoolName,SchoolCo
 
 
 //大学修改学校基础信息
-export const EditSchoolInfo_University = async ({UserID,SchoolID,SchoolName,SchoolCode,SchoolType='',SchoolLevel,SchoolSessionType,SchoolImgUrl,SchoolTel='',SchoolLinkman='',CountyID,dispatch}) =>{
+export const EditSchoolInfo_Univ = async ({UserID,SchoolID,SchoolImgUrl_Long,SchoolName,SchoolCode,SchoolType='',SchoolLevel,SchoolSessionType,SchoolImgUrl,SchoolTel='',SchoolLinkman='',CountyID,dispatch}) =>{
 
-    const res = await getPostData(`/SysMgr/Setting/EditSchoolInfo_Admin`,{
+    const res = await getPostData(`/SysMgr/Setting/EditSchoolInfo_Univ`,{
 
-        UserID,SchoolID,SchoolName,SchoolCode,SchoolType,SchoolSessionType,SchoolImgUrl,SchoolTel,SchoolLinkman,CountyID,SchoolLevel
+        UserID,SchoolID,SchoolImgUrl_Long,SchoolName,SchoolCode,SchoolType,SchoolSessionType,SchoolImgUrl,SchoolTel,SchoolLinkman,CountyID,SchoolLevel
 
     },2);
 
@@ -286,11 +300,11 @@ export const EditSchoolInfo_University = async ({UserID,SchoolID,SchoolName,Scho
 
 
 //添加学校基础信息
-export const AddSchoolInfo = async ({UserID,SchoolID='',SchoolName,SchoolCode,SchoolType,SchoolSessionType,SchoolImgUrl,SchoolTel='',SchoolLinkman='',CountyID,dispatch}) =>{
+export const AddSchoolInfo = async ({UserID,SchoolID='',SchoolName,SchoolImgUrl_Long,SchoolCode,SchoolType,SchoolSessionType,SchoolImgUrl,SchoolTel='',SchoolLinkman='',CountyID,dispatch}) =>{
 
     const res = await getPostData(`/SysMgr/Setting/AddSchoolInfo`,{
 
-        UserID,SchoolID,SchoolName,SchoolCode,SchoolType,SchoolSessionType,SchoolImgUrl,SchoolTel,SchoolLinkman,CountyID
+        UserID,SchoolID,SchoolName,SchoolImgUrl_Long,SchoolCode,SchoolType,SchoolSessionType,SchoolImgUrl,SchoolTel,SchoolLinkman,CountyID
 
     },2);
 
@@ -300,7 +314,25 @@ export const AddSchoolInfo = async ({UserID,SchoolID='',SchoolName,SchoolCode,Sc
 
     }else{
 
-        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'未知错误'}));
+        dispatch(btnErrorAlertShow({title:res.Msg?res.Msg:'创建学校失败'}));
+
+    }
+
+};
+
+
+//添加学校基础信息
+export const UpdateSchoolInitStatus = async ({SchoolId='',dispatch}) =>{
+
+    const res = await getPostData(`/SysMgr/Setting/UpdateSchoolInitStatus`,{
+
+        SchoolId
+
+    },2);
+
+    if (res.StatusCode===200){
+
+        return res.Data;
 
     }
 
@@ -309,7 +341,7 @@ export const AddSchoolInfo = async ({UserID,SchoolID='',SchoolName,SchoolCode,Sc
 
 
 
-export const uploadSchoolLogo = async (file,dispatch)=>{
+export const uploadSchoolLogo = async (file,userId,dispatch)=>{
 
     const { ResHttpRootUrl } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
@@ -327,7 +359,7 @@ export const uploadSchoolLogo = async (file,dispatch)=>{
 
         try {
 
-            fetchAsync = await fetch(ResHttpRootUrl+'SchoolLogoUpload.ashx',{method :"POST",body: formData});
+            fetchAsync = await fetch(`${ResHttpRootUrl}SubjectRes_UploadHandler.ashx?method=doUpload_WholeFile&userid=${userId}`,{method :"POST",body: formData});
 
         }catch (e) {
 
@@ -337,14 +369,13 @@ export const uploadSchoolLogo = async (file,dispatch)=>{
 
         const res = await fetchAsync.json();
 
+        if (res.result!=='true'){
 
-        if (res.Status!==200){
-
-            dispatch(btnErrorAlertShow({title:res.Message}))
+            dispatch(btnErrorAlertShow({title:res.message?res.message:'上传图片出错'}));
 
         }else{
 
-           return res;
+           return res.filePath;
 
         }
 

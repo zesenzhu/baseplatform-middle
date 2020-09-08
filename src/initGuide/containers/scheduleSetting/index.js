@@ -141,11 +141,13 @@ function ScheduleSettinng(props) {
 
     window.addEventListener('message',(e)=>{
 
-        if (e.data.height){
+        const host = window.location.host;
+
+        const protocol = window.location.protocol;
+
+        if (e.data.module==='schedule'&&e.origin===`${protocol}//${host}`){
 
             setIframeHeight(e.data.height);
-
-            setLoading(false);
 
         }
 
@@ -163,7 +165,17 @@ function ScheduleSettinng(props) {
 
             <iframe width={'100%'}  ref={iframeRef} frameBorder={0} src={iframeUrl} style={{height:iframeHeight}} onLoad={iframeLoaded}></iframe>
 
-            <GuideFooter next={true} back={true} backStepClick={backStepClick} nextStepClick={nextStepClick}></GuideFooter>
+            {
+
+                loading?
+
+                    null
+
+                    :
+
+                    <GuideFooter next={true} back={true} backStepClick={backStepClick} nextStepClick={nextStepClick}></GuideFooter>
+
+            }
 
         </Loading>
 

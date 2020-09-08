@@ -93,6 +93,8 @@ function College(props) {
 
     useEffect(()=>{
 
+        let unMount = false;
+
         if (UserID){
 
             dispatch(guiderStepChange(2));
@@ -101,37 +103,41 @@ function College(props) {
 
                 GetCollegeList({SchoolID,dispatch}).then(data=>{
 
-                    if (data){
+                    if (!unMount){
 
-                        const list = data.List&&data.List.length>0?data.List.map((i,k)=>{
+                        if (data){
 
-                            const OrderNO = createNO(k);
+                            const list = data.List&&data.List.length>0?data.List.map((i,k)=>{
 
-                            const key = OrderNO;
+                                const OrderNO = createNO(k);
 
-                            return {...i,OrderNO,key};
+                                const key = OrderNO;
 
-                        }):[];
+                                return {...i,OrderNO,key};
 
-                        const current = data.currentIndex?data.currentIndex:1;
+                            }):[];
 
-                        const total = data.totalCount?data.totalCount:0;
+                            const current = data.currentIndex?data.currentIndex:1;
 
-                        setDataSource(list);
+                            const total = data.totalCount?data.totalCount:0;
 
-                        setPagination(d=>{
+                            setDataSource(list);
 
-                            paginationRef.current = {...d,current,total};
+                            setPagination(d=>{
 
-                            return {...d,current,total};
+                                paginationRef.current = {...d,current,total};
 
-                        });
+                                return {...d,current,total};
+
+                            });
+
+                        }
+
+                        setLoading(false);
+
+                        dispatch(appLoadingHide());
 
                     }
-
-                    setLoading(false);
-
-                    dispatch(appLoadingHide());
 
                 });
 
@@ -140,6 +146,12 @@ function College(props) {
                 history.push('/schoolSetting');
 
             }
+
+        }
+
+        return ()=>{
+
+            unMount = true;
 
         }
 

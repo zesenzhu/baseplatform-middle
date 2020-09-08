@@ -18,16 +18,18 @@ import './index.scss'
 
 
 
-function Subject(props) {
+function Power(props) {
 
     //states
 
     const [loading,setLoading] = useState(true);
 
+
     //iframe的高度
     const [iframeHeight,setIframeHeight] = useState(0);
 
-    const [step,setStep] = useState(5);
+
+    const [step,setStep] = useState(6);
 
     const LoginUser = useSelector(state=>state.LoginUser);
 
@@ -41,14 +43,29 @@ function Subject(props) {
 
     const {history} = props;
 
-
-
+    //refs
 
     useEffect(()=>{
 
         if (UserID){
 
-            const step = schoolType==='middle'?4:5;
+            let step = 5;
+
+            const { LockerVersion,ProductType } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+
+            if (parseInt(LockerVersion)===1){
+
+                history.push('/schoolSetting');
+
+            }else{
+
+                if (schoolType==='university'){
+
+                    step = parseInt(ProductType)===6?5:6;
+
+                }
+
+            }
 
             dispatch(guiderStepChange(step));
 
@@ -63,28 +80,30 @@ function Subject(props) {
     //下一步
     const nextStepClick = useCallback(()=>{
 
-        const { LockerVersion,ProductType } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
-
-        let hash = '/power';
-
-        if (parseInt(LockerVersion)===1){
-
-            hash = '/import';
-
-        }else{
-
-            hash = '/power';
-
-        }
-
-        history.push(hash);
+        history.push('/import');
 
     },[]);
 
     //上一步
     const backStepClick = useCallback(()=>{
 
-        history.push('/scheduleSetting');
+        console.log(schoolType);
+
+        const { LockerVersion,ProductType } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+
+        let hash = '/subject';
+
+        if (schoolType==='university'){
+
+            if (parseInt(ProductType)===6){
+
+               hash = '/scheduleSetting';
+
+            }
+
+        }
+
+        history.push(hash);
 
     },[]);
 
@@ -93,7 +112,7 @@ function Subject(props) {
 
         const token = sessionStorage.getItem("token");
 
-        return `/html/admSubject/index.html?lg_tk=${token}&showTop=0&showBottom=0&showBarner=0&isInitGuide=true`
+        return `/html/admPower/index.html?lg_tk=${token}&showTop=0&showBottom=0&showBarner=0&isInitGuide=true`
 
     },[]);
 
@@ -105,30 +124,35 @@ function Subject(props) {
 
         const protocol = window.location.protocol;
 
-        if (e.data.module==='subject'&&e.origin===`${protocol}//${host}`){
-
-            
+        if (e.data.module==='power'&&e.origin===`${protocol}//${host}`){
 
             setIframeHeight(e.data.height);
+
+            setLoading(false);
 
         }
 
     });
 
-    //iframe加载完毕
+
+   //iframe加载完成
+
     const iframeLoad = useCallback(()=>{
 
         setLoading(false);
 
-    });
+    },[]);
+
+
+
 
     return(
 
         <Loading spinning={loading} tip={"加载中,请稍候..."}>
 
-            <GuideTitle title={"设置学科"} step={step} tips={"(后续可通过“学科管理”模块进行管理)"}></GuideTitle>
+            <GuideTitle title={"设置角色权限"} step={step} tips={"(后续可通过“角色权限管理”模块进行管理)"}></GuideTitle>
 
-            <iframe id={'subjectIframe'} onLoad={iframeLoad} src={url} frameBorder="0"  style={{width:'100%',height:iframeHeight}}></iframe>
+            <iframe id={'powerIframe'} onLoad={iframeLoad} src={url} frameBorder="0"  style={{width:'100%',height:iframeHeight}}></iframe>
 
             {
 
@@ -142,11 +166,10 @@ function Subject(props) {
 
             }
 
-
         </Loading>
 
     )
 
 }
 
-export default memo(Subject)
+export default memo(Power)

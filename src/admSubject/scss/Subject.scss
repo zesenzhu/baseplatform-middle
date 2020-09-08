@@ -1,5 +1,14 @@
 $image-url: "../images";
 @import "./images.scss";
+@mixin textOverFlow(){
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
 .Adm {
     position: relative;
     padding: 19px 52px;
@@ -86,10 +95,65 @@ $image-url: "../images";
                 .search_container {
                     float: right;
                 }
+
             }
+
+            .init-guide-title{
+
+                float: left;
+
+                margin: 16px 0;
+
+                height: 28px;
+
+                line-height: 28px;
+
+                width: 100%;
+
+                .tips{
+
+                    float: left;
+
+                    color: #999999;
+
+                }
+
+                .init-guide{
+
+                    float: right;
+
+                    width: 90px;
+
+                    height: 28px;
+
+                    line-height: 28px;
+
+                    background-color: #77a5d8;
+
+                    border-radius: 14px;
+
+                    background-image: none;
+
+                    font-size: 14px;
+
+                    color: #ffffff;
+
+                    text-align: center;
+
+                    padding: 0;
+
+                }
+
+            }
+
             .content-render {
                 margin-top: 16px;
                 position: relative;
+                .emptyBox{
+
+                    margin-top: 100px;
+
+                }
                 .table {
                     .ant-table-thead {
                         th {
@@ -247,7 +311,106 @@ $image-url: "../images";
                     text-align: center;
                     margin-top: 17px;
                 }
+
+                &.init-guide{
+
+                    margin-top: 58px;
+
+                }
+
             }
         }
+
+        .table{
+
+            &.init-guide{
+
+                table-layout: fixed;
+
+                tr>th{
+
+                    height: 36px;
+
+                    .ant-table-column-title{
+
+                        color: #b8b8b8;
+
+                    }
+
+                }
+                
+                .Grades{
+
+                    color: #999999;
+                    
+                }
+
+                .handle-btn.init-guide{
+
+                    background-repeat: no-repeat;
+
+                    background-position: left center;
+
+                    padding-left: 18px;
+
+                    outline: none;
+
+                    border:0!important;
+
+                    background-color: transparent;
+
+                    box-shadow: none;
+
+                    text-decoration: underline;
+
+                    &:hover{
+
+                        opacity: 0.75;
+
+                    }
+
+                    &.edit{
+
+                        color: #0249a5;
+
+                        background-image: url("../images/edit-initGuide.png");
+
+                        &:hover{
+
+                            background-image: url("../images/edit-initGuide.png");
+
+                        }
+
+                    }
+
+                    &.del{
+
+                        color: #9a1601;
+
+                        background-image: url("../images/del-initGuide.png");
+
+                        &:hover{
+
+                            background-image: url("../images/del-initGuide.png");
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
     }
+}
+.alert_dialog_mask{
+
+    &.isInitGuide{
+
+        display: none!important;
+
+    }
+
 }

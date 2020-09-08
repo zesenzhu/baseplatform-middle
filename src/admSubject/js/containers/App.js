@@ -1,27 +1,42 @@
 import React, { Component } from 'react';
 import {  Menu, Loading, Alert } from "../../../common";
 import { connect } from 'react-redux';
-import { TokenCheck_Connect, TokenCheck, getUserInfo } from '../../../common/js/disconnect'
+
 import Frame from '../../../common/Frame';
 
-
-import { HashRouter as Router, Route, Link, BrowserRouter } from 'react-router-dom';
-import history from './history'
+import history from './history';
 
 import logo from '../../images/SubjectLogo.png'
 //import TimeBanner from '../component/TimeBanner'
-import config from '../../../common/js/config'
-import Subject from '../component/Subject'
-import '../../scss/index.scss'
-import $ from 'jquery'
-import { getData } from '../../../common/js/fetch'
+import config from '../../../common/js/config';
+
+import Subject from '../component/Subject';
+
+import '../../scss/index.scss';
+
 import actions from '../actions';
-//import { urlAll, proxy } from './config'
+
+import $ from 'jquery';
+
 import { QueryPower, QueryAdminPower } from "../../../common/js/power";
+
+import {getQueryVariable} from "../../../common/js/disconnect";
+
 const SUBJECT_MODULEID = "000-2-0-18"; //学科管理
 
 class App extends Component {
 
+
+    constructor(props) {
+        super(props);
+
+        this.state={
+
+            isInitGuide:false
+
+        }
+
+    }
 
     componentWillMount() {
 
@@ -76,6 +91,7 @@ class App extends Component {
                 UserInfo: UserMsg,
                 ModuleID: SUBJECT_MODULEID
             });
+
             havePower.then(res => {
                 if (res) {
                     let pathArr = route.split('/');
@@ -97,7 +113,13 @@ class App extends Component {
                 }})
 
         }
-        
+
+        if (getQueryVariable('isInitGuide')){
+
+            this.setState({isInitGuide:true});
+
+        }
+
 
     };
 
@@ -154,7 +176,9 @@ class App extends Component {
 
 
                 </Loading>
-                <Alert show={UIState.AppAlert.appAlert}
+                <Alert
+                    show={UIState.AppAlert.appAlert}
+                    className={`${this.state.isInitGuide?'isInitGuide':''}`}
                     type={UIState.AppAlert.type}
                     abstract={UIState.AppAlert.littleTitle}
                     title={UIState.AppAlert.title}

@@ -63,6 +63,15 @@ const getSubjectMsg = (url) => {
             if (json.StatusCode === 200) {
             dispatch({ type: actions.UpUIState.SUBJECT_TABLE_LOADING_CLOSE });
                 dispatch({ type: GET_SUBJECT_MSG, data: json.Data });
+
+                const host = window.location.host;
+
+                const protocol = window.location.protocol;
+
+                console.log(document.getElementById("root").offsetHeight);
+
+                window.parent.postMessage({module:'subject',height:document.getElementById("root").offsetHeight},`${protocol}//${host}`);
+
             }
         });
     }

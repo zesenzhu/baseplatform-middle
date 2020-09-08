@@ -1,0 +1,88 @@
+.import-wrapper{
+
+  text-align: center;
+
+  .content-wrapper{
+
+    margin: 80px auto 240px auto;
+
+    display: inline-block;
+
+    .item-wrapper{
+
+      float: left;
+
+      &:not(:first-child){
+
+        margin-left: 138px;
+
+      }
+
+      a{
+
+        display: block;
+
+        width: 96px;
+
+        height: 110px;
+
+        background-size: cover;
+
+        background-position: center;
+
+        background-repeat: no-repeat;
+
+        &:hover{
+
+          opacity: 0.75;
+
+        }
+
+      }
+
+
+      &.stu{
+
+        .icon{
+
+          background-image: url("./images/stu.png");
+
+        }
+
+      }
+
+      &.teacher{
+
+        .icon{
+
+          background-image: url("./images/teacher.png");
+
+        }
+
+      }
+
+      &.course-class{
+
+        .icon{
+
+          background-image: url("./images/course-class.png");
+
+        }
+
+      }
+
+      &.schedule{
+
+        .icon{
+
+          background-image: url("./images/schedule.png");
+
+        }
+
+      }
+
+    }
+
+  }
+
+}

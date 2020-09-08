@@ -84,14 +84,6 @@ function Guider(props) {
 
                         title:'快速导入基础数据'
 
-                    },
-
-                    {
-
-                        value:8,
-
-                        title:'完成'
-
                     }
 
                 ];
@@ -139,14 +131,6 @@ function Guider(props) {
                                 value:5,
 
                                 title:'快速导入基础数据'
-
-                            },
-
-                            {
-
-                                value:6,
-
-                                title:'完成'
 
                             }
 
@@ -201,14 +185,6 @@ function Guider(props) {
                                 value:6,
 
                                 title:'快速导入基础数据'
-
-                            },
-
-                            {
-
-                                value:7,
-
-                                title:'完成'
 
                             }
 
@@ -266,14 +242,6 @@ function Guider(props) {
                                 value:6,
 
                                 title:'快速导入基础数据'
-
-                            },
-
-                            {
-
-                                value:7,
-
-                                title:'完成'
 
                             }
 
@@ -335,14 +303,6 @@ function Guider(props) {
 
                         title:'快速导入基础数据'
 
-                    },
-
-                    {
-
-                        value:7,
-
-                        title:'完成'
-
                     }
 
                 ];
@@ -388,14 +348,6 @@ function Guider(props) {
                             value:5,
 
                             title:'快速导入基础数据'
-
-                        },
-
-                        {
-
-                            value:6,
-
-                            title:'完成'
 
                         }
 

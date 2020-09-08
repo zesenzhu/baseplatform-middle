@@ -20,11 +20,11 @@ function SelfDoubleSingleTable(props,ref){
 
     const {
 
-        ItemClassHourCount,ItemClassHour,leftColWidth,
+        ItemClassHourCount,ItemClassHour=[],leftColWidth,
 
         commonColWidth,rowOneHeight,rowTowHeight,commonRowHeight,
 
-        schedule
+        schedule=[]
 
     } = props;
 
@@ -661,12 +661,6 @@ function SelfDoubleSingleTable(props,ref){
 
 }
 
-SelfDoubleSingleTable.defaultProps = {
 
-    ItemClassHour:[],
-
-    schedule:[]
-
-};
 
 export default memo(forwardRef(SelfDoubleSingleTable));

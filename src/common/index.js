@@ -544,11 +544,11 @@ class Modal extends React.Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
 
-    const { title,bodyStyle,className,footer } = nextProps;
+    const { title,bodyStyle,className,footer,mask } = nextProps;
 
     this.selectType(this.props.type);
 
-    this.setState({ title: title,bodyStyle,className,footer});
+    this.setState({ title: title,bodyStyle,className,footer,mask});
 
   }
   // 拖拽modal
@@ -2723,7 +2723,8 @@ class Frame extends React.Component {
     this.state = {
       fixed: false,
       isFrame:false,
-      isWorkPlantform:false
+      isWorkPlantform:false,
+      isInitGuide:false
     };
   }
 
@@ -2741,21 +2742,27 @@ class Frame extends React.Component {
 
   }*/
 
-  UNSAFE_componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(){
 
-    if (window.AppRightContentChange) {
+        if(window.AppRightContentChange){
 
-      window.AppRightContentChange(this.RightContent.clientHeight);
+            window.AppRightContentChange(this.RightContent.clientHeight);
+
+        }
+
+        if(getQueryVariable('isWorkPlantform')){
+
+            this.setState({isWorkPlantform:true});
+
+        }
+
+        if(getQueryVariable('isInitGuide')){
+
+            this.setState({isInitGuide:true});
+
+        }
 
     }
-
-    if(getQueryVariable('isWorkPlantform')){
-
-      this.setState({isWorkPlantform:true});
-
-    }
-
-  }
 
   render() {
     const {
@@ -2861,22 +2868,27 @@ class Frame extends React.Component {
     const token = localStorage.getItem("token");
 
     return (
-      <div className={`frame-drag-flag   ${this.state.isWorkPlantform?'in-work-plant-form':''}`}   {...reset}>
-        {showTop ? (
-          <div className="frame-header-wrapper">
-            <div className={`frame-header-bg ${type ? type : ""}`}>
-              <div className="frame-header-star-bg">{bgAnimateDom}</div>{" "}
-              {/*星星的背景图*/}
-            </div>
-            {beyondAnimateDom}
-            <div className="frame-home-header">
-              <div className="frame-home-header-content">
-                <div
-                  className="frame-home-logo"
-                  style={{ backgroundImage: `url(${CONFIG.logo})` }}
-                >
-                  <a href={`${WebIndexUrl}?lg_tk=${token}`}>{ProductName}</a>
-                </div>
+
+      <div className={`frame-drag-flag ${this.state.isInitGuide?'isInitGuide':''}  ${this.state.isWorkPlantform?'in-work-plant-form':''}`}   {...reset}>
+
+          {
+
+            showTop?
+
+                <div className="frame-header-wrapper">
+                    <div className={`frame-header-bg ${type ? type : ""}`}>
+                        <div className="frame-header-star-bg">{bgAnimateDom}</div>{" "}
+                        {/*星星的背景图*/}
+                    </div>
+                    {beyondAnimateDom}
+                    <div className="frame-home-header">
+                        <div className="frame-home-header-content">
+                            <div
+                                className="frame-home-logo"
+                                style={{ backgroundImage: `url(${CONFIG.logo})` }}
+                            >
+                                <a href={`${WebIndexUrl}?lg_tk=${token}`}>{ProductName}</a>
+                            </div>
 
                 {!register ? (
                   <div className="frame-home-header-menus">
@@ -2936,27 +2948,27 @@ class Frame extends React.Component {
                 )}
               </div>
             </div>
-            <div
-              className={`frame-block-wrapper ${
-                module && module.className ? module.className : ""
-              }`}
-              style={{
-                backgroundImage: `url(${
-                  module && module.image ? module.image : ""
-                })`,
-              }}
-            >
-              <div className="frame-block-zh-name">
-                {module && module.cnname ? module.cnname : ""}
+                    <div
+                      className={`frame-block-wrapper ${
+                        module && module.className ? module.className : ""
+                      }`}
+                      style={{
+                        backgroundImage: `url(${
+                          module && module.image ? module.image : ""
+                        })`,
+                      }}
+                    >
+                      <div className="frame-block-zh-name">
+                        {module && module.cnname ? module.cnname : ""}
+                      </div>
+                      <div className="frame-block-en-name">
+                        {module && module.enname ? module.enname : ""}
+                      </div>
+                    </div>
               </div>
-              <div className="frame-block-en-name">
-                {module && module.enname ? module.enname : ""}
-              </div>
-            </div>
-          </div>
-        ) : (
+         :
           ""
-        )}
+        }
 
         {showBarner ? (
           <div className={`frame-time-bar ${this.state.isWorkPlantform?'in-work-plant-form':''}`}>
@@ -2968,7 +2980,11 @@ class Frame extends React.Component {
         <div
           className={`frame-content-wrapper clearfix ${
             showBarner ? "" : "barnerHide"
-          }  ${this.state.isWorkPlantform?'in-work-plant-form':''}`}
+          } ${this.state.isWorkPlantform?'in-work-plant-form':''}
+
+          ${this.state.isInitGuide?'isInitGuide':''}
+
+          `}
         >
           <div
             className={`frame-content-leftside ${
@@ -2993,7 +3009,15 @@ class Frame extends React.Component {
           )}
         </div>
 
-        {showBottom ? <div className="frame-bottom">{ProVersion}</div> : ""}
+          {
+
+            showBottom?
+
+                <div className="frame-bottom">{ProVersion}</div>
+
+                :''
+
+          }
       </div>
     );
   }
