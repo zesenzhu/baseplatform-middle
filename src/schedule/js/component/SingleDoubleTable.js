@@ -180,8 +180,6 @@ function SingleDoubleTable(props){
 
         setCommonWidth(width*0.1177);
 
-        console.log(width);
-
     });
 
 

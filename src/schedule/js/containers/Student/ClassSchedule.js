@@ -324,8 +324,6 @@ class ClassTotal extends Component{
 
         const WeekNO = getQueryVariable('WeekNO')?getQueryVariable('WeekNO'):PeriodWeekTerm.WeekNO;
 
-        console.log(getQueryVariable('WeekNO'));
-
         const {ItemClassHour} = Student.CommonInfo;
 
         const { SchoolID,UserID } = LoginUser;
@@ -433,7 +431,7 @@ class ClassTotal extends Component{
 
                     }
 
-                    this.setState({loading:false,schedule:Schedule});
+                    this.setState({loading:false,schedule:Schedule,NowWeekNO:parseInt(WeekNO)});
 
                 });
 
@@ -451,11 +449,11 @@ class ClassTotal extends Component{
     }
 
 
+
+
     render(){
 
         const { PeriodWeekTerm,Student,LoginUser } = this.props;
-
-        console.log(Student,this.state.firstLoad);
 
         const { CommonInfo } = Student;
 

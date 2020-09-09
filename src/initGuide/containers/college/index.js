@@ -378,8 +378,6 @@ function College(props) {
 
         const {modalInit} = AddEditCollegeRef.current;
 
-        console.log(AddEditCollegeRef.current);
-
         setAddEditCollege(d=>{
 
            modalInit();
