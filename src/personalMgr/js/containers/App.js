@@ -164,10 +164,8 @@ class App extends Component {
             image: logo,
           }}
           userInfo={{
-            // name:LoginUser.UserName,
-            image: BaseSettings.AvatarPath
-              ? BaseSettings.AvatarPath
-              : LoginUser.AvatarPath,
+            name:null,
+            image: null,
           }}
           type="triangle"
           showBarner={false}

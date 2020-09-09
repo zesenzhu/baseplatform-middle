@@ -43,7 +43,7 @@ class TeaMaterial extends Component {
         },
       },
       systemUrl: { Urls },
-      loginUser: { SchoolID,SubjectIDs },
+      loginUser: { SchoolID, SubjectIDs },
       targetUser: { UserID, UserType },
       termInfo: { Term },
       userArchives: { ShortName, ClassID, GradeID, UserName },
@@ -101,10 +101,9 @@ class TeaMaterial extends Component {
     }
     // 教案
     if (!secondShow && token && StartTime && EndTime && Urls["310"].WebUrl) {
-     
       this.setState({
         secondShow: true,
-        secondSubjectID: SubjectIDs.split(',')[0],
+        secondSubjectID: SubjectIDs.split(",")[0],
       });
       dispatch(
         CommonActions.SetTeaMaterialParams({
@@ -116,7 +115,7 @@ class TeaMaterial extends Component {
           // SelectBar: "NearExam",
         })
       );
-       
+
       dispatch(
         MainActions.GetTeachPlanStatistics({
           func: this.TeachPlanChart,
@@ -544,10 +543,10 @@ class TeaMaterial extends Component {
     };
     mychart.setOption(option);
     mychart.off("click");
-    mychart.on("click", (params) => this.ClickBar(params,type, SubjectID));
+    mychart.on("click", (params) => this.ClickBar(params, type, SubjectID));
   };
   // 点击事件
-  ClickBar = (params,type, SubjectID) => {
+  ClickBar = (params, type, SubjectID) => {
     let {
       MoreData: {
         MainData: { TeacherResView, TeachPlan, TeachPercent },
@@ -571,12 +570,13 @@ class TeaMaterial extends Component {
       Urls["C10"].WebUrl &&
       type === "first"
     ) {
-      window.open(Urls["C10"].WebUrl + "/Manage/Personal.aspx/?lg_tk=" + token);
+      window.open(Urls["C10"].WebUrl + "/Manage/Personal.aspx");
     } else if (
       seriesName !== "同学科" &&
       Urls["300"] &&
       Urls["300"].WebUrl &&
-      type === "second"&&SubjectID
+      type === "second" &&
+      SubjectID
     ) {
       window.open(
         Urls["300"].WebUrl +
@@ -610,6 +610,8 @@ class TeaMaterial extends Component {
           TermAndPeriod: { WeekList, WeekNO },
         },
       },
+      targetUser: { UserID },
+      loginUser,
     } = this.props;
     let {
       firstShow,
@@ -671,9 +673,15 @@ class TeaMaterial extends Component {
                             : "auto",
                       }}
                       onClick={
-                        TeacherResView.UploadCount ||
-                        TeacherResView.UploadCount === 0
-                          ? this.ClickBar.bind(this, {},'first', secondSubjectID)
+                        (TeacherResView.UploadCount ||
+                          TeacherResView.UploadCount === 0) &&
+                        loginUser.UserID === UserID
+                          ? this.ClickBar.bind(
+                              this,
+                              {},
+                              "first",
+                              secondSubjectID
+                            )
                           : () => {}
                       }
                     >
@@ -723,15 +731,20 @@ class TeaMaterial extends Component {
                       className="count"
                       style={{
                         cursor:
-                        TeachPlan.UploadCount ||
-                        TeachPlan.UploadCount === 0
+                          (TeachPlan.UploadCount ||
+                            TeachPlan.UploadCount === 0) &&
+                          loginUser.UserID === UserID
                             ? "pointer"
                             : "auto",
                       }}
                       onClick={
-                        TeachPlan.UploadCount ||
-                        TeachPlan.UploadCount === 0
-                          ? this.ClickBar.bind(this, {},'second', secondSubjectID)
+                        TeachPlan.UploadCount || TeachPlan.UploadCount === 0
+                          ? this.ClickBar.bind(
+                              this,
+                              {},
+                              "second",
+                              secondSubjectID
+                            )
                           : () => {}
                       }
                     >
@@ -781,15 +794,21 @@ class TeaMaterial extends Component {
                       className="count"
                       style={{
                         cursor:
-                        TeachPercent.uploadCount ||
-                        TeachPercent.uploadCount === 0
+                          (TeachPercent.uploadCount ||
+                            TeachPercent.uploadCount === 0) &&
+                          loginUser.UserID === UserID
                             ? "pointer"
                             : "auto",
                       }}
                       onClick={
                         TeachPercent.uploadCount ||
                         TeachPercent.uploadCount === 0
-                          ? this.ClickBar.bind(this, {},'third', secondSubjectID)
+                          ? this.ClickBar.bind(
+                              this,
+                              {},
+                              "third",
+                              secondSubjectID
+                            )
                           : () => {}
                       }
                     >
