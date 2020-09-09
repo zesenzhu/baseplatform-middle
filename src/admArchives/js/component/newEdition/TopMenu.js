@@ -22,18 +22,18 @@ class TopMenu extends React.Component {
     let handleRoute = pathArr[2];
     if (key !== "All") {
       // console.log(key)
-      if (handleRoute === "Student") {
+     if (icon === "Face") {
+        window.open(key) ;
+      } else if (handleRoute === "Student"&&key===handleRoute) {
         window.StudentCancelSearch();
         history.push("/UserArchives/" + key + "/all");
-      } else if (handleRoute === "Teacher") {
+      } else if (handleRoute === "Teacher"&&key===handleRoute) {
         window.TeacherCancelSearch();
         history.push("/UserArchives/" + key + "/all");
-      } else if (handleRoute === "Leader") {
+      } else if (handleRoute === "Leader"&&key===handleRoute) {
         window.LeaderCancelSearch();
         history.push("/UserArchives/" + key + "/all");
-      } else if (icon === "Face") {
-        window.open(key) ;
-      } else {
+      } else  {
         history.push("/UserArchives/" + key + "/all");
       }
     } else {

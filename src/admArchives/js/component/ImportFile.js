@@ -156,7 +156,7 @@ class ImportFile extends React.Component {
 
                     module={{
                         cnname: "用户档案管理",
-                        enname: "User profile management",
+                        enname: "User Profile Management",
                         image: logo
                     }}
                     className='myFrame'

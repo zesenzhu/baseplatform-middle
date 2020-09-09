@@ -384,6 +384,7 @@ class YearSemesterSetting extends Component {
                 <div className="start-date">
                   开始时间:
                   <DatePicker
+                    allowClear={false}
                     format="YYYY-MM-DD"
                     placeholder="请选择日期"
                     value={
@@ -405,6 +406,7 @@ class YearSemesterSetting extends Component {
                 <div className="end-date">
                   结束时间:
                   <DatePicker
+                    allowClear={false}
                     onChange={this.getOffDate}
                     placeholder="请选择日期"
                     value={
@@ -496,6 +498,7 @@ class YearSemesterSetting extends Component {
                 <div className="start-date">
                   开学时间:
                   <DatePicker
+                    allowClear={false}
                     value={
                       semesterInfo.TermStartDate === ""
                         ? null
@@ -515,6 +518,7 @@ class YearSemesterSetting extends Component {
                 <div className="end-date">
                   放假时间:
                   <DatePicker
+                    allowClear={false}
                     placeholder="请选择日期"
                     value={
                       semesterInfo.TermEndDate === ""

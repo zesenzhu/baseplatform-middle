@@ -46,7 +46,7 @@ class RegisterExamine extends React.Component {
       TeacherClass: [],
       logo: logo,
       cnname: "用户档案管理",
-      enname: "User profile management",
+      enname: "User Profile Management",
       Admin: true,
     };
     const { dispatch, DataState } = this.props;
@@ -90,7 +90,7 @@ class RegisterExamine extends React.Component {
       this.setState({
         logo: logo,
         cnname: "用户档案管理",
-        enname: "User profile management",
+        enname: "User Profile Management",
         Admin: true,
       });
       document.title = "用户档案管理";

@@ -42,8 +42,8 @@ class StuQuality extends Component {
       });
       dispatch(
         CommonActions.SetStuQualityParams({
-          Proxy: "http://192.168.129.8:10103/WS_CJZP",
-          // Urls["810"].WsUrl,
+          Proxy:  
+          Urls["810"].WsUrl,
 
           Term,
 
