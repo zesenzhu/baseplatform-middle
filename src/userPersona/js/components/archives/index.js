@@ -99,7 +99,16 @@ function Archives(props) {
 
             }else{
 
-                window.open(`${removeSlashUrl(url)}/index_user.html?lg_tk=${token}&tName=${tName}&tId=${UserID}`)
+                if (['AdmToTeacher','LeaderToTeacher'].includes(UsedType)){
+
+                    window.open(`${removeSlashUrl(url)}/index_user.html?lg_tk=${token}&tName=${tName}&tId=${UserID}#1|4|0`)
+
+                }else{
+
+                    window.open(`${removeSlashUrl(url)}/index_user.html?lg_tk=${token}#5|3|0`)
+
+                }
+
 
             }
 

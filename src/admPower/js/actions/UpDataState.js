@@ -39,10 +39,7 @@ const getUserPowerMsg = (url) => {
 
                 const protocol = window.location.protocol;
 
-                console.log(document.getElementById("root").offsetHeight);
-
                 window.parent.postMessage({module:'power',height:document.getElementById("root").offsetHeight},`${protocol}//${host}`);
-
 
             }
         });

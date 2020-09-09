@@ -80,5 +80,20 @@ export const GetCurrentTermInfo = async ({SchoolId})=>{
 
 };
 
+//获取是否初始化完成
+export const GetSchoolInitStatus = async ({SchoolId})=>{
+
+    const res = await getData(`${config.GetBaseInfo}/SysMgr/Setting/GetSchoolInitStatus?SchoolId=${SchoolId}`,2,"cors",false,false);
+
+    const data = await res.json();
+
+    if (parseInt(data.StatusCode) === 200){
+
+        return data.Data;
+
+    }
+
+};
+
 
 
