@@ -14,7 +14,7 @@ import {guiderStepChange} from "../../store/guideStep";
 
 import {appLoadingHide} from "../../store/appLoading";
 
-import {SetTermInfo} from '../../actions/apiActions';
+import {SetTermInfo,GetCurrentTermInfo} from '../../actions/apiActions';
 
 import './index.scss'
 
@@ -111,6 +111,16 @@ function YearAndTerm(props) {
 
         if (SchoolID){
 
+            GetCurrentTermInfo({SchoolID,dispatch}).then(data=>{
+
+                if (data){
+
+                    console.log(data);
+
+                }
+
+            });
+
             const nowDate = moment();
 
             const nowMonth = nowDate.month();
@@ -173,7 +183,7 @@ function YearAndTerm(props) {
 
                     {ID:nextValue,startDate:`${nowYear}-09-01`,endDate:`${nowYear+1}-02-01`,startRange:`${nowYear}-07-01`,endRange:`${nowYear+1}-03-01`}
 
-                ]
+                ];
 
                 startTime = `${nowYear}-02-01`;
 

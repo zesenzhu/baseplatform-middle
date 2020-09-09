@@ -378,6 +378,8 @@ function College(props) {
 
         const {modalInit} = AddEditCollegeRef.current;
 
+        console.log(AddEditCollegeRef.current);
+
         setAddEditCollege(d=>{
 
            modalInit();
@@ -447,6 +449,16 @@ function College(props) {
     };
 
 
+    //导入学院
+    const importCollege = useCallback(()=>{
+
+        const token = sessionStorage.getItem("token");
+
+        window.open(`/html/systemSetting/index.html?lg_tk=${token}#/MainContent/Import`);
+
+    },[]);
+
+
     //上一步
     const backStepClick = useCallback(()=>{
 
@@ -480,7 +492,7 @@ function College(props) {
 
                             <Button className={"add-college"} onClick={addCollege}>单个添加学院</Button>
 
-                            <Button className={"import-college"}>批量导入学院</Button>
+                            <Button onClick={importCollege} className={"import-college"}>批量导入学院</Button>
 
                         </div>
 
@@ -515,10 +527,7 @@ function College(props) {
 
             </Loading>
 
-            <AddEditCollege ref={AddEditCollegeRef} CollegeID={addEditCollege.CollegeID} CollegeCode={addEditCollege.CollegeCode} CollegeName={addEditCollege.CollegeName} okModal={okModal} closeModal={closeModal} show={addEditCollege.show} isEdit={addEditCollege.isEdit}>
-
-
-            </AddEditCollege>
+            <AddEditCollege ref={AddEditCollegeRef} CollegeID={addEditCollege.CollegeID} CollegeCode={addEditCollege.CollegeCode} CollegeName={addEditCollege.CollegeName} okModal={okModal} closeModal={closeModal} show={addEditCollege.show} isEdit={addEditCollege.isEdit}></AddEditCollege>
 
         </>
 

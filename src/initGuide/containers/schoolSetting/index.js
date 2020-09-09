@@ -431,6 +431,8 @@ function SchoolSetting(props) {
 
                 setLoading(false);
 
+                setSchoolArea(d=>({...d,ready:true}));
+
                 dispatch(appLoadingHide());
 
             }
@@ -814,7 +816,7 @@ function SchoolSetting(props) {
 
         const logoUrl = SchoolLogoUrl?SchoolLogoUrl:`${removeSlashUrl(ResHttpRootUrl)}/SysSetting/Attach/default.png`;
 
-        const badgeUrl = SchoolLogoUrl_Long?SchoolLogoUrl_Long:`${removeSlashUrl(ResHttpRootUrl)}/SysSetting/Attach/custom_280_40.png?v=${new Date().getTime()}`;
+        const badgeUrl = SchoolLogoUrl_Long?SchoolLogoUrl_Long:`${removeSlashUrl(ResHttpRootUrl)}/SysSetting/Attach/default_280_40.png`;
 
         const actionUrl = `${removeSlashUrl(ResHttpRootUrl)}/SubjectRes_UploadHandler.ashx?method=doUpload_WholeFile&userid=${UserID}`;
 
