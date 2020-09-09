@@ -830,24 +830,40 @@ class Subject extends React.Component {
                 }
 
               <div className={`content-render ${this.state.isInitGuide?'init-guide':''}`}>
-                <Table
-                  className={`table ${this.state.isInitGuide?'init-guide':''}`}
-                  loading={UIState.SubjectTableLoading.TableLoading}
-                  columns={this.state.columns}
-                  pagination={false}
-                  dataSource={
-                    DataState.SubjectMsg ? DataState.SubjectMsg.SubjectItem : []
+
+
+                  {
+
+                      DataState.SubjectMsg.Total&&DataState.SubjectMsg.Total>0?
+
+                          <>
+
+                              <Table
+                                  className={`table ${this.state.isInitGuide?'init-guide':''}`}
+                                  loading={UIState.SubjectTableLoading.TableLoading}
+                                  columns={this.state.columns}
+                                  pagination={false}
+                                  dataSource={
+                                      DataState.SubjectMsg ? DataState.SubjectMsg.SubjectItem : []
+                                  }
+                              ></Table>
+
+                              <PagiNation
+                                  showQuickJumper
+                                  // defaultCurrent={DataState.SubjectMsg ? DataState.SubjectMsg.PageIndex : 1}
+                                  pageSize={8}
+                                  current={this.state.pagination}
+                                  hideOnSinglepage={true}
+                                  total={DataState.SubjectMsg.Total}
+                                  onChange={this.onPagiNationChange.bind(this)}
+                              ></PagiNation>
+
+                          </>
+
+                          :null
+
                   }
-                ></Table>
-                <PagiNation
-                  showQuickJumper
-                  // defaultCurrent={DataState.SubjectMsg ? DataState.SubjectMsg.PageIndex : 1}
-                  pageSize={8}
-                  current={this.state.pagination}
-                  hideOnSinglepage={true}
-                  total={DataState.SubjectMsg.Total}
-                  onChange={this.onPagiNationChange.bind(this)}
-                ></PagiNation>
+
               </div>
             </div>
           </div>

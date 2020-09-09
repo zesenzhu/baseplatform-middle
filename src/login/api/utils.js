@@ -4,7 +4,7 @@ import {getQueryVariable,LogOut} from "../../common/js/disconnect";
 
 import {hideAlert, showErrorAlert} from "../store/appAlert";
 
-import {GetCurrentTermInfo} from './index';
+import {GetSchoolInitStatus} from './index';
 
 
 //获取数据以及封装数据格式
@@ -122,7 +122,7 @@ export const goToNextPage = ({dispatch,loadingHide}) =>{
 
     let nexUrl = '';
     
-    /*if (parseInt(UserType)===6){
+    if (parseInt(UserType)===6){
 
         window.location.href= '/html/admSchoolSetting/';
 
@@ -152,33 +152,19 @@ export const goToNextPage = ({dispatch,loadingHide}) =>{
 
         }
 
-        GetCurrentTermInfo({SchoolId:SchoolID}).then(data=>{
+        GetSchoolInitStatus({SchoolId:SchoolID}).then(data=>{
 
-            if(data){
+            if (data){
 
                 window.location.href = nexUrl;
 
             }else{
 
-               console.log(data);
-
-               if (parseInt(UserType)===0){
-
-                   nexUrl = `/html/initGuide?lg_tk=${token}${preUri?'&lg_preurl='+preUri:''}`;
-
-                   window.location.href= nexUrl;
-
-               }else{
-
-                   dispatch(showErrorAlert({title:"登录异常,登录失败",cancelShow:'n',cancel:e=>logErr(dispatch),close:e=>logErr(dispatch),ok:e=>logErr(dispatch)}));
-
-                   loadingHide(false);
-
-               }
+                window.location.href = `/html/initGuide?lg_tk=${token}${preUri?'&lg_preurl='+preUri:''}`;
 
             }
 
-        });
+        })
 
     }else if(parseInt(UserType)===0){
 
@@ -192,9 +178,9 @@ export const goToNextPage = ({dispatch,loadingHide}) =>{
 
         loadingHide(false);
 
-    }*/
+    }
 
-    if (parseInt(UserType)===6){
+    /*if (parseInt(UserType)===6){
 
             window.location.href= `/html/admSchoolSetting/index.html?lg_tk=${token}`;
 
@@ -232,7 +218,7 @@ export const goToNextPage = ({dispatch,loadingHide}) =>{
 
             loadingHide(false);
 
-    }
+    }*/
 
 };
 
