@@ -1,0 +1,58 @@
+@import "../base";
+
+.subject-wrapper{
+
+  margin: 40px 40px 100px 40px;
+
+  .total-wrapper{
+
+    margin-bottom: 16px;
+
+    .title{
+
+      float: left;
+
+      margin-left: 20px;
+
+    }
+
+    .add-subject{
+      float: right;
+      margin-right:20px;
+      width: 90px;
+      height: 28px;
+      background-color: #77a5d8;
+      border-radius: 14px;
+      font-size: 14px;
+      color: #ffffff;
+      border: 0;
+      outline: none;
+    }
+
+  }
+
+  .emptyBox{
+
+    margin-top: 40px;
+
+  }
+
+  .no{
+
+    color: #999999;
+
+    font-size: 12px;
+
+  }
+
+  .subject-name{
+
+    color: #333333;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+  }
+
+}

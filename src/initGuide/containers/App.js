@@ -6,7 +6,7 @@ import {Alert,Loading} from "../../common";
 
 import {useSelector,useDispatch} from 'react-redux';
 
-import { GetBaseInfoForPages } from '../actions/apiActions';
+import { GetBaseInfoForPages,GetSchoolInitStatus } from '../actions/apiActions';
 
 import {loginUserUpdate} from "../store/LoginUser";
 
@@ -25,6 +25,7 @@ import Guider from './guider'
 import AppRoutes from './appRoutes';
 
 import './App.scss';
+import {getNewTkUrl} from "../actions/utils";
 
 function App(props) {
 
@@ -43,15 +44,7 @@ function App(props) {
 
     useEffect(()=>{
 
-        const LgBasePlatformInfo = sessionStorage.getItem("LgBasePlatformInfo");
-
-        if (LgBasePlatformInfo){
-
-            firstPageLoad(firstLoad);
-
-        }else{
-
-            GetBaseInfoForPages({dispatch}).then(data=>{
+        GetBaseInfoForPages({dispatch}).then(data=>{
 
                 if (data){
 
@@ -61,9 +54,7 @@ function App(props) {
 
                 }
 
-            })
-
-        }
+            });
 
     },[]);
 
@@ -101,21 +92,45 @@ function App(props) {
 
           if (SchoolID){
 
-              GetCurrentTermInfo({dispatch,SchoolID}).then(data=>{
+              GetSchoolInitStatus({schoolID:SchoolID,dispatch}).then(data=>{
 
                   if (data){
 
-                      history.push('/schoolSetting');
+                      const {UserType,SchoolID} = JSON.parse(sessionStorage.getItem("UserInfo"));
 
-                      dispatch(loginUserUpdate(UserInfo));
-
-                      const url = getQueryVariable('lg_preurl');
+                      const { WebIndexUrl } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
                       const token = sessionStorage.getItem("token");
 
-                      const {WebIndexUrl} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+                      const preUri = getQueryVariable('lg_preurl');
 
-                      window.location.href = url?url+'?lg_tk='+token:WebIndexUrl+'?lg_tk='+token;
+                      let nexUrl = '';
+
+                      const urlObj = preUri?getNewTkUrl({preUrl:preUri,jointParam:`?lg_tk=${token}`}):getNewTkUrl({preUrl:WebIndexUrl,jointParam:`?lg_tk=${token}`});
+
+                      switch (urlObj.type) {
+
+                          case 1:
+
+                              nexUrl = urlObj.newUrl;
+
+                              break;
+
+                          case 2:
+
+                              nexUrl = urlObj.newUrl + '&lg_tk=' + token;
+
+                              break;
+
+                          case 3:
+
+                              nexUrl = urlObj.newUrl + '?lg_tk=' + token;
+
+                              break;
+
+                      }
+
+                      window.location.href = nexUrl;
 
                   }else{
 
@@ -125,7 +140,7 @@ function App(props) {
 
                   }
 
-              })
+              });
 
           }else{
 
@@ -158,7 +173,15 @@ function App(props) {
 
                     <div className={"init-guide-content"}>
 
-                        <AppRoutes></AppRoutes>
+                        {
+
+                            LoginUser.UserID?
+
+                                <AppRoutes></AppRoutes>
+
+                                :null
+
+                        }
 
                     </div>
 

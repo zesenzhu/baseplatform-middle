@@ -8,7 +8,7 @@ import { Loading,Alert,CheckBox } from "../common";
 
 import {getQueryVariable} from "../common/js/disconnect";
 
-import {getNewTkUrl,goToNextPage,decodeObjValue,removeSlashUrl,downLoadFile} from "./api/utils";
+import {getNewTkUrl,goToNextPage,decodeObjValue,removeSlashUrl,downLoadFile,clearSessionStorage} from "./api/utils";
 
 import { GetBaseInfo,loginApi,GetSystemsMainServer } from './api/index';
 
@@ -90,6 +90,8 @@ function App(props){
         GetBaseInfo({dispatch}).then(data=>{
 
             if (data){
+
+                sessionStorage.setItem("LgBasePlatformInfo",JSON.stringify(data));
 
                 let skin = '';
                 
@@ -183,7 +185,6 @@ function App(props){
 
                     })
 
-
                 }else{
 
                     initData(skin,data);
@@ -220,7 +221,7 @@ function App(props){
 
             const token = sessionStorage.getItem('token')?sessionStorage.getItem('token'):localStorage.getItem('token');
 
-            const lg_sysid = getQueryVariable('lg_sysid')?getQueryVariable('lg_sysid'):101;
+            const lg_sysid = getQueryVariable('lg_sysid')?getQueryVariable('lg_sysid'):'000';
 
             //再判断是否已登录
             if (token){
@@ -230,6 +231,8 @@ function App(props){
                     if (res.data.result===true){//如果是已登录判断用户类型再做跳转,否则都要做检查基础平台插件
 
                         localStorage.setItem('token',token);
+
+                        sessionStorage.setItem('token',token);
 
                         loginApi({token,method:'GetUserInfo',params:lg_sysid?lg_sysid:'000'}).then(result=>{
 
@@ -242,148 +245,32 @@ function App(props){
 
                                 goToNextPage({token,WebIndexUrl:data.WebIndexUrl,UserType:UserInfo.UserType,dispatch});
 
-                            }else{
-
-                                goToNextPage({token,WebIndexUrl:data.WebIndexUrl,UserType:'',dispatch});
-
                             }
-
-                        },err=>{
-
-                            goToNextPage({token,WebIndexUrl:data.WebIndexUrl,UserType:'',dispatch});
 
                         });
 
                     }else{
 
-                        sessionStorage.clear();
+                        // sessionStorage.clear();
+
+                        clearSessionStorage('LgBasePlatformInfo');
 
                         localStorage.removeItem('token');
 
                         //当token失效的时候再判断MacID是否登录
 
-                        //2020-08-19
-                        /*if (localStorage.getItem('LgBaseMacID')){
-
-                            loginApi({method:'GetTokenByMac',params:localStorage.getItem('LgBaseMacID')}).then(d=>{
-
-                                //macid有过登录的情况下
-
-                                if (d.error==='0'&&d.data.token){
-
-                                    localStorage.setItem('token',d.data.token);
-
-                                    sessionStorage.setItem('token',d.data.token);
-
-                                    loginApi({token:d.data.token,method:'GetUserInfo',params:lg_sysid?lg_sysid:'000'}).then(result=>{
-
-                                        //如果成功获取到用户信息
-                                        if (result.data&&result.error==='0'){
-
-                                            const UserInfo = decodeObjValue(result.data);
-
-                                            sessionStorage.setItem("UserInfo",JSON.stringify(UserInfo));
-
-                                            goToNextPage({token:d.data.token,WebIndexUrl:data.WebIndexUrl,UserType:UserInfo.UserType});
-
-                                        }else{
-
-                                            goToNextPage({token:d.data.token,WebIndexUrl:data.WebIndexUrl,UserType:''});
-
-                                        }
-
-                                    },err=>{
-
-                                        goToNextPage({token:d.data.token,WebIndexUrl:data.WebIndexUrl,UserType:''});
-
-                                    });
-
-                                }else{
-                                    //macid登录失败
-
-                                    checkBase({ProductName:data.ProductName,ClinetDownUrl:data.ClinetDownUrl,WebIndexUrl:data.WebIndexUrl});
-
-                                }
-
-                            },er=>{
-
-                                //macid登录失败
-                                checkBase({ProductName:data.ProductName,ClinetDownUrl:data.ClinetDownUrl,WebIndexUrl:data.WebIndexUrl});
-
-                            });
-
-                        }else{
-
-                            checkBase({ProductName:data.ProductName,ClinetDownUrl:data.ClinetDownUrl,WebIndexUrl:data.WebIndexUrl});
-
-                        }*/
-
                         //每一次都做一次监测而不是直接拿之前的Mac地址
                         checkBase({ProductName:data.ProductName,ClinetDownUrl:data.ClinetDownUrl,WebIndexUrl:data.WebIndexUrl});
-
 
                     }
 
                 },(resp,err)=>{
 
-                    dispatch(showErrorAlert({title:decodeURIComponent(err)}));
+                    // sessionStorage.clear();
 
-                    sessionStorage.clear();
+                    clearSessionStorage('LgBasePlatformInfo');
 
                     localStorage.removeItem('token');
-
-
-                    //2020-08-19
-                    /*if (localStorage.getItem('LgBaseMacID')){
-
-                        loginApi({method:'GetTokenByMac',params:localStorage.getItem('LgBaseMacID')}).then(d=>{
-
-                            if (d.error==='0'&&d.data.token){
-
-                                localStorage.setItem('token',d.data.token);
-
-                                sessionStorage.setItem('token',d.data.token);
-
-                                loginApi({token:d.data.token,method:'GetUserInfo',params:lg_sysid?lg_sysid:'000'}).then(result=>{
-
-                                    //如果成功获取到用户信息
-                                    if (result.data&&result.error==='0'){
-
-                                        const UserInfo = decodeObjValue(result.data);
-
-                                        sessionStorage.setItem("UserInfo",JSON.stringify(UserInfo));
-
-                                        goToNextPage({token:d.data.token,WebIndexUrl:data.WebIndexUrl,UserType:UserInfo.UserType});
-
-                                    }else{
-
-                                        goToNextPage({token:d.data.token,WebIndexUrl:data.WebIndexUrl,UserType:''});
-
-                                    }
-
-                                },err=>{
-
-                                    goToNextPage({token:d.data.token,WebIndexUrl:data.WebIndexUrl,UserType:''});
-
-                                });
-
-                            }else{
-
-                                checkBase({ProductName:data.ProductName,ClinetDownUrl:data.ClinetDownUrl,WebIndexUrl:data.WebIndexUrl});
-
-                            }
-
-                        },er=>{
-
-                            checkBase({ProductName:data.ProductName,ClinetDownUrl:data.ClinetDownUrl,WebIndexUrl:data.WebIndexUrl});
-
-                        });
-
-                    }else{
-
-                        checkBase({ProductName:data.ProductName,ClinetDownUrl:data.ClinetDownUrl,WebIndexUrl:data.WebIndexUrl});
-
-                    }*/
 
                     //每一次都做一次监测而不是直接拿之前的Mac地址
 
@@ -395,58 +282,6 @@ function App(props){
             }else{//没有登录的情况下判断是否有基础插件包
 
                 //2020-08-19
-
-              /*  if (localStorage.getItem('LgBaseMacID')){
-
-                    loginApi({method:'GetTokenByMac',params:localStorage.getItem('LgBaseMacID')}).then(d=>{
-
-                        if (d.error==='0'&&d.data.token){
-
-                            localStorage.setItem('token',d.data.token);
-
-                            sessionStorage.setItem('token',d.data.token);
-
-                            loginApi({token:d.data.token,method:'GetUserInfo',params:lg_sysid?lg_sysid:'000'}).then(result=>{
-
-                                //如果成功获取到用户信息
-                                if (result.data&&result.error==='0'){
-
-                                    const UserInfo = decodeObjValue(result.data);
-
-                                    sessionStorage.setItem("UserInfo",JSON.stringify(UserInfo));
-
-                                    goToNextPage({token:d.data.token,WebIndexUrl:data.WebIndexUrl,UserType:UserInfo.UserType});
-
-                                }else{
-
-                                    goToNextPage({token:d.data.token,WebIndexUrl:data.WebIndexUrl,UserType:''});
-
-                                }
-
-                            },err=>{
-
-                                goToNextPage({token:d.data.token,WebIndexUrl:data.WebIndexUrl,UserType:''});
-
-                            });
-
-                        }else{
-
-                            checkBase({ProductName:data.ProductName,ClinetDownUrl:data.ClinetDownUrl,WebIndexUrl:data.WebIndexUrl});
-
-                        }
-
-                    },er=>{
-
-                        checkBase({ProductName:data.ProductName,ClinetDownUrl:data.ClinetDownUrl,WebIndexUrl:data.WebIndexUrl});
-
-                    });
-
-                }else{
-
-                    checkBase({ProductName:data.ProductName,ClinetDownUrl:data.ClinetDownUrl,WebIndexUrl:data.WebIndexUrl});
-
-                }*/
-
 
                 //每一次都做一次监测而不是直接拿之前的Mac地址
 
@@ -460,7 +295,9 @@ function App(props){
 
             document.title=data.ProductName;
 
-            sessionStorage.clear();
+            // sessionStorage.clear();
+
+            clearSessionStorage('LgBasePlatformInfo');
 
             localStorage.removeItem('token');
 
@@ -532,19 +369,6 @@ function App(props){
 
                 dispatch(changePluginStatus(true));
 
-                //2020-08-19
-                /*const MacID = localStorage.getItem('LgBaseMacID');
-
-                if (!MacID){//如果之前存储的macID不存在
-
-                    result.GetMacIDs();//调用获取MacID的方法
-
-                }else{
-
-                    setAppLoading(false);
-
-                }*/
-
                 //无论有没有MacID都再次重新获取一下
 
                 result.GetMacIDs();
@@ -579,17 +403,7 @@ function App(props){
 
                                 goToNextPage({token:d.data.token,WebIndexUrl,UserType:UserInfo.UserType,dispatch});
 
-                            }else{
-
-                                goToNextPage({token:d.data.token,WebIndexUrl,UserType:'',dispatch});
-
                             }
-
-                            setAppLoading(false);
-
-                        },err=>{
-
-                            goToNextPage({token:d.data.token,WebIndexUrl,UserType:'',dispatch});
 
                             setAppLoading(false);
 
@@ -772,17 +586,7 @@ function App(props){
 
                                     goToNextPage({token:d.data.token,WebIndexUrl,UserType:UserInfo.UserType,dispatch});
 
-                                }else{
-
-                                    goToNextPage({token:d.data.token,WebIndexUrl,UserType:'',dispatch});
-
                                 }
-
-                                setAppLoading(false);
-
-                            },err=>{
-
-                                goToNextPage({token:d.data.token,WebIndexUrl,UserType:'',dispatch});
 
                                 setAppLoading(false);
 

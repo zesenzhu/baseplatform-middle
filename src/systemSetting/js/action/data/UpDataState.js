@@ -2,7 +2,7 @@ import Api from "../data/Api";
 import { getData, postData } from "../../../../common/js/fetch";
 
 import config from "../../../../common/js/config";
-let { TextBookProxy,TextBookProxy_2  } = config;
+let { TextBookProxy, TextBookProxy_2 } = config;
 let { getMethod, postMethod } = Api;
 //获取登录用户信息
 const GET_LOGIN_USER_INFO = "GET_LOGIN_USER_INFO";
@@ -28,7 +28,7 @@ const getLoginUser = (data) => {
 // 获取学校学科列表
 
 const GET_SUBJECT_LIST_DATA = "GET_SUBJECT_LIST_DATA";
-const GetSubjectListData = ({ isFirstLoad = true, func = () => {} }) => {
+const GetSubjectListData = ({ isFirstLoad = true, func = () => { } }) => {
   return (dispatch, getState) => {
     let { SchoolID } = getState().DataState.LoginUser;
     // console.log('dssd')
@@ -68,13 +68,60 @@ const GetSubjectListData = ({ isFirstLoad = true, func = () => {} }) => {
       });
   };
 };
+const GET_GRADE_SUBJECT_LIST_DATA = "GET_GRADE_SUBJECT_LIST_DATA";
+const GetGradeSubjectInfo = ({ schoolId, func = () => { } }) => {
+  return (dispatch, getState) => {
+    let { SchoolID } = getState().DataState.LoginUser;
+    // console.log('dssd')
+    if (!SchoolID) {
+      return;
+    }
+    let url = TextBookProxy + "/GetGradeSubjectInfo?SchoolID=" + SchoolID;
+    dispatch(SetSelectSubjectLoading(true));
+    getData(url, 2)
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        let { InitData } = getState().DataState.TextBookData.SubjectList;
+        json.Data.unshift({
+          GradeId: "",
+          GradeName: "全部年级",
+          OrderNo: 0,
+          Subjects:JSON.parse(JSON.stringify(InitData))
+        })
+        dispatch({ type: GET_GRADE_SUBJECT_LIST_DATA, data: json.Data });
 
+        // if (isFirstLoad) {
+        //   dispatch(
+        //     SetOpenSubjectData({
+        //       OpenList: [
+        //         getState().DataState.TextBookData.SubjectList.SubjectList[0]
+        //           .value,
+        //       ],
+        //     })
+        //   );
+        //   let SubjectList = getState().DataState.TextBookData.SubjectList
+        //     .SubjectList;
+        //   let SelectSubjectsLoading = {};
+        //   SubjectList instanceof Array &&
+        //     SubjectList.map((child) => {
+        //       SelectSubjectsLoading[child.value] = false;
+        //     });
+        //   dispatch(SetSelectSubjectLoading(SelectSubjectsLoading));
+        // }
+        dispatch(SetSelectSubjectLoading(false));
+        func(getState().DataState.TextBookData);
+        // dispatch(SetSubjectsLoading(false));
+      });
+  };
+};
 // 获取教材指定信息列表
 
 const GET_SUBJECT_INFO_DATA = "GET_SUBJECT_INFO_DATA";
 const GetSubjectInfoData = ({
   subjectId,
-  func = () => {},
+  func = () => { },
   useDefault = true,
 }) => {
   return (dispatch, getState) => {
@@ -199,7 +246,7 @@ const SetTextBookModalParams = (data) => {
 // 获取教材节点
 
 const GET_NODE_INFO_DATA = "GET_NODE_INFO_DATA";
-const GetNodeInfoData = ({ upId, func = () => {} }) => {
+const GetNodeInfoData = ({ upId, func = () => { } }) => {
   return (dispatch, getState) => {
     // let { SchoolID } = getState().DataState.LoginUser;
     dispatch(
@@ -238,7 +285,7 @@ const SetTextBookInfoData = ({
   gradeId,
   textbookId,
   periodId,
-  func = () => {},
+  func = () => { },
 }) => {
   return (dispatch, getState) => {
     let { SchoolID } = getState().DataState.LoginUser;
@@ -270,7 +317,7 @@ const GetTextBookList = ({
   gradeId,
   // SchoolID,
   // periodId,
-  func = () => {},
+  func = () => { },
 }) => {
   return (dispatch, getState) => {
     dispatch(
@@ -282,7 +329,7 @@ const GetTextBookList = ({
       "/GetTextBookList?SchoolID=" +
       SchoolID +
       "&subjectId=" +
-      subjectId+
+      subjectId +
       "&gradeId=" +
       gradeId
       ;
@@ -340,4 +387,7 @@ export default {
 
   GET_SUBJECT_LIST_DATA,
   GetSubjectListData,
+
+  GET_GRADE_SUBJECT_LIST_DATA,
+  GetGradeSubjectInfo,
 };

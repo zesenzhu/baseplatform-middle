@@ -21,6 +21,8 @@ const TEACHER_STS_NOW_CLASS_DATE_CHANGE = 'TEACHER_STS_NOW_CLASS_DATE_CHANGE';
 
 const STS_PAGE_ADD = 'STS_PAGE_ADD';
 
+const TEACHER_STS_PAGE_CHANGE = 'TEACHER_STS_PAGE_CHANGE';
+
 const LOADING_SHOW = 'LOADING_SHOW';
 
 const LOADING_HIDE = 'LOADING_HIDE';
@@ -315,6 +317,8 @@ const STSPageUpdate = (opt) => {
                 }else{
 
                     dispatch({type:SUBJECT_TEACHER_SCHEDULE_UPDATE,data:SubjectTeacherSubjectSchedule});
+
+                    dispatch({type:TEACHER_STS_PAGE_CHANGE,data:1});
 
                 }
 
@@ -970,6 +974,8 @@ export default {
     TEACHER_STS_NOW_CLASS_DATE_CHANGE,
 
     SUBJECT_TEACHER_SCHEDULE_UPDATE,
+
+    TEACHER_STS_PAGE_CHANGE,
 
     STS_PAGE_ADD,
 

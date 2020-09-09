@@ -36,7 +36,6 @@ const STSPageInit = (ResetClassHour) => {
         let {SchoolID,UserID,UserType} =LoginUser;//需要的参数后期加入
 
 
-
         if (PeriodWeekTerm.ItemPeriod.length>0){
 
             let { WeekNO,NowWeekDay,NowDate,ItemWeek } = PeriodWeekTerm;
@@ -339,7 +338,6 @@ const STSPageInit = (ResetClassHour) => {
                     if (json){
 
                         let SubjectTeacherSchedule = [];
-
 
                         SubjectTeacherSchedule =  json.ItemTeacher.map((item) => {
 

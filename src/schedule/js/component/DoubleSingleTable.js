@@ -188,8 +188,6 @@ function DoubleSingleTable(props){
 
             ClassHourCol.push({title:Title,height:64,dataIndex:`ClassHourNO${i.ClassHourNO}`,render:(item,record)=>{
 
-                    console.log(item);
-
                     if (item === 'none'){
 
                         return <div className={`schedule-wrapper empty ${record.active?'active':''}`} style={{height:commonRowHeight}}>
@@ -275,7 +273,6 @@ function DoubleSingleTable(props){
         setColumns(Columns);
 
     },[ItemClassHour]);
-
 
     useEffect(()=>{
 

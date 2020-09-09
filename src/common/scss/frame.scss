@@ -1,5 +1,8 @@
+@charset "UTF-8";
+
 @import "./animation";
-$img_url:'#{$image_url}/frame';
+
+$img_url:'./images/frame';
 //界面框架整体
 
 
@@ -26,6 +29,12 @@ $img_url:'#{$image_url}/frame';
     .frame-content-rightside.frame-fluid{
 
       width: 100%;
+
+    }
+
+    .frame-time-bar{
+
+      box-shadow: none;
 
     }
 
@@ -85,7 +94,7 @@ $img_url:'#{$image_url}/frame';
   width: 785px;
   height: 470px;
   background: url("#{$img_url}/oblong.png") repeat-y center;
-  @include animation(oblong 18s linear infinite);
+  animation:oblong 18s linear infinite;
 }
 //圆形动画
 .frame-circle-animation1{
@@ -97,7 +106,7 @@ $img_url:'#{$image_url}/frame';
   background: url("#{$img_url}/circle-big.png") no-repeat center;
   background-size: contain;
   opacity: 0.7;
-  @include animation(circle-animation1 20s linear infinite)
+  animation:circle-animation1 20s linear infinite;
 }
 .frame-circle-animation2{
   position: absolute;
@@ -108,7 +117,7 @@ $img_url:'#{$image_url}/frame';
   background: url("#{$img_url}/circle.png") no-repeat center;
   background-size: contain;
   opacity: 0.7;
-  @include animation(circle-animation2 22s linear infinite)
+  animation:circle-animation2 22s linear infinite;
 }
 .frame-circle-animation3{
   position: absolute;
@@ -119,7 +128,7 @@ $img_url:'#{$image_url}/frame';
   background: url("#{$img_url}/circle.png") no-repeat center;
   background-size: contain;
   opacity: 0.5;
-  @include animation(circle-animation3 30s linear infinite)
+  animation:circle-animation3 30s linear infinite;
 }
 .frame-circle-animation4{
   position: absolute;
@@ -130,7 +139,7 @@ $img_url:'#{$image_url}/frame';
   background: url("#{$img_url}/circle.png") no-repeat center;
   background-size: contain;
   opacity: 0.7;
-  @include animation(circle-animation4 24s linear infinite)
+  animation:circle-animation4 24s linear infinite;
 }
 .frame-circle-animation5{
   position: absolute;
@@ -141,7 +150,7 @@ $img_url:'#{$image_url}/frame';
   background: url("#{$img_url}/circle.png") no-repeat center;
   background-size: contain;
   opacity: 0.7;
-  @include animation(circle-animation5 30s linear infinite)
+  animation:circle-animation5 30s linear infinite;
 }
 .frame-circle-animation6{
   position: absolute;
@@ -151,7 +160,7 @@ $img_url:'#{$image_url}/frame';
   background: url("#{$img_url}/circle.png") no-repeat center;
   background-size: contain;
   opacity: 0.7;
-  @include animation(circle-animation6 24s linear infinite)
+  animation:circle-animation6 24s linear infinite;
 }
 //方块和三角动画
 .frame-square-wrapper,
@@ -175,7 +184,7 @@ $img_url:'#{$image_url}/frame';
     height: 40px;
     background-size: contain;
     bottom: -160px;
-    @include animation(squareAndTriangle 25s infinite);
+    animation:squareAndTriangle 25s infinite;
     &:nth-child(1){
       left: 10%;
     }
@@ -183,18 +192,18 @@ $img_url:'#{$image_url}/frame';
       left: 20%;
       width: 80px;
       height: 80px;
-      @include animation-delay(2s);
-      @include animation-duration(17s);
+      animation-delay:2s;
+      animation-duration:17s;
     }
     &:nth-child(3){
       left: 25%;
-      @include animation-delay(4s);
+      animation-delay:4s;
     }
     &:nth-child(4){
       left: 40%;
       width: 60px;
       height: 60px;
-      @include animation-duration(22s);
+      animation-duration:22s;
     }
     &:nth-child(5) {
       left: 70%;
@@ -203,33 +212,33 @@ $img_url:'#{$image_url}/frame';
       left: 80%;
       width: 120px;
       height: 120px;
-      @include animation-delay(3s);
+      animation-delay:3s;
     }
     &:nth-child(7) {
       left: 32%;
       width: 160px;
       height: 160px;
-      @include animation-delay(7s);
+      animation-delay:7s;
     }
     &:nth-child(8) {
       left: 55%;
       width: 20px;
       height: 20px;
-      @include animation-delay(15s);
-      @include animation-duration(40s);
+      animation-delay:15s;
+      animation-duration:40s;
     }
     &:nth-child(9) {
       left: 25%;
       width: 10px;
       height: 10px;
-      @include animation-delay(2s);
-      @include animation-duration(40s);
+      animation-delay:2s;
+      animation-duration:40s;
     }
     &:nth-child(10) {
       left: 90%;
       width: 160px;
       height: 160px;
-      @include animation-delay(11s);
+      animation-delay:11s;
     }
   }
 }
@@ -243,7 +252,7 @@ $img_url:'#{$image_url}/frame';
 }
 .frame-triangle-wrapper li{
   background: url("#{$img_url}/triangle.png") no-repeat center;
-  @include background-size(contain);
+  background-size:contain;
 }
 //顶部栏
 .frame-home-header{
@@ -253,7 +262,7 @@ $img_url:'#{$image_url}/frame';
   height: 40px;
   line-height: 40px;
   background: rgba(0, 0, 0, 0.2);
-  @include box-shadow(0 0 1px rgba(0, 0, 0, 0.2) inset);
+  box-shadow:0 0 1px rgba(0, 0, 0, 0.2) inset;
   z-index:1080;
 
 }
@@ -389,7 +398,7 @@ $img_url:'#{$image_url}/frame';
       background-color: #ff0000;
       right: -2px;
       top: -2px;
-      @include border-radius(50%);
+      border-radius:50%;
     }
   }
 }
@@ -415,7 +424,7 @@ $img_url:'#{$image_url}/frame';
       background-color: #ff0000;
       right: -2px;
       top: -2px;
-      @include border-radius(50%);
+      border-radius:50%;
     }
   }
   &:hover{
@@ -432,14 +441,7 @@ $img_url:'#{$image_url}/frame';
   margin-bottom: 16px;
   line-height: 50px;
   background-color: #fff;
-  @include box-shadow(0 3px 5px 0 rgba(0, 0, 0, 0.03));
-
-  &.in-work-plant-form{
-
-    box-shadow: none;
-
-  }
-
+  box-shadow:0 3px 5px 0 rgba(0, 0, 0, 0.03);
 }
 .frame-nav-content{
   width: 1200px;
@@ -456,6 +458,13 @@ $img_url:'#{$image_url}/frame';
   &.barnerHide{
     margin-top: 20px;
   }
+
+  &.isInitGuide{
+
+    margin-top: 0;
+
+  }
+
 }
 .frame-content-rightside{
   float: right;

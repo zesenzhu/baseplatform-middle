@@ -1,19 +1,28 @@
-import React,{Component} from 'react';
+import React,{useState,useEffect,useCallback,useRef,useMemo,memo} from 'react';
 
-class SingleDoubleTable extends Component{
+import $ from 'jquery';
 
-    getNextDay(d){
+function SingleDoubleTable(props){
+
+
+    const [leftOneWidth,setLeftOneWidth] = useState(0);
+
+    const [leftTwoWidth,setLeftTwoWidth] = useState(0);
+
+    const [commonWidth,setCommonWidth] = useState(0);
+
+    const getNextDay = (d) =>{
+
         d = new Date(d);
         d = +d + 1000*60*60*24;
         d = new Date(d);
         //return d;
         //格式化
-        return d.getFullYear()+"-"+(this.SupplyZero(d.getMonth()+1))+"-"+this.SupplyZero(d.getDate());
+        return d.getFullYear()+"-"+(SupplyZero(d.getMonth()+1))+"-"+SupplyZero(d.getDate());
 
-    }
+    };
 
-
-    SupplyZero(number){
+    const SupplyZero = (number) =>{
 
         let NumberStr = number.toString();
 
@@ -27,300 +36,335 @@ class SingleDoubleTable extends Component{
 
         return Number;
 
-    }
+    };
 
+    const {
 
+        commonHeight, topHeight, ItemClassHourCount, ItemClassHour,
 
-    render() {
+        ItemWeek,NowWeekNo,
 
-        const {
+        schedule,NowDate,OptionalClassShow,ScheduleDetailShow
 
-            commonHeight, topHeight, ItemClassHourCount, ItemClassHour,
+    } = props;
 
-            ItemWeek,NowWeekNo,commonWidth,leftOneWidth,leftTwoWidth,
 
-            schedule,NowDate,OptionalClassShow,ScheduleDetailShow
 
-        } = this.props;
+    //根据课程
 
-        //根据课程
+    let courseTotal = {
 
-        let courseTotal = {
+        ClassHourIndex:0,
 
-            ClassHourIndex:0,
+        TypeIndex:0
 
-            TypeIndex:0
+    };
 
-        };
+    let ths =[];
+    //查找到当天是周几
+    let weekDay = '';
+    //查询该周的日期
+    if (ItemWeek&&NowWeekNo){
 
-        let ths =[];
-        //查找到当天是周几
-        let weekDay = '';
-        //查询该周的日期
-        if (ItemWeek&&NowWeekNo){
+        let NowWeekInfo = ItemWeek.filter((item) => {
 
-            let NowWeekInfo = ItemWeek.filter((item) => {
+            return item.WeekNO===NowWeekNo
 
-                return item.WeekNO===NowWeekNo
+        })[0];
 
-            })[0];
+        let StartTime = new Date(NowWeekInfo.StartDate.replace(/-/g,'/'));
 
-            let StartTime = new Date(NowWeekInfo.StartDate.replace(/-/g,'/'));
+        let date = StartTime;
 
-            let date = StartTime;
+       for (let i = 1; i <= 7; i++){
 
-           for (let i = 1; i <= 7; i++){
+           let week = '';
 
-               let week = '';
+           switch (i) {
 
-               switch (i) {
+               case 1:
 
-                   case 1:
+                   week = '星期一';
 
-                       week = '星期一';
+                   break;
 
-                       break;
+               case 2:
 
-                   case 2:
+                   week = '星期二';
 
-                       week = '星期二';
+                   break;
 
-                       break;
+               case 3:
 
-                   case 3:
+                   week = '星期三';
 
-                       week = '星期三';
+                   break;
 
-                       break;
+               case 4:
 
-                   case 4:
+                   week = '星期四';
 
-                       week = '星期四';
+                   break;
 
-                       break;
+               case 5:
 
-                   case 5:
+                   week = '星期五';
 
-                       week = '星期五';
+                   break;
 
-                       break;
+               case 6:
 
-                   case 6:
+                   week = '星期六';
 
-                       week = '星期六';
+                   break;
 
-                       break;
+               case 7:
 
-                   case 7:
+                   week = '星期日';
 
-                       week = '星期日';
+                   break;
 
-                       break;
+               default:
 
-                   default:
-
-                       week = '星期一';
-
-               }
-
-               let dateTime = '';
-
-               if (i===1){
-
-                   dateTime = NowWeekInfo.StartDate;
-
-               }else{
-
-                    date = this.getNextDay(date);
-
-                    dateTime = date;
-
-               }
-
-               if (dateTime === NowDate){
-
-                   weekDay = i;
-
-               }
-
-
-               let th = <th key={i}>
-
-                            <div className={`week-wrapper ${dateTime===NowDate?'active':''}`} style={{height:topHeight}}>
-
-                                <div className={`week week${i}`} style={{width:commonWidth}}>{week}</div>
-
-                                <div className={`date date${i}`} style={{width:commonWidth}}>{dateTime}</div>
-
-                            </div>
-
-                        </th>;
-
-                    ths.push(th);
+                   week = '星期一';
 
            }
 
-        }
+           let dateTime = '';
+
+           if (i===1){
+
+               dateTime = NowWeekInfo.StartDate;
+
+           }else{
+
+                date = getNextDay(date);
+
+                dateTime = date;
+
+           }
+
+           if (dateTime === NowDate){
+
+               weekDay = i;
+
+           }
+
+
+           let th = <th key={i}>
+
+                        <div className={`week-wrapper ${dateTime===NowDate?'active':''}`} style={{height:topHeight}}>
+
+                            <div className={`week week${i}`} style={{width:commonWidth}}>{week}</div>
+
+                            <div className={`date date${i}`} style={{width:commonWidth}}>{dateTime}</div>
+
+                        </div>
+
+                    </th>;
+
+                ths.push(th);
+
+       }
+
+    }
+
+
+    useEffect(()=>{
+
+        const width = $('.single-double-table').width();
+
+        setLeftOneWidth(width*0.045);
+
+        setLeftTwoWidth(width*0.1268);
+
+        setCommonWidth(width*0.1177);
+
+        console.log(width);
+
+    });
 
 
         return (
 
-            <table className="single-double-table work-plant-form">
+            <div className={"single-double-table"}>
 
-                <thead>
+                <table className="table-wrapper work-plant-form">
+
+                    <thead>
 
                     <tr>
 
-                    <th colSpan={2}></th>
+                        <th colSpan={2}>
+
+                            <div className={"blank"}></div>
+
+                        </th>
+
+                        {
+
+                            ths
+
+                        }
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
 
                     {
 
-                        ths
+                        ItemClassHour&&ItemClassHour.map((item,key) => {
 
-                    }
-
-                </tr>
-
-                </thead>
-
-                <tbody>
-
-                {
-
-                    ItemClassHour&&ItemClassHour.map((item,key) => {
-
-                        let firstTd = '';
-                        //判断上下午，以及合并单元格
+                            let firstTd = '';
+                            //判断上下午，以及合并单元格
 
 
 
-                        ItemClassHourCount.map((i,k) => {
+                            ItemClassHourCount.map((i,k) => {
 
-                            if (key===courseTotal.ClassHourIndex){
+                                if (key===courseTotal.ClassHourIndex){
 
-                                if (k===courseTotal.TypeIndex){
+                                    if (k===courseTotal.TypeIndex){
 
-                                    let noon = '';
+                                        let noon = '';
 
-                                    switch (i.ClassHourType) {
+                                        switch (i.ClassHourType) {
 
-                                        case 1:
+                                            case 1:
 
-                                            noon = "上午";
+                                                noon = "上午";
 
-                                            break;
+                                                break;
 
-                                        case 2:
+                                            case 2:
 
-                                            noon = "下午";
+                                                noon = "下午";
 
-                                            break;
+                                                break;
 
-                                        case 3:
+                                            case 3:
 
-                                            noon = "晚上";
+                                                noon = "晚上";
 
-                                            break;
+                                                break;
 
-                                        default:
+                                            default:
 
-                                            noon = "上午";
+                                                noon = "上午";
 
-                                            break;
+                                                break;
+
+                                        }
+
+                                        firstTd = <td style={{width:leftOneWidth}} className="noon"  rowSpan={i.CountType}>{noon}</td>;
+
+                                        courseTotal.ClassHourIndex += i.CountType;
+
+                                        courseTotal.TypeIndex+=1;
+
+                                        return;
 
                                     }
-
-                                    firstTd = <td style={{width:leftOneWidth}} className="noon"  rowSpan={i.CountType}>{noon}</td>;
-
-                                    courseTotal.ClassHourIndex += i.CountType;
-
-                                    courseTotal.TypeIndex+=1;
-
-                                    return;
 
                                 }
 
-                            }
+                            });
 
-                        });
+                            let tds = [];
 
-                        let tds = [];
+                            //将内容区域铺满（如果有课表填充课表，没有就填充--）
+                            if (schedule.length>0){
+                                //从周一开始判断
+                                for (let i =1; i <= 7; i++){
 
-                        //将内容区域铺满（如果有课表填充课表，没有就填充--）
-                        if (schedule.length>0){
-                            //从周一开始判断
-                            for (let i =1; i <= 7; i++){
+                                    let hasCourse = false;
 
-                                let hasCourse = false;
+                                    schedule.map((it,ky) => {
 
-                                schedule.map((it,ky) => {
+                                        if (((it.WeekDay+1) === i)&&(it.ClassHourNO===item.ClassHourNO)){
 
-                                    if (((it.WeekDay+1) === i)&&(it.ClassHourNO===item.ClassHourNO)){
+                                            tds.push(<td key={`${i}${ky}`} className={`shedule${i} `} style={{height:commonHeight,width:commonWidth}}>
 
-                                        tds.push(<td key={`${i}${ky}`} className={`shedule${i} `} style={{height:commonHeight,width:commonWidth}}>
-
-                                            <div className={`scheduleDiv ${i === weekDay?'active':''}  ${it.IsShift?'isShift':''}`} style={{width:commonWidth}}>
+                                                <div className={`scheduleDiv ${i === weekDay?'active':''}  ${it.IsShift?'isShift':''}`} style={{width:commonWidth}}>
 
 
-                                                {
+                                                    {
 
-                                                    it.IsShift?
+                                                        it.IsShift?
 
-                                                        <a className="shift-wrapper" onClick={()=>OptionalClassShow({ClassID:it.ClassID,WeekDay:it.WeekDay,ClassHourNO:it.ClassHourNO})}>走班课程</a>
+                                                            <a className="shift-wrapper" onClick={()=>OptionalClassShow({ClassID:it.ClassID,WeekDay:it.WeekDay,ClassHourNO:it.ClassHourNO})}>走班课程</a>
 
-                                                        :
+                                                            :
 
-                                                        <React.Fragment>
+                                                            <React.Fragment>
 
-                                                            <div className={`title ${it.ScheduleType===1?'':'active'} ${item.ScheduleType!==1&&(parseInt(item.IsOver)===1||item.ScheduleType===2)?'has-flag':''} `} onClick={ScheduleDetailShow?(e)=>ScheduleDetailShow(it):()=>{}} title={it.title} data-id={it.titleID}>{it.title}</div>
+                                                                <div className={`title ${it.ScheduleType===1?'':'active'} ${item.ScheduleType!==1&&(parseInt(item.IsOver)===1||item.ScheduleType===2)?'has-flag':''} `} onClick={ScheduleDetailShow?(e)=>ScheduleDetailShow(it):()=>{}} title={it.title} data-id={it.titleID}>{it.title}</div>
 
-                                                            <div className="second-title" title={it.secondTitle} data-id={it.secondTitleID}>{it.secondTitle}</div>
+                                                                <div className="second-title" title={it.secondTitle} data-id={it.secondTitleID}>{it.secondTitle}</div>
 
-                                                            <div className="third-title" title={it.thirdTitle} data-id={it.thirdTitleID}>{it.thirdTitle}</div>
+                                                                <div className="third-title" title={it.thirdTitle} data-id={it.thirdTitleID}>{it.thirdTitle}</div>
 
-                                                            {
+                                                                {
 
-                                                                it.ScheduleType!==1?
+                                                                    it.ScheduleType!==1?
 
-                                                                    parseInt(it.IsOver)===1?
+                                                                        parseInt(it.IsOver)===1?
 
-                                                                        <div className="stoped-flag">已停课</div>
+                                                                            <div className="stoped-flag">已停课</div>
 
-                                                                    :
+                                                                            :
 
-                                                                    (it.ScheduleType===2?
+                                                                            (it.ScheduleType===2?
 
-                                                                    <div className="ongoing-flag"><span>进行中</span></div>
+                                                                                <div className="ongoing-flag"><span>进行中</span></div>
 
-                                                                    :'')
+                                                                                :'')
 
-                                                                :''
+                                                                        :''
 
-                                                            }
+                                                                }
 
-                                                        </React.Fragment>
+                                                            </React.Fragment>
 
-                                                }
+                                                    }
 
-                                            </div>
+                                                </div>
 
-                                    </td>);
+                                            </td>);
 
-                                        hasCourse = true;
+                                            hasCourse = true;
 
-                                    }else{
+                                        }else{
 
-                                       return;
+                                            return;
+
+                                        }
+
+                                    });
+                                    //如果当天的该节课没有课程。添加空。
+                                    if (!hasCourse){
+
+                                        tds.push(<td key={i} className={`shedule${i}`} style={{height:commonHeight,width:commonWidth}}>
+
+                                            <div className={`scheduleDiv empty ${i === weekDay?'active':''}`} style={{width:"100%",lineHeight:`${commonHeight}px`}}>--</div>
+
+                                        </td>)
 
                                     }
 
-                                });
-                                //如果当天的该节课没有课程。添加空。
-                                if (!hasCourse){
+                                }
+
+                            }else{
+
+
+
+                                for (let i = 1; i <= 7; i++){
 
                                     tds.push(<td key={i} className={`shedule${i}`} style={{height:commonHeight,width:commonWidth}}>
 
-                                        <div className={`scheduleDiv empty ${i === weekDay?'active':''}`} style={{width:"100%",lineHeight:`${commonHeight}px`}}>--</div>
+                                        <div className={`scheduleDiv empty ${i === weekDay?'active':''}`} style={{width:'100%',lineHeight:`${commonHeight}px`}}>--</div>
 
                                     </td>)
 
@@ -328,24 +372,8 @@ class SingleDoubleTable extends Component{
 
                             }
 
-                        }else{
 
-
-
-                            for (let i = 1; i <= 7; i++){
-
-                                tds.push(<td key={i} className={`shedule${i}`} style={{height:commonHeight,width:commonWidth}}>
-
-                                            <div className={`scheduleDiv empty ${i === weekDay?'active':''}`} style={{width:'100%',lineHeight:`${commonHeight}px`}}>--</div>
-
-                                        </td>)
-
-                            }
-
-                        }
-
-
-                        return  <tr key={key}>
+                            return  <tr key={key}>
 
                                 {
                                     firstTd===''?<React.Fragment></React.Fragment>:firstTd
@@ -365,20 +393,23 @@ class SingleDoubleTable extends Component{
 
                                 }
 
-                               </tr>
+                            </tr>
 
-                    })
+                        })
 
-                }
+                    }
 
-                </tbody>
+                    </tbody>
 
-            </table>
+                </table>
+
+            </div>
 
         );
 
-    }
 
 }
 
-export default SingleDoubleTable;
+
+
+export default memo(SingleDoubleTable);

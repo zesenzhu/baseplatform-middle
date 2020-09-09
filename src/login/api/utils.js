@@ -4,6 +4,8 @@ import {getQueryVariable,LogOut} from "../../common/js/disconnect";
 
 import {hideAlert, showErrorAlert} from "../store/appAlert";
 
+import {GetCurrentTermInfo} from './index';
+
 
 //获取数据以及封装数据格式
 const getGetData =  async (url,level,api='',mode='cors',arr=false) =>{
@@ -108,22 +110,95 @@ export const getNewTkUrl = ({preUrl,jointParam}) => {
 
 
 //判断跳转
-export const goToNextPage = ({token,WebIndexUrl,UserType,dispatch}) =>{
+export const goToNextPage = ({dispatch,loadingHide}) =>{
 
-    if (parseInt(UserType)===6){
+    const {UserType,SchoolID} = JSON.parse(sessionStorage.getItem("UserInfo"));
+
+    const { WebIndexUrl } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+
+    const token = sessionStorage.getItem("token");
+
+    const preUri = getQueryVariable('lg_preurl');
+
+    let nexUrl = '';
+    
+    /*if (parseInt(UserType)===6){
 
         window.location.href= '/html/admSchoolSetting/';
 
+    }else if(SchoolID){
+
+        const urlObj = preUri?getNewTkUrl({preUrl:preUri,jointParam:`?lg_tk=${token}`}):getNewTkUrl({preUrl:WebIndexUrl,jointParam:`?lg_tk=${token}`});
+
+        switch (urlObj.type) {
+
+            case 1:
+
+                nexUrl = urlObj.newUrl;
+
+                break;
+
+            case 2:
+
+                nexUrl = urlObj.newUrl + '&lg_tk=' + token;
+
+                break;
+
+            case 3:
+
+                nexUrl = urlObj.newUrl + '?lg_tk=' + token;
+
+                break;
+
+        }
+
+        GetCurrentTermInfo({SchoolId:SchoolID}).then(data=>{
+
+            if(data){
+
+                window.location.href = nexUrl;
+
+            }else{
+
+               console.log(data);
+
+               if (parseInt(UserType)===0){
+
+                   nexUrl = `/html/initGuide?lg_tk=${token}${preUri?'&lg_preurl='+preUri:''}`;
+
+                   window.location.href= nexUrl;
+
+               }else{
+
+                   dispatch(showErrorAlert({title:"登录异常,登录失败",cancelShow:'n',cancel:e=>logErr(dispatch),close:e=>logErr(dispatch),ok:e=>logErr(dispatch)}));
+
+                   loadingHide(false);
+
+               }
+
+            }
+
+        });
+
+    }else if(parseInt(UserType)===0){
+
+        nexUrl = `/html/initGuide?lg_tk=${token}${preUri?'&lg_preurl='+preUri:''}`;
+
+        window.location.href= nexUrl;
+
     }else{
 
+        dispatch(showErrorAlert({title:"登录异常,登录失败",cancelShow:'n',cancel:e=>logErr(dispatch),close:e=>logErr(dispatch),ok:e=>logErr(dispatch)}));
 
-        let nexUrl = '';
+        loadingHide(false);
 
-        const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
+    }*/
 
-        const preUri = getQueryVariable('lg_preurl');
+    if (parseInt(UserType)===6){
 
-        if (UserInfo&&UserInfo.SchoolID){
+            window.location.href= `/html/admSchoolSetting/index.html?lg_tk=${token}`;
+
+        }else if(SchoolID){
 
             const urlObj = preUri?getNewTkUrl({preUrl:preUri,jointParam:`?lg_tk=${token}`}):getNewTkUrl({preUrl:WebIndexUrl,jointParam:`?lg_tk=${token}`});
 
@@ -137,31 +212,25 @@ export const goToNextPage = ({token,WebIndexUrl,UserType,dispatch}) =>{
 
                 case 2:
 
-                    nexUrl = urlObj.newUrl+'&lg_tk='+token;
+                    nexUrl = urlObj.newUrl + '&lg_tk=' + token;
 
                     break;
 
                 case 3:
 
-                    nexUrl = urlObj.newUrl+'?lg_tk='+token;
+                    nexUrl = urlObj.newUrl + '?lg_tk=' + token;
 
                     break;
 
             }
 
-            window.location.href= nexUrl;
-
-        }else if (parseInt(UserInfo.UserType)===0){
-
-            nexUrl = `/html/initGuide?lg_tk=${token}${preUri?'&lg_preurl='+preUri:''}`
-
-            window.location.href= nexUrl;
+            window.location.href = nexUrl;
 
         }else{
 
-            dispatch(showErrorAlert({title:"登录异常,登录失败",cancelShow:'n',close:e=>logErr(dispatch),ok:e=>logErr(dispatch)}));
+            dispatch(showErrorAlert({title:"登录异常,登录失败",cancelShow:'n',cancel:e=>logErr(dispatch),close:e=>logErr(dispatch),ok:e=>logErr(dispatch)}));
 
-        }
+            loadingHide(false);
 
     }
 
@@ -251,6 +320,28 @@ export const downLoadFile = (url)=>{
     iframe.style.display = 'none';
 
     document.body.appendChild(iframe);
+
+};
+
+
+//清除sessionStorage 保留一些元素。
+export const clearSessionStorage = (save)=>{
+
+  const saveList = save.split(',');
+
+  const saveItemList = saveList.map(i=>{
+
+      return { key:i,value:sessionStorage.getItem(i)};
+
+  });
+
+  sessionStorage.clear();
+
+  saveItemList.map(i=>{
+
+      sessionStorage.setItem(i.key,i.value);
+
+  })
 
 };
 

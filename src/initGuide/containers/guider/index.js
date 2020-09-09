@@ -24,12 +24,11 @@ function Guider(props) {
 
         if (UserID){
 
-
-            const {ProductUseRange} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+            const {ProductUseRange,ProductType,LockerVersion} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
             if (schoolType==='university'){
 
-                const list = [
+                let list = [
 
                     {
 
@@ -85,23 +84,178 @@ function Guider(props) {
 
                         title:'快速导入基础数据'
 
-                    },
-
-                    {
-
-                        value:8,
-
-                        title:'完成'
-
                     }
 
                 ];
+
+                if (parseInt(ProductType)===2){
+
+                    if (parseInt(LockerVersion)===1){
+
+                        list = [
+
+                            {
+
+                                value:1,
+
+                                title:'设置学校'
+
+                            },
+
+                            {
+
+                                value:2,
+
+                                title:'设置院系'
+
+                            },
+
+                            {
+
+                                value:3,
+
+                                title:'设置学年学期'
+
+                            },
+
+                            {
+
+                                value:4,
+
+                                title:'设置上课时间'
+
+                            },
+
+                            {
+
+                                value:5,
+
+                                title:'快速导入基础数据'
+
+                            }
+
+                        ];
+
+                    }else{
+
+                        list = [
+
+                            {
+
+                                value:1,
+
+                                title:'设置学校'
+
+                            },
+
+                            {
+
+                                value:2,
+
+                                title:'设置院系'
+
+                            },
+
+                            {
+
+                                value:3,
+
+                                title:'设置学年学期'
+
+                            },
+
+                            {
+
+                                value:4,
+
+                                title:'设置上课时间'
+
+                            },
+
+                            {
+
+                                value:5,
+
+                                title:'设置角色权限'
+
+                            },
+
+                            {
+
+                                value:6,
+
+                                title:'快速导入基础数据'
+
+                            }
+
+                        ];
+
+                    }
+
+                }else{
+
+                    if (parseInt(LockerVersion)===1){
+
+                        list = [
+
+                            {
+
+                                value:1,
+
+                                title:'设置学校'
+
+                            },
+
+                            {
+
+                                value:2,
+
+                                title:'设置院系'
+
+                            },
+
+                            {
+
+                                value:3,
+
+                                title:'设置学年学期'
+
+                            },
+
+                            {
+
+                                value:4,
+
+                                title:'设置上课时间'
+
+                            },
+
+                            {
+
+                                value:5,
+
+                                title:'设置学科'
+
+                            },
+                            {
+
+                                value:6,
+
+                                title:'快速导入基础数据'
+
+                            }
+
+                        ];
+
+                    }
+
+                }
 
                 setGuideList(list);
 
             }else if (schoolType==='middle'){
 
-                const list = [
+                let list = [
 
                     {
 
@@ -149,17 +303,57 @@ function Guider(props) {
 
                         title:'快速导入基础数据'
 
-                    },
-
-                    {
-
-                        value:7,
-
-                        title:'完成'
-
                     }
 
                 ];
+
+                if (parseInt(LockerVersion)===1){
+
+                    list = [
+
+                        {
+
+                            value:1,
+
+                            title:'设置学校'
+
+                        },
+
+                        {
+
+                            value:2,
+
+                            title:'设置学年学期'
+
+                        },
+
+                        {
+
+                            value:3,
+
+                            title:'设置上课时间'
+
+                        },
+
+                        {
+
+                            value:4,
+
+                            title:'设置学科'
+
+                        },
+
+                        {
+
+                            value:5,
+
+                            title:'快速导入基础数据'
+
+                        }
+
+                    ];
+
+                }
 
                 setGuideList(list);
 

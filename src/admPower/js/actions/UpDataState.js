@@ -33,7 +33,16 @@ const getUserPowerMsg = (url) => {
             if (json.StatusCode === 200) {
                 // console.log(json.Data)
                 dispatch({ type: GET_USER_POWER_MSG, data: json.Data });
-                dispatch({ type: actions.UpUIState.RIGHT_LOADING_CLOSE })
+                dispatch({ type: actions.UpUIState.RIGHT_LOADING_CLOSE });
+
+                const host = window.location.host;
+
+                const protocol = window.location.protocol;
+
+                console.log(document.getElementById("root").offsetHeight);
+
+                window.parent.postMessage({module:'power',height:document.getElementById("root").offsetHeight},`${protocol}//${host}`);
+
 
             }
         });

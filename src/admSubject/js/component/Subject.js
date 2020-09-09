@@ -6,6 +6,7 @@ import { postData, getData } from "../../../common/js/fetch";
 import CONFIG from "../../../common/js/config";
 import ChangeSubject from "./ChangeSubject.js";
 import SetSubjectTeacher from "./SetSubjectTeacher.js";
+import {getQueryVariable} from "../../../common/js/disconnect";
 
 import {
   Search,
@@ -159,17 +160,120 @@ class Subject extends React.Component {
       ],
       SubjectSelect: { value: "", title: "全部学段" },
       UserMsg: props.DataState.LoginUser,
-      pagination: 1
+      pagination: 1,
+      isInitGuide:false
     };
   }
   // 钩子
-  componentWillMount() {}
-  componentWillReceiveProps(nextProps) {
+  componentWillMount() {
+
+      if (getQueryVariable('isInitGuide')){
+
+          this.setState({isInitGuide:true});
+
+          this.setState({
+
+              columns:[ {
+                  title: "学科名称",
+                  align: "left",
+                  key: "SubjectName",
+                  width:300,
+                  dataIndex: "SubjectName",
+                  render: arr => {
+                      return (
+                          <div className="SubjectName-content">
+                              <img
+                                  className="SubjectName-img"
+                                  alt={arr.SubjectName}
+                                  src={arr.SubjectImg}
+                                  width={80}
+                                  height={50}
+                              />
+                              <span title={arr.SubjectName} className="SubjectName-name">
+                  {arr.SubjectName}
+                </span>
+                          </div>
+                      );
+                  }
+              },
+                  {
+                      title: "开课年级",
+                      align: "left",
+                      width:480,
+                      dataIndex: "Grades",
+                      key: "Grades",
+                      render: Grades => {
+                          return (
+                              <React.Fragment>
+                <span
+                    title={Grades.P1Grades}
+                    style={{ display: Grades.P1Grades ? "block" : "none" }}
+                    className="Grades P1Grades"
+                >
+                  <span className="grades-tips">小学：</span>
+                    {Grades.P1Grades}
+                </span>
+                                  <span
+                                      title={Grades.P2Grades}
+                                      style={{ display: Grades.P2Grades ? "block" : "none" }}
+                                      className="Grades P2Grades"
+                                  >
+                  <span className="grades-tips">初中：</span>
+                                      {Grades.P2Grades}
+                </span>
+                                  <span
+                                      title={Grades.P3Grades}
+                                      style={{ display: Grades.P3Grades ? "block" : "none" }}
+                                      className="Grades P3Grades"
+                                  >
+                  <span className="grades-tips">高中：</span>
+                                      {Grades.P3Grades}
+                </span>
+                              </React.Fragment>
+                          );
+                      }
+                  },
+                  {
+                      title: "操作",
+                      align: "center",
+                      width:240,
+                      key: "handle",
+                      dataIndex: "key",
+                      render: key => {
+                          return (
+                              <div className="handle-content">
+                                  <Button
+                                      color="blue"
+                                      type="default"
+                                      onClick={this.onHandleClick.bind(this, key)}
+                                      className="handle-btn edit init-guide"
+                                  >
+                                      编辑
+                                  </Button>
+                                  <Button
+                                      color="blue"
+                                      type="default"
+                                      onClick={this.onDeleteSubjectClick.bind(this, key)}
+                                      className="handle-btn del init-guide"
+                                  >
+                                      删除
+                                  </Button>
+                              </div>
+                          );
+                      }
+                  }]
+
+          });
+      }
+
+  }
+    UNSAFE_componentWillReceiveProps(nextProps) {
     if(nextProps.DataState.SubjectMsg.pageIndex && nextProps.DataState.SubjectMsg.pageIndex!==this.state.pagination){
       this.setState({
         pagination: nextProps.DataState.SubjectMsg.pageIndex
       });
     }
+
   }
 
   //事件
@@ -644,22 +748,38 @@ class Subject extends React.Component {
       <React.Fragment>
         <div className="Adm ">
           <div className="Adm-box">
-            <div className="Adm-top">
+
+              {
+
+                  !this.state.isInitGuide?
+
+                      <>
+
+                          <div className="Adm-top">
               <span className="top-tips">
                 <span className="tips tips-location">学科管理</span>
               </span>
-              <Button
-                onClick={this.onAddSubjectClick.bind(this)}
-                className="top-btn"
-                color="blue"
-                shape="round"
-              >
-                +添加学科
-              </Button>
-            </div>
-            <div className="Adm-hr" ></div>
+                              <Button
+                                  onClick={this.onAddSubjectClick.bind(this)}
+                                  className="top-btn"
+                                  color="blue"
+                                  shape="round"
+                              >
+                                  +添加学科
+                              </Button>
+                          </div>
+                          <div className="Adm-hr" ></div>
+
+                      </>
+
+                      :null
+
+              }
+
+
+
             <div className="Adm-content">
-              <div className="content-top">
+              <div className="content-top clearfix">
 
                   {
 
@@ -682,10 +802,36 @@ class Subject extends React.Component {
 
                   }
 
+
+
               </div>
-              <div className="content-render">
+
+                {
+
+                    this.state.isInitGuide?
+
+                        <div className={"init-guide-title clearfix"}>
+
+                            <div className={"tips"}>当前共有<span style={{color:'#ff0000'}}>{DataState.SubjectMsg.Total}</span>个学科</div>
+
+                            <Button
+                                onClick={this.onAddSubjectClick.bind(this)}
+                                className="top-btn init-guide"
+                                color="blue"
+                                shape="round"
+                            >
+                                +添加学科
+                            </Button>
+
+                        </div>
+
+                        :null
+
+                }
+
+              <div className={`content-render ${this.state.isInitGuide?'init-guide':''}`}>
                 <Table
-                  className="table"
+                  className={`table ${this.state.isInitGuide?'init-guide':''}`}
                   loading={UIState.SubjectTableLoading.TableLoading}
                   columns={this.state.columns}
                   pagination={false}
@@ -720,6 +866,7 @@ class Subject extends React.Component {
           width={780}
           type="1"
           title={"编辑学科"}
+          mask={!this.state.isInitGuide}
           visible={UIState.ChangeSubjectModal.changeModalShow}
           onOk={this.changeSubjectModalOk}
           onCancel={this.changeSubjectModalCancel}
@@ -736,6 +883,7 @@ class Subject extends React.Component {
           type="1"
           width={780}
           title={"添加学科"}
+          mask={!this.state.isInitGuide}
           visible={UIState.ChangeSubjectModal.addModalShow}
           onOk={this.AddSubjectModalOk}
           onCancel={this.AddSubjectModalCancel}
@@ -751,7 +899,6 @@ class Subject extends React.Component {
           bodyStyle={{height: 276 + "px", padding: 0 }}
           type="1"
           width={580}
-
           title={"设置教研组长"}
           visible={UIState.SetSubjectTeacher.setSubjectTeacherModalShow}
           onOk={this.SetSubjectTeacherModalOk}

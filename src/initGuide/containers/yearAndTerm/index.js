@@ -39,6 +39,10 @@ function YearAndTerm(props) {
 
     });
 
+    //步奏
+
+    const [step,setStep] = useState(3);
+
     //学期开始日期
     const [startDate,setStartDate] = useState({
 
@@ -97,6 +101,8 @@ function YearAndTerm(props) {
     useEffect(()=>{
 
         schoolTypeRef.current = schoolType;
+
+        setStep(schoolType==='middle'?2:3);
 
     },[schoolType]);
 
@@ -382,19 +388,25 @@ function YearAndTerm(props) {
 
             SetTermInfo({SchoolID,UserID,TermName,StartDate,EndDate,dispatch}).then(data=>{
 
+                setLoading(false);
+
                 if (data===0){
 
-                    const url = getQueryVariable('lg_preurl');
+                    /*const url = getQueryVariable('lg_preurl');
 
                     const token = sessionStorage.getItem("token");
 
                     const {WebIndexUrl} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
                     window.location.href = url?url+'?lg_tk='+token:WebIndexUrl+'?lg_tk='+token;
+*/
+
+                    history.push('/scheduleSetting');
+
 
                 }
 
-                setLoading(false);
+                history.push('/scheduleSetting');
 
             })
 
@@ -422,7 +434,7 @@ function YearAndTerm(props) {
 
         <Loading spinning={loading} tip={"加载中,请稍候..."}>
 
-            <GuideTitle title={"设置学年学期"} step={1} tips={"(后续可通过“系统设置”模块进行管理)"}></GuideTitle>
+            <GuideTitle title={"设置学年学期"} step={step} tips={"(后续可通过“系统设置”模块进行管理)"}></GuideTitle>
 
             <div className={"year-and-term-setting"}>
 

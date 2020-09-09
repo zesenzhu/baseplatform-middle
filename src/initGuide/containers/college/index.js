@@ -4,7 +4,7 @@ import {useSelector,useDispatch} from 'react-redux';
 
 import GuideTitle from '../../components/guideTitle';
 
-import {Tips,Table,Loading,PagiNation} from "../../../common";
+import {Tips,Table,Loading,PagiNation,Empty} from "../../../common";
 
 import {Button} from "antd";
 
@@ -93,6 +93,8 @@ function College(props) {
 
     useEffect(()=>{
 
+        let unMount = false;
+
         if (UserID){
 
             dispatch(guiderStepChange(2));
@@ -101,37 +103,41 @@ function College(props) {
 
                 GetCollegeList({SchoolID,dispatch}).then(data=>{
 
-                    if (data){
+                    if (!unMount){
 
-                        const list = data.List&&data.List.length>0?data.List.map((i,k)=>{
+                        if (data){
 
-                            const OrderNO = createNO(k);
+                            const list = data.List&&data.List.length>0?data.List.map((i,k)=>{
 
-                            const key = OrderNO;
+                                const OrderNO = createNO(k);
 
-                            return {...i,OrderNO,key};
+                                const key = OrderNO;
 
-                        }):[];
+                                return {...i,OrderNO,key};
 
-                        const current = data.currentIndex?data.currentIndex:1;
+                            }):[];
 
-                        const total = data.totalCount?data.totalCount:0;
+                            const current = data.currentIndex?data.currentIndex:1;
 
-                        setDataSource(list);
+                            const total = data.totalCount?data.totalCount:0;
 
-                        setPagination(d=>{
+                            setDataSource(list);
 
-                            paginationRef.current = {...d,current,total};
+                            setPagination(d=>{
 
-                            return {...d,current,total};
+                                paginationRef.current = {...d,current,total};
 
-                        });
+                                return {...d,current,total};
+
+                            });
+
+                        }
+
+                        setLoading(false);
+
+                        dispatch(appLoadingHide());
 
                     }
-
-                    setLoading(false);
-
-                    dispatch(appLoadingHide());
 
                 });
 
@@ -140,6 +146,12 @@ function College(props) {
                 history.push('/schoolSetting');
 
             }
+
+        }
+
+        return ()=>{
+
+            unMount = true;
 
         }
 
@@ -368,9 +380,9 @@ function College(props) {
 
         setAddEditCollege(d=>{
 
-            modalInit();
+           modalInit();
 
-           return {...d,show:false};
+           return {...d,show:false,CollegeCode:'',CollegeName:'',CollegeID:''};
 
         });
 
@@ -388,7 +400,7 @@ function College(props) {
 
             updateTable();
 
-            return {...d,show:false};
+            return {...d,show:false,CollegeCode:'',CollegeName:'',CollegeID:''};
 
         });
 
@@ -456,7 +468,7 @@ function College(props) {
 
             <Loading spinning={loading} tip={"加载中,请稍候..."}>
 
-                <GuideTitle title={"设置院系基础信息"} step={1} tips={"(可跳过，但需要先添加院系才能正常录入用户，后续可通过“系统设置”模块进行管理)"}></GuideTitle>
+                <GuideTitle title={"设置院系基础信息"} step={2} tips={"(可跳过，但需要先添加院系才能正常录入用户，后续可通过“系统设置”模块进行管理)"}></GuideTitle>
 
                 <div className={"college-setting"}>
 
@@ -476,9 +488,24 @@ function College(props) {
 
                     <Loading spinning={tableLoading} tip={"加载中,请稍候..."}>
 
-                        <Table columns={columns} pagination={false} dataSource={dataSource}></Table>
+                        {
 
-                        <PagiNation  onShowSizeChange={pageSizeChange} onChange={pageChange} hideOnSinglePage={pagination.pageSize===10} showSizeChanger current={pagination.current} total={pagination.total} pageSize={pagination.pageSize}></PagiNation>
+                            dataSource.length>0?
+
+                                <>
+
+                                    <Table columns={columns} pagination={false} dataSource={dataSource}></Table>
+
+                                    <PagiNation  onShowSizeChange={pageSizeChange} onChange={pageChange} hideOnSinglePage={pagination.pageSize===10} showSizeChanger current={pagination.current} total={pagination.total} pageSize={pagination.pageSize}></PagiNation>
+
+                                </>
+
+                            :
+
+                            <Empty type={"3"} title={"暂无院系信息"}></Empty>
+
+                        }
+
 
                     </Loading>
 

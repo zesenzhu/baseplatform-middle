@@ -20,10 +20,14 @@ import ApiActions from "../../actions/ApiActions";
 
 import HolidayModal from '../../component/holiday-modal';
 
+import {getQueryVariable} from "../../../../common/js/disconnect";
+
 import moment from 'moment';
 
 
 function ScheduleSetting(props){
+
+    const [isInitGuide,setIsInitGuide] = useState(false);
 
     //假期
     const [holiday,setHoliday] = useState({
@@ -110,6 +114,18 @@ function ScheduleSetting(props){
                     const holidays = data.Holidays?data.Holidays:0;
 
                     const list = data.HolidayItem&&data.HolidayItem.length>0?data.HolidayItem:[];
+
+                    if (getQueryVariable('isInitGuide')){
+
+                        const host = window.location.host;
+
+                        const protocol = window.location.protocol;
+
+                        window.parent.postMessage({module:'schedule',height:document.body.scrollHeight},`${protocol}//${host}`);
+
+                        setIsInitGuide(true);
+
+                    }
 
                     setHoliday(d=>({...d,start,end,allDays,holidays,list}));
 
@@ -540,7 +556,7 @@ function ScheduleSetting(props){
 
                bodyStyle={{height:176}}
 
-               mask={true}
+               mask={!isInitGuide}
 
                maskClosable={false}
 
@@ -594,7 +610,7 @@ function ScheduleSetting(props){
 
                bodyStyle={{height:176}}
 
-               mask={true}
+               mask={!isInitGuide}
 
                maskClosable={false}
 
@@ -647,7 +663,7 @@ function ScheduleSetting(props){
 
                bodyStyle={{height:216}}
 
-               mask={true}
+               mask={!isInitGuide}
 
                maskClosable={false}
 

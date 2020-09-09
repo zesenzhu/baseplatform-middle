@@ -52,8 +52,9 @@ function Index(props){
                         {link:"/teacher/class",name:"班级课表",logo:"class"}
                         ]:
                         [
-                            {link:"/teacher/subject-teacher",name:"学科教师课表",logo:"subject"},
+
                             {link:"/teacher/mine",name:"我的课表",logo:"mine"},
+                            {link:"/teacher/subject-teacher",name:"学科教师课表",logo:"subject"},
                             {link:"/teacher/class",name:"班级课表",logo:"class"}
                         ];
 
@@ -66,8 +67,8 @@ function Index(props){
                             {link:"/teacher/mine",name:"我的课表",logo:"mine"},
                         ]:
                         [
-                            {link:"/teacher/subject-teacher",name:"学科教师课表",logo:"subject"},
                             {link:"/teacher/mine",name:"我的课表",logo:"mine"},
+                            {link:"/teacher/subject-teacher",name:"学科教师课表",logo:"subject"}
                         ];
 
                     setHeaderLink(list);

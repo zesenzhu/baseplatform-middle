@@ -14,6 +14,7 @@
         text-align: center;
         height: 25px;
         line-height: 25px;
+        text-indent: 20px;
     }
     .ant-table-tbody>tr>td,
     .ant-table-thead>tr>th {
@@ -21,7 +22,7 @@
     }
     .TextBookName {
         display: inline-block;
-        width: 180px;
+        max-width: 255px;
         line-height: 25px;
         @include TextOverflow()
     }

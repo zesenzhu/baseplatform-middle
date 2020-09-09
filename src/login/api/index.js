@@ -6,6 +6,8 @@ import { showErrorAlert } from "../store/appAlert";
 
 import { getGetData,getPostData } from './utils';
 
+import { getData } from '../../common/js/fetch';
+
 
 
 //get方法
@@ -49,6 +51,7 @@ export const GetSystemsMainServer = async ({appid,access_token,sysIDs,subjectID=
 };
 
 
+//登录相关
 export const loginApi = ({token,method,params}) => {
 
    const ajax =  $.ajax({
@@ -61,5 +64,21 @@ export const loginApi = ({token,method,params}) => {
    return ajax;
 
 };
+
+//获取学年学期
+export const GetCurrentTermInfo = async ({SchoolId})=>{
+
+    const res = await getData(`${config.GetBaseInfo}/SysMgr/Setting/GetCurrentTermInfo?SchoolId=${SchoolId}`,2,"cors",false,false);
+
+    const data = await res.json();
+
+    if (parseInt(data.StatusCode) === 200){
+
+        return data.Data;
+
+    }
+
+};
+
 
 

@@ -16,7 +16,7 @@ import SchoolSystemCheck from '../../components/schoolSystemCheck';
 
 import { schoolCodeReg,schoolNameReg } from '../../actions/utils';
 
-import {GetSchoolInfo,uploadSchoolLogo,AddSchoolInfo,EditSchoolInfo_Middle,EditSchoolInfo_University} from "../../actions/apiActions";
+import {GetSchoolInfo,uploadSchoolLogo,AddSchoolInfo,EditSchoolInfo_Middle,EditSchoolInfo_Univ} from "../../actions/apiActions";
 
 import {appLoadingHide} from "../../store/appLoading";
 
@@ -33,6 +33,8 @@ import GuideFooter from '../../components/guideFooter';
 import {guiderStepChange} from "../../store/guideStep";
 
 import './index.scss';
+
+
 
 function SchoolSetting(props) {
 
@@ -135,8 +137,6 @@ function SchoolSetting(props) {
     });
 
 
-
-
     const LoginUser = useSelector(state=>state.LoginUser);
 
     const {UserType,UserID,UserClass,SchoolID} = LoginUser;
@@ -183,9 +183,17 @@ function SchoolSetting(props) {
 
         loginUserRef.current = LoginUser;
 
+        return ()=>{
+
+            loginUserRef.current = '';
+
+        }
+
     },[LoginUser]);
 
     useEffect(()=>{
+
+        let unMount = false;
         
         if (UserID){
 
@@ -195,222 +203,225 @@ function SchoolSetting(props) {
 
                 GetSchoolInfo({dispatch,SchoolID}).then(data=>{
 
-                    if (data){
+                    if (!unMount){
 
-                        const {SchoolName,SchoolCode,SchoolLogoUrl,ProvinceID,CityID,CountyID,SchoolType,SchoolSessionType} = data;
+                        if (data){
 
+                            const {SchoolName,SchoolCode,SchoolLogoUrl,SchoolLogoUrl_Long,ProvinceID,CityID,CountyID,SchoolType,SchoolSessionType} = data;
 
-                        if (schoolType==='middle'){ //中小学的时候判断学段信息
+                            if (schoolType==='middle'){ //中小学的时候判断学段信息
 
-                            const list = SchoolSessionType.split("/");
+                                const list = SchoolSessionType.split("/");
 
-                            switch (parseInt(SchoolType)) {
+                                switch (parseInt(SchoolType)) {
 
-                                case 1:
+                                    case 1:
 
-                                    setPeriod(d=>{
+                                        setPeriod(d=>{
 
-                                        periodRef.current = { ...d,
+                                            periodRef.current = { ...d,
 
-                                            primary:{ checked:list[0],disabled:false,originChecked:list[0]},
+                                                primary:{ checked:list[0],disabled:false,originChecked:list[0]},
 
-                                            middle:{checked:'',disabled:true,originChecked:list[1]}
+                                                middle:{checked:'',disabled:true,originChecked:list[1]}
 
-                                        };
+                                            };
 
-                                        return { ...d,
+                                            return { ...d,
 
-                                            primary:{ checked:list[0],disabled:false,originChecked:list[0]},
+                                                primary:{ checked:list[0],disabled:false,originChecked:list[0]},
 
-                                            middle:{checked:'',disabled:true,originChecked:list[1]}
+                                                middle:{checked:'',disabled:true,originChecked:list[1]}
 
-                                        };
+                                            };
 
-                                    });
+                                        });
 
-                                    break;
+                                        break;
 
-                                case 2:
+                                    case 2:
 
-                                    setPeriod(d=>{
+                                        setPeriod(d=>{
 
-                                        periodRef.current = { ...d,
+                                            periodRef.current = { ...d,
 
-                                            middle:{ checked:list[1],disabled:false,originChecked:list[1]},
+                                                middle:{ checked:list[1],disabled:false,originChecked:list[1]},
 
-                                            primary:{checked:'',disabled:true,originChecked:list[0]}
+                                                primary:{checked:'',disabled:true,originChecked:list[0]}
 
-                                        };
+                                            };
 
-                                        return { ...d,
+                                            return { ...d,
 
-                                            middle:{ checked:list[1],disabled:false,originChecked:list[1]},
+                                                middle:{ checked:list[1],disabled:false,originChecked:list[1]},
 
-                                            primary:{checked:'',disabled:true,originChecked:list[0]}
+                                                primary:{checked:'',disabled:true,originChecked:list[0]}
 
-                                        };
+                                            };
 
-                                    });
+                                        });
 
-                                    break;
+                                        break;
 
-                                case 4:
+                                    case 4:
 
-                                    setPeriod(d=>{
+                                        setPeriod(d=>{
 
-                                        periodRef.current = { ...d,
+                                            periodRef.current = { ...d,
 
-                                            primary:{ checked:'',disabled:false,originChecked:'5'},
+                                                primary:{ checked:'',disabled:false,originChecked:'5'},
 
-                                            middle:{ checked:'',disabled:false,originChecked:'4'},
+                                                middle:{ checked:'',disabled:false,originChecked:'4'},
 
-                                            heigh:{ checked:'3',disabled:false,originChecked:'3'}
+                                                heigh:{ checked:'3',disabled:false,originChecked:'3'}
 
-                                        };
+                                            };
 
-                                        return { ...d,
+                                            return { ...d,
 
-                                            primary:{ checked:'',disabled:false,originChecked:'5'},
+                                                primary:{ checked:'',disabled:false,originChecked:'5'},
 
-                                            middle:{ checked:'',disabled:false,originChecked:'4'},
+                                                middle:{ checked:'',disabled:false,originChecked:'4'},
 
-                                            heigh:{ checked:'3',disabled:false,originChecked:'3'}
+                                                heigh:{ checked:'3',disabled:false,originChecked:'3'}
 
-                                        };
+                                            };
 
-                                    });
+                                        });
 
-                                    break;
+                                        break;
 
-                                case 3:
+                                    case 3:
 
-                                    setPeriod(d=>{
+                                        setPeriod(d=>{
 
-                                        periodRef.current = { ...d,primary:{ checked:list[0],disabled:false,originChecked:list[0]},middle:{ checked:list[1],disabled:false,originChecked:list[1]}};
+                                            periodRef.current = { ...d,primary:{ checked:list[0],disabled:false,originChecked:list[0]},middle:{ checked:list[1],disabled:false,originChecked:list[1]}};
 
-                                        return { ...d,primary:{ checked:list[0],disabled:false,originChecked:list[0]},middle:{ checked:list[1],disabled:false,originChecked:list[1]}};
+                                            return { ...d,primary:{ checked:list[0],disabled:false,originChecked:list[0]},middle:{ checked:list[1],disabled:false,originChecked:list[1]}};
 
-                                    });
+                                        });
 
-                                    break;
+                                        break;
 
-                                case 5:
+                                    case 5:
 
-                                    setPeriod(d=>{
+                                        setPeriod(d=>{
 
-                                        periodRef.current = { ...d,
+                                            periodRef.current = { ...d,
 
-                                            primary:{ checked:list[0],disabled:false,originChecked:list[0]},
+                                                primary:{ checked:list[0],disabled:false,originChecked:list[0]},
 
-                                            middle:{ checked:'',disabled:false,originChecked:list[1]},
+                                                middle:{ checked:'',disabled:false,originChecked:list[1]},
 
-                                            heigh:{ checked:'3',disabled:false,originChecked:'3'}
+                                                heigh:{ checked:'3',disabled:false,originChecked:'3'}
 
-                                        };
+                                            };
 
-                                        return { ...d,
+                                            return { ...d,
 
-                                            primary:{ checked:list[0],disabled:false,originChecked:list[0]},
+                                                primary:{ checked:list[0],disabled:false,originChecked:list[0]},
 
-                                            middle:{ checked:'',disabled:false,originChecked:list[1]},
+                                                middle:{ checked:'',disabled:false,originChecked:list[1]},
 
-                                            heigh:{ checked:'3',disabled:false,originChecked:'3'}
+                                                heigh:{ checked:'3',disabled:false,originChecked:'3'}
 
-                                        };
+                                            };
 
-                                    });
+                                        });
 
-                                    break;
+                                        break;
 
-                                case 6:
+                                    case 6:
 
-                                    setPeriod(d=>{
+                                        setPeriod(d=>{
 
-                                        const list = SchoolSessionType.split("/");
+                                            const list = SchoolSessionType.split("/");
 
-                                        periodRef.current = { ...d,
+                                            periodRef.current = { ...d,
 
-                                            primary:{ checked:'',disabled:false,originChecked:list[0]},
+                                                primary:{ checked:'',disabled:false,originChecked:list[0]},
 
-                                            middle:{ checked:list[1],disabled:false,originChecked:list[1]},
+                                                middle:{ checked:list[1],disabled:false,originChecked:list[1]},
 
-                                            heigh:{ checked:'3',disabled:false,originChecked:'3'}
+                                                heigh:{ checked:'3',disabled:false,originChecked:'3'}
 
-                                        };
+                                            };
 
-                                        return { ...d,
+                                            return { ...d,
 
-                                            primary:{ checked:'',disabled:false,originChecked:list[0]},
+                                                primary:{ checked:'',disabled:false,originChecked:list[0]},
 
-                                            middle:{ checked:list[1],disabled:false,originChecked:list[1]},
+                                                middle:{ checked:list[1],disabled:false,originChecked:list[1]},
 
-                                            heigh:{ checked:'3',disabled:false,originChecked:'3'}
+                                                heigh:{ checked:'3',disabled:false,originChecked:'3'}
 
-                                        };
+                                            };
 
-                                    });
+                                        });
 
-                                    break;
+                                        break;
 
-                                case 7:
+                                    case 7:
 
-                                    setPeriod(d=>{
+                                        setPeriod(d=>{
 
-                                        const list = SchoolSessionType.split("/");
+                                            const list = SchoolSessionType.split("/");
 
-                                        periodRef.current = { ...d,primary:{ checked:list[0],disabled:false,originChecked:list[0]},middle:{ checked:list[1],disabled:false,originChecked:list[1]},heigh:{ checked:'3',disabled:false,originChecked:'3'}};
+                                            periodRef.current = { ...d,primary:{ checked:list[0],disabled:false,originChecked:list[0]},middle:{ checked:list[1],disabled:false,originChecked:list[1]},heigh:{ checked:'3',disabled:false,originChecked:'3'}};
 
-                                        return { ...d,primary:{ checked:list[0],disabled:false,originChecked:list[0]},middle:{ checked:list[1],disabled:false,originChecked:list[1]},heigh:{ checked:'3',disabled:false,originChecked:'3'}};
+                                            return { ...d,primary:{ checked:list[0],disabled:false,originChecked:list[0]},middle:{ checked:list[1],disabled:false,originChecked:list[1]},heigh:{ checked:'3',disabled:false,originChecked:'3'}};
 
-                                    });
+                                        });
 
-                                    break;
+                                        break;
+
+                                }
+
+                            }else{//大学的时候直接使用学制
+
+                                setSystem(d=>{
+
+                                    systemRef.current = { ...d,checked:SchoolSessionType};
+
+                                    return { ...d,checked:SchoolSessionType};
+
+                                });
 
                             }
 
-                        }else{//大学的时候直接使用学制
+                            setSchoolArea(d=>{
 
-                            setSystem(d=>{
+                                schoolAreaRef.current = { ...d,provinceID:ProvinceID,cityID:CityID,countyID:CountyID,ready:true };
 
-                                systemRef.current = { ...d,checked:SchoolSessionType};
-
-                                return { ...d,checked:SchoolSessionType};
+                                return { ...d,provinceID:ProvinceID,cityID:CityID,countyID:CountyID,ready:true };
 
                             });
 
+                            setSchoolName(d=>{
+
+                                schoolNameRef.current = {...d,value:SchoolName};
+
+                                return {...d,value:SchoolName};
+
+                            });
+
+                            setSchoolCode(d=>{
+
+                                schoolCodeRef.current = {...d,value:SchoolCode};
+
+                                return {...d,value:SchoolCode};
+
+                            });
+
+                            logoInit(SchoolLogoUrl,SchoolLogoUrl_Long);
+
+                            setLoading(false);
+
                         }
 
-                        setSchoolArea(d=>{
-
-                            schoolAreaRef.current = { ...d,provinceID:ProvinceID,cityID:CityID,countyID:CountyID,ready:true };
-
-                            return { ...d,provinceID:ProvinceID,cityID:CityID,countyID:CountyID,ready:true };
-
-                        });
-
-                        setSchoolName(d=>{
-
-                            schoolNameRef.current = {...d,value:SchoolName};
-
-                            return {...d,value:SchoolName};
-
-                        });
-
-                        setSchoolCode(d=>{
-
-                            schoolCodeRef.current = {...d,value:SchoolCode};
-
-                            return {...d,value:SchoolCode};
-
-                        });
-
-                        logoInit(SchoolLogoUrl);
-
-                        setLoading(false);
+                        dispatch(appLoadingHide());
 
                     }
-
-                    dispatch(appLoadingHide());
 
                 })
 
@@ -425,6 +436,12 @@ function SchoolSetting(props) {
             }
 
         }
+
+        return ()=>{
+
+            unMount = true;
+
+        }
         
     },[UserID]);
 
@@ -432,6 +449,12 @@ function SchoolSetting(props) {
     useEffect(()=>{
 
         schoolTypeRef.current = schoolType;
+
+        return ()=>{
+
+            schoolTypeRef.current = '';
+
+        }
 
     },[schoolType]);
 
@@ -613,7 +636,9 @@ function SchoolSetting(props) {
 
     },[]);
 
+
     //点击学段
+
     const periodClick = useCallback((type) =>{
 
         const {primary,middle,heigh} = periodRef.current;
@@ -783,13 +808,13 @@ function SchoolSetting(props) {
 
     //学校logo初始化
 
-    const logoInit = (SchoolLogoUrl) =>{
+    const logoInit = (SchoolLogoUrl,SchoolLogoUrl_Long) =>{
 
         const { ResHttpRootUrl } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
         const logoUrl = SchoolLogoUrl?SchoolLogoUrl:`${removeSlashUrl(ResHttpRootUrl)}/SysSetting/Attach/default.png`;
 
-        const badgeUrl = `${removeSlashUrl(ResHttpRootUrl)}/SysSetting/Attach/custom_280_40.png?v=${new Date().getTime()}`;
+        const badgeUrl = SchoolLogoUrl_Long?SchoolLogoUrl_Long:`${removeSlashUrl(ResHttpRootUrl)}/SysSetting/Attach/custom_280_40.png?v=${new Date().getTime()}`;
 
         const actionUrl = `${removeSlashUrl(ResHttpRootUrl)}/SubjectRes_UploadHandler.ashx?method=doUpload_WholeFile&userid=${UserID}`;
 
@@ -827,12 +852,28 @@ function SchoolSetting(props) {
 
         setSchoolLogo(d=>{
 
-                schoolLogoRef.current = {...d,badgeUrl:`${removeSlashUrl(ResHttpRootUrl)}/SysSetting/Attach/default_280_40.png`};
+            schoolLogoRef.current = {...d,badgeUrl:`${removeSlashUrl(ResHttpRootUrl)}/SysSetting/Attach/default_280_40.png`};
 
-                return {...d,badgeUrl:`${removeSlashUrl(ResHttpRootUrl)}/SysSetting/Attach/default_280_40.png`};
+            return {...d,badgeUrl:`${removeSlashUrl(ResHttpRootUrl)}/SysSetting/Attach/default_280_40.png`};
 
-            });
+        });
 
+    },[]);
+
+
+    //当学校logo初始化错误
+
+    const logoLoadErr = useCallback(()=>{
+
+        const { ResHttpRootUrl } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+
+        setSchoolLogo(d=>{
+
+            schoolLogoRef.current = {...d,logoUrl:`${removeSlashUrl(ResHttpRootUrl)}/SysSetting/Attach/default.png`};
+
+            return {...d,logoUrl:`${removeSlashUrl(ResHttpRootUrl)}/SysSetting/Attach/default.png`};
+
+        });
 
     },[]);
 
@@ -875,7 +916,6 @@ function SchoolSetting(props) {
 
     },[]);
 
-
     //预览上传的图片，但是不展示
 
     const imgNotView = (e)=>{
@@ -895,15 +935,15 @@ function SchoolSetting(props) {
 
             //执行上传操作
 
-            uploadSchoolLogo(tmpFileRef.current,dispatch).then(data=>{
+            uploadSchoolLogo(tmpFileRef.current,UserID,dispatch).then(data=>{
 
-                if (data&&data.Status===200){
+                if (data){
 
                     setSchoolLogo(d=>{
 
-                        schoolLogoRef.current = {...d,badgeUrl:`${ResHttpRootUrl+data.Data}?v=${new Date().getTime()}`};
+                        schoolLogoRef.current = {...d,badgeUrl:`${ResHttpRootUrl+data}?v=${new Date().getTime()}`};
 
-                        return {...d,badgeUrl:`${ResHttpRootUrl+data.Data}?v=${new Date().getTime()}`}
+                        return {...d,badgeUrl:`${ResHttpRootUrl+data}?v=${new Date().getTime()}`}
 
                     });
 
@@ -955,46 +995,58 @@ function SchoolSetting(props) {
 
 
         //判断省市县
-        if (provinceID){
+
+        if (!provinceID&&!cityID&&!countyID){
 
             provinceOk = true;
 
-            hideProvinceTip();
-
-        }else{
-
-            showProvinceTip();
-
-        }
-
-        if (cityID){
-
             cityOk = true;
-
-            hideCityTip();
-
-        }else{
-
-            showCityTip();
-
-        }
-
-
-        if (countyID){
 
             countyOk = true;
 
-            hideCountyTip();
-
         }else{
 
-            showCountyTip();
+            if (provinceID){
+
+                provinceOk = true;
+
+                hideProvinceTip();
+
+            }else{
+
+                showProvinceTip();
+
+            }
+
+            if (cityID){
+
+                cityOk = true;
+
+                hideCityTip();
+
+            }else{
+
+                showCityTip();
+
+            }
+
+            if (countyID){
+
+                countyOk = true;
+
+                hideCountyTip();
+
+            }else{
+
+                showCountyTip();
+
+            }
 
         }
 
+
+
         //判断是大学还是中小学,设置学段和学制问题
-
-
 
         if (schoolTypeRef.current==='middle'){
 
@@ -1023,7 +1075,6 @@ function SchoolSetting(props) {
             }
 
         }else{
-
 
             if (systemRef.current.checked){
 
@@ -1063,7 +1114,6 @@ function SchoolSetting(props) {
 
         }
 
-
         if (!schoolCodeRef.current.value){
 
             setSchoolCode(d=>{
@@ -1088,12 +1138,9 @@ function SchoolSetting(props) {
 
         }
 
-
-        let SchoolName='',SchoolCode='',SchoolLevel='',SchoolType='',SchoolSessionType='',SchoolImgUrl='',CountyID='';
-
+        let SchoolName='',SchoolImgUrl_Long='',SchoolCode='',SchoolLevel='',SchoolType='',SchoolSessionType='',SchoolImgUrl='',CountyID='';
 
         //在这里请求接口,成功后跳转到下一页
-
 
         if (schoolTypeRef.current==='middle'){ //如果是中小学
 
@@ -1135,56 +1182,57 @@ function SchoolSetting(props) {
 
                 SchoolImgUrl = schoolLogoRef.current.logoUrl;
 
+                SchoolImgUrl_Long = schoolLogoRef.current.badgeUrl;
+
                 CountyID = countyID;
 
                 if (loginUserRef.current.SchoolID){//修改学校信息
 
-                    EditSchoolInfo_Middle({UserID:loginUserRef.current.UserID,
+                    EditSchoolInfo_Middle({UserID:loginUserRef.current.UserID,SchoolImgUrl_Long,
 
                         dispatch,SchoolID:loginUserRef.current.SchoolID,
 
                         SchoolName,SchoolCode,SchoolLevel,SchoolType,SchoolSessionType,SchoolImgUrl,CountyID}).then(data=>{
 
-                            if (data===0){
-
-                                toNextPage();
-
-                            }
-
                         setLoading(false);
+
+                        if (data===0){
+
+                            toNextPage();
+
+                        }
 
                     })
 
                 }else{
 
-                    AddSchoolInfo({UserID:loginUserRef.current.UserID,
+                    AddSchoolInfo({UserID:loginUserRef.current.UserID,SchoolID:SchoolCode,
 
-                        dispatch,SchoolName,SchoolCode,SchoolLevel,
+                        dispatch,SchoolName,SchoolCode,SchoolLevel,SchoolImgUrl_Long,
 
                         SchoolType,SchoolSessionType,SchoolImgUrl,CountyID}).then(data=>{
 
-                            if (data){
+                        setLoading(false);
 
-                                const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
+                        if (data){
 
-                                UserInfo['SchoolID'] = data;
+                            const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
 
-                                sessionStorage.setItem("UserInfo",JSON.stringify(UserInfo));
+                            UserInfo['SchoolID'] = data;
 
-                                dispatch(loginUserUpdate(UserInfo));
+                            sessionStorage.setItem("UserInfo",JSON.stringify(UserInfo));
 
-                                toNextPage();
+                            dispatch(loginUserUpdate(UserInfo));
 
-                            }
+                            toNextPage();
 
-                            setLoading(false);
+                        }
 
                     })
 
                 }
 
             }
-
 
         }else{
 
@@ -1204,11 +1252,13 @@ function SchoolSetting(props) {
 
                 SchoolImgUrl = schoolLogoRef.current.logoUrl;
 
+                SchoolImgUrl_Long = schoolLogoRef.current.badgeUrl;
+
                 CountyID = countyID;
 
                 if (loginUserRef.current.SchoolID){
 
-                    EditSchoolInfo_University({dispatch,UserID:loginUserRef.current.UserID,
+                    EditSchoolInfo_Univ({dispatch,UserID:loginUserRef.current.UserID,SchoolImgUrl_Long,
 
                         SchoolType,SchoolID:loginUserRef.current.SchoolID,SchoolName,SchoolCode,SchoolLevel,SchoolSessionType,SchoolImgUrl,
 
@@ -1216,39 +1266,39 @@ function SchoolSetting(props) {
 
                     }).then(data=>{
 
+                        setLoading(false);
+
                         if (data===0){
 
                             toNextPage();
 
                         }
 
-                        setLoading(false);
-
                     })
 
                 }else{
 
-                    AddSchoolInfo({UserID:loginUserRef.current.UserID,
+                    AddSchoolInfo({UserID:loginUserRef.current.UserID,SchoolID:SchoolCode,
 
-                        dispatch,SchoolName,SchoolCode,SchoolLevel,
+                        dispatch,SchoolName,SchoolCode,SchoolLevel,SchoolImgUrl_Long,
 
                         SchoolType,SchoolSessionType,SchoolImgUrl,CountyID}).then(data=>{
 
-                        if (data){
-
-                            const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
-
-                            UserInfo['SchoolID'] = data;
-
-                            sessionStorage.setItem("UserInfo",JSON.stringify(UserInfo));
-
-                            dispatch(loginUserUpdate(UserInfo));
-
-                            toNextPage();
-
-                        }
-
                         setLoading(false);
+
+                         if (data){
+
+                             const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
+
+                             UserInfo['SchoolID'] = data;
+
+                             sessionStorage.setItem("UserInfo",JSON.stringify(UserInfo));
+
+                             dispatch(loginUserUpdate(UserInfo));
+
+                             toNextPage();
+
+                         }
 
                     })
 
@@ -1258,9 +1308,6 @@ function SchoolSetting(props) {
             }
 
         }
-
-
-        //toNextPage();
 
     },[]);
 
@@ -1273,7 +1320,7 @@ function SchoolSetting(props) {
 
       }else{
 
-          history.push('/college');
+        history.push('/college');
 
       }
 
@@ -1300,7 +1347,7 @@ function SchoolSetting(props) {
 
                             <div className={"school-logo-wrapper clearfix"}>
 
-                                <img src={schoolLogo.logoUrl} alt={"图片"} className={"logo-img"} alt=""/>
+                                <img width={108} height={108} onError={logoLoadErr} src={schoolLogo.logoUrl} alt={"图片"} className={"logo-img"} />
 
                                 <div className={"btn-wrapper"}>
 
@@ -1318,7 +1365,7 @@ function SchoolSetting(props) {
 
                             <div className={"school-badge-wrapper clearfix"}>
 
-                                <img alt={"图片"} src={schoolLogo.badgeUrl} onError={badgeLoadErr}  className={"logo-img"} alt=""/>
+                                <img alt={"图片"} width={280} height={40} src={schoolLogo.badgeUrl} onError={badgeLoadErr}  className={"logo-img"} />
 
                                 <div className={"btn-wrapper"}>
 
@@ -1368,11 +1415,21 @@ function SchoolSetting(props) {
 
                         <td className={"col2"}>
 
-                            <Tips visible={schoolCode.tip} title={schoolCode.title}>
+                        {
 
-                                <Input onBlur={schoolCodeBlur} className={"school-code"} onChange={schoolCodeChange} value={schoolCode.value}/>
+                            SchoolID?
 
-                            </Tips>
+                                <div children={"school-code"}>{schoolCode.value}</div>
+
+                                :
+
+                                <Tips visible={schoolCode.tip} title={schoolCode.title}>
+
+                                    <Input onBlur={schoolCodeBlur} className={"school-code"} onChange={schoolCodeChange} value={schoolCode.value}/>
+
+                                </Tips>
+
+                        }
 
                         </td>
 
