@@ -57,6 +57,8 @@ function AreaCheck(props,ref) {
 
     const {ProvinceID,CityID,CountyID} = props;
 
+    const {areaValueChange=()=>{}} = props;
+
     const provinceRef = useRef(province);
 
     const cityRef = useRef(city);
@@ -172,6 +174,70 @@ function AreaCheck(props,ref) {
 
                 getCity();
 
+                areaValueChange({
+
+                    provinceID:provinceRef.current.dropSelectd.value,
+
+                    provinceName:provinceRef.current.dropSelectd.title,
+
+                    showProvinceTip:()=>setProvince(d=>{
+
+                        provinceRef.current = {...d,tip:true};
+
+                        return {...d,tip:true};
+
+                    }),
+
+                    hideProvinceTip:()=>setProvince(d=>{
+
+                        provinceRef.current = {...d,tip:false};
+
+                        return {...d,tip:false};
+
+                    }),
+
+                    cityID:cityRef.current.dropSelectd.value,
+
+                    cityName:cityRef.current.dropSelectd.title,
+
+                    showCityTip:()=>setCity(d=>{
+
+                        cityRef.current = {...d,tip:true};
+
+                        return {...d,tip:true};
+
+                    }),
+
+                    hideCityTip:()=>setCity(d=>{
+
+                        cityRef.current = {...d,tip:false};
+
+                        return {...d,tip:false};
+
+                    }),
+
+                    countyID:countyRef.current.dropSelectd.value,
+
+                    countyName:countyRef.current.dropSelectd.title,
+
+                    showCountyTip:()=>setCounty(d=>{
+
+                        countyRef.current = {...d,tip:true};
+
+                        return {...d,tip:true};
+
+                    }),
+
+                    hideCountyTip:()=>setCounty(d=>{
+
+                        countyRef.current = {...d,tip:false};
+
+                        return {...d,tip:false};
+
+                    }),
+
+                });
+
                 return {...data,dropSelectd:{value:'',title:'请选择区县'},tip:false,disabled:true};
 
             });
@@ -226,6 +292,70 @@ function AreaCheck(props,ref) {
 
             cityRef.current = { ...d,dropSelectd:data,tip:false };
 
+            areaValueChange({
+
+                provinceID:provinceRef.current.dropSelectd.value,
+
+                provinceName:provinceRef.current.dropSelectd.title,
+
+                showProvinceTip:()=>setProvince(d=>{
+
+                    provinceRef.current = {...d,tip:true};
+
+                    return {...d,tip:true};
+
+                }),
+
+                hideProvinceTip:()=>setProvince(d=>{
+
+                    provinceRef.current = {...d,tip:false};
+
+                    return {...d,tip:false};
+
+                }),
+
+                cityID:cityRef.current.dropSelectd.value,
+
+                cityName:cityRef.current.dropSelectd.title,
+
+                showCityTip:()=>setCity(d=>{
+
+                    cityRef.current = {...d,tip:true};
+
+                    return {...d,tip:true};
+
+                }),
+
+                hideCityTip:()=>setCity(d=>{
+
+                    cityRef.current = {...d,tip:false};
+
+                    return {...d,tip:false};
+
+                }),
+
+                countyID:countyRef.current.dropSelectd.value,
+
+                countyName:countyRef.current.dropSelectd.title,
+
+                showCountyTip:()=>setCounty(d=>{
+
+                    countyRef.current = {...d,tip:true};
+
+                    return {...d,tip:true};
+
+                }),
+
+                hideCountyTip:()=>setCounty(d=>{
+
+                    countyRef.current = {...d,tip:false};
+
+                    return {...d,tip:false};
+
+                }),
+
+            });
+
             getCounty();
 
             return { ...d,dropSelectd:data,tip:false };
@@ -262,6 +392,70 @@ function AreaCheck(props,ref) {
         setCounty(d=>{
 
             countyRef.current = { ...d,tip:false,dropSelectd:data};
+
+            areaValueChange({
+
+                provinceID:provinceRef.current.dropSelectd.value,
+
+                provinceName:provinceRef.current.dropSelectd.title,
+
+                showProvinceTip:()=>setProvince(d=>{
+
+                    provinceRef.current = {...d,tip:true};
+
+                    return {...d,tip:true};
+
+                }),
+
+                hideProvinceTip:()=>setProvince(d=>{
+
+                    provinceRef.current = {...d,tip:false};
+
+                    return {...d,tip:false};
+
+                }),
+
+                cityID:cityRef.current.dropSelectd.value,
+
+                cityName:cityRef.current.dropSelectd.title,
+
+                showCityTip:()=>setCity(d=>{
+
+                    cityRef.current = {...d,tip:true};
+
+                    return {...d,tip:true};
+
+                }),
+
+                hideCityTip:()=>setCity(d=>{
+
+                    cityRef.current = {...d,tip:false};
+
+                    return {...d,tip:false};
+
+                }),
+
+                countyID:countyRef.current.dropSelectd.value,
+
+                countyName:countyRef.current.dropSelectd.title,
+
+                showCountyTip:()=>setCounty(d=>{
+
+                    countyRef.current = {...d,tip:true};
+
+                    return {...d,tip:true};
+
+                }),
+
+                hideCountyTip:()=>setCounty(d=>{
+
+                    countyRef.current = {...d,tip:false};
+
+                    return {...d,tip:false};
+
+                }),
+
+            });
 
             return { ...d,tip:false,dropSelectd:data}
 
@@ -333,6 +527,7 @@ function AreaCheck(props,ref) {
         })
 
     }));
+
 
     return(
 
