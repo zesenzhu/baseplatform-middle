@@ -94,7 +94,7 @@ function App(props) {
 
               GetSchoolInitStatus({schoolID:SchoolID,dispatch}).then(data=>{
 
-                  /*if (data){
+                  if (data){
 
                       const {UserType,SchoolID} = JSON.parse(sessionStorage.getItem("UserInfo"));
 
@@ -136,9 +136,7 @@ function App(props) {
 
                       dispatch(loginUserUpdate(UserInfo));
 
-                  }*/
-
-                  dispatch(loginUserUpdate(UserInfo));
+                  }
 
               });
 
