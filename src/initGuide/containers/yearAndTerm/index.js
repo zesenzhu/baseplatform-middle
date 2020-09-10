@@ -118,7 +118,7 @@ function YearAndTerm(props) {
 
                 if (data){
 
-                    if (data.IsMultiSchool){
+                    if (data.Term){
 
                            const value = data.Term;
 
@@ -288,16 +288,15 @@ function YearAndTerm(props) {
 
                         dispatch(guiderStepChange(schoolType==='middle'?2:3));
 
-                        setLoading(false);
-
-                        dispatch(appLoadingHide());
-
                     }
 
                 }
 
-            });
+                setLoading(false);
 
+                dispatch(appLoadingHide());
+
+            });
 
         }else{
 

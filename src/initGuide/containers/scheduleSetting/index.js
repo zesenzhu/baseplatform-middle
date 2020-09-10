@@ -136,6 +136,8 @@ function ScheduleSettinng(props) {
 
         setLoading(false);
 
+        dispatch(appLoadingHide());
+
     },[]);
 
 

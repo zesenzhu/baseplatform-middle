@@ -578,7 +578,7 @@ function ScheduleSetting(props){
 
                 </RadioGroup>
 
-                <Input maxLength={2} min={0} disabled={MorningInputDisabled} value={MorningInputDisabled?'':MorningTime} onChange={AdjustMorningInputChange}/>
+                <Input maxLength={2} min={1} disabled={MorningInputDisabled} value={MorningInputDisabled?'':MorningTime} onChange={AdjustMorningInputChange}/>
 
             </div>
 
@@ -594,7 +594,7 @@ function ScheduleSetting(props){
 
                 </RadioGroup>
 
-                <Input maxLength={2} min={0} disabled={AfternoonInputDisabled} value={AfternoonInputDisabled?'':AfternoonTime} onChange={AdjustAfternoonInputChange}/>
+                <Input maxLength={2} min={1} disabled={AfternoonInputDisabled} value={AfternoonInputDisabled?'':AfternoonTime} onChange={AdjustAfternoonInputChange}/>
 
             </div>
 

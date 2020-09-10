@@ -120,6 +120,8 @@ function Subject(props) {
 
         setLoading(false);
 
+        dispatch(appLoadingHide());
+
     });
 
     return(

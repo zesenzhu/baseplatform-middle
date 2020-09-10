@@ -1063,6 +1063,10 @@ function SchoolSetting(props) {
 
                 });
 
+            }else if(!periodRef.current.primary.disabled&&periodRef.current.middle.disabled&&!periodRef.current.heigh.disabled){
+
+                dispatch(btnWarnAlertShow({title:'学段必须是连续的'}));
+
             }else{
 
                 schoolTypeOk = true;
