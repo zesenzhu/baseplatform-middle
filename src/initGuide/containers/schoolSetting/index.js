@@ -944,9 +944,9 @@ function SchoolSetting(props) {
 
                     setSchoolLogo(d=>{
 
-                        schoolLogoRef.current = {...d,badgeUrl:`${ResHttpRootUrl+data}?v=${new Date().getTime()}`};
+                        schoolLogoRef.current = {...d,badgeUrl:`${ResHttpRootUrl+data}`};
 
-                        return {...d,badgeUrl:`${ResHttpRootUrl+data}?v=${new Date().getTime()}`}
+                        return {...d,badgeUrl:`${ResHttpRootUrl+data}`}
 
                     });
 
