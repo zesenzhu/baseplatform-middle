@@ -59,7 +59,17 @@ function Header(props) {
 
     const downLoadTestManage = useCallback(()=>{
 
-        window.BstoCs.start("751|M10", "AiTestManage|LGCampusMonitorTest",props.WebRootUrl,"../AiTest/Manage/AiTest-Manage.exe", "");
+        if (props.skin==='dark_tech'){
+
+            window.BstoCs.start("751|M10", "AiTestManage|LGCampusMonitorTest",props.WebRootUrl,"../AiTest/Manage/AiTest-Manage.exe", "");
+
+        }else{
+
+            const url = removeSlashUrl(props.PCDownLoadWebSvrAddr)+'/DownLoad/AITrainTeacherInstall.exe';
+
+            downLoad(url);
+
+        }
 
     },[props.WebRootUrl]);
 
@@ -67,7 +77,17 @@ function Header(props) {
 
     const downLoadTestStu = useCallback(()=>{
 
-        const url = removeSlashUrl(props.PCDownLoadWebSvrAddr)+'/Lgsoft/AiTest-Client.exe';
+        let url = '';
+
+        if (props.skin==='dark_tech'){
+
+             url = removeSlashUrl(props.PCDownLoadWebSvrAddr)+'/Lgsoft/AiTest-Client.exe';
+
+        }else{
+
+             url = removeSlashUrl(props.PCDownLoadWebSvrAddr)+'/DownLoad/AITrainStudentInstall.exe';
+
+        }
 
         downLoad(url);
 
@@ -290,6 +310,25 @@ function Header(props) {
 
                 }
 
+
+                {
+
+                    props.skin==='ai_practice'?
+
+                        <div className={"ai_practice_top_right"}>
+
+                            <div className={"pc_client"}>
+
+                                <a className={"down_load_icon"} onClick={aiModalToggle}>下载人工智能教学系统</a>
+
+                            </div>
+
+                        </div>
+
+                        :''
+
+                }
+
             </div>
 
         </div>
@@ -333,25 +372,25 @@ function Header(props) {
 
                         <i className={"close-icon"} onClick={aiModalToggle}></i>
 
-                        <div className={"download-icon"}>下载客户端</div>
+                        <div className={"download-icon"}>{props.skin==='dark_tech'?'下载客户端':'下载人工智能教学系统'}</div>
 
                         <div className={"content"}>
 
-                            <div className={"manage test"}>
+                            <div className={`${props.skin==='dark_tech'?'manage':'teacher'} test`}>
 
                                 <i className={"icon"}></i>
 
-                                <div className={"title"}>考试管理客户端</div>
+                                <div className={"title"}>{props.skin==='dark_tech'?'考试管理客户端':'下载教师端'}</div>
 
                                 <button onClick={props.PCDownLoadWebSvrAddr?downLoadTestManage:()=>{}} className={`down-btn ${!props.PCDownLoadWebSvrAddr?'disabled':''}`}></button>
 
                             </div>
 
-                            <div className={"stu test"}>
+                            <div className={`stu test`}>
 
                                 <i className={"icon"}></i>
 
-                                <div className={"title"}>学生考试客户端</div>
+                                <div className={"title"}>{props.skin==='dark_tech'?'学生考试客户端':'下载学生端'}</div>
 
                                 <button onClick={props.PCDownLoadWebSvrAddr?downLoadTestStu:()=>{}} className={`down-btn ${!props.PCDownLoadWebSvrAddr?'disabled':''}`}></button>
 

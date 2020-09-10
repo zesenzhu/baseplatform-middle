@@ -1403,7 +1403,7 @@ function SchoolSetting(props) {
 
                             <Tips visible={schoolName.tip} title={schoolName.title}>
 
-                                <Input onBlur={schoolNameBlur} className={"school-name"} onChange={schoolNameChange} value={schoolName.value}/>
+                                <Input maxLength={20} onBlur={schoolNameBlur} className={"school-name"} onChange={schoolNameChange} value={schoolName.value}/>
 
                             </Tips>
 
@@ -1427,7 +1427,7 @@ function SchoolSetting(props) {
 
                                 <Tips visible={schoolCode.tip} title={schoolCode.title}>
 
-                                    <Input onBlur={schoolCodeBlur} className={"school-code"} onChange={schoolCodeChange} value={schoolCode.value}/>
+                                    <Input maxLength={10} onBlur={schoolCodeBlur} className={"school-code"} onChange={schoolCodeChange} value={schoolCode.value}/>
 
                                 </Tips>
 

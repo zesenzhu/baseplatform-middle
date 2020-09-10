@@ -197,10 +197,6 @@
 
     .ai-pc-down-modal{
 
-     /* opacity:0;
-
-      transform: scale(0.7);*/
-
       position: absolute;
 
       left:calc(50% - 236px);
@@ -340,7 +336,6 @@
 
         }
 
-
         &.manage{
 
           .icon{
@@ -365,6 +360,36 @@
 
       }
 
+      &.ai_practice{
+
+        .test{
+
+          &.teacher{
+
+            .icon{
+
+              background-image: url("../images/ai-practice/ai-practice-teacher-icon.png");
+
+            }
+
+          }
+
+          &.stu{
+
+            margin-left: 60px;
+
+            .icon{
+
+              background-image: url("../images/ai-practice/ai-practice-stu-icon.png");
+
+            }
+
+          }
+
+        }
+
+      }
+
     }
 
     .ai-download-enter-active{
@@ -376,40 +401,6 @@
       }
 
     }
-
-    /*.ai-download-enter-done{
-
-      .ai-pc-down-modal{
-
-        opacity: 1;
-
-        transform: scale(1);
-
-      }
-
-    }*/
-
-    /*.ai-download-exit-active{
-
-      .ai-pc-down-modal{
-
-        animation:aiDownLoadModalHide 500ms ease forwards;
-
-      }
-
-    }*/
-
-    /*.ai-download-exit-done{
-
-      .ai-pc-down-modal{
-
-        opacity: 0;
-
-        transform: scale(0.7);
-
-      }
-
-    }*/
 
   }
 

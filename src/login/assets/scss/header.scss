@@ -4,7 +4,6 @@
 
 }
 
-
 .left_icon_wrapper{
 
   float: left;
@@ -293,7 +292,7 @@
 
   }
 
-  .dark_tech_top_right{
+  .dark_tech_top_right,.ai_practice_top_right{
 
     &>div{
 
@@ -486,6 +485,28 @@
           background-image: url("#{$darkTechUrl}/dark-tech-pc-download-hover.png");
 
           opacity:1;
+
+        }
+
+      }
+
+    }
+
+  }
+
+  .ai_practice_top_right{
+
+    .pc_client{
+
+      .down_load_icon{
+
+        color:rgba(255,255,255,0.72);
+
+        opacity: 1;
+
+        &:hover{
+
+          color: #ffffff;
 
         }
 

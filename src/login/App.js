@@ -185,6 +185,37 @@ function App(props){
 
                     })
 
+                }else if (parseInt(data.ProductType)===6){
+
+                    const appid = '000';
+
+                    const access_token = '4d39af1bff534514e24948568b750f6c';
+
+                    const sysIDs = 'D00';
+
+                    GetSystemsMainServer({appid,access_token,sysIDs,dispatch}).then(res=>{
+
+                        if (res){
+
+                            const list = res&&res.length>0?res:[];
+
+                            let PCDownLoadWebSvrAddr = '';
+
+                            list.map(i=>{
+
+                                PCDownLoadWebSvrAddr = i.WebSvrAddr;
+
+                            });
+
+                            data['PCDownLoadWebSvrAddr'] = PCDownLoadWebSvrAddr;
+
+                        }
+
+                        initData(skin,data);
+
+                    })
+
+
                 }else{
 
                     initData(skin,data);
@@ -443,7 +474,7 @@ function App(props){
             let downLoad='',education='',schoolWeb='';
 
             list.map(i=>{
-                
+
                switch (i.SysID) {
 
                    case "260":
@@ -464,8 +495,8 @@ function App(props){
 
                        break;
 
-               } 
-                
+               }
+
             });
 
             setAiSchoolLink(d=>({...d,downLoad,education,schoolWeb}));
@@ -475,7 +506,7 @@ function App(props){
     };
 
 
-
+    
     //切换是否提示的按钮
 
     const baseCheckChange = (ClinetDownUrl)=> {

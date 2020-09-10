@@ -148,7 +148,7 @@ export const GetSubjectInfoValid_University = async ({schoolID,dispatch}) =>{
 
 export const GetSchoolInitStatus = async ({schoolID,dispatch}) =>{
 
-    const res = await getGetData(`/Subject/api/GetSchoolInitStatus?schoolID=${schoolID}`,2);
+    const res = await getGetData(`/SysMgr/Setting/GetSchoolInitStatus?schoolID=${schoolID}`,2);
 
     if (res.StatusCode===200){
 
