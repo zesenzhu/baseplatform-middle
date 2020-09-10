@@ -120,20 +120,6 @@ function YearAndTerm(props) {
 
                     if (data.IsMultiSchool){
 
-                            let a ={
-
-                                CurrentWeek: 2,
-                                ID: "",
-                                IsMultiSchool: true,
-                                SchoolID: "S-HNKJ",
-                                Term: "2020-202101",
-                                TermEndDate: "2021/2/1 0:00:00",
-                                TermStartDate: "2020/9/1 0:00:00",
-                                TermStatus: 1,
-                                TotalWeeks: 23
-
-                            };
-
                            const value = data.Term;
 
                            const replaceYear = data.Term.replace(/-/,'～');
@@ -146,10 +132,7 @@ function YearAndTerm(props) {
 
                            const endDate = moment(new Date(data.TermEndDate.split(' ')[0].replace(/\//g,'-'))).format('YYYY-MM-DD');
 
-
                            if (replaceYear.slice(-2)==='01'){
-
-                               console.log(replaceYear.slice(0,-2));
 
                                const startRange = `${replaceYear.slice(0,-2).split('～')[0]}-07-01`;
 
@@ -213,19 +196,23 @@ function YearAndTerm(props) {
 
                         let title = '',value = '',dropList=[],startTime = '',endTime = '',range = [];
 
+                        startTime = moment(new Date(data.TermStartDate.split(' ')[0].replace(/\//g,'-'))).format('YYYY-MM-DD');
+
+                        endTime = moment(new Date(data.TermEndDate.split(' ')[0].replace(/\//g,'-'))).format('YYYY-MM-DD');
+
                         if (nowMonth>6){
 
                             value = `${nowYear}-${nowYear+1}01`;
 
                             title = `${nowYear}～${nowYear+1}学年第1学期`;
 
-                            const preValue = `${nowYear}-${nowYear}02`;
+                            const preValue = `${nowYear-1}-${nowYear}02`;
 
-                            const preTitle = `${nowYear}～${nowYear}学年第2学期`;
+                            const preTitle = `${nowYear-1}～${nowYear}学年第2学期`;
 
-                            const nextValue = `${nowYear+1}-${nowYear+1}02`;
+                            const nextValue = `${nowYear}-${nowYear+1}02`;
 
-                            const nextTitle = `${nowYear+1}～${nowYear+1}学年第2学期`;
+                            const nextTitle = `${nowYear}～${nowYear+1}学年第2学期`;
 
                             dropList = [{value:preValue,title:preTitle},{value,title},{value:nextValue,title:nextTitle}];
 
@@ -239,15 +226,11 @@ function YearAndTerm(props) {
 
                             ];
 
-                            startTime = `${nowYear}-09-01`;
-
-                            endTime = `${nowYear+1}-02-01`;
-
                         }else{
 
-                            title = `${nowYear}～${nowYear}学年第2学期`;
+                            title = `${nowYear-1}～${nowYear}学年第2学期`;
 
-                            value = `${nowYear}-${nowYear}02`;
+                            value = `${nowYear-1}-${nowYear}02`;
 
                             const preValue = `${nowYear-1}-${nowYear}01`;
 
@@ -268,10 +251,6 @@ function YearAndTerm(props) {
                                 {ID:nextValue,startDate:`${nowYear}-09-01`,endDate:`${nowYear+1}-02-01`,startRange:`${nowYear}-07-01`,endRange:`${nowYear+1}-03-01`}
 
                             ];
-
-                            startTime = `${nowYear}-02-01`;
-
-                            endTime = `${nowYear}-07-01`;
 
                         }
 
@@ -307,23 +286,11 @@ function YearAndTerm(props) {
 
                         });
 
-                        if (schoolType==='middle'){
+                        dispatch(guiderStepChange(schoolType==='middle'?2:3));
 
-                            dispatch(guiderStepChange(2));
+                        setLoading(false);
 
-                            setLoading(false);
-
-                            dispatch(appLoadingHide());
-
-                        }else{
-
-                            dispatch(guiderStepChange(3));
-
-                            setLoading(false);
-
-                            dispatch(appLoadingHide());
-
-                        }
+                        dispatch(appLoadingHide());
 
                     }
 
@@ -345,7 +312,6 @@ function YearAndTerm(props) {
     const termChange = useCallback((data)=>{
 
         const { value } = data;
-
 
         setTerm(d=>{
 

@@ -417,6 +417,8 @@ function SchoolSetting(props) {
 
                             setLoading(false);
 
+                            dispatch(appLoadingHide());
+
                         }
 
                         dispatch(appLoadingHide());
@@ -667,9 +669,9 @@ function SchoolSetting(props) {
 
                     setPeriod(d=>{
 
-                        periodRef.current =  {...d,primary:{...d.primary,disabled:false,checked:d.primary.originChecked}};
+                        periodRef.current =  {...d,primary:{...d.primary,disabled:false,checked:d.primary.originChecked?d.primary.originChecked:'6'}};
 
-                        return {...d,primary:{...d.primary,disabled:false,checked:d.primary.originChecked}};
+                        return {...d,primary:{...d.primary,disabled:false,checked:d.primary.originChecked?d.primary.originChecked:'6'}};
 
                     })
 
@@ -695,9 +697,9 @@ function SchoolSetting(props) {
 
                     setPeriod(d=>{
 
-                        periodRef.current =  {...d,middle:{...d.middle,disabled:false,checked:d.middle.originChecked}};
+                        periodRef.current =  {...d,middle:{...d.middle,disabled:false,checked:d.middle.originChecked?d.middle.originChecked:'3'}};
 
-                        return {...d,middle:{...d.middle,disabled:false,checked:d.middle.originChecked}};
+                        return {...d,middle:{...d.middle,disabled:false,checked:d.middle.originChecked?d.middle.originChecked:'3'}};
 
                     })
 
@@ -723,16 +725,15 @@ function SchoolSetting(props) {
 
                     setPeriod(d=>{
 
-                        periodRef.current =  {...d,heigh:{...d.heigh,disabled:false,checked:d.heigh.originChecked}};
+                        periodRef.current =  {...d,heigh:{...d.heigh,disabled:false,checked:'3'}};
 
-                        return {...d,heigh:{...d.heigh,disabled:false,checked:d.heigh.originChecked}};
+                        return {...d,heigh:{...d.heigh,disabled:false,checked:'3'}};
 
                     })
 
                 }
 
                 break;
-
 
         }
 
@@ -1208,7 +1209,7 @@ function SchoolSetting(props) {
 
                 }else{
 
-                    AddSchoolInfo({UserID:loginUserRef.current.UserID,SchoolID:SchoolCode,
+                    AddSchoolInfo({UserID:loginUserRef.current.UserID,
 
                         dispatch,SchoolName,SchoolCode,SchoolLevel,SchoolImgUrl_Long,
 
@@ -1280,7 +1281,7 @@ function SchoolSetting(props) {
 
                 }else{
 
-                    AddSchoolInfo({UserID:loginUserRef.current.UserID,SchoolID:SchoolCode,
+                    AddSchoolInfo({UserID:loginUserRef.current.UserID,
 
                         dispatch,SchoolName,SchoolCode,SchoolLevel,SchoolImgUrl_Long,
 
