@@ -286,11 +286,11 @@ function YearAndTerm(props) {
 
                         });
 
-                        dispatch(guiderStepChange(schoolType==='middle'?2:3));
-
                     }
 
                 }
+
+                dispatch(guiderStepChange(schoolType==='middle'?2:3));
 
                 setLoading(false);
 

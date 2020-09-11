@@ -406,11 +406,21 @@ function AddEditCollege(props,ref) {
 
                         <td className={"col2"}>
 
-                            <Tips visible={code.tip} title={code.title}>
+                            {
 
-                                <Input onBlur={codeBlur} placeholder={"请输入院系代码"} value={code.value} onChange={codeChange}/>
+                                isEdit?
 
-                            </Tips>
+                                    <span className={"college-code"}>{code.value}</span>
+
+                                    :
+
+                                    <Tips visible={code.tip} title={code.title}>
+
+                                        <Input onBlur={codeBlur} placeholder={"请输入院系代码"} value={code.value} onChange={codeChange}/>
+
+                                    </Tips>
+
+                            }
 
                         </td>
 

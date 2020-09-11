@@ -206,7 +206,7 @@ function College(props) {
 
             {
 
-                title:'编号',
+                title:'院系代码',
 
                 dataIndex:'CollegeCode',
 

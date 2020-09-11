@@ -48,11 +48,21 @@ function Subject(props) {
 
         if (UserID){
 
-            const step = schoolType==='middle'?4:5;
+            const { LockerVersion,ProductType }  = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
-            dispatch(guiderStepChange(step));
+            if (schoolType==='university'&&parseInt(ProductType)===6){
 
-            setStep(step);
+                  history.push('/schoolSetting');
+
+            }else{
+
+                const step = schoolType==='middle'?4:5;
+
+                dispatch(guiderStepChange(step));
+
+                setStep(step);
+
+            }
 
         }
 
