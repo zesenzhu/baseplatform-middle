@@ -108,6 +108,8 @@ class ShowCardTeacher extends React.Component {
     render() {
 
 
+        const { teacherManagePower } = this.props;
+
         let To = '';
         To = '/Teacher/' + this.props.params.CourseClassID;
         return (
@@ -137,11 +139,22 @@ class ShowCardTeacher extends React.Component {
                         </div>
 
                     </div>
-                    <div className='handle-content'>
-                        <span onClick={this.onHandleClick.bind(this, this.props.params.CourseClassID)} className='left'><i className='resetName'></i><span>编辑</span></span>
-                        <span onClick={this.onDeleteClick.bind(this, this.props.params.CourseClassID)} className='right'><i className='Delete'></i><span>删除</span></span>
-                        <span className='divide'></span>
-                    </div>
+
+                    {
+
+                        teacherManagePower?
+
+                            <div className='handle-content'>
+                                <span onClick={this.onHandleClick.bind(this, this.props.params.CourseClassID)} className='left'><i className='resetName'></i><span>编辑</span></span>
+                                <span onClick={this.onDeleteClick.bind(this, this.props.params.CourseClassID)} className='right'><i className='Delete'></i><span>删除</span></span>
+                                <span className='divide'></span>
+                            </div>
+
+                            :null
+
+                    }
+
+
                 </div>
             </div>
 
@@ -149,10 +162,11 @@ class ShowCardTeacher extends React.Component {
     }
 }
 const mapStateToProps = (state) => {
-    let { UIState, DataState } = state;
+    let { UIState, DataState,teacherManagePower } = state;
     return {
         UIState,
-        DataState
+        DataState,
+        teacherManagePower
     }
 };
 export default connect(mapStateToProps)(ShowCardTeacher);

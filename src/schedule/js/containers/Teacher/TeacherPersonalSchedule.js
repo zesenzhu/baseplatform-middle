@@ -132,13 +132,15 @@ class TeacherPersonalSchedule extends Component{
 
         /*dispatch(TPActions.ScheduleDetailShow(Params));*/
 
-        const { PersonalSchedule,SubjectCourseGradeClassRoom } = Teacher;
+        const { PersonalSchedule,SubjectCourseGradeClassRoom,Power } = Teacher;
+
+        const { Adjust } = Power;
 
         const { ItemClassHour,ItemClassHourCount,NowClassHourNO } = SubjectCourseGradeClassRoom;
 
         const WeekNO = PersonalSchedule.NowWeekNo;
 
-        dispatch({type:SDActions.COMPONENT_SCHEDULE_DETAIL_MODAL_PARAMS_UPDATE,data:{ItemClassHour,ItemClassHourCount,NowClassHourNO,WeekNO,CanOperate:true}});
+        dispatch({type:SDActions.COMPONENT_SCHEDULE_DETAIL_MODAL_PARAMS_UPDATE,data:{ItemClassHour,ItemClassHourCount,NowClassHourNO,WeekNO,CanOperate:Adjust}});
 
         dispatch(SDActions.ScheduleDetailShow(Params));
 

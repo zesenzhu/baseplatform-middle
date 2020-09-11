@@ -151,20 +151,28 @@ export const goToNextPage = ({dispatch,loadingHide}) =>{
                 break;
 
         }
+        
+        if (parseInt(UserType)===0){
 
-        GetSchoolInitStatus({SchoolId:SchoolID}).then(data=>{
+            GetSchoolInitStatus({SchoolId:SchoolID}).then(data=>{
 
-            if (data){
+                if (data){
 
-                window.location.href = nexUrl;
+                    window.location.href = nexUrl;
 
-            }else{
+                }else{
 
-                window.location.href = `/html/initGuide?lg_tk=${token}${preUri?'&lg_preurl='+preUri:''}`;
+                    window.location.href = `/html/initGuide?lg_tk=${token}${preUri?'&lg_preurl='+preUri:''}`;
 
-            }
+                }
 
-        })
+            })
+
+        }else{
+
+            window.location.href = nexUrl;
+
+        }
 
     }else if(parseInt(UserType)===0){
 

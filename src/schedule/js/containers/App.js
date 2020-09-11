@@ -536,8 +536,6 @@ class App extends Component{
 
         const { dispatch } = this.props;
 
-        console.log(SearchValue);
-
         dispatch(SDActions.ReplaceSearchClick(SearchValue));
 
     }
