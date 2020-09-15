@@ -1416,6 +1416,7 @@ class DropComponent extends React.Component {
       TitleShow,
       title,
       width,
+      height,
       activeValue,
       disabled,
       dropSelectd,
