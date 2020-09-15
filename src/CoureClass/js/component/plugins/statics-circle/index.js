@@ -19,7 +19,9 @@ function StaticsCircle(props) {
 
                   const length = list.length;
 
-                  let color = '#1ca222';
+                  let color = 'green';
+
+                  // let color = '#1ca222';
 
                   if (length===3){
 
@@ -27,19 +29,25 @@ function StaticsCircle(props) {
 
                         case 0:
 
-                            color = '#1ca222';
+                            // color = '#1ca222';
+
+                            color = 'green';
 
                             break;
 
                         case 1:
 
-                            color = '#ff7e00';
+                            // color = '#ff7e00';
+
+                            color = 'orange';
 
                             break;
 
                         case 2:
 
-                            color = '#1790e5';
+                            // color = '#1790e5';
+
+                            color = 'blue';
 
                             break;
 
@@ -51,25 +59,33 @@ function StaticsCircle(props) {
 
                           case 0:
 
-                              color = '#9179fc';
+                              // color = '#9179fc';
+
+                              color = 'pink';
 
                               break;
 
                           case 1:
 
-                              color = '#1ca222';
+                              // color = '#1ca222';
+
+                              color = 'green';
 
                               break;
 
                           case 2:
 
-                              color = '#ff7e00';
+                              // color = '#ff7e00';
+
+                              color = 'orange';
 
                               break;
 
                           case 3:
 
-                              color = '#1790e5';
+                              // color = '#1790e5';
+
+                              color = 'blue';
 
                               break;
 
@@ -81,9 +97,11 @@ function StaticsCircle(props) {
 
                       <div key={i.id} className={"circle-item"}>
 
-                          <Aniamtion.WaveRound background={color} num={i.value}>
+                          {/*<Aniamtion.WaveRound background={color} num={i.value}>
 
-                          </Aniamtion.WaveRound>
+                          </Aniamtion.WaveRound>*/}
+
+                          <div className={`circle-bg ${color}`}>{i.value}</div>
 
                           <div className="title">{i.title}</div>
 

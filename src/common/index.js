@@ -1195,7 +1195,8 @@ class DropComponent extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
+
     const { dropSelectd, dropList,type } = nextProps;
 
       let simpleSearchList = [];
@@ -1680,6 +1681,7 @@ class DropComponent extends React.Component {
               autoHeight
               autoHeightMin={0}
               autoHeightMax={288}
+              style={{height:`${height?height:'auto'}`}}
               renderTrackHorizontal={(props) => {
                 return <span style={{ display: "none" }}></span>;
               }}
