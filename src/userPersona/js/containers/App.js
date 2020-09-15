@@ -12,6 +12,8 @@ import {useSelector,useDispatch} from 'react-redux';
 
 import {firstPageLoad} from "../../../common/js/disconnect";
 
+import config from '../actions/config';
+
 
 
 import {
@@ -32,8 +34,6 @@ import dynamicFile from 'dynamic-file';
 
 import {getQueryVariable} from "../../../common/js/disconnect";
 
-import {btnErrorAlertShow} from "../actions/appAlertActions";
-
 import {targetUserInfoUpdate} from '../actions/targetUserActions';
 
 import {pageUsedChange} from '../actions/pageUsedTypeActions';
@@ -46,7 +46,7 @@ import {termInfoUpdate} from "../actions/termInfoActions";
 
 import {userArchivesUpdate} from "../actions/userArchivesActions";
 
-import {userStatusUpdate} from "../actions/userStatusActions";
+import {userStatusUpdate,userStatusReady,userStatusReceiveData} from "../actions/userStatusActions";
 
 import {userInfoLosUpdate} from "../actions/userInfoLogsActions";
 
@@ -210,9 +210,23 @@ function App(props) {
 
                                dispatch(userStatusUpdate(data));
 
+                               dispatch(userStatusReceiveData(true));
+
+                           }else{
+
+                               dispatch(userStatusReceiveData(false));
+
                            }
 
-                       })
+                           dispatch(userStatusReady());
+
+                       });
+
+                   }else{
+
+                       dispatch(userStatusReady());
+
+                       dispatch(userStatusReceiveData(false));
 
                    }
 

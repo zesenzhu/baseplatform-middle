@@ -43,6 +43,8 @@ function Content(props){
 
   const userArchives = useSelector((state) => state.userArchives);
 
+  const targetUser = useSelector(state=>state.targetUser);
+
   //模块列表
   const moduleList = useMemo(() => {
     if (userArchives) {
@@ -61,19 +63,13 @@ function Content(props){
 
         const initList = [
             {
-                title: (
-                    <span>
-                学籍
-                <br />
-                档案
-              </span>
-                ),
+                title:<span>{targetUser.UserType===1?'档案':'学籍'}<br />{targetUser.UserType===1?'信息':'档案'}</span>,
                 id: "archives",
                 value: Archives,
                 type:
                     "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher",
 
-                rely:'archives'
+                rely:''
             },
 
             {
@@ -190,8 +186,6 @@ function Content(props){
 
       });
 
-
-
         return newList;
 
       } else {
@@ -223,7 +217,8 @@ function Content(props){
                 rely:''
             }
 
-        ];;
+        ];
+
       }
     }else {
       return []

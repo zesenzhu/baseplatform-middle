@@ -280,7 +280,6 @@
 
       }
 
-
       .education-background,.work-experience,.award-item{
 
         padding:4px 10px;
@@ -303,6 +302,103 @@
 
       }
 
+    }
+
+  }
+
+  .archives-table{
+
+    &.no-data{
+
+      .tb1{
+
+        table-layout: fixed;
+
+        td{
+
+          height: 38px;
+
+        }
+
+        &.middle{
+
+          td{
+
+            height:48px;
+
+          }
+
+        }
+
+      }
+
+      &.teacher{
+
+        .tb1{
+
+          .user-name,.user-id,.subject,.home-address,
+          .native-space,.subject,.native-space{
+
+              width: inherit;
+
+          }
+
+          .college-name,.id-card,.teaching-room{
+
+            @include textOverflow;
+
+            padding: 0 6px;
+
+          }
+
+          .home-address{
+
+            width: auto;
+
+          }
+
+        }
+
+      }
+
+      &.stu{
+
+        .tb1{
+
+          .user-name,.user-id,.subject,.home-address,.native-space,
+          .subject,.native-space,.class-name,.grade-name,.genger{
+
+            width: inherit;
+
+          }
+
+          .college-name,.id-card,.teaching-room,
+
+          .user-id,.grade-name,.ganger,.major-name,.genger{
+
+            @include textOverflow;
+
+            padding: 0 6px;
+
+          }
+
+          .college-name,.major-name{
+
+            width:330px;
+
+            margin: 0 auto;
+
+          }
+
+          .home-address{
+
+            width: 330px;
+
+          }
+
+        }
+
+      }
 
     }
 

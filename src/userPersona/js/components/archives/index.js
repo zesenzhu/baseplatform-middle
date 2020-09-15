@@ -47,8 +47,7 @@ function Archives(props) {
 
     useEffect(()=>{
 
-
-        if (userStatus){
+        if (userStatus.ready){
 
             if (UserType===2){
 
@@ -57,7 +56,6 @@ function Archives(props) {
                 setTabName('学籍档案信息');
 
             }else{
-
 
                 getScientificCaseDetail({proxy:Urls['E34'].WebUrl,userId:UserID,scientificType:0,dispatch}).then(data=>{
 
@@ -77,7 +75,7 @@ function Archives(props) {
 
         }
 
-    },[userStatus]);
+    },[userStatus.ready]);
 
     //判断是否有值，没有的话返回--
     const isHasValue = useCallback((value)=>{
@@ -127,233 +125,241 @@ function Archives(props) {
     };
 
 
-    return(
+    //dom结构
+    const tableDom = useMemo(()=>{
 
-        <ContentItem type={"archives"} tabName={tabName}>
+        //数据获取成功
+        if (userStatus.ready){
 
-            <div className={"archives-wrapper"}>
+            if (userStatus.receiveData){ //有其他系统的数据返回
 
-                <div className={"btn-wrapper clearfix"}>
+                if (UserType===2){  //是学生的情况下
 
-                    {
+                    return <div className={"archives-table stu"}>
 
-                        ['AdmToStu','LeaderToStu','HeaderTeacherToStu','AdmToTeacher','TeacherToTeacher','LeaderToTeacher'].includes(UsedType)?
+                                <table className={"tb1"} border="1">
 
-                            <LinkBtn onClick={e=>btnClick(UserType===1?userStatus.userName:'')} type={"archives"}>档案信息管理</LinkBtn>
+                                    <tbody>
 
-                            :null
+                                    <tr>
 
-                    }
+                                        <td className={"col1 props"}>姓名</td>
 
-                </div>
+                                        <td className={"col2"}>
 
-                {
+                                            <div className={"user-name"} title={userStatus.studentStatus[0].userName}>
 
-                    userStatus?
+                                                {isHasValue(userStatus.studentStatus[0].userName)}
 
-                        UserType===2?
+                                            </div>
 
-                        <div className={"archives-table stu"}>
+                                        </td>
 
-                            <table className={"tb1"} border="1">
+                                        <td className={"col3 props"}>曾用名</td>
 
-                                <tbody>
+                                        <td className={"col4"}>
 
-                                <tr>
+                                            <div className={"former-name"} title={userStatus.studentStatus[0].formerName}>
 
-                                    <td className={"col1 props"}>姓名</td>
+                                                {isHasValue(userStatus.studentStatus[0].formerName)}
 
-                                    <td className={"col2"}>
+                                            </div>
 
-                                        <div className={"user-name"} title={userStatus.studentStatus[0].userName}>
+                                        </td>
 
-                                            {isHasValue(userStatus.studentStatus[0].userName)}
+                                        <td className={"col5 props"}>身份证号</td>
 
-                                        </div>
+                                        <td className={"col6"}>
 
-                                    </td>
+                                            <div title={userStatus.studentStatus[0].identityNum}>
 
-                                    <td className={"col3 props"}>曾用名</td>
+                                                {isHasValue(userStatus.studentStatus[0].identityNum)}
 
-                                    <td className={"col4"}>
+                                            </div>
 
-                                        <div className={"former-name"} title={userStatus.studentStatus[0].formerName}>
+                                        </td>
 
-                                            {isHasValue(userStatus.studentStatus[0].formerName)}
+                                        <td className={"col7"} rowSpan={6}>
 
-                                        </div>
+                                            <div className={"user-photo"} style={{backgroundImage:`url(${userStatus.studentStatus[0].photoPath})`}}></div>
 
-                                    </td>
+                                        </td>
 
-                                    <td className={"col5 props"}>身份证号</td>
+                                    </tr>
 
-                                    <td className={"col6"}>
+                                    <tr>
 
-                                        <div title={userStatus.studentStatus[0].identityNum}>
+                                        <td className={"col1 props"}>出生年月</td>
 
-                                            {isHasValue(userStatus.studentStatus[0].identityNum)}
+                                        <td className={"col2"}>{isHasValue(userStatus.studentStatus[0].birthDay)}</td>
 
-                                        </div>
+                                        <td className={"col3 props"}>性别</td>
 
-                                    </td>
+                                        <td className={"col4"}>{isHasValue(userStatus.studentStatus[0].sex)}</td>
 
-                                    <td className={"col7"} rowSpan={6}>
+                                        <td className={"col5 props"}>民族</td>
 
-                                        <div className={"user-photo"} style={{backgroundImage:`url(${userStatus.studentStatus[0].photoPath})`}}></div>
+                                        <td className={"col6"}>{isHasValue(userStatus.studentStatus[0].nation)}</td>
 
-                                    </td>
+                                    </tr>
 
-                                </tr>
+                                    <tr>
 
-                                <tr>
+                                        <td className={"col1 props"}>学号</td>
 
-                                    <td className={"col1 props"}>出生年月</td>
+                                        <td className={"col2"} colSpan={2}>
 
-                                    <td className={"col2"}>{isHasValue(userStatus.studentStatus[0].birthDay)}</td>
+                                            <div className={"stu-no"} title={UserID}>
 
-                                    <td className={"col3 props"}>性别</td>
+                                                {isHasValue(UserID)}
 
-                                    <td className={"col4"}>{isHasValue(userStatus.studentStatus[0].sex)}</td>
+                                            </div>
 
-                                    <td className={"col5 props"}>民族</td>
+                                        </td>
 
-                                    <td className={"col6"}>{isHasValue(userStatus.studentStatus[0].nation)}</td>
+                                        <td className={"col4 props"}>当前所在年级</td>
 
-                                </tr>
+                                        <td className={"col6"} colSpan={2}>{isHasValue(userArchives?userArchives.GradeName:'')}</td>
 
-                                <tr>
+                                    </tr>
 
-                                    <td className={"col1 props"}>学号</td>
+                                    <tr>
 
-                                    <td className={"col2"} colSpan={2}>
+                                        <td className={"col1 props"}>当前所在班级</td>
 
-                                        <div className={"stu-no"} title={UserID}>
+                                        <td className={"col2"} colSpan={2}>
 
-                                            {isHasValue(UserID)}
+                                            <div className={"class-name"} title={userStatus.studentStatus[0].className}>
 
-                                        </div>
+                                                {isHasValue(userStatus.studentStatus[0].className)}
 
-                                    </td>
+                                            </div>
 
-                                    <td className={"col4 props"}>当前所在年级</td>
+                                        </td>
 
-                                    <td className={"col6"} colSpan={2}>{isHasValue(userArchives?userArchives.GradeName:'')}</td>
+                                        <td className={"col4 props"}>班主任</td>
 
-                                </tr>
+                                        <td className={"col6"} colSpan={2}>
 
-                                <tr>
+                                            <div className={"genger"}>
 
-                                    <td className={"col1 props"}>当前所在班级</td>
+                                                {
 
-                                    <td className={"col2"} colSpan={2}>
+                                                    userArchives&&userArchives.Ganger?
 
-                                        <div className={"class-name"} title={userStatus.studentStatus[0].className}>
+                                                        <Button onClick={e=>seeGanger(userArchives.GangerID)} type={"link"} className={"genger-btn"} title={userArchives.GangerName}>{userArchives.GangerName}</Button>
 
-                                            {isHasValue(userStatus.studentStatus[0].className)}
+                                                        :
 
-                                        </div>
+                                                        '--'
 
-                                    </td>
+                                                }
 
-                                    <td className={"col4 props"}>班主任</td>
+                                            </div>
 
-                                    <td className={"col6"} colSpan={2}>
+                                        </td>
 
-                                        <div className={"genger"}>
+                                    </tr>
 
-                                            {
+                                    <tr>
 
-                                                userArchives&&userArchives.Ganger?
+                                        <td className={"col1 props"}>国籍</td>
 
-                                                    <Button onClick={e=>seeGanger(userArchives.GangerID)} type={"link"} className={"genger-btn"} title={userArchives.GangerName}>{userArchives.GangerName}</Button>
+                                        <td className={"col2"}>
 
-                                                    :
+                                            <div className={"country"} title={userStatus.studentStatus[0].country}>
 
-                                                    '--'
+                                                {isHasValue(userStatus.studentStatus[0].country)}
 
-                                            }
+                                            </div>
 
-                                        </div>
+                                        </td>
 
-                                    </td>
+                                        <td className={"col3 props"}>籍贯</td>
 
-                                </tr>
+                                        <td className={"col4"}>
 
-                                <tr>
+                                            <div className={"native-space"} title={userStatus.studentStatus[0].nativeSpace}>
 
-                                    <td className={"col1 props"}>国籍</td>
+                                                {isHasValue(userStatus.studentStatus[0].nativeSpace)}
 
-                                    <td className={"col2"}>
+                                            </div>
 
-                                        <div className={"country"} title={userStatus.studentStatus[0].country}>
+                                        </td>
 
-                                            {isHasValue(userStatus.studentStatus[0].country)}
+                                        <td className={"col5 props"}>港澳台侨胞</td>
 
-                                        </div>
+                                        <td className={"col6"}>{isHasValue(userStatus.studentStatus[0].overseaPeople)}</td>
 
-                                    </td>
+                                    </tr>
 
-                                    <td className={"col3 props"}>籍贯</td>
+                                    <tr>
 
-                                    <td className={"col4"}>
+                                        <td className={"col1 props"}>是否独生子女</td>
 
-                                        <div className={"native-space"} title={userStatus.studentStatus[0].nativeSpace}>
+                                        <td className={"col2"}>{isHasValue(userStatus.studentStatus[0].singleChild)}</td>
 
-                                            {isHasValue(userStatus.studentStatus[0].nativeSpace)}
+                                        <td className={"col3 props"}>是否受过学前教育</td>
+                                        <td className={"col4"}>{isHasValue(userStatus.studentStatus[0].preschoolEdu)}</td>
+                                        <td className={"col5 props"}>是否留守儿童</td>
+                                        <td className={"col6"}>{isHasValue(userStatus.studentStatus[0].leftoverChild)}</td>
 
-                                        </div>
+                                    </tr>
+                                    <tr>
+                                        <td className={"col1 props"}>户籍所在地</td>
+                                        <td className={"col2"}>
 
-                                    </td>
+                                            <div className={"census-place"} title={userStatus.studentStatus[0].censusPlace}>
 
-                                    <td className={"col5 props"}>港澳台侨胞</td>
+                                                {isHasValue(userStatus.studentStatus[0].censusPlace)}
 
-                                    <td className={"col6"}>{isHasValue(userStatus.studentStatus[0].overseaPeople)}</td>
+                                            </div>
 
-                                </tr>
+                                        </td>
+                                        <td className={"col3 props"}>家庭住址</td>
+                                        <td className={"col4"} colSpan={4}>
 
-                                <tr>
+                                            <div className={"home-address"} title={userStatus.studentStatus[0].homeAddress}>
 
-                                    <td className={"col1 props"}>是否独生子女</td>
+                                                {isHasValue(userStatus.studentStatus[0].homeAddress)}
 
-                                    <td className={"col2"}>{isHasValue(userStatus.studentStatus[0].singleChild)}</td>
+                                            </div>
 
-                                    <td className={"col3 props"}>是否受过学前教育</td>
-                                    <td className={"col4"}>{isHasValue(userStatus.studentStatus[0].preschoolEdu)}</td>
-                                    <td className={"col5 props"}>是否留守儿童</td>
-                                    <td className={"col6"}>{isHasValue(userStatus.studentStatus[0].leftoverChild)}</td>
+                                        </td>
 
-                                </tr>
-                                <tr>
-                                    <td className={"col1 props"}>户籍所在地</td>
-                                    <td className={"col2"}>
+                                    </tr>
 
-                                        <div className={"census-place"} title={userStatus.studentStatus[0].censusPlace}>
+                                    <tr>
+                                        <td className={"col1 props"}>预留电话</td>
+                                        <td className={"col2"}>
 
-                                            {isHasValue(userStatus.studentStatus[0].censusPlace)}
+                                            <div className={"census-place"} title={userArchives.Telephone2}>
 
-                                        </div>
+                                                {isHasValue(userArchives.Telephone2)}
 
-                                    </td>
-                                    <td className={"col3 props"}>家庭住址</td>
-                                    <td className={"col4"} colSpan={4}>
+                                            </div>
 
-                                        <div className={"home-address"} title={userStatus.studentStatus[0].homeAddress}>
+                                        </td>
+                                        <td className={"col3 props"}>电子邮箱</td>
+                                        <td className={"col4"} colSpan={4}>
 
-                                            {isHasValue(userStatus.studentStatus[0].homeAddress)}
+                                            <div className={"home-address"} title={userArchives.Email}>
 
-                                        </div>
+                                                {isHasValue(userArchives.Email)}
 
-                                    </td>
+                                            </div>
 
-                                </tr>
+                                        </td>
 
-                                </tbody>
+                                    </tr>
 
-                            </table>
+                                    </tbody>
 
-                            <table className={"tb2"} border="1">
+                                </table>
 
-                                <tbody>
+                                <table className={"tb2"} border="1">
+
+                                    <tbody>
 
                                     <tr>
 
@@ -440,13 +446,13 @@ function Archives(props) {
 
                                     }
 
-                                </tbody>
+                                    </tbody>
 
-                            </table>
+                                </table>
 
-                            <table className={"tb3"} border="1">
+                                <table className={"tb3"} border="1">
 
-                                <tbody>
+                                    <tbody>
 
                                     <tr>
 
@@ -525,171 +531,187 @@ function Archives(props) {
 
                                     }
 
-                                </tbody>
+                                    </tbody>
 
-                            </table>
+                                </table>
 
-                        </div>
+                            </div>
 
-                        :
+                }else if (UserType===1){      //是教师的情况下
 
-                        <div className={"archives-table teacher"}>
+                    return <div className={"archives-table teacher"}>
 
-                            <table className={"tb1"} border="1">
+                        <table className={"tb1"} border="1">
 
-                                <tbody>
+                            <tbody>
 
-                                <tr>
+                            <tr>
 
-                                    <td className={"col1 props"}>姓名</td>
+                                <td className={"col1 props"}>姓名</td>
 
-                                    <td className={"col2"}>
+                                <td className={"col2"}>
 
-                                        <div className={"user-name"} title={userStatus.userName}>
+                                    <div className={"user-name"} title={userStatus.userName}>
 
-                                            {isHasValue(userStatus.userName)}
+                                        {isHasValue(userStatus.userName)}
 
-                                        </div>
+                                    </div>
 
-                                    </td>
+                                </td>
 
-                                    <td className={"col3 props"}>工号</td>
+                                <td className={"col3 props"}>工号</td>
 
-                                    <td className={"col4"}>
+                                <td className={"col4"}>
 
-                                        <div className={"user-id"} title={userStatus.userId}>
+                                    <div className={"user-id"} title={userStatus.userId}>
 
-                                            {isHasValue(userStatus.userId)}
+                                        {isHasValue(userStatus.userId)}
 
-                                        </div>
+                                    </div>
 
-                                    </td>
+                                </td>
 
-                                    <td className={"col5 props"}>性别</td>
+                                <td className={"col5 props"}>性别</td>
 
-                                    <td className={"col6"}>{isHasValue(userArchives.Gender)}</td>
+                                <td className={"col6"}>{isHasValue(userArchives.Gender)}</td>
 
-                                    <td className={"col7"} rowSpan={6}>
+                                <td className={"col7"} rowSpan={6}>
 
-                                        <div className={"user-photo"} style={{backgroundImage:`url(${userStatus.photoPath})`}}></div>
+                                    <div className={"user-photo"} style={{backgroundImage:`url(${userStatus.photoPath})`}}></div>
 
-                                    </td>
+                                </td>
 
-                                </tr>
+                            </tr>
 
-                                <tr>
+                            <tr>
 
-                                    <td className={"col1 props"}>民族</td>
+                                <td className={"col1 props"}>民族</td>
 
-                                    <td className={"col2"}>{isHasValue(userStatus.nation)}</td>
+                                <td className={"col2"}>{isHasValue(userStatus.nation)}</td>
 
-                                    <td className={"col3 props"}>职称</td>
+                                <td className={"col3 props"}>职称</td>
 
-                                    <td className={"col4"}>{isHasValue(userStatus.professionalTitle)}</td>
+                                <td className={"col4"}>{isHasValue(userStatus.professionalTitle)}</td>
 
-                                    <td className={"col5 props"}>所教学科</td>
+                                <td className={"col5 props"}>所教学科</td>
 
-                                    <td className={"col6"}>
+                                <td className={"col6"}>
 
-                                        <div className={"subject"}>{isHasValue(userArchives.SubjectNames)}</div>
+                                    <div className={"subject"}>{isHasValue(userArchives.SubjectNames)}</div>
 
-                                    </td>
+                                </td>
 
-                                </tr>
+                            </tr>
 
-                                <tr>
+                            <tr>
 
-                                    <td className={"col1 props"}>出生年月</td>
+                                <td className={"col1 props"}>出生年月</td>
 
-                                    <td className={"col2"}>
+                                <td className={"col2"}>
 
-                                        {isHasValue(userStatus.birthday)}
+                                    {isHasValue(userStatus.birthday)}
 
-                                    </td>
+                                </td>
 
-                                    <td className={"col3 props"}>身份证号</td>
+                                <td className={"col3 props"}>身份证号</td>
 
-                                    <td className={"col4"} colSpan={3}>
+                                <td className={"col4"} colSpan={3}>
 
-                                        {isHasValue(userArchives.IDCardNo)}
+                                    {isHasValue(userArchives.IDCardNo)}
 
-                                    </td>
+                                </td>
 
-                                </tr>
+                            </tr>
 
-                                <tr>
+                            <tr>
 
-                                    <td className={"col1 props"}>家庭地址</td>
+                                <td className={"col1 props"}>家庭地址</td>
 
-                                    <td className={"col2"} colSpan={5}>
+                                <td className={"col2"} colSpan={5}>
 
-                                        <div className={"home-address"} title={userStatus.homeAddress}>
+                                    <div className={"home-address"} title={userStatus.homeAddress}>
 
-                                            {isHasValue(userStatus.homeAddress)}
+                                        {isHasValue(userStatus.homeAddress)}
 
-                                        </div>
+                                    </div>
 
-                                    </td>
+                                </td>
 
-                                </tr>
+                            </tr>
 
-                                <tr>
+                            <tr>
 
-                                    <td className={"col1 props"}>籍贯</td>
+                                <td className={"col1 props"}>籍贯</td>
 
-                                    <td className={"col2"} colSpan={2}>
+                                <td className={"col2"} colSpan={2}>
 
-                                        <div className={"native-space"} title={userStatus.nativeSpace}>
+                                    <div className={"native-space"} title={userStatus.nativeSpace}>
 
-                                            {isHasValue(userStatus.nativeSpace)}
+                                        {isHasValue(userStatus.nativeSpace)}
 
-                                        </div>
+                                    </div>
 
-                                    </td>
+                                </td>
 
-                                    <td className={"col3 props"}>政治面貌</td>
+                                <td className={"col3 props"}>政治面貌</td>
 
-                                    <td className={"col4"} colSpan={2}>
+                                <td className={"col4"} colSpan={2}>
 
-                                        <div className={"politic-status"} title={userStatus.politicStatus}>
+                                    <div className={"politic-status"} title={userStatus.politicStatus}>
 
-                                            {isHasValue(userStatus.politicStatus)}
+                                        {isHasValue(userStatus.politicStatus)}
 
-                                        </div>
+                                    </div>
 
-                                    </td>
+                                </td>
 
-                                </tr>
+                            </tr>
 
-                                <tr>
+                            <tr>
 
-                                    <td className={"col1 props"}>最高学历</td>
+                                <td className={"col1 props"}>最高学历</td>
 
-                                    <td className={"col2"} colSpan={2}>
+                                <td className={"col2"} colSpan={2}>
 
-                                        {isHasValue(userStatus.degree)}
+                                    {isHasValue(userStatus.degree)}
 
-                                    </td>
+                                </td>
 
-                                    <td className={"col3 props"}>最高学位</td>
+                                <td className={"col3 props"}>最高学位</td>
 
-                                    <td className={"col4"} colSpan={2}>{isHasValue(userStatus.educationBackground)}</td>
+                                <td className={"col4"} colSpan={2}>{isHasValue(userStatus.educationBackground)}</td>
 
-                                </tr>
+                            </tr>
 
-                                <tr>
+                            <tr>
 
-                                    <td className={"col1 props"}>教育背景</td>
+                                <td className={"col1 props"}>预留电话</td>
 
-                                    <td className={"col2"} colSpan={6}>
+                                <td className={"col2"} colSpan={2}>
 
-                                        {
+                                    {isHasValue(userArchives.Telephone2)}
 
-                                            userStatus.educationBackgroundDetail?
+                                </td>
+
+                                <td className={"col3 props"}>电子邮箱</td>
+
+                                <td className={"col4"} colSpan={3}>{isHasValue(userArchives.Email)}</td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td className={"col1 props"}>教育背景</td>
+
+                                <td className={"col2"} colSpan={6}>
+
+                                    {
+
+                                        userStatus.educationBackgroundDetail?
 
                                             <div className={"education-background"} dangerouslySetInnerHTML={{__html:userStatus.educationBackgroundDetail}}></div>
 
-                                             :
+                                            :
 
                                             <div className={"education-background"}>
 
@@ -697,45 +719,45 @@ function Archives(props) {
 
                                             </div>
 
-                                        }
+                                    }
 
-                                    </td>
+                                </td>
 
-                                </tr>
+                            </tr>
 
-                                <tr>
+                            <tr>
 
-                                    <td className={"col1 props"}>工作经历</td>
+                                <td className={"col1 props"}>工作经历</td>
 
-                                    <td className={"col2"} colSpan={6}>
+                                <td className={"col2"} colSpan={6}>
 
-                                        {
+                                    {
 
-                                            userStatus.workExperience?
+                                        userStatus.workExperience?
 
-                                                <div className={"work-experience"} dangerouslySetInnerHTML={{__html:userStatus.workExperience}}></div>
+                                            <div className={"work-experience"} dangerouslySetInnerHTML={{__html:userStatus.workExperience}}></div>
 
-                                                :
+                                            :
 
-                                                <div className={"work-experience"}>
+                                            <div className={"work-experience"}>
 
-                                                    <div className="empty">--</div>
+                                                <div className="empty">--</div>
 
-                                                </div>
+                                            </div>
 
-                                        }
+                                    }
 
-                                    </td>
+                                </td>
 
-                                </tr>
+                            </tr>
 
-                                <tr>
+                            <tr>
 
-                                    <td className={"col1 props"}>科研及获奖</td>
+                                <td className={"col1 props"}>科研及获奖</td>
 
-                                    <td className={"col2"} colSpan={6}>
+                                <td className={"col2"} colSpan={6}>
 
-                                        <div className={"award"}>
+                                    <div className={"award"}>
 
                                         {
 
@@ -753,21 +775,385 @@ function Archives(props) {
 
                                         }
 
-                                        </div>
+                                    </div>
 
-                                    </td>
+                                </td>
 
-                                </tr>
+                            </tr>
 
-                                </tbody>
+                            </tbody>
 
-                            </table>
+                        </table>
 
-                        </div>
-
-                        :null
+                    </div>
 
                 }
+
+            }else{      //没有接收到其他系统的数据
+
+                 const { ProductUseRange } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+
+                  let environ = 0;  //0代表中小学,1代表大学
+
+                 if ([1,2,6,7,9].includes(parseInt(ProductUseRange))){  //大学版
+
+                     environ = 1
+
+                 }
+
+
+                 if (UserType===2){ //学生
+
+                    return <div className={"archives-table no-data stu"}>
+
+                        <table className={`tb1 ${environ===0?'middle':''}`} border="1">
+
+                            <tbody>
+
+                            <tr>
+
+                                <td className={"col1 props"}>姓名</td>
+
+                                <td className={"col2"}>
+
+                                    <div className={"user-name"} title={userArchives.UserName}>
+
+                                        {isHasValue(userArchives.UserName)}
+
+                                    </div>
+
+                                </td>
+
+                                <td className={"col3 props"}>学号</td>
+
+                                <td className={"col4"}>
+
+                                    <div className={"user-id"} title={UserID}>
+
+                                        {isHasValue(UserID)}
+
+                                    </div>
+
+                                </td>
+
+                                <td className={"col5 props"}>性别</td>
+
+                                <td className={"col6"}>{isHasValue(userArchives.Gender)}</td>
+
+                                <td className={"col7"} rowSpan={6}>
+
+                                    <div className={"user-photo"} style={{backgroundImage:`url(${userArchives.PhotoPath})`}}></div>
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td className={"col1 props"}>当前所在年级</td>
+
+                                <td className={"col2"}>
+
+                                    <div className={"grade-name"} title={isHasValue(userArchives.GradeName)}>{isHasValue(userArchives.GradeName)}</div>
+
+                                </td>
+
+                                <td className={"col3 props"}>当前所在班级</td>
+
+                                <td className={"col4"}>
+
+                                    <div className={"class-name"} title={isHasValue(userArchives.ClassName)}> {isHasValue(userArchives.ClassName)}</div>
+
+                                </td>
+
+                                <td className={"col5 props"}>当前班主任</td>
+
+                                <td className={"col6"}>
+
+                                    <div className={"genger"}>
+
+                                        {
+
+                                            userArchives&&userArchives.Ganger?
+
+                                                <Button onClick={e=>seeGanger(userArchives.GangerID)} type={"link"} className={"genger-btn"} title={userArchives.GangerName}>{userArchives.GangerName}</Button>
+
+                                                :
+
+                                                '--'
+
+                                        }
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                            {
+
+                                environ===1?
+
+                                    <tr>
+
+                                        <td className={"col1 props"}>所在院系</td>
+
+                                        <td className={"col2"}  colSpan={2}>
+
+                                            <div className={"college-name"} title={isHasValue(userArchives.CollegeName)}>{isHasValue(userArchives.CollegeName)}</div>
+
+                                        </td>
+
+                                        <td className={"col4 props"}>所学专业</td>
+
+                                        <td className={"col5"} colSpan={2}>
+
+                                            <div className={"major-name"} title={isHasValue(userArchives.MajorName)}>{isHasValue(userArchives.MajorName)}</div>
+
+                                        </td>
+
+                                    </tr>
+
+                                    :null
+
+                            }
+
+                            <tr>
+
+                                <td className={"col1 props"}>联系电话</td>
+
+                                <td className={"col2"} colSpan={2}>
+
+                                    {isHasValue(userArchives.Telephone2)}
+
+                                </td>
+
+                                <td className={"col4 props"}>电子邮箱</td>
+
+                                <td className={"col5"} colSpan={2}>
+
+                                    <div className={"email"} title={userArchives.Email}>
+
+                                        {isHasValue(userArchives.Email)}
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td className={"col1 props"}>身份证号</td>
+
+                                <td className={"col2"} colSpan={2}>
+
+                                    <div className={"id-card"} title={userArchives.IDCardNo}>
+
+                                        {isHasValue(userArchives.IDCardNo)}
+
+                                    </div>
+
+                                </td>
+
+                                <td className={"col4 props"}>家庭住址</td>
+
+                                <td className={"col5"} colSpan={2}>
+
+                                    <div className={"home-address"} title={userArchives.HomeAddress}>
+
+                                        {isHasValue(userArchives.HomeAddress)}
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                 }else if (UserType===1){ //教师
+
+                    return <div className={"archives-table no-data teacher"}>
+
+                        <table className={`tb1 ${environ===0?'middle':''}`} border="1">
+
+                            <tbody>
+
+                            <tr>
+
+                                <td className={"col1 props"}>姓名</td>
+
+                                <td className={"col2"}>
+
+                                    <div className={"user-name"} title={userArchives.UserName}>
+
+                                        {isHasValue(userArchives.UserName)}
+
+                                    </div>
+
+                                </td>
+
+                                <td className={"col3 props"}>工号</td>
+
+                                <td className={"col4"}>
+
+                                    <div className={"user-id"} title={UserID}>
+
+                                        {isHasValue(UserID)}
+
+                                    </div>
+
+                                </td>
+
+                                <td className={"col5 props"}>性别</td>
+
+                                <td className={"col6"}>{isHasValue(userArchives.Gender)}</td>
+
+                                <td className={"col7"} rowSpan={6}>
+
+                                    <div className={"user-photo"} style={{backgroundImage:`url(${userArchives.PhotoPath})`}}></div>
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td className={"col1 props"}>预留电话</td>
+
+                                <td className={"col2"}>{isHasValue(userArchives.Telephone2)}</td>
+
+                                <td className={"col3 props"}>职称</td>
+
+                                <td className={"col4"}>{isHasValue(userArchives.professionalTitle)}</td>
+
+                                <td className={"col5 props"}>所教学科</td>
+
+                                <td className={"col6"}>
+
+                                    <div className={"subject"}>{isHasValue(userArchives.SubjectNames)}</div>
+
+                                </td>
+
+                            </tr>
+
+                            {
+
+                                environ===1?
+
+                                    <tr>
+
+                                        <td className={"col1 props"}>所属院系</td>
+
+                                        <td className={"col2"}>
+
+                                            <div className={"college-name"} title={isHasValue(userArchives.CollegeName)}>{isHasValue(userArchives.CollegeName)}</div>
+
+                                        </td>
+
+                                        <td className={"col3 props"}>所在教研室</td>
+
+                                        <td className={"col4"} colSpan={3}>
+
+                                            <div className={"teaching-room"} title={isHasValue(userArchives.TeachingRoom)}>{isHasValue(userArchives.TeachingRoom)}</div>
+
+                                        </td>
+
+                                    </tr>
+
+                                    :null
+
+                            }
+
+                            <tr>
+
+                                <td className={"col1 props"}>电子邮箱</td>
+
+                                <td className={"col2"} colSpan={2}>
+
+                                    <div className={"email"} title={userArchives.Email}>
+
+                                        {isHasValue(userArchives.Email)}
+
+                                    </div>
+
+                                </td>
+
+                                <td className={"col3 props"}>身份证号</td>
+
+                                <td className={"col4"} colSpan={2}>
+
+                                    <div className={"id-card"} title={userArchives.IDCardNo}>
+
+                                        {isHasValue(userArchives.IDCardNo)}
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td className={"col1 props"}>家庭地址</td>
+
+                                <td className={"col2"} colSpan={5}>
+
+                                    <div className={"home-address"} title={userArchives.HomeAddress}>
+
+                                        {isHasValue(userArchives.HomeAddress)}
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                 }
+
+            }
+
+        }else{
+
+            return null;
+
+        }
+
+    },[userStatus.ready,userStatus.receiveData]);
+
+
+    return(
+
+        <ContentItem type={"archives"} tabName={tabName}>
+
+            <div className={"archives-wrapper"}>
+
+                <div className={"btn-wrapper clearfix"}>
+
+                    {
+
+                        ['AdmToStu','LeaderToStu','HeaderTeacherToStu','AdmToTeacher','TeacherToTeacher','LeaderToTeacher'].includes(UsedType)&&userStatus.receiveData?
+
+                            <LinkBtn onClick={e=>btnClick(UserType===1?userStatus.userName:'')} type={"archives"}>档案信息管理</LinkBtn>
+
+                            :null
+
+                    }
+
+                </div>
+
+                {tableDom}
 
                 <ModuleLoading loading={loading}></ModuleLoading>
 
