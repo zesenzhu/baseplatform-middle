@@ -1,0 +1,54 @@
+.SchoolType {
+    display: inline-block;
+    vertical-align: top;
+    .ST-bar {
+        height: 28px;
+        line-height: 28px;
+        margin-top: 12px;
+        &:nth-of-type(1) {
+            margin-top: 6px;
+        }
+        .STb-Type {
+            position: relative;
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 23px;
+            width: 60px;
+            height: 28px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 14px;
+            color: #79879b;
+            background-color: #ffffff;
+            border: solid 1px #bac7d9;
+            &.select {
+                background-color: #e9ffe9;
+                border: solid 1px #2ba500;
+                color: #2ba500;
+                &::before {
+                    position: absolute;
+                    content: "";
+                    top: 0;
+                    right: 0;
+                    width: 14px;
+                    height: 14px;
+                    background: url(./images/select_bg.png) no-repeat center center / contain;
+                }
+                &::after {
+                    position: absolute;
+                    content: "";
+                    top: 10px;
+                    right: -15px;
+                    width: 6px;
+                    height: 8px;
+                    background: url(./images/triangle.png) no-repeat center center / contain;
+                }
+            }
+        }
+        .STb-Year {
+            display: inline-block;
+            vertical-align: top;
+            height: 28px;
+        }
+    }
+}

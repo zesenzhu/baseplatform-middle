@@ -89,6 +89,8 @@ if (process.env.NODE_ENV === 'development'){
 
         UserScheduleProxy:'http://192.168.129.1:30103/Schedule/api/',
 
+        SchoolSettingProxy:'http://192.168.129.1:30103/SysMgr/Setting'
+
     }
 
 }
@@ -142,6 +144,7 @@ if (process.env.NODE_ENV === 'production'){
 
         UserScheduleProxy:RootUrl+'/Schedule/api/',
 
+        SchoolSettingProxy : "/SysMgr/Setting",
 
     }
 

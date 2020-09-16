@@ -295,8 +295,8 @@ class YearSemesterSetting extends Component {
       TermList,
       NextTermEndDate,
       NextTermStartDate,
+      IsMultiSchool,
     } = semesterInfo;
-
     return (
       <Loading spinning={semesterloading} opacity={false} tip="请稍后...">
         <div className="year-semester">
@@ -342,97 +342,29 @@ class YearSemesterSetting extends Component {
               <span>学期</span>
             </div>
 
-            <Button
-              className={`btn create-newTerm ${
-                semesterInfo.TermStatus === 2 ? "" : "disabled bander"
-              }`}
-              // onClick={semesterInfo.TermStatus===2?() => this.createNewTerm():()=>this.nothing()}
-              disabled={semesterInfo.TermStatus === 2 ? false : true}
-              onClick={this.createNewTerm}
-            >
-              {" "}
-              启用新学期
-            </Button>
-            <i className="btn-shadow"></i>
-            <Modal
-              type="1"
-              title="启用新学年"
-              visible={this.state.visible_create}
-              onOk={this.handUpComfirm}
-              onCancel={this.modalCancel}
-              width={"600px"}
-              bodyStyle={{ height: "216px" }}
-            >
-              <div className="ModalNewtermContent">
-                <div className="new-term">
-                  新的学期:
-                  <span className="term-detail" style={{ paddingLeft: "10px" }}>
-                    {NextTerm ? (NextTerm.title ? NextTerm.title : "") : ""}
-                  </span>
-                  {/* <DropDown
-                    width={231}
-                    dropSelectd={{
-                      value: `${semesterInfo.Term}`,
-                      title: `${semesterInfo.SemesterName} ${semesterInfo.ChineseName}`,
-                    }}
-                    dropList={TermList}
-                    height={120}
-                    style={{ zIndex: 1100 }}
-                    onChange={this.dropChange}
-                  ></DropDown> */}
-                </div>
-                <div className="start-date">
-                  开始时间:
-                  <DatePicker
-                    allowClear={false}
-                    format="YYYY-MM-DD"
-                    placeholder="请选择日期"
-                    value={
-                      NextTermStartDate === undefined ||
-                      NextTermStartDate === ""
-                        ? null
-                        : moment(NextTermStartDate)
-                    }
-                    onChange={this.getPainDate}
-                    disabledDate={(e) =>
-                      this.disabledDate(e, semesterInfo.TermStartDate, "start")
-                    }
-                    showToday={false}
-                    suffixIcon={<i className="calender-logo"></i>}
-                    defaultPickerValue={moment(semesterInfo.defaultStartDate)}
-                  ></DatePicker>
-                </div>
-
-                <div className="end-date">
-                  结束时间:
-                  <DatePicker
-                    allowClear={false}
-                    onChange={this.getOffDate}
-                    placeholder="请选择日期"
-                    value={
-                      NextTermEndDate === undefined || NextTermEndDate === ""
-                        ? null
-                        : moment(NextTermEndDate)
-                    }
-                    format="YYYY-MM-DD"
-                    disabledDate={(e) =>
-                      this.disabledDate(e, semesterInfo.TermEndDate, "end")
-                    }
-                    showToday={false}
-                    suffixIcon={<i className="calender-logo"></i>}
-                    defaultPickerValue={moment(semesterInfo.defaultEndDate)}
-                  ></DatePicker>
-                </div>
-                <div className="tips-info">
+            {!IsMultiSchool ? (
+              <>
+                <Button
+                  className={`btn create-newTerm ${
+                    semesterInfo.TermStatus === 2 ? "" : "disabled bander"
+                  }`}
+                  // onClick={semesterInfo.TermStatus===2?() => this.createNewTerm():()=>this.nothing()}
+                  disabled={semesterInfo.TermStatus === 2 ? false : true}
+                  onClick={this.createNewTerm}
+                >
                   {" "}
-                  <i></i>启用新学期后,系统会对上一学期教务信息等进行归档处理
-                </div>
-              </div>
-            </Modal>
-            {semesterInfo.TermStatus === 2 ? (
-              ""
+                  启用新学期
+                </Button>
+                <i className="btn-shadow"></i>
+
+                {semesterInfo.TermStatus === 2 ? (
+                  ""
+                ) : (
+                  <p className="tips">学期结束后才能启用新学期</p>
+                )}
+              </>
             ) : (
-              <p className="tips">学期结束后才能启用新学期</p>
+              <p className="tips">如需要更改学期，请联系系统管理员</p>
             )}
           </div>
           <i className="btn-greenshadow"></i>
@@ -544,6 +476,80 @@ class YearSemesterSetting extends Component {
             <span>为避免影响系统的正常运行,请勿随意修改学年学期信息</span>
           </div>
         </div>
+        <Modal
+          type="1"
+          title="启用新学年"
+          visible={this.state.visible_create}
+          onOk={this.handUpComfirm}
+          onCancel={this.modalCancel}
+          width={"600px"}
+          bodyStyle={{ height: "216px" }}
+        >
+          <div className="ModalNewtermContent">
+            <div className="new-term">
+              新的学期:
+              <span className="term-detail" style={{ paddingLeft: "10px" }}>
+                {NextTerm ? (NextTerm.title ? NextTerm.title : "") : ""}
+              </span>
+              {/* <DropDown
+                    width={231}
+                    dropSelectd={{
+                      value: `${semesterInfo.Term}`,
+                      title: `${semesterInfo.SemesterName} ${semesterInfo.ChineseName}`,
+                    }}
+                    dropList={TermList}
+                    height={120}
+                    style={{ zIndex: 1100 }}
+                    onChange={this.dropChange}
+                  ></DropDown> */}
+            </div>
+            <div className="start-date">
+              开始时间:
+              <DatePicker
+                allowClear={false}
+                format="YYYY-MM-DD"
+                placeholder="请选择日期"
+                value={
+                  NextTermStartDate === undefined || NextTermStartDate === ""
+                    ? null
+                    : moment(NextTermStartDate)
+                }
+                onChange={this.getPainDate}
+                disabledDate={(e) =>
+                  this.disabledDate(e, semesterInfo.TermStartDate, "start")
+                }
+                showToday={false}
+                suffixIcon={<i className="calender-logo"></i>}
+                defaultPickerValue={moment(semesterInfo.defaultStartDate)}
+              ></DatePicker>
+            </div>
+
+            <div className="end-date">
+              结束时间:
+              <DatePicker
+                allowClear={false}
+                onChange={this.getOffDate}
+                placeholder="请选择日期"
+                value={
+                  NextTermEndDate === undefined || NextTermEndDate === ""
+                    ? null
+                    : moment(NextTermEndDate)
+                }
+                format="YYYY-MM-DD"
+                disabledDate={(e) =>
+                  this.disabledDate(e, semesterInfo.TermEndDate, "end")
+                }
+                showToday={false}
+                suffixIcon={<i className="calender-logo"></i>}
+                defaultPickerValue={moment(semesterInfo.defaultEndDate)}
+              ></DatePicker>
+            </div>
+            <div className="tips-info">
+              {" "}
+              <i></i>启用新学期后,系统会对上一学期教务信息等进行归档处理
+            </div>
+          </div>
+        </Modal>
       </Loading>
     );
   }

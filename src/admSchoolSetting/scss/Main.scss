@@ -1,0 +1,408 @@
+.Main {
+    // width: 1200px;
+    min-height: 680px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    position: relative;
+    margin: 0 auto;
+    padding: 24px 32px;
+    .Main-top {
+        position: relative;
+        width: 100%;
+        height: 30px;
+    }
+    .top-name {
+        font-size: 18px;
+        display: inline-block;
+        background: url(../images/icon-location.png) no-repeat left center / 14px 19px;
+        padding-left: 21px;
+        color: #000;
+        // font-weight: bold;
+        line-height: 30px;
+        color: #333333;
+        text-align: center;
+    }
+    .top-box {
+        height: 30px;
+        width: 100%;
+        margin-top: 10px;
+        position: relative;
+        .box-tips {
+            display: inline-block;
+            font-size: 14px;
+            text-align: center;
+            line-height: 28px;
+            padding-left: 6px;
+            color: #999999;
+        }
+        .box-dropmenu {
+            vertical-align: top;
+            z-index: 2;
+        }
+        .Status-data-box {
+            margin-left: 10px;
+            line-height: 30px;
+            display: inline-block;
+            height: 30px;
+            .Status-data-red {
+                color: red;
+                line-height: 30px;
+                display: inline-block;
+            }
+        }
+        .search {
+            float: right;
+        }
+    }
+    .top-left {
+        float: left;
+        margin-right: 20px;
+    }
+    .top-right {
+        float: right;
+    }
+    .self-box {
+        .check-box {
+            line-height: 28px;
+        }
+    }
+    .btn-box {
+        width: 108px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        background-image: linear-gradient(-90deg, #23a1fa 0%, #14b6f7 51%, #04caf4 100%), linear-gradient(#199aff, #199aff);
+        border-radius: 3px;
+        font-size: 14px;
+        color: #ffffff;
+        cursor: pointer;
+        .btn-title {
+            display: inline-block;
+            line-height: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #ffffff;
+            overflow: auto;
+        }
+        .btn-icon-add {
+            display: inline-block;
+            width: 12px;
+            height: 30px;
+            background: url(../images/icon-crop.png) no-repeat center;
+            background-size: 12px 13px;
+            margin-right: 5px;
+            overflow: auto;
+        }
+    }
+    .Main-hr {
+        width: 1136px;
+        border-top: dashed 1px #cccccc;
+        margin: 10px auto 4px;
+    }
+    .Main-hr-2 {
+        width: 1136px;
+        border-top: dashed 1px #cccccc;
+        margin: 4px auto 24px;
+    }
+    .ant-table-thead>tr>th {
+        padding: 0;
+    }
+    .table {
+        margin-top: 10px;
+        .ant-table-thead {
+            th {
+                padding: 0;
+            }
+        }
+        .ant-table-row {
+            td:nth-child(2),
+            td:nth-child(3) {
+                padding: 10px 0;
+            }
+            td {
+                padding: 10px 0;
+                line-height: 1;
+            }
+            td:nth-child(1) {
+                padding-left: 20px;
+            }
+        }
+        .key-content {
+            font-size: 14px;
+            line-height: 23px;
+            color: #999;
+            margin: 0 0 0 3px;
+        }
+        .SchoolImgUrl {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: url(../images/boom_school_logo.png)no-repeat center/28px;
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            -o-border-radius: 50%;
+        }
+        .name-key {
+            font-size: 14px;
+            line-height: 23px;
+            color: #999;
+            margin: 0 3px;
+        }
+        .name-img {
+            margin: 0 6px;
+            cursor: pointer;
+            border-radius: 3px;
+            border: 1px solid #999;
+            object-fit: cover;
+        }
+        .name-content {
+            max-width: 200px;
+        }
+        .SchoolName {
+            // text-decoration: underline;
+            color: #333;
+            height: 20px;
+            line-height: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-block;
+            text-align: left;
+            padding-left: 3px;
+            max-width: 135px;
+            overflow: hidden; //超出一行文字自动隐藏
+            text-overflow: ellipsis; //文字隐藏后添加省略号
+            white-space: nowrap; //强制不换行
+            vertical-align: top;
+            margin-right: 5px;
+        }
+        .addr {
+            font-size: 12px;
+            // line-height: 18px;
+            color: #999;
+            height: 20px;
+            line-height: 20px;
+            display: inline-block;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding-left: 3px;
+        }
+        .SchoolCode {
+            font-size: 14px;
+            color: #999;
+            height: 20px;
+            line-height: 20px;
+            display: inline-block;
+            width: 95px;
+            overflow: hidden; //超出一行文字自动隐藏
+            text-overflow: ellipsis; //文字隐藏后添加省略号
+            white-space: nowrap; //强制不换行
+        }
+        .AdminAccount {
+            font-size: 14px;
+            color: #333;
+            height: 20px;
+            line-height: 20px;
+            display: inline-block;
+            width: 130px;
+            overflow: hidden; //超出一行文字自动隐藏
+            text-overflow: ellipsis; //文字隐藏后添加省略号
+            white-space: nowrap; //强制不换行
+        }
+        .SchoolLink {
+            font-size: 14px;
+            color: #333;
+            height: 40px;
+            // line-height: 20px;
+            display: inline-block;
+            width: 95px;
+        }
+        .SchoolLinkman {
+            display: inline-block;
+            width: 95px;
+            height: 20px;
+            color: #333;
+            line-height: 20px;
+            overflow: hidden; //超出一行文字自动隐藏
+            text-overflow: ellipsis; //文字隐藏后添加省略号
+            white-space: nowrap; //强制不换行
+        }
+        .Runtime {
+            display: inline-block;
+            width: 120px;
+            height: 20px;
+            line-height: 20px;
+            overflow: hidden; //超出一行文字自动隐藏
+            text-overflow: ellipsis; //文字隐藏后添加省略号
+            white-space: nowrap; //强制不换行
+        }
+        .SchoolTel {
+            display: inline-block;
+            width: 95px;
+            height: 20px;
+            line-height: 20px;
+            overflow: hidden; //超出一行文字自动隐藏
+            text-overflow: ellipsis; //文字隐藏后添加省略号
+            white-space: nowrap; //强制不换行
+        }
+        .SchoolLevel {
+            font-size: 14px;
+            color: #333;
+        }
+        .SchoolState {
+            color: #fff;
+            display: inline-block;
+            padding: 0 6px;
+            height: 20px;
+            line-height: 20px;
+            border-radius: 3px;
+        }
+        .School-open {
+            background-color: #4fd0a0;
+        }
+        .School-close {
+            background-color: #ec7474;
+        }
+        .GradeName {
+            font-size: 14px;
+            color: #333;
+        }
+        .MyClass {
+            font-size: 14px;
+            color: #666;
+            .CollegeMajor {
+                line-height: 20px;
+                display: inline-block;
+                width: 220px;
+                overflow: hidden; //超出一行文字自动隐藏
+                text-overflow: ellipsis; //文字隐藏后添加省略号
+                white-space: nowrap; //强制不换行
+            }
+            .GradeClass {
+                line-height: 20px;
+                display: inline-block;
+                width: 220px;
+                overflow: hidden; //超出一行文字自动隐藏
+                text-overflow: ellipsis; //文字隐藏后添加省略号
+                white-space: nowrap; //强制不换行
+            }
+        }
+        .ant-checkbox-gray .ant-checkbox {
+            top: -3px;
+        }
+        .handle-content {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .handle-btn {
+            float: right;
+            height: 24px;
+            width: 66px;
+            line-height: 24px;
+            font-size: 14px;
+            // padding: 0;
+            text-align: left;
+            // margin-right: 3px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .switch-btn {
+            color: #0249a5;
+            padding-left: 18px;
+            background: url(../images/icon-switch.png)no-repeat left center/15px 15px;
+        }
+        .edit-btn {
+            color: #0249a5;
+            padding-left: 18px;
+            background: url(../images/icon-edit-2.png)no-repeat left center/15px 15px;
+        }
+        .delete-btn {
+            color: #9a1601;
+            padding-left: 18px;
+            background: url(../images/icon-delete-2.png)no-repeat left center/15px 15px;
+        }
+        .check-btn {
+            float: right;
+            height: 24px;
+            width: 100px;
+            line-height: 24px;
+            font-size: 14px;
+            padding: 0;
+            text-align: center;
+            margin-right: 2px;
+        }
+    }
+    .checkAll-box {
+        margin-top: 10px;
+        margin-left: 20px;
+        .checkAll-title {
+            // vertical-align: text-bottom;
+            height: 28px;
+            line-height: 28px;
+        }
+    }
+    .deleteAll {
+        color: #fff;
+        width: 56px;
+        line-height: 28px;
+        height: 28px;
+        padding: 0;
+        text-align: center;
+        margin-left: 8px;
+        border: none;
+        font-size: 14px;
+        span {
+            vertical-align: baseline;
+        }
+        // box-sizing: content-box;
+    }
+    .pagination-box {
+        margin-top: 10px;
+        float: right;
+    }
+    .Main-content {
+        width: 1136px;
+        height: auto;
+        // min-height: 492px;
+        margin: 0 auto;
+    }
+    .Main-event-box {
+        width: 1136px;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 20px;
+        margin: 10px auto;
+        .checkBox-All {
+            float: left;
+        }
+        .btn-delete-All {
+            float: left;
+            width: 92px;
+            height: 28px;
+            background-image: linear-gradient(-90deg, #23a1fa 0%, #14b6f7 51%, #04caf4 100%), linear-gradient(#0099ff, #0099ff);
+            line-height: 28px;
+            text-align: center;
+            font-size: 14px;
+            color: #ffffff;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .pagination {
+            float: right;
+        }
+    }
+}
+
+p {
+    margin: 0;
+}
+
+.frame-content-wrapper.barnerHide {
+    margin-top: 16px;
+}

@@ -1,0 +1,266 @@
+#SchoolModal {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .Left {
+        // float: left;
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+        width: 30%;
+        height: 100%;
+        background-color: #f5f5f5;
+        .ToolImgBox {
+            width: 128px;
+            height: 128px;
+            position: relative;
+            margin: 24px auto 12px;
+            // background: url(../images/database.png) no-repeat center / contain,
+        }
+        .imgBtn {
+            width: 128px;
+            height: 28px;
+            display: block;
+            background-color: #05c305;
+            position: relative;
+            margin: 0 auto 12px;
+            border-radius: 3px;
+            span {
+                font-size: 14px;
+                color: #fff;
+                // height: 28px;
+                line-height: 1;
+                display: inherit;
+                text-align: center;
+            }
+        }
+        .imgTips {
+            font-size: 12px;
+            line-height: 20px;
+            width: 144px;
+            color: #999999;
+            margin: 10px auto;
+        }
+    }
+    .Right {
+        width: 70%;
+        // overflow: auto;
+        float: right;
+        // display: inline-block;
+        height: 100%;
+        padding-top: 15px;
+        position: relative;
+        z-index: 1;
+        .row:nth-of-type(1) {
+            margin-top: 5px;
+        }
+        .row-subject {
+            .culonm-2 {
+                height: auto !important;
+                .ant-checkbox-wrapper+.ant-checkbox-wrapper {
+                    margin-left: 0;
+                }
+            }
+        }
+        .edit-tips {
+            // position: absolute;
+            // top: 50px;
+            left: 0px;
+            // width: 90%;
+            margin-left: 30px;
+            // height: 22px;
+            line-height: 22px;
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+            // padding-left: 26px;
+            font-weight: bold;
+            span {
+                // @include Vcenter();
+                display: inline-block;
+                width: 16px;
+                height: 22px;
+                vertical-align: bottom;
+                background: url("../images/light_but.png");
+                //  background: url('http://img.lancoo.cn/test/123');
+                margin-right: 8px;
+            }
+        }
+        .row {
+            position: relative;
+            width: 100%;
+            margin: 0;
+            //height: 40px;
+            .culonm-1 {
+                width: 18%;
+                float: left;
+                line-height: 40px;
+                text-align: right;
+                font-size: 14px;
+                color: #333;
+                .must-icon {
+                    color: red;
+                    font-size: 16px;
+                    text-align: right;
+                    margin-right: 5px;
+                }
+            }
+            .Subject {
+                line-height: 28px;
+            }
+            .ant-checkbox-group {
+                width: 100%;
+            }
+            .Scrollbars {
+                max-height: 107px;
+                min-height: 33px;
+                &>div:first-of-type {
+                    max-height: 107px;
+                    width: 104%;
+                    // min-height: 33px;
+                    position: relative !important;
+                }
+            }
+            .culonm-input {
+                top: 50%;
+                width: 80%;
+                transform: translateY(-50%);
+                -webkit-transform: translateY(-50%);
+                -moz-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);
+                -o-transform: translateY(-50%);
+            }
+            .culonm-2 {
+                float: left;
+                width: 82%;
+                height: 40px;
+                padding-left: 5px;
+                vertical-align: middle;
+                position: relative;
+                .UserID-text {
+                    line-height: 40px;
+                    text-align: left;
+                    font-size: 16px;
+                    color: #333;
+                }
+                .input {
+                    width: 300px;
+                    height: 28px;
+                    line-height: 1;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+                .ant-input {
+                    height: 28px;
+                    line-height: 1;
+                }
+                .UserName-input {
+                    width: 300px;
+                    top: 50%;
+                    height: 28px;
+                    transform: translateY(-50%);
+                }
+                .dropdown_container {
+                    position: relative;
+                    // width: 300px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+                .dropdown_wrapper {
+                    margin-left: 0;
+                }
+                .inputarea {
+                    width: 400px;
+                    top: 50%;
+                    height: 58px;
+                    padding: 0 6px;
+                    line-height: 28px;
+                    transform: translateY(-16px);
+                }
+                .checkedBoxGroupMap {
+                    max-width: 450px;
+                    min-height: 28px;
+                    min-width: 300px;
+                    .checkedBoxMap {
+                        width: 100px;
+                        height: 28px;
+                        line-height: 28px;
+                        overflow: hidden;
+                        .ant-checkbox+span {
+                            width: 78px;
+                            padding: 0;
+                        }
+                        .checkedBoxMap-title {
+                            overflow: hidden; //超出一行文字自动隐藏
+                            text-overflow: ellipsis; //文字隐藏后添加省略号
+                            white-space: nowrap; //强制不换行
+                            width: 78px;
+                            padding-right: 8px;
+                            padding-left: 8px;
+                            vertical-align: bottom;
+                        }
+                        // .ant-checkbox {
+                        //     vertical-align: sub;
+                        // }
+                    }
+                }
+                .goAdmClass {
+                    position: relative;
+                    line-height: 28px;
+                    padding-left: 20px;
+                    height: 28px;
+                    text-align: right;
+                    font-size: 14px;
+                    color: #333;
+                    top: 50%;
+                    -webkit-transform: translateY(-50%);
+                    -ms-transform: translateY(-50%);
+                    transform: translateY(-50%);
+                    span {
+                        color: #0099ff;
+                        text-decoration: underline;
+                        cursor: pointer;
+                    }
+                }
+                .area-check-wrapper {
+                    position: relative;
+                    z-index: 10;
+                    .dropdown_container:first-child {
+                        margin-left: 0;
+                    }
+                    .dropdown_container {
+                        margin-right: 8px;
+                    }
+                    .dropdown_wrapper {
+                        width: 110px !important;
+                        .dropdown_default_span {
+                            width: 110px !important;
+                        }
+                        .dropdown_select_ul {
+                            width: 110px !important;
+                        }
+                    }
+                }
+            }
+            .SchoolSessionType {
+                height: 120px;
+            }
+        }
+    }
+}
+
+.tips {
+    max-width: 999px !important;
+    .ant-tooltip-arrow:before {
+        background-color: #d41414 !important;
+    }
+    .ant-tooltip-inner {
+        background-color: #d41414 !important;
+        min-height: 0;
+        min-width: 0;
+        font-size: 12px;
+        line-height: 14px;
+        color: #fff !important;
+        white-space: nowrap;
+    }
+}
