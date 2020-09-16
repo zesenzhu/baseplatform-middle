@@ -44,7 +44,7 @@ function ArchivesLogModal(props) {
 
                         <i className={"icon-location"}></i>
 
-                        <span className="top-text">{userArchives.ShortName}的档案变更记录</span>
+                        <span className="top-text">{userArchives.UserName}的档案变更记录</span>
 
                 </div>
 

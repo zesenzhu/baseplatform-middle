@@ -44,8 +44,6 @@ function Index(props){
 
                 if (UserClassType==='1'){
 
-                    console.log(getQueryVariable('iFrame'));
-
                     let list = getQueryVariable('iFrame')?
                         [
                         {link:"/teacher/mine",name:"我的课表",logo:"mine"},

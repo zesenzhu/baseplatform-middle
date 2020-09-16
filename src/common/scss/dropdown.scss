@@ -4,10 +4,12 @@
   display: inline-block;
   vertical-align: middle;
   color: #333333;
+
   .dropdown_title_span{
     float: left;
     line-height: 28px;
   }//dropdown的title
+
   .dropdown_wrapper{
     position: relative;
     display: inline-block;
@@ -242,12 +244,11 @@
 
   }
 
-
   .dropdown_select_search{
 
     position: relative;
 
-    .dropdown_search_close{
+    .drop_search_btn,.dropdown_search_close{
 
       position: absolute;
 
@@ -263,26 +264,52 @@
 
       cursor: pointer;
 
-      background:url("#{$image_url}/search/search-close-icon.png") no-repeat center;
-
       &:hover{
 
-        background-image:url("#{$image_url}/search/search-close-icon.png");
-
-      }
-
-      &.hide{
-
-        display: none;
+        opacity: 0.8;
 
       }
 
     }
 
+    .dropdown_search_close{
+
+      background:url("#{$image_url}/search/search-close-icon.png") no-repeat center;
+
+    }
 
     .ant-input{
 
       margin: 0;
+
+      height: 28px;
+
+      width: 100%;
+
+    }
+
+    .drop_search_btn{
+
+     border: 1px solid #95afd4;
+
+     border-radius: 50%;
+
+     right: 6px;
+      
+      &:after{
+        position: absolute;
+        width: 2px;
+        height: 4px;
+        content: '';
+        right: -2px;
+        bottom: -2px;
+        background-color: #95afd4;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+      }
 
     }
 

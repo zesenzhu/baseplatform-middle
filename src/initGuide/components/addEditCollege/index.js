@@ -366,7 +366,7 @@ function AddEditCollege(props,ref) {
 
     useImperativeHandle(ref,()=>({
 
-        modalInit
+        modalInit:modalInit
 
     }));
 
@@ -390,11 +390,13 @@ function AddEditCollege(props,ref) {
 
             onCancel={closeModal}
 
+            ref={ref}
+
         >
 
             <Loading spinning={loading} tip={"加载中,请稍候..."}>
 
-                <table ref={ref}>
+                <table>
 
                     <tbody>
 
@@ -404,11 +406,21 @@ function AddEditCollege(props,ref) {
 
                         <td className={"col2"}>
 
-                            <Tips visible={code.tip} title={code.title}>
+                            {
 
-                                <Input onBlur={codeBlur} placeholder={"请输入院系代码"} value={code.value} onChange={codeChange}/>
+                                isEdit?
 
-                            </Tips>
+                                    <span className={"college-code"}>{code.value}</span>
+
+                                    :
+
+                                    <Tips visible={code.tip} title={code.title}>
+
+                                        <Input onBlur={codeBlur} placeholder={"请输入院系代码"} value={code.value} onChange={codeChange}/>
+
+                                    </Tips>
+
+                            }
 
                         </td>
 

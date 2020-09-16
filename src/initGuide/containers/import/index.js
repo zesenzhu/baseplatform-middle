@@ -149,6 +149,8 @@ function Import(props) {
 
             setLoading(false);
 
+            dispatch(appLoadingHide());
+
         });
 
     },[]);
@@ -171,7 +173,7 @@ function Import(props) {
 
                     <li className="item-wrapper stu">
 
-                        <a target={"_blank"} href={`/html/admArchives/index.html?lg_tk=${lg_tk}#/ImportFile/Student`} className={"icon"}></a>
+                        <a rel={'noopener'} target={"_blank"} href={`/html/admArchives/index.html?lg_tk=${lg_tk}#/ImportFile/Student`} className={"icon"}></a>
 
                         <div className={"title"}>导入学生</div>
 
@@ -179,7 +181,7 @@ function Import(props) {
 
                     <li className="item-wrapper teacher">
 
-                        <a target={"_blank"} href={`/html/admArchives/index.html?lg_tk=${lg_tk}#/ImportFile/Teacher`} className={"icon"}></a>
+                        <a rel={'noopener'} target={"_blank"} href={`/html/admArchives/index.html?lg_tk=${lg_tk}#/ImportFile/Teacher`} className={"icon"}></a>
 
                         <div className={"title"}>导入教师</div>
 
@@ -187,7 +189,7 @@ function Import(props) {
 
                     <li className="item-wrapper course-class">
 
-                        <a target={"_blank"} href={`/html/CoureClass/index.html?lg_tk=${lg_tk}#/ImportFile`} className={"icon"}></a>
+                        <a rel={'noopener'} target={"_blank"} href={`/html/CoureClass/index.html?lg_tk=${lg_tk}#/ImportFile`} className={"icon"}></a>
 
                         <div className={"title"}>导入教学班</div>
 
@@ -195,7 +197,7 @@ function Import(props) {
 
                     <li className="item-wrapper schedule">
 
-                        <a target={"_blank"} href={`/html/schedule/index.html?lg_tk=${lg_tk}#/Import`} className={"icon"}></a>
+                        <a rel={'noopener'} target={"_blank"} href={`/html/schedule/index.html?lg_tk=${lg_tk}#/Import`} className={"icon"}></a>
 
                         <div className={"title"} >导入课程安排</div>
 

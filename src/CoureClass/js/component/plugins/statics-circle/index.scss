@@ -44,7 +44,7 @@
 
         &:first-child{
 
-          &:after{
+          /*&:after{
 
             position: absolute;
 
@@ -60,7 +60,7 @@
 
             background: url("../../../../images/cuple-shadow.png") no-repeat center;
 
-          }
+          }*/
 
         }
 
@@ -81,5 +81,54 @@
    }
 
  }
+
+
+  .circle-item{
+
+    .circle-bg{
+
+      width: 122px;
+
+      height: 140px;
+
+      background-repeat: no-repeat;
+
+      background-position: top center;
+
+      color: #ffffff;
+
+      line-height: 118px;
+
+      text-align: center;
+
+      font-size: 36px;
+
+      &.pink{
+
+        background-image: url("../../../../images/pink.png");
+
+      }
+
+      &.blue{
+
+        background-image: url("../../../../images/blue.png");
+
+      }
+
+      &.orange{
+
+        background-image: url("../../../../images/orange.png");
+
+      }
+
+      &.green{
+
+        background-image: url("../../../../images/green.png");
+
+      }
+
+    }
+
+  }
 
 }

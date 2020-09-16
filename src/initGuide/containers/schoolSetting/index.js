@@ -417,6 +417,8 @@ function SchoolSetting(props) {
 
                             setLoading(false);
 
+                            dispatch(appLoadingHide());
+
                         }
 
                         dispatch(appLoadingHide());
@@ -430,6 +432,8 @@ function SchoolSetting(props) {
                 logoInit();
 
                 setLoading(false);
+
+                setSchoolArea(d=>({...d,ready:true}));
 
                 dispatch(appLoadingHide());
 
@@ -665,9 +669,9 @@ function SchoolSetting(props) {
 
                     setPeriod(d=>{
 
-                        periodRef.current =  {...d,primary:{...d.primary,disabled:false,checked:d.primary.originChecked}};
+                        periodRef.current =  {...d,primary:{...d.primary,disabled:false,checked:d.primary.originChecked?d.primary.originChecked:'6'}};
 
-                        return {...d,primary:{...d.primary,disabled:false,checked:d.primary.originChecked}};
+                        return {...d,primary:{...d.primary,disabled:false,checked:d.primary.originChecked?d.primary.originChecked:'6'}};
 
                     })
 
@@ -693,9 +697,9 @@ function SchoolSetting(props) {
 
                     setPeriod(d=>{
 
-                        periodRef.current =  {...d,middle:{...d.middle,disabled:false,checked:d.middle.originChecked}};
+                        periodRef.current =  {...d,middle:{...d.middle,disabled:false,checked:d.middle.originChecked?d.middle.originChecked:'3'}};
 
-                        return {...d,middle:{...d.middle,disabled:false,checked:d.middle.originChecked}};
+                        return {...d,middle:{...d.middle,disabled:false,checked:d.middle.originChecked?d.middle.originChecked:'3'}};
 
                     })
 
@@ -721,16 +725,15 @@ function SchoolSetting(props) {
 
                     setPeriod(d=>{
 
-                        periodRef.current =  {...d,heigh:{...d.heigh,disabled:false,checked:d.heigh.originChecked}};
+                        periodRef.current =  {...d,heigh:{...d.heigh,disabled:false,checked:'3'}};
 
-                        return {...d,heigh:{...d.heigh,disabled:false,checked:d.heigh.originChecked}};
+                        return {...d,heigh:{...d.heigh,disabled:false,checked:'3'}};
 
                     })
 
                 }
 
                 break;
-
 
         }
 
@@ -814,7 +817,7 @@ function SchoolSetting(props) {
 
         const logoUrl = SchoolLogoUrl?SchoolLogoUrl:`${removeSlashUrl(ResHttpRootUrl)}/SysSetting/Attach/default.png`;
 
-        const badgeUrl = SchoolLogoUrl_Long?SchoolLogoUrl_Long:`${removeSlashUrl(ResHttpRootUrl)}/SysSetting/Attach/custom_280_40.png?v=${new Date().getTime()}`;
+        const badgeUrl = SchoolLogoUrl_Long?SchoolLogoUrl_Long:`${removeSlashUrl(ResHttpRootUrl)}/SysSetting/Attach/default_280_40.png`;
 
         const actionUrl = `${removeSlashUrl(ResHttpRootUrl)}/SubjectRes_UploadHandler.ashx?method=doUpload_WholeFile&userid=${UserID}`;
 
@@ -941,9 +944,9 @@ function SchoolSetting(props) {
 
                     setSchoolLogo(d=>{
 
-                        schoolLogoRef.current = {...d,badgeUrl:`${ResHttpRootUrl+data}?v=${new Date().getTime()}`};
+                        schoolLogoRef.current = {...d,badgeUrl:`${ResHttpRootUrl+data}`};
 
-                        return {...d,badgeUrl:`${ResHttpRootUrl+data}?v=${new Date().getTime()}`}
+                        return {...d,badgeUrl:`${ResHttpRootUrl+data}`}
 
                     });
 
@@ -1059,6 +1062,10 @@ function SchoolSetting(props) {
                    return {...d,tip:true};
 
                 });
+
+            }else if(!periodRef.current.primary.disabled&&periodRef.current.middle.disabled&&!periodRef.current.heigh.disabled){
+
+                dispatch(btnWarnAlertShow({title:'学段必须是连续的'}));
 
             }else{
 
@@ -1206,7 +1213,7 @@ function SchoolSetting(props) {
 
                 }else{
 
-                    AddSchoolInfo({UserID:loginUserRef.current.UserID,SchoolID:SchoolCode,
+                    AddSchoolInfo({UserID:loginUserRef.current.UserID,
 
                         dispatch,SchoolName,SchoolCode,SchoolLevel,SchoolImgUrl_Long,
 
@@ -1278,7 +1285,7 @@ function SchoolSetting(props) {
 
                 }else{
 
-                    AddSchoolInfo({UserID:loginUserRef.current.UserID,SchoolID:SchoolCode,
+                    AddSchoolInfo({UserID:loginUserRef.current.UserID,
 
                         dispatch,SchoolName,SchoolCode,SchoolLevel,SchoolImgUrl_Long,
 
@@ -1401,7 +1408,7 @@ function SchoolSetting(props) {
 
                             <Tips visible={schoolName.tip} title={schoolName.title}>
 
-                                <Input onBlur={schoolNameBlur} className={"school-name"} onChange={schoolNameChange} value={schoolName.value}/>
+                                <Input maxLength={20} onBlur={schoolNameBlur} className={"school-name"} onChange={schoolNameChange} value={schoolName.value}/>
 
                             </Tips>
 
@@ -1425,7 +1432,7 @@ function SchoolSetting(props) {
 
                                 <Tips visible={schoolCode.tip} title={schoolCode.title}>
 
-                                    <Input onBlur={schoolCodeBlur} className={"school-code"} onChange={schoolCodeChange} value={schoolCode.value}/>
+                                    <Input maxLength={10} onBlur={schoolCodeBlur} className={"school-code"} onChange={schoolCodeChange} value={schoolCode.value}/>
 
                                 </Tips>
 

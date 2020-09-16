@@ -9,6 +9,8 @@ import leftMenu from './leftMenu';
 import LoginUser from './LoginUser';
 import editCourseClassModal from './editCourseClassModal';
 
+import teacherManagePower from './teacherManagePower';
+
 
 
 export let initialState = {};
@@ -22,6 +24,7 @@ let rootReducers = combineReducers({
     breadCrumb,
     editCourseClassModal,
     DataState,
-    UIState
+    UIState,
+    teacherManagePower
 });
 export default rootReducers;

@@ -135,6 +135,8 @@ class App extends Component{
 
             }else if (parseInt(UserType)===1) {
 
+                console.log(123);
+
                 let GetAdjustPower =  QueryOtherPower({UserType,SchoolID:UserInfo.SchoolID,Power:'Teacher_Schedule_U'});
 
                 let GetImportPower = QueryOtherPower({UserType,SchoolID:UserInfo.SchoolID,Power:'Teacher_Schedule_C'});
@@ -533,8 +535,6 @@ class App extends Component{
     ReplaceSearchClick(SearchValue){
 
         const { dispatch } = this.props;
-
-        console.log(SearchValue);
 
         dispatch(SDActions.ReplaceSearchClick(SearchValue));
 

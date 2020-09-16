@@ -134,8 +134,6 @@ function App(props) {
 
                   }else{
 
-                      history.push('/schoolSetting');
-
                       dispatch(loginUserUpdate(UserInfo));
 
                   }

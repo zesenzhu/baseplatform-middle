@@ -14,7 +14,7 @@ import {guiderStepChange} from "../../store/guideStep";
 
 import {appLoadingHide} from "../../store/appLoading";
 
-import {SetTermInfo} from '../../actions/apiActions';
+import {SetTermInfo,GetCurrentTermInfo} from '../../actions/apiActions';
 
 import './index.scss'
 
@@ -64,6 +64,9 @@ function YearAndTerm(props) {
     //学期可选范围
     const [dateRange,setDateRange] = useState([]);
 
+    //是否是多学校
+
+    const [IsMultiSchool,setIsMultiSchool] = useState(false);
 
 
 
@@ -111,125 +114,189 @@ function YearAndTerm(props) {
 
         if (SchoolID){
 
-            const nowDate = moment();
+            GetCurrentTermInfo({SchoolID,dispatch}).then(data=>{
 
-            const nowMonth = nowDate.month();
+                if (data){
 
-            const nowYear = parseInt(nowDate.year());
+                    if (data.Term){
 
-            let title = '',value = '',dropList=[],startTime = '',endTime = '',range = [];
+                           const value = data.Term;
 
-            if (nowMonth>6){
+                           const replaceYear = data.Term.replace(/-/,'～');
 
-                value = `${nowYear}-${nowYear+1}01`;
+                           const title = `${replaceYear.slice(0,-2)}学年第${replaceYear.slice(-2)==='01'?'1':'2'}学期`;
 
-                title = `${nowYear}～${nowYear+1}学年第1学期`;
+                           let range = [];
 
-                const preValue = `${nowYear}-${nowYear}02`;
+                           const startDate = moment(new Date(data.TermStartDate.split(' ')[0].replace(/\//g,'-'))).format('YYYY-MM-DD');
 
-                const preTitle = `${nowYear}～${nowYear}学年第2学期`;
+                           const endDate = moment(new Date(data.TermEndDate.split(' ')[0].replace(/\//g,'-'))).format('YYYY-MM-DD');
 
-                const nextValue = `${nowYear+1}-${nowYear+1}02`;
+                           if (replaceYear.slice(-2)==='01'){
 
-                const nextTitle = `${nowYear+1}～${nowYear+1}学年第2学期`;
+                               const startRange = `${replaceYear.slice(0,-2).split('～')[0]}-07-01`;
 
-                dropList = [{value:preValue,title:preTitle},{value,title},{value:nextValue,title:nextTitle}];
+                               const endRange = `${replaceYear.slice(0,-2).split('～')[1]}-03-01`;
 
-                range = [
+                               range = [{ID:data.Term,startDate,endDate,startRange,endRange}];
 
-                    {ID:preValue,startDate:`${nowYear}-02-01`,endDate:`${nowYear}-07-01`,startRange:`${nowYear}-01-01`,endRange:`${nowYear}-09-01`},
+                           }else{
 
-                    {ID:value,startDate:`${nowYear}-09-01`,endDate:`${nowYear+1}-02-01`,startRange:`${nowYear}-07-01`,endRange:`${nowYear+1}-03-01`},
+                               const startRange = `${replaceYear.slice(0,-2).split('～')[0]}-01-01`;
 
-                    {ID:nextValue,startDate:`${nowYear+1}-02-01`,endDate:`${nowYear+1}-07-01`,startRange:`${nowYear+1}-01-01`,endRange:`${nowYear+1}-09-01`}
+                               const endRange = `${replaceYear.slice(0,-2).split('～')[1]}-09-01`;
 
-                ];
+                               range = [{ID:data.Term,startDate,endDate,startRange,endRange}];
 
-                startTime = `${nowYear}-09-01`;
+                           }
 
-                endTime = `${nowYear+1}-02-01`;
+                           setTerm(d=>{
 
-            }else{
+                              termRef.current = {...d,dropSelectd:{value,title}};
 
-                title = `${nowYear}～${nowYear}学年第2学期`;
+                              return {...d,dropSelectd:{value,title}};
 
-                value = `${nowYear}-${nowYear}02`;
+                           });
 
-                const preValue = `${nowYear-1}-${nowYear}01`;
+                           setDateRange(d=>{
 
-                const preTitle = `${nowYear-1}～${nowYear}学年第1学期`;
+                               dateRangeRef.current = range;
 
-                const nextValue = `${nowYear}-${nowYear+1}01`;
+                               return range;
 
-                const nextTitle = `${nowYear}～${nowYear+1}学年第1学期`;
+                           });
 
-                dropList = [{value:preValue,title:preTitle},{value,title},{value:nextValue,title:nextTitle}];
+                           setStartDate(d=>{
 
-                range = [
+                                startDateRef.current = {...d,date:startDate};
 
-                    {ID:preValue,startDate:`${nowYear-1}-09-01`,endDate:`${nowYear}-02-01`,startRange:`${nowYear-1}-07-01`,endRange:`${nowYear}-03-01`},
+                                return {...d,date:startDate};
 
-                    {ID:value,startDate:`${nowYear}-02-01`,endDate:`${nowYear}-07-01`,startRange:`${nowYear}-01-01`,endRange:`${nowYear}-09-01`},
+                            });
 
-                    {ID:nextValue,startDate:`${nowYear}-09-01`,endDate:`${nowYear+1}-02-01`,startRange:`${nowYear}-07-01`,endRange:`${nowYear+1}-03-01`}
+                           setEndDate(d=>{
 
-                ]
+                                endDateRef.current = {...d,date:endDate};
 
-                startTime = `${nowYear}-02-01`;
+                                return {...d,date:endDate};
 
-                endTime = `${nowYear}-07-01`;
+                            });
 
-            }
+                           setIsMultiSchool(true);
 
-            setTerm(d=>{
+                           setLoading(false);
 
-                termRef.current = {...d,dropSelectd:{value,title},dropList};
+                    }else{  //不是多学校的时候靠前端的来判断
 
-                return {...d,dropSelectd:{value,title},dropList};
+                        const nowDate = moment();
 
-            });
+                        const nowMonth = nowDate.month();
 
-            setDateRange(d=>{
+                        const nowYear = parseInt(nowDate.year());
 
-                dateRangeRef.current = range;
+                        let title = '',value = '',dropList=[],startTime = '',endTime = '',range = [];
 
-                return range
+                        startTime = moment(new Date(data.TermStartDate.split(' ')[0].replace(/\//g,'-'))).format('YYYY-MM-DD');
 
-            });
+                        endTime = moment(new Date(data.TermEndDate.split(' ')[0].replace(/\//g,'-'))).format('YYYY-MM-DD');
 
-            setStartDate(d=>{
+                        if (nowMonth>6){
 
-                startDateRef.current = {...d,date:startTime};
+                            value = `${nowYear}-${nowYear+1}01`;
 
-                return {...d,date:startTime};
+                            title = `${nowYear}～${nowYear+1}学年第1学期`;
 
-            });
+                            const preValue = `${nowYear-1}-${nowYear}02`;
 
-            setEndDate(d=>{
+                            const preTitle = `${nowYear-1}～${nowYear}学年第2学期`;
 
-                endDateRef.current = {...d,date:endTime};
+                            const nextValue = `${nowYear}-${nowYear+1}02`;
 
-                return {...d,date:endTime};
+                            const nextTitle = `${nowYear}～${nowYear+1}学年第2学期`;
 
-            });
+                            dropList = [{value:preValue,title:preTitle},{value,title},{value:nextValue,title:nextTitle}];
 
-            if (schoolType==='middle'){
+                            range = [
 
-                dispatch(guiderStepChange(2));
+                                {ID:preValue,startDate:`${nowYear}-02-01`,endDate:`${nowYear}-07-01`,startRange:`${nowYear}-01-01`,endRange:`${nowYear}-09-01`},
+
+                                {ID:value,startDate:`${nowYear}-09-01`,endDate:`${nowYear+1}-02-01`,startRange:`${nowYear}-07-01`,endRange:`${nowYear+1}-03-01`},
+
+                                {ID:nextValue,startDate:`${nowYear+1}-02-01`,endDate:`${nowYear+1}-07-01`,startRange:`${nowYear+1}-01-01`,endRange:`${nowYear+1}-09-01`}
+
+                            ];
+
+                        }else{
+
+                            title = `${nowYear-1}～${nowYear}学年第2学期`;
+
+                            value = `${nowYear-1}-${nowYear}02`;
+
+                            const preValue = `${nowYear-1}-${nowYear}01`;
+
+                            const preTitle = `${nowYear-1}～${nowYear}学年第1学期`;
+
+                            const nextValue = `${nowYear}-${nowYear+1}01`;
+
+                            const nextTitle = `${nowYear}～${nowYear+1}学年第1学期`;
+
+                            dropList = [{value:preValue,title:preTitle},{value,title},{value:nextValue,title:nextTitle}];
+
+                            range = [
+
+                                {ID:preValue,startDate:`${nowYear-1}-09-01`,endDate:`${nowYear}-02-01`,startRange:`${nowYear-1}-07-01`,endRange:`${nowYear}-03-01`},
+
+                                {ID:value,startDate:`${nowYear}-02-01`,endDate:`${nowYear}-07-01`,startRange:`${nowYear}-01-01`,endRange:`${nowYear}-09-01`},
+
+                                {ID:nextValue,startDate:`${nowYear}-09-01`,endDate:`${nowYear+1}-02-01`,startRange:`${nowYear}-07-01`,endRange:`${nowYear+1}-03-01`}
+
+                            ];
+
+                        }
+
+                        setTerm(d=>{
+
+                            termRef.current = {...d,dropSelectd:{value,title},dropList};
+
+                            return {...d,dropSelectd:{value,title},dropList};
+
+                        });
+
+                        setDateRange(d=>{
+
+                            dateRangeRef.current = range;
+
+                            return range
+
+                        });
+
+                        setStartDate(d=>{
+
+                            startDateRef.current = {...d,date:startTime};
+
+                            return {...d,date:startTime};
+
+                        });
+
+                        setEndDate(d=>{
+
+                            endDateRef.current = {...d,date:endTime};
+
+                            return {...d,date:endTime};
+
+                        });
+
+                    }
+
+                }
+
+                dispatch(guiderStepChange(schoolType==='middle'?2:3));
 
                 setLoading(false);
 
                 dispatch(appLoadingHide());
 
-            }else{
-
-                dispatch(guiderStepChange(3));
-
-                setLoading(false);
-
-                dispatch(appLoadingHide());
-
-            }
+            });
 
         }else{
 
@@ -244,7 +311,6 @@ function YearAndTerm(props) {
     const termChange = useCallback((data)=>{
 
         const { value } = data;
-
 
         setTerm(d=>{
 
@@ -392,21 +458,10 @@ function YearAndTerm(props) {
 
                 if (data===0){
 
-                    /*const url = getQueryVariable('lg_preurl');
-
-                    const token = sessionStorage.getItem("token");
-
-                    const {WebIndexUrl} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
-
-                    window.location.href = url?url+'?lg_tk='+token:WebIndexUrl+'?lg_tk='+token;
-*/
 
                     history.push('/scheduleSetting');
 
-
                 }
-
-                history.push('/scheduleSetting');
 
             })
 
@@ -448,7 +503,17 @@ function YearAndTerm(props) {
 
                         <td>
 
-                            <DropDown width={250} onChange={termChange} dropSelectd={term.dropSelectd} dropList={term.dropList}></DropDown>
+                            {
+
+                                IsMultiSchool?
+
+                                <span className={"term-name"}>{term.dropSelectd.title}</span>
+
+                                :
+
+                                <DropDown width={250} onChange={termChange} dropSelectd={term.dropSelectd} dropList={term.dropList}></DropDown>
+
+                            }
 
                         </td>
 

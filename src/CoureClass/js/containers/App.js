@@ -54,7 +54,7 @@ import { postData } from "../../../common/js/fetch";
 
 import actions from "../actions";
 
-import { QueryPower } from "../../../common/js/power";
+import { QueryPower,QueryOtherPower } from "../../../common/js/power";
 
 import {bannerTabHide,bannerBtnShow,bannerLogHide,bannerShow,
 
@@ -67,6 +67,8 @@ import {appLoadingHide} from "../reducers/AppLoading";
 import {getQueryVariable} from "../../../common/js/disconnect";
 
 import editCoureClassModal from "../reducers/editCourseClassModal";
+
+import {teacherPowerChange} from "../reducers/teacherManagePower";
 
 
 const COURECLASS_MODULEID = "000-2-0-17"; //教学班管理
@@ -283,14 +285,213 @@ class App extends Component {
 
     if (parseInt(UserMsg.UserType)!==2&&parseInt(UserMsg.UserType)!==7&&parseInt(UserMsg.UserType)!==10){
 
-        let havePower = QueryPower({
-            UserInfo: UserMsg,
-            ModuleID: COURECLASS_MODULEID
-        });
+        if (parseInt(UserMsg.UserType)===0){
 
-        havePower.then(res => {
+            let havePower = QueryPower({
+                UserInfo: UserMsg,
+                ModuleID: COURECLASS_MODULEID
+            });
 
-            if (res) {
+            havePower.then(res => {
+
+                if (res) {
+                    let SubjectID = DataState.GetCoureClassAllMsg.Subject;
+                    let GradeID = DataState.GetCoureClassAllMsg.Grade;
+
+                    let pathArr = route.split("/");
+                    let handleRoute = pathArr[1];
+                    let routeID = pathArr[2];
+                    let subjectID = pathArr[3];
+                    let classID = pathArr[4];
+
+                    dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
+                    if (route === "/") {
+                        if (UserMsg.UserType === "1") {
+                            //history.push("/Teacher");
+                            return;
+                        } else if (UserMsg.UserType === "0" || UserMsg.UserType === "7") {
+                            history.push("/All");
+                        } else {
+                            console.log("用户没有权限访问");
+                            return;
+                        }
+
+
+                    } else if (
+                        (UserMsg.UserType === "0" || UserMsg.UserType === "7") &&
+                        handleRoute === "All"
+                    ) {
+                        dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
+                        if (!DataState.GetCoureClassAllMsg.MenuParams) return;
+                        dispatch(actions.UpDataState.setCoureClassAllMsg("all"));
+                        dispatch(
+                            actions.UpDataState.getCoureClassAllMsg(
+                                "/GetCouseclassSumarry?schoolID=" + UserMsg.SchoolID,
+                                this.MenuClcik
+                            )
+                        );
+
+                    } else if (
+                        (UserMsg.UserType === "0" || UserMsg.UserType === "7") &&
+                        handleRoute === "Subject" &&
+                        subjectID === "all"
+                    ) {
+                        dispatch({ type: actions.UpUIState.RIGHT_LOADING_OPEN });
+
+                        dispatch(
+                            actions.UpDataState.getSubjectAllMsg(
+                                "/GetSubjectCouseclassSumarry?subjectID=" + routeID,
+                                routeID
+                            )
+                        );
+                        if (!DataState.GetCoureClassAllMsg.MenuParams) return;
+                        dispatch(actions.UpDataState.setCoureClassAllMsg(routeID));
+
+                    } else if (
+                        (UserMsg.UserType === "0" || UserMsg.UserType === "7") &&
+                        handleRoute === "Subject" &&
+                        subjectID === "Class"
+                    ) {
+
+
+                        dispatch(
+                            actions.UpDataState.getSubjectAllMsg(
+                                "/GetSubjectCouseclassSumarry?subjectID=" + routeID,
+                                routeID
+                            )
+                        );
+                        dispatch(
+                            actions.UpDataState.getClassAllMsg(
+                                "/GetGradeCouseclassDetailForPage?schoolID=" +
+                                UserMsg.SchoolID +
+                                "&key=&pageIndex=1&pageSize="+DataState.SetPagiSizeMsg.ClassPagisize+"&subjectID=" +
+                                routeID +
+                                "&gradeID=" +
+                                classID,
+                                routeID,
+                                classID
+                            )
+                        );
+
+                        if (!DataState.GetCoureClassAllMsg.MenuParams) return;
+                        dispatch(actions.UpDataState.setCoureClassAllMsg(classID, routeID));
+                    } else if (
+                        (UserMsg.UserType === "0" || UserMsg.UserType === "7") &&
+                        handleRoute === "Search"
+                    ) {
+
+
+                        dispatch(
+                            actions.UpDataState.getClassAllMsg(
+                                "/GetGradeCouseclassDetailForPage?schoolID=" +
+                                UserMsg.SchoolID +
+                                "&key=" +
+                                routeID +
+                                "&pageIndex=1&pageSize="+DataState.SetPagiSizeMsg.SearchPagisize+"&subjectID=" +
+
+                                "&gradeID="
+
+                            )
+                        );
+                    } else if (
+                        (UserMsg.UserType === "0" || UserMsg.UserType === "7") &&
+                        handleRoute === "Log"
+                    ) {
+
+
+                        if (routeID === "Record") {
+                            dispatch(
+                                actions.UpDataState.getCourseClassRecordMsg(
+                                    "/GetGourseClassLogForPage?userID=" +
+                                    UserMsg.UserID +
+                                    "&userType=" +
+                                    UserMsg.UserType +
+                                    "&schoolID=" +
+                                    UserMsg.SchoolID +
+                                    "&startDate=" +
+
+                                    "&endDate=" +
+
+                                    "&operateType=0"
+                                )
+                            );
+
+                            dispatch(appLoadingHide());
+
+                        } else {
+                            dispatch(
+                                actions.UpDataState.getCourseClassDynamicMsg(
+                                    "/GetGourseClassLogNew?userID=" +
+                                    UserMsg.UserID +
+                                    "&userType=" +
+                                    UserMsg.UserType +
+                                    "&schoolID=" +
+                                    UserMsg.SchoolID +
+                                    "&startDate=" +
+                                    "&endDate=" +
+                                    "&operateType=0"
+                                )
+                            );
+
+                            dispatch(appLoadingHide());
+                        }
+                    } else if (UserMsg.UserType === "1" && handleRoute === "Teacher") {
+
+                        dispatch(
+                            actions.UpDataState.getTeacherCourseClassMsg(
+                                "/GetCourseClassByUserID?schoolID=" +
+                                UserMsg.SchoolID +
+                                "&teacherID=" +
+                                UserMsg.UserID
+                            )
+                        );
+                        dispatch(
+                            actions.UpDataState.getSubjectAndGradeInfoForTeacher(
+                                "/GetSubjectAndGradeInfoForTeacher?schoolID=" +
+                                UserMsg.SchoolID +
+                                "&userID=" +
+                                UserMsg.UserID
+                            )
+                        );
+
+                        dispatch(appLoadingHide());
+
+                    } else if (handleRoute === "ImportFile") {
+
+                    } else {
+                        if (UserMsg.UserType === "1") {
+                            //history.push("/Teacher");
+                        } else if (UserMsg.UserType === "0" || UserMsg.UserType === "7") {
+                            /*history.push("/All");*/
+                        } else {
+                            console.log("用户没有权限访问");
+                            return;
+                        }
+                    }
+                }
+            });
+
+        }else if (parseInt(UserMsg.UserType)===1) {
+
+            QueryOtherPower({
+                SchoolID:UserMsg.SchoolID,
+                ModuleID: COURECLASS_MODULEID,
+                Power:'Teacher_CourseClass_CURD',
+                UserType:UserMsg.UserType
+            }).then(data=>{
+
+                if (data){
+
+                    dispatch(bannerShow());
+
+                }else{
+
+                    dispatch(bannerHide());
+
+                }
+
+                dispatch(teacherPowerChange(data));
+
                 let SubjectID = DataState.GetCoureClassAllMsg.Subject;
                 let GradeID = DataState.GetCoureClassAllMsg.Grade;
 
@@ -301,137 +502,8 @@ class App extends Component {
                 let classID = pathArr[4];
 
                 dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
-                if (route === "/") {
-                    if (UserMsg.UserType === "1") {
-                        //history.push("/Teacher");
-                        return;
-                    } else if (UserMsg.UserType === "0" || UserMsg.UserType === "7") {
-                        history.push("/All");
-                    } else {
-                        console.log("用户没有权限访问");
-                        return;
-                    }
 
-
-                } else if (
-                    (UserMsg.UserType === "0" || UserMsg.UserType === "7") &&
-                    handleRoute === "All"
-                ) {
-                    dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
-                    if (!DataState.GetCoureClassAllMsg.MenuParams) return;
-                    dispatch(actions.UpDataState.setCoureClassAllMsg("all"));
-                    dispatch(
-                        actions.UpDataState.getCoureClassAllMsg(
-                            "/GetCouseclassSumarry?schoolID=" + UserMsg.SchoolID,
-                            this.MenuClcik
-                        )
-                    );
-
-                } else if (
-                    (UserMsg.UserType === "0" || UserMsg.UserType === "7") &&
-                    handleRoute === "Subject" &&
-                    subjectID === "all"
-                ) {
-                    dispatch({ type: actions.UpUIState.RIGHT_LOADING_OPEN });
-
-                    dispatch(
-                        actions.UpDataState.getSubjectAllMsg(
-                            "/GetSubjectCouseclassSumarry?subjectID=" + routeID,
-                            routeID
-                        )
-                    );
-                    if (!DataState.GetCoureClassAllMsg.MenuParams) return;
-                    dispatch(actions.UpDataState.setCoureClassAllMsg(routeID));
-
-                } else if (
-                    (UserMsg.UserType === "0" || UserMsg.UserType === "7") &&
-                    handleRoute === "Subject" &&
-                    subjectID === "Class"
-                ) {
-
-
-                    dispatch(
-                        actions.UpDataState.getSubjectAllMsg(
-                            "/GetSubjectCouseclassSumarry?subjectID=" + routeID,
-                            routeID
-                        )
-                    );
-                    dispatch(
-                        actions.UpDataState.getClassAllMsg(
-                            "/GetGradeCouseclassDetailForPage?schoolID=" +
-                            UserMsg.SchoolID +
-                            "&key=&pageIndex=1&pageSize="+DataState.SetPagiSizeMsg.ClassPagisize+"&subjectID=" +
-                            routeID +
-                            "&gradeID=" +
-                            classID,
-                            routeID,
-                            classID
-                        )
-                    );
-
-                    if (!DataState.GetCoureClassAllMsg.MenuParams) return;
-                    dispatch(actions.UpDataState.setCoureClassAllMsg(classID, routeID));
-                } else if (
-                    (UserMsg.UserType === "0" || UserMsg.UserType === "7") &&
-                    handleRoute === "Search"
-                ) {
-
-
-                    dispatch(
-                        actions.UpDataState.getClassAllMsg(
-                            "/GetGradeCouseclassDetailForPage?schoolID=" +
-                            UserMsg.SchoolID +
-                            "&key=" +
-                            routeID +
-                            "&pageIndex=1&pageSize="+DataState.SetPagiSizeMsg.SearchPagisize+"&subjectID=" +
-
-                            "&gradeID="
-
-                        )
-                    );
-                } else if (
-                    (UserMsg.UserType === "0" || UserMsg.UserType === "7") &&
-                    handleRoute === "Log"
-                ) {
-
-
-                    if (routeID === "Record") {
-                        dispatch(
-                            actions.UpDataState.getCourseClassRecordMsg(
-                                "/GetGourseClassLogForPage?userID=" +
-                                UserMsg.UserID +
-                                "&userType=" +
-                                UserMsg.UserType +
-                                "&schoolID=" +
-                                UserMsg.SchoolID +
-                                "&startDate=" +
-
-                                "&endDate=" +
-
-                                "&operateType=0"
-                            )
-                        );
-
-                        dispatch(appLoadingHide());
-
-                    } else {
-                        dispatch(
-                            actions.UpDataState.getCourseClassDynamicMsg(
-                                "/GetGourseClassLogNew?userID=" +
-                                UserMsg.UserID +
-                                "&userType=" +
-                                UserMsg.UserType +
-                                "&schoolID=" +
-                                UserMsg.SchoolID +
-                                "&startDate=" +
-                                "&endDate=" +
-                                "&operateType=0"
-                            )
-                        );
-
-                        dispatch(appLoadingHide());
-                    }
-                } else if (UserMsg.UserType === "1" && handleRoute === "Teacher") {
+                if (UserMsg.UserType === "1" && handleRoute === "Teacher") {
 
                     dispatch(
                         actions.UpDataState.getTeacherCourseClassMsg(
@@ -452,20 +524,11 @@ class App extends Component {
 
                     dispatch(appLoadingHide());
 
-                } else if (handleRoute === "ImportFile") {
-
-                } else {
-                    if (UserMsg.UserType === "1") {
-                        //history.push("/Teacher");
-                    } else if (UserMsg.UserType === "0" || UserMsg.UserType === "7") {
-                        /*history.push("/All");*/
-                    } else {
-                        console.log("用户没有权限访问");
-                        return;
-                    }
                 }
-            }
-        });
+
+            });
+
+        }
 
     }
 
@@ -570,7 +633,7 @@ class App extends Component {
 
     let courseClassType = 1;
 
-      if (classInfo.radioValue===1){
+    if (classInfo.radioValue===1){
 
           if(!classInfo.dropSelectd.value){
 
@@ -687,21 +750,25 @@ class App extends Component {
     const { dispatch } = this.props;
     dispatch(actions.UpUIState.hideErrorAlert());
   };
+
   ChangeCourseClassModalCancel = () => {
 
     const { dispatch, DataState } = this.props;
-
-
 
     dispatch(actions.UpDataState.setCourseClassName({}));
 
     dispatch(actions.UpDataState.setSubjectTeacherMsg([]));
 
     dispatch(actions.UpDataState.setSubjectTeacherTransferMsg([]));
+
     dispatch(actions.UpDataState.setCourseClassStudentMsg([]));
+
     dispatch(actions.UpDataState.SetCourseClassDefaultMsg({ClassSource:[],Class:[]}));
+
     dispatch(actions.UpDataState.setClassStudentTransferTransferMsg({ClassSource:[],Class:[]}));
+
     dispatch(actions.UpDataState.setClassStudentTransferMsg([]));
+
     dispatch(
       actions.UpDataState.setCourseClassDataMsg({
         Subject: {},
@@ -710,8 +777,11 @@ class App extends Component {
         Student: []
       })
     );
+
     dispatch(actions.UpUIState.ChangeCourseClassModalClose());
+
     dispatch({ type: actions.UpUIState.MODAL_LOADING_CLOSE });
+
   };
   //添加教学班模态框
   AddCourseClassModalOk = () => {
@@ -925,14 +995,13 @@ class App extends Component {
     dispatch({ type: actions.UpUIState.MODAL_LOADING_CLOSE });
   };
 
-    menuClick({id,name}){
+  menuClick({id,name}){
 
         const { dispatch,breadCrumb,history } = this.props;
 
         const path  = history.location.pathname;
 
     }
-
 
 
 
@@ -961,6 +1030,7 @@ class App extends Component {
 
 
     return (
+
       <React.Fragment>
         <Loading
           tip="加载中..."
@@ -975,7 +1045,6 @@ class App extends Component {
               enname: enname,
               image: logo
             }}
-
             type="triangle"
             showBarner={bannerState.show}
             showLeftMenu={leftMenu.show}

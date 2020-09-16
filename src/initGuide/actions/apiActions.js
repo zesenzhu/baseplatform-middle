@@ -148,7 +148,7 @@ export const GetSubjectInfoValid_University = async ({schoolID,dispatch}) =>{
 
 export const GetSchoolInitStatus = async ({schoolID,dispatch}) =>{
 
-    const res = await getGetData(`/Subject/api/GetSchoolInitStatus?schoolID=${schoolID}`,2);
+    const res = await getGetData(`/SysMgr/Setting/GetSchoolInitStatus?schoolID=${schoolID}`,2);
 
     if (res.StatusCode===200){
 
@@ -300,11 +300,11 @@ export const EditSchoolInfo_Univ = async ({UserID,SchoolID,SchoolImgUrl_Long,Sch
 
 
 //添加学校基础信息
-export const AddSchoolInfo = async ({UserID,SchoolID='',SchoolName,SchoolImgUrl_Long,SchoolCode,SchoolType,SchoolSessionType,SchoolImgUrl,SchoolTel='',SchoolLinkman='',CountyID,dispatch}) =>{
+export const AddSchoolInfo = async ({SchoolLevel,UserID,SchoolID='',SchoolName,SchoolImgUrl_Long,SchoolCode,SchoolType,SchoolSessionType,SchoolImgUrl,SchoolTel='',SchoolLinkman='',CountyID,dispatch}) =>{
 
     const res = await getPostData(`/SysMgr/Setting/AddSchoolInfo`,{
 
-        UserID,SchoolID,SchoolName,SchoolImgUrl_Long,SchoolCode,SchoolType,SchoolSessionType,SchoolImgUrl,SchoolTel,SchoolLinkman,CountyID
+        SchoolLevel,UserID,SchoolID,SchoolName,SchoolImgUrl_Long,SchoolCode,SchoolType,SchoolSessionType,SchoolImgUrl,SchoolTel,SchoolLinkman,CountyID
 
     },2);
 

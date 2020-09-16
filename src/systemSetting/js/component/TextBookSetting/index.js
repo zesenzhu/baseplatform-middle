@@ -464,7 +464,7 @@ class TextBookSetting extends Component {
       let parem = {
         "schoolId": SchoolID,
         "bookName": this.state.inputValue,
-        "subjectId": GradeSubjectList[this.state.dropListSelectidx1].Subjects[this.state.dropListSelectidx2].SubjectID,
+        "subjectId": GradeSubjectList[this.state.dropListSelectidx1].Subjects[this.state.dropListSelectidx2].SubjectId,
         "gradeId": GradeSubjectList[this.state.dropListSelectidx1].GradeId,
         "term": this.state.dropListSelectidx3,
         "chapters": chapters
@@ -498,7 +498,7 @@ class TextBookSetting extends Component {
       let parem = {
         "schoolId": SchoolID,
         "bookName": this.state.inputValue,
-        "subjectId": GradeSubjectList[this.state.dropListSelectidx1].Subjects[this.state.dropListSelectidx2].SubjectID,
+        "subjectId": GradeSubjectList[this.state.dropListSelectidx1].Subjects[this.state.dropListSelectidx2].SubjectId,
         "gradeId": GradeSubjectList[this.state.dropListSelectidx1].GradeId,
         "term": this.state.dropListSelectidx3,
         "chapters": chapters,

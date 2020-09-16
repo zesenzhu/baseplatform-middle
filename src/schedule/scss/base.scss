@@ -52,6 +52,8 @@ $image-url:'../images';
 
     .ant-spin-dot-spin{
 
+      position: absolute;
+
       top:48%;
 
     }
@@ -62,9 +64,7 @@ $image-url:'../images';
 
       top:calc(48% + 36px);
 
-      left: 50%;
-
-      transform: translateX(-50%);
+      left: calc(50% - 6px);
 
     }
 

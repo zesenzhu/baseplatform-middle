@@ -141,6 +141,8 @@ function Power(props) {
 
         setLoading(false);
 
+        dispatch(appLoadingHide());
+
     },[]);
 
 

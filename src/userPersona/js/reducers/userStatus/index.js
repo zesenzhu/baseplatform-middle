@@ -1,6 +1,12 @@
-import {USER_STATUS_UPDATE} from "../../actions/userStatusActions";
+import {USER_STATUS_UPDATE,USER_STATUS_STATE_READY,USER_STATUS_RECEIVED_STATE_CHANGE} from "../../actions/userStatusActions";
 
-const defaultState = '';
+const defaultState = {
+
+    ready:false,
+
+    receiveData:false
+
+};
 
 const userStatus = (state=defaultState,actions)=>{
 
@@ -9,6 +15,14 @@ const userStatus = (state=defaultState,actions)=>{
         case USER_STATUS_UPDATE:
 
             return {...state,...actions.data};
+
+        case USER_STATUS_STATE_READY:
+
+            return {...state,ready:true};
+
+        case USER_STATUS_RECEIVED_STATE_CHANGE:
+
+            return {...state,receiveData:actions.data};
 
         default:
 

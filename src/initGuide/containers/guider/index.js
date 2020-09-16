@@ -88,7 +88,7 @@ function Guider(props) {
 
                 ];
 
-                if (parseInt(ProductType)===2){
+                if (parseInt(ProductType)===6){
 
                     if (parseInt(LockerVersion)===1){
 

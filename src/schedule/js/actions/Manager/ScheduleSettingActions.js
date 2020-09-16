@@ -6,6 +6,11 @@ import AppAlertActions from '../AppAlertActions';
 
 import MSActions from '../../actions/ModuleSettingActions';
 
+import moment from 'moment';
+
+
+
+
 const MANAGER_SCHEDULE_SETTING_INIT = 'MANAGER_SCHEDULE_SETTING_INIT';
 
 const MANAGER_SCHEDULE_SETTING_SETTING_TYPE_CHANGE = 'MANAGER_SCHEDULE_SETTING_SETTING_TYPE_CHANGE';
@@ -343,8 +348,6 @@ const PageUpdate = () => {
 
                         }});
 
-
-
                 }
 
                 dispatch({type:AppLoadingActions.APP_LOADING_HIDE});
@@ -519,6 +522,9 @@ const AdjustClassHourOk = () =>{
 
       const { PeriodID,MorningTime,MorningRadioChecked,AfternoonTime,AfternoonRadioChecked } = getState().Manager.ScheduleSetting.AdjustClassHourModal;
 
+      const { SettingByUnify,SettingByPeriod } = getState().Manager.ScheduleSetting;
+
+
       if (MorningRadioChecked===''&&AfternoonRadioChecked===''){
 
           dispatch(AppAlertActions.alertWarn({title:"没有任何操作!"}));
@@ -554,25 +560,172 @@ const AdjustClassHourOk = () =>{
 
               }
 
-              ApiActions.UpdateClassHourTimeInstall({SchoolID,PeriodID,MorningTimes,AfternoonTimes,dispatch}).then(data=>{
 
-                  if (data===0){
+              let conflict = false,conflictType = 1;
 
-                      dispatch({type:MANAGER_SCHEDULE_SETTING_ADJUST_MODAL_HIDE});
+              if (PeriodID){
 
-                      dispatch(AppAlertActions.alertSuccess({title:"调整成功！"}));
+                  const { PeriodSettingList } = SettingByPeriod;
 
-                      dispatch(PageUpdate());
+                  const { ClassHourList } = PeriodSettingList.find(i=>i.PeriodID===PeriodID);
+
+                  const { Afternoon,Morning } = ClassHourList;
+
+                  const newMor = Morning.map(i=>{
+
+                      let { StartTime,EndTime } = i;
+
+                      const startMin = getMins(StartTime)+MorningTimes;
+
+                      const endMin = getMins(EndTime)+MorningTimes;
+
+                      return {start:startMin,end:endMin};
+
+                  });
+
+                  const newAft = Afternoon.map(i=>{
+
+                      let { StartTime,EndTime } = i;
+
+                      const startMin = getMins(StartTime)+AfternoonTimes;
+
+                      const endMin = getMins(EndTime)+AfternoonTimes;
+
+                      return {start:startMin,end:endMin};
+
+                  });
+
+                  if (newMor[0].start<=0){
+
+                      conflict = true;
+
+                      conflictType = 1;
+
+                  }else if (newAft[newAft.length-1].end>=60*24){
+
+                      conflict = true;
+
+                      conflictType = 2;
+
+                  }else if (newMor[newMor.length-1].end>=newAft[0].start){
+
+                      conflict = true;
+
+                      conflictType = 3;
 
                   }
 
-              });
+              }else{
+
+                  const { ClassHourList } = SettingByUnify;
+
+                  const { Afternoon,Morning } = ClassHourList;
+
+                  const newMor = Morning.map(i=>{
+
+                     let { StartTime,EndTime } = i;
+
+                     const startMin = getMins(StartTime)+MorningTimes;
+
+                     const endMin = getMins(EndTime)+MorningTimes;
+
+                     return {start:startMin,end:endMin};
+
+                  });
+
+                  const newAft = Afternoon.map(i=>{
+
+                      let { StartTime,EndTime } = i;
+
+                      const startMin = getMins(StartTime)+AfternoonTimes;
+
+                      const endMin = getMins(EndTime)+AfternoonTimes;
+
+                      return {start:startMin,end:endMin};
+
+                  });
+
+                  if (newMor[0].start<=0){
+
+                      conflict = true;
+
+                      conflictType = 1;
+
+                  }else if (newAft[newAft.length-1].end>=60*24){
+
+                      conflict = true;
+
+                      conflictType = 2;
+
+                  }else if (newMor[newMor.length-1].end>=newAft[0].start){
+
+                      conflict = true;
+
+                      conflictType = 3;
+
+                  }
+
+              }
+
+              if (conflict){
+
+                switch (conflictType) {
+
+                    case 1:
+
+                    case 2:
+
+                        dispatch(AppAlertActions.alertWarn({title:"课时起始时间和结束时间不能超过当天"}));
+
+                        break;
+
+                    case 3:
+
+                        dispatch(AppAlertActions.alertWarn({title:"调整后的课时时间冲突"}));
+
+                        break;
+
+                }
+
+              }else{
+
+                   ApiActions.UpdateClassHourTimeInstall({SchoolID,PeriodID,MorningTimes,AfternoonTimes,dispatch}).then(data=>{
+
+                       if (data===0){
+
+                           dispatch({type:MANAGER_SCHEDULE_SETTING_ADJUST_MODAL_HIDE});
+
+                           dispatch(AppAlertActions.alertSuccess({title:"调整成功！"}));
+
+                           dispatch(PageUpdate());
+
+                       }
+
+                   });
+
+              }
 
           }
 
       }
 
   }
+
+};
+
+
+
+
+
+//获取时间转成的分钟数
+
+const getMins = (time)=>{
+
+    const Hours = time.split(':')[0];
+
+    const Mins = time.split(':')[1];
+
+    return parseInt(Hours)*60+parseInt(Mins);
 
 };
 
