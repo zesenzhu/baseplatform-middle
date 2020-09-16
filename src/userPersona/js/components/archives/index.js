@@ -1030,7 +1030,7 @@ function Archives(props) {
 
                                 <td className={"col3 props"}>职称</td>
 
-                                <td className={"col4"}>{isHasValue(userArchives.professionalTitle)}</td>
+                                <td className={"col4"}>{isHasValue(userArchives.TitleName)}</td>
 
                                 <td className={"col5 props"}>所教学科</td>
 
@@ -1060,7 +1060,7 @@ function Archives(props) {
 
                                         <td className={"col4"} colSpan={3}>
 
-                                            <div className={"teaching-room"} title={isHasValue(userArchives.TeachingRoom)}>{isHasValue(userArchives.TeachingRoom)}</div>
+                                            <div className={"teaching-room"} title={isHasValue(userArchives.GroupName)}>{isHasValue(userArchives.GroupName)}</div>
 
                                         </td>
 
