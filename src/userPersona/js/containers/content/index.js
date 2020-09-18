@@ -192,6 +192,15 @@ function Content(props){
 
         return [
 
+            {
+                title:<span>{targetUser.UserType===1?'档案':'学籍'}<br />{targetUser.UserType===1?'信息':'档案'}</span>,
+                id: "archives",
+                value: Archives,
+                type:
+                    "AdmToStu,LeaderToStu,StuToStu,ParentsToStu,HeaderTeacherToStu,AdmToTeacher,LeaderToTeacher,TeacherToTeacher",
+
+                rely:''
+            },
 
             {
                 title: (
