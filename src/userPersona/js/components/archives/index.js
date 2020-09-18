@@ -920,7 +920,7 @@ function Archives(props) {
 
                             <tr>
 
-                                <td className={"col1 props"}>联系电话</td>
+                                <td className={"col1 props"}>预留电话</td>
 
                                 <td className={"col2"} colSpan={2}>
 
