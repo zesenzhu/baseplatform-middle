@@ -2,6 +2,8 @@ import React,{useEffect,useState,useRef,useMemo,memo,useCallback} from 'react';
 
 import {useSelector,useDispatch} from 'react-redux';
 
+import defaultLogo from '../../../common/images/frame/logo.png';
+
 import {LogOut} from "../../../common/js/disconnect/index";
 
 import {btnQueryAlertShow} from "../../store/appAlert/index";
@@ -11,6 +13,8 @@ import './index.scss';
 function Header(props) {
 
     const [title,setTitle] = useState('');
+
+    const [logo,setLogo] = useState('');
 
     const LoginUser = useSelector(state=>state.LoginUser);
 
@@ -22,9 +26,11 @@ function Header(props) {
 
         if (UserID){
 
-            const { ProductName } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+            const { ProductName,ProductLogoUrl } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
             setTitle(ProductName);
+
+            setLogo(ProductLogoUrl?ProductLogoUrl:'');
 
         }
 
@@ -54,7 +60,7 @@ function Header(props) {
 
            <div className={"header-left-content clearfix"}>
 
-               <i className={"logo"}></i>
+               <i className={"logo"} style={{backgroundImage:`url(${logo?logo:defaultLogo})`}}></i>
 
                <div className={"product-info"}>
 

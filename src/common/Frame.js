@@ -50,7 +50,9 @@ class FrameContainer extends Component{
 
             },
 
-            childrenLoad:false
+            childrenLoad:false,
+
+            Logo:''
 
         }
 
@@ -70,7 +72,7 @@ class FrameContainer extends Component{
 
                         sessionStorage.setItem("LgBasePlatformInfo",JSON.stringify(data));
 
-                        this.setState({childrenLoad:true,WebIndexUrl:data.WebIndexUrl,ProVersion:data.ProVersion,ProductName:data.ProductName});
+                        this.setState({childrenLoad:true,WebIndexUrl:data.WebIndexUrl,ProVersion:data.ProVersion,ProductName:data.ProductName,Logo:data.ProductLogoUrl?data.ProductLogoUrl:''});
 
                     }
 
@@ -86,7 +88,8 @@ class FrameContainer extends Component{
 
                             const rootUrl = data.WebRootUrl[data.WebRootUrl.length-1]==='/'?data.WebRootUrl.substring(0,data.WebRootUrl.length-1):data.WebRootUrl;
 
-                            this.setState({WebRootUrl:rootUrl,WebIndexUrl:data.WebIndexUrl,ProVersion:data.ProVersion,ProductName:data.ProductName});
+
+                            this.setState({WebRootUrl:rootUrl,WebIndexUrl:data.WebIndexUrl,ProVersion:data.ProVersion,ProductName:data.ProductName,Logo:data.ProductLogoUrl?data.ProductLogoUrl:''});
 
                             firstPageLoad(()=>{
 
@@ -268,6 +271,8 @@ class FrameContainer extends Component{
                     WebRootUrl={this.state.WebRootUrl}
 
                     MessageShow={this.state.messageShow}
+
+                    logo={this.state.Logo}
 
                     register={register}
 
