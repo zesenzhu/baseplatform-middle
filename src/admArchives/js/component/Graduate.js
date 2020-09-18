@@ -179,7 +179,7 @@ class Graduate extends React.Component {
           },
         },
         {
-          title: "联系电话",
+          title: "预留电话",
           width: 140,
           align: "center",
           key: "Telephone",
@@ -277,6 +277,7 @@ class Graduate extends React.Component {
     const { DataState, dispatch } = this.props;
     this.setState({
       secondSelect: e,
+      pageSize:10,
       searchValue: "",
       pagination: 1,
       CancelBtnShow: "n",

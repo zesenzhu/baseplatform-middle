@@ -16,8 +16,7 @@ export const getData = async ({
     }
   }
   let data = "";
-  console.log(url, level, mode, IsDesk, element);
-  return {};
+ 
   let res = await Get(url, level, mode, IsDesk, element);
   let json = await res.json();
   if (json.StatusCode === 200) {

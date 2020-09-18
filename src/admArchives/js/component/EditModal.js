@@ -1326,7 +1326,7 @@ class EditModal extends React.Component {
             </div>
           </div>
           <div className="row clearfix">
-            <span className="culonm-1">联系电话：</span>
+            <span className="culonm-1">预留电话：</span>
             <div className="culonm-2">
               <Tips
                 overlayClassName="tips"

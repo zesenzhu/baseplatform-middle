@@ -346,6 +346,20 @@ class Admin extends React.Component {
       checkedList: [],
     });
   };
+  componentDidMount() {
+    history.listen(() => {
+      this.setState({
+        pageSize: 10,
+        pagination: 1,
+        CancelBtnShow: "n",
+        keyword: "",
+        searchValue: "",
+        checkAll: false,
+        // pagination: 1,
+        checkedList: [],
+      });
+    });
+  }
   componentWillMount() {
     const { dispatch } = this.props;
     let pwd = "0";
@@ -1566,7 +1580,7 @@ class Admin extends React.Component {
                 </Modal> */}
         <Modal
           ref="handleAdminMadal"
-          bodyStyle={{ padding: 0,height: '370px'}}
+          bodyStyle={{ padding: 0, height: "370px" }}
           type="1"
           title={"添加管理员"}
           visible={this.state.addAdminModalVisible}
@@ -1586,7 +1600,7 @@ class Admin extends React.Component {
         </Modal>
         <Modal
           ref="handleAdminMadal"
-          bodyStyle={{ padding: 0,height: '370px' }}
+          bodyStyle={{ padding: 0, height: "370px" }}
           type="1"
           title={"编辑管理员"}
           visible={this.state.changeAdminModalVisible}

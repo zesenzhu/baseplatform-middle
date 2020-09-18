@@ -21,9 +21,9 @@
  * @Author: zhuzesen
  * @LastEditors: zhuzesen
  * @Date: 2020-09-17 10:35:48
- * @LastEditTime: 2020-09-17 15:48:38
+ * @LastEditTime: 2020-09-18 08:40:48
  * @Description: 模块接口的get的action
- * @FilePath: \baseplatform-university\src\userAccessManagement\js\actions\DataAction\GetAction.js
+ * @FilePath: \baseplatform-middle\src\userAccessManagement\js\actions\DataAction\GetAction.js
  */
 
 // import { postData, getData } from "../../../../common/js/fetch";
@@ -57,7 +57,7 @@ const GetIdentityTypeList = ({ fn = () => {}, schoolID }) => {
     getData({
       url,
       params: { SchoolID: schoolID },
-    }).then(({res}) => {
+    }).then(({ res }) => {
       if (res) {
         //     "IdentityID": 0,            //身份类型ID（学校ID+身份类型Code）
         //   "IdentityCode": "IC-000",    //身份类型Code
@@ -75,13 +75,19 @@ const GetIdentityTypeList = ({ fn = () => {}, schoolID }) => {
         //   "UserCount":1,                    //成员人数
         dispatch({
           type: GET_INDENTITY_TYPE_LIST,
-          data: {
-            ...res.Data,
-          },
+          data: res.Data.map((child, index) => {
+            child.key = index;
+            return child;
+          }),
         });
-        fn({ Data: getState(), res });
-        dispatch(PublicAction.ContentLoadingClose());
+      } else {
+        dispatch({
+          type: GET_INDENTITY_TYPE_LIST,
+          data: res,
+        });
       }
+      fn({ Data: getState(), res });
+      dispatch(PublicAction.ContentLoadingClose());
     });
   };
 };

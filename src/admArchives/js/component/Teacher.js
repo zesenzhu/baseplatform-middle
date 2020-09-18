@@ -249,6 +249,7 @@ class Teacher extends React.Component {
   }
   TeacherCancelSearch = () => {
     this.setState({
+      pageSize:10,
       CancelBtnShow: "n",
       keyword: "",
       searchValue: "",

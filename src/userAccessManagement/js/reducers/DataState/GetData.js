@@ -1,14 +1,14 @@
 import DataAction from "../../actions/DataAction";
 const GetData = (
   state = {
-    IdentityTypeList: [],
+    IdentityTypeList: [],//[]
   },
   actions
 ) => {
   switch (actions.type) {
     case DataAction.GET_INDENTITY_TYPE_LIST:
       return Object.assign({}, state, {
-        LogRecordData: actions.data,
+        IdentityTypeList: actions.data,
       });
     default:
       return state;

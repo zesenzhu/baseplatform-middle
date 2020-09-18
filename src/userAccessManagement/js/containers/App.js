@@ -36,7 +36,7 @@ import "../../scss/index.scss";
 import { HandleAction, DataAction, PublicAction } from "../actions";
 import Public from "../../../common/js/public";
 import Scrollbars from "react-custom-scrollbars";
-
+import Main from "./Main";
 const { Bs2CsProxy } = CONFIG;
 let { getQueryVariable, setRole } = Public;
 // const { HandleAction, DataAction, PublicAction } = actions;
@@ -101,9 +101,11 @@ class App extends Component {
 
     let FirstRoute = Route[0];
     let SecondRoute = Route[1];
-    console.log(Route,FirstRoute);
+    console.log(Route, FirstRoute);
     if (FirstRoute === "") {
-      dispatch(DataAction.GetIdentityTypeList({}));
+      this.AllGetData({});
+    }else{
+      this.SetFirstDefaultRoute({ isFirst:true })
     }
     fn();
   };
@@ -113,12 +115,18 @@ class App extends Component {
     let { dispatch } = this.props;
     if (isFirst) {
       //如果是第一次,因为不会进行数据和路由更新，需要手动
-      dispatch(HandleAction.SetRouteParams(["UserArchives", "All"]));
+      dispatch(HandleAction.SetRouteParams(["", ""]));
 
       this.AllGetData({});
     }
-    history.push("/UserArchives/All");
+    history.push("/");
   };
+  AllGetData = ()=>{
+    let { dispatch } = this.props;
+
+    dispatch(DataAction.GetIdentityTypeList({}));
+
+  }
   // 解析路由
   ConstructRoute = (tpye = "construct", key) => {
     // type:construct,直接解析，获取pathname，分解为数组
@@ -200,9 +208,9 @@ class App extends Component {
                 spinning={ContentLoading}
               >
                 <Router>
-                  {/* <Route path="/UserArchives" component={UserArchives}> */}
-                  {/* <Redirect from="/UserArchives*" to="/UserArchives/All" /> */}
-                  {/* </Route> */}
+                  <Route path="/" component={Main}>
+                    {/* <Redirect from="*" to="/" /> */}
+                  </Route>
 
                   {/* <Redirect from="/" to="/UserArchives" /> */}
                   {/* <Route path="/" component={Temple}>

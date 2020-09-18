@@ -376,6 +376,20 @@ class Teacher extends React.Component {
       SubjectSelect: { value: 0, title: "全部学科" },
     });
   };
+  componentDidMount() {
+    history.listen(() => {
+      this.setState({
+        pageSize: 10,
+        CancelBtnShow: "n",
+        keyword: "",
+        searchValue: "",
+        checkedList: [],
+        pagination: 1,
+        checkAll: false,
+        SubjectSelect: { value: 0, title: "全部学科" },
+      });
+    });
+  }
   componentWillMount() {
     const { dispatch } = this.props;
     let pwd = "pwd888888";

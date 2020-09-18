@@ -342,6 +342,22 @@ class Student extends React.Component {
       firstSelect: { value: 0, title: "全部年级" },
     });
   };
+  componentDidMount() {
+    history.listen(() => {
+      this.setState({
+        pageSize: 10,
+        CancelBtnShow: "n",
+      keyword: "",
+      checkedList: [],
+      checkAll: false,
+      pagination: 1,
+      searchValue: "",
+      DropMenuShow: false,
+      secondSelect: { value: 0, title: "全部班级" },
+      firstSelect: { value: 0, title: "全部年级" },
+      });
+    });
+  }
   componentWillMount() {
     const { dispatch } = this.props;
     let pwd = "pwd888888";
