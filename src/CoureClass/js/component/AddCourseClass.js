@@ -217,6 +217,9 @@ class AddCourseClass extends React.Component {
         };
       }
     }
+
+
+
   }
 
   componentDidMount() {
@@ -606,6 +609,8 @@ class AddCourseClass extends React.Component {
     }
 
 
+
+
     let type = this.props.type;
     let route = history.location.pathname;
     let pathArr = route.split("/");
@@ -662,8 +667,6 @@ class AddCourseClass extends React.Component {
 
     const token = sessionStorage.getItem("token");
 
-
-
     return (
 
       <React.Fragment>
@@ -714,7 +717,6 @@ class AddCourseClass extends React.Component {
                   >
                     <DropDown
                       width={150}
-                      height={98}
                       type="simple"
                       dropList={SubjectDropList}
                       dropSelectd={this.state.SubjectSelect}
@@ -755,7 +757,6 @@ class AddCourseClass extends React.Component {
                     disabled={
                       this.state.SubjectSelect.value === 0 ? true : false
                     }
-                    height={98}
                     width={180}
                     type="simple"
                     dropSelectd={this.state.GradeSelect}

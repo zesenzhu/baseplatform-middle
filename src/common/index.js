@@ -1197,7 +1197,7 @@ class DropComponent extends React.Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
 
-    const { dropSelectd, dropList,type } = nextProps;
+    const { dropSelectd,dropList,type } = nextProps;
 
       let simpleSearchList = [];
 
@@ -1206,6 +1206,8 @@ class DropComponent extends React.Component {
           simpleSearchList = dropList;
 
       }
+
+      console.log(dropList,simpleSearchList);
 
       this.setState({ dropSelectd: dropSelectd,simpleSearchList });
 
@@ -1410,6 +1412,8 @@ class DropComponent extends React.Component {
 
     }
 
+
+
   render() {
     const {
       Title,
@@ -1429,6 +1433,9 @@ class DropComponent extends React.Component {
       dropSimpleSearch,
       ...reset
     } = this.props;
+
+
+    console.log(dropList,this.state.simpleSearchList);
 
     let dropContainer = "";
 
@@ -1681,8 +1688,8 @@ class DropComponent extends React.Component {
             <Scrollbars
               autoHeight
               autoHeightMin={0}
-              autoHeightMax={288}
-              style={{height:height?(this.state.simpleSearchList.length*24<height?this.state.simpleSearchList.length*24:height):'auto'}}
+              autoHeightMax={height?height:288}
+              // style={{height:height?(this.state.simpleSearchList.length*24<height?this.state.simpleSearchList.length*24:height):'auto'}}
               renderTrackHorizontal={(props) => {
                 return <span style={{ display: "none" }}></span>;
               }}
@@ -1692,7 +1699,12 @@ class DropComponent extends React.Component {
             >
               {
 
+
+
                 this.state.simpleSearchList.map((item, key) => {
+
+                    console.log(this.state.simpleSearchList);
+
                   return (
                     <li
                       key={key}
