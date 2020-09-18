@@ -119,7 +119,7 @@ const getSubjectAllMsg = (url, subject) => {
             return res.json()
         }).then(json => {
             if (json.StatusCode === 200) {
-              // console.log(json.Data)
+              // console.log(json.Data)`
                 dispatch({ type: GET_SUBJECT_ALL_MSG, data: json.Data, subject: subject });
 
             }

@@ -1207,8 +1207,6 @@ class DropComponent extends React.Component {
 
       }
 
-      console.log(dropList,simpleSearchList);
-
       this.setState({ dropSelectd: dropSelectd,simpleSearchList });
 
   }
@@ -1434,8 +1432,6 @@ class DropComponent extends React.Component {
       ...reset
     } = this.props;
 
-
-    console.log(dropList,this.state.simpleSearchList);
 
     let dropContainer = "";
 
@@ -1702,8 +1698,6 @@ class DropComponent extends React.Component {
 
 
                 this.state.simpleSearchList.map((item, key) => {
-
-                    console.log(this.state.simpleSearchList);
 
                   return (
                     <li
