@@ -93,13 +93,23 @@ function SelfDoubleSingleTable(props,ref){
 
       }
 
-
-
     },[]);
 
     useImperativeHandle(ref,()=>({
 
-        scrollToTop:ScrollRef.current.scrollToTop
+        scrollToTop:()=>{
+
+            ScrollRef.current.scrollToTop();
+
+            $('#double-single-table1').css({top:`${0}px`});
+
+            $('#double-single-table2').css({top:`${0}px`});
+
+        },
+
+        getScrollTop:ScrollRef.current.getScrollTop,
+
+        scrollTop:ScrollRef.current.scrollTop
 
     }),[]);
 
@@ -107,7 +117,7 @@ function SelfDoubleSingleTable(props,ref){
 
         <div ref={ref} className={"self-double-single-table-wrapper"}>
 
-            <Scrollbars ref={ScrollRef} style={{height:600}} onScrollFrame={tableScroll}>
+            <Scrollbars ref={ScrollRef} style={{height:schedule.length>6?600:schedule.length*91+65}} onScrollFrame={tableScroll}>
 
                 {/*<div className={"table-scroll-wrapper"}>
 

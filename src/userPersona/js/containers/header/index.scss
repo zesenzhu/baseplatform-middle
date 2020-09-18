@@ -144,7 +144,9 @@
 
       color:rgba(255,255,255,0.72);
 
-      background:url("../../../../common/images/frame/logo.png") no-repeat left center;
+      background-position:left center;
+
+      background-repeat: no-repeat;
 
       background-size: 36px;
 

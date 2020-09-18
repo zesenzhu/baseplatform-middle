@@ -44,7 +44,11 @@
 
     padding-left: 40px;
 
-    background: url("#{$image-url}/logo.png") no-repeat left center;
+
+
+    background-repeat: no-repeat;
+
+    background-position: left center;
 
     background-size: 36px;
 

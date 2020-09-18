@@ -8,6 +8,8 @@ import {btnQueryAlertShow} from "../../actions/appAlertActions";
 
 import ArchivesLogModal from '../../components/archivesLogModal';
 
+import defaultLogo from '../../../../common/images/frame/logo.png';
+
 import './index.scss';
 
 function Header(props) {
@@ -17,6 +19,9 @@ function Header(props) {
 
     //主页地址
     const [indexUrl,setIndexUrl] = useState('');
+
+    //主页地址
+    const [logo,setLogo] = useState('');
 
 
     //主页地址
@@ -44,13 +49,15 @@ function Header(props) {
 
         if (UserInfo){
 
-            const { ProductName,WebIndexUrl } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+            const { ProductName,WebIndexUrl,ProductLogoUrl='' } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
             const token = sessionStorage.getItem("token");
 
             setTitle(ProductName);
 
             setIndexUrl(`${WebIndexUrl}?lg_tk=${token}`);
+
+            setLogo(ProductLogoUrl);
 
         }
 
@@ -123,7 +130,7 @@ function Header(props) {
 
                     <div className={"header-left-content clearfix"}>
 
-                        <a href={indexUrl} className={"product-title"}>{title}</a>
+                        <a href={indexUrl} style={{backgroundImage:`url(${logo?logo:defaultLogo})`}} className={"product-title"}>{title}</a>
 
                         {
 

@@ -6,6 +6,8 @@ import 'echarts/lib/chart/pie';
 
 import {removeSlashUrl} from '../actions/ApiActions';
 
+import defaultLogo from '../../images/logo.png';
+
 //import ReactEcharts from 'echarts-for-react';
 
 
@@ -134,7 +136,7 @@ class Header extends Component{
 
         const { HeaderSetting,LoginUser,HeaderMenuToggle,LogOut,ProductName,MessageShow } = this.props;
 
-        const { WebRootUrl='' } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+        const { WebRootUrl='',ProductLogoUrl='' } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
         const token = sessionStorage.getItem("token");
 
@@ -146,7 +148,7 @@ class Header extends Component{
 
                     <div className="header-info-wrapper clearfix">
 
-                        <div className="logo-wrapper">{ProductName}</div>
+                        <div className="logo-wrapper" style={{backgroundImage:`url(${ProductLogoUrl?ProductLogoUrl:defaultLogo})`}}>{ProductName}</div>
 
                         <div className="frame-home-header-menus">
 

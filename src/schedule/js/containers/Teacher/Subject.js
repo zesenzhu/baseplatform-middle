@@ -71,6 +71,14 @@ class Subject extends Component{
 
     scrollToBottom(e){
 
+        if (this.tableRef){
+
+            const top = this.tableRef.getScrollTop();
+
+            this.tableRef.scrollTop(top-1);
+
+        }
+
         const {dispatch,Teacher} = this.props;
 
         let { TeacherCount,pageIndex } = Teacher.SubjectTeacherSubjectSchedule;

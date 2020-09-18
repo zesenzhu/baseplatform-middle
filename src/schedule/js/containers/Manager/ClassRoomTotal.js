@@ -93,6 +93,14 @@ class ClassRoomTotal extends Component{
 
     scrollToBottom(e){
 
+        if (this.tableRef){
+
+            const top = this.tableRef.getScrollTop();
+
+            this.tableRef.scrollTop(top-1);
+
+        }
+
         const {dispatch,ClassRoomTotal} = this.props;
 
         const { PageIndex,ClassRoomCount } = ClassRoomTotal;

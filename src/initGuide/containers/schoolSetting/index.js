@@ -1370,7 +1370,7 @@ function SchoolSetting(props) {
 
                             </div>
 
-                            <div className={"school-badge-wrapper clearfix"}>
+                           {/* <div className={"school-badge-wrapper clearfix"}>
 
                                 <img alt={"图片"} width={280} height={40} src={schoolLogo.badgeUrl} onError={badgeLoadErr}  className={"logo-img"} />
 
@@ -1395,6 +1395,7 @@ function SchoolSetting(props) {
                             </div>
 
                             <img className={"img-tmp-file"} onLoad={tmpImgLoad} ref={uploadImgRef} alt=""/>
+*/}
 
                         </td>
 
