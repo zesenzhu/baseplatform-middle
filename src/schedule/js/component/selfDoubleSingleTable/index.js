@@ -107,7 +107,7 @@ function SelfDoubleSingleTable(props,ref){
 
         <div ref={ref} className={"self-double-single-table-wrapper"}>
 
-            <Scrollbars ref={ScrollRef} style={{height:600}} onScrollFrame={tableScroll}>
+            <Scrollbars ref={ScrollRef} style={{height:schedule.length>6?600:schedule.length*91+65}} onScrollFrame={tableScroll}>
 
                 {/*<div className={"table-scroll-wrapper"}>
 

@@ -535,7 +535,7 @@ function AreaCheck(props,ref) {
 
             <Tips visible={province.tip} title={"请选择省份"}>
 
-                <DropDown width={160} onChange={provinceChange} dropSelectd={province.dropSelectd} dropList={province.dropList}>
+                <DropDown width={160} height={192} onChange={provinceChange} dropSelectd={province.dropSelectd} dropList={province.dropList}>
 
 
                 </DropDown>
@@ -548,7 +548,7 @@ function AreaCheck(props,ref) {
 
                     <Tips visible={city.tip} title={"请选择城市"}>
 
-                        <DropDown width={160} onChange={cityChange} disabled={city.disabled} dropSelectd={city.dropSelectd} dropList={city.dropList}>
+                        <DropDown height={192} width={160} onChange={cityChange} disabled={city.disabled} dropSelectd={city.dropSelectd} dropList={city.dropList}>
 
 
                         </DropDown>
@@ -561,7 +561,7 @@ function AreaCheck(props,ref) {
 
             <Tips visible={county.tip} title={"请选择区县"}>
 
-                <DropDown onChange={countyChange} width={160} disabled={county.disabled} dropSelectd={county.dropSelectd} dropList={county.dropList}>
+                <DropDown height={192} onChange={countyChange} width={160} disabled={county.disabled} dropSelectd={county.dropSelectd} dropList={county.dropList}>
 
 
                 </DropDown>
