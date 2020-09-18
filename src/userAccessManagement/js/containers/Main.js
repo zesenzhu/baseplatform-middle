@@ -37,6 +37,7 @@ import Public from "../../../common/js/public";
 import Scrollbars from "react-custom-scrollbars";
 import ContentTop from "../component/ContentTop";
 import Table from "../component/Table";
+import CustomIdentityModal from "./Modal/CustomIdentityModal";
 let { getQueryVariable, setRole } = Public;
 // const { HandleAction, DataAction, PublicAction } = actions;
 class Main extends Component {
@@ -82,6 +83,7 @@ class Main extends Component {
       <div className="Content Main" id="Main">
         <ContentTop></ContentTop>
         <Table></Table>
+        <CustomIdentityModal></CustomIdentityModal>
       </div>
     );
   }

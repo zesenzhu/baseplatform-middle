@@ -46,7 +46,7 @@
  * ................................&&......................&&.......
  * .................................&&..............................
  * ..................................&..............................
- * 
+ *
  * @Author: zhuzesen
  * @LastEditors: zhuzesen
  * @Date: 2020-09-17 10:45:21
@@ -54,8 +54,6 @@
  * @Description: 模块用户编辑的公共的action
  * @FilePath: \baseplatform-university\src\userAccessManagement\js\actions\HandleAction\CommonAction.js
  */
-
-
 
 import PublicAction from "../PublicAction";
 
@@ -82,13 +80,23 @@ const SetRolePowerParams = (data) => {
     dispatch({ type: COMMON_SET_ROLE_POWER_PARAMS, data: data });
   };
 };
-export default{
-    COMMON_SET_ROLE_POWER_PARAMS,
-    SetRolePowerParams,
+// 设置版本或角色权限 的数据
+const COMMON_SET_ROLE_LIST_PARAMS = "COMMON_SET_ROLE_LIST_PARAMS";
+const SetRoleListParams = (data) => {
+  return (dispatch) => {
+    dispatch({ type: COMMON_SET_ROLE_LIST_PARAMS, data: data });
+  };
+};
+export default {
+  COMMON_SET_ROLE_LIST_PARAMS,
+  SetRoleListParams,
 
-    COMMON_SET_FRAME_PARAMS,
-    SetFrameParams,
+  COMMON_SET_ROLE_POWER_PARAMS,
+  SetRolePowerParams,
 
-    COMMON_SET_ROUTE_PARAMS,
-    SetRouteParams,
-}
+  COMMON_SET_FRAME_PARAMS,
+  SetFrameParams,
+
+  COMMON_SET_ROUTE_PARAMS,
+  SetRouteParams,
+};

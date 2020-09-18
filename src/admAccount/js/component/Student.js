@@ -1162,13 +1162,22 @@ class Student extends React.Component {
   };
   onUserNameClick = (UserID) => {
     const { dispatch } = this.props;
-    dispatch(
-      actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID, () => {
-        this.setState({
-          StudentDetailsMsgModalVisible: true,
-        });
-      })
+    let token = sessionStorage.getItem("token");
+    window.open(
+      "/html/userPersona/index.html?userType=" +
+        2 +
+        "&userID=" +
+        UserID +
+        "&lg_tk=" +
+        token
     );
+    // dispatch(
+    //   actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID, () => {
+    //     this.setState({
+    //       StudentDetailsMsgModalVisible: true,
+    //     });
+    //   })
+    // );
   };
   StudentDetailsMsgModalOk = () => {
     this.setState({

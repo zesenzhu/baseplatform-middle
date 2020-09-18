@@ -75,6 +75,8 @@ class App extends Component {
         return;
       }
       // 数据请求前的处理
+      // 获取是否开启家长功能
+      dispatch(DataAction.GetConfig({}));
 
       this.RouteListening({ isFirst: true });
 
@@ -101,11 +103,11 @@ class App extends Component {
 
     let FirstRoute = Route[0];
     let SecondRoute = Route[1];
-    console.log(Route, FirstRoute);
+    // console.log(Route, FirstRoute);
     if (FirstRoute === "") {
       this.AllGetData({});
-    }else{
-      this.SetFirstDefaultRoute({ isFirst:true })
+    } else {
+      this.SetFirstDefaultRoute({ isFirst: true });
     }
     fn();
   };
@@ -121,12 +123,11 @@ class App extends Component {
     }
     history.push("/");
   };
-  AllGetData = ()=>{
+  AllGetData = () => {
     let { dispatch } = this.props;
 
     dispatch(DataAction.GetIdentityTypeList({}));
-
-  }
+  };
   // 解析路由
   ConstructRoute = (tpye = "construct", key) => {
     // type:construct,直接解析，获取pathname，分解为数组

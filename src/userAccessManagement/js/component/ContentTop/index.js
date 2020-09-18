@@ -42,7 +42,21 @@ class ContentTop extends Component {
     const { dispatch } = props;
     this.state = {};
   }
+  onAddClick = () => {
+    let { dispatch } = this.props;
+    dispatch(
+      HandleAction.ParamsSetCustomIdentity({
+        IdentityName: "",
+        Description: "",
+        UserType: [],
+        type: "add",
+      })
+    );
 
+    dispatch(
+      HandleAction.SetModalVisible({ CustomIdentityModalVisible: true })
+    );
+  };
   render() {
     const {
       HandleState: {
@@ -78,8 +92,10 @@ class ContentTop extends Component {
     return (
       <div className="ContentTop" id="ContentTop">
         <span className="CT-title">各类角色权限设置</span>
-        <span className='CT-handle'>
-          <span className='CTh-add'>添加自定义身份</span>
+        <span className="CT-handle">
+          <span onClick={this.onAddClick} className="CTh-add">
+            添加自定义身份
+          </span>
         </span>
       </div>
     );

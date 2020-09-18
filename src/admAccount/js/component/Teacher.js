@@ -1085,13 +1085,22 @@ class Teacher extends React.Component {
   };
   onUserNameClick = (UserID) => {
     const { dispatch } = this.props;
-    dispatch(
-      actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID, () => {
-        this.setState({
-          TeacherDetailsMsgModalVisible: true,
-        });
-      })
+    let token = sessionStorage.getItem("token");
+    window.open(
+      "/html/userPersona/index.html?userType=" +
+        1 +
+        "&userID=" +
+        UserID +
+        "&lg_tk=" +
+        token
     );
+    // dispatch(
+    //   actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID, () => {
+    //     this.setState({
+    //       TeacherDetailsMsgModalVisible: true,
+    //     });
+    //   })
+    // );
   };
   TeacherDetailsMsgModalOk = () => {
     this.setState({

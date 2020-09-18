@@ -26,12 +26,21 @@
  * @Author: zhuzesen
  * @LastEditors: zhuzesen
  * @Date: 2020-09-17 10:43:49
- * @LastEditTime: 2020-09-17 11:19:40
+ * @LastEditTime: 2020-09-18 14:53:14
  * @Description: 模块用户编辑的参数的action
- * @FilePath: \baseplatform-university\src\userAccessManagement\js\actions\HandleAction\ParamsAction.js
+ * @FilePath: \baseplatform-middle\src\userAccessManagement\js\actions\HandleAction\ParamsAction.js
  */
 
 import PublicAction from "../PublicAction";
-
+// 设置版本或角色权限 的数据
+const PARAMS_SET_CUETOM_IDENTITY = "PARAMS_SET_CUETOM_IDENTITY";
+const ParamsSetCustomIdentity = (data) => {
+  return (dispatch) => {
+    dispatch({ type: PARAMS_SET_CUETOM_IDENTITY, data: data });
+  };
+};
 // const ParamsAction ={}
-export default {}
+export default {
+    PARAMS_SET_CUETOM_IDENTITY,
+    ParamsSetCustomIdentity,
+}

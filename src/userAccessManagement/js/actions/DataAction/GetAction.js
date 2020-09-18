@@ -21,7 +21,7 @@
  * @Author: zhuzesen
  * @LastEditors: zhuzesen
  * @Date: 2020-09-17 10:35:48
- * @LastEditTime: 2020-09-18 08:40:48
+ * @LastEditTime: 2020-09-18 11:25:48
  * @Description: 模块接口的get的action
  * @FilePath: \baseplatform-middle\src\userAccessManagement\js\actions\DataAction\GetAction.js
  */
@@ -31,7 +31,7 @@ import PublicAction from "../PublicAction";
 import HandleAction from "../HandleAction";
 import CONFIG from "../../../../common/js/config";
 import { postData, getData } from "../util";
-const { BasicProxy, UserInfoProxy, UserAccessProxy } = CONFIG;
+const { BasicProxy, UserInfoProxy, UserAccessProxy, UserAccountProxy } = CONFIG;
 /**
  * @description:
  * @param {fn:回调函数，数据回来后}
@@ -91,5 +91,66 @@ const GetIdentityTypeList = ({ fn = () => {}, schoolID }) => {
     });
   };
 };
+// 获取环境、家长配置
+const GET_CONFIG = "GET_CONFIG";
+// 获取产品使用环境及家长功能配置 （大学、中小学通用）
+const GetConfig = ({ fn = () => {}, schoolID }) => {
+  return (dispatch, getState) => {
 
-export default { GetIdentityTypeList, GET_INDENTITY_TYPE_LIST };
+    let State = getState();
+    let {
+      PublicState: {
+        LoginMsg: { SchoolID },
+      },
+    } = State;
+    if (schoolID === undefined) {
+      schoolID = SchoolID;
+    }
+    let url = UserAccountProxy + "/GetConfig";
+    getData({
+      url,
+      params: { SchoolID: schoolID },
+    }).then(({ res }) => {
+      let Data = {};
+      if (res) {
+        Data = res.Data;
+        dispatch({
+          type: GET_CONFIG,
+          data: res.Data,
+        });
+      } else {
+        Data = {
+          ProductUseRange: -1, //1专业院校；2综合大学；3单个中小学；4多个中小学
+          ParentsShow: 0, //1开启家长功能，0关闭家长功能},
+        };
+      }
+      // 项目的生命周期里就加载一次
+      let {HandleState:{CommonData:{RoleList}}} = getState();
+      let List = [
+         
+      ]
+      if(Data.ParentsShow===0){
+        RoleList =  RoleList.forEach((child)=>{
+          if(child.value!==3){
+            List.push(child)
+          }
+        })
+      }else{
+        List = RoleList
+      }
+      dispatch(HandleAction.SetRoleListParams(List))
+      dispatch({
+        type: GET_CONFIG,
+        data: Data,
+      });
+      fn({ Data: getState(), res });
+    });
+  };
+};
+export default {
+  GetConfig,
+  GET_CONFIG,
+
+  GetIdentityTypeList,
+  GET_INDENTITY_TYPE_LIST,
+};
