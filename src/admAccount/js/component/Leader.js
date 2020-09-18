@@ -337,6 +337,15 @@ class Leader extends React.Component {
       checkAll: false,
     });
   };
+  componentDidMount() {
+    history.listen(() => {
+      this.setState({
+        pageSize: 10,
+        checkedList: [],
+        checkAll: false,
+      });
+    });
+  }
   componentWillMount() {
     const { dispatch } = this.props;
     let pwd = "pwd888888";

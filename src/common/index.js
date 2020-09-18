@@ -3432,7 +3432,7 @@ class DetailsModal extends React.Component {
               className="row"
               style={{ display: this.state.module === 1 ? "block" : "none" }}
             >
-              <span className="col-left">{"联系电话"}</span>
+              <span className="col-left">{"预留电话"}</span>
               <span className="col-right" title={data.userPhone}>
                 {data.userPhone ? (
                   data.userPhone

@@ -337,6 +337,22 @@ class Parents extends React.Component {
       firstSelect: { value: 0, title: "全部年级" }
     });
   };
+  componentDidMount() {
+    history.listen(() => {
+      this.setState({
+        pageSize: 10,
+        CancelBtnShow: "n",
+      keyword: "",
+      checkedList: [],
+      checkAll: false,
+      pagination: 1,
+      searchValue: "",
+      DropMenuShow: false,
+      secondSelect: { value: 0, title: "全部班级" },
+      firstSelect: { value: 0, title: "全部年级" }
+      });
+    });
+  }
   componentWillMount() {
     const { dispatch } = this.props;
     let pwd = "pwd888888";
@@ -1301,6 +1317,16 @@ onShowSizeChange = (current, pageSize) => {
           <div className="Parents-top">
             <span className="top-tips">
               <span className="tips menu39 ">家长账号管理</span>
+            </span>
+            <span
+              style={{
+                float: "right",
+                fontSize: "14px",
+                color: "#999",
+                lineHeight: "37px",
+              }}
+            >
+              注:家长账号由学生账号一对一自动生成
             </span>
             {/* <div className='top-nav'>
                             <Link className='link'  to='/GraduteArchives' replace>查看毕业生档案</Link>

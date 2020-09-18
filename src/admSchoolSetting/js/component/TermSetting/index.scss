@@ -1,0 +1,222 @@
+#TermSetting {
+    // width: 1200px;
+    min-height: 680px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    position: relative;
+    margin: 0 auto;
+    padding: 24px 32px;
+    .Content-top {
+        position: relative;
+        width: 100%;
+        height: 30px;
+    }
+    .top-name {
+        font-size: 18px;
+        display: inline-block;
+        background: url(./images/semester_logo.png) no-repeat left center / 20px 16px;
+        padding-left: 24px;
+        color: #000;
+        // font-weight: bold;
+        line-height: 32px;
+        color: #333333;
+        text-align: center;
+    }
+    .Content-hr {
+        width: calc(100% - 24px);
+        border-top: dashed 1px #cccccc;
+        margin: 4px 0 4px 24px;
+    }
+    .Content-box {
+        padding: 24px;
+        .notice-tip {
+            padding-left: 46px;
+            font-size: 16px;
+            color: #333;
+            line-height: 22px;
+            text-align: left;
+            background: url(./images/bee_logo.png) no-repeat 20px center/16px 14px;
+            .TotalWeeks {
+                font-size: 24px;
+                color: #ff6600;
+            }
+            .before,
+            .will {
+                font-size: 20px;
+                color: #999;
+                font-weight: bold;
+            }
+            .now {
+                font-size: 20px;
+                color: #ff6600;
+                font-weight: bold;
+            }
+        }
+        .TermDetails {
+            position: relative;
+            padding-top: 50px;
+            .TD-YearSetting,
+            .TD-TermSetting {
+                position: relative;
+                width: 407px;
+                height: 320px;
+                padding-top: 80px;
+                border-radius: 12px;
+                .TD-titleBar {
+                    position: absolute;
+                    top: 12px;
+                    left: -5px;
+                    color: #0a693b;
+                    font-size: 16px;
+                    line-height: 28px;
+                    padding: 0 12px;
+                    // width: 120px;
+                    height: 28px;
+                    background-color: #d2f9e6;
+                    box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.3);
+                    border-radius: 0px 3px 3px 0px;
+                }
+            }
+            .TD-YearSetting {
+                float: left;
+                background: url(./images/semester_green.png) no-repeat center center/contain;
+                box-shadow: 0px 25px 25px -25px #2bc26b;
+                .YearSetting {
+                    height: 50px;
+                    line-height: 50px;
+                    text-align: center;
+                    color: #ffffff;
+                    font-size: 18px;
+                    margin-bottom: 16px;
+                    .yearBar {
+                        font-size: 36px;
+                        display: inline-block;
+                        vertical-align: top;
+                        // font-weight: bold;
+                        display: inline-block;
+                        background-color: rgba($color: #000000, $alpha: 0.2);
+                        border-radius: 8px;
+                        padding: 0 25px;
+                        margin: 0 10px;
+                        border: solid 1px rgba(255, 255, 255, 0.32);
+                    }
+                }
+                .btn-begin {
+                    width: 148px;
+                    display: inline-block;
+                    vertical-align: top;
+                    margin-top: 26px;
+                    margin-left: 50%;
+                    transform: translateX(-50%);
+                    height: 32px;
+                    line-height: 32px;
+                    border-radius: 16px;
+                    font-size: 16px;
+                    background: #fff;
+                    color: #666666;
+                    text-align: center;
+                    cursor: pointer;
+                    -webkit-transform: translateX(-50%);
+                    -moz-transform: translateX(-50%);
+                    -ms-transform: translateX(-50%);
+                    -o-transform: translateX(-50%);
+                    &::after {
+                        content: "";
+                        width: 148px;
+                        height: 16px;
+                        bottom: -16px;
+                        left: 0;
+                        position: absolute;
+                    }
+                }
+                .btn-disabled {
+                    cursor: no-drop;
+                    color: #666666;
+                    background-color: #d9d9d9;
+                }
+                .TD-tips {
+                    margin-top: 15px;
+                    text-align: center;
+                    font-size: 14px;
+                    line-height: 14px;
+                    color: #ffffff;
+                    opacity: 0.8;
+                }
+            }
+            .TD-TermSetting {
+                float: right;
+                box-shadow: 0px 25px 25px -25px #0074f1;
+                background: url(./images/semester_blue.png) no-repeat center center/contain;
+                .TermSetting {
+                    height: 44px;
+                    line-height: 44px;
+                    text-align: center;
+                    color: #ffffff;
+                    font-size: 18px;
+                    margin-bottom: 1px;
+                    .TS-bar {
+                        font-size: 28px;
+                        display: inline-block;
+                        vertical-align: top;
+                        // font-weight: bold;
+                        display: inline-block;
+                        background-color: rgba($color: #000000, $alpha: 0.2);
+                        border-radius: 8px;
+                        padding: 0 14px;
+                        margin: 0 10px;
+                        border: solid 1px rgba(255, 255, 255, 0.32);
+                    }
+                }
+                .TD-tips {
+                    margin-top: 35px;
+                    text-align: center;
+                    font-size: 14px;
+                    line-height: 14px;
+                    color: #ffffff;
+                    opacity: 0.8;
+                }
+            }
+        }
+        .sys-tip {
+            font-size: 14px;
+            padding-left: 24px;
+            line-height: 22px;
+            background: url(./images/light_but.png) no-repeat left center / 16px 22px;
+            margin-top: 24px;
+            color: #ff0000;
+        }
+    }
+}
+
+.SetYear {
+    .ant-modal-body {
+        padding-top: 30px;
+    }
+    .row {
+        height: 40px;
+        line-height: 40px;
+        .left {
+            display: inline-block;
+            width: 35%;
+            text-align: right;
+            font-size: 14px;
+            color: #999999;
+        }
+        .right {
+            width: 65%;
+            text-align: left;
+            font-size: 14px;
+            padding-left: 10px;
+            color: #999999;
+            .calender-logo {
+                display: inline-block;
+                width: 16px;
+                height: 14px;
+                background: url(./images/calander_icon.png) no-repeat center center/16px 16px;
+            }
+            .ant-calendar-picker-input.ant-input {
+                height: 28px;
+            }
+        }
+    }
+}

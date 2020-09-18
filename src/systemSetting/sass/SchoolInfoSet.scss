@@ -93,6 +93,20 @@
         white-space: nowrap;
         cursor: default;
     }
+    .school-badge {
+        line-height: 40px;
+        margin: 6px 0;
+        .SchoolLogoUrl_Long {
+            display: inline-block;
+            vertical-align: top;
+            width: 280px;
+            height: 40px;
+            margin-left: 12px;
+            // background-color: #ffffff;
+            border-radius: 3px;
+            border: solid 1px #e5e5e5;
+        }
+    }
     .school-info {
         position: absolute;
         top: 332px;
@@ -108,6 +122,7 @@
         color: #999999;
         .school-code,
         .school-type {
+            margin: 6px 0;
             cursor: default;
             span {
                 color: #000;
@@ -125,8 +140,9 @@
         left: 0;
         top: 0;
         width: 192px;
-        height: 348px;
-        background: url("../images/conten_left_bg.png") no-repeat;
+        height: 100%;
+        // background: url("../images/conten_left_bg.png") no-repeat;
+        background-color: #f5f5f5;
         .school-logo {
             @include Hcenter();
             top: 36px;
@@ -187,15 +203,17 @@
         position: absolute;
         top: 0;
         right: 0;
+        padding-top: 30px;
         width: 532px;
-        height: 348px;
+        height: 100%;
+        width: calc(100% - 192px);
         .win-shcool-name {
-            position: absolute;
-            left: 31px;
-            top: 64px;
-            width: 400px;
-            height: 28px;
-            line-height: 28px;
+            // position: absolute;
+            // left: 31px;
+            // top: 64px;
+            // width: 400px;
+            // height: 28px;
+            // line-height: 28px;
             input {
                 width: 320px;
                 height: 28px;
@@ -208,11 +226,11 @@
             }
         }
         .win-school-code {
-            position: absolute;
-            top: 108px;
-            left: 31px;
-            width: 260px;
-            height: 28px;
+            // position: absolute;
+            // top: 108px;
+            // left: 31px;
+            // width: 260px;
+            // height: 28px;
             // background: blue;
             input {
                 margin-left: 8px;
@@ -232,19 +250,19 @@
             font-size: 16px;
         }
         .win-school-type {
-            width: 350px;
-            height: 108px;
-            margin-left: 31px;
-            margin-top: 152px;
-            position: relative;
+            // width: 350px;
+            // height: 108px;
+            // margin-left: 31px;
+            // margin-top: 152px;
+            // position: relative;
             .primary-school,
             .middle-school,
             .high-school {
-                height: 28px;
-                position: absolute;
-                left: 67px;
-                top: 0;
-                line-height: 28px;
+                // height: 28px;
+                // position: absolute;
+                // left: 67px;
+                // top: 0;
+                // line-height: 28px;
                 span {
                     display: inline-block;
                     width: 60px;
@@ -275,6 +293,7 @@
                 }
                 input {
                     margin-left: 10px;
+                    margin-right: 3px;
                     color: #2ba500;
                      :nth-child(2) {
                         margin-left: 20px;
@@ -293,10 +312,12 @@
         }
         .edit-tips {
             position: absolute;
-            top: 280px;
-            left: 32px;
+            top: 40px;
+            left: 0px;
             width: 438px;
+            margin-left: 31px;
             height: 22px;
+            line-height: 22px;
             // line-height: 22px;
             color: red;
             font-size: 14px;
@@ -310,6 +331,47 @@
                 background: url("../images/light_but.png");
                 //  background: url('http://img.lancoo.cn/test/123');
                 margin-right: 8px;
+            }
+        }
+        .row {
+            line-height: 36px;
+            position: relative;
+            .left {
+                float: left;
+                width: 18%;
+                text-align: right;
+                padding-right: 10px;
+                // line-height: 28px;
+            }
+            .right {
+                float: left;
+                width: 82%;
+                .radio {
+                    margin-right: 8px;
+                    vertical-align: top;
+                }
+                .dropdown_container {
+                    vertical-align: top;
+                }
+                .area-check-wrapper {
+                    position: relative;
+                    z-index: 10;
+                    .dropdown_wrapper {
+                        width: 110px !important;
+                        .dropdown_default_span {
+                            width: 110px !important;
+                        }
+                        .dropdown_select_ul {
+                            width: 110px !important;
+                        }
+                    }
+                }
+            }
+        }
+        .row-SchoolBadge {
+            margin: 12px 0;
+            .left {
+                line-height: 40px;
             }
         }
     }

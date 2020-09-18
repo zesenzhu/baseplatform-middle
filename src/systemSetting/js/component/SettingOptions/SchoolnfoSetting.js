@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import "../../../sass/SchoolInfoSet.scss";
 import { connect } from "react-redux";
 import { Modal, Loading } from "../../../../common";
@@ -8,6 +8,8 @@ import ApiActions from "../../action/data/Api";
 import AppAlertAction from "../../action/UI/AppAlertAction";
 import CropperModal from "../../../../common/js/CropperModal";
 import default_schoolPic from "../../../images/boom_school_logo.png"; //默认图标的网络地址
+import SchoolBadge from "../SchoolBadge";
+import AreaCheck from "../../../../initGuide/components/areaCheck";
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 文件最大限制为2M
 
@@ -28,21 +30,24 @@ class SchoolnfoSetting extends Component {
       coreResultImage: null,
       imageUploadModal: false,
       schoolLogo: "",
-      onlineImg: ""
+      onlineImg: "",
     };
     const { dispatch } = props;
     const { SchoolID } = JSON.parse(sessionStorage.getItem("UserInfo"));
     dispatch(DataChange.getCurrentSchoolInfo(SchoolID));
+
+    this.AreaCheck = createRef();
+    this.SchoolBadge = createRef();
   }
 
   //切换年级的选中状态
-  changeActive = ID => {
+  changeActive = (ID) => {
     let { dispatch, periodInfo, schoolInfo } = this.props;
-    let newPeriodInfo = periodInfo.map(item => {
+    let newPeriodInfo = periodInfo.map((item) => {
       if (item.ID === ID) {
         return {
           ...item,
-          checked: !item.checked
+          checked: !item.checked,
         };
       } else {
         return item;
@@ -50,14 +55,14 @@ class SchoolnfoSetting extends Component {
     });
     dispatch({
       type: DataChange.INIT_PERIOD_LIST,
-      data: newPeriodInfo
+      data: newPeriodInfo,
     });
   };
 
   //监听右上角编辑的状态
   openEdite = () => {
     this.setState({
-      edit_visible: true
+      edit_visible: true,
     });
   };
 
@@ -69,13 +74,31 @@ class SchoolnfoSetting extends Component {
       highNum,
       SchoolCode,
       SchoolName,
-      SchoolLogoUrl
+      SchoolLogoUrl,
+      SchoolTel,
+      SchoolLinkman,
     } = this.props.schoolInfo;
     const { dispatch, periodInfo } = this.props;
     let SchoolType = ""; //学制的代码数字
     let SchoolSessionType = ""; //学制类型对应的参数（7=>3/6/3 或者5/4/3）
     // console.log(primaryNum, middleNum, SchoolCode, SchoolName, SchoolLogoUrl);
-
+    let {
+      provinceID,
+      showProvinceTip,
+      hideProvinceTip,
+      cityID,
+      hideCityTip,
+      showCityTip,
+      countyID,
+      showCountyTip,
+      hideCountyTip,
+    } = this.AreaCheck.current;
+    let ImgUrl = "";
+    if (this.SchoolBadge.current) {
+      ImgUrl = this.SchoolBadge.current.ImgUrl;
+    } else {
+      ImgUrl = schoolInfo.SchoolLogoUrl_Long;
+    }
     highNum = highNum ? highNum : "3";
     if (
       periodInfo[0].checked === true &&
@@ -127,15 +150,16 @@ class SchoolnfoSetting extends Component {
     //如果学校名称或者学校代码为空则显示错误信息
     if (
       // SchoolCode === "" ||
-     SchoolName === "") {
+      SchoolName === ""
+    ) {
       // dispatch(AppAlertAction.alertError({ title: "学校代码或名称不能为空!" }));
-      dispatch(AppAlertAction.alertError({ title: "学校 名称不能为空!" }));
+      dispatch(AppAlertAction.alertError({ title: "学校名称不能为空!" }));
       console.log(SchoolName);
     } else {
       if (SchoolName.length >= 21) {
         dispatch(AppAlertAction.alertError({ title: "学校名称过长!" }));
         this.setState({
-          emptyNameTipsShow: true
+          emptyNameTipsShow: true,
         });
         return;
       }
@@ -153,6 +177,34 @@ class SchoolnfoSetting extends Component {
       //   });
       //   return;
       // }
+
+      //判断省市县
+      if (provinceID) {
+        // provinceOk = true;
+
+        hideProvinceTip();
+      } else {
+        showProvinceTip();
+        return;
+      }
+
+      if (cityID) {
+        // cityOk = true;
+
+        hideCityTip();
+      } else {
+        showCityTip();
+        return;
+      }
+
+      if (countyID) {
+        // countyOk = true;
+
+        hideCountyTip();
+      } else {
+        showCountyTip();
+        return;
+      }
       //当SchoolType 不是ERROR的时候才执行post数据
       if (SchoolType !== "error") {
         //根据学制参照情况判断SchoolSessionType
@@ -166,12 +218,12 @@ class SchoolnfoSetting extends Component {
           {
             edit_visible: false,
             emptyNameTipsShow: false,
-            emptyCodeTipsShow: false
+            emptyCodeTipsShow: false,
           },
           () => {
             dispatch({
               type: DataChange.SEMESTER_LOADING_HIDE,
-              data: true
+              data: true,
             });
             const { SchoolID, UserID } = JSON.parse(
               sessionStorage.getItem("UserInfo")
@@ -182,13 +234,17 @@ class SchoolnfoSetting extends Component {
               SchoolID: SchoolID,
               SchoolName: SchoolName,
               SchoolCode: SchoolCode,
+              SchoolTel: SchoolTel,
+              SchoolLinkman: SchoolLinkman,
               SchoolType: SchoolType,
               SchoolSessionType: SchoolSessionType,
               SchoolImgUrl:
                 this.state.onlineImg === ""
                   ? SchoolLogoUrl
-                  : this.state.onlineImg
-            }).then(data => {
+                  : this.state.onlineImg,
+              CountyID: countyID,
+              SchoolImgUrl_Long: ImgUrl,
+            }).then((data) => {
               console.log(data);
               if (data === 0) {
                 console.log("success");
@@ -197,7 +253,7 @@ class SchoolnfoSetting extends Component {
               } else {
                 dispatch({
                   type: DataChange.SEMESTER_LOADING_HIDE,
-                  data: false
+                  data: false,
                 });
                 dispatch(
                   AppAlertAction.alertError({ title: data ? data : "未知异常" })
@@ -211,7 +267,7 @@ class SchoolnfoSetting extends Component {
           {
             // edit_visible: false,
             emptyNameTipsShow: false,
-            emptyCodeTipsShow: false
+            emptyCodeTipsShow: false,
           },
           () => {
             dispatch(
@@ -229,7 +285,7 @@ class SchoolnfoSetting extends Component {
     this.setState({
       edit_visible: false,
       emptyNameTipsShow: false,
-      emptyCodeTipsShow: false
+      emptyCodeTipsShow: false,
     });
     const { SchoolID } = JSON.parse(sessionStorage.getItem("UserInfo"));
     const { dispatch } = this.props;
@@ -237,7 +293,7 @@ class SchoolnfoSetting extends Component {
   };
 
   //监听学制（radio）的选择情况
-  handelSchoolSystem = e => {
+  handelSchoolSystem = (e) => {
     let { schoolInfo, dispatch, periodInfo } = this.props;
     console.log("当前点击值" + e.target.value);
     console.log("一开始时的内容" + schoolInfo.primaryNum);
@@ -264,7 +320,7 @@ class SchoolnfoSetting extends Component {
         schoolInfo = {
           ...schoolInfo,
           primaryNum: "5",
-          middleNum: "4"
+          middleNum: "4",
         };
       }
       // else if(){
@@ -274,44 +330,44 @@ class SchoolnfoSetting extends Component {
         schoolInfo = {
           ...schoolInfo,
           primaryNum: "6",
-          middleNum: "3"
+          middleNum: "3",
         };
       }
     }
 
     dispatch({
       type: DataChange.REFRESH_SCHOOL_INFO,
-      data: schoolInfo
+      data: schoolInfo,
     });
   };
 
   //监听学校代码的获取事件
-  getSchoolCode = e => {
-    let valueableCode = e.target.value.replace(/\s*/g,"").substring(0, 20);
+  getSchoolCode = (e) => {
+    let valueableCode = e.target.value.replace(/\s*/g, "").substring(0, 20);
     let timerID = "";
 
     if (e.target.value !== "") {
       this.setState({
-        emptyCodeTipsShow: false
+        emptyCodeTipsShow: false,
       });
     }
     let isNum = /^\d+$/.test(e.target.value);
     if (isNum === false) {
       this.setState({
         emptyCodeTipsShow: true,
-        codeTipsTitle: "学校代码必须是数字"
+        codeTipsTitle: "学校代码必须是数字",
       });
     }
     if (e.target.value.length > 20) {
       this.setState({
         codeTipsTitle: "学校代码不能超过20位数字",
-        emptyCodeTipsShow: true
+        emptyCodeTipsShow: true,
       });
 
       timerID = setTimeout(() => {
         this.setState(
           {
-            emptyCodeTipsShow: false
+            emptyCodeTipsShow: false,
           },
           () => {
             clearTimeout(timerID);
@@ -325,36 +381,36 @@ class SchoolnfoSetting extends Component {
       SchoolCode:
         e.target.value.length > 20
           ? valueableCode.trim()
-          : e.target.value.trim()
+          : e.target.value.trim(),
     };
 
     dispatch({
       type: DataChange.REFRESH_SCHOOL_INFO,
-      data: schoolInfo
+      data: schoolInfo,
     });
   };
 
   //学校代码输入框失去焦点后的回调事件
-  visibleCode = e => {
+  visibleCode = (e) => {
     if (e.target.value === "") {
       this.setState({
         emptyCodeTipsShow: true,
-        codeTipsTitle: "学校代码不能为空"
+        codeTipsTitle: "学校代码不能为空",
       });
     } else if (e.target.value.length > 20) {
       this.setState({
         emptyCodeTipsShow: true,
-        codeTipsTitle: "学校代码不能超过20位数字"
+        codeTipsTitle: "学校代码不能超过20位数字",
       });
     } else {
       this.setState({
-        emptyCodeTipsShow: false
+        emptyCodeTipsShow: false,
       });
     }
   };
 
   //监听学校名字改变的事件
-  getSchoolName = e => {
+  getSchoolName = (e) => {
     let { schoolInfo, dispatch } = this.props;
     let timerID = 0;
 
@@ -364,7 +420,7 @@ class SchoolnfoSetting extends Component {
 
     if (e.target.value !== "") {
       this.setState({
-        emptyNameTipsShow: false
+        emptyNameTipsShow: false,
       });
 
       //当输入数据长度超过20,提示学校名称长度不能超过20
@@ -373,12 +429,12 @@ class SchoolnfoSetting extends Component {
         valueableLength = e.target.value.substring(0, 20);
         this.setState({
           tipsTitle: "学校名称不能超过20个字符",
-          emptyNameTipsShow: true
+          emptyNameTipsShow: true,
         });
         timerID = setTimeout(() => {
           this.setState(
             {
-              emptyNameTipsShow: false
+              emptyNameTipsShow: false,
             },
             () => {
               clearInterval(timerID);
@@ -392,30 +448,30 @@ class SchoolnfoSetting extends Component {
       SchoolName:
         e.target.value.length > 20
           ? valueableLength.trim()
-          : e.target.value.trim()
+          : e.target.value.trim(),
     };
 
     dispatch({
       type: DataChange.REFRESH_SCHOOL_INFO,
-      data: schoolInfo
+      data: schoolInfo,
     });
   };
 
   //学校名称输入框失去焦点后的回调事件
-  visibleName = e => {
+  visibleName = (e) => {
     if (e.target.value === "") {
       this.setState({
         emptyNameTipsShow: true,
-        tipsTitle: "学校名称不能为空"
+        tipsTitle: "学校名称不能为空",
       });
     } else if (e.target.value.length > 20) {
       this.setState({
         emptyNameTipsShow: true,
-        tipsTitle: "学校名称不能超过20个字符"
+        tipsTitle: "学校名称不能超过20个字符",
       });
     } else {
       this.setState({
-        emptyNameTipsShow: false
+        emptyNameTipsShow: false,
       });
     }
   };
@@ -455,7 +511,7 @@ class SchoolnfoSetting extends Component {
   imageUpload = () => {
     this.setState({
       imageUploadModal: true,
-      edit_visible: true
+      edit_visible: true,
     });
   };
 
@@ -463,7 +519,7 @@ class SchoolnfoSetting extends Component {
   upLoadCancel = () => {
     this.setState({
       imageUploadModal: false,
-      edit_visible: true
+      edit_visible: true,
     });
     // console.log("hhhh")
   };
@@ -475,17 +531,17 @@ class SchoolnfoSetting extends Component {
 
     this.setState({
       schoolLogo: str,
-      onlineImg: filePath
+      onlineImg: filePath,
       //[key]: this.state.baseUrl+'/http_subjectResMgr/'+filePath
     });
     schoolInfo = {
       ...schoolInfo,
-      SchoolLogoUrl: str
+      SchoolLogoUrl: str,
     };
     console.log(str);
     dispatch({
       type: DataChange.REFRESH_SCHOOL_INFO,
-      data: schoolInfo
+      data: schoolInfo,
     });
   };
 
@@ -494,16 +550,16 @@ class SchoolnfoSetting extends Component {
     let { dispatch, schoolInfo, serverAddress } = this.props;
     this.setState({
       schoolLogo: `${serverAddress}SysSetting/Attach/default.png `,
-      onlineImg: `/SysSetting/Attach/default.png`
+      onlineImg: `/SysSetting/Attach/default.png`,
     });
 
     schoolInfo = {
       ...schoolInfo,
-      SchoolLogoUrl: `${serverAddress}SysSetting/Attach/default.png `
+      SchoolLogoUrl: `${serverAddress}SysSetting/Attach/default.png `,
     };
     dispatch({
       type: DataChange.REFRESH_SCHOOL_INFO,
-      data: schoolInfo
+      data: schoolInfo,
     });
   };
   //裁剪工具所返回的参数判断，overSize图片过大，fileNull未选择图片进行上传
@@ -523,13 +579,21 @@ class SchoolnfoSetting extends Component {
       schoolInfo,
       semesterloading,
       periodInfo,
-      serverAddress
+      serverAddress,
     } = this.props;
     const { UserID } = JSON.parse(sessionStorage.getItem("UserInfo"));
     // console.log(periodInfo)
     let schoolSys = "";
     let schoolLength = "";
-
+    let {
+      CityID,
+      CityName,
+      CountyID,
+      CountyName,
+      ProvinceID,
+      ProvinceName,
+      SchoolCode,
+    } = schoolInfo;
     //根据学校类型选择渲染内容
     switch (schoolInfo.SchoolType) {
       case 7:
@@ -570,7 +634,14 @@ class SchoolnfoSetting extends Component {
       default:
         schoolSys = "学制获取失败";
     }
-
+    // 多学校：当ProductType为3的时候不出现长条校徽
+    const { ProductType, ResHttpRootUrl } = sessionStorage.getItem(
+      "LgBasePlatformInfo"
+    )
+      ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
+      : {};
+    let isMoreSchool = true
+    // parseInt(ProductType) === 3;
     return (
       <Loading spinning={semesterloading} opacity={false} tip="请稍候...">
         <div className="school-InfoSetting">
@@ -596,13 +667,35 @@ class SchoolnfoSetting extends Component {
             {schoolInfo.SchoolName}
           </div>
           <div className="school-info">
+            {!isMoreSchool ? (
+              <div className="school-badge">
+                长条校徽:
+                <i
+                  className="SchoolLogoUrl_Long"
+                  style={{
+                    background: `url(${schoolInfo.SchoolLogoUrl_Long}) no-repeat center center/280px 40px`,
+                  }}
+                ></i>
+              </div>
+            ) : (
+              ""
+            )}
             <div className="school-code">
-              学校代码:<span title={schoolInfo.SchoolCode}>{schoolInfo.SchoolCode}</span>
+              学校代码:
+              <span title={schoolInfo.SchoolCode}>{schoolInfo.SchoolCode}</span>
             </div>
             <div className="school-type">
               学校类型:
               <span>{schoolLength}</span>({schoolSys})
             </div>
+            {CountyID ? (
+              <div className="school-type">
+                学校区域:
+                <span>{ProvinceName + ">" + CityName + ">" + CountyName}</span>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           <Modal
             type="1"
@@ -610,8 +703,8 @@ class SchoolnfoSetting extends Component {
             title="编辑学校基础资料"
             onOk={this.editComfirm}
             onCancel={this.editCancel}
-            width={"724px"}
-            bodyStyle={{ height: "348px" }}
+            width={"784px"}
+            bodyStyle={{ height: isMoreSchool ? "330px" : "392px" }}
             visible={this.state.edit_visible}
             okText="保存"
             destroyOnClose={true}
@@ -640,7 +733,7 @@ class SchoolnfoSetting extends Component {
                   onSubmit={(blob, filePath) =>
                     this.handleGetResultImgUrl(blob, filePath)
                   }
-                  diskName='SysSetting'
+                  diskName="SysSetting"
                   UpDataUrl={`${serverAddress}SubjectRes_UploadHandler.ashx?method=doUpload_WholeFile&userid=${UserID}`}
                   // onCheck={(param)=>this.paramDetect(param)}
                 ></CropperModal>
@@ -654,25 +747,48 @@ class SchoolnfoSetting extends Component {
               </div>
 
               <div className="content-right">
-                <div className="win-shcool-name">
-                  学校名称:
-                  <Tooltip
-                    visible={this.state.emptyNameTipsShow}
-                    placement="right"
-                    title={this.state.tipsTitle}
-                  >
-                    <input
-                      type="text"
-                      maxLength="20"
-                      value={schoolInfo.SchoolName}
-                      onChange={this.getSchoolName}
-                      onBlur={this.visibleName}
-                    />
-                  </Tooltip>
+                <div className="row clearfix win-shcool-name">
+                  <span className="left">学校名称:</span>
+                  <span className="right">
+                    <Tooltip
+                      visible={this.state.emptyNameTipsShow}
+                      placement="right"
+                      title={this.state.tipsTitle}
+                    >
+                      <input
+                        type="text"
+                        maxLength="20"
+                        value={schoolInfo.SchoolName}
+                        onChange={this.getSchoolName}
+                        onBlur={this.visibleName}
+                      />
+                    </Tooltip>
+                  </span>
                 </div>
-                <div className="win-school-code">
-                  学校代码:
-                  {/* <Tooltip
+                {!isMoreSchool ? (
+                  <div className={"row clearfix row-SchoolBadge"}>
+                    <span className="left">长条校徽:</span>
+                    <span className="right">
+                      <SchoolBadge
+                        schoolBadge={
+                          typeof schoolInfo.SchoolLogoUrl_Long === "string"
+                            ? schoolInfo.SchoolLogoUrl_Long.replace(
+                                ResHttpRootUrl,
+                                ""
+                              )
+                            : ""
+                        }
+                        ref={this.SchoolBadge}
+                      ></SchoolBadge>
+                    </span>
+                  </div>
+                ) : (
+                  ""
+                )}
+                <div className="row clearfix win-school-code">
+                  <span className="left">学校代码:</span>
+                  <span className="right">
+                    {/* <Tooltip
                     visible={this.state.emptyCodeTipsShow}
                     placement="right"
                     title={this.state.codeTipsTitle}
@@ -685,107 +801,136 @@ class SchoolnfoSetting extends Component {
                       onBlur={this.visibleCode}
                     />
                   </Tooltip> */}
-                  <span title={schoolInfo.SchoolCode} className='School-Code'>{schoolInfo.SchoolCode}</span>
+                    <span
+                      style={{
+                        lineHeight: "20px",
+                        height: "20px",
+                        // paddingLeft: "10px",
+                        display: "inline-block",
+                        fontSize: "14px",
+                        fontWeight: "bold",
+                        color: "#ff6600",
+                      }}
+                    >
+                      {schoolInfo.SchoolCode}
+                    </span>
+                    {/* <span title={schoolInfo.SchoolCode} className="School-Code">
+                    {schoolInfo.SchoolCode}
+                  </span> */}
+                  </span>
                 </div>
 
-                <div className="win-school-type">
-                  学校类型:
-                  <div className="primary-school">
-                    <span /* className={`${this.state.active===1?"click":""}`}  */
-                      className={`${
-                        periodInfo[0].checked === true ? "click" : ""
-                      }`}
-                      onClick={() => this.changeActive("P1")}
-                    >
-                      小学
-                    </span>
-                    <i></i>
-                    <input
-                      type="radio"
-                      value="5" /* checked={schoolInfo.primaryNum==="5"}  */
-                      checked={
-                        periodInfo[0].checked === true &&
-                        schoolInfo.primaryNum === "5"
-                      }
-                      disabled={periodInfo[0].checked === false}
-                      onChange={this.tempFunction}
-                      onClick={this.handelSchoolSystem}
-                    />
-                    五年制
-                    <input
-                      type="radio"
-                      value="6" /* checked={schoolInfo.primaryNum==="6"}  */
-                      checked={
-                        periodInfo[0].checked === true &&
-                        schoolInfo.primaryNum === "6"
-                      }
-                      disabled={periodInfo[0].checked === false}
-                      onChange={this.tempFunction}
-                      onClick={this.handelSchoolSystem}
-                    />
-                    六年制
-                  </div>
-                  <div className="middle-school">
-                    <span /* className={`${this.state.active===2?"click":""}`} */
-                      className={`${
-                        periodInfo[1].checked === true ? "click" : ""
-                      }`}
-                      onClick={() => this.changeActive("P2")}
-                    >
-                      初中
-                    </span>
-                    <i></i>
-                    <input
-                      type="radio"
-                      value="3"
-                      checked={
-                        periodInfo[1].checked === true &&
-                        schoolInfo.middleNum === "3"
-                      }
-                      disabled={periodInfo[1].checked === false}
-                      onChange={this.tempFunction}
-                      onClick={this.handelSchoolSystem}
-                    />
-                    三年制
-                    <input
-                      type="radio"
-                      value="4"
-                      checked={
-                        periodInfo[1].checked === true &&
-                        schoolInfo.middleNum === "4"
-                      }
-                      disabled={periodInfo[1].checked === false}
-                      onChange={this.tempFunction}
-                      onClick={this.handelSchoolSystem}
-                    />
-                    四年制
-                  </div>
-                  <div className="high-school">
-                    <span /* className={`${this.state.active===3?"click":""}`} */
-                      className={`${
-                        periodInfo[2].checked === true ? "click" : ""
-                      }`}
-                      onClick={() => this.changeActive("P3")}
-                    >
-                      高中
-                    </span>
-                    <i></i>
-                    <input
-                      type="radio"
-                      value="12" /* checked={schoolInfo.highNum==="12"}  */
-                      checked={periodInfo[2].checked === true}
-                      onChange={this.tempFunction}
-                      onClick={this.handelSchoolSystem}
-                    />
-                    三年制
+                <div
+                  style={{ height: "120px" }}
+                  className="row clearfix win-school-type"
+                >
+                  <span className="left">学校类型:</span>
+                  <div className=" right">
+                    <div className="primary-school">
+                      <span /* className={`${this.state.active===1?"click":""}`}  */
+                        className={`${
+                          periodInfo[0].checked === true ? "click" : ""
+                        }`}
+                        onClick={() => this.changeActive("P1")}
+                      >
+                        小学
+                      </span>
+                      <i></i>
+                      <input
+                        type="radio"
+                        value="5" /* checked={schoolInfo.primaryNum==="5"}  */
+                        checked={
+                          periodInfo[0].checked === true &&
+                          schoolInfo.primaryNum === "5"
+                        }
+                        disabled={periodInfo[0].checked === false}
+                        onChange={this.tempFunction}
+                        onClick={this.handelSchoolSystem}
+                      />
+                      五年制
+                      <input
+                        type="radio"
+                        value="6" /* checked={schoolInfo.primaryNum==="6"}  */
+                        checked={
+                          periodInfo[0].checked === true &&
+                          schoolInfo.primaryNum === "6"
+                        }
+                        disabled={periodInfo[0].checked === false}
+                        onChange={this.tempFunction}
+                        onClick={this.handelSchoolSystem}
+                      />
+                      六年制
+                    </div>
+                    <div className="middle-school">
+                      <span /* className={`${this.state.active===2?"click":""}`} */
+                        className={`${
+                          periodInfo[1].checked === true ? "click" : ""
+                        }`}
+                        onClick={() => this.changeActive("P2")}
+                      >
+                        初中
+                      </span>
+                      <i></i>
+                      <input
+                        type="radio"
+                        value="3"
+                        checked={
+                          periodInfo[1].checked === true &&
+                          schoolInfo.middleNum === "3"
+                        }
+                        disabled={periodInfo[1].checked === false}
+                        onChange={this.tempFunction}
+                        onClick={this.handelSchoolSystem}
+                      />
+                      三年制
+                      <input
+                        type="radio"
+                        value="4"
+                        checked={
+                          periodInfo[1].checked === true &&
+                          schoolInfo.middleNum === "4"
+                        }
+                        disabled={periodInfo[1].checked === false}
+                        onChange={this.tempFunction}
+                        onClick={this.handelSchoolSystem}
+                      />
+                      四年制
+                    </div>
+                    <div className="high-school">
+                      <span /* className={`${this.state.active===3?"click":""}`} */
+                        className={`${
+                          periodInfo[2].checked === true ? "click" : ""
+                        }`}
+                        onClick={() => this.changeActive("P3")}
+                      >
+                        高中
+                      </span>
+                      <i></i>
+                      <input
+                        type="radio"
+                        value="12" /* checked={schoolInfo.highNum==="12"}  */
+                        checked={periodInfo[2].checked === true}
+                        onChange={this.tempFunction}
+                        onClick={this.handelSchoolSystem}
+                      />
+                      三年制
+                    </div>
                   </div>
                 </div>
-
-                <div className="edit-tips">
-                  <span></span>
-                  修改
-                  {/* 学校代码和 */}
-                  学校类型会引起基础数据重新初始化，请谨慎操作
+                <div className={"row clearfix"}>
+                  <span className="left">所在区域:</span>
+                  <span className="right">
+                    <AreaCheck
+                      ProvinceID={ProvinceID}
+                      CityID={CityID}
+                      CountyID={CountyID}
+                      ref={this.AreaCheck}
+                    ></AreaCheck>
+                  </span>
+                  <div className="edit-tips">
+                    <span></span>
+                    修改学校类型会引起基础数据重新初始化，请谨慎操作
+                  </div>
                 </div>
               </div>
             </div>
@@ -796,7 +941,7 @@ class SchoolnfoSetting extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { DataUpdate } = state;
 
   const { schoolInfo, semesterloading, periodInfo, serverAddress } = DataUpdate;
@@ -806,7 +951,7 @@ const mapStateToProps = state => {
     schoolInfo,
     semesterloading,
     periodInfo,
-    serverAddress
+    serverAddress,
   };
 };
 export default connect(mapStateToProps)(SchoolnfoSetting);

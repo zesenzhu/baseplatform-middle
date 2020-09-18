@@ -1,0 +1,16 @@
+@import "../../common/scss/public.scss";
+$img-url: "../images";
+@import "./Main.scss";
+@import "./Common/index.scss";
+@import "./Modal.scss";
+.myFrame {
+    .frame-block-wrapper {
+        padding-left: 90px;
+    }
+}
+
+.ClassFrame {
+    .frame-block-wrapper {
+        padding-left: 110px;
+    }
+}

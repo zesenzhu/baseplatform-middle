@@ -1,0 +1,19 @@
+#TableRender {
+    margin-top: 12px;
+    .table {
+        .ant-table-tbody>tr>td,
+        .ant-table-thead>tr>th {
+            padding: 16px 0;
+        }
+        .Img-Box {
+            width: 74px;
+            height: 64px;
+            .IB-bg {
+                width: 64px;
+                height: 64px;
+                display: inline-block;
+                position: relative;
+            }
+        }
+    }
+}
