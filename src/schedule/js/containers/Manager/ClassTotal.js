@@ -92,6 +92,14 @@ class ClassTotal extends Component{
 
     scrollToBottom(e){
 
+        if (this.tableRef){
+
+            const top = this.tableRef.getScrollTop();
+
+            this.tableRef.scrollTop(top-1);
+
+        }
+
         const {dispatch,ClassTotal} = this.props;
 
         const { ClassCount,PageIndex } = ClassTotal;

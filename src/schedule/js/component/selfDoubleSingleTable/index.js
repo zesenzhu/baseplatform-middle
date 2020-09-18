@@ -93,13 +93,23 @@ function SelfDoubleSingleTable(props,ref){
 
       }
 
-
-
     },[]);
 
     useImperativeHandle(ref,()=>({
 
-        scrollToTop:ScrollRef.current.scrollToTop
+        scrollToTop:()=>{
+
+            ScrollRef.current.scrollToTop();
+
+            $('#double-single-table1').css({top:`${0}px`});
+
+            $('#double-single-table2').css({top:`${0}px`});
+
+        },
+
+        getScrollTop:ScrollRef.current.getScrollTop,
+
+        scrollTop:ScrollRef.current.scrollTop
 
     }),[]);
 
