@@ -840,7 +840,7 @@ function Archives(props) {
 
                                 <td className={"col6"}>{isHasValue(userArchives.Gender)}</td>
 
-                                <td className={"col7"} rowSpan={6}>
+                                <td className={"col7"} rowSpan={environ===0?4:5}>
 
                                     <div className={"user-photo"} style={{backgroundImage:`url(${userArchives.PhotoPath})`}}></div>
 
@@ -920,7 +920,7 @@ function Archives(props) {
 
                             <tr>
 
-                                <td className={"col1 props"}>联系电话</td>
+                                <td className={"col1 props"}>预留电话</td>
 
                                 <td className={"col2"} colSpan={2}>
 
@@ -1014,7 +1014,7 @@ function Archives(props) {
 
                                 <td className={"col6"}>{isHasValue(userArchives.Gender)}</td>
 
-                                <td className={"col7"} rowSpan={6}>
+                                <td className={"col7"} rowSpan={environ===0?4:5}>
 
                                     <div className={"user-photo"} style={{backgroundImage:`url(${userArchives.PhotoPath})`}}></div>
 

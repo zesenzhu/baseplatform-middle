@@ -21,6 +21,7 @@
     "build": "^0.1.4",
     "camelcase": "^5.2.0",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
+    "clamp-js": "^0.7.0",
     "compass-mixins": "^0.12.10",
     "core-js": "^3.2.1",
     "cropperjs": "^1.5.6",
