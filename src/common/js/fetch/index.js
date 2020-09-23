@@ -30,7 +30,6 @@ function postData(
   moreParams = { credentials: "omit", requestHeader: {} }
 ) {
   let token = sessionStorage.getItem("token") || getQueryVariable("lg_tk");
-
   // if (!token && SecurityLevel !== 1) {
   //     console.log('token无效，请重新登录');//后期会进行无token的事件操作
   //     return new Promise(function (resolve, reject) {

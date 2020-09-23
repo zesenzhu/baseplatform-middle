@@ -45,143 +45,7 @@ class TableRender extends Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
-    this.state = {
-      columns: [
-        {
-          title: "",
-          align: "right",
-          key: "Img",
-          width: 96,
-          colSpan: 0,
-          render: (data) => {
-            let { IdentityCode, IconUrl } = data; //IC0002
-
-            return (
-              <div className="Img-Box">
-                <i className={`IB-bg`}>
-                  <span
-                    className="IB-tilte"
-                    style={{
-                      width: "74px",
-                      height: "16px",
-                      background: `url(${data.IconUrl}) no-repeat center center / contain`,
-                    }}
-                  ></span>
-                </i>
-              </div>
-            );
-          },
-        },
-        // {
-        //   title: "姓名",
-        //   align: "left",
-        //   colSpan: 2,
-        //   width: 90,
-        //   key: "UserName",
-        //   dataIndex: "UserName",
-        //   sorter: true,
-        //   render: (arr) => {
-        //     return (
-        //       <div className="name-content">
-        //         <span
-        //           title={arr.UserName}
-        //           className="name-UserName"
-        //           onClick={this.onUserNameClick.bind(this, arr.key)}
-        //         >
-        //           {arr.UserName ? arr.UserName : "--"}
-        //         </span>
-        //       </div>
-        //     );
-        //   },
-        // },
-        // {
-        //   title: "学号",
-        //   align: "center",
-        //   width: 120,
-        //   dataIndex: "UserID",
-        //   key: "UserID",
-        //   sorter: true,
-        //   render: (UserID) => {
-        //     return (
-        //       <span title={UserID} className="UserID">
-        //         {UserID ? UserID : "--"}
-        //       </span>
-        //     );
-        //   },
-        // },
-        // {
-        //   title: "性别",
-        //   align: "center",
-        //   width: 80,
-        //   dataIndex: "Gender",
-        //   key: "Gender",
-        //   render: (Gender) => {
-        //     return (
-        //       <span title={Gender} className="Gender">
-        //         {Gender ? Gender : "--"}
-        //       </span>
-        //     );
-        //   },
-        // },
-        // {
-        //   title: "年级",
-        //   align: "center",
-        //   key: "GradeName",
-        //   width: 110,
-        //   dataIndex: "GradeName",
-        //   render: (GradeName) => {
-        //     return (
-        //       <span title={GradeName} className="GradeName">
-        //         {GradeName ? GradeName : "--"}
-        //       </span>
-        //     );
-        //   },
-        // },
-        // {
-        //   title: "班级",
-        //   align: "center",
-        //   width: 110,
-        //   key: "ClassName",
-        //   dataIndex: "ClassName",
-        //   render: (ClassName) => {
-        //     return (
-        //       <span title={ClassName} className="ClassName">
-        //         {ClassName ? ClassName : "--"}
-        //       </span>
-        //     );
-        //   },
-        // },
-        // {
-        //   title: "操作",
-        //   align: "center",
-        //   key: "handle",
-        //   width: 232,
-        //   dataIndex: "key",
-        //   render: (key) => {
-        //     return (
-        //       <div className="handle-content">
-        //         <Button
-        //           color="blue"
-        //           type="default"
-        //           onClick={this.StudentEdit.bind(this, key)}
-        //           className="handle-btn"
-        //         >
-        //           编辑
-        //         </Button>
-        //         <Button
-        //           color="blue"
-        //           type="default"
-        //           onClick={this.StudentChange.bind(this, key)}
-        //           className="check-btn"
-        //         >
-        //           查看变更记录
-        //         </Button>
-        //       </div>
-        //     );
-        //   },
-        // },
-      ],
-    };
+    this.state = {};
   }
 
   componentWillReceiveProps(nextProps) {
@@ -286,10 +150,16 @@ class TableRender extends Component {
   //5：	成员人数
 
   UserCountRender = (data) => {
-    let { UserCount, ModuleIDs } = data; //IC0002
+    let { UserCount, ModuleIDs, IdentityCode, IdentityLevel } = data; //IC0001为学校管理员，不能点击
 
     return (
-      <p title={UserCount} className=" UserCount-Box">
+      <p
+        title={UserCount}
+        onClick={this.onCheckMemberClick.bind(this, data)}
+        className={` UserCount-Box  ${
+          IdentityCode === "IC0001" || IdentityLevel === 1 ? "unClick" : ""
+        }`}
+      >
         {UserCount || UserCount === 0 ? UserCount : "--"}
       </p>
     );
@@ -303,32 +173,213 @@ class TableRender extends Component {
     //3：表示允许编辑权限、编辑成员（如教务管理员）
     //4：表示自定义身份
     return (
-      <div
-        className={` Handle-Box ${IdentityLevel === 1 ? "null" : ""}`}
-      >
+      <div className={` Handle-Box ${IdentityLevel === 1 ? "null" : ""}`}>
         {IdentityLevel !== 1 ? (
           <>
-          {IdentityLevel === 4 ? (
+            {IdentityLevel === 4 ? (
               <>
-                <span className="handle-btn edit-identity">编辑身份</span>
-                <span className="handle-btn delete-identity">删除身份</span>
+                <span
+                  onClick={this.onEditIdentityClick.bind(this, data)}
+                  className="handle-btn edit-identity"
+                >
+                  编辑身份
+                </span>
+                <span
+                  onClick={this.onDeleteIdentityClick.bind(this, data)}
+                  className="handle-btn delete-identity"
+                >
+                  删除身份
+                </span>
               </>
             ) : (
               ""
             )}
             {IdentityLevel !== 2 ? (
-              <span className="handle-btn edit-member">编辑成员</span>
+              <span onClick={this.onEditMemberClick.bind(this, data)} className="handle-btn edit-member">编辑成员</span>
             ) : (
               ""
             )}
 
-            <span className="handle-btn edit-power">编辑权限</span>
-            
+            <span
+              onClick={this.onEditPowerClick.bind(this, data)}
+              className="handle-btn edit-power"
+            >
+              编辑权限
+            </span>
           </>
         ) : (
           "--"
         )}
       </div>
+    );
+  };
+  // 编辑成员
+  onEditMemberClick= (data) => {
+    let {
+      dispatch,
+      HandleState: {
+        CommonData: { DefaultIdentity },
+      },
+    } = this.props;
+
+    let {
+      IdentityLevel,
+      ModuleIDs,
+      IdentityID,
+      IdentityCode,
+      IdentityName,
+      UserType,
+      Description,
+    } = data; //IC0001为学校管理员，不能点击
+    if (IdentityCode === "IC0001") {
+      return;
+    }
+    let PageIndex = 0;
+    let type = "edit";
+    
+    dispatch(PublicAction.ModalLoadingOpen());
+    dispatch(
+      HandleAction.ParamsSetCheckMember({
+        IdentityCode,
+        IdentityName,
+        UserType:UserType.split(','),
+        IdentityID,
+        Description,
+        PageIndex: PageIndex,
+        PageSize: 8,
+        type, //add,edit
+      })
+    );
+    dispatch(
+      DataAction.GetIdentityUser({
+        fn: () => {
+          dispatch(PublicAction.ModalLoadingClose());
+        },
+      })
+    );
+    dispatch(HandleAction.SetModalVisible({ CheckMemberModalVisible: true }));
+  };
+  // 查看成员
+  onCheckMemberClick = (data) => {
+    let {
+      dispatch,
+      HandleState: {
+        CommonData: { DefaultIdentity },
+      },
+    } = this.props;
+
+    let {
+      IdentityLevel,
+      ModuleIDs,
+      IdentityID,
+      IdentityCode,
+      IdentityName,
+      UserType,
+      Description,
+    } = data; //IC0001为学校管理员，不能点击
+    if (IdentityCode === "IC0001") {
+      return;
+    }
+    let PageIndex = 0;
+    let type = "custom";
+    if (IdentityLevel === 1 || IdentityLevel === 2) {
+      //不允许编辑成员的
+      DefaultIdentity.forEach((child) => {
+        if (child.value === IdentityCode) {
+          //默认
+          type = IdentityCode;
+          PageIndex = 1;
+        }
+      });
+      // if (DefaultIdentity.some((child) => child.value === IdentityCode)) {
+      //   //默认
+      //   type = IdentityCode;
+      // }
+    } else {
+    }
+    dispatch(PublicAction.ModalLoadingOpen());
+    dispatch(
+      HandleAction.ParamsSetCheckMember({
+        IdentityCode,
+        IdentityName,
+        UserType:UserType.split(','),
+        IdentityID,
+        Description,
+        PageIndex: PageIndex,
+        PageSize: 8,
+        type, //add,edit
+      })
+    );
+    dispatch(
+      DataAction.GetIdentityUser({
+        fn: () => {
+          dispatch(PublicAction.ModalLoadingClose());
+        },
+      })
+    );
+    dispatch(HandleAction.SetModalVisible({ CheckMemberModalVisible: true }));
+  };
+  // 编辑权限
+  onEditPowerClick = (data) => {
+    let { IdentityID, IdentityName, Description, UserType, ModuleIDs } = data;
+    let { dispatch } = this.props;
+    dispatch(
+      HandleAction.ParamsSetIdentityPower({
+        ModuleIDs: typeof ModuleIDs === "string" ? ModuleIDs.split(",") : [],
+        InitModuleIDs:
+          typeof ModuleIDs === "string" ? ModuleIDs.split(",") : [],
+        Description,
+        IdentityName,
+        IdentityID,
+        UserType: typeof UserType === "string" ? UserType.split(",") : [],
+        type: "edit", //add,edit
+      })
+    );
+    dispatch(DataAction.GetIdentityModule({}))
+    dispatch(HandleAction.SetModalVisible({ IdentityPowerModalVisible: true }));
+  };
+  // 删除身份，自定义
+  onDeleteIdentityClick = (data) => {
+    let { IdentityID, IdentityName, Description, UserType } = data;
+    let { dispatch } = this.props;
+
+    dispatch(
+      PublicAction.showErrorAlert({
+        type: "btn-warn",
+        title: "确认删除该身份？",
+        onOk: () => {
+          console.log(IdentityID);
+          dispatch(
+            HandleAction.ParamsSetCustomIdentity({
+              IdentityID,
+            })
+          );
+          dispatch(DataAction.DeleteIdentityType({}));
+          dispatch(PublicAction.hideErrorAlert());
+        },
+      })
+    );
+  };
+  // 编辑身份
+  onEditIdentityClick = (data) => {
+    let { IdentityID, IdentityName, Description, UserType } = data;
+    let { dispatch } = this.props;
+    UserType = UserType.split(",").map((child) => parseInt(child));
+    dispatch(
+      HandleAction.ParamsSetCustomIdentity({
+        IdentityName,
+        Description,
+        IdentityID,
+        InitIdentityName: IdentityName,
+        InitDescription: Description,
+        InitUserType: UserType,
+        UserType: UserType,
+        type: "edit",
+      })
+    );
+
+    dispatch(
+      HandleAction.SetModalVisible({ CustomIdentityModalVisible: true })
     );
   };
   SetColumns = () => {

@@ -10,6 +10,8 @@ import {
   Search,
   Tips,
   DetailsModal,
+  CheckBox,
+  CheckBoxGroup,
 } from "../../../../common";
 import Frame from "../../../../common/Frame";
 import { connect } from "react-redux";
@@ -70,6 +72,152 @@ class CustomIdentityModal extends Component {
       })
     );
   };
+  // 身份描述:change
+  onDescriptionChange = (e) => {
+    let { dispatch } = this.props;
+    dispatch(
+      HandleAction.ParamsSetCustomIdentity({
+        Description: e.target.value.trim(),
+      })
+    );
+  };
+  onDescriptionBlur = (e) => {
+    let { dispatch } = this.props;
+    dispatch(
+      HandleAction.checkDescription({
+        value: e.target.value.trim(),
+        success: () => {
+          dispatch(
+            HandleAction.ParamsSetCustomIdentity({
+              Description: e.target.value.trim(),
+            })
+          );
+        },
+      })
+    );
+  };
+  onUserTypeChange = (e) => {
+    let { dispatch,HandleState:{ParamsData:{CustomIdentity:{UserType}}} } = this.props;
+    if (e.length>2) {//最多两个组合
+      return;
+    }
+    if(UserType.length===1&&e.length===2&&e.some(child=>child===3||child===2)){
+      return ;
+    }
+    dispatch(
+      HandleAction.checkUserType({
+        value: e,
+        fn: () => {
+          dispatch(
+            HandleAction.ParamsSetCustomIdentity({
+              UserType: e,
+            })
+          );
+        },
+      })
+    );
+  };
+  //
+  onModalOk = () => {
+    let {
+      dispatch,
+      HandleState: {
+        ParamsData: {
+          CustomIdentity: {
+            IdentityName,
+            Description,
+            UserType,
+            type,
+            InitIdentityName,
+            InitDescription,
+            InitUserType,
+          },
+        },
+      },
+    } = this.props;
+    let Error = false;
+    let Post = () => {};
+
+    if (type === "add") {
+      Post = DataAction.AddIdentityType;
+    } else if (type === "edit") {
+      Post = DataAction.EditIdentityType;
+      if (
+        IdentityName === InitIdentityName ||
+        Description === InitDescription ||
+        UserType === InitUserType
+      ) {
+        dispatch(
+          PublicAction.showErrorAlert({
+            type: "error",
+            title: "您还没有编辑哦~",
+          })
+        );
+        return;
+      }
+    } else {
+      console.log("type不对");
+      return;
+    }
+    dispatch(
+      HandleAction.checkIndentityName({
+        value: IdentityName,
+        success: () => {},
+        error: () => {
+          Error = true;
+        },
+      })
+    );
+
+    dispatch(
+      HandleAction.checkDescription({
+        value: Description,
+        success: () => {},
+        error: () => {
+          Error = true;
+        },
+      })
+    );
+
+    dispatch(
+      HandleAction.checkUserType({
+        value: UserType,
+        success: () => {},
+        error: () => {
+          Error = true;
+        },
+      })
+    );
+    if (Error) {
+      return;
+    } else {
+      dispatch(
+        Post({
+          fn: () => {
+            this.onModalCancel();
+          },
+        })
+      );
+    }
+  };
+  onModalCancel = () => {
+    let { dispatch } = this.props;
+    dispatch(
+      HandleAction.SetModalVisible({ CustomIdentityModalVisible: false })
+    );
+    dispatch(
+      HandleAction.ParamsSetCustomIdentity({
+        IdentityName: "",
+        Description: "",
+        UserType: [],
+        InitIdentityName: "",
+        InitDescription: "",
+        InitUserType: [],
+        type: "add",
+      })
+    );
+    dispatch(PublicAction.ContentLoadingClose())
+  };
   render() {
     const {
       HandleState: {
@@ -81,10 +229,19 @@ class CustomIdentityModal extends Component {
             type, //add,edit
           },
         },
+        CommonData: { RoleList },
         ControlData: {
           ModalVisible: { CustomIdentityModalVisible },
-          TipsVisible: { IndentityNameTipsVisible, DescriptionTipsVisible },
-          TipsTitle: { IndentityNameTipsTitle, DescriptionTipsTitle },
+          TipsVisible: {
+            IndentityNameTipsVisible,
+            DescriptionTipsVisible,
+            UserTypeTipsVisible,
+          },
+          TipsTitle: {
+            IndentityNameTipsTitle,
+            DescriptionTipsTitle,
+            UserTypeTipsTitle,
+          },
         },
       },
       PublicState: {
@@ -102,7 +259,7 @@ class CustomIdentityModal extends Component {
     return (
       <Modal
         ref="CustomIdentityModal"
-        bodyStyle={{ padding: 0, height: "230px" }}
+        bodyStyle={{ padding: 0, height: type === "edit" ? "248px" : "230px" }}
         width={520}
         type="1"
         title={ModalName}
@@ -110,7 +267,6 @@ class CustomIdentityModal extends Component {
         onOk={this.onModalOk}
         onCancel={this.onModalCancel}
         className="Modal CustomIdentityModal"
-        id="CustomIdentityModal"
       >
         <Loading
           opacity={0.5}
@@ -121,7 +277,7 @@ class CustomIdentityModal extends Component {
           <div className="ModalContent">
             <div className="row">
               <span className="left">
-                <i className="must"></i>
+                <i className="must">*</i>
                 身份名称:
               </span>
               <span className="right">
@@ -142,27 +298,67 @@ class CustomIdentityModal extends Component {
               </span>
             </div>
             <div className="row">
+              <span className="left">身份描述:</span>
+              <span className="right">
+                <Tips
+                  overlayClassName="tips"
+                  visible={DescriptionTipsVisible}
+                  title={DescriptionTipsTitle}
+                >
+                  <Input.TextArea
+                    className="Description"
+                    placeholder="请输入20个字符以内的身份描述..."
+                    maxLength={20}
+                    // autoSize={{minRows: 4, maxRows: 4}}
+                    rows={3}
+                    onChange={this.onDescriptionChange}
+                    onBlur={this.onDescriptionBlur}
+                    value={Description}
+                  ></Input.TextArea>
+                </Tips>
+              </span>
+            </div>
+            <div className="row no-bottom">
               <span className="left">
-                <i className="must"></i>
-                身份名称:
+                <i className="must">*</i>账号类型:
               </span>
               <span className="right">
                 <Tips
                   overlayClassName="tips"
-                  visible={IndentityNameTipsVisible}
-                  title={IndentityNameTipsTitle}
+                  visible={UserTypeTipsVisible}
+                  title={UserTypeTipsTitle}
                 >
-                  <Input
-                    className="IndentityName"
-                    placeholder="请输入8个字符以内的身份名称..."
-                    maxLength={8}
-                    onChange={this.onIndentityNameChange}
-                    onBlur={this.onIndentityNameBlur}
-                    value={IdentityName}
-                  ></Input>
+                  <CheckBoxGroup
+                    value={UserType}
+                    onChange={this.onUserTypeChange}
+                  >
+                    {RoleList instanceof Array
+                      ? RoleList.map((child, index) => {
+                          return (
+                            <CheckBox
+                              className="UserType-radio"
+                              key={index}
+                              value={child.value}
+                            >
+                              {child.title}
+                            </CheckBox>
+                          );
+                        })
+                      : ""}
+                  </CheckBoxGroup>
                 </Tips>
               </span>
             </div>
+            {type === "edit" ? (
+              <div className="row">
+                <span className="left"></span>
+                <span className="right right-tips">
+                  注: 修改账号类型，会导致可选权限及成员初始化
+                </span>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </Loading>
       </Modal>

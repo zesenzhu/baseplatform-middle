@@ -13,10 +13,19 @@ const CommonData = (
     },
     RouteData: [],
     RoleList: [
-      { value: 0, title: "管理员" },
-      { value: 1, title: "教师" },
-      { value: 2, title: "学生" },
-      { value: 3, title: "家长" },
+      { value: 0, title: "管理员",code:'admin' },
+      { value: 1, title: "教师",code:'teacher' },
+      { value: 2, title: "学生",code:'student' },
+      { value: 3, title: "家长" ,code:'parents'},
+    ],
+    DefaultIdentity: [
+      // { value: "IC0001", title: "学校管理员" },
+      { value: "IC0009", title: "院系管理员" },
+      { value: "IC0011", title: "任课教师" },
+      { value: "IC0012", title: "班主任" },
+      { value: "IC0013", title: "教研组长" },
+      { value: "IC0014", title: "学生" },
+      { value: "IC0015", title: "家长" },
     ],
   },
   actions

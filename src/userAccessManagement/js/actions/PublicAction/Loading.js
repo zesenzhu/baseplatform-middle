@@ -43,9 +43,9 @@
  * @Author: zhuzesen
  * @LastEditors: zhuzesen
  * @Date: 2020-09-17 11:33:43
- * @LastEditTime: 2020-09-17 11:38:26
+ * @LastEditTime: 2020-09-19 10:57:55
  * @Description: Loading 还可在项目移植后用
- * @FilePath: \baseplatform-university\src\userAccessManagement\js\actions\PublicAction\Loading.js
+ * @FilePath: \baseplatform-middle\src\userAccessManagement\js\actions\PublicAction\Loading.js
  */
 
 const APP_LOADING_CLOSE = "APP_LOADING_CLOSE";
@@ -83,8 +83,21 @@ const ContentLoadingOpen = () => {
 const ContentLoadingClose = () => {
   return { type: CONTENT_LOADING_CLOSE };
 };
-
+const MORE_LOADING_CLOSE = 'MORE_LOADING_CLOSE';
+const MORE_LOADING_OPEN = 'MORE_LOADING_OPEN';
+const MoreLoadingOpen = () => {
+  return { type: MORE_LOADING_OPEN };
+};
+const MoreLoadingClose = () => {
+  return { type: MORE_LOADING_CLOSE };
+};
 export default {
+  MORE_LOADING_CLOSE,
+  MORE_LOADING_OPEN,
+  MoreLoadingOpen,
+  MoreLoadingClose,
+
+  
   APP_LOADING_CLOSE,
   APP_LOADING_OPEN,
   AppLoadingOpen,

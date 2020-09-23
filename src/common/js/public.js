@@ -407,6 +407,35 @@ const setRole = (LoginMsg) => {
   }
   return { ...LoginMsg, Role };
 };
+// 数组与与元素 去重添加
+const noRepeat = (data, value) => {
+  //data:Array,value:string
+  let end = [];
+  data instanceof Array && data.push(value);
+  data instanceof Array &&
+    data.forEach((child) => {
+      let isRepeat = false;
+      if (child === "" || child === undefined) {
+        return;
+      }
+      if (end.length === 0) {
+        end.push(child);
+      } else {
+        if (!end.some((child2) => child2 === child)) {
+          end.push(child);
+        }
+      }
+    });
+  return end;
+};
+// 数组与数组去重合并
+const ArrayNoRepeat = (Arr1, Arr2) => {
+  let end = Arr1;
+  Arr2.forEach((child, index) => {
+    end = noRepeat(end, child);
+  });
+  return end;
+};
 export default {
   deepCompare,
   getQueryVariable,
@@ -417,6 +446,6 @@ export default {
   IEVersion,
   requestNextAnimationFrame,
   checkUrlAndPostMsg,
-  setRole
-
+  setRole,
+  noRepeat,ArrayNoRepeat
 };

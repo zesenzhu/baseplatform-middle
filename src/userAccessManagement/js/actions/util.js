@@ -30,12 +30,12 @@ export const postData = async ({
   url = "",
   params = {},
   level = 2,
-  mode = "cors",
+  content_type = "urlencoded",
   IsDesk = false,
   element = true,
 }) => {
   let data = "";
-  let res = await Post(url, params, level, mode, IsDesk, element);
+  let res = await Post(url, params, level, content_type, IsDesk, element);
   let json = await res.json();
   if (json.StatusCode === 200) {
     data = json;

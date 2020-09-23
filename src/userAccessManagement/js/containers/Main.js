@@ -38,6 +38,9 @@ import Scrollbars from "react-custom-scrollbars";
 import ContentTop from "../component/ContentTop";
 import Table from "../component/Table";
 import CustomIdentityModal from "./Modal/CustomIdentityModal";
+import IdentityPowerModal from "./Modal/IdentityPowerModal";
+import CheckMemberModal from "./Modal/CheckMemberModal";
+import AddMemberModal from "./Modal/AddMemberModal";
 let { getQueryVariable, setRole } = Public;
 // const { HandleAction, DataAction, PublicAction } = actions;
 class Main extends Component {
@@ -84,6 +87,9 @@ class Main extends Component {
         <ContentTop></ContentTop>
         <Table></Table>
         <CustomIdentityModal></CustomIdentityModal>
+        <IdentityPowerModal></IdentityPowerModal>
+        <CheckMemberModal></CheckMemberModal>
+        <AddMemberModal></AddMemberModal>
       </div>
     );
   }

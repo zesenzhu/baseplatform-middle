@@ -1,5 +1,43 @@
-#CustomIdentityModal {
+.CustomIdentityModal {
     .ModalContent {
-        height: 230px;
+        // height: 230px;
+        padding-top: 32px;
+        .row {
+            line-height: 30px;
+            margin-bottom: 16px;
+            .left {
+                display: inline-block;
+                vertical-align: top;
+                text-align: right;
+                padding-right: 8px;
+                font-size: 14px;
+                color: #999999;
+                width: 23%;
+                .must {
+                    padding-right: 3px;
+                    color: #ff0000;
+                }
+            }
+            .right {
+                display: inline-block;
+                vertical-align: top;
+                width: 77%;
+                .IndentityName {
+                    width: 240px;
+                }
+                .Description {
+                    width: 360px;
+                    padding: 3px 12px 3px 8px;
+                }
+                .UserType-radio {}
+                &.right-tips {
+                    color: #ff0000;
+                    font-size: 14px;
+                }
+            }
+        }
+        .no-bottom {
+            margin-bottom: 0;
+        }
     }
 }

@@ -13,7 +13,7 @@ let columns = [
     title: "身份类型",
     align: "left",
     colSpan: 1,
-    width: 180,
+    width: 190,
     key: "Identity",
     render: () => {
       return;

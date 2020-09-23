@@ -21,7 +21,7 @@
  * @Author: zhuzesen
  * @LastEditors: zhuzesen
  * @Date: 2020-09-17 10:35:48
- * @LastEditTime: 2020-09-18 11:25:48
+ * @LastEditTime: 2020-09-23 11:16:27
  * @Description: 模块接口的get的action
  * @FilePath: \baseplatform-middle\src\userAccessManagement\js\actions\DataAction\GetAction.js
  */
@@ -31,7 +31,13 @@ import PublicAction from "../PublicAction";
 import HandleAction from "../HandleAction";
 import CONFIG from "../../../../common/js/config";
 import { postData, getData } from "../util";
-const { BasicProxy, UserInfoProxy, UserAccessProxy, UserAccountProxy } = CONFIG;
+const {
+  BasicProxy,
+  UserInfoProxy,
+  SelectObjectProxy,
+  UserAccessProxy,
+  UserAccountProxy,
+} = CONFIG;
 /**
  * @description:
  * @param {fn:回调函数，数据回来后}
@@ -96,7 +102,6 @@ const GET_CONFIG = "GET_CONFIG";
 // 获取产品使用环境及家长功能配置 （大学、中小学通用）
 const GetConfig = ({ fn = () => {}, schoolID }) => {
   return (dispatch, getState) => {
-
     let State = getState();
     let {
       PublicState: {
@@ -125,20 +130,22 @@ const GetConfig = ({ fn = () => {}, schoolID }) => {
         };
       }
       // 项目的生命周期里就加载一次
-      let {HandleState:{CommonData:{RoleList}}} = getState();
-      let List = [
-         
-      ]
-      if(Data.ParentsShow===0){
-        RoleList =  RoleList.forEach((child)=>{
-          if(child.value!==3){
-            List.push(child)
+      let {
+        HandleState: {
+          CommonData: { RoleList },
+        },
+      } = getState();
+      let List = [];
+      if (Data.ParentsShow === 0) {
+        RoleList = RoleList.forEach((child) => {
+          if (child.value !== 3) {
+            List.push(child);
           }
-        })
-      }else{
-        List = RoleList
+        });
+      } else {
+        List = RoleList;
       }
-      dispatch(HandleAction.SetRoleListParams(List))
+      dispatch(HandleAction.SetRoleListParams(List));
       dispatch({
         type: GET_CONFIG,
         data: Data,
@@ -147,7 +154,270 @@ const GetConfig = ({ fn = () => {}, schoolID }) => {
     });
   };
 };
+
+// 获取用户身份类型列表
+const GET_INDENTITY_MODULE = "GET_INDENTITY_MODULE";
+// 获取用户身份类型列表
+const GetIdentityModule = ({ fn = () => {}, identityID }) => {
+  return (dispatch, getState) => {
+    dispatch(PublicAction.MoreLoadingOpen());
+
+    let State = getState();
+    let {
+      PublicState: {
+        LoginMsg: { SchoolID },
+      },
+      HandleState: {
+        ParamsData: {
+          IdentityPower: { IdentityID },
+        },
+      },
+    } = State;
+    if (identityID === undefined) {
+      identityID = IdentityID;
+    }
+    let url = UserAccessProxy + "GetIdentityModule";
+    getData({
+      url,
+      params: { IdentityID: identityID },
+    }).then(({ res }) => {
+      if (res) {
+        //   "Data": {
+        //     "ModuleIDs":"D401,D403",                //拥有权限的模块ID串
+        //     "ModuleGroupList":[{
+        //         "ModuleGroupID":"S001",                //分组ID
+        //         "ModuleGroupName":"教学管理",        //分组名称
+        //         "ModuleTotalCount": 2 ,                    //子模块数量
+        //         "ModuleList":[{
+        //             "ModuleID": "D401",            //模块ID
+        //             "ModuleName": "智能排课",        //模块名称
+        //             },
+        //             "ModuleID": "D4012",            //模块ID
+        //             "ModuleName": "智能排课",        //模块名称
+        //         }]
+        //     }]
+        // }
+        let { ModuleIDs, ModuleGroupList } = res.Data?res.Data:{ModuleIDs:'',ModuleGroupList:[]};
+        if (typeof ModuleIDs === "string") {
+          dispatch(
+            HandleAction.ParamsSetIdentityPower({
+              ModuleIDs: ModuleIDs.split(","),
+            })
+          );
+        }
+        dispatch({
+          type: GET_INDENTITY_MODULE,
+          data:
+            ModuleGroupList instanceof Array
+              ? ModuleGroupList.map((child, index) => {
+                  child.key = index;
+                  return child;
+                })
+              : false,
+        });
+      } else {
+        dispatch({
+          type: GET_INDENTITY_MODULE,
+          data: res,
+        });
+      }
+      fn({ Data: getState(), res });
+      dispatch(PublicAction.MoreLoadingClose());
+    });
+  };
+};
+// 获取用户身份类型列表
+const GET_INDENTITY_USER = "GET_INDENTITY_USER";
+// 获取用户身份类型列表
+const GetIdentityUser = ({ fn = () => {}, identityID }) => {
+  return (dispatch, getState) => {
+    dispatch(PublicAction.MoreLoadingOpen());
+
+    let State = getState();
+    let {
+      PublicState: {
+        LoginMsg: { SchoolID },
+      },
+      HandleState: {
+        ParamsData: {
+          CheckMember: { IdentityID, IdentityCode, PageIndex, PageSize },
+        },
+      },
+    } = State;
+    if (identityID === undefined) {
+      identityID = IdentityID;
+    }
+    let url = UserAccessProxy + "GetIdentityUser";
+    getData({
+      url,
+      params: { IdentityID: identityID, IdentityCode, PageIndex, PageSize },
+    }).then(({ res }) => {
+      let Data = res;
+      if (res) {
+        //   "Data": {
+        //     "PageIndex":6,
+        //   "Total":6,
+        //   "List":[{
+        //   "UserID": "T001",
+        //   "UserName": "张老师",
+        //   "UserType": 1,                //用户类型
+        //   "Content":[
+        //         "语文>高中一年级>高一1班",
+        //         "语文>高中一年级>高一2班"
+        //   ]
+        // }]
+        // }
+        Data = res.Data;
+      }
+      dispatch({
+        type: GET_INDENTITY_USER,
+        data: Data,
+      });
+      fn({ Data: getState(), res });
+      dispatch(PublicAction.MoreLoadingClose());
+    });
+  };
+};
+
+// 获取选择对象结构树
+const GET_TREE = "GET_TREE";
+// 获取选择对象结构树
+const GetTree = ({ fn = () => {}, identityID }) => {
+  return (dispatch, getState) => {
+    dispatch(PublicAction.MoreLoadingOpen());
+
+    let State = getState();
+    let {
+      PublicState: {
+        LoginMsg: { SchoolID },
+      },
+      HandleState: {
+        ParamsData: {
+          AddMember: { SelectRole },
+        },
+        CommonData: { RoleList },
+      },
+    } = State;
+
+    let url = SelectObjectProxy + "GetTree";
+    getData({
+      url,
+      params: {
+        SchoolID,
+        userType: SelectRole,
+        //  RoleList.find(child=>child.value===parseInt(SelectRole)).code
+      },
+    }).then(({ res }) => {
+      let Data = res;
+      if (res) {
+        //   "Data": {
+        // "NodeType": 2,    //节点类型，0管理员，1教师，2学生，3家长
+        // "NodeLevel": "grade",    //节点等级，标识班级、年级、学科等
+        // "NodeID": "1C6C29F3-A31D-4B7A-BA48-A6D9379C0427",    //节点ID，可以是班级ID，年级ID，学科ID等
+        // "ParentID": "",    //父节点ID
+        // "NodeName": "高中一年级",    //节点名称
+        // "UserCount": 6,            //人数
+        // "FullID": "1C6C29F3-A31D-4B7A-BA48-A6D9379C0427",    //节点全ID
+        // "FullName": "高中一年级",    //节点全名称
+        // "MajorID": null,
+        // "LastTreeNode": false,    //是否是最后一层树节点
+        // "Children": [ ]           //下级节点
+        Data =
+          res.Data instanceof Array
+            ? res.Data.map((child) => {
+                return { ...child, nodeType: "tree" };
+              })
+            : [];
+      }
+      dispatch(
+        HandleAction.ParamsSetAddMember({ List: Data, NodeType: "tree" })
+      );
+      dispatch({
+        type: GET_TREE,
+        data: Data,
+      });
+      fn({ Data: getState(), res });
+      dispatch(PublicAction.MoreLoadingClose());
+    });
+  };
+};
+
+// 获取选择对象用户
+const GET_USER = "GET_USER";
+// 获取选择对象用户
+const GetUser = ({ fn = () => {}, identityID }) => {
+  return (dispatch, getState) => {
+    dispatch(PublicAction.MoreLoadingOpen());
+
+    let State = getState();
+    let {
+      PublicState: {
+        LoginMsg: { SchoolID },
+      },
+      HandleState: {
+        ParamsData: {
+          AddMember: { SelectRole, NodeID },
+        },
+        CommonData: { RoleList },
+      },
+    } = State;
+
+    let url = SelectObjectProxy + "GetUser";
+    getData({
+      url,
+      params: {
+        SchoolID,
+        userType: SelectRole,
+        // RoleList.find(child=>child.value===parseInt(SelectRole)).code
+        nodeID: NodeID,
+      },
+    }).then(({ res }) => {
+      let Data = res;
+      if (res) {
+        //   "Data": {
+        // "NodeType": 2,    //节点类型，0管理员，1教师，2学生，3家长
+        // "NodeLevel": "grade",    //节点等级，标识班级、年级、学科等
+        // "NodeID": "1C6C29F3-A31D-4B7A-BA48-A6D9379C0427",    //节点ID，可以是班级ID，年级ID，学科ID等
+        // "ParentID": "",    //父节点ID
+        // "NodeName": "高中一年级",    //节点名称
+        // "UserCount": 6,            //人数
+        // "FullID": "1C6C29F3-A31D-4B7A-BA48-A6D9379C0427",    //节点全ID
+        // "FullName": "高中一年级",    //节点全名称
+        // "MajorID": null,
+        // "LastTreeNode": false,    //是否是最后一层树节点
+        // "Children": [ ]           //下级节点
+        Data = res.Data instanceof Array
+        ? res.Data.map((child) => {
+            return { ...child, nodeType: "user" };
+          })
+        : [];
+      }
+      dispatch(
+        HandleAction.ParamsSetAddMember({ List: Data, NodeType: "user" })
+      );
+
+      dispatch({
+        type: GET_USER,
+        data: Data,
+      });
+      fn({ Data: getState(), res });
+      dispatch(PublicAction.MoreLoadingClose());
+    });
+  };
+};
 export default {
+  GET_USER,
+  GetUser,
+
+  GET_TREE,
+  GetTree,
+
+  GetIdentityUser,
+  GET_INDENTITY_USER,
+
+  GET_INDENTITY_MODULE,
+  GetIdentityModule,
+
   GetConfig,
   GET_CONFIG,
 

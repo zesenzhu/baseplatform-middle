@@ -6,6 +6,7 @@ const PublicState = (
       ModalLoading: false,
       TableLoading: false,
       ContentLoading: false,
+      MoreLoading: false,
     },
     Alert: {
       appAlert: false,
@@ -71,14 +72,22 @@ const PublicState = (
       return Object.assign({}, state, {
         Loading: { ...state.Loading, TableLoading: false },
       });
-      case PublicAction.CONTENT_LOADING_OPEN:
-        return Object.assign({}, state, {
-          Loading: { ...state.Loading, ContentLoading: true },
-        });
-      case PublicAction.CONTENT_LOADING_CLOSE:
-        return Object.assign({}, state, {
-          Loading: { ...state.Loading, ContentLoading: false },
-        });
+    case PublicAction.CONTENT_LOADING_OPEN:
+      return Object.assign({}, state, {
+        Loading: { ...state.Loading, ContentLoading: true },
+      });
+    case PublicAction.CONTENT_LOADING_CLOSE:
+      return Object.assign({}, state, {
+        Loading: { ...state.Loading, ContentLoading: false },
+      });
+    case PublicAction.MORE_LOADING_OPEN:
+      return Object.assign({}, state, {
+        Loading: { ...state.Loading, MoreLoading: true },
+      });
+    case PublicAction.MORE_LOADING_CLOSE:
+      return Object.assign({}, state, {
+        Loading: { ...state.Loading, MoreLoading: false },
+      });
     case PublicAction.GET_LOGIN_USER_INFO:
       return Object.assign({}, state, {
         LoginMsg: { ...state.LoginMsg, isLogin: true, ...actions.data },
