@@ -205,8 +205,10 @@
         }
         .tips {
             position: absolute;
-            left: 120px;
-            top: 265px;
+            // left: 120px;
+            width: 100%;
+            text-align: center;
+            top: 230px;
             font-family: MicrosoftYaHei;
             font-size: 14px;
             font-weight: normal;

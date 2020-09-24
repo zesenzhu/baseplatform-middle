@@ -221,6 +221,7 @@ class IdentityPowerModal extends Component {
       })
     );
     dispatch(PublicAction.ContentLoadingClose());
+    dispatch({type:DataAction.GET_INDENTITY_MODULE,data:[]})
   };
 
   // 选择权限

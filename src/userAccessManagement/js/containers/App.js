@@ -144,7 +144,29 @@ class App extends Component {
       }
     }
   };
-
+  // 搜索修改
+  onChangeSearch = (e) => {
+    let { dispatch } = this.props;
+    dispatch(
+      HandleAction.ParamsSetSearchIdentity({ SearchValue: e.target.value })
+    );
+  };
+  // 确认修改
+  onClickSearch = (e) => {
+    let { dispatch } = this.props;
+    dispatch(
+      HandleAction.ParamsSetSearchIdentity({
+        KeyWord: e.value,
+        PageIndex: 1,
+        PageSize: 5,
+        CancelBtnShow: "y",
+      })
+    );
+    dispatch(DataAction.SearchIdentityUser({}));
+    dispatch(
+      HandleAction.SetModalVisible({ SearchIdentityModalVisible: true })
+    );
+  };
   render() {
     const {
       HandleState: {
@@ -160,6 +182,9 @@ class App extends Component {
           },
         },
         ControlData: { ModalVisible },
+        ParamsData: {
+          SearchIdentity: { SearchValue, KeyWord, CancelBtnShow },
+        },
       },
       PublicState: {
         Loading: { AppLoading, ContentLoading },
@@ -197,10 +222,22 @@ class App extends Component {
             }}
             type={FrameType}
             showLeftMenu={showLeftMenu}
-            showBarner={showBarner}
+            showBarner={!showBarner}
             className={`myFrame  ${className}`}
             pageInit={this.RequestData}
           >
+            <div ref="frame-time-barner" style={{textAlign:'right'}}>
+              <Search
+                placeHolder="请输入用户姓名/工号/学号搜索用户身份权限..."
+                onClickSearch={this.onClickSearch}
+                height={32}
+                width={380}
+                Value={SearchValue}
+                // onCancelSearch={this.onCancelSearch}
+                onChange={this.onChangeSearch}
+                // CancelBtnShow={CancelBtnShow}
+              ></Search>
+            </div>
             <div ref="frame-right-content">
               <Loading
                 opacity={false}

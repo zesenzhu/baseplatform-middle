@@ -78,7 +78,7 @@ class SchoolnfoSetting extends Component {
       SchoolTel,
       SchoolLinkman,
     } = this.props.schoolInfo;
-    const { dispatch, periodInfo } = this.props;
+    const { dispatch, periodInfo,schoolInfo } = this.props;
     let SchoolType = ""; //学制的代码数字
     let SchoolSessionType = ""; //学制类型对应的参数（7=>3/6/3 或者5/4/3）
     // console.log(primaryNum, middleNum, SchoolCode, SchoolName, SchoolLogoUrl);

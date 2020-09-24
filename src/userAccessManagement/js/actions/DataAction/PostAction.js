@@ -36,7 +36,7 @@
  * @Author: zhuzesen
  * @LastEditors: zhuzesen
  * @Date: 2020-09-17 10:08:21
- * @LastEditTime: 2020-09-23 10:50:41
+ * @LastEditTime: 2020-09-24 14:31:32
  * @Description: 模块接口的post的action
  * @FilePath: \baseplatform-middle\src\userAccessManagement\js\actions\DataAction\PostAction.js
  */
@@ -159,7 +159,7 @@ const EditIdentityModule = ({ fn = () => {}, schoolID }) => {
     let url = UserAccessProxy + "EditIdentityModule";
     postData({
       url,
-      params: { IdentityID, ModuleIDs:ModuleIDs.join(',') },
+      params: { IdentityID, ModuleIDs: ModuleIDs.join(",") },
     }).then(({ res }) => {
       if (res) {
         fn();
@@ -238,13 +238,46 @@ const AddIdentityUser = ({ fn = () => {}, UserID }) => {
         dispatch(
           PublicAction.showErrorAlert({ type: "success", title: "添加成功" })
         );
-      dispatch(DataAction.GetIdentityTypeList({}));
+        dispatch(DataAction.GetIdentityTypeList({}));
+      }
+    });
+  };
+};
+// 删除成员
+const UpdateUserIdentity = ({ fn = () => {}, UserID }) => {
+  return (dispatch, getState) => {
+    let State = getState();
+    let {
+      HandleState: {
+        ParamsData: {
+          SearchIdentity: { IdentityIDsList, UserID },
+        },
+      },
+    } = State;
 
+    let url = UserAccessProxy + "UpdateUserIdentity";
+    postData({
+      url,
+      params: {
+        UserID,
+        IdentityIDs: IdentityIDsList.join(","),
+      },
+    }).then(({ res }) => {
+      if (res) {
+        dispatch(DataAction.SearchIdentityUser({}));
+
+        fn();
+
+        dispatch(
+          PublicAction.showErrorAlert({ type: "success", title: "编辑成功" })
+        );
+        dispatch(DataAction.GetIdentityTypeList({}));
       }
     });
   };
 };
 export default {
+  UpdateUserIdentity,
   AddIdentityUser,
   DeleteIdentityUser,
   AddIdentityType,

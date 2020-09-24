@@ -60,8 +60,18 @@ const ParamsSetAddMember = (data) => {
     dispatch({ type: PARAMS_SET_ADD_MEMBER, data: data });
   };
 };
+// 设置搜索成员的参数
+const PARAMS_SET_SEARCH_IDENTITY = "PARAMS_SET_SEARCH_IDENTITY";
+const ParamsSetSearchIdentity = (data) => {
+  return (dispatch) => {
+    dispatch({ type: PARAMS_SET_SEARCH_IDENTITY, data: data });
+  };
+};
 // const ParamsAction ={}
 export default {
+  PARAMS_SET_SEARCH_IDENTITY,
+  ParamsSetSearchIdentity,
+
   PARAMS_SET_ADD_MEMBER,
   ParamsSetAddMember,
   

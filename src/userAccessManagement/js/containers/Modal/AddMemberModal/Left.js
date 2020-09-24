@@ -122,7 +122,7 @@ class Left extends Component {
       <>
         <div className="select-box">
           <Scrollbars>
-            {MemberList instanceof Array &&
+            {MemberList instanceof Array && MemberList.length>0?
               MemberList.map((child, index) => {
                 if (child.nodeType === "user") {
                   count += 1;
@@ -143,7 +143,7 @@ class Left extends Component {
                     name={child.NodeName}
                   ></Tag>
                 );
-              })}
+              }):<Empty type='4' title="请在左侧选择成员添加" style={{marginTop:'150px'}}></Empty>}
             {/* <Tooltip
               placement="top"
               trigger={["click"]}

@@ -41,6 +41,7 @@ import CustomIdentityModal from "./Modal/CustomIdentityModal";
 import IdentityPowerModal from "./Modal/IdentityPowerModal";
 import CheckMemberModal from "./Modal/CheckMemberModal";
 import AddMemberModal from "./Modal/AddMemberModal";
+import SearchIdentityModal from "./Modal/SearchIdentityModal";
 let { getQueryVariable, setRole } = Public;
 // const { HandleAction, DataAction, PublicAction } = actions;
 class Main extends Component {
@@ -90,6 +91,7 @@ class Main extends Component {
         <IdentityPowerModal></IdentityPowerModal>
         <CheckMemberModal></CheckMemberModal>
         <AddMemberModal></AddMemberModal>
+        <SearchIdentityModal></SearchIdentityModal>
       </div>
     );
   }

@@ -50,10 +50,24 @@ const ParamsData = (
 
       // 多个节点间使用英文逗号”,”分隔，例如：NodeType|NodeLevel|NodeID|FullID,NodeType|NodeLevel|NodeID|FullID
     },
+    SearchIdentity: {
+      SearchValue: "",
+      KeyWord: "",
+      CancelBtnShow: "n",
+      PageIndex: 1,
+      PageSize: 5,
+      EditIndex:-1,
+      IdentityIDsList:[],
+      UserID:''
+    },
   },
   actions
 ) => {
   switch (actions.type) {
+    case HandleAction.PARAMS_SET_SEARCH_IDENTITY:
+      return Object.assign({}, state, {
+        SearchIdentity: { ...state.SearchIdentity, ...actions.data },
+      });
     case HandleAction.PARAMS_SET_ADD_MEMBER:
       return Object.assign({}, state, {
         AddMember: { ...state.AddMember, ...actions.data },

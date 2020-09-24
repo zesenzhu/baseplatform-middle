@@ -6,6 +6,7 @@ const ControlData = (
       IdentityPowerModalVisible: false,
       CheckMemberModalVisible: false,
       AddMemberModalVisible: false,
+      SearchIdentityModalVisible: false,
     },
     TipsVisible: {
       IndentityNameTipsVisible: false,
