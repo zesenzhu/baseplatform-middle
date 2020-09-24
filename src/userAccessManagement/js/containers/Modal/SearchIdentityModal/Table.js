@@ -164,6 +164,9 @@ class Left extends Component {
               DataState: {
                 GetData: { IdentityTypeForAccredit },
               },
+              PublicState: {
+                Loading: { MoreLoading },
+              },
             } = this.props;
             let { IdentityList, IdentityNames, key } = data;
             let isEdit = EditIndex === key;
@@ -171,24 +174,26 @@ class Left extends Component {
             return (
               <div className="Shadow-Box">
                 {isEdit ? (
-                  <CheckBoxGroup
-                    value={IdentityIDsList}
-                    onChange={this.onIdentityIDsListChange}
-                  >
-                    {IdentityTypeForAccredit instanceof Array &&
-                      IdentityTypeForAccredit.map((child, index) => {
-                        return (
-                          <CheckBox
-                            disabled={child.ReadOnly}
-                            value={child.IdentityID}
-                          >
-                            <span title={child.IdentityName}>
-                              {child.IdentityName}
-                            </span>
-                          </CheckBox>
-                        );
-                      })}
-                  </CheckBoxGroup>
+                  <Loading opacity={false} size="small" spinning={MoreLoading}>
+                    <CheckBoxGroup
+                      value={IdentityIDsList}
+                      onChange={this.onIdentityIDsListChange}
+                    >
+                      {IdentityTypeForAccredit instanceof Array &&
+                        IdentityTypeForAccredit.map((child, index) => {
+                          return (
+                            <CheckBox
+                              disabled={child.ReadOnly}
+                              value={child.IdentityID}
+                            >
+                              <span title={child.IdentityName}>
+                                {child.IdentityName}
+                              </span>
+                            </CheckBox>
+                          );
+                        })}
+                    </CheckBoxGroup>
+                  </Loading>
                 ) : (
                   <p title={IdentityNames} className="Shadow-Content Identity">
                     {IdentityNames}
@@ -382,7 +387,7 @@ class Left extends Component {
     //   });
     let count = 0;
     return (
-      // <Scrollbars>
+      <Scrollbars autoHeight autoHeightMax={480}>
         <div className="table-box">
           <Table
             className="table"
@@ -390,7 +395,7 @@ class Left extends Component {
             columns={this.state.columns}
             pagination={false}
             dataSource={List}
-            scroll={{y:440}}
+            // scroll={{y:440}}
             components={{
               body: {
                 row: this.ConstructRow,
@@ -407,7 +412,7 @@ class Left extends Component {
             onChange={this.onPagiNationChange}
           ></PagiNation>
         </div>
-      // </Scrollbars>
+      </Scrollbars>
     );
   }
 }

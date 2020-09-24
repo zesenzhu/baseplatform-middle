@@ -242,7 +242,7 @@ class Student extends React.Component {
   }
   StudentCancelSearch = () => {
     this.setState({
-      pageSize:10,
+      pageSize: 10,
       CancelBtnShow: "n",
       keyword: "",
       searchValue: "",
@@ -1222,6 +1222,54 @@ class Student extends React.Component {
       )
     );
   };
+  // 导出
+  Export = () => {
+    let {
+      dispatch,
+      DataState: {
+        GradeStudentPreview: {
+          Total 
+        },
+        
+      },
+    } = this.props;
+    if (!Total) {
+      dispatch(
+        actions.UpUIState.showErrorAlert({
+          type: "warn",
+
+          title: "暂无数据可导出",
+          ok: this.onAppAlertOK.bind(this),
+          cancel: this.onAppAlertCancel.bind(this),
+          close: this.onAppAlertClose.bind(this),
+          onHide: this.onAlertWarnHide.bind(this),
+        })
+      );
+       
+      return;
+    }
+    let token = sessionStorage.getItem("token");
+    let url =
+      CONFIG.UserInfoProxy +
+      "/ExportStudent?gradeID=" +
+      (this.state.firstSelect.value ? this.state.firstSelect.value : "") +
+      "&gradeName=" +
+      (this.state.firstSelect.title !== "全部年级"
+        ? this.state.firstSelect.title
+        : "") +
+      "&classID=" +
+      (this.state.secondSelect.value ? this.state.secondSelect.value : "") +
+      "&className=" +
+      (this.state.secondSelect.title !== "全部班级"
+        ? this.state.secondSelect.title
+        : "") +
+      "&keyword=" +
+      this.state.searchValue +
+      "&lg_tk=" +
+      token;
+
+    window.open(url);
+  };
   render() {
     const { UIState, DataState } = this.props;
     // const data = {
@@ -1241,10 +1289,12 @@ class Student extends React.Component {
     let { LockerVersion } = JSON.parse(
       //校园基础信息管理 XG5.2-免费版,1为基础版
       sessionStorage.getItem("LgBasePlatformInfo")
-    )?JSON.parse(
-      //校园基础信息管理 XG5.2-免费版,1为基础版
-      sessionStorage.getItem("LgBasePlatformInfo")
-    ):{};
+    )
+      ? JSON.parse(
+          //校园基础信息管理 XG5.2-免费版,1为基础版
+          sessionStorage.getItem("LgBasePlatformInfo")
+        )
+      : {};
 
     return (
       <div className="Student">
@@ -1303,6 +1353,12 @@ class Student extends React.Component {
                 )}
               >
                 <span className="ImportFile">导入学生</span>
+              </a>
+              <span className="divide">|</span>
+              <a className="link">
+                <span onClick={this.Export} className="Export">
+                  导出学生
+                </span>
               </a>
             </div>
           </div>

@@ -1163,6 +1163,48 @@ class Teacher extends React.Component {
       )
     );
   };
+  // 导出
+  Export = () => {
+    let {
+      dispatch,
+      DataState: {
+        SubjectTeacherPreview: {
+          Total 
+        },
+        
+      },
+    } = this.props;
+    if (!Total) {
+      dispatch(
+        actions.UpUIState.showErrorAlert({
+          type: "warn",
+
+          title: "暂无数据可导出",
+          ok: this.onAppAlertOK.bind(this),
+          cancel: this.onAppAlertCancel.bind(this),
+          close: this.onAppAlertClose.bind(this),
+          onHide: this.onAlertWarnHide.bind(this),
+        })
+      );
+       
+      return;
+    }
+    let token = sessionStorage.getItem("token");
+    let url =
+      CONFIG.UserInfoProxy +
+      "/ExportTeacher?subjectID=" +
+      (this.state.selectSubject.value!=='all' ? this.state.selectSubject.value : "") +
+      "&subjectName=" +
+      (this.state.selectSubject.title !== "全部学科"
+        ? this.state.selectSubject.title
+        : "") +
+      "&keyword=" +
+      this.state.searchValue +
+      "&lg_tk=" +
+      token+'&showGroup=0';
+
+    window.open(url);
+  };
   render() {
     const { UIState, DataState } = this.props;
     // const data = {
@@ -1225,6 +1267,12 @@ class Teacher extends React.Component {
                 )}
               >
                 <span className="ImportFile">导入教师</span>
+              </a>
+              <span className="divide">|</span>
+              <a className="link">
+                <span onClick={this.Export} className="Export">
+                  导出教师
+                </span>
               </a>
             </div>
           </div>

@@ -687,6 +687,40 @@ class Leader extends React.Component {
     // console.log(url);
     checkUrlAndPostMsg({ btnName, url });
   };
+    // 导出
+    Export = () => {
+      let {
+        dispatch,
+        DataState: {
+          SchoolLeaderPreview: {
+            Total 
+          },
+          
+        },
+      } = this.props;
+      if (!Total) {
+        dispatch(
+          actions.UpUIState.showErrorAlert({
+            type: "warn",
+  
+            title: "暂无数据可导出",
+            ok: this.onAppAlertOK.bind(this),
+            cancel: this.onAppAlertCancel.bind(this),
+            close: this.onAppAlertClose.bind(this),
+            onHide: this.onAlertWarnHide.bind(this),
+          })
+        );
+         
+        return;
+      }
+      let token = sessionStorage.getItem("token");
+      let url =
+        CONFIG.UserInfoProxy +
+        "/ExportSchoolLeader?lg_tk=" +
+        token;
+  
+      window.open(url);
+    };
   render() {
     const { UIState, DataState } = this.props;
 
@@ -720,6 +754,12 @@ class Leader extends React.Component {
                 )}
               >
                 <span className="ImportFile">导入领导</span>
+              </a>
+              <span className="divide">|</span>
+              <a className="link">
+                <span onClick={this.Export} className="Export">
+                  导出领导
+                </span>
               </a>
             </div>
           </div>
