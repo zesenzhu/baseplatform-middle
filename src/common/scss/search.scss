@@ -164,6 +164,43 @@ $img_url:"#{$image_url}/search";
             } //搜索按钮
         } //搜索按钮区域
     } //搜索的内容区
+
+    &.transparent{
+
+        background:transparent;
+
+        color: #ffffff;
+
+
+        .search_wrapper_table .search_right_td .search_btn_input{
+
+            border: 1px solid #ffffff;
+
+            &:after{
+
+                background-color: #ffffff;
+
+            }
+
+        }
+
+        ::-webkit-input-placeholder {
+            color:rgba(255,255,255,0.7);
+        }
+        :-moz-placeholder {
+            /* Firefox 18- */
+            color:rgba(255,255,255,0.7);
+        }
+        ::-moz-placeholder {
+            /* Firefox 19+ */
+            color:rgba(255,255,255,0.7);
+        }
+        :-ms-input-placeholder {
+            color:rgba(255,255,255,0.7);
+        }
+
+    }
+
      ::-webkit-input-placeholder {
         color: #9eb8c6;
     }

@@ -1426,6 +1426,19 @@ class DropComponent extends React.Component {
     } = this.props;
 
 
+    let simpleSearchList = [];
+
+    if (type!=='multiple'&&this.state.simpleSearchShow){
+
+      simpleSearchList = this.state.simpleSearchList;
+
+    }else{
+
+        simpleSearchList = dropList;
+
+    }
+
+
     let dropContainer = "";
 
     let selectUlWidth =
@@ -1690,7 +1703,7 @@ class DropComponent extends React.Component {
 
 
 
-                this.state.simpleSearchList.map((item, key) => {
+                  simpleSearchList.map((item, key) => {
 
                   return (
                     <li
@@ -2880,7 +2893,7 @@ class Frame extends React.Component {
 
   }*/
 
-    UNSAFE_componentWillReceiveProps(){
+  UNSAFE_componentWillReceiveProps(){
 
         if(window.AppRightContentChange){
 
@@ -2922,6 +2935,7 @@ class Frame extends React.Component {
       showTop = true,
       showBottom = true,
       logo,
+      topRightContent,
       ...reset
     } = this.props;
 
@@ -3097,13 +3111,29 @@ class Frame extends React.Component {
                         })`,
                       }}
                     >
-                      <div className="frame-block-zh-name">
-                        {module && module.cnname ? module.cnname : ""}
+                      <div className="frame-block-zh-name clearfix">
+
+                        <div className={"frame-block-title"}>{module && module.cnname ? module.cnname : ""}</div>
+
+                          {
+
+                              module.subtitle?
+
+                                  <div className={"frame-block-subtitle"}>{module.subtitle}</div>
+
+                                  :null
+
+                          }
+
                       </div>
                       <div className="frame-block-en-name">
                         {module && module.enname ? module.enname : ""}
                       </div>
+
+                      <div className={"frame-top-right-content"}>{topRightContent}</div>
+
                     </div>
+
               </div>
          :
           ""
@@ -3152,7 +3182,7 @@ class Frame extends React.Component {
 
             showBottom?
 
-                <div className="frame-bottom">{ProVersion}</div>
+                <div className={`frame-bottom ${module.subtitle?'no-title':''}`}>{!module.subtitle?ProVersion:''}</div>
 
                 :''
 

@@ -1015,8 +1015,14 @@ class App extends Component {
 
 
     let route = history.location.pathname.split("/");
+
+
     let cnname = "教学班管理";
+
     let enname = "CoureClass Management";
+
+    let subtitle = '';
+
     if (route[1] === "Teacher"||(route[1] === "ImportFile"&&DataState.LoginUser.UserType==='1')) {
       cnname = "我的教学班管理";
       enname = "My class Management";
@@ -1024,6 +1030,13 @@ class App extends Component {
         cnname = "更换选课";
         enname = "Change Course Selection";
     }
+
+    if (route[1]==='ImportFile'){
+
+        subtitle = '导入教学班';
+
+    }
+
 
 
     const { isWalkingClass } = editCourseClassModal;
@@ -1043,6 +1056,7 @@ class App extends Component {
             module={{
               cnname: cnname,
               enname: enname,
+              subtitle:subtitle,
               image: logo
             }}
             type="triangle"

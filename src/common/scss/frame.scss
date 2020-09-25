@@ -302,6 +302,53 @@ $img_url:'./images/frame';
   padding-top: 36px;
   background-repeat: no-repeat;
   background-position:20px 27px;
+
+  .frame-top-right-content{
+
+    position: absolute;
+
+    right: 0;
+
+    top:50%;
+
+    transform: translateY(-50%);
+
+    z-index: 1;
+
+  }
+
+  .frame-block-title{
+
+    float: left;
+
+  }
+
+  .frame-block-subtitle{
+
+    float: left;
+
+    font-size: 12px;
+
+    margin-left: 8px;
+
+    color:rgba(255,255,255,0.8);
+
+    height: 20px;
+
+    padding:0 10px;
+
+    background-color:#2829bd;
+
+    line-height: 20px;
+
+    border-radius: 10px;
+
+    margin-top: 5px;
+
+    font-weight: normal;
+
+  }
+
 }
 .frame-block-zh-name{
   font-weight: bold;
@@ -504,5 +551,12 @@ $img_url:'./images/frame';
   padding-bottom: 8px;
   color: #a8a8a9;
   text-align: center;
+
+  &.no-title{
+
+    padding-bottom: 16px;
+
+  }
+
 }
 
