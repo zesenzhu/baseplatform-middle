@@ -223,7 +223,7 @@ function SchoolSetting(props) {
 
                                                 primary:{ checked:list[0],disabled:false,originChecked:list[0]},
 
-                                                middle:{checked:'',disabled:true,originChecked:list[1]}
+                                                middle:{checked:'',disabled:true,originChecked:parseInt(list[1])===0?(9-parseInt(list[0])).toString():list[1]}
 
                                             };
 
@@ -231,7 +231,7 @@ function SchoolSetting(props) {
 
                                                 primary:{ checked:list[0],disabled:false,originChecked:list[0]},
 
-                                                middle:{checked:'',disabled:true,originChecked:list[1]}
+                                                middle:{checked:'',disabled:true,originChecked:parseInt(list[1])===0?(9-parseInt(list[0])).toString():list[1]}
 
                                             };
 
@@ -247,7 +247,7 @@ function SchoolSetting(props) {
 
                                                 middle:{ checked:list[1],disabled:false,originChecked:list[1]},
 
-                                                primary:{checked:'',disabled:true,originChecked:list[0]}
+                                                primary:{checked:'',disabled:true,originChecked:parseInt(list[0])===0?(9-parseInt(list[1])).toString():list[0]}
 
                                             };
 
@@ -255,7 +255,8 @@ function SchoolSetting(props) {
 
                                                 middle:{ checked:list[1],disabled:false,originChecked:list[1]},
 
-                                                primary:{checked:'',disabled:true,originChecked:list[0]}
+                                                primary:{checked:'',disabled:true,originChecked:parseInt(list[0])===0?(9-parseInt(list[1])).toString():list[0]}
+
 
                                             };
 
@@ -265,13 +266,15 @@ function SchoolSetting(props) {
 
                                     case 4:
 
+
+
                                         setPeriod(d=>{
 
                                             periodRef.current = { ...d,
 
-                                                primary:{ checked:'',disabled:false,originChecked:'5'},
+                                                primary:{ checked:'',disabled:true,originChecked:'5'},
 
-                                                middle:{ checked:'',disabled:false,originChecked:'4'},
+                                                middle:{ checked:'',disabled:true,originChecked:'4'},
 
                                                 heigh:{ checked:'3',disabled:false,originChecked:'3'}
 
@@ -279,9 +282,9 @@ function SchoolSetting(props) {
 
                                             return { ...d,
 
-                                                primary:{ checked:'',disabled:false,originChecked:'5'},
+                                                primary:{ checked:'',disabled:true,originChecked:'5'},
 
-                                                middle:{ checked:'',disabled:false,originChecked:'4'},
+                                                middle:{ checked:'',disabled:true,originChecked:'4'},
 
                                                 heigh:{ checked:'3',disabled:false,originChecked:'3'}
 
@@ -339,7 +342,7 @@ function SchoolSetting(props) {
 
                                             periodRef.current = { ...d,
 
-                                                primary:{ checked:'',disabled:false,originChecked:list[0]},
+                                                primary:{ checked:'',disabled:false,originChecked:parseInt(list[0])===0?(9-parseInt(list[1])).toString():list[0]},
 
                                                 middle:{ checked:list[1],disabled:false,originChecked:list[1]},
 
@@ -349,7 +352,7 @@ function SchoolSetting(props) {
 
                                             return { ...d,
 
-                                                primary:{ checked:'',disabled:false,originChecked:list[0]},
+                                                primary:{ checked:'',disabled:false,originChecked:parseInt(list[0])===0?(9-parseInt(list[1])).toString():list[0]},
 
                                                 middle:{ checked:list[1],disabled:false,originChecked:list[1]},
 

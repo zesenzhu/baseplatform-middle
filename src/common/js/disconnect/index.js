@@ -1033,8 +1033,6 @@ export const firstPageLoad = (func=()=>{}) => {
 
                             checkIsOnline();
 
-                            console.log(111);
-
                             func();
 
                         }else{
