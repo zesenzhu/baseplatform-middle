@@ -403,6 +403,11 @@ class TeacherRegisterExamine extends React.Component {
     //     userRegisterTime: '2019-01-01 12:24',
     //     userRegisterIP: '190.163.252.198'
     // };
+    let {
+      MainData: {
+        FrameData: { subtitle, image, enname, cnname },
+      },
+    } = DataState;
     return (
       <React.Fragment>
         <Frame
@@ -411,9 +416,10 @@ class TeacherRegisterExamine extends React.Component {
             image: DataState.LoginUser.PhotoPath,
           }}
           module={{
-            cnname: this.state.cnname,
-            enname: this.state.enname,
-            image: this.state.logo,
+            cnname: cnname,
+            enname: enname,
+            image: image,
+            subtitle: subtitle,
           }}
           type="circle"
           showLeftMenu={false}

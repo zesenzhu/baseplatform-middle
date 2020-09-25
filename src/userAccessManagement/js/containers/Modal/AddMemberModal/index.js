@@ -176,7 +176,7 @@ class AddMemberModal extends Component {
         className="Modal AddMemberModal"
       >
         <Loading
-          opacity={false}
+          opacity={0.5}
           tip="请稍候..."
           size="small"
           spinning={ModalLoading}

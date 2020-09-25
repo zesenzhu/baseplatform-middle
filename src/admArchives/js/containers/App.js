@@ -31,6 +31,8 @@ import actions from "../actions";
 import { urlAll, proxy } from "./config";
 import { QueryPower, QueryAdminPower } from "../../../common/js/power";
 import UpDataState from "../actions/UpDataState";
+import TeacherLogo from "../../images/teacher-logo.png";
+import logo from "../../images/icon-logo.png";
 
 const PROFILE_MODULEID = "000-2-0-05"; //用户档案管理模块ID
 
@@ -259,6 +261,20 @@ class App extends Component {
           if (handleRoute) {
             //dispatch(actions.UpDataState.getAllUserPreview('/Archives' + handleRoute));
             dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
+
+            if (
+              handleRoute === "All" ||
+              handleRoute === "Student" ||
+              handleRoute === "Teacher" ||
+              handleRoute === "Leader" ||
+              handleRoute === "Graduate"
+            ) {
+              this.changeTitle({ title: "" });
+            } else if (handleRoute === "LogDynamic") {
+              this.changeTitle({ title: "最近档案动态" });
+            } else if (handleRoute === "LogRecord") {
+              this.changeTitle({ title: "档案变更记录" });
+            }
             if (handleRoute === "Student") {
               // if (!Object.keys(DataState.GradeClassMsg.returnData).length)
               dispatch(
@@ -411,6 +427,30 @@ class App extends Component {
             userMsg.UserType === "7") &&
           route.split("/")[1] === "RegisterExamine"
         ) {
+          this.changeTitle({ title: "学生注册审核" });
+          if (userMsg.UserType === "0" || userMsg.UserType === "7") {
+            dispatch(
+              UpDataState.SetFrameData({
+                image: logo,
+                cnname: "用户档案管理",
+                enname: "User Profile Management",
+                subtitle: "学生注册审核",
+              })
+            );
+
+            document.title = "用户档案管理";
+          } else if (userMsg.UserType === "1" && userMsg.UserClass[2] === "1") {
+            dispatch(
+              UpDataState.SetFrameData({
+                image: TeacherLogo,
+                cnname: "班级管理",
+                enname: "Class management",
+                subtitle: "学生注册审核",
+              })
+            );
+
+            document.title = "班级管理";
+          }
           //dispatch(actions.UpDataState.getAllUserPreview('/RegisterExamine'));
           // console.log('12356')
           dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
@@ -523,6 +563,8 @@ class App extends Component {
             userMsg.UserType === "7") &&
           route.split("/")[1] === "TeacherRegisterExamine"
         ) {
+          this.changeTitle({ title: "教师注册审核" });
+
           //dispatch(actions.UpDataState.getAllUserPreview('/RegisterExamine'));
           // console.log('12356')
           dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
@@ -568,7 +610,8 @@ class App extends Component {
           }
           let role = route.split("/")[2];
           dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
-          document.title =
+          let title = "";
+          document.title = title =
             role === "Teacher"
               ? "导入教师档案"
               : role === "Leader"
@@ -576,6 +619,7 @@ class App extends Component {
               : role === "Student"
               ? "导入学生档案"
               : "导入毕业生档案";
+          this.changeTitle({ title: title });
         } else {
           if (userMsg.UserType === "0" || userMsg.UserType === "7") {
             history.push("/UserArchives/All");
@@ -588,6 +632,15 @@ class App extends Component {
         }
       }
     });
+  };
+  // 修改二级标题
+  changeTitle = ({ title }) => {
+    let { dispatch } = this.props;
+    dispatch(
+      UpDataState.SetFrameData({
+        subtitle: title,
+      })
+    );
   };
   //操作左侧菜单，响应路由变化
   handleMenu = () => {

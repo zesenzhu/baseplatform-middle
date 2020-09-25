@@ -36,7 +36,7 @@
  * @Author: zhuzesen
  * @LastEditors: zhuzesen
  * @Date: 2020-09-17 10:08:21
- * @LastEditTime: 2020-09-24 14:31:32
+ * @LastEditTime: 2020-09-25 10:13:01
  * @Description: 模块接口的post的action
  * @FilePath: \baseplatform-middle\src\userAccessManagement\js\actions\DataAction\PostAction.js
  */
@@ -68,7 +68,6 @@ const AddIdentityType = ({ fn = () => {}, schoolID }) => {
       params: { IdentityName, Description, UserType: UserType.join(",") },
     }).then(({ res }) => {
       if (res) {
-        dispatch(PublicAction.ModalLoadingClose());
         fn();
 
         dispatch(
@@ -76,6 +75,8 @@ const AddIdentityType = ({ fn = () => {}, schoolID }) => {
         );
         dispatch(DataAction.GetIdentityTypeList({}));
       }
+      dispatch(PublicAction.ModalLoadingClose());
+
     });
   };
 };
@@ -104,7 +105,6 @@ const EditIdentityType = ({ fn = () => {}, schoolID }) => {
       },
     }).then(({ res }) => {
       if (res) {
-        dispatch(PublicAction.ModalLoadingClose());
         fn();
 
         dispatch(
@@ -112,6 +112,8 @@ const EditIdentityType = ({ fn = () => {}, schoolID }) => {
         );
         dispatch(DataAction.GetIdentityTypeList({}));
       }
+      dispatch(PublicAction.ModalLoadingClose());
+
     });
   };
 };
@@ -147,6 +149,8 @@ const DeleteIdentityType = ({ fn = () => {}, schoolID }) => {
 // 编辑权限模块
 const EditIdentityModule = ({ fn = () => {}, schoolID }) => {
   return (dispatch, getState) => {
+    dispatch(PublicAction.ModalLoadingOpen());
+
     let State = getState();
     let {
       HandleState: {
@@ -169,12 +173,15 @@ const EditIdentityModule = ({ fn = () => {}, schoolID }) => {
         );
         dispatch(DataAction.GetIdentityTypeList({}));
       }
+      dispatch(PublicAction.ModalLoadingClose());
+
     });
   };
 };
 // 删除成员
 const DeleteIdentityUser = ({ fn = () => {}, UserID }) => {
   return (dispatch, getState) => {
+
     let State = getState();
     let {
       HandleState: {
@@ -200,9 +207,10 @@ const DeleteIdentityUser = ({ fn = () => {}, UserID }) => {
     });
   };
 };
-// 删除成员
+// 添加成员
 const AddIdentityUser = ({ fn = () => {}, UserID }) => {
   return (dispatch, getState) => {
+    dispatch(PublicAction.ModalLoadingOpen());
     let State = getState();
     let {
       HandleState: {
@@ -240,6 +248,7 @@ const AddIdentityUser = ({ fn = () => {}, UserID }) => {
         );
         dispatch(DataAction.GetIdentityTypeList({}));
       }
+      dispatch(PublicAction.ModalLoadingClose());
     });
   };
 };

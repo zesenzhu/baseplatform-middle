@@ -21,7 +21,7 @@
  * @Author: zhuzesen
  * @LastEditors: zhuzesen
  * @Date: 2020-09-17 10:35:48
- * @LastEditTime: 2020-09-24 11:53:05
+ * @LastEditTime: 2020-09-25 09:42:48
  * @Description: 模块接口的get的action
  * @FilePath: \baseplatform-middle\src\userAccessManagement\js\actions\DataAction\GetAction.js
  */
@@ -284,7 +284,7 @@ const GetIdentityUser = ({ fn = () => {}, identityID }) => {
 // 获取选择对象结构树
 const GET_TREE = "GET_TREE";
 // 获取选择对象结构树
-const GetTree = ({ fn = () => {}, identityID }) => {
+const GetTree = ({ fn = () => {}, SelectRole }) => {
   return (dispatch, getState) => {
     dispatch(PublicAction.MoreLoadingOpen());
 
@@ -295,12 +295,14 @@ const GetTree = ({ fn = () => {}, identityID }) => {
       },
       HandleState: {
         ParamsData: {
-          AddMember: { SelectRole },
+          AddMember: { SelectRole:selectRole },
         },
         CommonData: { RoleList },
       },
     } = State;
-
+    if (SelectRole === undefined) {
+      SelectRole = selectRole;
+    }
     let url = SelectObjectProxy + "GetTree";
     getData({
       url,
@@ -347,7 +349,7 @@ const GetTree = ({ fn = () => {}, identityID }) => {
 // 获取选择对象用户
 const GET_USER = "GET_USER";
 // 获取选择对象用户
-const GetUser = ({ fn = () => {}, identityID }) => {
+const GetUser = ({ fn = () => {}, SelectRole, NodeID }) => {
   return (dispatch, getState) => {
     dispatch(PublicAction.MoreLoadingOpen());
 
@@ -358,12 +360,17 @@ const GetUser = ({ fn = () => {}, identityID }) => {
       },
       HandleState: {
         ParamsData: {
-          AddMember: { SelectRole, NodeID },
+          AddMember: { SelectRole: selectRole, NodeID: nodeID },
         },
         CommonData: { RoleList },
       },
     } = State;
-
+    if (SelectRole === undefined) {
+      SelectRole = selectRole;
+    }
+    if (NodeID === undefined) {
+      NodeID = nodeID;
+    }
     let url = SelectObjectProxy + "GetUser";
     getData({
       url,

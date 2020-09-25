@@ -135,6 +135,11 @@ class App extends Component {
     //   this.UserPower({UserType, UserClass,dispatch});
     // }
     if (handleRoute === "Grade") {
+      dispatch(UpDataState.SetTopLeftData({
+        cnname: '年级班级管理',
+        // <span>年级班级管理<span className='tl-title'>-班级详情</span></span>,
+        subtitle:''
+      }))
       if (UserPower === "Admin" || UserPower === "TeachingLeader") {
         //教务主任和管理员可以景来
         dispatch(UpDataState.GetSummary({}));
@@ -142,6 +147,11 @@ class App extends Component {
         window.location.href = CONFIG.ErrorProxy + "/Error.aspx?errcode=E011";
       }
     } else if (handleRoute === "Class") {
+      dispatch(UpDataState.SetTopLeftData({
+        cnname: '年级班级管理',
+        // <span>年级班级管理<span className='tl-title'>-班级详情</span></span>,
+        subtitle:''
+      }))
       if (UserPower === "Admin" || UserPower === "TeachingLeader") {
         // 有路由变化都要改变数据储存，初始
         dispatch(
@@ -165,7 +175,9 @@ class App extends Component {
       if (UserPower === "Admin" || UserPower === "TeachingLeader") {
          
         dispatch(UpDataState.SetTopLeftData({
-          cnname: <span>年级班级管理<span className='tl-title'>-班级详情</span></span>
+          cnname: '年级班级管理',
+          // <span>年级班级管理<span className='tl-title'>-班级详情</span></span>,
+          subtitle:'班级详情'
         }))
         dispatch(
           UpDataState.SetClassDetailsParams({
@@ -187,6 +199,7 @@ class App extends Component {
         dispatch(UpDataState.SetTopLeftData({
           cnname: '我的行政班',
           enname:"My Class",
+          subtitle:''
         }))
         dispatch(
           UpDataState.SetClassDetailsParams({
@@ -308,6 +321,7 @@ class App extends Component {
                 cnname: TopLeftData.cnname,
                 enname: TopLeftData.enname,
                 image: TopLeftData.image,
+                subtitle: TopLeftData.subtitle,
               }}
               pageInit={this.RequestData}
 

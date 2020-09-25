@@ -100,7 +100,8 @@ const CommonData = (
     TopLeftData:{
       cnname: '年级班级管理' ,
       enname:"Grade & Class Management",
-      image:logo
+      image:logo,
+      subtitle:''
     }
   },
   actions
