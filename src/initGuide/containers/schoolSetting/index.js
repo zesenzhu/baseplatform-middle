@@ -1165,7 +1165,47 @@ function SchoolSetting(props) {
 
                 SchoolType = (primary.disabled?0:1)+(middle.disabled?0:2)+(heigh.disabled?0:4);
 
-                if (SchoolType!==4){
+                switch (SchoolType) {
+
+                    case 1:
+
+                        SchoolSessionType = `${primary.checked}/0/0`;
+
+                        break;
+
+                    case 2:
+
+                        SchoolSessionType = `0/${middle.checked}/0`;
+
+                        break;
+
+                    case 3:
+
+                        SchoolSessionType = `${primary.checked}/${middle.checked}/0`;
+
+                        break;
+
+                    case 4:
+
+                        SchoolSessionType = `0/0/${heigh.checked}`;
+
+                        break;
+
+                    case 6:
+
+                        SchoolSessionType = `0/${middle.checked}/${heigh.checked}`;
+
+                        break;
+
+                    case 7:
+
+                        SchoolSessionType = `${primary.checked}/${middle.checked}/${heigh.checked}`;
+
+                        break;
+
+                }
+
+               /* if (SchoolType!==4){
 
                     if (primary.disabled){
 
@@ -1185,7 +1225,7 @@ function SchoolSetting(props) {
 
                     SchoolSessionType = '5/4/3';
 
-                }
+                }*/
 
                 SchoolImgUrl = schoolLogoRef.current.logoUrl;
 

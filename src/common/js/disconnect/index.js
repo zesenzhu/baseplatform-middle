@@ -25,16 +25,37 @@ export function TokenCheck(IsDesk = false, SysID = "000",fun=()=>{},isFirst=fals
 
     if (IsDesk) {
       //如果是桌面调用
-      window.location.href = "/UserMgr/Login/Login.aspx";
+
+        const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+
+        if (!logouting||logouting==='false'){
+
+            window.location.href = "/UserMgr/Login/Login.aspx";
+
+        }
+
+
 
     } else {
       if (
         !url.includes("html/admDisconnect") &&
         !getQueryVariable("lg_preurl")
       ) {
-        window.location.href = "/html/admDisconnect?lg_preurl=" + preUrl;
+
+          const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+
+          if (!logouting||logouting==='false'){
+
+              window.location.href = "/html/admDisconnect?lg_preurl=" + preUrl;
+
+          }
+        
       }
+    
     }
+  
   } else {
     //有token，对token进行验证
 
@@ -65,12 +86,12 @@ export function TokenCheck(IsDesk = false, SysID = "000",fun=()=>{},isFirst=fals
         // console.log(json, getQueryVariable('lg_preurl'))
         if (json.data.result) {
 
-            console.log('success');
-
           //result为true
 
           sessionStorage.setItem("token", token);
+
           localStorage.setItem("token", token);
+
           if(isFirst){
             getUserInfo(token, "000",fun);
 
@@ -289,11 +310,27 @@ export function TokenCheck(IsDesk = false, SysID = "000",fun=()=>{},isFirst=fals
         
                           if (!url.includes("html/admDisconnect")) {
                             if (IsDesk) {
-                              window.location.href = "/UserMgr/Login/Login.aspx";
+
+                                const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+                                if (!logouting||logouting==='false'){
+
+                                    window.location.href = "/UserMgr/Login/Login.aspx";
+
+                                }
+
                             } else {
-                              window.location.href =
-                                "/html/admDisconnect?lg_preurl=" +
-                                encodeURIComponent(Public.getLg_tk(url));
+
+                                const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+                                if (!logouting||logouting==='false') {
+
+                                    window.location.href =
+                                        "/html/admDisconnect?lg_preurl=" +
+                                        encodeURIComponent(Public.getLg_tk(url));
+
+                                }
+
                             }
         
                             // } else {
@@ -316,11 +353,28 @@ export function TokenCheck(IsDesk = false, SysID = "000",fun=()=>{},isFirst=fals
 
                     if (!url.includes("html/admDisconnect")) {
                       if (IsDesk) {
-                        window.location.href = "/UserMgr/Login/Login.aspx";
+
+                          const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+                          if (!logouting||logouting==='false') {
+
+                              window.location.href = "/UserMgr/Login/Login.aspx";
+
+                          }
+
                       } else {
-                        window.location.href =
-                          "/html/admDisconnect?lg_preurl=" +
-                          encodeURIComponent(Public.getLg_tk(url));
+
+                          const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+                          if (!logouting||logouting==='false') {
+
+                              window.location.href =
+                                  "/html/admDisconnect?lg_preurl=" +
+                                  encodeURIComponent(Public.getLg_tk(url));
+
+                          }
+
+
                       }
   
                       // } else {
@@ -345,11 +399,29 @@ export function TokenCheck(IsDesk = false, SysID = "000",fun=()=>{},isFirst=fals
             // if (url.split('html/')[1]) {//有就说明不在登录页
             if (!url.includes("html/admDisconnect")) {
               if (IsDesk) {
-                window.location.href = "/UserMgr/Login/Login.aspx";
+
+                  const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+                  if (!logouting||logouting==='false') {
+
+                      window.location.href = "/UserMgr/Login/Login.aspx";
+
+                  }
+
+
               } else {
-                window.location.href =
-                  "/html/admDisconnect?lg_preurl=" +
-                  encodeURIComponent(Public.getLg_tk(url));
+
+                  const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+                  if (!logouting||logouting==='false') {
+
+                      window.location.href =
+                          "/html/admDisconnect?lg_preurl=" +
+                          encodeURIComponent(Public.getLg_tk(url));
+
+                  }
+
+
               }
 
               // } else {
@@ -370,17 +442,30 @@ export function TokenCheck(IsDesk = false, SysID = "000",fun=()=>{},isFirst=fals
 
         if (IsDesk){
 
-            window.location.href = "/UserMgr/Login/Login.aspx";
+            const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+            if (!logouting||logouting==='false') {
+
+                window.location.href = "/UserMgr/Login/Login.aspx";
+
+            }
 
         }else {
 
-            if (url.includes("html/admDisconnect")) {
-                window.location.href =
-                    "/html/admDisconnect?lg_preurl=" +
-                    encodeURIComponent(Public.getLg_tk(url));
-            } else {
+            const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
 
-                window.location.href = "/html/admDisconnect?lg_preurl=" + preUrl;
+            if (!logouting||logouting==='false') {
+
+                if (url.includes("html/admDisconnect")) {
+
+                    window.location.href =
+                        "/html/admDisconnect?lg_preurl=" +
+                        encodeURIComponent(Public.getLg_tk(url));
+                } else {
+
+                    window.location.href = "/html/admDisconnect?lg_preurl=" + preUrl;
+
+                }
 
             }
 
@@ -520,6 +605,8 @@ export function LogOut(SysID="000",IsPersonnal) {
 
   let token = getQueryVariable("lg_tk")||sessionStorage.getItem("token")||localStorage.getItem("token");
 
+  sessionStorage.setItem('LgBasePlantformLogOuting',true);
+
   $.ajax({
     url:
       config.TokenProxy +
@@ -542,6 +629,8 @@ export function LogOut(SysID="000",IsPersonnal) {
         localStorage.removeItem("token");
 
         sessionStorage.clear();
+
+        sessionStorage.setItem('LgBasePlantformLogOuting',false);
 
       }
     },
@@ -598,7 +687,14 @@ export const checkTokenOnce = (func=()=>{}) =>{
 
             localStorage.removeItem('token');
 
-            window.location.href = config.HashPrevProxy+"/html/admDisconnect?lg_preurl=" + preUrl;
+            const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+
+            if (!logouting||logouting==='false'){
+
+                window.location.href = config.HashPrevProxy+"/html/admDisconnect?lg_preurl=" + preUrl;
+
+            }
 
         }
 
@@ -616,7 +712,13 @@ export const checkTokenOnce = (func=()=>{}) =>{
 
                 localStorage.removeItem('token');
 
-                window.location.href = config.HashPrevProxy+"/html/admDisconnect?lg_preurl=" + preUrl;
+                const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+                if (!logouting||logouting==='false'){
+
+                    window.location.href = config.HashPrevProxy+"/html/admDisconnect?lg_preurl=" + preUrl;
+
+                }
 
             }else{
 
@@ -664,7 +766,13 @@ export const checkTokenOnce = (func=()=>{}) =>{
 
             localStorage.removeItem('token');
 
-            window.location.href = config.HashPrevProxy+"/html/admDisconnect?lg_preurl=" + preUrl;
+            const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+            if (!logouting||logouting==='false'){
+
+                window.location.href = config.HashPrevProxy+"/html/admDisconnect?lg_preurl=" + preUrl;
+
+            }
 
         })
 
@@ -698,7 +806,13 @@ export const checkTokenRepeat = () =>{
 
                 localStorage.removeItem('token');
 
-                window.location.href =config.HashPrevProxy+ "/html/admDisconnect?lg_preurl=" + preUrl;
+                const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+                if (!logouting||logouting==='false'){
+
+                    window.location.href =config.HashPrevProxy+ "/html/admDisconnect?lg_preurl=" + preUrl;
+
+                }
 
             }
 
@@ -716,7 +830,15 @@ export const checkTokenRepeat = () =>{
 
                     localStorage.removeItem('token');
 
-                    window.location.href = config.HashPrevProxy+"/html/admDisconnect?lg_preurl=" + preUrl;
+                    const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+
+                    if (!logouting||logouting==='false'){
+
+                        window.location.href = config.HashPrevProxy+"/html/admDisconnect?lg_preurl=" + preUrl;
+
+                    }
+
 
                 }
 
@@ -728,7 +850,13 @@ export const checkTokenRepeat = () =>{
 
                 localStorage.removeItem('token');
 
-                window.location.href = config.HashPrevProxy+"/html/admDisconnect?lg_preurl=" + preUrl;
+                const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+                if (!logouting||logouting==='false'){
+
+                    window.location.href = config.HashPrevProxy+"/html/admDisconnect?lg_preurl=" + preUrl;
+
+                }
 
             })
 
@@ -828,7 +956,13 @@ export const firstPageLoad = (func=()=>{}) => {
 
             localStorage.removeItem('token');
 
-            window.location.href = WebRootUrl+"/UserMgr/Login/Login.aspx?lg_preurl="+preUrl;
+            const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+            if (!logouting||logouting==='false'){
+
+                window.location.href = WebRootUrl+"/UserMgr/Login/Login.aspx?lg_preurl="+preUrl;
+
+            }
 
         }
 
@@ -844,7 +978,13 @@ export const firstPageLoad = (func=()=>{}) => {
 
                 localStorage.removeItem('token');
 
-                window.location.href = WebRootUrl+"/UserMgr/Login/Login.aspx?lg_preurl="+preUrl;
+                const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+                if (!logouting||logouting==='false'){
+
+                    window.location.href = WebRootUrl+"/UserMgr/Login/Login.aspx?lg_preurl="+preUrl;
+
+                }
 
             }else{//token没问题的情况下
 
@@ -893,6 +1033,8 @@ export const firstPageLoad = (func=()=>{}) => {
 
                             checkIsOnline();
 
+                            console.log(111);
+
                             func();
 
                         }else{
@@ -925,7 +1067,13 @@ export const firstPageLoad = (func=()=>{}) => {
 
             localStorage.removeItem('token');
 
-            window.location.href = LoginServerRootUrl+"/UserMgr/Login/Login.aspx?lg_preurl="+preUrl;
+            const logouting = sessionStorage.getItem('LgBasePlantformLogOuting');
+
+            if (!logouting||logouting==='false'){
+
+                window.location.href = LoginServerRootUrl+"/UserMgr/Login/Login.aspx?lg_preurl="+preUrl;
+
+            }
 
         });
 
