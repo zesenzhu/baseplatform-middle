@@ -102,6 +102,8 @@ class App extends Component {
                     enname: "User profile management",
 
                     image: logo2,
+
+                    subtitle:'导入班主任及班长'
                   },
                 },
               });
@@ -161,6 +163,9 @@ class App extends Component {
                 enname: "Class management",
 
                 image: TeacherLogo,
+
+                subtitle:'导入学生'
+
               },
             },
           });
