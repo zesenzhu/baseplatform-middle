@@ -106,6 +106,7 @@ class TextBookSetting extends Component {
   };
   // 详情
   onTextBookDetailClick = (id,it) => {
+    // console.log(it,4444)
     this.setState({
       TextBookData:it
     })
@@ -197,120 +198,137 @@ class TextBookSetting extends Component {
         NodeInfo
       },
     } } = this.props;
-    let NodeList =JSON.parse(JSON.stringify(NodeInfo.NodeList));
-    if (GradeSubjectList.length == 0) {
-      dispatch(
-        UpDataState.GetGradeSubjectInfo({
-          schoolId: SchoolID,
-          func: (State) => {
-            // console.log(State, 31231);
-            let dropListSelectidx1 = 0;
-            let dropListSelectidx2 = 0;
-            for (let i = 0; i < State.GradeSubjectList.length; i++) {
-              // console.log(State.GradeSubjectList[i].GradeID);
-              if (State.GradeSubjectList[i].GradeId ==this.state.TextBookData.GradeID) {
-                dropListSelectidx1 = i;
-                for (let j = 0; j < State.GradeSubjectList[i].Subjects.length; j++) {
-                  if (State.GradeSubjectList[i].Subjects[j].SubjectID == this.state.TextBookData.SubjectID) {
-                    dropListSelectidx2 = j;
-                    break;
+    this.setState({
+      showloading:true,
+    },()=>{
+      let NodeList =JSON.parse(JSON.stringify(NodeInfo.NodeList));
+      if (GradeSubjectList.length == 0) {
+        dispatch(
+          UpDataState.GetGradeSubjectInfo({
+            schoolId: SchoolID,
+            func: (State) => {
+              // console.log(State, 31231);
+              let dropListSelectidx1 = 0;
+              let dropListSelectidx2 = 0;
+              for (let i = 0; i < State.GradeSubjectList.length; i++) {
+                // console.log(State.GradeSubjectList[i].GradeID);
+                if (State.GradeSubjectList[i].GradeId ==this.state.TextBookData.GradeID) {
+                  dropListSelectidx1 = i;
+                  for (let j = 0; j < State.GradeSubjectList[i].Subjects.length; j++) {
+                    if (State.GradeSubjectList[i].Subjects[j].SubjectID == this.state.TextBookData.SubjectID) {
+                      dropListSelectidx2 = j;
+                      break;
+                    }
                   }
+                  break;
                 }
+              }
+              let chapters=[];
+              if(NodeList.length>0){
+                // chapters= NodeList;
+                NodeList.map((item,idx)=>{
+                  chapters.push({
+                    value:idx,
+                    chapterName:item.nodeName,
+                    chapters:[],
+                  })
+                  if(item.childs.length>0){
+                    item.childs.map((it,id)=>{
+                      chapters[idx].chapters.push({
+                        value:id,
+                        chapterName:it.nodeName,
+                        chapters:[],
+                      })
+                    })
+                   
+                  }
+                })
+              }
+              dispatch(UpDataState.SetNodeInfoData({ TextBookModalVisible: false }));
+              // console.log(GradeID, SubjectID);
+              this.setState({
+                visible: true,
+                showdata: 2,
+                inputValue: this.state.TextBookData.TextBookName,
+                dropListSelectidx1,
+                dropListSelectidx2,
+                dropListSelectidx3: this.state.TextBookData.TermId,
+                chapters,
+                TreeOnclicknode: -2,
+                nodeValue: '',
+                isreName: false,
+                showNodeArr: [],
+              
+              });
+              setTimeout(()=>{
+                this.setState({
+                  showloading:false
+                })
+              },500)
+  
+            },
+          })
+        );
+      } else {
+        let dropListSelectidx1 = 0;
+        let dropListSelectidx2 = 0;
+        for (let i = 0; i < GradeSubjectList.length; i++) {
+          // console.log(State.GradeSubjectList[i].GradeID);
+          if (GradeSubjectList[i].GradeId == this.state.TextBookData.GradeID) {
+            dropListSelectidx1 = i;
+            for (let j = 0; j < GradeSubjectList[i].Subjects.length; j++) {
+              if (GradeSubjectList[i].Subjects[j].SubjectID == this.state.TextBookData.SubjectID) {
+                dropListSelectidx2 = j;
                 break;
               }
             }
-            let chapters=[];
-            if(NodeList.length>0){
-              // chapters= NodeList;
-              NodeList.map((item,idx)=>{
-                chapters.push({
-                  value:idx,
-                  chapterName:item.nodeName,
-                  chapters:[],
-                })
-                if(item.childs.length>0){
-                  item.childs.map((it,id)=>{
-                    chapters[idx].chapters.push({
-                      value:id,
-                      chapterName:it.nodeName,
-                      chapters:[],
-                    })
-                  })
-                 
-                }
-              })
-            }
-            dispatch(UpDataState.SetNodeInfoData({ TextBookModalVisible: false }));
-            // console.log(GradeID, SubjectID);
-            this.setState({
-              visible: true,
-              showdata: 2,
-              inputValue: this.state.TextBookData.TextBookName,
-              dropListSelectidx1,
-              dropListSelectidx2,
-              dropListSelectidx3: this.state.TextBookData.TermId,
-              chapters,
-              TreeOnclicknode: -2,
-              nodeValue: '',
-              isreName: false,
-              showNodeArr: [],
-            });
-
-          },
-        })
-      );
-    } else {
-      let dropListSelectidx1 = 0;
-      let dropListSelectidx2 = 0;
-      for (let i = 0; i < GradeSubjectList.length; i++) {
-        // console.log(State.GradeSubjectList[i].GradeID);
-        if (GradeSubjectList[i].GradeId == this.state.TextBookData.GradeID) {
-          dropListSelectidx1 = i;
-          for (let j = 0; j < GradeSubjectList[i].Subjects.length; j++) {
-            if (GradeSubjectList[i].Subjects[j].SubjectID == this.state.TextBookData.SubjectID) {
-              dropListSelectidx2 = j;
-              break;
-            }
+            break;
           }
-          break;
         }
-      }
-       let chapters=[];
-            if(NodeList.length>0){
-              // chapters= NodeList;
-              NodeList.map((item,idx)=>{
-                chapters.push({
-                  value:idx,
-                  chapterName:item.nodeName,
-                  chapters:[],
-                })
-                if(item.childs.length>0){
-                  item.childs.map((it,id)=>{
-                    chapters[idx].chapters.push({
-                      value:id,
-                      chapterName:it.nodeName,
-                      chapters:[],
-                    })
+         let chapters=[];
+              if(NodeList.length>0){
+                // chapters= NodeList;
+                NodeList.map((item,idx)=>{
+                  chapters.push({
+                    value:idx,
+                    chapterName:item.nodeName,
+                    chapters:[],
                   })
-                 
-                }
-              })
-            }
-            dispatch(UpDataState.SetNodeInfoData({ TextBookModalVisible: false }));
-      this.setState({
-        visible: true,
-        showdata: 2,
-        inputValue: this.state.TextBookData.TextBookName,
-        dropListSelectidx1,
-        dropListSelectidx2,
-        dropListSelectidx3:this.state.TextBookData.TermId,
-        chapters,
-        TreeOnclicknode: -2,
-        nodeValue: '',
-        isreName: false,
-        showNodeArr: [],
-      });
-    }
+                  if(item.childs.length>0){
+                    item.childs.map((it,id)=>{
+                      chapters[idx].chapters.push({
+                        value:id,
+                        chapterName:it.nodeName,
+                        chapters:[],
+                      })
+                    })
+                   
+                  }
+                })
+              }
+              dispatch(UpDataState.SetNodeInfoData({ TextBookModalVisible: false }));
+        this.setState({
+          visible: true,
+          showdata: 2,
+          inputValue: this.state.TextBookData.TextBookName,
+          dropListSelectidx1,
+          dropListSelectidx2,
+          dropListSelectidx3:this.state.TextBookData.TermId,
+          chapters,
+          TreeOnclicknode: -2,
+          nodeValue: '',
+          isreName: false,
+          showNodeArr: [],
+         
+        });
+        setTimeout(()=>{
+          this.setState({
+            showloading:false
+          })
+        },500)
+      }
+    })
+   
     // this.setState({
     //   visible:true,
     // })
@@ -464,7 +482,7 @@ class TextBookSetting extends Component {
       let parem = {
         "schoolId": SchoolID,
         "bookName": this.state.inputValue,
-        "subjectId": GradeSubjectList[this.state.dropListSelectidx1].Subjects[this.state.dropListSelectidx2].SubjectId,
+        "subjectId": GradeSubjectList[this.state.dropListSelectidx1].Subjects[this.state.dropListSelectidx2].SubjectID,
         "gradeId": GradeSubjectList[this.state.dropListSelectidx1].GradeId,
         "term": this.state.dropListSelectidx3,
         "chapters": chapters
@@ -498,7 +516,7 @@ class TextBookSetting extends Component {
       let parem = {
         "schoolId": SchoolID,
         "bookName": this.state.inputValue,
-        "subjectId": GradeSubjectList[this.state.dropListSelectidx1].Subjects[this.state.dropListSelectidx2].SubjectId,
+        "subjectId": GradeSubjectList[this.state.dropListSelectidx1].Subjects[this.state.dropListSelectidx2].SubjectID,
         "gradeId": GradeSubjectList[this.state.dropListSelectidx1].GradeId,
         "term": this.state.dropListSelectidx3,
         "chapters": chapters,
@@ -714,7 +732,13 @@ class TextBookSetting extends Component {
   delNode(idx) {
     let chapters = this.state.chapters;
     chapters.splice(idx, 1);
-    this.showNodeAll(idx);
+    // this.showNodeAll(idx);
+    let showNodeArr = this.state.showNodeArr;
+    for (let i = 0; i < showNodeArr.length; i++) {
+      if (showNodeArr[i] == idx ) {
+        showNodeArr.splice(idx, 1);
+      }
+    }
     this.setState({
       chapters,
       showNodeArr,
@@ -943,8 +967,9 @@ class TextBookSetting extends Component {
           okText='编辑'
         >
           {TextBookModalVisible ? <TextBookMsgModal ></TextBookMsgModal> : ""}
+          
         </Modal>
-        <Modal
+       {this.state.visible? <Modal
           ref="setTextBook"
           bodyStyle={{ padding: 0 }}
           type="1"
@@ -1031,7 +1056,7 @@ class TextBookSetting extends Component {
           </Loading>
         </Modal>
 
-
+:''}
 
       </div>
     );

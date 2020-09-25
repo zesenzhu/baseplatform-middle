@@ -694,6 +694,7 @@ class Modal extends React.Component {
         visible={this.props.visible}
         centered={this.props.centered ? this.props.centered : true}
         width={this.state.width}
+        zIndex={this.state.zIndex}
         closeIcon={this.state.ModalStyle==='Modal-1'?<i className={"modal-close-icon"}></i>:null}
         footer={
           this.state.footer === null
