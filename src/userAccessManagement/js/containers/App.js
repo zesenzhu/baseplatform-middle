@@ -235,7 +235,7 @@ class App extends Component {
                 Value={SearchValue}
                 // onCancelSearch={this.onCancelSearch}
                 onChange={this.onChangeSearch}
-                // CancelBtnShow={CancelBtnShow}
+                CancelBtnShow={'n'}
               ></Search>
             </div>
             <div ref="frame-right-content">

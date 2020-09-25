@@ -43,7 +43,7 @@ class SearchIdentityModal extends Component {
   }
 
   onModalCancel = () => {
-    this.onCancelClick()
+    this.onCancelClick();
 
     let {
       dispatch,
@@ -74,6 +74,9 @@ class SearchIdentityModal extends Component {
     // dispatch(DataAction.GetIdentityUser({}));
     dispatch(
       HandleAction.ParamsSetSearchIdentity({
+        SearchValue: "",
+        KeyWord: "",
+        CancelBtnShow: "n",
         IdentityID: "",
         IdentityCode: "",
         IdentityName: "",
@@ -95,18 +98,21 @@ class SearchIdentityModal extends Component {
   // 搜索修改
   onChangeSearch = (e) => {
     let { dispatch } = this.props;
-    let CancelBtnShow = 'y'
-    if(e.target.value===''){
-      CancelBtnShow = 'n'
+    let CancelBtnShow = "y";
+    if (e.target.value === "") {
+      CancelBtnShow = "n";
     }
     dispatch(
-      HandleAction.ParamsSetSearchIdentity({CancelBtnShow, SearchValue: e.target.value })
+      HandleAction.ParamsSetSearchIdentity({
+        CancelBtnShow,
+        SearchValue: e.target.value,
+      })
     );
   };
   // 确认修改
   onClickSearch = (e) => {
     let { dispatch } = this.props;
-    this.onCancelClick()
+    this.onCancelClick();
     dispatch(
       HandleAction.ParamsSetSearchIdentity({
         KeyWord: e.value,
@@ -192,24 +198,24 @@ class SearchIdentityModal extends Component {
           size="small"
           spinning={ModalLoading}
         > */}
-          <div style={{ height: height + "px" }} className={`ModalContent  `}>
-            <div className="Modal-Top">
-              <Search
-                placeHolder="请输入用户姓名/工号/学号搜索用户身份权限..."
-                onClickSearch={this.onClickSearch}
-                height={32}
-                width={380}
-                Value={SearchValue}
-                onCancelSearch={this.onCancelSearch}
-                onChange={this.onChangeSearch}
-                CancelBtnShow={CancelBtnShow}
-              ></Search>
-            </div>
-            <p className="total">
-              共搜索到<span className="count">{Total}</span>条结果
-            </p>
-            <Table onCancelClick={this.onCancelClick}></Table>
+        <div style={{ height: height + "px" }} className={`ModalContent  `}>
+          <div className="Modal-Top">
+            <Search
+              placeHolder="请输入用户姓名/工号/学号搜索用户身份权限..."
+              onClickSearch={this.onClickSearch}
+              height={32}
+              width={380}
+              Value={SearchValue}
+              onCancelSearch={this.onCancelSearch}
+              onChange={this.onChangeSearch}
+              CancelBtnShow={CancelBtnShow}
+            ></Search>
           </div>
+          <p className="total">
+            共搜索到<span className="count">{Total}</span>条结果
+          </p>
+          <Table onCancelClick={this.onCancelClick}></Table>
+        </div>
         {/* </Loading> */}
       </Modal>
     );

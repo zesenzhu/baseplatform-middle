@@ -25,7 +25,7 @@
  * @Author: zhuzesen
  * @LastEditors: zhuzesen
  * @Date: 2020-09-21 15:31:20
- * @LastEditTime: 2020-09-22 21:35:49
+ * @LastEditTime: 2020-09-25 09:49:42
  * @Description:编辑成员和查看成员共用
  * @FilePath: \baseplatform-middle\src\userAccessManagement\js\containers\Modal\CheckMemberModal\CustomIndentityUser.js
  */
@@ -80,30 +80,47 @@ class CustomIndentityUser extends Component {
         ParamsData: {
           CheckMember: { IdentityCode, IdentityName, UserType, IdentityID },
         },
+        CommonData: { RoleList },
       },
-      DataState:{
-        GetData:{
-          IdentityUser
-        }
-      }
+      DataState: {
+        GetData: { IdentityUser },
+      },
     } = this.props;
+    let SelectRole = "";
+    if (UserType instanceof Array && UserType.length === 1) {
+      //一个的时候直接默认打开
+
+      RoleList instanceof Array &&
+        RoleList.map((child, index) => {
+          if (UserType.map((value) => parseInt(value)).includes(child.value)) {
+            SelectRole = child.code;
+          }
+        });
+        if (SelectRole === "admin") {
+          dispatch(DataAction.GetUser({ SelectRole, NodeID: "" }));
+        } else {
+          dispatch(DataAction.GetTree({ SelectRole }));
+        }
+    }
+    
     dispatch(
       HandleAction.ParamsSetAddMember({
         IdentityCode,
         IdentityName,
         UserType,
         IdentityID,
-        MemberList: []
+        MemberList: [],
         // IdentityUser.List.map((chil)=>{
         //   return {NodeID:child.UserID,NodeName:child.UserName,LastTreeNode}
         // })
-        ,
-        SelectRole: "",
+        SelectRole: SelectRole,
         NodeID: "",
         NodeType: "tree",
-        LayoutType: "type",List:[]
+        LayoutType: "type",
+        List: [],
       })
     );
+
     dispatch(HandleAction.SetModalVisible({ AddMemberModalVisible: true }));
   };
   onTagCancel = (data) => {

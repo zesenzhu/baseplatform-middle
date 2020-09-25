@@ -97,16 +97,28 @@ class CustomIdentityModal extends Component {
     );
   };
   onUserTypeChange = (e) => {
-    let { dispatch,HandleState:{ParamsData:{CustomIdentity:{UserType}}} } = this.props;
-    if (e.length>2) {//最多两个组合
+    let {
+      dispatch,
+      HandleState: {
+        ParamsData: {
+          CustomIdentity: { UserType },
+        },
+      },
+    } = this.props;
+    if (e.length > 2) {
+      //最多两个组合
       return;
     }
-    if(UserType.length===1&&e.length===2&&e.some(child=>child===3||child===2)){
-      return ;
+    if (
+      UserType.length === 1 &&
+      e.length === 2 &&
+      e.some((child) => child === 3 || child === 2)
+    ) {
+      return;
     }
     dispatch(
       HandleAction.checkUserType({
-        value: e,
+        value: e.sort(),
         fn: () => {
           dispatch(
             HandleAction.ParamsSetCustomIdentity({
@@ -134,7 +146,13 @@ class CustomIdentityModal extends Component {
           },
         },
       },
+      PublicState: {
+        Loading: { ModalLoading },
+      },
     } = this.props;
+    if (ModalLoading) {
+      return;
+    }
     let Error = false;
     let Post = () => {};
 
@@ -216,7 +234,7 @@ class CustomIdentityModal extends Component {
         type: "add",
       })
     );
-    dispatch(PublicAction.ContentLoadingClose())
+    dispatch(PublicAction.ContentLoadingClose());
   };
   render() {
     const {

@@ -98,7 +98,6 @@ class Right extends Component {
       dispatch(DataAction.GetTree({}));
     } else {
       let data = this.MapNode(TreeList, NodeID);
-      console.log(data);
       let FullID = [];
       let FullName = [];
       RoleList.forEach((child) => {
@@ -125,6 +124,7 @@ class Right extends Component {
           NodeID: data.NodeID,
           NodeName: data.NodeName,
           FullID: FullID,
+          NodeType: "tree",
           FullName: FullName,
         })
       );

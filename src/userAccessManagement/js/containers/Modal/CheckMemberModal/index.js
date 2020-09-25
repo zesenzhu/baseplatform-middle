@@ -69,6 +69,7 @@ class CheckMemberModal extends Component {
         type: "custom", //自定义：custom,id的为默认
       })
     );
+    dispatch({type:DataAction.GET_INDENTITY_USER,data:[]})
     dispatch(PublicAction.ContentLoadingClose());
   };
 

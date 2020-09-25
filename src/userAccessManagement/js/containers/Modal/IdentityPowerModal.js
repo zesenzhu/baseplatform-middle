@@ -180,7 +180,15 @@ class IdentityPowerModal extends Component {
           },
         },
       },
+      PublicState:{
+      Loading:{
+        ModalLoading
+      }
+      }
     } = this.props;
+    if(ModalLoading){
+      return ;
+    }
     let Error = false;
     let Post = () => {};
 
