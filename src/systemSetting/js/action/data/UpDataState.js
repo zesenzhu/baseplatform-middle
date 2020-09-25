@@ -84,6 +84,13 @@ const GetGradeSubjectInfo = ({ schoolId, func = () => { } }) => {
       })
       .then((json) => {
         let { InitData } = getState().DataState.TextBookData.SubjectList;
+        InitData =JSON.parse(JSON.stringify(InitData));
+        if(InitData.length>0){
+          InitData.map((item,idx)=>{
+            InitData[idx].SubjectID=InitData[idx].SubjectId;
+          })
+        }
+        console.log(InitData,23)
         json.Data.unshift({
           GradeId: "",
           GradeName: "全部年级",
