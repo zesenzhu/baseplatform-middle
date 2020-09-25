@@ -700,7 +700,17 @@ const GetSubSystemsMainServerBySubjectID = () => {
       });
   };
 };
+// 设置frame的数据
+const SET_FRAME_DATA = 'SET_FRAME_DATA';
+const SetFrameData = (data) => {
+  return (dispatch) => {
+    dispatch({ type: SET_FRAME_DATA, data: data });
+  };
+};
 export default {
+  SetFrameData,
+  SET_FRAME_DATA,
+
   GetSubSystemsMainServerBySubjectID,
   GET_SUB_SYSTEMS_MAIN_SERVER,
 

@@ -88,23 +88,23 @@ class RegisterExamine extends React.Component {
     let userMsg = DataState.LoginUser;
     if (userMsg.UserType === "0" || userMsg.UserType === "7") {
       this.setState({
-        logo: logo,
-        cnname: "用户档案管理",
-        enname: "User Profile Management",
+        // logo: logo,
+        // cnname: "用户档案管理",
+        // enname: "User Profile Management",
         Admin: true,
       });
       document.title = "用户档案管理";
     } else if (userMsg.UserType === "1" && userMsg.UserClass[2] === "1") {
       this.setState({
-        logo: TeacherLogo,
-        cnname: "班级管理",
-        enname: "Class management",
+        // logo: TeacherLogo,
+        // cnname: "班级管理",
+        // enname: "Class management",
         Admin: false,
       });
       document.title = "班级管理";
     }
 
-    console.log("554");
+    // console.log("554");
     if (pathname.split("/")[2] === "RegisterDidExamine") {
       this.setState({
         handleClick: false,
@@ -519,6 +519,11 @@ class RegisterExamine extends React.Component {
     //     userRegisterTime: '2019-01-01 12:24',
     //     userRegisterIP: '190.163.252.198'
     // };
+    let {
+      MainData: {
+        FrameData: { subtitle, image, enname, cnname },
+      },
+    } = DataState;
     return (
       <React.Fragment>
         <Frame
@@ -527,9 +532,10 @@ class RegisterExamine extends React.Component {
             image: DataState.LoginUser.PhotoPath,
           }}
           module={{
-            cnname: this.state.cnname,
-            enname: this.state.enname,
-            image: this.state.logo,
+            cnname: cnname,
+            enname: enname,
+            image: image,
+            subtitle: subtitle,
           }}
           type="circle"
           showLeftMenu={false}

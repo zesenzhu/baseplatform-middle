@@ -120,7 +120,9 @@ const PageInit = () =>{
 
                                 enname:"Class management",
 
-                                image:TeacherLogo
+                                image:TeacherLogo,
+
+                                subtitle:'班级详情'
 
                             }
 

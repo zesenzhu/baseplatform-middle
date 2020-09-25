@@ -222,22 +222,26 @@ class App extends Component {
             }}
             type={FrameType}
             showLeftMenu={showLeftMenu}
-            showBarner={!showBarner}
+            showBarner={showBarner}
             className={`myFrame  ${className}`}
             pageInit={this.RequestData}
-          >
-            <div ref="frame-time-barner" style={{textAlign:'right'}}>
+            topRightContent={
               <Search
                 placeHolder="请输入用户姓名/工号/学号搜索用户身份权限..."
                 onClickSearch={this.onClickSearch}
+                className={"transparent"}
                 height={32}
                 width={380}
                 Value={SearchValue}
                 // onCancelSearch={this.onCancelSearch}
                 onChange={this.onChangeSearch}
-                CancelBtnShow={'n'}
+                CancelBtnShow={"n"}
               ></Search>
-            </div>
+            }
+          >
+            {/* <div ref="frame-time-barner" style={{textAlign:'right'}}>
+              
+            </div> */}
             <div ref="frame-right-content">
               <Loading
                 opacity={false}
