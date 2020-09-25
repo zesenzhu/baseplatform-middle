@@ -26,7 +26,7 @@ class Import extends Component{
 
     componentWillUpdate(){
 
-        const { LoginUser,dispatch } = this.props;
+       /* const { LoginUser,dispatch } = this.props;
 
         if (Object.keys(LoginUser).length>0&&this.state.FirstUpload){
 
@@ -34,13 +34,13 @@ class Import extends Component{
 
             this.setState({FirstUpload:false});
 
-        }
+        }*/
     }
 
 
     componentDidMount(){
 
-        const { dispatch } = this.props;
+        const {dispatch} = this.props;
 
         $('.frame-content-rightside').css({
 
@@ -51,6 +51,8 @@ class Import extends Component{
             "border-top":"0px"
 
         });
+
+        dispatch({type:AppLoadingActions.APP_LOADING_HIDE});
 
     }
 

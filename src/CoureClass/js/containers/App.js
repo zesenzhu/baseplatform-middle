@@ -283,6 +283,20 @@ class App extends Component {
       : JSON.parse(sessionStorage.getItem("UserInfo"));
 
 
+      let SubjectID = DataState.GetCoureClassAllMsg.Subject;
+      let GradeID = DataState.GetCoureClassAllMsg.Grade;
+
+
+
+      const pathArr = route.split("/");
+      const handleRoute = pathArr[1];
+      const routeID = pathArr[2];
+      const subjectID = pathArr[3];
+      const classID = pathArr[4];
+
+
+      console.log(handleRoute);
+
     if (parseInt(UserMsg.UserType)!==2&&parseInt(UserMsg.UserType)!==7&&parseInt(UserMsg.UserType)!==10){
 
         if (parseInt(UserMsg.UserType)===0){
@@ -295,14 +309,6 @@ class App extends Component {
             havePower.then(res => {
 
                 if (res) {
-                    let SubjectID = DataState.GetCoureClassAllMsg.Subject;
-                    let GradeID = DataState.GetCoureClassAllMsg.Grade;
-
-                    let pathArr = route.split("/");
-                    let handleRoute = pathArr[1];
-                    let routeID = pathArr[2];
-                    let subjectID = pathArr[3];
-                    let classID = pathArr[4];
 
                     dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
                     if (route === "/") {
@@ -473,6 +479,8 @@ class App extends Component {
 
         }else if (parseInt(UserMsg.UserType)===1) {
 
+            console.log(handleRoute);
+
             QueryOtherPower({
                 SchoolID:UserMsg.SchoolID,
                 ModuleID: COURECLASS_MODULEID,
@@ -482,7 +490,15 @@ class App extends Component {
 
                 if (data){
 
-                    dispatch(bannerShow());
+                    if (handleRoute==='Teacher'){
+
+                        dispatch(bannerShow());
+
+                    }else{
+
+                        dispatch(bannerHide());
+
+                    }
 
                 }else{
 
@@ -494,12 +510,6 @@ class App extends Component {
 
                 let SubjectID = DataState.GetCoureClassAllMsg.Subject;
                 let GradeID = DataState.GetCoureClassAllMsg.Grade;
-
-                let pathArr = route.split("/");
-                let handleRoute = pathArr[1];
-                let routeID = pathArr[2];
-                let subjectID = pathArr[3];
-                let classID = pathArr[4];
 
                 dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
 
@@ -1035,6 +1045,10 @@ class App extends Component {
 
         subtitle = '导入教学班';
 
+    }else if (route[1]==='Log'){
+
+        subtitle = route[2]==='Dynamic'?'最新动态':'历史记录';
+
     }
 
 
@@ -1105,7 +1119,7 @@ class App extends Component {
           width={720}
           type="1"
           destroyOnClose={true}
-          title={"教学班详情"}
+          title={parseInt(UserType)===1?'学生名单详情':"教学班详情"}
           visible={
             UIState.SetCourseClassDetailsModalShow
               .setCourseClassDetailsMadalShow

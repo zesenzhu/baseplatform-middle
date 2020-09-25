@@ -53,7 +53,7 @@ function ModulesContent(props){
 
             }else if (parseInt(UserType)===1) {
 
-                return [
+                return parseInt(UserClass[2])===1?[
 
                     {Url:'/html/class',Name:'我的行政班管理',ClassName:'admClass'},
 
@@ -62,6 +62,16 @@ function ModulesContent(props){
                     {Url:'/html/schedule#/teacher/mine',Name:'我的课程安排管理',ClassName:'schedule'},
 
                 ]
+
+                    :
+
+                    [
+
+                        {Url:'/html/CoureClass',Name:'我的教学班管理',ClassName:'courseClass'},
+
+                        {Url:'/html/schedule#/teacher/mine',Name:'我的课程安排管理',ClassName:'schedule'},
+
+                    ]
 
             }else if (parseInt(UserType)===2||parseInt(UserType)===3){
 
