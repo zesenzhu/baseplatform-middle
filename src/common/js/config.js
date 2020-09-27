@@ -89,9 +89,9 @@ if (process.env.NODE_ENV === "development") {
 
     SchoolSettingProxy: "http://192.168.129.1:30103/SysMgr/Setting",
 
-    UserAccessProxy: "http://192.168.129.242:8066/UserMgr/PowerMgr/",
+    UserAccessProxy: "http://192.168.129.1:30103/UserMgr/PowerMgr/",
 
-    SelectObjectProxy: "http://192.168.129.242:8066/UserMgr/SelectObject/",
+    SelectObjectProxy: "http://192.168.129.1:30103/UserMgr/SelectObject/",
   };
 }
 

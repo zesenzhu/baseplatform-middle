@@ -1,8 +1,8 @@
 /*
  * @Author: zhuzesen
  * @Date: 2020-09-15 22:07:05
- * @LastEditTime: 2020-09-16 16:01:36
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-09-27 09:10:04
+ * @LastEditors: zhuzesen
  * @Description: 学校信息编辑
  * @FilePath: \baseplatform-middle\src\admSchoolSetting\js\component\SchoolModal.js
  */
@@ -43,7 +43,7 @@ class SchoolModal extends React.Component {
       checkAll: false,
 
       picVisible: false,
-      classResultImgUrl: "",
+      classResultImgUrl: DefaultImg,
     };
     this.AreaCheck = createRef();
     this.SchoolType = createRef();
@@ -52,14 +52,6 @@ class SchoolModal extends React.Component {
   componentWillMount() {
     const { dispatch, DataState, UIState } = this.props;
     let token = sessionStorage.getItem("token");
-    dispatch(UpDataState.getImgUrlProxy());
-    if (this.props.type === "add") {
-      dispatch(
-        UpDataState.SetSchoolModalData({
-          SchoolImgUrl: "SysSetting/Attach/default.png",
-        })
-      );
-    }
     let {
       SchoolName, //学校名字
       SchoolCode, //学校代码
@@ -69,9 +61,18 @@ class SchoolModal extends React.Component {
       SchoolSessionType, //学校学制
       SchoolTel, //学校联系电话
       SchoolLinkman, //学校联系人
-    } = DataState.CommonData.SchoolModalData;
+    } =  DataState.CommonData.SchoolModalData;
+    if (this.props.type === "add") {
+      dispatch(
+        UpDataState.SetSchoolModalData({
+          SchoolImgUrl: "SysSetting/Attach/default.png",
+        })
+      );
+      SchoolImgUrl = "SysSetting/Attach/default.png"
+    }
+    
     this.setState({
-      classResultImgUrl: SchoolImgUrl,
+      classResultImgUrl:DataState.CommonData.ImgUrlProxy + SchoolImgUrl,
     });
   }
   componentDidMount() {
@@ -439,12 +440,14 @@ class SchoolModal extends React.Component {
                 "url(" +
                 (this.state.classResultImgUrl
                   ? this.state.classResultImgUrl
-                  : DefaultImg) +
-                ")" +
-                "," +
-                "url(" +
-                DefaultImg +
-                ")",
+                  :ImgUrlProxy+ DefaultImg) +
+                ")" 
+                // +
+                // "," +
+                // "url(" +
+                // DefaultImg +
+                // ")"
+                ,
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
               backgroundSize: "contain",

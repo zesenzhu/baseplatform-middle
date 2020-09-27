@@ -161,8 +161,8 @@ class CustomIdentityModal extends Component {
     } else if (type === "edit") {
       Post = DataAction.EditIdentityType;
       if (
-        IdentityName === InitIdentityName ||
-        Description === InitDescription ||
+        IdentityName === InitIdentityName &&
+        Description === InitDescription &&
         UserType === InitUserType
       ) {
         dispatch(
