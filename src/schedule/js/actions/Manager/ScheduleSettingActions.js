@@ -78,9 +78,9 @@ const PageInit = ({SchoolID}) => {
 
         dispatch({type:MSActions.MODULE_SETTINGS_UPDATE,data:{
 
-                moduleCnName:"课程表设置",
+               /* moduleCnName:"课程表设置",
 
-                moduleEnName:"Schedule Setting",
+                moduleEnName:"Schedule Setting",*/
 
                 timeBar:false
 

@@ -742,8 +742,6 @@ class Subject extends React.Component {
   render() {
     const { DataState, UIState } = this.props;
 
-    console.log(DataState.PeriodMsg);
-
     return (
       <React.Fragment>
         <div className="Adm ">
@@ -789,7 +787,6 @@ class Subject extends React.Component {
                               ref="dropMenuFirst"
                               onChange={this.AdmDropMenu.bind(this)}
                               width={120}
-                              height={96}
                               dropSelectd={this.state.SubjectSelect}
                               dropList={
                                   DataState.PeriodMsg

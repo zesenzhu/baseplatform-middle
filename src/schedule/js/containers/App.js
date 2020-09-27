@@ -8,7 +8,7 @@ import Frame from '../../../common/Frame';
 
 import { connect } from 'react-redux';
 
-import {HashRouter as Router} from 'react-router-dom';
+import {HashRouter as Router,withRouter} from 'react-router-dom';
 
 import DocumentTitle from 'react-document-title';
 
@@ -282,7 +282,7 @@ class App extends Component{
 
     Import(){
 
-        const url = config.HashPrevProxy + location.pathname+'#/Import'+location.search;
+        const url = config.HashPrevProxy + location.pathname+location.search+'#/Import';
 
         checkUrlAndPostMsg({btnName:'导入课表',url});
 
@@ -292,7 +292,7 @@ class App extends Component{
 
     ScheduleSettingShow(){
 
-        const url = config.HashPrevProxy+location.pathname+'#/manager/scheduleSetting'+location.search;
+        const url = config.HashPrevProxy+location.pathname+location.search+'#/manager/scheduleSetting';
 
         checkUrlAndPostMsg({btnName:'课程表设置',url});
 
@@ -597,15 +597,39 @@ class App extends Component{
 
     render() {
 
-        const {state} = this.props;
+        const {state,history} = this.props;
 
         const { LoginUser,ScheduleDetail,AppLoading,ModuleSetting,Manager,PeriodWeekTerm,AppAlert,RouterSet } = state;
 
         const { AdjustBtns } = Manager;
 
+        const pathname = history.location.pathname;
+
+        const routes = pathname.split('/');
+
+        let subtitle = '';
+        
+        if (routes[1]==='Import'){
+
+            subtitle = '导入课表';
+
+        }else if(routes[1]==='manager'){
+
+            if (routes[2]==='adjustlog'){
+
+                subtitle = '调课日志';
+
+            }else if (routes[2]==='scheduleSetting'){
+
+                subtitle = '课程表设置';
+
+            }
+
+        }
+
         return (
 
-            <Router>
+
 
                 <React.Fragment>
 
@@ -628,7 +652,8 @@ class App extends Component{
                             module={{
                                 cnname:ModuleSetting.moduleCnName,
                                 enname:ModuleSetting.moduleEnName,
-                                image:ModuleSetting.logo
+                                image:ModuleSetting.logo,
+                                subtitle
                             }}
 
                             showBarner={RouterSet.router==='/'?ModuleSetting.timeBar:false}
@@ -833,7 +858,7 @@ class App extends Component{
 
                 </React.Fragment>
 
-            </Router>
+
         );
     }
 }
@@ -846,4 +871,4 @@ const mapStateToProps = (state) => {
 
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(withRouter(App));

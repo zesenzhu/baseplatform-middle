@@ -35,7 +35,6 @@ class App extends Component {
 
     componentDidMount(){
 
-
         if(publicJS.IEVersion()){
 
             if (sessionStorage.getItem("LgBasePlatformInfo")){

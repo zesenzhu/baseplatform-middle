@@ -88,11 +88,11 @@ const PageInit = ({SchoolID}) => {
 
           dispatch({type:MSActions.MODULE_SETTINGS_UPDATE,data:{
 
-                  moduleCnName:"调课日志",
+                 /* moduleCnName:"调课日志",
 
                   moduleEnName:"Transfer Log",
 
-                  logo:logo,
+                  logo:logo,*/
 
                   timeBar:false
 
