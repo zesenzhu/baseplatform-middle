@@ -25,9 +25,9 @@
  * @Author: zhuzesen
  * @LastEditors: zhuzesen
  * @Date: 2020-09-21 15:31:20
- * @LastEditTime: 2020-09-25 09:49:42
+ * @LastEditTime: 2020-09-28 09:44:18
  * @Description:编辑成员和查看成员共用
- * @FilePath: \baseplatform-middle\src\userAccessManagement\js\containers\Modal\CheckMemberModal\CustomIndentityUser.js
+ * @FilePath: \baseplatform-university\src\userAccessManagement\js\containers\Modal\CheckMemberModal\CustomIndentityUser.js
  */
 
 import React, { Component } from "react";
@@ -78,7 +78,7 @@ class CustomIndentityUser extends Component {
       dispatch,
       HandleState: {
         ParamsData: {
-          CheckMember: { IdentityCode, IdentityName, UserType, IdentityID },
+          CheckMember: { IdentityCode, IdentityName, UserType, IdentityID,type },
         },
         CommonData: { RoleList },
       },
@@ -86,6 +86,15 @@ class CustomIndentityUser extends Component {
         GetData: { IdentityUser },
       },
     } = this.props;
+    if(type!=='edit'){//不是edit，就跳到编辑成员模式
+      dispatch(
+        HandleAction.ParamsSetCheckMember({
+ 
+          type:'edit', // edit：编辑，custom：自定义的,id:表示默认的都是不确定的id
+        })
+      )
+      return;
+    }
     let SelectRole = "";
     if (UserType instanceof Array && UserType.length === 1) {
       //一个的时候直接默认打开
@@ -235,7 +244,7 @@ class CustomIndentityUser extends Component {
                     onClick={this.onEditMemberClick}
                     className="edit-member"
                   >
-                    添加成员
+                    {type==='edit'?'添加成员':'编辑成员'}
                   </span>
                 </div>
               ) : (

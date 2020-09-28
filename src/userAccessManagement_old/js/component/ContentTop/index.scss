@@ -1,0 +1,52 @@
+#ContentTop {
+    height: 40px;
+    line-height: 40px;
+    width: calc(100% - 38px);
+    margin-left: 30px;
+    border-bottom: 1px dashed #cccccc;
+    .CT-title {
+        display: inline-block;
+        vertical-align: top;
+        padding-left: 30px;
+        margin-left: -30px;
+        text-align: left;
+        font-size: 16px;
+        color: #333333;
+        background: url(./images/icon-location-small.png) no-repeat 8px center / 14px 19px;
+    }
+    .CT-handle {
+        float: right;
+        height: 40px;
+        line-height: 40px;
+        .CTh-add {
+            position: relative;
+            display: inline-block;
+            vertical-align: top;
+            width: 145px;
+            // margin-right: 8px;
+            height: 28px;
+            line-height: 28px;
+            background-image: linear-gradient(90deg, #0fc1fc 0%, #1da4fe 100%), linear-gradient(#ffffff, #ffffff);
+            border-radius: 14px;
+            -webkit-border-radius: 14px;
+            -moz-border-radius: 14px;
+            -ms-border-radius: 14px;
+            -o-border-radius: 14px;
+            padding: 0 15px 0 32px;
+            font-size: 14px;
+            color: #ffffff;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0px 7px 17px -9px #1da4fe;
+            &::before {
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                content: "";
+                left: 15px;
+                top: 8px;
+                background: url(./images/icon-crop.png) no-repeat center center/contain;
+            }
+        }
+    }
+}
