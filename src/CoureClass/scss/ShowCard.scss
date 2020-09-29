@@ -1,3 +1,5 @@
+@import "./base";
+
 .ShowCard-box {
     width: 268px;
     position: relative;
@@ -169,6 +171,7 @@
                     .subjectName {
                         font-size: 14px;
                         color: #086d03;
+                        @include textOverFlow;
                     }
                 }
             }

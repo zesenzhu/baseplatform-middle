@@ -125,7 +125,7 @@ class ShowCardTeacher extends React.Component {
                         <div className='content-details'>
                             <div className='details-row clearfix'>
                                 <span className='left'>学科：</span>
-                                <span className='right subjectName'>{this.props.params.SubjectName}</span>
+                                <span className='right subjectName' title={this.props.params.SubjectName}>{this.props.params.SubjectName}</span>
                             </div>
                             <div className='details-row clearfix'>
                                 <span className='left'>所属年级：</span>
