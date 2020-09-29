@@ -252,9 +252,9 @@ class Content extends Component {
       resourceLoading,
     } = this.props;
     // })
-    console.log(this.state.active);
+    // console.log(PeriodList,this.state.active);
     let periodResult='';
-   if(PeriodList.some((item)=>{ return item.PeriodId==this.state.active})){
+   if(PeriodList.some((item)=>{ return item.PeriodId==this.state.active||this.state.active=='isMine'})){
      periodResult = PeriodList.map((item, index) => {
       if (index !== PeriodList.length - 1) {
         return (
