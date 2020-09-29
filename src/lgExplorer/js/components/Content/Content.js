@@ -252,8 +252,10 @@ class Content extends Component {
       resourceLoading,
     } = this.props;
     // })
-
-    let periodResult = PeriodList.map((item, index) => {
+    console.log(this.state.active);
+    let periodResult='';
+   if(PeriodList.some((item)=>{ return item.PeriodId==this.state.active})){
+     periodResult = PeriodList.map((item, index) => {
       if (index !== PeriodList.length - 1) {
         return (
           <li
@@ -288,6 +290,48 @@ class Content extends Component {
         );
       }
     });
+   }else{
+     if(PeriodList.length>0){
+      this.setState({active:PeriodList[0].PeriodId},()=>{
+         periodResult = PeriodList.map((item, index) => {
+          if (index !== PeriodList.length - 1) {
+            return (
+              <li
+                key={item.PeriodName}
+                className={`${
+                  item.PeriodId === this.state.active ? "selected" : ""
+                }`}
+                onClick={() => this.periodChange(item.PeriodId)}
+              >
+                {item.PeriodName}{" "}
+              </li>
+            );
+          } else {
+            return (
+              <React.Fragment key={index}>
+                <li
+                  key={item.PeriodName}
+                  className={`${
+                    item.PeriodId === this.state.active ? "selected" : ""
+                  }`}
+                  onClick={() => this.periodChange(item.PeriodId)}
+                >
+                  {item.PeriodName}{" "}
+                </li>
+                <li
+                  className={`${"isMine" === this.state.active ? "selected" : ""}`}
+                  onClick={() => this.periodChange("isMine")}
+                >
+                  {'我的'}{" "}
+                </li>
+              </React.Fragment>
+            );
+          }
+        });
+       })
+     }
+   }
+  
 
     //渲染学段对应的资源
     let linkResultRender = WebsiteResLink.map((item, key) => {

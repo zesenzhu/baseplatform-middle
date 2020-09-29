@@ -114,6 +114,8 @@ class App extends Component {
       // onSelectBar('School');
 
       dispatch(actions.UpDataState.QuerySchoolInfo({}));
+    dispatch(UpDataState.getImgUrlProxy());
+
     } else if (handleRoute === "Term") {
       // onSelectBar('Term');
 

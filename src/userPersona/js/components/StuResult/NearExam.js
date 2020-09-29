@@ -56,7 +56,7 @@ class NearExam extends Component {
             }`}
           >
             <span title={Score ? Score + "分" : ""} className="Ssb-Score">
-              {Score ? Score : "--"} <span>分</span>
+              {Score||Score===0 ? Score : "--"} <span>分</span>
             </span>
             <span title={SubjectName ? SubjectName : ""} className="Ssb-Sub">
               {SubjectName ? SubjectName : "--"}

@@ -1,0 +1,53 @@
+.IdentityPowerModal {
+    .ModalContent {
+        height: 536px;
+        padding-top: 0;
+        .row {
+            line-height: 30px;
+            margin-bottom: 0px;
+            &:first-of-type {
+                margin-top: 24px;
+            }
+            .left {
+                display: inline-block;
+                vertical-align: top;
+                text-align: right;
+                padding-right: 8px;
+                font-size: 14px;
+                color: #999999;
+                width: 11%;
+            }
+            .right {
+                display: inline-block;
+                vertical-align: top;
+                width: 89%;
+                .IdentityName {
+                    color: #ff6600;
+                    font-weight: bold;
+                }
+                .Description {
+                    color: #999999;
+                    @include TextOverflow();
+                    padding-left: 9px;
+                    max-width: 500px;
+                    display: inline-block;
+                    vertical-align: top;
+                }
+                .table {
+                    width: 813px;
+                    .ant-table-tbody {
+                        .ant-table-row-cell-break-word {
+                            text-align: left !important;
+                        }
+                    }
+                }
+            }
+            .UserTypeName {
+                color: #333333;
+            }
+        }
+        .row-bottom {
+            margin-bottom: 24px;
+        }
+    }
+}

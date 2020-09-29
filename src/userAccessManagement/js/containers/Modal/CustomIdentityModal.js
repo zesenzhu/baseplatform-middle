@@ -161,8 +161,8 @@ class CustomIdentityModal extends Component {
     } else if (type === "edit") {
       Post = DataAction.EditIdentityType;
       if (
-        IdentityName === InitIdentityName ||
-        Description === InitDescription ||
+        IdentityName === InitIdentityName &&
+        Description === InitDescription &&
         UserType === InitUserType
       ) {
         dispatch(
@@ -292,7 +292,10 @@ class CustomIdentityModal extends Component {
           size="small"
           spinning={ModalLoading}
         >
-          <div className="ModalContent">
+          <div
+            className="ModalContent"
+            style={{ height: type === "edit" ? "248px" : "230px" }}
+          >
             <div className="row">
               <span className="left">
                 <i className="must">*</i>
@@ -352,14 +355,41 @@ class CustomIdentityModal extends Component {
                   >
                     {RoleList instanceof Array
                       ? RoleList.map((child, index) => {
+                          let disabled = false;
+                          if (
+                            UserType.length >= 2 &&
+                            !UserType.includes(child.value)
+                          ) {
+                            disabled = true;
+                          } else if (
+                            UserType.length === 1 &&
+                            (UserType[0] === 2 || UserType[0] === 3) &&
+                            UserType[0] !== child.value
+                          ) {
+                            disabled = true;
+                          } else if (
+                            UserType.length === 1 &&
+                            (UserType[0] === 0 || UserType[0] === 1) &&
+                            (child.value === 2 || child.value === 3)
+                          ) {
+                            disabled = true;
+                          }
                           return (
-                            <CheckBox
-                              className="UserType-radio"
-                              key={index}
-                              value={child.value}
-                            >
-                              {child.title}
-                            </CheckBox>
+                            <>
+                              {child.value === 2 || child.value === 3 ? (
+                                <i className="devide"></i>
+                              ) : (
+                                ""
+                              )}
+                              <CheckBox
+                                className="UserType-radio"
+                                key={index}
+                                value={child.value}
+                                disabled={disabled}
+                              >
+                                {child.title}
+                              </CheckBox>
+                            </>
                           );
                         })
                       : ""}

@@ -1,0 +1,162 @@
+@mixin TextOverflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#TableRender {
+    margin-top: 12px;
+    .table {
+        .ant-table-tbody>tr>td {
+            padding: 16px 0;
+        }
+        .ant-table-thead>tr>th {
+            padding: 0;
+            height: 36px;
+            &:nth-of-type(4) {
+                padding-left: 10px;
+            }
+        }
+        .Img-Box {
+            display: inline-block;
+            width: 84px;
+            height: 64px;
+            .IB-bg {
+                width: 64px;
+                height: 64px;
+                margin-right: 15px;
+                display: inline-block;
+                position: relative;
+            }
+            .IB-admin {
+                background: url(./images/Nopic001.jpg) no-repeat center center / contain;
+            }
+            .IB-leader {
+                background: url(./images/Nopic1001.jpg) no-repeat center center / contain;
+            }
+            .IB-teacher {
+                background: url(./images/Nopic101.jpg) no-repeat center center / contain;
+            }
+            .IB-student {
+                background: url(./images/Nopic201.jpg) no-repeat center center / contain;
+            }
+            .IB-parent {
+                background: url(./images/Nopic301.jpg) no-repeat center center / contain;
+            }
+            .IB-tilte {
+                position: absolute;
+                right: -5px;
+                bottom: 0;
+                padding-left: 16px;
+                text-align: center;
+                font-size: 10px;
+                line-height: 16px;
+                height: 16px;
+                width: 74px;
+                color: #ffffff;
+                @include TextOverflow();
+            }
+        }
+        .Identity-Box {
+            width: 190px;
+            padding-left: 10px;
+            height: 64px;
+            padding: 10px 0;
+            text-align: left;
+            .IB-Name {
+                font-size: 16px;
+                line-height: 24px;
+                @include TextOverflow();
+                color: #0249a5;
+            }
+            .IB-Description {
+                font-size: 12px;
+                line-height: 20px;
+                @include TextOverflow();
+                color: #999999;
+            }
+        }
+        .UserType-Box {
+            text-align: center;
+            .UB-Bar {
+                display: inline-block;
+                vertical-align: top;
+                // width: 48px;
+                height: 20px;
+                line-height: 20px;
+                background-color: #adc4dc;
+                border-radius: 3px;
+                font-size: 12px;
+                color: #ffffff;
+                padding: 0 5px;
+                text-align: center;
+                margin-left: 3px;
+            }
+        }
+        .Module-Box {
+            font-size: 14px;
+            line-height: 20px;
+            color: #666666;
+            padding-left: 10px;
+        }
+        .UserCount-Box {
+            font-size: 14px;
+            text-decoration: underline;
+            cursor: pointer;
+            color: #2065b7;
+            &:hover {
+                // color: #ff6600;
+                color: rgba($color: #2065b7, $alpha: 0.8);
+            }
+            &.unClick {
+                text-decoration: none;
+                cursor: auto;
+                color: #666;
+            }
+        }
+        .Handle-Box {
+            font-size: 14px;
+            line-height: 26px;
+            text-align: center;
+            color: #0249a5;
+            &.null {
+                color: #222222;
+            }
+            .handle-btn {
+                text-decoration: underline;
+                cursor: pointer;
+                margin: 0 8px;
+                display: inline-block;
+            }
+            .edit-identity {
+                padding-left: 21px;
+                background: url(./images/icon-edit-identity.png) no-repeat left center / 18px 15px;
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+            .delete-identity {
+                color: #9a1601;
+                padding-left: 17px;
+                background: url(./images/icon-delete-identity.png) no-repeat left center / 15px 15px;
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+            .edit-member {
+                padding-left: 21px;
+                background: url(./images/icon-edit-member.png) no-repeat left center / 18px 15px;
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+            .edit-power {
+                padding-left: 17px;
+                background: url(./images/icon-edit-power.png) no-repeat left center / 14px 15px;
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
+}

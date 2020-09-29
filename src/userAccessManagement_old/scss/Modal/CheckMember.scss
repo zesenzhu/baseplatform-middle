@@ -1,0 +1,235 @@
+.CheckMemberModal {
+    // overflow: auto;
+    .Modal-title {
+        font-size: 18px;
+        color: #ffffff;
+        .ModalName {
+            font-size: 16px;
+            color: #ffffff;
+            opacity: 0.72;
+            i {
+                margin: 0 3px;
+            }
+        }
+    }
+    .ModalContent {
+        padding-top: 0;
+    }
+    .custom {
+        overflow: auto;
+        // padding-top: 24px;
+        .row {
+            line-height: 30px;
+            margin-bottom: 0px;
+            &:first-of-type {
+                margin-top: 24px;
+            }
+            .left {
+                display: inline-block;
+                vertical-align: top;
+                text-align: right;
+                padding-right: 8px;
+                font-size: 14px;
+                color: #999999;
+                width: 14%;
+            }
+            .right {
+                display: inline-block;
+                vertical-align: top;
+                width: 86%;
+                .IdentityName {
+                    color: #ff6600;
+                    font-weight: bold;
+                }
+                .Description {
+                    color: #999999;
+                    @include TextOverflow();
+                    padding-left: 9px;
+                    max-width: 500px;
+                    display: inline-block;
+                    vertical-align: top;
+                }
+            }
+            .UserTypeName {
+                color: #333333;
+            }
+        }
+        .row-member {
+            padding-top: 4px;
+            .left {
+                line-height: 40px;
+            }
+            .right {
+                .Member-box {
+                    position: relative;
+                    width: 600px;
+                    height: 231px;
+                    background-color: #f5f5f5;
+                    border-radius: 3px;
+                    padding: 10px 0 0px 6px;
+                }
+            }
+        }
+        .Handle-box {
+            position: absolute;
+            right: 0;
+            bottom: -40px;
+            height: 28px;
+            line-height: 28px;
+            .Total {
+                font-size: 14px;
+                margin-right: 12px;
+                color: #999999;
+                .count {
+                    color: #ff0000;
+                }
+            }
+            .edit-member {
+                display: inline-block;
+                padding: 0 12px;
+                height: 28px;
+                background-color: #77a5d8;
+                border-radius: 3px;
+                font-size: 14px;
+                cursor: pointer;
+                color: #ffffff;
+            }
+        }
+    }
+    .default {
+        padding: 24px 20px 0;
+        .TopComponent {
+            line-height: 14px;
+            font-size: 14px;
+            color: #999999;
+            .count {
+                color: #ff0000;
+            }
+            .to {
+                padding: 0 3px;
+                color: #0099ff;
+                cursor: pointer;
+                text-decoration: underline;
+                &:hover {
+                    color: #ff6600;
+                }
+            }
+        }
+        .table {
+            margin-top: 20px;
+            .ant-table-thead tr th .ant-table-header-column {
+                line-height: 36px;
+            }
+            .ant-table-tbody>tr>td {
+                padding: 16px 5px;
+                &:last-of-type {
+                    padding: 16px 0px;
+                }
+            }
+            .UserName {
+                font-size: 14px;
+                width: 105px;
+                color: #333333;
+                @include TextOverflow;
+                font-weight: bold;
+            }
+            .UserID {
+                font-size: 14px;
+                @include TextOverflow;
+                width: 105px;
+                color: #999999;
+            }
+            .Content {
+                padding-left: 0;
+                font-size: 14px;
+                color: #666666;
+                @include TextOverflow;
+                .Content-title {
+                    display: inline-block;
+                    vertical-align: top;
+                    max-width: 40%;
+                    @include TextOverflow;
+                }
+                .Content-more {
+                    display: inline-block;
+                    vertical-align: top;
+                    max-width: 40%;
+                    @include TextOverflow;
+                    padding-left: 5px;
+                    i {
+                        color: #0099ff;
+                        text-decoration: underline;
+                        cursor: pointer;
+                        &:hover {
+                            color: #ff6600;
+                        }
+                    }
+                }
+            }
+        }
+        .pagenation {
+            text-align: center;
+            margin-top: 24px;
+        }
+    }
+}
+
+.tips-Box {
+    padding: 10px 0 10px 16px;
+    max-height: 170px;
+    overflow: auto;
+    .box-top {
+        position: relative;
+        .top-tip {
+            font-size: 14px;
+            line-height: 26px;
+            color: #720000;
+        }
+    }
+    .box-content {
+        // padding: 8px 16px;
+        position: relative;
+        // max-width: 290px;
+        .content {
+            position: relative;
+            height: 28px;
+            //width: 195px;
+            margin: 8px 10px 0 0;
+            display: block;
+            .content-text {
+                display: inline-block;
+                // width: 380px;
+                line-height: 28px;
+                text-align: left;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                // margin-left: 9px;
+                color: #333;
+                font-size: 14px;
+            }
+            .content-null {
+                color: #999;
+            }
+        }
+    }
+}
+
+.Content-more {
+    .ant-tooltip {
+        max-width: 999px !important;
+        .ant-tooltip-arrow:before {
+            background-color: #fff;
+        }
+        .ant-tooltip-inner {
+            background-color: #fff;
+            min-height: 0;
+            min-width: 0;
+            font-size: 12px;
+            line-height: 14px;
+            padding: 6px 6px 6px 8px;
+            color: #333;
+            white-space: nowrap;
+        }
+    }
+}

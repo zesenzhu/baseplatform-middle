@@ -211,7 +211,7 @@ class TextBookSetting extends Component {
               let dropListSelectidx1 = 0;
               let dropListSelectidx2 = 0;
               for (let i = 0; i < State.GradeSubjectList.length; i++) {
-                // console.log(State.GradeSubjectList[i].GradeID);
+                console.log(State.GradeSubjectList[i].GradeId,this.state.TextBookData.GradeID);
                 if (State.GradeSubjectList[i].GradeId ==this.state.TextBookData.GradeID) {
                   dropListSelectidx1 = i;
                   for (let j = 0; j < State.GradeSubjectList[i].Subjects.length; j++) {

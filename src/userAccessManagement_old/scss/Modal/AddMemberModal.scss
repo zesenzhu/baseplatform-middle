@@ -1,0 +1,240 @@
+.AddMemberModal {
+    .ModalContent {
+        padding: 0;
+        overflow: hidden;
+        .left {
+            height: 100%;
+            display: inline-block;
+            vertical-align: top;
+            width: calc(100% - 360px);
+            .select-box {
+                height: calc(100% - 72px);
+                padding: 24px 0 0 20px;
+            }
+            .my-footer {
+                line-height: 72px;
+                height: 72px;
+                background-color: #d4e6f5;
+                text-align: center;
+                .btn {
+                    margin: 0 6px;
+                    display: inline-block;
+                    height: 32px;
+                    line-height: 32px;
+                    border-radius: 3px;
+                    cursor: pointer;
+                    color: #fff;
+                    padding: 0 10px;
+                }
+                .btn-comfirm {
+                    background-image: linear-gradient(-90deg, #008aff 0%, #40cbff 100%);
+                    padding: 0 10px;
+                }
+                .btn-cancel {
+                    padding: 0 30px;
+                    background-image: linear-gradient(90deg, #ff593e 0%, #ff4037 100%);
+                }
+            }
+        }
+        .right {
+            height: 100%;
+            display: inline-block;
+            vertical-align: top;
+            width: 360px;
+            border-left: 1px solid rgba(195, 221, 241, 0.72);
+            .ant-collapse-borderless {
+                background-color: transparent;
+            }
+            .ant-collapse-item {
+                border: none;
+            }
+            .ant-collapse-icon-position-right {
+                .ant-collapse-item {
+                    .ant-collapse-header {
+                        padding-left: 0px;
+                        .user-header {
+                            padding-left: 40px;
+                        }
+                        .user-admin {
+                            background: url($img-url + "/Modal/AddMemberModal/icon-admin.png") no-repeat 15px center/17px 14px;
+                        }
+                        .user-student {
+                            background: url($img-url + "/Modal/AddMemberModal/icon-student.png") no-repeat 15px center/17px 14px;
+                        }
+                        .user-teacher {
+                            background: url($img-url + "/Modal/AddMemberModal/icon-teacher.png") no-repeat 15px center/17px 14px;
+                        }
+                        .user-parents {
+                            background: url($img-url + "/Modal/AddMemberModal/icon-parents.png") no-repeat 15px center/17px 14px;
+                        }
+                        &::before {
+                            position: absolute;
+                            bottom: 0;
+                            width: 100%;
+                            height: 1px;
+                            content: "";
+                            background: #ebebeb;
+                            right: 0;
+                            transition: width 0.2s linear;
+                            -webkit-transition: width 0.2s linear;
+                            -moz-transition: width 0.2s linear;
+                            -ms-transition: width 0.2s linear;
+                            -o-transition: width 0.2s linear;
+                        }
+                        // border-bottom: 1px solid #ebebeb;
+                    }
+                }
+                .ant-collapse-item-active {
+                    .ant-collapse-header {
+                        // border-bottom: 1px solid #ebebeb;
+                        &::before {
+                            position: absolute;
+                            bottom: 0;
+                            width: calc(100% - 40px);
+                            height: 1px;
+                            content: "";
+                            background: #ebebeb;
+                            right: 0;
+                        }
+                    }
+                }
+            }
+            .ant-collapse-content-box {
+                padding: 0 !important;
+            }
+            .Level {
+                width: 100%;
+                height: 100%;
+                .Level-Top {
+                    width: 100%;
+                    height: 80px;
+                    padding: 14px 10px;
+                    background-color: #ffffff;
+                    border-bottom: 1px solid #ebebeb;
+                    .Level-title {
+                        font-size: 14px;
+                        line-height: 28px;
+                        color: #333333;
+                        @include TextOverflow;
+                        .back {
+                            display: inline-block;
+                            vertical-align: top;
+                            width: 28px;
+                            cursor: pointer;
+                            color: #a3a3a3;
+                        }
+                        .back-svg {
+                            margin-bottom: -2px;
+                            transform: rotate(180deg);
+                            -webkit-transform: rotate(180deg);
+                            -moz-transform: rotate(180deg);
+                            -ms-transform: rotate(180deg);
+                            -o-transform: rotate(180deg);
+                        }
+                    }
+                    .Level-Full {
+                        padding-left: 28px;
+                        font-size: 14px;
+                        color: #b8b8b8;
+                        .back-node {
+                            display: inline-block;
+                            vertical-align: top;
+                            max-width: 24%;
+                            cursor: pointer;
+                            @include TextOverflow;
+                            &:hover {
+                                color: #0099ff
+                            }
+                        }
+                        .devide {}
+                    }
+                }
+            }
+            .Tree-Box {
+                min-height: 42px;
+                .no-tree {
+                    line-height: 42px;
+                    text-align: center;
+                    font-size: 16px;
+                    color: #999;
+                }
+                .check {
+                    font-size: 14px;
+                    color: #333333;
+                    .bar-name {
+                        display: inline-block;
+                        vertical-align: top;
+                        max-width: 70%;
+                        color: #333;
+                        @include TextOverflow;
+                    }
+                    .bar-name-2 {
+                        max-width: 45%;
+                    }
+                    .bar-count {
+                        display: inline-block;
+                        vertical-align: top;
+                        @include TextOverflow;
+                        max-width: 19%;
+                    }
+                    .bar-id {
+                        display: inline-block;
+                        vertical-align: top;
+                        @include TextOverflow;
+                        max-width: 44%;
+                    }
+                    .select-check {
+                        width: 73%;
+                        &>span:last-of-type {
+                            display: inline-block;
+                            vertical-align: top;
+                            width: calc(100% - 16px);
+                        }
+                    }
+                    .last-select {
+                        width: 100%;
+                        color: #999;
+                    }
+                    .devide {
+                        display: inline-block;
+                        margin: 0 1%;
+                        width: 0;
+                        height: 16px;
+                        border-left: 1px solid #ccc;
+                    }
+                    .go {
+                        display: inline-block;
+                        vertical-align: top;
+                        width: 24%;
+                        padding-left: 30px;
+                        background: url($img-url + "/Modal/AddMemberModal/icon-next.png") no-repeat 10px center/17px 14px;
+                        &.next {
+                            cursor: pointer;
+                            &:hover {
+                                color: #719fc3;
+                                background: url($img-url + "/Modal/AddMemberModal/icon-next-hover.png") no-repeat 10px center/17px 14px;
+                            }
+                        }
+                        &.no-next {
+                            cursor: not-allowed;
+                            opacity: 0.25;
+                        }
+                    }
+                }
+                .ant-checkbox-group {
+                    width: 100%;
+                }
+                .select-all {
+                    height: 48px;
+                    line-height: 48px;
+                    padding-left: 24px;
+                }
+                .select-bar {
+                    height: 42px;
+                    line-height: 42px;
+                    padding-left: 24px;
+                }
+            }
+        }
+    }
+}
