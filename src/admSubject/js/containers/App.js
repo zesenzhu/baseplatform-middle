@@ -34,7 +34,7 @@ class App extends Component {
 
             isInitGuide:false
 
-        }
+        };
 
     }
 
@@ -137,12 +137,19 @@ class App extends Component {
 
         this.requestData(route);
 
+        this.Frame.getIdentity({ModuleID:'000006'});
+
     }
 
+    onRef(ref){
 
+        this.Frame = ref;
+
+    }
 
     render() {
         const { UIState, DataState } = this.props;
+
         let UserID = DataState.LoginUser.UserID;
 
         return (
@@ -152,25 +159,20 @@ class App extends Component {
 
                     <Frame
 
-                        /*userInfo={{
-                        name: DataState.LoginUser.UserName,
-                        image: DataState.LoginUser.PhotoPath
-                    }}*/
-
                         pageInit={this.pageInit.bind(this)}
-
                         module={{
                             cnname: "学科管理",
                             enname: "Subject Management",
                             image: logo
                         }}
+                        onRef={this.onRef.bind(this)}
                         className='myFrame'
                         type="triangle" showBarner={false} showLeftMenu={false}>
-                        {/* <div ref="frame-time-barner"><TimeBanner /></div> */}
 
                         <div ref="frame-right-content">
                             {UserID?<Subject></Subject>:''}
                         </div>
+
                     </Frame>
 
 

@@ -65,6 +65,7 @@ import ChangeScheduleModal from '../component/ChangeScheduleModal';
 import SDActions from "../actions/ScheduleDetailActions";
 
 import config from "../../../common/js/config";
+
 import {getQueryVariable} from "../../../common/js/disconnect";
 
 
@@ -101,6 +102,12 @@ class App extends Component{
             document.getElementsByClassName("frame-drag-flag")[0].style.backgroundColor = '#ffffff';
 
             document.getElementsByClassName("frame-content-rightside")[0].style.borderTop = '1px solid #f2f2f2';
+
+        }
+
+        if (parseInt(UserType)===0){
+
+            this.Frame.getIdentity({ModuleID:'000004'});
 
         }
 
@@ -595,6 +602,12 @@ class App extends Component{
     }
 
 
+    onRef(ref){
+
+        this.Frame = ref;
+
+    }
+
     render() {
 
         const {state,history} = this.props;
@@ -659,6 +672,7 @@ class App extends Component{
                             showBarner={RouterSet.router==='/'?ModuleSetting.timeBar:false}
                             pageInit={this.pageInit.bind(this)}
                             type="circle"
+                            onRef={this.onRef.bind(this)}
 
                         >
 

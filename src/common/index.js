@@ -2937,6 +2937,7 @@ class Frame extends React.Component {
       showBottom = true,
       logo,
       topRightContent,
+      Identity,
       ...reset
     } = this.props;
 
@@ -3055,6 +3056,15 @@ class Frame extends React.Component {
                         value=""
                       />
 
+                      {
+
+                          Identity.Icon?
+
+                              <i title={Identity.Name?Identity.Name:''} className={"frame-user-identity"} style={{backgroundImage:`url(${Identity.Icon})`}}>{Identity.Name?Identity.Name:''}</i>
+
+                              :null
+
+                      }
 
                       <a
                         href={`${WebRootUrl}/html/personalMgr?lg_tk=${token}`}

@@ -115,6 +115,20 @@ class App extends Component {
 
       dispatch(loginUserUpdate(UserInfoCopy));
 
+      if (UserInfoCopy.UserType===0){
+
+          this.Frame.getIdentity({ModuleID:'000005'});
+
+      }else if (UserInfoCopy.UserType===1) {
+
+          this.Frame.getIdentity({ModuleID:'000013'})
+
+      }else if (UserInfoCopy.UserType===2){
+
+          this.Frame.getIdentity({ModuleID:'000015'});
+
+      }
+
 
           this.setState({
               UserMsg: UserInfo
@@ -294,8 +308,6 @@ class App extends Component {
       const subjectID = pathArr[3];
       const classID = pathArr[4];
 
-
-      console.log(handleRoute);
 
     if (parseInt(UserMsg.UserType)!==2&&parseInt(UserMsg.UserType)!==7&&parseInt(UserMsg.UserType)!==10){
 
@@ -1013,7 +1025,11 @@ class App extends Component {
 
     }
 
+  onRef(ref){
 
+     this.Frame = ref;
+
+  }
 
 
   render() {
@@ -1076,6 +1092,7 @@ class App extends Component {
             type="triangle"
             showBarner={bannerState.show}
             showLeftMenu={leftMenu.show}
+            onRef={this.onRef.bind(this)}
           >
             <div ref="frame-time-barner">
 

@@ -367,9 +367,13 @@ $img_url:'./images/frame';
 }
 //右侧的头部
 .frame-home-header-menus{
+
   float: right;
+
   display: inline-block;
+
   vertical-align: middle;
+
   .frame-home-header-menu{
     position: relative;
     float: right;
@@ -380,6 +384,35 @@ $img_url:'./images/frame';
       background:none;
     }
   }
+
+  .frame-user-identity{
+
+    float: right;
+
+    width: 74px;
+
+    height: 16px;
+
+    background-repeat: no-repeat;
+
+    margin: 12px 4px 0 4px;
+
+    font-size: 12px;
+
+    line-height: 16px;
+
+    padding-left: 17px;
+
+    color: #ffffff;
+
+    text-overflow: ellipsis;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+  }
+
 }
 .frame-home-username{
   float: right;

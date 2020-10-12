@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 
 import {Frame,Alert} from './index.js';
 
-import { getData } from "./js/fetch";
+import { getData,postData } from "./js/fetch";
 
 import { LogOut,getQueryVariable } from "./js/disconnect";
 
@@ -52,15 +52,29 @@ class FrameContainer extends Component{
 
             childrenLoad:false,
 
-            Logo:''
+            Logo:'',
 
-        }
+            Identity:{
+
+                Icon:'',
+
+                Name:''
+
+            }
+
+        };
 
     }
 
     componentDidMount(){
 
-        const {register,pageInit} = this.props;
+        const {register,pageInit,moduleID,onRef} = this.props;
+
+        if (onRef){
+
+            onRef(this);
+
+        }
 
         if (publicJS.IEVersion()){
 
@@ -231,12 +245,144 @@ class FrameContainer extends Component{
 
     }
 
+    //获取用户身份
+    async GetIdentity(){
+
+        const {UserID} = JSON.parse(sessionStorage.getItem("UserInfo"));
+
+        const result = await getData(`${CONFIG.Import}/UserMgr/PowerMgr/GetIdentityTypeByUserID?UserID=${UserID}`,2);
+
+        const res = await result.json();
+
+        if (res.StatusCode===200){
+
+            return res.Data;
+
+        }
+
+    }
+
+
+    //根据用户身份code获取用户身份详情
+    async GetIdentityTypeByCode(IdentityCodes){
+
+        const {SchoolID} = JSON.parse(sessionStorage.getItem("UserInfo"));
+
+        const result = await getData(`${CONFIG.Import}/UserMgr/PowerMgr/GetIdentityTypeByCode?SchoolID=${SchoolID}&IdentityCodes=${IdentityCodes}`,2);
+
+        const res = await result.json();
+
+        if (res.StatusCode===200){
+
+            return res.Data;
+
+        }
+
+    }
+
+    //模块和身份校验
+    async ValidateIdentity(IdentityCode,ModuleID){
+
+        const {UserID} = JSON.parse(sessionStorage.getItem("UserInfo"));
+
+        const result = await postData(`${CONFIG.Import}/UserMgr/PowerMgr/ValidateIdentity`,{
+
+            IdentityCode,ModuleID,UserID
+
+        },2);
+
+        const res = await result.json();
+
+        if (res.StatusCode===200){
+
+            return res.Data;
+
+        }
+
+    }
+
+
+    ///获取身份和对应的模块ID
+    getIdentity({ModuleID}){
+
+        let identity = getQueryVariable('lg_ic');
+
+        if (identity){
+
+            this.GetIdentityTypeByCode(identity).then(data=>{
+
+                if (data.length>0){
+
+                    this.IdentityRecognition(data,ModuleID);
+
+                }
+
+            })
+
+        }else{
+
+            this.GetIdentity().then(data=>{
+
+                if (data.length>0){
+
+                    this.IdentityRecognition(data,ModuleID);
+
+                }
+
+            })
+
+        }
+
+    }
+
+
+    IdentityRecognition(IdentityList,ModuleID){
+
+        const promiseList  =  IdentityList.map(async (i)=>{
+
+            const res =  await this.ValidateIdentity(i.IdentityCode,ModuleID);
+
+            return res;
+
+        });
+
+        Promise.all(promiseList).then(res=>{
+
+            const index = res.findIndex(i=>i===true);
+
+            if (index>=0){
+
+                const IdentityItem = IdentityList[index];
+
+                console.log(IdentityItem);
+
+                this.setState({
+
+                    Identity:{
+
+                        Icon:IdentityItem.IconUrl,
+
+                        Name:IdentityItem.IsPreset?'':IdentityItem.IdentityName
+
+                    }
+
+                });
+
+            }else{
+
+                window.location.href = CONFIG.ErrorProxy + "/Error.aspx?errcode=E011";
+
+            }
+
+        });
+
+    }
 
 
 
     render() {
 
-        const { children, pageInit,type,register,showBarner,showTop, showBottom, module, userInfo, msg, showLeftMenu,contentShow,onLogOut, ...reset } = this.props;
+        const { children,onRef, pageInit,type,register,showBarner,showTop, showBottom, module, userInfo, msg, showLeftMenu,contentShow,onLogOut, ...reset } = this.props;
 
         return (
 
@@ -275,6 +421,8 @@ class FrameContainer extends Component{
                     logo={this.state.Logo}
 
                     register={register}
+
+                    Identity={this.state.Identity}
 
                     {...reset}
 
