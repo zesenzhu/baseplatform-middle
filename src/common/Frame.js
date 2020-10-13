@@ -307,29 +307,37 @@ class FrameContainer extends Component{
 
         let identity = getQueryVariable('lg_ic');
 
-        if (identity){
+        const { ProductType } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
-            this.GetIdentityTypeByCode(identity).then(data=>{
+        console.log(ProductType);
 
-                if (data.length>0){
+        if (parseInt(ProductType)===3){
 
-                    this.IdentityRecognition(data,ModuleID);
+            if (identity){
 
-                }
+                this.GetIdentityTypeByCode(identity).then(data=>{
 
-            })
+                    if (data&&data.length>0){
 
-        }else{
+                        this.IdentityRecognition(data,ModuleID);
 
-            this.GetIdentity().then(data=>{
+                    }
 
-                if (data.length>0){
+                })
 
-                    this.IdentityRecognition(data,ModuleID);
+            }else{
 
-                }
+                this.GetIdentity().then(data=>{
 
-            })
+                    if (data&&data.length>0){
+
+                        this.IdentityRecognition(data,ModuleID);
+
+                    }
+
+                })
+
+            }
 
         }
 
@@ -353,8 +361,6 @@ class FrameContainer extends Component{
             if (index>=0){
 
                 const IdentityItem = IdentityList[index];
-
-                console.log(IdentityItem);
 
                 this.setState({
 
