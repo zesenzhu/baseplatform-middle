@@ -150,6 +150,33 @@
 
       }
 
+
+      &.pwd{
+
+        margin-top:16px;
+
+      }
+
+    }
+
+    .icon{
+
+      position: absolute;
+
+      width: 16px;
+
+      height: 16px;
+
+      top:50%;
+
+      left: 16px;
+
+      transform: translateY(-50%);
+
+      background-repeat: no-repeat;
+
+      background-size: contain;
+
       &.account{
 
         background-image: url('#{$darkTechUrl}/dark-tech-account.png');
@@ -158,9 +185,9 @@
 
       &.pwd{
 
-        background-image: url('#{$darkTechUrl}/dark-tech-pwd.png');
+        top: calc(50% + 7px);
 
-        margin-top:16px;
+        background-image: url('#{$darkTechUrl}/dark-tech-pwd.png');
 
       }
 
