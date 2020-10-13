@@ -68,8 +68,6 @@ const getSubjectMsg = (url) => {
 
                 const protocol = window.location.protocol;
 
-                console.log(document.getElementById("root").offsetHeight);
-
                 window.parent.postMessage({module:'subject',height:document.getElementById("root").offsetHeight},`${protocol}//${host}`);
 
             }

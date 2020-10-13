@@ -102,17 +102,52 @@ class FrameContainer extends Component{
 
                             const rootUrl = data.WebRootUrl[data.WebRootUrl.length-1]==='/'?data.WebRootUrl.substring(0,data.WebRootUrl.length-1):data.WebRootUrl;
 
-
                             this.setState({WebRootUrl:rootUrl,WebIndexUrl:data.WebIndexUrl,ProVersion:data.ProVersion,ProductName:data.ProductName,Logo:data.ProductLogoUrl?data.ProductLogoUrl:''});
 
                             firstPageLoad(()=>{
 
                                 this.IntegrateMsg();
 
-                                const { UserName,PhotoPath } = JSON.parse(sessionStorage.getItem("UserInfo"));
+                                const { UserType,UserName,PhotoPath } = JSON.parse(sessionStorage.getItem("UserInfo"));
 
-                                this.setState({UserInfo:{name:UserName,image:PhotoPath},childrenLoad:true});
+                                if (parseInt(data.ProductType===6)){
 
+                                    let proName = '';
+
+                                    switch (parseInt(UserType)) {
+
+                                        case 0:
+
+                                            proName = '人工智能实训管理平台';
+
+                                            break;
+
+                                        case 1:
+
+                                            proName = '人工智能实训教学平台';
+
+                                            break;
+
+                                        case 2:
+
+                                            proName = '人工智能实训学习平台';
+
+                                            break;
+
+                                        default:
+
+                                            proName = '人工智能实训管理平台';
+
+                                    }
+
+                                    this.setState({UserInfo:{name:UserName,image:PhotoPath},childrenLoad:true,ProductName:proName});
+
+                                }else{
+
+                                    this.setState({UserInfo:{name:UserName,image:PhotoPath},childrenLoad:true});
+
+                                }
+                                
                                 if (pageInit){
 
                                     pageInit();
@@ -303,13 +338,11 @@ class FrameContainer extends Component{
 
 
     ///获取身份和对应的模块ID
-    getIdentity({ModuleID}){
+    getIdentity({ModuleID},callBack){
 
         let identity = getQueryVariable('lg_ic');
 
         const { ProductType } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
-
-        console.log(ProductType);
 
         if (parseInt(ProductType)===3){
 
@@ -319,7 +352,7 @@ class FrameContainer extends Component{
 
                     if (data&&data.length>0){
 
-                        this.IdentityRecognition(data,ModuleID);
+                        this.IdentityRecognition(data,ModuleID,callBack);
 
                     }
 
@@ -331,7 +364,7 @@ class FrameContainer extends Component{
 
                     if (data&&data.length>0){
 
-                        this.IdentityRecognition(data,ModuleID);
+                        this.IdentityRecognition(data,ModuleID,callBack);
 
                     }
 
@@ -344,7 +377,7 @@ class FrameContainer extends Component{
     }
 
 
-    IdentityRecognition(IdentityList,ModuleID){
+    IdentityRecognition(IdentityList,ModuleID,callBack){
 
         const promiseList  =  IdentityList.map(async (i)=>{
 
@@ -369,6 +402,14 @@ class FrameContainer extends Component{
                         Icon:IdentityItem.IconUrl,
 
                         Name:IdentityItem.IsPreset?'':IdentityItem.IdentityName
+
+                    }
+
+                },()=>{
+
+                    if (callBack){
+
+                        callBack(IdentityItem);
 
                     }
 
