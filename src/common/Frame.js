@@ -110,7 +110,7 @@ class FrameContainer extends Component{
 
                                 const { UserType,UserName,PhotoPath } = JSON.parse(sessionStorage.getItem("UserInfo"));
 
-                                if (parseInt(data.ProductType===6)){
+                                if (parseInt(data.ProductType)===6){
 
                                     let proName = '';
 
