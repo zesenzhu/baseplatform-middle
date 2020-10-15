@@ -25,9 +25,9 @@
  * @Author: zhuzesen
  * @LastEditors: zhuzesen
  * @Date: 2020-09-21 15:31:20
- * @LastEditTime: 2020-09-28 09:24:11
+ * @LastEditTime: 2020-09-28 09:44:18
  * @Description:编辑成员和查看成员共用
- * @FilePath: \baseplatform-middle\src\userAccessManagement\js\containers\Modal\CheckMemberModal\CustomIndentityUser.js
+ * @FilePath: \baseplatform-university\src\userAccessManagement\js\containers\Modal\CheckMemberModal\CustomIndentityUser.js
  */
 
 import React, { Component } from "react";

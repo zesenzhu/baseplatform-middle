@@ -21,9 +21,9 @@
  * @Author: zhuzesen
  * @LastEditors: zhuzesen
  * @Date: 2020-09-17 10:35:48
- * @LastEditTime: 2020-09-28 09:42:00
+ * @LastEditTime: 2020-09-28 09:43:48
  * @Description: 模块接口的get的action
- * @FilePath: \baseplatform-middle\src\userAccessManagement\js\actions\DataAction\GetAction.js
+ * @FilePath: \baseplatform-university\src\userAccessManagement\js\actions\DataAction\GetAction.js
  */
 
 // import { postData, getData } from "../../../../common/js/fetch";

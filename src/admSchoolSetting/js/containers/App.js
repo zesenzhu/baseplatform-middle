@@ -114,8 +114,7 @@ class App extends Component {
       // onSelectBar('School');
 
       dispatch(actions.UpDataState.QuerySchoolInfo({}));
-    dispatch(UpDataState.getImgUrlProxy());
-
+      dispatch(UpDataState.getImgUrlProxy());
     } else if (handleRoute === "Term") {
       // onSelectBar('Term');
 
@@ -123,6 +122,7 @@ class App extends Component {
     } else {
       history.push("/School");
       dispatch(actions.UpDataState.QuerySchoolInfo({}));
+      dispatch(UpDataState.getImgUrlProxy());
     }
   };
 
