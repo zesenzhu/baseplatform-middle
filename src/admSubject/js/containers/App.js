@@ -70,11 +70,14 @@ class App extends Component {
     }
     // 请求每个组件主要渲染的数据
     requestData = (route) => {
+
         const { dispatch,DataState } = this.props;
+
         if(!DataState.LoginUser.SchoolID&&!JSON.parse(sessionStorage.getItem('UserInfo'))){
             return;
         }
-        let UserMsg = DataState.LoginUser.SchoolID?DataState.LoginUser:JSON.parse(sessionStorage.getItem('UserInfo'))
+
+        let UserMsg = DataState.LoginUser.SchoolID?DataState.LoginUser:JSON.parse(sessionStorage.getItem('UserInfo'));
         // console.log(DataState.LoginUser.SchoolID,UserMsg)
 
         if (parseInt(UserMsg.UserType)===7||parseInt(UserMsg.UserType)===10){

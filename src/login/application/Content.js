@@ -1320,7 +1320,9 @@ function Content(props) {
 
                             <div className={"account_wrapper"}>
 
-                                <Input ref={accountInput} className="account" value={account} onChange={e=>accountChange(e.target.value)} onKeyUp={KeyUp}  placeholder={"请输入登录账号"}/>
+                                <Input ref={accountInput} className={"account"} value={account} onChange={e=>accountChange(e.target.value)} onKeyUp={KeyUp}  placeholder={"请输入登录账号"}/>
+
+                                <i  className={"icon account"}></i>
 
                                 <i onClick={clearAccount} style={{display:`${delAccountBtn?'block':'none'}`}} className={"input_clear account_clear"}></i>
 
@@ -1328,7 +1330,9 @@ function Content(props) {
 
                             <div className={"pwd_wrapper"}>
 
-                                <Input ref={pwdInput} className="pwd" value={pwd} onChange={e=>pwdChange(e.target.value)} onKeyUp={KeyUp}  type={"password"} placeholder={"请输入登录密码"}/>
+                                <Input ref={pwdInput}  value={pwd} className={"pwd"} onChange={e=>pwdChange(e.target.value)} onKeyUp={KeyUp}  type={"password"} placeholder={"请输入登录密码"}/>
+
+                                <i  className={"icon pwd"}></i>
 
                                 <i onClick={clearPwd} style={{display:`${delPwdBtn?'block':'none'}`}} className={"input_clear pwd_clear"}></i>
 

@@ -335,7 +335,7 @@ function Archives(props) {
 
                                             <div className={"census-place"} title={userArchives.Telephone2}>
 
-                                                {isHasValue(userArchives.Telephone2)}
+                                                {isHasValue(userArchives.Telephone)}
 
                                             </div>
 
@@ -689,7 +689,7 @@ function Archives(props) {
 
                                 <td className={"col2"} colSpan={2}>
 
-                                    {isHasValue(userArchives.Telephone2)}
+                                    {isHasValue(userArchives.Telephone)}
 
                                 </td>
 
@@ -924,7 +924,7 @@ function Archives(props) {
 
                                 <td className={"col2"} colSpan={2}>
 
-                                    {isHasValue(userArchives.Telephone2)}
+                                    {isHasValue(userArchives.Telephone)}
 
                                 </td>
 
@@ -1026,7 +1026,7 @@ function Archives(props) {
 
                                 <td className={"col1 props"}>预留电话</td>
 
-                                <td className={"col2"}>{isHasValue(userArchives.Telephone2)}</td>
+                                <td className={"col2"}>{isHasValue(userArchives.Telephone)}</td>
 
                                 <td className={"col3 props"}>职称</td>
 
