@@ -140,7 +140,11 @@ class App extends Component {
 
         this.requestData(route);
 
-        this.Frame.getIdentity({ModuleID:'000006'});
+        this.Frame.getIdentity({ModuleID:'000006'},(identify)=>{
+
+            console.log(identify);
+
+        });
 
     }
 
