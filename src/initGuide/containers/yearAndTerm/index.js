@@ -18,8 +18,6 @@ import {SetTermInfo,GetCurrentTermInfo} from '../../actions/apiActions';
 
 import './index.scss'
 
-import moment from 'moment';
-
 import {getQueryVariable} from "../../../common/js/disconnect";
 
 
