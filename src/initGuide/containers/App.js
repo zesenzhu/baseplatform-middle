@@ -25,6 +25,7 @@ import Guider from './guider'
 import AppRoutes from './appRoutes';
 
 import './App.scss';
+
 import {getNewTkUrl} from "../actions/utils";
 
 function App(props) {
