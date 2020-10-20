@@ -128,9 +128,18 @@ function YearAndTerm(props) {
 
                            let range = [];
 
-                           const startDate = moment(new Date(data.TermStartDate.split(' ')[0].replace(/\//g,'-'))).format('YYYY-MM-DD');
 
-                           const endDate = moment(new Date(data.TermEndDate.split(' ')[0].replace(/\//g,'-'))).format('YYYY-MM-DD');
+                           const startDate = data.TermStartDate.split(' ')[0].split('/').map((i,k)=>{
+
+                              return k>0&&i.length<2?'0'+i:i;
+
+                           }).join('-');
+
+                           const endDate = data.TermEndDate.split(' ')[0].split('/').map((i,k)=>{
+
+                               return k>0&&i.length<2?'0'+i:i;
+
+                           }).join('-');
 
                            if (replaceYear.slice(-2)==='01'){
 
@@ -196,9 +205,17 @@ function YearAndTerm(props) {
 
                         let title = '',value = '',dropList=[],startTime = '',endTime = '',range = [];
 
-                        startTime = moment(new Date(data.TermStartDate.split(' ')[0].replace(/\//g,'-'))).format('YYYY-MM-DD');
+                        startTime = data.TermStartDate.split(' ')[0].split('/').map((i,k)=>{
 
-                        endTime = moment(new Date(data.TermEndDate.split(' ')[0].replace(/\//g,'-'))).format('YYYY-MM-DD');
+                                return k>0&&i.length<2?'0'+i:i;
+
+                            }).join('-');
+
+                        endTime = data.TermEndDate.split(' ')[0].split('/').map((i,k)=>{
+
+                            return k>0&&i.length<2?'0'+i:i;
+
+                        }).join('-');
 
                         if (nowMonth>6){
 
@@ -484,6 +501,7 @@ function YearAndTerm(props) {
         }
 
     },[]);
+
 
     return(
 
