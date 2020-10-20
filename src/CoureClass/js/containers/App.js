@@ -117,15 +117,193 @@ class App extends Component {
 
       if (UserInfoCopy.UserType===0){
 
-          this.Frame.getIdentity({ModuleID:'000005'});
+          this.Frame.getIdentity({ModuleID:'000005'},()=>{
+
+              this.requestData(route);
+
+              history.listen(() => {
+                  //路由监听
+                  let route = history.location.pathname;
+
+                  if(route.split('/')[1]==='statics'){
+
+                      dispatch(bannerShow());
+
+                      dispatch(leftMemuShow());
+
+                  }
+
+                  if(route.split('/')[1]==='manage'){
+
+                      dispatch(bannerShow());
+
+                      dispatch(leftMemuHide());
+
+                  }
+
+                  if(route.split('/')[1]==='ImportFile'){
+
+                      dispatch(bannerHide());
+
+                      dispatch(leftMemuHide());
+
+                  }
+
+                  if(route.split('/')[1]==='Log'){
+
+                      dispatch(bannerHide());
+
+                      dispatch(leftMemuHide());
+
+                  }
+
+                  if(route.split('/')[1]==='Teacher'){
+
+                      dispatch(bannerShow());
+
+                      dispatch(bannerBtnShow());
+
+                      dispatch(bannerLogHide());
+
+                      dispatch(bannerTabHide());
+
+                      dispatch(leftMemuHide());
+
+                  }
+
+                  this.requestData(route);
+
+              });
+
+          });
 
       }else if (UserInfoCopy.UserType===1) {
 
-          this.Frame.getIdentity({ModuleID:'000013'})
+          this.Frame.getIdentity({ModuleID:'000013'},()=>{
+
+              this.requestData(route);
+
+              history.listen(() => {
+                  //路由监听
+                  let route = history.location.pathname;
+
+                  if(route.split('/')[1]==='statics'){
+
+                      dispatch(bannerShow());
+
+                      dispatch(leftMemuShow());
+
+                  }
+
+                  if(route.split('/')[1]==='manage'){
+
+                      dispatch(bannerShow());
+
+                      dispatch(leftMemuHide());
+
+                  }
+
+                  if(route.split('/')[1]==='ImportFile'){
+
+                      dispatch(bannerHide());
+
+                      dispatch(leftMemuHide());
+
+                  }
+
+                  if(route.split('/')[1]==='Log'){
+
+                      dispatch(bannerHide());
+
+                      dispatch(leftMemuHide());
+
+                  }
+
+                  if(route.split('/')[1]==='Teacher'){
+
+                      dispatch(bannerShow());
+
+                      dispatch(bannerBtnShow());
+
+                      dispatch(bannerLogHide());
+
+                      dispatch(bannerTabHide());
+
+                      dispatch(leftMemuHide());
+
+                  }
+
+                  this.requestData(route);
+
+              });
+
+          })
 
       }else if (UserInfoCopy.UserType===2){
 
-          this.Frame.getIdentity({ModuleID:'000015'});
+          this.Frame.getIdentity({ModuleID:'000015'},()=>{
+
+              this.requestData(route);
+
+              history.listen(() => {
+                  //路由监听
+                  let route = history.location.pathname;
+
+                  if(route.split('/')[1]==='statics'){
+
+                      dispatch(bannerShow());
+
+                      dispatch(leftMemuShow());
+
+                  }
+
+                  if(route.split('/')[1]==='manage'){
+
+                      dispatch(bannerShow());
+
+                      dispatch(leftMemuHide());
+
+                  }
+
+                  if(route.split('/')[1]==='ImportFile'){
+
+                      dispatch(bannerHide());
+
+                      dispatch(leftMemuHide());
+
+                  }
+
+                  if(route.split('/')[1]==='Log'){
+
+                      dispatch(bannerHide());
+
+                      dispatch(leftMemuHide());
+
+                  }
+
+                  if(route.split('/')[1]==='Teacher'){
+
+                      dispatch(bannerShow());
+
+                      dispatch(bannerBtnShow());
+
+                      dispatch(bannerLogHide());
+
+                      dispatch(bannerTabHide());
+
+                      dispatch(leftMemuHide());
+
+                  }
+
+                  this.requestData(route);
+
+              });
+
+          });
+
+      }else{
+
+          window.location.href = CONFIG.ErrorProxy + "/Error.aspx?errcode=E011";
 
       }
 
@@ -189,63 +367,6 @@ class App extends Component {
               dispatch(leftMemuHide());
 
           }
-
-          this.requestData(route);
-
-
-          history.listen(() => {
-              //路由监听
-              let route = history.location.pathname;
-
-              if(route.split('/')[1]==='statics'){
-
-                  dispatch(bannerShow());
-
-                  dispatch(leftMemuShow());
-
-              }
-
-              if(route.split('/')[1]==='manage'){
-
-                  dispatch(bannerShow());
-
-                  dispatch(leftMemuHide());
-
-              }
-
-              if(route.split('/')[1]==='ImportFile'){
-
-                  dispatch(bannerHide());
-
-                  dispatch(leftMemuHide());
-
-              }
-
-              if(route.split('/')[1]==='Log'){
-
-                  dispatch(bannerHide());
-
-                  dispatch(leftMemuHide());
-
-              }
-
-              if(route.split('/')[1]==='Teacher'){
-
-                  dispatch(bannerShow());
-
-                  dispatch(bannerBtnShow());
-
-                  dispatch(bannerLogHide());
-
-                  dispatch(bannerTabHide());
-
-                  dispatch(leftMemuHide());
-
-              }
-
-              this.requestData(route);
-
-          });
 
   }
 

@@ -138,11 +138,9 @@ class App extends Component {
 
         dispatch(actions.UpDataState.getLoginUser(UserInfo));
 
-        this.requestData(route);
-
         this.Frame.getIdentity({ModuleID:'000006'},(identify)=>{
 
-            console.log(identify);
+            this.requestData(route);
 
         });
 
