@@ -367,8 +367,12 @@ class FrameContainer extends Component{
                         this.IdentityRecognition(data,ModuleID,callBack);
 
                     }else{
+                        
+                        if (callBack){
 
-                        callBack();
+                            callBack();
+
+                        }
 
                     }
 
