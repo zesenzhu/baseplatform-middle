@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import {
   Menu,
   Loading,
@@ -50,6 +50,7 @@ class App extends Component {
     this.state = {
       UserMsg: props.PublicState.LoginMsg,
     };
+    this.Frame = createRef();
   }
 
   componentWillMount() {
@@ -83,29 +84,36 @@ class App extends Component {
     if (!userMsg.SchoolID) {
       return;
     }
-    let havePower = QueryPower({
-      UserInfo: userMsg,
-      ModuleID: "000-2-0-06",
-    });
-    console.log(userMsg.UserType==='1')
-    if(userMsg.UserType==='1'){//教师直接跳到旧的班级管理
-      window.location.href = "/html/class#/"
+    // let havePower = QueryPower({
+    //   UserInfo: userMsg,
+    //   ModuleID: "000-2-0-06",
+    // });
+    let ModuleID = "000010"; //默认管理员，判断是否为老师，更改为教师使用的id
+    // console.log(userMsg.UserType==='1')
+    if (userMsg.UserType === "1") {
+      //教师直接跳到旧的班级管理
+      ModuleID = "000014";
+      window.location.href = "/html/class#/";
+      return
       // window.open("/html/class#/");
     }
-    havePower.then((res) => {
-      if (res) {
-        this.UserPower({
-          UserType: userMsg.UserType,
-          UserClass: userMsg.UserClass,
-          dispatch,
-        });
+    // havePower.then((res) => {
+    //   if (res) {
+      this.UserPower({
+        UserType: userMsg.UserType,
+        UserClass: userMsg.UserClass,
+        dispatch,
+      });
+      this.Frame.getIdentity({ ModuleID }, (identify) => {
+       
         this.ListenRoute({ isFirst: true });
         history.listen(() => {
           this.ListenRoute({});
         });
         dispatch(PublicAction.AppLoadingClose());
-      }
-    });
+      })
+    //   }
+    // });
 
     // console.log(userMsg.UserType,userMsg.UserClass,userMsg.UserType !== "6" || userMsg.UserClass !== "2")
   };
@@ -135,11 +143,13 @@ class App extends Component {
     //   this.UserPower({UserType, UserClass,dispatch});
     // }
     if (handleRoute === "Grade") {
-      dispatch(UpDataState.SetTopLeftData({
-        cnname: '年级班级管理',
-        // <span>年级班级管理<span className='tl-title'>-班级详情</span></span>,
-        subtitle:''
-      }))
+      dispatch(
+        UpDataState.SetTopLeftData({
+          cnname: "年级班级管理",
+          // <span>年级班级管理<span className='tl-title'>-班级详情</span></span>,
+          subtitle: "",
+        })
+      );
       if (UserPower === "Admin" || UserPower === "TeachingLeader") {
         //教务主任和管理员可以景来
         dispatch(UpDataState.GetSummary({}));
@@ -147,11 +157,13 @@ class App extends Component {
         window.location.href = CONFIG.ErrorProxy + "/Error.aspx?errcode=E011";
       }
     } else if (handleRoute === "Class") {
-      dispatch(UpDataState.SetTopLeftData({
-        cnname: '年级班级管理',
-        // <span>年级班级管理<span className='tl-title'>-班级详情</span></span>,
-        subtitle:''
-      }))
+      dispatch(
+        UpDataState.SetTopLeftData({
+          cnname: "年级班级管理",
+          // <span>年级班级管理<span className='tl-title'>-班级详情</span></span>,
+          subtitle: "",
+        })
+      );
       if (UserPower === "Admin" || UserPower === "TeachingLeader") {
         // 有路由变化都要改变数据储存，初始
         dispatch(
@@ -173,12 +185,13 @@ class App extends Component {
     } else if (handleRoute === "ClassDetails") {
       console.log(UserPower);
       if (UserPower === "Admin" || UserPower === "TeachingLeader") {
-         
-        dispatch(UpDataState.SetTopLeftData({
-          cnname: '年级班级管理',
-          // <span>年级班级管理<span className='tl-title'>-班级详情</span></span>,
-          subtitle:'班级详情'
-        }))
+        dispatch(
+          UpDataState.SetTopLeftData({
+            cnname: "年级班级管理",
+            // <span>年级班级管理<span className='tl-title'>-班级详情</span></span>,
+            subtitle: "班级详情",
+          })
+        );
         dispatch(
           UpDataState.SetClassDetailsParams({
             ClassID: Params,
@@ -196,11 +209,13 @@ class App extends Component {
         dispatch(UpDataState.GetStudentToPage({}));
         // dispatch(UpDataState.GetGradeSummary({}));
       } else if (UserPower === "Student") {
-        dispatch(UpDataState.SetTopLeftData({
-          cnname: '我的行政班',
-          enname:"My Class",
-          subtitle:''
-        }))
+        dispatch(
+          UpDataState.SetTopLeftData({
+            cnname: "我的行政班",
+            enname: "My Class",
+            subtitle: "",
+          })
+        );
         dispatch(
           UpDataState.SetClassDetailsParams({
             ClassID: GroupID,
@@ -223,7 +238,7 @@ class App extends Component {
     } else {
       //当做年级
       history.push("Grade");
-      this.ListenRoute({});//因为直接push会导致界面数据不刷新，所以暂时手动给刷新
+      this.ListenRoute({}); //因为直接push会导致界面数据不刷新，所以暂时手动给刷新
     }
 
     // dispatch(
@@ -266,6 +281,9 @@ class App extends Component {
         console.error("权限分析有问题:" + e);
       }
     }
+  };
+  onRef = (ref) => {
+    this.Frame = ref;
   };
   render() {
     const {
@@ -324,7 +342,7 @@ class App extends Component {
                 subtitle: TopLeftData.subtitle,
               }}
               pageInit={this.RequestData}
-
+              onRef={this.onRef.bind(this)}
             >
               <div ref="frame-time-barner">
                 <Barner></Barner>

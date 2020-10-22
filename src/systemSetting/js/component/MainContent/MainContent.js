@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import Frame from "../../../../common/Frame";
 import { TokenCheck_Connect } from "../../../../common/js/disconnect";
 import Semester from "../SettingOptions/YearSemesterSetting";
@@ -77,76 +77,112 @@ class MainContent extends Component {
         },
         { value: "Subsystem", title: "子系统访问设置", icon: "Subsystem" },
       ],
+      havePower: false,
     };
     const { dispatch } = props;
     const Hash = location.hash;
     versionChenck.IEVersion(); //如果是檢查IE版本是否符合
+    this.Frame = createRef();
     //判断是否登录成功
-    TokenCheck_Connect(false, () => {
-      if (sessionStorage.getItem("UserInfo")) {
-        const { SchoolID, UserType } = JSON.parse(
-          sessionStorage.getItem("UserInfo")
-        );
-        const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
+    // TokenCheck_Connect(false, () => {
+    //   if (sessionStorage.getItem("UserInfo")) {
+    //     const { SchoolID, UserType } = JSON.parse(
+    //       sessionStorage.getItem("UserInfo")
+    //     );
+    //     const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
 
-        dispatch(
-          UpDataState.getLoginUser(
-            JSON.parse(sessionStorage.getItem("UserInfo"))
-          )
-        );
-        console.log(UserType === "0");
-        // dispatch(DataChange.getCurrentSbusystemInfo());////模拟测试使用
+    //     dispatch(
+    //       UpDataState.getLoginUser(
+    //         JSON.parse(sessionStorage.getItem("UserInfo"))
+    //       )
+    //     );
+    //     console.log(UserType === "0");
+    //     // dispatch(DataChange.getCurrentSbusystemInfo());////模拟测试使用
 
-        //判断该用户是否是管理员,如果该用户不是管理员跳转到错误页,
-        if (UserType !== "0") {
-          window.location.href = config.ErrorProxy + "/Error.aspx?errcode=E011";
-        } else {
-          //如果该用户是管理员则检查用户信息和模块ID是否符合
-          QueryPower({ UserInfo, ModuleID: "000-2-0-13" }).then((restlu) => {
-            if (restlu) {
-              dispatch(DataChange.getCurrentSemester(SchoolID));
-              //    dispatch(DataChange.getCurrentSchoolInfo(SchoolID));
-              //    dispatch(DataChange.getCurrentSbusystemInfo({}));
-              dispatch(DataChange.getServerAdd());
-            }
-          });
-        }
-      } else {
-        //如果登录不成功则开启定时器,直到登录后获取到token
-        let getUserInfo = setInterval(() => {
-          if (sessionStorage.getItem("UserInfo")) {
-            const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
+    //     //判断该用户是否是管理员,如果该用户不是管理员跳转到错误页,
+    //     if (UserType !== "0") {
+    //       window.location.href = config.ErrorProxy + "/Error.aspx?errcode=E011";
+    //     } else {
+    //       //如果该用户是管理员则检查用户信息和模块ID是否符合
+    //       QueryPower({ UserInfo, ModuleID: "000-2-0-13" }).then((restlu) => {
+    //         if (restlu) {
+    //           dispatch(DataChange.getCurrentSemester(SchoolID));
+    //           //    dispatch(DataChange.getCurrentSchoolInfo(SchoolID));
+    //           //    dispatch(DataChange.getCurrentSbusystemInfo({}));
+    //           dispatch(DataChange.getServerAdd());
+    //         }
+    //       });
+    //     }
+    //   } else {
+    //     //如果登录不成功则开启定时器,直到登录后获取到token
+    //     let getUserInfo = setInterval(() => {
+    //       if (sessionStorage.getItem("UserInfo")) {
+    //         const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
 
-            const { SchoolID, UserType } = UserInfo;
-            dispatch(
-              UpDataState.getLoginUser(
-                JSON.parse(sessionStorage.getItem("UserInfo"))
-              )
-            );
-            if (UserType !== "0") {
-              window.location.href =
-                config.ErrorProxy + "/Error.aspx?errcode=E011";
-            } else {
-              //如果该用户是管理员则检查用户信息和模块ID是否符合
-              QueryPower({ UserInfo, ModuleID: "000-2-0-13" }).then(
-                (restlu) => {
-                  if (restlu) {
-                    dispatch(DataChange.getCurrentSemester(SchoolID));
-                    dispatch(DataChange.getServerAdd());
-                  }
-                }
-              );
-            }
-            // dispatch(DataChange.getCurrentSbusystemInfo());//模拟测试使用
+    //         const { SchoolID, UserType } = UserInfo;
+    //         dispatch(
+    //           UpDataState.getLoginUser(
+    //             JSON.parse(sessionStorage.getItem("UserInfo"))
+    //           )
+    //         );
+    //         if (UserType !== "0") {
+    //           window.location.href =
+    //             config.ErrorProxy + "/Error.aspx?errcode=E011";
+    //         } else {
+    //           //如果该用户是管理员则检查用户信息和模块ID是否符合
+    //           QueryPower({ UserInfo, ModuleID: "000-2-0-13" }).then(
+    //             (restlu) => {
+    //               if (restlu) {
+    //                 dispatch(DataChange.getCurrentSemester(SchoolID));
+    //                 dispatch(DataChange.getServerAdd());
+    //               }
+    //             }
+    //           );
+    //         }
+    //         // dispatch(DataChange.getCurrentSbusystemInfo());//模拟测试使用
 
-            clearInterval(getUserInfo);
-          }
-        }, 20);
-      }
-    });
+    //         clearInterval(getUserInfo);
+    //       }
+    //     }, 20);
+    //   }
+    // });
   }
+  // RequestData =()=>{
+  //   const { dispatch } = this.props;
+  //   const Hash = location.hash;
+  //   const { SchoolID, UserType } = JSON.parse(
+  //     sessionStorage.getItem("UserInfo")
+  //   );
+  //   const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
+
+  //   console.log(UserType === "0");
+  //   // dispatch(DataChange.getCurrentSbusystemInfo());////模拟测试使用
+  //   let ModuleID = "000001";
+  //   //判断该用户是否是管理员,如果该用户不是管理员跳转到错误页,
+  //   if (UserType !== "0") {
+  //     window.location.href = config.ErrorProxy + "/Error.aspx?errcode=E011";
+  //   } else {
+  //     //如果该用户是管理员则检查用户信息和模块ID是否符合
+  //     // QueryPower({ UserInfo, ModuleID: "000-2-0-13" }).then((restlu) => {
+  //     //   console.log(restlu);
+
+  //     //   if (restlu) {
+  //       this.Frame.getIdentity({ ModuleID }, (identify) => {
+  //         this.setState({
+  //           havePower: true,
+  //         });
+  //         dispatch(DataChange.getCurrentSemester(SchoolID));
+  //         //    dispatch(DataChange.getCurrentSchoolInfo(SchoolID));
+  //         //    dispatch(DataChange.getCurrentSbusystemInfo({}));
+  //         dispatch(DataChange.getServerAdd());
+  //       }
+  //     )
+  //   //   });
+  //   // }
+  // }
+  // }
   componentWillMount() {
-    this.requestData();
+    // this.requestData();
   }
   //操作左侧菜单，响应路由变化
   handleMenu = (key) => {
@@ -180,9 +216,15 @@ class MainContent extends Component {
     // console.log(this.state.MenuParams)
     // this.handleMenu();
   };
-  requestData = (key) => {
+  RequestData = (key) => {
+    const { dispatch } = this.props;
     let route = history.location.pathname;
-    console.log(route);
+    const { SchoolID, UserType } = JSON.parse(
+      sessionStorage.getItem("UserInfo")
+    );
+    const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
+    dispatch(UpDataState.getLoginUser(UserInfo));
+    // console.log(route);
     let pathArr = route.split("/");
     let handleRoute = pathArr[1];
     let Params = pathArr[2];
@@ -205,8 +247,21 @@ class MainContent extends Component {
 
       //   return;
     }
+    let ModuleID = "000001";
+    this.Frame.getIdentity({ ModuleID }, (identify) => {
+      this.setState({
+        havePower: true,
+      });
+      dispatch(DataChange.getCurrentSemester(SchoolID));
+      //    dispatch(DataChange.getCurrentSchoolInfo(SchoolID));
+      //    dispatch(DataChange.getCurrentSbusystemInfo({}));
+      dispatch(DataChange.getServerAdd());
+    });
   };
-
+  // 获取frame的ref
+  onRef = (ref) => {
+    this.Frame = ref;
+  };
   render() {
     let UserName = "";
     let PhotoPath = "";
@@ -217,8 +272,8 @@ class MainContent extends Component {
       UserName = UserInfo.UserName;
       PhotoPath = UserInfo.PhotoPath;
       UserID = UserInfo.UserID;
-    }else{
-      return <div></div>
+    } else {
+      return <div></div>;
     }
     // console.log(this.props)
     let path = history.location.pathname.split("/")[2];
@@ -249,6 +304,8 @@ class MainContent extends Component {
           enname: "System Settings",
         }}
         userInfo={{ name: UserName, image: PhotoPath }}
+        pageInit={this.RequestData}
+        onRef={this.onRef.bind(this)}
       >
         {/* <div ref="frame-left-menu">
           <Menu params={this.state.MenuParams}></Menu>
@@ -256,7 +313,7 @@ class MainContent extends Component {
         <div ref="frame-time-barner">
           <TimeBanner path={path} List={this.state.List} />
         </div>
-        {LoginUser.UserID ? (
+        {this.state.havePower ? (
           <div ref="frame-right-content">
             <Router>
               <Route

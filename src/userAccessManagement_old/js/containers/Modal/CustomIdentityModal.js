@@ -105,7 +105,8 @@ class CustomIdentityModal extends Component {
         },
       },
     } = this.props;
-    if (e.length > 2) {
+    if (e.length > 2)
+    {
       //最多两个组合
       return;
     }
@@ -113,7 +114,8 @@ class CustomIdentityModal extends Component {
       UserType.length === 1 &&
       e.length === 2 &&
       e.some((child) => child === 3 || child === 2)
-    ) {
+    )
+    {
       return;
     }
     dispatch(
@@ -150,21 +152,25 @@ class CustomIdentityModal extends Component {
         Loading: { ModalLoading },
       },
     } = this.props;
-    if (ModalLoading) {
+    if (ModalLoading)
+    {
       return;
     }
     let Error = false;
-    let Post = () => {};
+    let Post = () => { };
 
-    if (type === "add") {
+    if (type === "add")
+    {
       Post = DataAction.AddIdentityType;
-    } else if (type === "edit") {
+    } else if (type === "edit")
+    {
       Post = DataAction.EditIdentityType;
       if (
         IdentityName === InitIdentityName &&
         Description === InitDescription &&
         UserType === InitUserType
-      ) {
+      )
+      {
         dispatch(
           PublicAction.showErrorAlert({
             type: "error",
@@ -173,14 +179,15 @@ class CustomIdentityModal extends Component {
         );
         return;
       }
-    } else {
+    } else
+    {
       console.log("type不对");
       return;
     }
     dispatch(
       HandleAction.checkIndentityName({
         value: IdentityName,
-        success: () => {},
+        success: () => { },
         error: () => {
           Error = true;
         },
@@ -190,7 +197,7 @@ class CustomIdentityModal extends Component {
     dispatch(
       HandleAction.checkDescription({
         value: Description,
-        success: () => {},
+        success: () => { },
         error: () => {
           Error = true;
         },
@@ -200,15 +207,17 @@ class CustomIdentityModal extends Component {
     dispatch(
       HandleAction.checkUserType({
         value: UserType,
-        success: () => {},
+        success: () => { },
         error: () => {
           Error = true;
         },
       })
     );
-    if (Error) {
+    if (Error)
+    {
       return;
-    } else {
+    } else
+    {
       dispatch(
         Post({
           fn: () => {
@@ -220,6 +229,13 @@ class CustomIdentityModal extends Component {
   };
   onModalCancel = () => {
     let { dispatch } = this.props;
+    dispatch(
+      HandleAction.SetTipsVisibleParams({
+        IndentityNameTipsVisible: false,
+        DescriptionTipsVisible: false,
+        UserTypeTipsVisible: false,
+      })
+    );
     dispatch(
       HandleAction.SetModalVisible({ CustomIdentityModalVisible: false })
     );
@@ -269,32 +285,34 @@ class CustomIdentityModal extends Component {
       },
     } = this.props;
     let ModalName = "自定义身份";
-    if (type === "add") {
+    if (type === "add")
+    {
       ModalName = "添加自定义身份";
-    } else if (type === "edit") {
+    } else if (type === "edit")
+    {
       ModalName = "编辑自定义身份";
     }
     return (
       <Modal
         ref="CustomIdentityModal"
-        bodyStyle={{ padding: 0, height: type === "edit" ? "248px" : "230px" }}
-        width={520}
+        bodyStyle={ { padding: 0, height: type === "edit" ? "248px" : "230px" } }
+        width={ 520 }
         type="1"
-        title={ModalName}
-        visible={CustomIdentityModalVisible}
-        onOk={this.onModalOk}
-        onCancel={this.onModalCancel}
+        title={ ModalName }
+        visible={ CustomIdentityModalVisible }
+        onOk={ this.onModalOk }
+        onCancel={ this.onModalCancel }
         className="Modal CustomIdentityModal"
       >
         <Loading
-          opacity={0.5}
+          opacity={ 0.5 }
           tip="请稍候..."
           size="small"
-          spinning={ModalLoading}
+          spinning={ ModalLoading }
         >
           <div
             className="ModalContent"
-            style={{ height: type === "edit" ? "248px" : "230px" }}
+            style={ { height: type === "edit" ? "248px" : "230px" } }
           >
             <div className="row">
               <span className="left">
@@ -304,16 +322,16 @@ class CustomIdentityModal extends Component {
               <span className="right">
                 <Tips
                   overlayClassName="tips"
-                  visible={IndentityNameTipsVisible}
-                  title={IndentityNameTipsTitle}
+                  visible={ IndentityNameTipsVisible }
+                  title={ IndentityNameTipsTitle }
                 >
                   <Input
                     className="IndentityName"
                     placeholder="请输入8个字符以内的身份名称..."
-                    maxLength={8}
-                    onChange={this.onIndentityNameChange}
-                    onBlur={this.onIndentityNameBlur}
-                    value={IdentityName}
+                    maxLength={ 8 }
+                    onChange={ this.onIndentityNameChange }
+                    onBlur={ this.onIndentityNameBlur }
+                    value={ IdentityName }
                   ></Input>
                 </Tips>
               </span>
@@ -323,18 +341,18 @@ class CustomIdentityModal extends Component {
               <span className="right">
                 <Tips
                   overlayClassName="tips"
-                  visible={DescriptionTipsVisible}
-                  title={DescriptionTipsTitle}
+                  visible={ DescriptionTipsVisible }
+                  title={ DescriptionTipsTitle }
                 >
                   <Input.TextArea
                     className="Description"
                     placeholder="请输入20个字符以内的身份描述..."
-                    maxLength={20}
+                    maxLength={ 20 }
                     // autoSize={{minRows: 4, maxRows: 4}}
-                    rows={3}
-                    onChange={this.onDescriptionChange}
-                    onBlur={this.onDescriptionBlur}
-                    value={Description}
+                    rows={ 3 }
+                    onChange={ this.onDescriptionChange }
+                    onBlur={ this.onDescriptionBlur }
+                    value={ Description }
                   ></Input.TextArea>
                 </Tips>
               </span>
@@ -346,58 +364,61 @@ class CustomIdentityModal extends Component {
               <span className="right">
                 <Tips
                   overlayClassName="tips"
-                  visible={UserTypeTipsVisible}
-                  title={UserTypeTipsTitle}
+                  visible={ UserTypeTipsVisible }
+                  title={ UserTypeTipsTitle }
                 >
                   <CheckBoxGroup
-                    value={UserType}
-                    onChange={this.onUserTypeChange}
+                    value={ UserType }
+                    onChange={ this.onUserTypeChange }
                   >
-                    {RoleList instanceof Array
+                    { RoleList instanceof Array
                       ? RoleList.map((child, index) => {
-                          let disabled = false;
-                          if (
-                            UserType.length >= 2 &&
-                            !UserType.includes(child.value)
-                          ) {
-                            disabled = true;
-                          } else if (
-                            UserType.length === 1 &&
-                            (UserType[0] === 2 || UserType[0] === 3) &&
-                            UserType[0] !== child.value
-                          ) {
-                            disabled = true;
-                          } else if (
-                            UserType.length === 1 &&
-                            (UserType[0] === 0 || UserType[0] === 1) &&
-                            (child.value === 2 || child.value === 3)
-                          ) {
-                            disabled = true;
-                          }
-                          return (
-                            <>
-                              {child.value === 2 || child.value === 3 ? (
-                                <i className="devide"></i>
-                              ) : (
+                        let disabled = false;
+                        if (
+                          UserType.length >= 2 &&
+                          !UserType.includes(child.value)
+                        )
+                        {
+                          disabled = true;
+                        } else if (
+                          UserType.length === 1 &&
+                          (UserType[0] === 2 || UserType[0] === 3) &&
+                          UserType[0] !== child.value
+                        )
+                        {
+                          disabled = true;
+                        } else if (
+                          UserType.length === 1 &&
+                          (UserType[0] === 0 || UserType[0] === 1) &&
+                          (child.value === 2 || child.value === 3)
+                        )
+                        {
+                          disabled = true;
+                        }
+                        return (
+                          <>
+                            { child.value === 2 || child.value === 3 ? (
+                              <i className="devide"></i>
+                            ) : (
                                 ""
-                              )}
-                              <CheckBox
-                                className="UserType-radio"
-                                key={index}
-                                value={child.value}
-                                disabled={disabled}
-                              >
-                                {child.title}
-                              </CheckBox>
-                            </>
-                          );
-                        })
-                      : ""}
+                              ) }
+                            <CheckBox
+                              className="UserType-radio"
+                              key={ index }
+                              value={ child.value }
+                              disabled={ disabled }
+                            >
+                              { child.title }
+                            </CheckBox>
+                          </>
+                        );
+                      })
+                      : "" }
                   </CheckBoxGroup>
                 </Tips>
               </span>
             </div>
-            {type === "edit" ? (
+            { type === "edit" ? (
               <div className="row">
                 <span className="left"></span>
                 <span className="right right-tips">
@@ -405,8 +426,8 @@ class CustomIdentityModal extends Component {
                 </span>
               </div>
             ) : (
-              ""
-            )}
+                ""
+              ) }
           </div>
         </Loading>
       </Modal>

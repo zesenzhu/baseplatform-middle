@@ -1,0 +1,596 @@
+.UserArchivesModal {
+    .ant-modal-body {
+        padding: 0;
+    }
+    .Modal-box {
+        // height: 456px;
+        width: 100%;
+        position: relative;
+        .Left {
+            width: 25%;
+            background: #f5f5f5;
+            // float: left;
+            display: inline-block;
+            vertical-align: top;
+            height: 100%;
+            // display: flex;
+            // flex-flow: column;
+            // justify-content: flex-start;
+            // align-items: center;
+            position: relative;
+            z-index: 2;
+            .up_area {
+                margin: auto;
+                margin-top: 36px;
+            }
+        }
+        .Right {
+            width: 75%;
+            // overflow: auto;
+            // float: left;
+            display: inline-block;
+            vertical-align: top;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+            .row:nth-of-type(1) {
+                margin-top: 5px;
+            }
+            .row-subject {
+                .culonm-2 {
+                    max-height: 117px !important;
+                    height: auto !important;
+                    .ant-checkbox-wrapper+.ant-checkbox-wrapper {
+                        margin-left: 0;
+                    }
+                }
+            }
+            .row {
+                position: relative;
+                width: 100%;
+                margin: 0;
+                //height: 40px;
+                .culonm-1 {
+                    width: 18%;
+                    float: left;
+                    line-height: 40px;
+                    text-align: right;
+                    font-size: 14px;
+                    color: #333;
+                    .must-icon {
+                        color: red;
+                        font-size: 16px;
+                        text-align: right;
+                        margin-right: 5px;
+                    }
+                }
+                .Subject {
+                    line-height: 28px;
+                }
+                .ant-checkbox-group {
+                    // width: 100%;
+                }
+                .Scrollbars {
+                    max-height: 107px;
+                    // min-height: 33px;
+                    &>div:first-of-type {
+                        max-height: 112px !important;
+                        overflow: hidden !important;
+                        // width: 104%;
+                        // min-width: 100px;
+                        margin-bottom: 0px !important; // width: 110%;
+                        // min-height: 28px!important;
+                        overflow-x: hidden !important; // min-height: 33px;
+                        overflow-y: scroll !important; // min-height: 33px;
+                        display: inline-block !important;
+                        position: relative !important;
+                        width: calc(100% + 17px);
+                        height: calc(100% + 17px);
+                    }
+                }
+                .culonm-2 {
+                    float: left;
+                    width: 82%;
+                    height: 40px;
+                    padding-left: 5px;
+                    vertical-align: middle;
+                    position: relative;
+                    .UserID-text {
+                        line-height: 40px;
+                        text-align: left;
+                        font-size: 16px;
+                        color: #333;
+                    }
+                    .input {
+                        width: 300px;
+                        height: 28px;
+                        line-height: 1;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+                    .ant-input {
+                        height: 28px;
+                        line-height: 1;
+                    }
+                    .UserName-input {
+                        width: 300px;
+                        top: 50%;
+                        height: 28px;
+                        transform: translateY(-50%);
+                    }
+                    .dropdown_container {
+                        position: relative;
+                        // width: 300px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+                    .dropdown_wrapper {
+                        margin-left: 0;
+                    }
+                    .inputarea {
+                        width: 400px;
+                        top: 50%;
+                        height: 58px;
+                        padding: 0 6px;
+                        line-height: 28px;
+                        transform: translateY(-16px);
+                    }
+                    .checkedBoxGroupMap {
+                        max-width: 400px;
+                        // display: block;
+                        // min-height: 28px;
+                        // min-width: 300px;
+                        .checkedBoxMap {
+                            width: 133px;
+                            height: 28px;
+                            line-height: 28px;
+                            overflow: hidden;
+                            vertical-align: middle;
+                            .ant-checkbox+span {
+                                width: 78px;
+                                padding: 0;
+                            }
+                            .checkedBoxMap-title {
+                                overflow: hidden; //超出一行文字自动隐藏
+                                text-overflow: ellipsis; //文字隐藏后添加省略号
+                                white-space: nowrap; //强制不换行
+                                width: 100px;
+                                padding-right: 8px;
+                                padding-left: 8px;
+                                display: inline-block;
+                                vertical-align: bottom;
+                            }
+                            // .ant-checkbox {
+                            //     vertical-align: sub;
+                            // }
+                        }
+                    }
+                    .goAdmClass {
+                        position: relative;
+                        line-height: 28px;
+                        padding-left: 20px;
+                        height: 28px;
+                        text-align: right;
+                        font-size: 14px;
+                        color: #333;
+                        top: 50%;
+                        -webkit-transform: translateY(-50%);
+                        -ms-transform: translateY(-50%);
+                        transform: translateY(-50%);
+                        span {
+                            color: #0099ff;
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
+                    }
+                    .AddOther {
+                        position: relative;
+                        line-height: 28px;
+                        padding-left: 20px;
+                        height: 28px;
+                        text-align: right;
+                        font-size: 14px;
+                        display: inline-block;
+                        color: #0099ff;
+                        top: 50%;
+                        text-decoration: underline;
+                        cursor: pointer;
+                        -webkit-transform: translateY(-50%);
+                        -ms-transform: translateY(-50%);
+                        transform: translateY(-50%);
+                        &:hover {
+                            color: #ff6600;
+                        }
+                        span {
+                            color: #0099ff;
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.MajorModal {
+    .ModalContent {
+        overflow: hidden;
+    }
+    .addclass-select-grade {
+        position: relative;
+        z-index: 5;
+        margin-left: 38px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        height: 28px;
+        line-height: 28px;
+        .error-tips:nth-child(3) {
+            float: right;
+            margin-right: 64px;
+            margin-top: 2px;
+        }
+    }
+    .props {
+        color: #333333;
+        font-size: 14px;
+        // display: inline-block;
+        // width: 17%;
+    }
+    .CollegeName {
+        color: #333333;
+        font-size: 14px;
+        margin-left: 5px;
+    }
+    .ant-input {
+        padding: 1px;
+        width: 265px;
+        margin-left: 8px;
+        text-indent: 12px;
+    }
+    .addclass-classname-wrapper {
+        position: relative;
+        z-index: 3;
+        margin-top: 20px;
+        margin-left: 42px;
+    }
+    // .error-tips {
+    //     color: #ff0000;
+    //     padding-left: 17px;
+    //     background: url("#{$image-url}/error-tips.png") no-repeat left center;
+    //     margin-left: 8px;
+    // }
+    .addclass-classname-wrapper {
+        .error-tips {
+            margin-left: 68px;
+            margin-top: 7px;
+        }
+    }
+    .reset-classname-wrapper {
+        .error-tips {
+            position: absolute;
+            bottom: 8px;
+            left: 94px;
+        }
+    }
+    .dropdown_container {
+        position: absolute;
+    }
+    .addGroup {
+        float: right;
+        margin-right: 50px;
+        color: #0099ff;
+        font-size: 14px;
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover {
+            color: #ff6600;
+        }
+    }
+    .major-box {
+        width: 100%;
+        max-height: 360px;
+        min-height: 100px;
+        overflow: auto;
+        // margin-top: 10px;
+        padding: 0 34px;
+        position: relative;
+        .major-content {
+            float: left;
+            // width: 150px;
+            max-width: calc(100% - 16px);
+            height: 36px;
+            background-color: rgba($color: #009900, $alpha: 0.3);
+            border-radius: 3px;
+            line-height: 36px;
+            padding: 0 50px 0 12px;
+            margin: 8px;
+            position: relative;
+            // border: 1px solid #000;
+            .major-name {
+                font-size: 14px;
+                font-weight: bold;
+                color: #009900;
+                display: inline-block;
+                width: 100%;
+                line-height: inherit;
+                text-align: center;
+                overflow: hidden; //超出一行文字自动隐藏
+                text-overflow: ellipsis; //文字隐藏后添加省略号
+                white-space: nowrap; //强制不换行
+            }
+            .edit-box {
+                display: none;
+                position: absolute;
+                right: 0;
+                top: 0;
+                // height: 48px;
+                // line-height: 50px;
+                // width: 75px;
+                .delete {
+                    position: absolute;
+                    top: -4px;
+                    right: 6px;
+                    width: 16px;
+                    height: 16px;
+                    cursor: pointer;
+                    background-color: #ff0000;
+                    border-radius: 8px;
+                    background: url($img-url + "/UserArchives/close.png") no-repeat center center / contain;
+                    &:hover {
+                        background: url($img-url + "/UserArchives/close-hover.png") no-repeat center center / contain;
+                    }
+                }
+                .edit {
+                    position: absolute;
+                    top: -4px;
+                    right: 28px;
+                    width: 16px;
+                    height: 16px;
+                    cursor: pointer;
+                    // background-color: #0099ff;
+                    border-radius: 8px;
+                    background: url($img-url + "/UserArchives/edit.png") no-repeat center center / contain;
+                    &:hover {
+                        background: url($img-url + "/UserArchives/edit-hover.png") no-repeat center center / contain;
+                    }
+                }
+            }
+            &:hover {
+                .edit-box {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}
+
+.HandleGroupModal,
+.HandleMajorModal,
+.AddClassModal {
+    .addclass-select-grade {
+        position: relative;
+        z-index: 5;
+        margin-left: 38px;
+        margin-top: 20px;
+        height: 28px;
+        line-height: 28px;
+        .error-tips:nth-child(3) {
+            float: right;
+            margin-right: 64px;
+            margin-top: 2px;
+        }
+        .title {
+            display: inline-block;
+            width: 75%;
+            margin-left: 8px;
+            @include TextOverflow();
+        }
+    }
+    .props {
+        color: #999999;
+        font-size: 14px;
+        display: inline-block;
+        width: 21%;
+        text-align: right;
+        vertical-align: top;
+    }
+    .ant-input {
+        padding: 1px;
+        width: 265px;
+        margin-left: 8px;
+        text-indent: 12px;
+    }
+    .addclass-classname-wrapper {
+        position: relative;
+        z-index: 3;
+        margin-top: 20px;
+        margin-left: 38px;
+    }
+    // .error-tips {
+    //     color: #ff0000;
+    //     padding-left: 17px;
+    //     background: url("#{$image-url}/error-tips.png") no-repeat left center;
+    //     margin-left: 8px;
+    // }
+    .addclass-classname-wrapper {
+        .error-tips {
+            margin-left: 68px;
+            margin-top: 7px;
+        }
+    }
+    .reset-classname-wrapper {
+        .error-tips {
+            position: absolute;
+            bottom: 8px;
+            left: 94px;
+        }
+    }
+    .dropdown_container {
+        position: absolute;
+    }
+    .ant-tooltip .ant-tooltip-inner {
+        background-color: #d41414;
+        min-height: 0;
+        min-width: 0;
+        font-size: 12px;
+        line-height: 14px;
+        white-space: nowrap;
+        color: #fff;
+    }
+    .ant-tooltip .ant-tooltip-arrow:before {
+        background-color: #d41414;
+    }
+}
+
+.GroupModal {
+    .ModalContent {
+        overflow: hidden;
+    }
+    .addclass-select-grade {
+        position: relative;
+        z-index: 5;
+        margin-left: 38px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        height: 28px;
+        line-height: 28px;
+        .error-tips:nth-child(3) {
+            float: right;
+            margin-right: 64px;
+            margin-top: 2px;
+        }
+    }
+    .props {
+        color: #333333;
+        font-size: 14px;
+        // display: inline-block;
+        // width: 17%;
+    }
+    .CollegeName {
+        color: #333333;
+        font-size: 14px;
+        margin-left: 5px;
+    }
+    .ant-input {
+        padding: 1px;
+        width: 265px;
+        margin-left: 8px;
+        text-indent: 12px;
+    }
+    .addclass-classname-wrapper {
+        position: relative;
+        z-index: 3;
+        margin-top: 20px;
+        margin-left: 42px;
+    }
+    // .error-tips {
+    //     color: #ff0000;
+    //     padding-left: 17px;
+    //     background: url("#{$image-url}/error-tips.png") no-repeat left center;
+    //     margin-left: 8px;
+    // }
+    .addclass-classname-wrapper {
+        .error-tips {
+            margin-left: 68px;
+            margin-top: 7px;
+        }
+    }
+    .reset-classname-wrapper {
+        .error-tips {
+            position: absolute;
+            bottom: 8px;
+            left: 94px;
+        }
+    }
+    .dropdown_container {
+        position: absolute;
+    }
+    .addGroup {
+        float: right;
+        margin-right: 50px;
+        color: #0099ff;
+        font-size: 14px;
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover {
+            color: #ff6600;
+        }
+    }
+    .group-box {
+        width: 100%;
+        max-height: 360px;
+        min-height: 100px;
+        overflow: auto;
+        // margin-top: 10px;
+        padding: 0 34px;
+        position: relative;
+        .group-content {
+            float: left;
+            // width: 150px;
+            max-width: calc(100% - 16px);
+            height: 36px;
+            background-color: rgba($color: #009900, $alpha: 0.3);
+            border-radius: 3px;
+            line-height: 36px;
+            padding: 0 50px 0 12px;
+            margin: 8px;
+            position: relative;
+            // border: 1px solid #000;
+            .group-name {
+                font-size: 14px;
+                font-weight: bold;
+                color: #009900;
+                display: inline-block;
+                width: 100%;
+                line-height: inherit;
+                text-align: center;
+                overflow: hidden; //超出一行文字自动隐藏
+                text-overflow: ellipsis; //文字隐藏后添加省略号
+                white-space: nowrap; //强制不换行
+            }
+            .edit-box {
+                display: none;
+                position: absolute;
+                right: 0;
+                top: 0;
+                // height: 48px;
+                // line-height: 50px;
+                // width: 75px;
+                .delete {
+                    position: absolute;
+                    top: -4px;
+                    right: 6px;
+                    width: 16px;
+                    height: 16px;
+                    cursor: pointer;
+                    background-color: #ff0000;
+                    border-radius: 8px;
+                    background: url($img-url + "/UserArchives/close.png") no-repeat center center / contain;
+                    &:hover {
+                        background: url($img-url + "/UserArchives/close-hover.png") no-repeat center center / contain;
+                    }
+                }
+                .edit {
+                    position: absolute;
+                    top: -4px;
+                    right: 28px;
+                    width: 16px;
+                    height: 16px;
+                    cursor: pointer;
+                    // background-color: #0099ff;
+                    border-radius: 8px;
+                    background: url($img-url + "/UserArchives/edit.png") no-repeat center center / contain;
+                    &:hover {
+                        background: url($img-url + "/UserArchives/edit-hover.png") no-repeat center center / contain;
+                    }
+                }
+            }
+            &:hover {
+                .edit-box {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}

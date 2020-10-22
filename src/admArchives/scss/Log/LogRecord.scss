@@ -1,0 +1,156 @@
+#LogRecord {
+    .LogRecord-box {
+        position: relative;
+        text-align: left;
+        margin: 0 auto;
+        // width: 870px;
+        .Content-top {
+            .tips {
+                background: url($img-url + "/UserArchives/icon-location.png") no-repeat left center/14px 19px;
+            }
+        }
+        .Content-handle {
+            // margin-top: 6px;
+            .top-tips {
+                text-align: center;
+                line-height: 105px;
+                line-height: 104px;
+                font-size: 16px;
+                text-align: center;
+                color: #333333;
+                margin: 0;
+                .Total {
+                    font-size: 24px;
+                    color: #ff6600;
+                }
+                .Add,
+                .Delete,
+                .Edit {
+                    font-size: 24px;
+                    color: #009900;
+                }
+                // margin-bottom: 28px;
+            }
+            .dropdown_container {
+                margin-right: 36px;
+                float: left;
+            }
+            .handleTimeSelect {
+                display: inline-block;
+                vertical-align: middle;
+                .ant-calendar-picker {
+                    margin: 0 5px;
+                }
+                .ant-input {
+                    line-height: 28px;
+                    padding-top: 0;
+                    padding-bottom: 0;
+                    height: 28px;
+                }
+            }
+        }
+        .Content-table {
+            .table {
+                .ant-table-thead {
+                    th:nth-child(2) {
+                        // text-align: left;
+                        padding-left: 47px;
+                    }
+                    th:nth-child(6) {
+                        // text-align: left;
+                        text-align: center !important;
+                    }
+                }
+                .UserType_Txt,
+                .OperationCount {
+                    color: #333;
+                    font-size: 14px;
+                }
+                .OperationType_Txt {
+                    color: #999;
+                    font-size: 14px;
+                }
+                .Logs-box {
+                    .Logs-tips {
+                        color: #999;
+                        font-size: 14px;
+                        display: inline-block;
+                        width: 310px;
+                        line-height: 17px;
+                        overflow: hidden; //超出一行文字自动隐藏
+                        text-overflow: ellipsis; //文字隐藏后添加省略号
+                        white-space: nowrap; //强制不换行
+                        vertical-align: middle;
+                    }
+                    .Logs-more {
+                        margin-left: 3px;
+                        color: #0099ff;
+                        vertical-align: middle;
+                        cursor: pointer;
+                        font-size: 14px;
+                        text-decoration: underline;
+                    }
+                }
+                .OperatorDetail {
+                    color: #0099ff;
+                    cursor: pointer;
+                    text-decoration: underline;
+                    font-size: 14px;
+                    &:hover {
+                        color: #ff6600;
+                    }
+                    &:active {
+                        color: #ff6600;
+                    }
+                }
+                .OperatorDetail-null {
+                    color: #333;
+                    font-size: 14px;
+                }
+                .Operator {
+                    .OperatorID {
+                        font-size: 14px;
+                        color: #999;
+                        width: 90px;
+                        overflow: hidden; //超出一行文字自动隐藏
+                        text-overflow: ellipsis; //文字隐藏后添加省略号
+                        white-space: nowrap; //强制不换行
+                    }
+                    .OperatorName {
+                        font-size: 14px;
+                        color: #333;
+                        width: 90px;
+                        overflow: hidden; //超出一行文字自动隐藏
+                        text-overflow: ellipsis; //文字隐藏后添加省略号
+                        white-space: nowrap; //强制不换行
+                    }
+                }
+                .handle-content {
+                    display: flex;
+                    flex-flow: row nowrap;
+                    justify-content: center;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .handle-btn-1 {
+                    float: right;
+                    height: 24px;
+                    color: #fff;
+                    //width: 56px;
+                    padding: 0;
+                    line-height: 24px;
+                    font-size: 14px;
+                    padding: 0 14px;
+                    margin-right: 2px;
+                    border: none;
+                }
+            }
+            .pagination-box {
+                margin-top: 20px;
+                /* float: right; */
+                float: none;
+                text-align: center;
+            }
+        }
+    }
+}

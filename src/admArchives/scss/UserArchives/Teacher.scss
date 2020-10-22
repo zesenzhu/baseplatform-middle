@@ -1,0 +1,14 @@
+#Teacher {
+    .Teacher-box {
+        position: relative;
+        text-align: left;
+        margin: 0 auto;
+        // width: 870px;
+        .Content-top {
+            .tips {
+                background: url($img-url+'/Common/TimeBanner/menu-icon16-hover.png') no-repeat left center /17px;
+            }
+        }
+        .Content-table {}
+    }
+}

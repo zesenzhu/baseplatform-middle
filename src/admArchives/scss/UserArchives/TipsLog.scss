@@ -1,0 +1,75 @@
+.TipsLog {
+    padding: 42px 42px 25px;
+    ;
+    height: 411px;
+    position: relative;
+    .TL-top {
+        height: 40px;
+        line-height: 40px;
+        padding-left: 46px;
+        font-size: 18px;
+        color: #333333;
+        background: url($img-url + "/UserArchives/icon-location.png") no-repeat left center / contain;
+    }
+    .TL-left {
+        width: 0;
+        position: absolute;
+        height: 100%;
+        display: inline-block;
+        vertical-align: top;
+        border-left: 1px dashed #ffdbcd;
+        margin-left: 3.5px;
+    }
+    .TL-Box {
+        height: calc(100% - 42px);
+        width: 100%;
+    }
+    .TL-right {
+        position: relative;
+        margin-left: 10.5px;
+        width: calc(100% - 20px);
+        display: inline-block;
+        vertical-align: top;
+        .TL-details {
+            position: relative;
+            height: 50px;
+            padding-top: 20px;
+            padding-left: 20px;
+            &::before {
+                content: "";
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                left: -2px;
+                background-color: #ffffff;
+                border: solid 2px #ff8355;
+                border-radius: 50%;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                -ms-border-radius: 50%;
+                -o-border-radius: 50%;
+                top: 30.5px;
+            }
+            .TL-time {
+                display: inline-block;
+                vertical-align: top;
+                width: 120px;
+                font-size: 14px;
+                line-height: 29px;
+                text-align: left;
+                color: #999999;
+            }
+            .TL-content {
+                display: inline-block;
+                vertical-align: top;
+                width: calc(100% - 120px);
+                font-size: 14px;
+                line-height: 29px;
+                text-align: left;
+                color: #333333;
+                @include TextOverflow;
+                border-bottom: 1px dashed rgba($color: #000000, $alpha: 0.4);
+            }
+        }
+    }
+}

@@ -21,7 +21,7 @@
  * @Author: zhuzesen
  * @LastEditors: zhuzesen
  * @Date: 2020-09-17 10:35:48
- * @LastEditTime: 2020-09-28 09:43:48
+ * @LastEditTime: 2020-10-21 15:23:06
  * @Description: 模块接口的get的action
  * @FilePath: \baseplatform-university\src\userAccessManagement\js\actions\DataAction\GetAction.js
  */
@@ -81,10 +81,13 @@ const GetIdentityTypeList = ({ fn = () => {}, schoolID }) => {
         //   "UserCount":1,                    //成员人数
         dispatch({
           type: GET_INDENTITY_TYPE_LIST,
-          data: res.Data instanceof Array?res.Data.map((child, index) => {
-            child.key = index;
-            return child;
-          }):[],
+          data:
+            res.Data instanceof Array
+              ? res.Data.map((child, index) => {
+                  child.key = index;
+                  return child;
+                })
+              : [],
         });
       } else {
         dispatch({
@@ -295,7 +298,7 @@ const GetTree = ({ fn = () => {}, SelectRole }) => {
       },
       HandleState: {
         ParamsData: {
-          AddMember: { SelectRole:selectRole },
+          AddMember: { SelectRole: selectRole },
         },
         CommonData: { RoleList },
       },
@@ -543,7 +546,83 @@ const GetIdentityTypeForAccredit = ({ userID, fn = () => {}, identityID }) => {
     });
   };
 };
+// 获取可分配身份权限
+const SEARCH_USER = "SEARCH_USER";
+// 获取可分配身份权限
+const SearchUser = ({ userID, fn = () => {}, identityID }) => {
+  return (dispatch, getState) => {
+    // dispatch(PublicAction.MoreLoadingOpen());
+
+    let State = getState();
+    let {
+      PublicState: {
+        LoginMsg: { SchoolID },
+      },
+      HandleState: {
+        ParamsData: {
+          AddMember: {
+            IdentityID,
+            UserType,
+            SearchPageIndex,
+            SearchPageSize,
+            SearchUserWord,
+          },
+        },
+        CommonData: { RoleList },
+      },
+    } = State;
+
+    let url = SelectObjectProxy + "SearchUser";
+    getData({
+      url,
+      params: {
+        identityID: IdentityID,
+        UserType: UserType instanceof Array ? UserType.join(",") : "",
+        pageIndex: SearchPageIndex,
+        pageSize: SearchPageSize,
+        keyword: SearchUserWord,
+        SchoolID,
+      },
+    }).then(({ res }) => {
+      let Data = res;
+      if (res) {
+        //   "Data": "PageIndex":10,
+        // "Total":""
+        // "List":[{
+        //   "UserID":"t001",
+        //   "UserName":"张老师",
+        //   "UserType":1,
+        //   "IdentityNames":"安防管理员,广播管理员,宿舍管理员",
+        //   "IdentityIDs":"001,002,003",
+        //   "IdentityList":[{                    //可分配身份列表
+        //       "IdentityID":"001",                //身份ID
+        //       "IdentityName":"安防管理员",        //身份名称
+        //   }]
+        // }]
+        Data =
+          res.Data && res.Data.List instanceof Array
+            ? {
+                ...res.Data,
+                List: res.Data.List.map((child) => {
+                  return { ...child, nodeType: "user" };
+                }),
+              }
+            : { Total: 0, PageIndex: 0, List: [] };
+      }
+
+      dispatch({
+        type: SEARCH_USER,
+        data: Data,
+      });
+      fn({ Data: getState(), res });
+      // dispatch(PublicAction.MoreLoadingClose());
+    });
+  };
+};
 export default {
+  SEARCH_USER,
+  SearchUser,
+
   GetIdentityTypeForAccredit,
   GET_IDENTITY_TYPE_FOR_ACCREDIT,
 
