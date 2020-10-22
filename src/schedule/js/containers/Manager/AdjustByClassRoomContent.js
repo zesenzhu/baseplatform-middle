@@ -349,6 +349,15 @@ class AdjustByClassRoomContent extends Component{
 
         } = AdjustByClassRoom;
 
+
+        const orderClassHourList = classHourList.map(i=>{
+
+            const list = i.list.sort((a,b)=>a-b);
+
+            return {...i,list};
+
+        });
+
         let radios = [
 
             { id:"all",name:"全学期" },
@@ -650,7 +659,7 @@ class AdjustByClassRoomContent extends Component{
 
                                             {
 
-                                                classHourList.map((item,key) => {
+                                                orderClassHourList.map((item,key) => {
 
                                                     let noonChecked = false;
 
