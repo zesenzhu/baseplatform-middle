@@ -380,6 +380,14 @@ class FrameContainer extends Component{
 
             }
 
+        }else{
+
+            if (callBack){
+
+                callBack();
+
+            }
+
         }
 
     }
