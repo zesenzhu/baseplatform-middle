@@ -265,7 +265,7 @@ class LogDynamic extends Component {
           "/html/userPersona/index.html?userType=" +
             userInfo.UserType +
             "&userID=" +
-            userInfo.UserName.UserID +
+            userInfo.UserID +
             "&lg_tk=" +
             token
         );
