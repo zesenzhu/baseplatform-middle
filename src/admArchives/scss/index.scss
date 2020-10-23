@@ -1,45 +1,20 @@
-.frame-nav-content {
-    position: relative;
-}
-
-label {
-    cursor: pointer;
-}
-
-.mainFrame {
-    .frame-fluid {
-        position: relative;
-        //   padding: 0;
-        padding: 30px 36px !important;
-        background: #fff !important;
-    }
+@import "../../common/scss/public.scss";
+$img-url: "../images";
+@import "./Main.scss";
+@import "./Common/index.scss";
+@import "./UserArchives/index.scss";
+@import "./RegisterExamine/index.scss";
+@import "./Log/index.scss";
+@import "./ImportFile/index.scss";
+@import "./Modal.scss";
+.AdmArchives-frame {
     .frame-block-wrapper {
-        padding-left: 100px!important;
+        padding-left: 100px;
     }
 }
 
-.Modal-1 .ant-modal-body {
-    overflow: visible;
-}
-
-.ant-tooltip {
-    z-index: 2002!important;
-}
-
-body {
-    font-family: '微软雅黑';
-}
-
-.link {
-    .Export {
-        padding-left: 20px;
-        background: url("../images/icon-Export.png") no-repeat left center;
-        background-size: 16px 16px;
-    }
-    &:hover {
-        .Export {
-            background: url("../images/icon-Export-hover.png") no-repeat left center;
-            background-size: 16px 16px;
-        }
+.ClassFrame {
+    .frame-block-wrapper {
+        padding-left: 110px;
     }
 }

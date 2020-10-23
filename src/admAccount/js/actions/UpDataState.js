@@ -338,7 +338,26 @@ const GetConfig = ({ schoolID, func = () => {} }) => {
       });
   };
 };
+//获取学生档案-获取学院、专业、年级、班级信息/改
+const GET_IDENTITY_TYPE_FOR_ADMIN = "GET_IDENTITY_TYPE_FOR_ADMIN";
+const GetIdentityTypeForAdmin = () => {
+  let url = "GetIdentityTypeForAdmin";
+  return (dispatch) => {
+    getData(CONFIG.UserAccessProxy + url, 2)
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        if (json.StatusCode === 200) {
+          dispatch({ type: GET_IDENTITY_TYPE_FOR_ADMIN, data: json.Data });
+        }
+      });
+  };
+};
 export default {
+  GET_IDENTITY_TYPE_FOR_ADMIN,
+  GetIdentityTypeForAdmin,
+  
   GetConfig,
   GET_CONFIG,
   

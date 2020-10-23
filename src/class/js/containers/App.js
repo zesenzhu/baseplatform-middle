@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,createRef } from "react";
 
 import { Loading, Alert, Modal, MenuLeftNoLink } from "../../../common";
 
@@ -58,6 +58,7 @@ class App extends Component {
     //判断token是否存在
 
     const hash = location.hash;
+    this.Frame = createRef()
   }
 
   pageInit() {
@@ -210,13 +211,8 @@ class App extends Component {
       } else if (parseInt(UserType) === 7 && UserClass === "2") {
         //判断是否是教务主任
 
-        QueryOtherPower({
-          SchoolID: UserInfo.SchoolID,
-          ModuleID: "000-2-0-06",
-          Power: "Dean_Class_CURD",
-          UserType: UserType,
-        }).then((data) => {
-          if (data) {
+        this.Frame.getIdentity({ ModuleID: "000014" }, () => {
+          // if (data) {
             //有权限的教务主任
 
             if (hash.includes("Import")) {
@@ -269,11 +265,11 @@ class App extends Component {
 
               dispatch(UpDataState.getPageInit());
             }
-          }else {
-            //没有权限的教务主任
+          // }else {
+          //   //没有权限的教务主任
 
-            window.location.href = "/Error.aspx?errcode=E011";
-          }
+          //   window.location.href = "/Error.aspx?errcode=E011";
+          // }
         });
       }else if (parseInt(UserType) === 2 && parseInt(UserType) === 3) {//家长或学生
         window.location.href = "/html/admclass#/ClassDetails"//直接去到最新的版本
@@ -590,7 +586,9 @@ class App extends Component {
 
     dispatch({ type: SIMActions.TEACHER_STUDENT_INFO_MODAL_SHOW });
   }
-
+  onRef = (ref) => {
+    this.Frame = ref;
+  };
   render() {
     const {
       UIState,
@@ -660,6 +658,7 @@ class App extends Component {
           //userInfo={{name:DataState.LoginUser.UserName,image:DataState.LoginUser.PhotoPath}}
           module={ModuleSetting.ModuleInfo}
           pageInit={this.pageInit.bind(this)}
+          onRef={this.onRef.bind(this)}
         >
           {/*banner*/}
 

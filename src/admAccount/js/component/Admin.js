@@ -365,6 +365,7 @@ class Admin extends React.Component {
     let pwd = "0";
 
     dispatch(actions.UpDataState.getChangeInputValue(pwd));
+    dispatch(actions.UpDataState.GetIdentityTypeForAdmin());
   }
   componentWillReceiveProps(nextProps) {
     let Grades = this.props.DataState.GradeClassMsg.Grades
@@ -549,7 +550,11 @@ class Admin extends React.Component {
     dispatch(actions.UpUIState.hideErrorAlert());
   };
   onHandleClick = (key) => {
+    const { dispatch, UIState } = this.props;
+
     //console.log(this.state.AdminAccountData[key])
+    dispatch(actions.UpDataState.GetIdentityTypeForAdmin());
+
     this.setState({
       AdminChangeKey: key,
       changeAdminModalVisible: true,
@@ -563,6 +568,8 @@ class Admin extends React.Component {
     if (UIState.AppLoading.TableLoading) {
       return;
     }
+    dispatch(actions.UpDataState.GetIdentityTypeForAdmin());
+
     this.setState({
       addAdminModalVisible: true,
       userKey: "add",
@@ -793,6 +800,31 @@ class Admin extends React.Component {
 
       isFlase = true;
     }
+    // 身份在ProductType为3出来
+    const { ProductType, ResHttpRootUrl } = sessionStorage.getItem(
+      "LgBasePlatformInfo"
+    )
+      ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
+      : {};
+    let HaveIdentity = parseInt(ProductType) === 3;
+    if (
+      HaveIdentity &&
+      (UIState.TipsVisible.IdentityTipsVisible ||
+        !DataState.AdminPreview.TrasferData.IdentityIDs)
+    ) {
+      // dispatch(
+      //   actions.UpUIState.showErrorAlert({
+      //     type: "btn-warn",
+      //     title: "姓名有错误",
+      //     ok: this.onAlertWarnOk.bind(this),
+      //     cancel: this.onAlertWarnClose.bind(this),
+      //     close: this.onAlertWarnClose.bind(this)
+      //   })
+      // );
+      dispatch(actions.UpUIState.SetTipsVisible({ IdentityTipsVisible: true }));
+
+      isFlase = true;
+    }
     if (
       UIState.TipsVisible.TelphoneTipsVisible ||
       UIState.TipsVisible.WeixinTipsVisible ||
@@ -942,7 +974,14 @@ class Admin extends React.Component {
   };
   handleChangeAdminModalOk = (e) => {
     const { dispatch, UIState, DataState } = this.props;
-
+    let {
+      isChange,
+      UserID,
+      UserName,
+      ModuleIDs,
+      PhotoPath,
+      IdentityIDs,
+    } = DataState.AdminPreview.TrasferData;
     let picObj = DataState.GetPicUrl.picObj;
 
     if (UIState.TipsVisible.UserIDTipsVisible) {
@@ -972,6 +1011,30 @@ class Admin extends React.Component {
 
       return;
     }
+    // 身份在ProductType为3出来
+    const { ProductType, ResHttpRootUrl } = sessionStorage.getItem(
+      "LgBasePlatformInfo"
+    )
+      ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
+      : {};
+    let HaveIdentity = parseInt(ProductType) === 3;
+    if (
+      HaveIdentity &&
+      (UIState.TipsVisible.IdentityTipsVisible || IdentityIDs === "")
+    ) {
+      // dispatch(
+      //   actions.UpUIState.showErrorAlert({
+      //     type: "btn-warn",
+      //     title: "姓名有错误",
+      //     ok: this.onAlertWarnOk.bind(this),
+      //     cancel: this.onAlertWarnClose.bind(this),
+      //     close: this.onAlertWarnClose.bind(this)
+      //   })
+      // );
+      dispatch(actions.UpUIState.SetTipsVisible({ IdentityTipsVisible: true }));
+
+      return;
+    }
     if (
       UIState.TipsVisible.TelphoneTipsVisible ||
       UIState.TipsVisible.WeixinTipsVisible ||
@@ -982,19 +1045,13 @@ class Admin extends React.Component {
 
       return;
     }
-    let {
-      isChange,
-      UserID,
-      UserName,
-      ModuleIDs,
-      PhotoPath,
-    } = DataState.AdminPreview.TrasferData;
+
     let InitPower = DataState.AdminPreview.InitData.ModuleIDs.split(",");
     let len = InitPower.length;
 
     // let CopyPower = InitPower.slice()
     let Modules = ModuleIDs.split(",");
-    console.log(Modules.length, len);
+    // console.log(Modules.length, len);
 
     let ModulesIsChange = false;
     if (Modules.length !== len) {
@@ -1014,6 +1071,16 @@ class Admin extends React.Component {
       if (len !== 0) {
         ModulesIsChange = true;
       }
+    }
+    if (!isChange) {
+      dispatch(
+        actions.UpUIState.showErrorAlert({
+          type: "warn",
+          title: "信息没有发生改变",
+          onHide: this.onAlertWarnHide.bind(this),
+        })
+      );
+      return;
     }
     // console.log(Modules.length,len)
 
@@ -1038,6 +1105,7 @@ class Admin extends React.Component {
     //   );
     //   return;
     // }
+
     let url = "/EditAdmin";
     // let ModulesID = []
     // DataState.AdminPreview.TrasferData.ModuleIDs.map((child) => {

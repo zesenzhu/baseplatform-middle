@@ -266,12 +266,12 @@ class Student extends React.Component {
           key: "handle",
           // dataIndex: "key",
           render: (data) => {
-            console.log(
-              data.Others.IsEnable,
-              data.key,
-              props.DataState.GradeStudentPreview.newList,
-              data.Others.IsEnable ? "red" : "green"
-            );
+            // console.log(
+            //   data.Others.IsEnable,
+            //   data.key,
+            //   props.DataState.GradeStudentPreview.newList,
+            //   data.Others.IsEnable ? "red" : "green"
+            // );
             return (
               <div className="handle-content">
                 <Button

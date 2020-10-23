@@ -82,6 +82,8 @@ class EditModal extends React.Component {
           QQ: this.state.data.Others.QQ,
           Weixin: this.state.data.Others.Weixin,
           Weibo: this.state.data.Others.Weibo,
+          IdentityIDs: this.state.data.Others.IdentityIDs,
+
         })
       );
       dispatch(
@@ -93,6 +95,8 @@ class EditModal extends React.Component {
           QQ: this.state.data.Others.QQ,
           Weixin: this.state.data.Others.Weixin,
           Weibo: this.state.data.Others.Weibo,
+          IdentityIDs: this.state.data.Others.IdentityIDs,
+
         })
       );
       handleUserID = this.state.data.UserName.UserID;
@@ -242,7 +246,7 @@ class EditModal extends React.Component {
     // 图片上传
     let option = {
       token: token,
-      UploadType:'Avatar',//头像
+      UploadType: "Avatar", //头像
       resWebUrl: DataState.GetPicUrl.picUrl, //资源站点地址
       userType: userType, //用户类型，可选值Admin、Student、Teacher、SchoolLeader
       userID: handleUserID, //新增时传空字符串、编辑时传相应UserID
@@ -477,7 +481,7 @@ class EditModal extends React.Component {
     let value = e.target.value;
     let Test = /^([0-9\/-]){1,40}$/.test(value);
 
-    if (value!==''&&!Test) {
+    if (value !== "" && !Test) {
       dispatch(actions.UpUIState.SetTipsVisible({ TelphoneTipsVisible: true }));
     } else {
       dispatch(
@@ -505,7 +509,7 @@ class EditModal extends React.Component {
     let value = e.target.value;
     let Test = /^[1-9]*[1-9][0-9]{4,18}$/.test(value);
 
-    if (value!==''&&!Test) {
+    if (value !== "" && !Test) {
       dispatch(actions.UpUIState.SetTipsVisible({ QQTipsVisible: true }));
     } else {
       dispatch(
@@ -676,10 +680,55 @@ class EditModal extends React.Component {
       PowerChildLen: PowerChildLen,
     });
   };
+  constructList = (List) => {
+    return List.map((child, index) => {
+      return (
+        <CheckBox key={index} value={child.IdentityID}>
+          <span className="check-title" title={child.IdentityName}>
+            {child.IdentityName}
+          </span>
+        </CheckBox>
+      );
+    });
+  };
 
+  changeCheckBox = (value) => {
+    const { dispatch } = this.props;
+    if (value.length <= 0) {
+      return;
+    }
+    dispatch(actions.UpUIState.SetTipsVisible({ IdentityTipsVisible: false }));
+
+    dispatch(
+      actions.UpDataState.setAdminPreview({
+        isChange: true,
+        IdentityIDs: value.join(","),
+      })
+    );
+  };
   render() {
     const { UIState, DataState } = this.props;
+    let {
+      AdminPreview: {
+        IdentityType,
+        TrasferData: { IdentityIDs },
+      },
+    } = DataState;
+    let IdentityCode =
+      typeof IdentityIDs === "string"
+        ? IdentityIDs.split("-")[IdentityIDs.split("-").length - 1]
+        : "";
+    // IdentityType = IdentityType.concat(IdentityType, IdentityType);
+    let IdentityList =
+      typeof IdentityIDs === "string" ? IdentityIDs.split(",") : [];
 
+    // 身份在ProductType为3出来
+    const { ProductType, ResHttpRootUrl } = sessionStorage.getItem(
+      "LgBasePlatformInfo"
+    )
+      ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
+      : {};
+    let HaveIdentity = parseInt(ProductType) === 3;
     return (
       <div className="EditModal_Admin">
         <div className="Left" id="picUpload"></div>
@@ -753,6 +802,68 @@ class EditModal extends React.Component {
               </Tips>
             </div>
           </div>
+          {HaveIdentity ? (
+            <div className="row clearfix">
+              <span className="culonm-1">
+                <span className="must-icon">*</span>身份：
+              </span>
+              <div className="culonm-2 culomn-identity">
+                {/* <div className="EditName-tips"> */}
+                <Tips
+                  // placement="bottomRight"
+                  // getPopupContainer={trigger => trigger.parentNode}
+                  overlayClassName={"tips-edit tips-iden"}
+                  visible={UIState.TipsVisible.IdentityTipsVisible}
+                  title={"请选择身份"}
+                  getPopupContainer={(e) => e.parentNode}
+                  autoAdjustOverflow={false}
+                >
+                  {IdentityCode === "IC0009" ? (
+                    <p
+                      className="empty"
+                      style={{ margin: 0, lineHeight: "40px" }}
+                    >
+                      院系管理员
+                    </p>
+                  ) : IdentityType instanceof Array &&
+                    IdentityType.length !== 0 ? (
+                    <CheckBoxGroup
+                      onChange={this.changeCheckBox}
+                      className={"identity-checkedBoxGroupMap"}
+                      value={IdentityList}
+                    >
+                      {IdentityType.length <= 16 ? (
+                        this.constructList(IdentityType)
+                      ) : (
+                        <Scrollbars
+                          autoHeightMin={28}
+                          autoHeightMax={90}
+                          autoHeight={true}
+                          autoHideTimeout={0}
+                          autoHideDuration={0}
+                          className="Scrollbars"
+                          // renderTrackVertical={props=>{return this.MapPlainOptions().length <= 16 ? <div></div> : <div {...props}/>}}
+                          style={{
+                            display: "inline-block",
+                            width: "unset",
+                            // height: "unset",
+                            // maxWidth: "400px",
+                            minWidth: "100px",
+                          }}
+                        >
+                          {this.constructList(IdentityType)}
+                        </Scrollbars>
+                      )}
+                    </CheckBoxGroup>
+                  ) : (
+                    <p className="empty" style={{ margin: 0, lineHeight: "40px" }}>暂无身份</p>
+                  )}
+                </Tips>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
           <div className="row clearfix">
             <span className="culonm-1">联系电话：</span>
             <div className="culonm-2 ">

@@ -1,0 +1,79 @@
+.menu-bar {
+    height: 50px;
+    line-height: 50px;
+    /* display: inline-block; */
+    float: left;
+    cursor: pointer;
+    .bar-content {
+        line-height: 14px;
+        border-right: 1px solid #cccccc;
+        padding: 0 20px 0 38px;
+        font-size: 14px;
+        color: #333333;
+        &.bar-icon-All {
+            background: url($img-url+'/Common/TimeBanner/menu-icon1.png')no-repeat 20px center /15px 15px;
+        }
+        &.bar-icon-Student {
+            background: url($img-url+'/Common/TimeBanner/menu-icon22.png')no-repeat 20px center /15px 15px;
+        }
+        &.bar-icon-Teacher {
+            background: url($img-url+'/Common/TimeBanner/menu-icon16.png')no-repeat 20px center /15px 15px;
+        }
+        &.bar-icon-Leader {
+            background: url($img-url+'/Common/TimeBanner/menu-icon18.png')no-repeat 20px center /15px 15px;
+        }
+        &.bar-icon-Graduate {
+            background: url($img-url+'/Common/TimeBanner/menu-icon28.png')no-repeat 20px center /15px 15px;
+        }
+        &.bar-icon-Face {
+            background: url($img-url+'/Common/TimeBanner/icon-face.png')no-repeat 20px center /15px 15px;
+        }
+    }
+    &:last-of-type {
+        .bar-content {
+            border: none;
+        }
+    }
+    &:hover,
+    &.active {
+        .bar-content {
+            color: #ff6600;
+            &.bar-icon-All {
+                background: url($img-url+'/Common/TimeBanner/menu-icon1-hover.png')no-repeat 20px center /15px 15px;
+            }
+            &.bar-icon-Student {
+                background: url($img-url+'/Common/TimeBanner/menu-icon22-hover.png')no-repeat 20px center /15px 15px;
+            }
+            &.bar-icon-Teacher {
+                background: url($img-url+'/Common/TimeBanner/menu-icon16-hover.png')no-repeat 20px center /15px 15px;
+            }
+            &.bar-icon-Leader {
+                background: url($img-url+'/Common/TimeBanner/menu-icon18-hover.png')no-repeat 20px center /15px 15px;
+            }
+            &.bar-icon-Graduate {
+                background: url($img-url+'/Common/TimeBanner/menu-icon28-hover.png')no-repeat 20px center /15px 15px;
+            }
+            &.bar-icon-Face {
+                background: url($img-url+'/Common/TimeBanner/icon-face-hover.png')no-repeat 20px center /15px 15px;
+            }
+        }
+    }
+    &.active {
+        background-color: #ffefe5;
+    }
+}
+
+.timeBanner_tips {
+    float: right;
+    .tips_num {
+        color: #ff0000;
+    }
+    .tips_handle {
+        color: #0099ff;
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover {
+            color: #ff6600;
+        }
+    }
+}

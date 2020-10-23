@@ -17,6 +17,7 @@ const AdminPreview = (
       QQ: "",
       Weixin: "",
       Weibo: "",
+      IdentityIDs: "",
     },
     InitData: {
       isChange: false,
@@ -29,11 +30,16 @@ const AdminPreview = (
       QQ: "",
       Weixin: "",
       Weibo: "",
+      IdentityIDs: "",
     },
+    IdentityType: [],
   },
   actions
 ) => {
   switch (actions.type) {
+    case UpDataState.GET_IDENTITY_TYPE_FOR_ADMIN:
+      //   let IdentityType = Object.assign({}, state.IdentityType, { ...actions.data });
+      return Object.assign({}, state, { IdentityType: actions.data });
     case UpDataState.GET_ADMIN_PREVIEW:
       //let { Total, ...list } = actions.data;
 

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,createRef } from "react";
 import { Menu, Loading, Alert } from "../../../common";
 import { connect } from "react-redux";
 import Introduce from "../component/Introduce";
@@ -93,34 +93,35 @@ class App extends Component {
     // TokenCheck()
     //判断token是否存在
     let that = this;
+    this.Frame = createRef()
 
-    TokenCheck_Connect(false, () => {
-      let token = sessionStorage.getItem("token");
-      // sessionStorage.setItem('UserInfo', '')
-      if (sessionStorage.getItem("UserInfo")) {
-        dispatch(
-          actions.UpDataState.getLoginUser(
-            JSON.parse(sessionStorage.getItem("UserInfo"))
-          )
-        );
-        that.requestData(route);
-      } else {
-        getUserInfo(token, "000");
-        let timeRun = setInterval(function () {
-          if (sessionStorage.getItem("UserInfo")) {
-            dispatch(
-              actions.UpDataState.getLoginUser(
-                JSON.parse(sessionStorage.getItem("UserInfo"))
-              )
-            );
-            that.requestData(route);
+    // TokenCheck_Connect(false, () => {
+    //   let token = sessionStorage.getItem("token");
+    //   // sessionStorage.setItem('UserInfo', '')
+    //   if (sessionStorage.getItem("UserInfo")) {
+    //     dispatch(
+    //       actions.UpDataState.getLoginUser(
+    //         JSON.parse(sessionStorage.getItem("UserInfo"))
+    //       )
+    //     );
+    //     that.requestData(route);
+    //   } else {
+    //     getUserInfo(token, "000");
+    //     let timeRun = setInterval(function () {
+    //       if (sessionStorage.getItem("UserInfo")) {
+    //         dispatch(
+    //           actions.UpDataState.getLoginUser(
+    //             JSON.parse(sessionStorage.getItem("UserInfo"))
+    //           )
+    //         );
+    //         that.requestData(route);
 
-            clearInterval(timeRun);
-          }
-        }, 1000);
-        //dispatch(actions.UpDataState.getLoginUser(JSON.parse(sessionStorage.getItem('UserInfo'))));
-      }
-    });
+    //         clearInterval(timeRun);
+    //       }
+    //     }, 1000);
+    //     //dispatch(actions.UpDataState.getLoginUser(JSON.parse(sessionStorage.getItem('UserInfo'))));
+    //   }
+    // });
   }
 
   componentWillMount() {
@@ -226,12 +227,12 @@ class App extends Component {
       // });
       AdminPower = false;
     }
-    let havePower = QueryPower({
-      UserInfo: userMsg,
-      ModuleID: ACCOUNT_MODULEID,
-    });
-    havePower.then((res) => {
-      if (res) {
+    // let havePower = QueryPower({
+    //   UserInfo: userMsg,
+    //   ModuleID: ACCOUNT_MODULEID,
+    // });
+    // havePower.then((res) => {
+    //   if (res) {
         dispatch(
           actions.UpDataState.GetConfig({
             func: (State) => {
@@ -322,6 +323,17 @@ class App extends Component {
                   )
                 );
               } else if (handleRoute === "Leader") {
+                 // 身份在ProductType为3出来
+            const { ProductType, ResHttpRootUrl } = sessionStorage.getItem(
+              "LgBasePlatformInfo"
+            )
+              ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
+              : {};
+            let HaveIdentity = parseInt(ProductType) === 3;
+            if (HaveIdentity) {
+              history.push("/Student");
+              return;
+            }
                 dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
                 dispatch(
                   actions.UpDataState.getSchoolLeaderPreview(
@@ -347,8 +359,8 @@ class App extends Component {
             },
           })
         );
-      }
-    });
+    //   }
+    // });
   };
   //操作左侧菜单，响应路由变化
   handleMenu = () => {
@@ -394,11 +406,29 @@ class App extends Component {
   };
   //每个组件的下拉菜单的数据请求
   AllDropDownMenu = (route) => {};
-
+  onRef = (ref) => {
+    this.Frame = ref;
+  };
   render() {
     const { UIState, DataState } = this.props;
     let UserID = DataState.LoginUser.UserID;
-
+    // 身份在ProductType为3出来
+    const { ProductType, ResHttpRootUrl } = sessionStorage.getItem(
+      "LgBasePlatformInfo"
+    )
+      ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
+      : {};
+    let HaveIdentity = parseInt(ProductType) === 3;
+    let List = this.state.List;
+    if (HaveIdentity) {
+      let oldList = List;
+      List = [];
+      oldList.forEach((child) => {
+        if (child.value !== "Leader") {
+          List.push(child);
+        }
+      });
+    }
     return (
       <React.Fragment>
         <Loading
@@ -420,9 +450,24 @@ class App extends Component {
             type="triangle"
             showBarner={true}
             showLeftMenu={false}
+            pageInit={() => {
+              const { dispatch, DataState } = this.props;
+
+              let route = history.location.pathname;
+              let ModuleID = "000009";
+              dispatch(
+                actions.UpDataState.getLoginUser(
+                  JSON.parse(sessionStorage.getItem("UserInfo"))
+                )
+              );
+              this.Frame.getIdentity({ ModuleID }, (identify) => {
+                this.requestData(route);
+              });
+            }}
+            onRef={this.onRef.bind(this)}
           >
             <div ref="frame-time-barner">
-              <TimeBanner List={this.state.List} />
+              <TimeBanner List={ List} />
             </div>
             {/* <div ref="frame-left-menu">
               <Menu params={this.state.MenuParams}></Menu>
