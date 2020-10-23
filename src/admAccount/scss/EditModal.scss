@@ -114,6 +114,27 @@
                     }
                 }
             }
+            .culomn-identity {
+                height: auto;
+                .identity-checkedBoxGroupMap {
+                    padding-top: 8px;
+                    .ant-checkbox-wrapper {
+                        line-height: 23px;
+                        margin-left: 0;
+                        .check-title {
+                            display: inline-block;
+                            width: 80px;
+                            vertical-align: top;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                        // &:nth-of-type(4n+1) {
+                        //     margin-left: 0;
+                        // }
+                    }
+                }
+            }
             .EditName-tips {
                 position: absolute;
                 //left: 310px;
