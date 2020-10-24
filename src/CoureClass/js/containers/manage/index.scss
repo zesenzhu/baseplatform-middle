@@ -176,6 +176,14 @@
 
         color: #0099ff;
 
+        span{
+
+          display: block;
+
+          @include textOverFlow;
+
+        }
+
         &:hover{
 
           color: #ff6600;
