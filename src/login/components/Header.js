@@ -349,7 +349,7 @@ function Header(props) {
 
                     <i className={"close-icon"} onClick={e=>setIntroduceModal(d=>({...d,show:false}))}></i>
 
-                    <iframe src={`${props.IntroWebSvrAddr}/Pages/UserHelp/teacherhelp.html`} frameBorder={0}></iframe>
+                    <iframe src={`${props.IntroWebSvrAddr}/Pages/UserHelp/handbook.html`} frameBorder={0}></iframe>
 
                 </div>
 
