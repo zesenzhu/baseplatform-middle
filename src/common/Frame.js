@@ -367,8 +367,8 @@ class FrameContainer extends Component{
                         this.IdentityRecognition(data,ModuleID,callBack);
 
                     }else{
-                        
-                        if (callBack){
+
+                        if(callBack){
 
                             callBack();
 
@@ -382,7 +382,7 @@ class FrameContainer extends Component{
 
         }else{
 
-            if (callBack){
+            if(callBack){
 
                 callBack();
 
@@ -395,49 +395,57 @@ class FrameContainer extends Component{
 
     IdentityRecognition(IdentityList,ModuleID,callBack){
 
-        const promiseList  =  IdentityList.map(async (i)=>{
+        if (ModuleID){
 
-            const res =  await this.ValidateIdentity(i.IdentityCode,ModuleID);
+            const promiseList  =  IdentityList.map(async (i)=>{
 
-            return res;
+                const res =  await this.ValidateIdentity(i.IdentityCode,ModuleID);
 
-        });
+                return res;
 
-        Promise.all(promiseList).then(res=>{
+            });
 
-            const index = res.findIndex(i=>i===true);
+            Promise.all(promiseList).then(res=>{
 
-            if (index>=0){
+                const index = res.findIndex(i=>i===true);
 
-                const IdentityItem = IdentityList[index];
+                if (index>=0){
 
-                this.setState({
+                    const IdentityItem = IdentityList[index];
 
-                    Identity:{
+                    this.setState({
 
-                        Icon:IdentityItem.IconUrl,
+                        Identity:{
 
-                        Name:IdentityItem.IsPreset?'':IdentityItem.IdentityName
+                            Icon:IdentityItem.IconUrl,
 
-                    }
+                            Name:IdentityItem.IsPreset?'':IdentityItem.IdentityName
 
-                },()=>{
+                        }
 
-                    if (callBack){
+                    },()=>{
 
-                        callBack(IdentityItem);
+                        if (callBack){
 
-                    }
+                            callBack([IdentityItem]);
 
-                });
+                        }
 
-            }else{
+                    });
 
-                window.location.href = CONFIG.ErrorProxy + "/Error.aspx?errcode=E011";
+                }else{
 
-            }
+                    window.location.href = CONFIG.ErrorProxy + "/Error.aspx?errcode=E011";
 
-        });
+                }
+
+            });
+
+        }else{
+
+            callBack(IdentityList);
+
+        }
 
     }
 
