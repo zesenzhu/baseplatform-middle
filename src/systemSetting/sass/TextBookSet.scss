@@ -15,7 +15,7 @@
     .guide {
         // width: 881px;
         // margin-left: 30px;
-        border-bottom: 1px dashed #ccc;
+        // border-bottom: 1px dashed #ccc;
         padding-bottom: 7px;
         // height: 25px;
         .TextBook-logo {
@@ -40,6 +40,11 @@
             color: #333333;
             vertical-align: top;
         }
+    }
+    .hr {
+        margin: 2px 0 0 28px;
+        width: calc(100% - 28px);
+        border-top: 1px dashed #aaa;
     }
     .TextBook-content {
         position: relative;

@@ -3,20 +3,21 @@
     min-height: 624px;
     padding: 25px 32px;
     .content-top {
-        height: 28px;
+        height: 36px;
         .top-icon {
             display: inline-block;
             vertical-align: top;
             width: 17px;
-            height: 17px;
+            height: 100%;
             margin-right: 6px;
-            background: url(../images/Barner/menu-icon1-hover.png) no-repeat center center/100% 100%;
+            background: url(../images/Barner/menu-icon1-hover.png) no-repeat center center/100% 17px;
         }
         .top-title {
             width: calc(100% - 23px);
-            height: 28px;
+            height: 36px;
+            line-height: 36px;
             display: inline-block;
-            line-height: 17px;
+            // line-height: 17px;
             font-size: 16px;
             vertical-align: top;
             color: #333333;

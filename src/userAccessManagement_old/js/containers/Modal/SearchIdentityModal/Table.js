@@ -79,19 +79,23 @@ class Left extends Component {
                       <span className="searchValue">{KeyWord}</span>
                     </>
                   );
+                } else {
+                  return <>{child}</>;
                 }
               });
             }
             if (typeof UserID === "string") {
               let UserIDList = UserID.split(KeyWord);
               UserIDObj = UserIDList.map((child, index) => {
-                if (UserIDList.length <= 1 || index !== UserIDList.length - 1) {
+                if  ( index !== UserIDList.length - 1) {
                   return (
                     <>
                       {child}
                       <span className="searchValue">{KeyWord}</span>
                     </>
                   );
+                } else {
+                  return <>{child}</>;
                 }
               });
             }

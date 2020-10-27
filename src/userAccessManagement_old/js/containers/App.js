@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import {
   Menu,
   Loading,
@@ -47,6 +47,7 @@ class App extends Component {
     this.state = {
       UserMsg: props.PublicState.LoginMsg,
     };
+    this.Frame = createRef();
   }
 
   componentWillMount() {
@@ -63,12 +64,6 @@ class App extends Component {
     //查询userInfo是否存在
     if (JSON.parse(sessionStorage.getItem("UserInfo"))) {
       let userMsg = setRole(JSON.parse(sessionStorage.getItem("UserInfo"))); //做角色处理，增加个Role字段
-      dispatch(
-        PublicAction.getLoginUser(
-          // ...JSON.parse(sessionStorage.getItem("UserInfo")),
-          userMsg
-        )
-      );
 
       if (!userMsg.SchoolID) {
         //做字段排除，不存在就不能进界面
@@ -77,12 +72,19 @@ class App extends Component {
       // 数据请求前的处理
       // 获取是否开启家长功能
       dispatch(DataAction.GetConfig({}));
-
-      this.RouteListening({ isFirst: true });
-
-      history.listen(() => this.RouteListening({}));
-      // this.RequestData();
-      dispatch(PublicAction.AppLoadingClose());
+      let ModuleID = "000008";
+      this.Frame.getIdentity({ ModuleID }, (identity) => {
+        this.RouteListening({ isFirst: true });
+        dispatch(
+          PublicAction.getLoginUser(
+            // ...JSON.parse(sessionStorage.getItem("UserInfo")),
+            { ...userMsg, ...identity }
+          )
+        );
+        history.listen(() => this.RouteListening({}));
+        // this.RequestData();
+        dispatch(PublicAction.AppLoadingClose());
+      });
     }
     // }
 
@@ -167,6 +169,9 @@ class App extends Component {
       HandleAction.SetModalVisible({ SearchIdentityModalVisible: true })
     );
   };
+  onRef = (ref) => {
+    this.Frame = ref;
+  };
   render() {
     const {
       HandleState: {
@@ -225,6 +230,7 @@ class App extends Component {
             showBarner={showBarner}
             className={`myFrame  ${className}`}
             pageInit={this.RequestData}
+            onRef={this.onRef}
             topRightContent={
               <Search
                 placeHolder="请输入用户姓名/工号/学号搜索用户身份权限..."

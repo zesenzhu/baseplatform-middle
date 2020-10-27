@@ -304,6 +304,7 @@ class YearSemesterSetting extends Component {
             <div className="semester-logo"></div>
             <span>学年学期设置</span>
           </div>
+          <div className="hr"></div>
           {semesterInfo.TotalWeeks ? (
             <React.Fragment>
               <i></i>
@@ -360,7 +361,7 @@ class YearSemesterSetting extends Component {
                 {semesterInfo.TermStatus === 2 ? (
                   ""
                 ) : (
-                  <p className="tips">学期结束后才能启用新学期</p>
+                  <p className="tips tips-2">学期结束后才能启用新学期</p>
                 )}
               </>
             ) : (

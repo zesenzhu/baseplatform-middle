@@ -300,7 +300,8 @@
             // width: 150px;
             max-width: calc(100% - 16px);
             height: 36px;
-            background-color: rgba($color: #009900, $alpha: 0.3);
+            // background-color: rgba($color: #009900, $alpha: 0.3);
+            background-color: #d6efd6;
             border-radius: 3px;
             line-height: 36px;
             padding: 0 50px 0 12px;
@@ -371,7 +372,7 @@
     .addclass-select-grade {
         position: relative;
         z-index: 5;
-        margin-left: 38px;
+        margin-left: 10px;
         margin-top: 20px;
         height: 28px;
         line-height: 28px;
@@ -397,7 +398,7 @@
     }
     .ant-input {
         padding: 1px;
-        width: 265px;
+        width: 255px;
         margin-left: 8px;
         text-indent: 12px;
     }
@@ -530,7 +531,8 @@
             // width: 150px;
             max-width: calc(100% - 16px);
             height: 36px;
-            background-color: rgba($color: #009900, $alpha: 0.3);
+            // background-color: rgba($color: #009900, $alpha: 0.3);
+            background-color: #d6efd6;
             border-radius: 3px;
             line-height: 36px;
             padding: 0 50px 0 12px;
@@ -593,4 +595,8 @@
             }
         }
     }
+}
+
+textarea.ant-input {
+    border: 1px solid #d9d9d9;
 }

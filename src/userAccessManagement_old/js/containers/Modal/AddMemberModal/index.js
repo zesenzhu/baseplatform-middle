@@ -49,7 +49,8 @@ class AddMemberModal extends Component {
       dispatch,
       HandleState: {
         ParamsData: {
-          AddMember: {  IdentityCode,
+          AddMember: {
+            IdentityCode,
             IdentityName,
             UserType,
             IdentityID,
@@ -60,11 +61,12 @@ class AddMemberModal extends Component {
             FullName,
             SelectRole,
             LayoutType,
-            NodeType, },
+            NodeType,
+          },
         },
       },
     } = this.props;
-    if(MemberList.length===0){
+    if (MemberList.length === 0) {
       dispatch(
         PublicAction.showErrorAlert({
           type: "error",
@@ -73,16 +75,21 @@ class AddMemberModal extends Component {
       );
       return;
     }
-    dispatch(DataAction.AddIdentityUser({fn:()=>{
-      this.onModalCancel()
-    }}))
+    dispatch(
+      DataAction.AddIdentityUser({
+        fn: () => {
+          this.onModalCancel();
+        },
+      })
+    );
   };
   onModalCancel = () => {
     let {
       dispatch,
       HandleState: {
         ParamsData: {
-          AddMember: {  IdentityCode,
+          AddMember: {
+            IdentityCode,
             IdentityName,
             UserType,
             IdentityID,
@@ -93,7 +100,8 @@ class AddMemberModal extends Component {
             FullName,
             SelectRole,
             LayoutType,
-            NodeType, },
+            NodeType,
+          },
         },
       },
     } = this.props;
@@ -116,6 +124,8 @@ class AddMemberModal extends Component {
         NodeType: "tree", //tree,user
         LayoutType: "type", //type,level
         List: [], //存当前的列表
+        SearchUserWord: "", //搜索关键词
+        SearchUserWordVisible: false, //搜索关键词
       })
     );
     dispatch(PublicAction.ContentLoadingClose());

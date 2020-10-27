@@ -16,11 +16,15 @@ const GetData = (
     UserList: [],
     SearchIdentity: { PageIndex: 1, Total: 0, List: [] },
     IdentityTypeForAccredit: [],
-
+    SearchUser: { Total: 0, PageIndex: 0, List: [] },
   },
   actions
 ) => {
   switch (actions.type) {
+    case DataAction.SEARCH_USER:
+      return Object.assign({}, state, {
+        SearchUser: actions.data,
+      });
     case DataAction.GET_IDENTITY_TYPE_FOR_ACCREDIT:
       return Object.assign({}, state, {
         IdentityTypeForAccredit: actions.data,

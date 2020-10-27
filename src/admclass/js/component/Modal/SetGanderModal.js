@@ -77,6 +77,15 @@ class SetGanderModal extends React.Component {
     //   })
     // );
   };
+  onSearchKeyKeyUp = (key) => {
+    // console.log(key.keyCode);
+    if (
+      // this.state.SearchValue&&
+      key.keyCode === 13) {
+      //enter键搜索
+      this.onSearchClick();
+    }
+  };
   onSearchClick = () => {
     let { dispatch } = this.props;
     dispatch(
@@ -193,6 +202,7 @@ class SetGanderModal extends React.Component {
                       placeholder="请输入工号或姓名进行搜索..."
                       // title="班级："
                       className="search-input"
+                      onKeyUp={this.onSearchKeyKeyUp}
                       value={this.state.SearchValue}
                       onChange={this.onSearchKeyChange}
                     ></Input>
