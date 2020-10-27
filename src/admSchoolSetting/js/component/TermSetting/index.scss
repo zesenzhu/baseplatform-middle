@@ -79,6 +79,7 @@
             }
             .TD-YearSetting {
                 float: left;
+                left: 50px;
                 background: url(./images/semester_green.png) no-repeat center center/contain;
                 box-shadow: 0px 25px 25px -25px #2bc26b;
                 .YearSetting {
@@ -145,6 +146,7 @@
             }
             .TD-TermSetting {
                 float: right;
+                right: 50px;
                 box-shadow: 0px 25px 25px -25px #0074f1;
                 background: url(./images/semester_blue.png) no-repeat center center/contain;
                 .TermSetting {

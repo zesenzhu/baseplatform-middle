@@ -1345,7 +1345,7 @@ onShowSizeChange = (current, pageSize) => {
                 ref="dropMenuFirst"
                 onChange={this.ParentsDropMenu}
                 width={120}
-                title="班级："
+                title="班级:"
                 height={240}
                 dropSelectd={this.state.firstSelect}
                 dropList={

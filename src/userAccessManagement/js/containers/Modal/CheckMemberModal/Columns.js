@@ -6,7 +6,7 @@ let columns = [
     title: "姓名",
     align: "center",
     key: "UserName",
-    width: 115,
+    width: 130,
     colSpan: 1,
     render: (data) => {
       let { UserName } = data;
@@ -22,7 +22,7 @@ let columns = [
     title: "工号",
     align: "center ",
     colSpan: 1,
-    width: 115,
+    width: 130,
     key: "UserID",
     render: (data) => {
       let { UserID } = data;
@@ -38,7 +38,7 @@ let columns = [
     title: "所在部门",
     align: "left ",
     colSpan: 1,
-    width: 630,
+    width: 600,
     key: "Content",
     render: (data) => {//教研组长的要特殊处理，学科不用tooltip，在Default组件控制
       let { Content } = data;
@@ -46,7 +46,7 @@ let columns = [
         let len = Content.length;
         if (len > 2) {
           return (
-            <span className="Content">
+            <span className="Member-Content">
               <span title={Content[0]} className="Content-title">
                 {Content[0]}
               </span>
@@ -72,13 +72,13 @@ let columns = [
           );
         } else {
           return (
-            <span title={Content.join("；")} className="Content">
+            <span title={Content.join("；")} className="Member-Content">
               {Content.length>0?Content.join("；"):'--'}
             </span>
           );
         }
       } else {
-        return <span className="Content">--</span>;
+        return <span className="Member-Content">--</span>;
       }
     },
   },

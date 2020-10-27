@@ -851,6 +851,8 @@ class TextBookSetting extends Component {
           <i className="TextBook-logo"></i>
           <span className="TextBook-title">教材设置</span>
         </div>
+        <div className="hr"></div>
+
         <div className="TextBook-content">
           <Loading spinning={SubjectsLoading} opacity={true} tip="请稍候..." style={{ opacity: '0.7', background: '#fff' }}>
             <Collapse

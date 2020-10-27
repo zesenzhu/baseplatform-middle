@@ -1359,7 +1359,7 @@ class Teacher extends React.Component {
                 onChange={this.TeacherDropMenu}
                 width={120}
                 height={240}
-                title="学科："
+                title="学科:"
                 dropSelectd={this.state.SubjectSelect}
                 dropList={
                   DataState.SubjectTeacherMsg.returnData

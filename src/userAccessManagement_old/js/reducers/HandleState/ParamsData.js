@@ -43,6 +43,10 @@ const ParamsData = (
       FullName: [],
       NodeType: "tree", //tree,user
       LayoutType: "type", //type,level
+      SearchUserWord:'',//搜索关键词
+      SearchUserWordVisible:false,//搜索关键词
+      SearchPageIndex:-1,
+      SearchPageSize:5,
       List: [], //存当前的列表
       //       单个节点数据结构要求：NodeType|NodeLevel|NodeID|FullID
 

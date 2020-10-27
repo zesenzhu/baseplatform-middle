@@ -128,20 +128,24 @@
             }
             .UserName {
                 font-size: 14px;
-                width: 105px;
+                display: inline-block;
+                width: 130px;
                 color: #333333;
                 @include TextOverflow;
                 font-weight: bold;
             }
             .UserID {
+                display: inline-block;
                 font-size: 14px;
                 @include TextOverflow;
-                width: 105px;
+                width: 130px;
                 color: #999999;
             }
-            .Content {
+            .Member-Content {
                 padding: 0;
+                display: inline-block;
                 font-size: 14px;
+                width: 600px;
                 color: #666666;
                 @include TextOverflow;
                 .Content-title {

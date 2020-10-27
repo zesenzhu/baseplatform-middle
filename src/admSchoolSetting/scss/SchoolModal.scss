@@ -67,14 +67,14 @@
             // top: 50px;
             left: 0px;
             // width: 90%;
-            margin-left: 30px;
+            margin-left: 40px;
             // height: 22px;
             line-height: 22px;
             color: red;
             font-size: 14px;
             margin-top: 10px;
             // padding-left: 26px;
-            font-weight: bold;
+            // font-weight: bold;
             span {
                 // @include Vcenter();
                 display: inline-block;
@@ -83,7 +83,9 @@
                 vertical-align: bottom;
                 background: url("../images/light_but.png");
                 //  background: url('http://img.lancoo.cn/test/123');
-                margin-right: 8px;
+                // margin-right: 8px;
+                margin-right: 3px;
+                margin-left: -10px;
             }
         }
         .row {

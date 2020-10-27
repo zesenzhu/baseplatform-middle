@@ -140,7 +140,7 @@
                 color: #999999;
             }
             .Content {
-                padding-left: 0;
+                padding: 0;
                 font-size: 14px;
                 color: #666666;
                 @include TextOverflow;
@@ -153,7 +153,7 @@
                 .Content-more {
                     display: inline-block;
                     vertical-align: top;
-                    max-width: 40%;
+                    max-width: 15%;
                     @include TextOverflow;
                     padding-left: 5px;
                     i {
@@ -198,7 +198,7 @@
             display: block;
             .content-text {
                 display: inline-block;
-                // width: 380px;
+                width: 290px;
                 line-height: 28px;
                 text-align: left;
                 overflow: hidden;

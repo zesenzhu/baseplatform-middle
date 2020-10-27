@@ -337,7 +337,7 @@ class CustomIdentityModal extends Component {
               </span>
             </div>
             <div className="row">
-              <span className="left">身份描述:</span>
+              <span className="left"><i className="must">*</i>身份描述:</span>
               <span className="right">
                 <Tips
                   overlayClassName="tips"

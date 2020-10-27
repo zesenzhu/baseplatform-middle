@@ -3,6 +3,21 @@
     position: relative;
     width: 100%;
     min-height: 626px;
+    // .dropTitle {
+    //     padding-right: 8px;
+    // }
+    .dropTitle,
+    .dropdown_title_span {
+        margin-right: 8px;
+        color: #333333
+    }
+    .dropdown_container {
+        &:first-of-type {
+            .dropdown_title_span {
+                margin-right: 0;
+            }
+        }
+    }
     .Content-top {
         position: relative;
         margin-left: 15px;
@@ -210,7 +225,7 @@
                 margin: 0 6px;
                 cursor: pointer;
                 border-radius: 3px;
-                border: 1px solid #999;
+                // border: 1px solid #999;
                 object-fit: cover;
             }
             .name-UserName {
@@ -295,7 +310,7 @@
             }
             .MyClass {
                 font-size: 14px;
-                color: #666;
+                color: #333;
                 .CollegeMajor {
                     line-height: 20px;
                     display: inline-block;
@@ -315,7 +330,7 @@
             }
             .MyGrade {
                 font-size: 14px;
-                color: #666;
+                color: #333;
                 .CollegeMajor {
                     // line-height: 20px;
                     display: inline-block;
@@ -351,7 +366,7 @@
             }
             .Position {
                 font-size: 14px;
-                color: #666;
+                color: #333;
                 line-height: 20px;
                 display: inline-block;
                 width: 220px;

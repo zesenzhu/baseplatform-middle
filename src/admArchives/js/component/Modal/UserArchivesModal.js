@@ -949,12 +949,12 @@ class UserArchivesModal extends Component {
         //       GroupList.push(child);
         //     }
         //   });
-        bodyHeight = "550px";
+        bodyHeight = "560px";
         break;
       case "Leader":
         RoleName = "领导";
         UserIDC = "工号";
-        bodyHeight = "380px";
+        bodyHeight = "390px";
 
         break;
       default:
@@ -989,7 +989,7 @@ class UserArchivesModal extends Component {
                     UserArchivesModalRole === "Student" ||
                     !UserArchivesModalRole
                       ? 18 + "px"
-                      : 5 + "px",
+                      : 18 + "px",
                 }}
               >
                 <span className="culonm-1">

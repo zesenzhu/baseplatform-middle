@@ -1382,7 +1382,7 @@ class Student extends React.Component {
                 ref="dropMenuFirst"
                 onChange={this.StudentDropMenu}
                 width={120}
-                title="班级："
+                title="班级:"
                 height={240}
                 dropSelectd={this.state.firstSelect}
                 dropList={

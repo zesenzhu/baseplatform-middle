@@ -1,7 +1,7 @@
 /*
  * @Author: zhuzesen
  * @Date: 2020-09-15 22:07:05
- * @LastEditTime: 2020-09-27 09:10:04
+ * @LastEditTime: 2020-10-26 10:08:52
  * @LastEditors: zhuzesen
  * @Description: 学校信息编辑
  * @FilePath: \baseplatform-middle\src\admSchoolSetting\js\component\SchoolModal.js
@@ -465,7 +465,7 @@ class SchoolModal extends React.Component {
             color="blue"
             onClick={this.CropperModalOpen}
           >
-            上传图标
+            上传校徽
           </Button>
           <Button
             color="green"

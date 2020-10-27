@@ -84,20 +84,30 @@ class Tree extends Component {
           },
         },
       },
+      DataState: {
+        GetData: { IdentityUser },
+      },
       dispatch,
     } = this.props;
     let noOtherList = []; //没有该结构的数组
     MemberList.forEach((member) => {
+      //已选的用户列表
       if (!List.some((child) => child.NodeID === member.NodeID)) {
+        //List 当前的tree列表，属于List 的member 都去掉
         noOtherList.push(member);
       }
     });
     // 更新
     List.forEach((child) => {
-      if (e.includes(child.NodeID)) {
+      //e为新选的，进行合并
+      if (
+        e.includes(child.NodeID) &&
+        !IdentityUser.List.some((user) => user.UserID === child.NodeID) // 去掉以前就在的member
+      ) {
         noOtherList.push(child);
       }
     });
+
     dispatch(HandleAction.ParamsSetAddMember({ MemberList: noOtherList }));
   };
   onCheckAllChange = (e) => {
@@ -321,6 +331,15 @@ class Tree extends Component {
                           }
                           value={child.NodeID}
                         >
+                          {NodeType !== "tree" ? (
+                            <i
+                              style={{
+                                background: `url(${child.AvatarPath}) no-repeat center center /24px 24px`,
+                              }}
+                            ></i>
+                          ) : (
+                            ""
+                          )}
                           <span
                             className={`bar-name ${
                               NodeType !== "tree" ? "bar-name-2" : ""

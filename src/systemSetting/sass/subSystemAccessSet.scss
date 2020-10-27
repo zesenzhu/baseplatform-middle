@@ -15,13 +15,14 @@
     .guide {
         // width: 881px;
         // margin-left: 30px;
-        border-bottom: 1px dashed #ccc;
+        // border-bottom: 1px dashed #ccc;
         padding-bottom: 10px;
         .subsystem-logo {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            background: url("../images/subsystem_logo.png") no-repeat;
+            width: 18px;
+            height: 18px;
+            background: url("../images/subsystem_logo.png") no-repeat center center /100%;
+            vertical-align: bottom;
         }
         span {
             margin-left: 8px;
@@ -36,6 +37,11 @@
             color: #333333;
             vertical-align: top;
         }
+    }
+    .hr {
+        margin: 2px 0 0 26px;
+        width: calc(100% - 26px);
+        border-top: 1px dashed #aaa;
     }
     .subsystem-detail {
         margin-top: 16px;
