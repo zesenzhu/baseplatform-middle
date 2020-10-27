@@ -217,6 +217,9 @@ class MainContent extends Component {
     // this.handleMenu();
   };
   RequestData = (key) => {
+
+    console.log(1111);
+
     const { dispatch } = this.props;
     let route = history.location.pathname;
     const { SchoolID, UserType } = JSON.parse(
@@ -224,7 +227,7 @@ class MainContent extends Component {
     );
     const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
     dispatch(UpDataState.getLoginUser(UserInfo));
-    // console.log(route);
+
     let pathArr = route.split("/");
     let handleRoute = pathArr[1];
     let Params = pathArr[2];
@@ -266,6 +269,9 @@ class MainContent extends Component {
     let UserName = "";
     let PhotoPath = "";
     let UserID = "";
+
+
+
     //获取用户信息，并渲染到骨架上
     if (sessionStorage.getItem("UserInfo")) {
       const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
@@ -275,6 +281,9 @@ class MainContent extends Component {
     } else {
       return <div></div>;
     }
+
+
+
     // console.log(this.props)
     let path = history.location.pathname.split("/")[2];
     let isImport = false;
