@@ -1386,12 +1386,36 @@ class DropComponent extends React.Component {
     //简单搜索的值发生变化
     simpleSearchValueChange(e){
 
-        this.setState({
+    const { dropList } = this.props;
 
-            simpleSearchValue:e.target.value
+    const searchValue = e.target.value;
 
+    this.setState({
+
+        simpleSearchValue:searchValue
+
+    },()=>{
+
+        const list =  dropList.filter(i=>{
+
+            if(typeof(i.title)==='string'||typeof(i.title)==='number'){
+
+                return i.title.toString().includes(searchValue);
+
+            }else{
+
+                let hasValue = this.recursive(i.title);
+
+                return hasValue;
+
+            }
         });
 
+        const simpleSearchList = list.length>0?list:[{value:'symbol_none_value',title:'无数据'}];
+
+        this.setState({simpleSearchShow:true,simpleSearchList});
+
+    });
     }
 
     //简单搜索关闭
