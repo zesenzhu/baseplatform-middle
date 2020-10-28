@@ -55,6 +55,7 @@
                 width: 74px;
                 color: #ffffff;
                 @include TextOverflow();
+                font-style: normal;
             }
         }
         .Identity-Box {

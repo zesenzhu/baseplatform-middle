@@ -33,7 +33,7 @@ let columns = [
     title: "身份权限",
     align: "left",     
     colSpan: 1,
-    width: 380,
+    width: 360,
     key: "Module",
     render: () => {
       return;
@@ -43,7 +43,7 @@ let columns = [
     title: "成员人数",
     align: "center",     
     colSpan: 1,
-    width: 64,
+    width: 84,
     key: "UserCount",
     render: () => {
       return;

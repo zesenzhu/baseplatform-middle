@@ -17,6 +17,7 @@ function handleData(data) {
       userMail: "",
       userAddress: "",
       titleName:'',
+      IdentityName:'',
 
     };
   }
@@ -41,7 +42,8 @@ function handleData(data) {
     Telephone: data.Telephone2,//Telephone2 是指用户账号的电话号码
     Weibo: data.Weibo,
     StudentID:data.StudentID,
-    StudentName:data.StudentName
+    StudentName:data.StudentName,
+    IdentityName:data.IdentityName+'n',
   };
 }
 const GetUserMsg = (
@@ -64,7 +66,8 @@ const GetUserMsg = (
     Telephone: "",
     Weibo: "",
     StudentID:'',
-    StudentName:''
+    StudentName:'',
+    IdentityName:''
   },
   actions
 ) => {

@@ -278,9 +278,10 @@ class MainContent extends Component {
       UserName = UserInfo.UserName;
       PhotoPath = UserInfo.PhotoPath;
       UserID = UserInfo.UserID;
-    } else {
-      return <div></div>;
-    }
+    } 
+    // else {
+    //   return <div></div>;
+    // }
 
 
 

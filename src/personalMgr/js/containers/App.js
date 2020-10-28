@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 
 import { Loading, Alert, MenuLeftNoLink } from "../../../common";
 
@@ -74,6 +74,10 @@ class App extends Component {
         }
 
     }*/
+  constructor(props) {
+    super(props);
+    this.Frame = createRef;
+  }
   //点击menu
   menuClick(e) {
     const { dispatch } = this.props;
@@ -96,7 +100,14 @@ class App extends Component {
     dispatch({ type: MCIActions.MODULE_COMMON_INFO_MENU_CHANGE, data: "base" });
 
     const isSafeSetting = getQueryVariable("isSafeSetting");
-
+    let ModuleID = "";
+    this.Frame.getIdentity({}, (identity) => {
+      // console.log(identify);
+      dispatch({
+        type: LoginUserActions.UPDATE_LOGIN_USER,
+        data: { ...UserInfo, identity },
+      });
+    });
     getBaseInfo({ UserID, UserType, dispatch }).then((data) => {
       if (data) {
         if (data.AvatarPath === BaseSetting.AvatarPath) {
@@ -128,7 +139,9 @@ class App extends Component {
       }
     });
   }
-
+  onRef = (ref) => {
+    this.Frame = ref;
+  };
   render() {
     let { LoginUser, ModuleCommonInfo, AppAlert, AppLoading } = this.props;
 
@@ -148,7 +161,7 @@ class App extends Component {
         default: false,
       },
     ];
-
+   
     return (
       <React.Fragment>
         {AppLoading.show ? (
@@ -164,13 +177,14 @@ class App extends Component {
             image: logo,
           }}
           userInfo={{
-            name:null,
+            name: null,
             image: null,
           }}
           type="triangle"
           showBarner={false}
           showLeftMenu={true}
           pageInit={this.pageInit.bind(this)}
+          onRef={this.onRef}
         >
           <div ref="frame-left-menu">
             <div className="frame_left_menu_pic clearfix">
