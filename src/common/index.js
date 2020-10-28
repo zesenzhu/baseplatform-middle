@@ -1349,18 +1349,51 @@ class DropComponent extends React.Component {
             hasValue = this.recursive(reactDom.props.children[i]);
           }
         }
+
+        return hasValue;
       }
     }
-
-    return hasValue;
   }
-
   //简单搜索的值发生变化
   simpleSearchValueChange(e) {
-    this.setState({
-      simpleSearchValue: e.target.value,
-    });
+    const { dropList } = this.props;
+
+    const searchValue = e.target.value;
+
+    this.setState(
+      {
+        simpleSearchValue: searchValue,
+      },
+      () => {
+        const list = dropList.filter((i) => {
+          if (typeof i.title === "string" || typeof i.title === "number") {
+            return i.title.toString().includes(searchValue);
+          } else {
+            let hasValue = this.recursive(i.title);
+
+            return hasValue;
+          }
+        });
+
+        const simpleSearchList =
+          list.length > 0
+            ? list
+            : [{ value: "symbol_none_value", title: "无数据" }];
+
+        this.setState({ simpleSearchShow: true, simpleSearchList });
+      }
+    );
+    // }
+
+    // return hasValue;
   }
+
+  // //简单搜索的值发生变化
+  // simpleSearchValueChange(e) {
+  //   this.setState({
+  //     simpleSearchValue: e.target.value,
+  //   });
+  // }
 
   //简单搜索关闭
 

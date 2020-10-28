@@ -24,9 +24,9 @@ class Import extends Component{
     }
 
 
-    componentWillUpdate(){
+    UNSAFE_componentWillReceiveProps(nextProps){
 
-       /* const { LoginUser,dispatch } = this.props;
+        const { LoginUser,dispatch } = nextProps;
 
         if (Object.keys(LoginUser).length>0&&this.state.FirstUpload){
 
@@ -34,7 +34,7 @@ class Import extends Component{
 
             this.setState({FirstUpload:false});
 
-        }*/
+        }
     }
 
 
