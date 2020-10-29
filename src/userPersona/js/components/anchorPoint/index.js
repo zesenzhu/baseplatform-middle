@@ -34,13 +34,13 @@ function AnchorPoint(props) {
 
             const scrollTop = $(window).scrollTop();
 
-            if (scrollTop<=192+$('.app-content-wrapper>.content-item:first-child').height()){
+            if (scrollTop <= 192 + $('.app-content-wrapper>.content-item:first-child').height()) {
 
                 $('.ant-anchor-wrapper .ant-anchor-link:nth-child(2)').addClass('ant-anchor-link-active');
 
                 $('.ant-anchor-wrapper .ant-anchor-link:nth-child(2) .ant-anchor-link-title').addClass('ant-anchor-link-title-active');
 
-            }else if (scrollTop>192+$('.app-content-wrapper>.content-item:first-child').height()){
+            } else if (scrollTop > 192 + $('.app-content-wrapper>.content-item:first-child').height()) {
 
                 $('.ant-anchor-wrapper .ant-anchor-link:nth-child(2)').removeClass('ant-anchor-link-active');
 
