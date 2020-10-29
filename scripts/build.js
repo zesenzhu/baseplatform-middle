@@ -1,5 +1,8 @@
 'use strict';
 
+
+
+
 // Do this as the first thing so that any code reading it knows the right env.
 process.env.BABEL_ENV = 'production';
 process.env.NODE_ENV = 'production';
@@ -21,6 +24,8 @@ const path = require('path');
 const chalk = require('react-dev-utils/chalk');
 const fs = require('fs-extra');
 const webpack = require('webpack');
+
+const moment = require('moment');
 
 const configFactory = require('../config/webpack.config');
 const paths = require('../config/paths');
@@ -66,6 +71,9 @@ checkBrowsers(paths.appPath, isInteractive)
     // Merge with the public folder
     copyPublicFolder();
     // Start the webpack build
+
+    createVersionFile();
+
     return build(previousFileSizes);
   })
   .then(
@@ -95,7 +103,7 @@ checkBrowsers(paths.appPath, isInteractive)
         WARN_AFTER_BUNDLE_GZIP_SIZE,
         WARN_AFTER_CHUNK_GZIP_SIZE
       );
-      console.log();
+
 
       const appPackage = require(paths.appPackageJson);
       const publicUrl = paths.publicUrl;
@@ -133,7 +141,7 @@ function build(previousFileSizes) {
         'Setting NODE_PATH to resolve modules absolutely has been deprecated in favor of setting baseUrl in jsconfig.json (or tsconfig.json if you are using TypeScript) and will be removed in a future major release of create-react-app.'
       )
     );
-    console.log();
+
   }
 
   console.log('Creating an optimized production build...');
@@ -193,3 +201,14 @@ function copyPublicFolder() {
     filter: file => file !== paths.appHtml,
   });*/
 }
+
+const createVersionFile = ()=>{
+
+   fs.writeFile(`${paths.appBuild}/middle-version.txt`, `版本号：${new Date().getTime()},版本时间：${moment().format("YYYY-MM-DD HH:mm:ss.SSS")}`, function(err) {
+       if(err) {
+           return console.log(err);
+       }
+       console.log("The version file was saved!");
+   });
+
+};
