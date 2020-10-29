@@ -43,7 +43,7 @@ function handleData(data) {
     Weibo: data.Weibo,
     StudentID:data.StudentID,
     StudentName:data.StudentName,
-    IdentityName:data.IdentityName+'n',
+    IdentityName:data.IdentityName ,
   };
 }
 const GetUserMsg = (
