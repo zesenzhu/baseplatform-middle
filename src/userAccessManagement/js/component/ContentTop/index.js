@@ -91,7 +91,7 @@ class ContentTop extends Component {
 
     return (
       <div className="ContentTop" id="ContentTop">
-        <span className="CT-title">各类角色权限设置</span>
+        <span className="CT-title">各类身份权限设置</span>
         <span className="CT-handle">
           <span onClick={this.onAddClick} className="CTh-add">
             添加自定义身份

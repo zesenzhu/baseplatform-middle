@@ -245,9 +245,9 @@ class SchoolnfoSetting extends Component {
               CountyID: countyID,
               SchoolImgUrl_Long: ImgUrl,
             }).then((data) => {
-              console.log(data);
+              // console.log(data);
               if (data === 0) {
-                console.log("success");
+                // console.log("success");
                 dispatch(AppAlertAction.alertSuccess({ title: "修改成功" }));
                 dispatch(DataChange.getCurrentSchoolInfo(SchoolID));
               } else {
@@ -953,7 +953,7 @@ const mapStateToProps = (state) => {
   const { DataUpdate } = state;
 
   const { schoolInfo, semesterloading, periodInfo, serverAddress } = DataUpdate;
-  console.log(periodInfo);
+  // console.log(periodInfo);
 
   return {
     schoolInfo,
