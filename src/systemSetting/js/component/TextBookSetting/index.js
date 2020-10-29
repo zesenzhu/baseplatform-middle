@@ -216,7 +216,7 @@ class TextBookSetting extends Component {
             UpDataState.GetGradeSubjectInfo({
               schoolId: SchoolID,
               func: (State) => {
-                // console.log(State, 31231);
+                console.log(State, 31231);
                 let dropListSelectidx1 = 0;
                 let dropListSelectidx2 = 0;
                 for (let i = 0; i < State.GradeSubjectList.length; i++) {

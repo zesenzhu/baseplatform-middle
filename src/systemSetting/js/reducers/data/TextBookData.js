@@ -153,7 +153,21 @@ function handleSubjectList(Data) {
 function handleGradeSubjectList(Data){
   let  SubjectList = [];
   if (Data instanceof Array) {
-    Data.map((child) => {
+    let Data2=[];
+    Data.map((child,idx) => {
+      let b =0;
+      let a=child.OrderNo;
+      Data.map((child2,idx2)=>{
+        if(a>child2.OrderNo){
+          b++;
+        }
+      })
+      console.log(b);
+      Data2[b]=JSON.parse(JSON.stringify(Data[idx]));
+      // console.log(Data2[],4444444);
+    })
+    // console.log(Data2,4444444);
+    Data2.map((child,idx) => {
       if ( child.Subjects instanceof Array) {
         child.Subjects.map((SubjectArr,id)=>{
           child.Subjects[id]={
@@ -162,19 +176,17 @@ function handleGradeSubjectList(Data){
             ...SubjectArr,
           }
         })
-
-      
       }
      
-      SubjectList[child.OrderNo]={
-        value:child.OrderNo,
+      SubjectList[idx]={
+        value:idx,
         title: child.GradeName,
         ...child,
       }
      
     })
   }
-  // console.log(SubjectList);
+  console.log(SubjectList);
   return SubjectList;
 }
 function setSubjectLogo(Subject) {
