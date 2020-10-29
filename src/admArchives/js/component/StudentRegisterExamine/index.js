@@ -23,7 +23,7 @@ import history from "../../containers/history";
 import { postData, getData } from "../../../../common/js/fetch";
 import CONFIG from "../../../../common/js/config";
 import actions from "../../actions";
-
+import RegisterModel from '../RegisterModel'
 import Temple from "../Temple";
 
 // import "../../scss/Main.scss";
@@ -925,6 +925,7 @@ class RegisterExamine extends Component {
           <span className="top-tips">
             <span className="tips menu39 ">学生注册审核</span>
           </span>
+          <RegisterModel></RegisterModel>
         </div>
         <div className="Content-hr"></div>
         <div className="Content-handle clearfix">

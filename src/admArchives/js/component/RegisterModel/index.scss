@@ -1,0 +1,18 @@
+.RegisterModel {
+    float: right;
+    line-height: 36px;
+    .title,
+    .selectModel {
+        vertical-align: middle;
+    }
+    .selectModel {
+        width: 24px;
+        height: 12px;
+        cursor: pointer;
+        display: inline-block;
+        background: url(./images/img-close.png) no-repeat center center / 100%;
+        &.selected {
+            background: url(./images/img-open.png) no-repeat center center / 100%;
+        }
+    }
+}
