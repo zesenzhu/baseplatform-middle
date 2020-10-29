@@ -611,14 +611,18 @@ const getTeacherResView = async ({
     "&reqUrl=" +
     encodeURIComponent(url);
   let data = "";
-  let res = await getData(TransUrl, 2, "cors", false, false);
-  let json = await res.json();
-  json = JSON.parse(json);
-  // console.log(json)
+  try {
+    let res = await getData(TransUrl, 2, "cors", false, false);
+    let json = await res.json();
+    json = JSON.parse(json);
+    // console.log(json)
 
-  if (json.error === 0) {
-    data = json;
-  } else {
+    if (json.error === 0) {
+      data = json;
+    } else {
+      data = false; //有错误
+    }
+  } catch {
     data = false; //有错误
   }
   return data;
@@ -837,13 +841,17 @@ const teacherpercentage = async ({
     "&reqUrl=" +
     encodeURIComponent(url);
   let data = "";
-  let res = await getData(TransUrl, 2, "cors", false, false);
-  let json = await res.json();
-  json = JSON.parse(json);
+  try {
+    let res = await getData(TransUrl, 2, "cors", false, false);
+    let json = await res.json();
+    json = JSON.parse(json);
 
-  if (json.code === 0) {
-    data = json;
-  } else {
+    if (json.code === 0) {
+      data = json;
+    } else {
+      data = false; //有错误
+    }
+  } catch {
     data = false; //有错误
   }
   return data;
