@@ -443,7 +443,19 @@ class FrameContainer extends Component{
 
         }else{
 
-            callBack(IdentityList);
+            this.setState({
+
+                Identity:{
+
+                    Icon:IdentityList[0].IconUrl,
+
+                    Name:IdentityList[0].IsPreset?'':IdentityList[0].IdentityName
+
+                }},()=>{
+
+                callBack(IdentityList);
+
+            });
 
         }
 

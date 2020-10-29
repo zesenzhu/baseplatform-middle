@@ -170,6 +170,19 @@ export const GetStudentStudyInfo =  async ({schoolID,userID,termID='',dispatch})
 };
 
 
+//获取目标角色的用户身份
+
+export const GetIdentify =  async ({UserID,dispatch})=>{
+
+    const res = await getGetData(`/UserMgr/PowerMgr/GetIdentityTypeByUserID?UserID=${UserID}`,2);
+
+    if (res.StatusCode===200){
+
+        return res.Data;
+
+    }
+
+};
 
 
 

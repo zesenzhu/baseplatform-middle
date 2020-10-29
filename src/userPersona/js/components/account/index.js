@@ -8,7 +8,7 @@ import LinkBtn from '../linkBtn';
 
 import {btnQueryAlertShow,successAlertShow} from "../../actions/appAlertActions";
 
-import {ResetPwd} from "../../actions/apiActions";
+import {ResetPwd,GetIdentify} from "../../actions/apiActions";
 
 import {Modal, Table,Tips} from "../../../../common";
 
@@ -24,6 +24,8 @@ function Account(props) {
 
     //标签名称
     const [tabName,setTabName] = useState('');
+
+    const [identify,setIdentify] = useState('');
 
     //标签名称
     const [logModalShow,setLogModalShow] = useState(false);
@@ -49,7 +51,7 @@ function Account(props) {
 
     const userStatus = useSelector(state=>state.userStatus);
 
-    const { UserID,UserType } = useSelector(state=>state.targetUser);
+    const { UserID,UserType,SchoolID } = useSelector(state=>state.targetUser);
 
     const dispatch = useDispatch();
 
@@ -67,6 +69,25 @@ function Account(props) {
             setTabName("账号信息");
 
         }
+
+        GetIdentify({UserID,dispatch}).then(data=>{
+
+            if (data&&data.length>0){
+
+                let identifyStr = '';
+
+                data.map((i,k)=>{
+
+                    identifyStr = k>0? identifyStr+`、${i.IdentityName}`:i.IdentityName;
+
+                });
+
+                setIdentify(identifyStr);
+
+            }
+
+        });
+
 
     },[]);
 
@@ -265,9 +286,9 @@ function Account(props) {
 
             const {tip,value} = pwdRef.current;
 
-            if (!tip){
+            const newPwd = md5(value);
 
-                const newPwd = md5(value);
+            if (!tip){
 
                 ResetPwd({userID:UserID,userType:UserType,newPwd,dispatch}).then(data=>{
 
@@ -554,6 +575,14 @@ function Account(props) {
                                 <td className={"col4"}>{isHasValue(userArchives.LoginTimeSpan_Txt)}</td>
                             </tr>
 
+                            <tr>
+
+                                <td className={"col1 props"}>身份:</td>
+
+                                <td className={"col2"}>{isHasValue(identify)}</td>
+
+                            </tr>
+
                             </tbody>
 
                             :
@@ -650,6 +679,14 @@ function Account(props) {
 
                                 </tr>
 
+                                <tr>
+
+                                    <td className={"col1 props"}>身份:</td>
+
+                                    <td className={"col2"}>{isHasValue(identify)}</td>
+
+                                </tr>
+
                             </tbody>
 
                             :
@@ -729,6 +766,14 @@ function Account(props) {
                                     <td className={"col3 props"}>联系电话:</td>
 
                                     <td className={"col4"}>{isHasValue(userArchives.Telephone2)}</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td className={"col1 props"}>身份:</td>
+
+                                    <td className={"col2"}>{isHasValue(identify)}</td>
 
                                 </tr>
 

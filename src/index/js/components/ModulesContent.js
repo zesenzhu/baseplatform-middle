@@ -19,7 +19,7 @@ function ModulesContent(props){
 
                     {Url:'/html/admAccount',Name:'用户账号管理',ClassName:'admAccount'},
 
-                    {Url:'/html/admPower',Name:'用户权限管理',ClassName:'admPower'},
+                    {Url:'/html/userAccessManagement/index.html',Name:'用户权限管理',ClassName:'admPower'},
 
                     {Url:'/html/admSubject',Name:'学科管理',ClassName:'admSubject'},
 
