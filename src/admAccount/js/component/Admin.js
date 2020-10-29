@@ -874,6 +874,8 @@ class Admin extends React.Component {
           QQ: DataState.AdminPreview.TrasferData.QQ,
           Weixin: DataState.AdminPreview.TrasferData.Weixin,
           Weibo: DataState.AdminPreview.TrasferData.Weibo,
+          IdentityIDs: DataState.AdminPreview.TrasferData.IdentityIDs,
+          
         },
         2
       )
@@ -1132,6 +1134,8 @@ class Admin extends React.Component {
           QQ: DataState.AdminPreview.TrasferData.QQ,
           Weixin: DataState.AdminPreview.TrasferData.Weixin,
           Weibo: DataState.AdminPreview.TrasferData.Weibo,
+          IdentityIDs: DataState.AdminPreview.TrasferData.IdentityIDs,
+
         },
         2
       )

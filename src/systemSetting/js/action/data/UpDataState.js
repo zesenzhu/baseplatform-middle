@@ -28,7 +28,7 @@ const getLoginUser = (data) => {
 // 获取学校学科列表
 
 const GET_SUBJECT_LIST_DATA = "GET_SUBJECT_LIST_DATA";
-const GetSubjectListData = ({ isFirstLoad = true, func = () => { } }) => {
+const GetSubjectListData = ({ isFirstLoad = true, func = () => {} }) => {
   return (dispatch, getState) => {
     let { SchoolID } = getState().DataState.LoginUser;
     // console.log('dssd')
@@ -45,12 +45,16 @@ const GetSubjectListData = ({ isFirstLoad = true, func = () => { } }) => {
         dispatch({ type: GET_SUBJECT_LIST_DATA, data: json.Data });
 
         if (isFirstLoad) {
+          let OpenValue = "";
+          try {
+            OpenValue = getState().DataState.TextBookData.SubjectList
+              .SubjectList[0].value;
+          } catch {
+            OpenValue = "";
+          }
           dispatch(
             SetOpenSubjectData({
-              OpenList: [
-                getState().DataState.TextBookData.SubjectList.SubjectList[0]
-                  .value,
-              ],
+              OpenList: [OpenValue],
             })
           );
           let SubjectList = getState().DataState.TextBookData.SubjectList
@@ -69,7 +73,7 @@ const GetSubjectListData = ({ isFirstLoad = true, func = () => { } }) => {
   };
 };
 const GET_GRADE_SUBJECT_LIST_DATA = "GET_GRADE_SUBJECT_LIST_DATA";
-const GetGradeSubjectInfo = ({ schoolId, func = () => { } }) => {
+const GetGradeSubjectInfo = ({ schoolId, func = () => {} }) => {
   return (dispatch, getState) => {
     let { SchoolID } = getState().DataState.LoginUser;
     // console.log('dssd')
@@ -84,19 +88,19 @@ const GetGradeSubjectInfo = ({ schoolId, func = () => { } }) => {
       })
       .then((json) => {
         let { InitData } = getState().DataState.TextBookData.SubjectList;
-        InitData =JSON.parse(JSON.stringify(InitData));
-        if(InitData.length>0){
-          InitData.map((item,idx)=>{
-            InitData[idx].SubjectID=InitData[idx].SubjectId;
-          })
+        InitData = JSON.parse(JSON.stringify(InitData));
+        if (InitData.length > 0) {
+          InitData.map((item, idx) => {
+            InitData[idx].SubjectID = InitData[idx].SubjectId;
+          });
         }
-        console.log(InitData,23)
+        console.log(InitData, 23);
         json.Data.unshift({
           GradeId: "",
           GradeName: "全部年级",
           OrderNo: 0,
-          Subjects:JSON.parse(JSON.stringify(InitData))
-        })
+          Subjects: JSON.parse(JSON.stringify(InitData)),
+        });
         dispatch({ type: GET_GRADE_SUBJECT_LIST_DATA, data: json.Data });
 
         // if (isFirstLoad) {
@@ -128,7 +132,7 @@ const GetGradeSubjectInfo = ({ schoolId, func = () => { } }) => {
 const GET_SUBJECT_INFO_DATA = "GET_SUBJECT_INFO_DATA";
 const GetSubjectInfoData = ({
   subjectId,
-  func = () => { },
+  func = () => {},
   useDefault = true,
 }) => {
   return (dispatch, getState) => {
@@ -253,7 +257,7 @@ const SetTextBookModalParams = (data) => {
 // 获取教材节点
 
 const GET_NODE_INFO_DATA = "GET_NODE_INFO_DATA";
-const GetNodeInfoData = ({ upId, func = () => { } }) => {
+const GetNodeInfoData = ({ upId, func = () => {} }) => {
   return (dispatch, getState) => {
     // let { SchoolID } = getState().DataState.LoginUser;
     dispatch(
@@ -292,7 +296,7 @@ const SetTextBookInfoData = ({
   gradeId,
   textbookId,
   periodId,
-  func = () => { },
+  func = () => {},
 }) => {
   return (dispatch, getState) => {
     let { SchoolID } = getState().DataState.LoginUser;
@@ -304,7 +308,7 @@ const SetTextBookInfoData = ({
         gradeId,
         textbookId,
         SchoolID,
-        periodId
+        periodId,
       },
       2
     )
@@ -324,12 +328,10 @@ const GetTextBookList = ({
   gradeId,
   // SchoolID,
   // periodId,
-  func = () => { },
+  func = () => {},
 }) => {
   return (dispatch, getState) => {
-    dispatch(
-      SetTextBookModalParams({ SetTextBookModalLoading: true })
-    );
+    dispatch(SetTextBookModalParams({ SetTextBookModalLoading: true }));
     let SchoolID = getState().DataState.LoginUser.SchoolID;
     let url =
       TextBookProxy +
@@ -338,8 +340,7 @@ const GetTextBookList = ({
       "&subjectId=" +
       subjectId +
       "&gradeId=" +
-      gradeId
-      ;
+      gradeId;
     getData(url, 2)
       .then((res) => {
         return res.json();

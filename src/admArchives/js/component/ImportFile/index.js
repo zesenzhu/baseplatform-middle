@@ -47,11 +47,11 @@ class ImportFile extends React.Component {
 
       Route:
         route === "Teacher"
-          ? "teacher_1"
+          ? "teacher"
           : route === "Leader"
-          ? "leader_1"
+          ? "leader"
           : route === "Student"
-          ? "student_1"
+          ? "student"
           : "graduate",
       role:
         route === "Teacher"
@@ -91,11 +91,11 @@ class ImportFile extends React.Component {
         name === "picture"
           ? route
           : route === "Teacher"
-          ? "teacher_1"
+          ? "teacher"
           : route === "Leader"
-          ? "leader_1"
+          ? "leader"
           : route === "Student"
-          ? "student_1"
+          ? "student"
           : route === "Graduate"
           ? "graduate"
           : "",
