@@ -78,7 +78,7 @@ class SchoolnfoSetting extends Component {
       SchoolTel,
       SchoolLinkman,
     } = this.props.schoolInfo;
-    const { dispatch, periodInfo,schoolInfo } = this.props;
+    const { dispatch, periodInfo, schoolInfo } = this.props;
     let SchoolType = ""; //学制的代码数字
     let SchoolSessionType = ""; //学制类型对应的参数（7=>3/6/3 或者5/4/3）
     // console.log(primaryNum, middleNum, SchoolCode, SchoolName, SchoolLogoUrl);
@@ -593,7 +593,9 @@ class SchoolnfoSetting extends Component {
       ProvinceID,
       ProvinceName,
       SchoolCode,
+      SchoolType,
     } = schoolInfo;
+    let schoolTypeName = ""; //学段为1个的时候使用
     //根据学校类型选择渲染内容
     switch (schoolInfo.SchoolType) {
       case 7:
@@ -602,14 +604,14 @@ class SchoolnfoSetting extends Component {
         break;
 
       case 1:
-        schoolSys = schoolInfo.primaryType;
+        schoolTypeName = schoolSys = schoolInfo.primaryType;
         schoolLength =
           schoolInfo.primaryNum === "6" ? "六年一贯制" : "五年一贯制";
 
         break;
 
       case 2:
-        schoolSys = schoolInfo.middleType;
+        schoolTypeName = schoolSys = schoolInfo.middleType;
         schoolLength =
           schoolInfo.middleNum === "3" ? "三年一贯制" : "四年一贯制";
         break;
@@ -620,7 +622,7 @@ class SchoolnfoSetting extends Component {
         break;
 
       case 4:
-        schoolSys = "三年制初中";
+        schoolTypeName = schoolSys = "三年制高中";
         schoolLength = "三年一贯制";
         // selected = "4"
         break;
@@ -640,7 +642,7 @@ class SchoolnfoSetting extends Component {
     )
       ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
       : {};
-    let isMoreSchool = true
+    let isMoreSchool = true;
     // parseInt(ProductType) === 3;
     return (
       <Loading spinning={semesterloading} opacity={false} tip="请稍候...">
@@ -686,7 +688,13 @@ class SchoolnfoSetting extends Component {
             </div>
             <div className="school-type">
               学校类型:
-              <span>{schoolLength}</span>({schoolSys})
+              {!schoolTypeName ? (
+                <>
+                  <span>{schoolLength}</span>({schoolSys})
+                </>
+              ) : (
+                <span>{schoolTypeName}</span>
+              )}
             </div>
             {CountyID ? (
               <div className="school-type">
