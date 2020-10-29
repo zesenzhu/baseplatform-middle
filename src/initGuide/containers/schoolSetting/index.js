@@ -266,8 +266,6 @@ function SchoolSetting(props) {
 
                                     case 4:
 
-
-
                                         setPeriod(d=>{
 
                                             periodRef.current = { ...d,
@@ -342,7 +340,7 @@ function SchoolSetting(props) {
 
                                             periodRef.current = { ...d,
 
-                                                primary:{ checked:'',disabled:false,originChecked:parseInt(list[0])===0?(9-parseInt(list[1])).toString():list[0]},
+                                                primary:{ checked:'',disabled:true,originChecked:parseInt(list[0])===0?(9-parseInt(list[1])).toString():list[0]},
 
                                                 middle:{ checked:list[1],disabled:false,originChecked:list[1]},
 
@@ -352,7 +350,7 @@ function SchoolSetting(props) {
 
                                             return { ...d,
 
-                                                primary:{ checked:'',disabled:false,originChecked:parseInt(list[0])===0?(9-parseInt(list[1])).toString():list[0]},
+                                                primary:{ checked:'',disabled:true,originChecked:parseInt(list[0])===0?(9-parseInt(list[1])).toString():list[0]},
 
                                                 middle:{ checked:list[1],disabled:false,originChecked:list[1]},
 
