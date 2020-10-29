@@ -731,3 +731,9 @@ module.exports = function(webpackEnv) {
     performance: false,
   };
 };
+
+
+
+//判断是否有版本文件存在，如果有的话直接删除，没有的话创建版本文件
+
+
