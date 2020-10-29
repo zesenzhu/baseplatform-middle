@@ -264,7 +264,7 @@ function Content(props){
 
         {
 
-          UsedType!=='OtherToStu'&&anchorList.length>=3?
+          UsedType!=='OtherToStu'&&anchorList.length>=4?
 
               <AnchorPoint anchorList={anchorList}></AnchorPoint>
 
