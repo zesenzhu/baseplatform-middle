@@ -32,16 +32,13 @@ import CONFIG from "./js/config";
 
 import "moment/locale/zh-cn";
 
-import {getQueryVariable} from './js/disconnect/index';
-
+import { getQueryVariable } from "./js/disconnect/index";
 
 const $ = require("jquery");
 
 const history = require("history");
 
 const hashHistory = history.createHashHistory();
-
-
 
 moment.locale("zh-cn");
 /*
@@ -74,7 +71,7 @@ class Button extends React.Component {
       className: props.className ? props.className : "",
     };
   }
-  componentWillReceiveProps(props){
+  componentWillReceiveProps(props) {
     this.setState({
       type: props.type /*type:primary、default、默认primary*/,
       size: props.size /*size:large、normal、small默认normal*/,
@@ -86,7 +83,7 @@ class Button extends React.Component {
       onChange: props.onChange,
       style: props.style,
       className: props.className ? props.className : "",
-    })
+    });
   }
 
   /*
@@ -505,7 +502,7 @@ class Modal extends React.Component {
       visible: props.visible /*对话框是否可见*/,
       className: props.className ? props.className : "" /**/,
       destroyOnClose: props.destroyOnClose ? props.destroyOnClose : true,
-      ModalStyle:"Modal-1"
+      ModalStyle: "Modal-1",
     };
   }
 
@@ -534,7 +531,7 @@ class Modal extends React.Component {
     }
     this.setState({
       width: this.props.width ? this.props.width : width,
-      ModalStyle: ModalStyle
+      ModalStyle: ModalStyle,
     });
   }
 
@@ -543,13 +540,11 @@ class Modal extends React.Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-
-    const { title,bodyStyle,className,footer,mask } = nextProps;
+    const { title, bodyStyle, className, footer, mask } = nextProps;
 
     this.selectType(this.props.type);
 
-    this.setState({ title: title,bodyStyle,className,footer,mask});
-
+    this.setState({ title: title, bodyStyle, className, footer, mask });
   }
   // 拖拽modal
 
@@ -695,7 +690,11 @@ class Modal extends React.Component {
         centered={this.props.centered ? this.props.centered : true}
         width={this.state.width}
         zIndex={this.state.zIndex}
-        closeIcon={this.state.ModalStyle==='Modal-1'?<i className={"modal-close-icon"}></i>:null}
+        closeIcon={
+          this.state.ModalStyle === "Modal-1" ? (
+            <i className={"modal-close-icon"}></i>
+          ) : null
+        }
         footer={
           this.state.footer === null
             ? null
@@ -951,7 +950,6 @@ class Search extends React.Component {
         }
       });
     } else {
-
       this.setState({ SearchBlank: true });
 
       this.SearchInput.focus();
@@ -962,8 +960,7 @@ class Search extends React.Component {
     this.setState({ inputFocus: false, SearchBlank: false });
   } //input blur事件
   handleEnterKey(e) {
-
-    const { select, selectOptions, onClickSearch,onSearchKeyUp } = this.props;
+    const { select, selectOptions, onClickSearch, onSearchKeyUp } = this.props;
 
     if (e.nativeEvent.keyCode === 13) {
       if (this.SearchInput.value.trim()) {
@@ -980,23 +977,15 @@ class Search extends React.Component {
           }
         });
       } else {
-
         this.setState({ SearchBlank: true });
 
         this.SearchInput.focus();
       }
-
-    }else{
-
-      if(onSearchKeyUp){
-
-          onSearchKeyUp();
-
+    } else {
+      if (onSearchKeyUp) {
+        onSearchKeyUp();
       }
-
     }
-
-
   } //键盘enter事件
   render() {
     const {
@@ -1130,9 +1119,7 @@ class Search extends React.Component {
                   onBlur={this.onInputBlur.bind(this)}
                   onKeyUp={this.handleEnterKey.bind(this)}
                   value={Value ? Value : this.state.Value}
-                  onChange={
-                    onChange?onChange: this.InputChange.bind(this)
-                  }
+                  onChange={onChange ? onChange : this.InputChange.bind(this)}
                 />
                 <input
                   className="search_cancel_input"
@@ -1183,26 +1170,22 @@ class DropComponent extends React.Component {
       dropListShow: false,
       range2ListShow: "",
       range2ListActive: "",
-        simpleSearchList:[],
-        simpleSearchShow:false,
-        simpleSearchValue:''
+      simpleSearchList: [],
+      simpleSearchShow: false,
+      simpleSearchValue: "",
     };
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
+    const { dropSelectd, dropList, type } = nextProps;
 
-    const { dropSelectd,dropList,type } = nextProps;
+    let simpleSearchList = [];
 
-      let simpleSearchList = [];
+    if (type !== "multiple") {
+      simpleSearchList = dropList;
+    }
 
-      if (type!=='multiple'){
-
-          simpleSearchList = dropList;
-
-      }
-
-      this.setState({ dropSelectd: dropSelectd,simpleSearchList });
-
+    this.setState({ dropSelectd: dropSelectd, simpleSearchList });
   }
 
   onToggleDropList() {
@@ -1271,20 +1254,22 @@ class DropComponent extends React.Component {
   outDropClick(e) {
     const { that, target, ulDom, spanDom } = e;
 
-      const {dropList=[]} = this.props;
+    const { dropList = [] } = this.props;
 
     if (ulDom && spanDom) {
       //在该界面上已有该组件才这样展示
       if (!spanDom.contains(target) && !ulDom.contains(target)) {
-        that.setState({
+        that.setState(
+          {
             dropListShow: false,
-            simpleSearchList:dropList,
-            simpleSearchShow:false,
-            simpleSearchValue:''
-
-        }, () => {
-          $(ulDom).hide();
-        });
+            simpleSearchList: dropList,
+            simpleSearchShow: false,
+            simpleSearchValue: "",
+          },
+          () => {
+            $(ulDom).hide();
+          }
+        );
       }
     }
   } //当点击事件发生在下拉组件之外的时候
@@ -1308,127 +1293,119 @@ class DropComponent extends React.Component {
     }
   }
 
+  simpleSearch() {
+    const { dropList } = this.props;
 
-    simpleSearch() {
+    if (this.state.simpleSearchValue) {
+      const list = dropList.filter((i) => {
+        if (typeof i.title === "string" || typeof i.title === "number") {
+          return i.title.toString().includes(this.state.simpleSearchValue);
+        } else {
+          let hasValue = this.recursive(i.title);
 
-        const { dropList } = this.props;
-
-        if (this.state.simpleSearchValue) {
-
-            const list =  dropList.filter(i=>{
-
-                if(typeof(i.title)==='string'||typeof(i.title)==='number'){
-
-                    return i.title.toString().includes(this.state.simpleSearchValue);
-
-                }else{
-
-                    let hasValue = this.recursive(i.title);
-
-                    return hasValue;
-
-                }
-
-            });
-
-            const simpleSearchList = list.length>0?list:[{value:'symbol_none_value',title:'无数据'}];
-
-            this.setState({simpleSearchShow:true,simpleSearchList});
-
+          return hasValue;
         }
+      });
 
+      const simpleSearchList =
+        list.length > 0
+          ? list
+          : [{ value: "symbol_none_value", title: "无数据" }];
+
+      this.setState({ simpleSearchShow: true, simpleSearchList });
     }
+  }
 
-    //递归函数
-    recursive(reactDom){
+  //递归函数
+  recursive(reactDom) {
+    let hasValue = false;
 
-        let hasValue = false;
-
-        if(typeof(reactDom.props.children)==='string'||typeof(reactDom.props.children)==='number'){
-
-            if(reactDom.props.children.toString().includes(this.state.simpleSearchValue)){
-
-                hasValue = true;
-
+    if (
+      typeof reactDom.props.children === "string" ||
+      typeof reactDom.props.children === "number"
+    ) {
+      if (
+        reactDom.props.children
+          .toString()
+          .includes(this.state.simpleSearchValue)
+      ) {
+        hasValue = true;
+      }
+    } else {
+      for (let i = 0; i <= reactDom.props.children.length - 1; i++) {
+        if (!hasValue) {
+          if (
+            typeof reactDom.props.children[i] === "string" ||
+            typeof reactDom.props.children[i] === "number"
+          ) {
+            if (
+              reactDom.props.children[i]
+                .toString()
+                .includes(this.state.simpleSearchValue)
+            ) {
+              hasValue = true;
             }
-
-        }else{
-
-            for (let i = 0;i<=reactDom.props.children.length-1;i++){
-
-                if (!hasValue){
-
-                    if(typeof(reactDom.props.children[i])==='string'||typeof(reactDom.props.children[i])==='number') {
-
-                        if(reactDom.props.children[i].toString().includes(this.state.simpleSearchValue)){
-
-                            hasValue = true;
-
-                        }
-
-                    }else{
-
-                        hasValue =  this.recursive(reactDom.props.children[i]);
-
-                    }
-
-                }
-
-            }
-
+          } else {
+            hasValue = this.recursive(reactDom.props.children[i]);
+          }
         }
-
 
         return hasValue;
-
+      }
     }
-
-    //简单搜索的值发生变化
-    simpleSearchValueChange(e){
-
+  }
+  //简单搜索的值发生变化
+  simpleSearchValueChange(e) {
     const { dropList } = this.props;
 
     const searchValue = e.target.value;
 
-    this.setState({
+    this.setState(
+      {
+        simpleSearchValue: searchValue,
+      },
+      () => {
+        const list = dropList.filter((i) => {
+          if (typeof i.title === "string" || typeof i.title === "number") {
+            return i.title.toString().includes(searchValue);
+          } else {
+            let hasValue = this.recursive(i.title);
 
-        simpleSearchValue:searchValue
-
-    },()=>{
-
-        const list =  dropList.filter(i=>{
-
-            if(typeof(i.title)==='string'||typeof(i.title)==='number'){
-
-                return i.title.toString().includes(searchValue);
-
-            }else{
-
-                let hasValue = this.recursive(i.title);
-
-                return hasValue;
-
-            }
+            return hasValue;
+          }
         });
 
-        const simpleSearchList = list.length>0?list:[{value:'symbol_none_value',title:'无数据'}];
+        const simpleSearchList =
+          list.length > 0
+            ? list
+            : [{ value: "symbol_none_value", title: "无数据" }];
 
-        this.setState({simpleSearchShow:true,simpleSearchList});
+        this.setState({ simpleSearchShow: true, simpleSearchList });
+      }
+    );
+    // }
 
+    // return hasValue;
+  }
+
+  // //简单搜索的值发生变化
+  // simpleSearchValueChange(e) {
+  //   this.setState({
+  //     simpleSearchValue: e.target.value,
+  //   });
+  // }
+
+  //简单搜索关闭
+
+  simpleSearchClose() {
+    const { dropList } = this.props;
+
+    this.setState({
+      simpleSearchValue: "",
+      simpleSearchShow: false,
+      simpleSearchList: dropList,
     });
-    }
-
-    //简单搜索关闭
-
-    simpleSearchClose(){
-
-        const {dropList} = this.props;
-
-        this.setState({simpleSearchValue:'',simpleSearchShow:false,simpleSearchList:dropList});
-
-    }
-
-
+  }
 
   render() {
     const {
@@ -1450,19 +1427,13 @@ class DropComponent extends React.Component {
       ...reset
     } = this.props;
 
-
     let simpleSearchList = [];
 
-    if (type!=='multiple'&&this.state.simpleSearchShow){
-
+    if (type !== "multiple" && this.state.simpleSearchShow) {
       simpleSearchList = this.state.simpleSearchList;
-
-    }else{
-
-        simpleSearchList = dropList;
-
+    } else {
+      simpleSearchList = dropList;
     }
-
 
     let dropContainer = "";
 
@@ -1693,29 +1664,41 @@ class DropComponent extends React.Component {
           style={{ width: width, overflow: "initial" }}
         >
           <Loading opacity={false} spinning={dropLoadingShow}>
+            {dropList && dropList.length > 12 ? (
+              <li className={"dropdown_select_search"}>
+                <AntdInput
+                  value={this.state.simpleSearchValue}
+                  onChange={this.simpleSearchValueChange.bind(this)}
+                  onPressEnter={this.simpleSearch.bind(this)}
+                  className={"search-input"}
+                />
 
-              {
+                <i
+                  onClick={this.simpleSearchClose.bind(this)}
+                  className={"dropdown_search_close"}
+                  style={{
+                    display: `${
+                      this.state.simpleSearchShow ? "block" : "none"
+                    }`,
+                  }}
+                ></i>
 
-                  dropList&&dropList.length>12?
-
-                      <li className={"dropdown_select_search"}>
-
-                          <AntdInput value={this.state.simpleSearchValue} onChange={this.simpleSearchValueChange.bind(this)} onPressEnter={this.simpleSearch.bind(this)}  className={"search-input"}/>
-
-                          <i onClick={this.simpleSearchClose.bind(this)} className={"dropdown_search_close"} style={{display:`${this.state.simpleSearchShow?'block':'none'}`}}></i>
-
-                          <i onClick={this.simpleSearch.bind(this)} className={"drop_search_btn"} style={{display:`${this.state.simpleSearchShow?'none':'block'}`}}></i>
-
-                      </li>
-
-                      :null
-
-              }
+                <i
+                  onClick={this.simpleSearch.bind(this)}
+                  className={"drop_search_btn"}
+                  style={{
+                    display: `${
+                      this.state.simpleSearchShow ? "none" : "block"
+                    }`,
+                  }}
+                ></i>
+              </li>
+            ) : null}
 
             <Scrollbars
               autoHeight
               autoHeightMin={0}
-              autoHeightMax={height?height:288}
+              autoHeightMax={height ? height : 288}
               // style={{height:height?(this.state.simpleSearchList.length*24<height?this.state.simpleSearchList.length*24:height):'auto'}}
               renderTrackHorizontal={(props) => {
                 return <span style={{ display: "none" }}></span>;
@@ -1724,36 +1707,33 @@ class DropComponent extends React.Component {
                 return <span style={{ display: "none" }}></span>;
               }}
             >
-              {
-
-
-
-                  simpleSearchList.map((item, key) => {
-
-                  return (
-                    <li
-                      key={key}
-                      className={`dropdown_select_li ${
-                        activeValue && activeValue === item.value
-                          ? "active"
-                          : dropSelectd.value === item.value
-                          ? "active"
-                          : ""
-                      }`}
-                      title={TitleShow ? (Title ? Title : item.title) : ""}
-                      data-vaule={item.value}
-                      onClick={item.value==='symbol_none_value'?()=>{}:this.onSimpleDropChange.bind(this, {
-                        onChange: onChange,
-                        value: item.value,
-                        title: item.title,
-                      })}
-                    >
-                      {item.title}
-                    </li>
-                  );
-                })
-
-              }
+              {simpleSearchList.map((item, key) => {
+                return (
+                  <li
+                    key={key}
+                    className={`dropdown_select_li ${
+                      activeValue && activeValue === item.value
+                        ? "active"
+                        : dropSelectd.value === item.value
+                        ? "active"
+                        : ""
+                    }`}
+                    title={TitleShow ? (Title ? Title : item.title) : ""}
+                    data-vaule={item.value}
+                    onClick={
+                      item.value === "symbol_none_value"
+                        ? () => {}
+                        : this.onSimpleDropChange.bind(this, {
+                            onChange: onChange,
+                            value: item.value,
+                            title: item.title,
+                          })
+                    }
+                  >
+                    {item.title}
+                  </li>
+                );
+              })}
             </Scrollbars>
           </Loading>
         </ul>
@@ -2898,9 +2878,9 @@ class Frame extends React.Component {
 
     this.state = {
       fixed: false,
-      isFrame:false,
-      isWorkPlantform:false,
-      isInitGuide:false
+      isFrame: false,
+      isWorkPlantform: false,
+      isInitGuide: false,
     };
   }
 
@@ -2918,27 +2898,19 @@ class Frame extends React.Component {
 
   }*/
 
-  UNSAFE_componentWillReceiveProps(){
-
-        if(window.AppRightContentChange){
-
-            window.AppRightContentChange(this.RightContent.clientHeight);
-
-        }
-
-        if(getQueryVariable('isWorkPlantform')){
-
-            this.setState({isWorkPlantform:true});
-
-        }
-
-        if(getQueryVariable('isInitGuide')){
-
-            this.setState({isInitGuide:true});
-
-        }
-
+  UNSAFE_componentWillReceiveProps() {
+    if (window.AppRightContentChange) {
+      window.AppRightContentChange(this.RightContent.clientHeight);
     }
+
+    if (getQueryVariable("isWorkPlantform")) {
+      this.setState({ isWorkPlantform: true });
+    }
+
+    if (getQueryVariable("isInitGuide")) {
+      this.setState({ isInitGuide: true });
+    }
+  }
 
   render() {
     const {
@@ -3047,27 +3019,29 @@ class Frame extends React.Component {
     const token = localStorage.getItem("token");
 
     return (
-
-      <div className={`frame-drag-flag ${this.state.isInitGuide?'isInitGuide':''}  ${this.state.isWorkPlantform?'in-work-plant-form':''}`}   {...reset}>
-
-          {
-
-            showTop?
-
-                <div className="frame-header-wrapper">
-                    <div className={`frame-header-bg ${type ? type : ""}`}>
-                        <div className="frame-header-star-bg">{bgAnimateDom}</div>{" "}
-                        {/*星星的背景图*/}
-                    </div>
-                    {beyondAnimateDom}
-                    <div className="frame-home-header">
-                        <div className="frame-home-header-content">
-                            <div
-                                className="frame-home-logo"
-                                style={{ backgroundImage:`url(${logo?logo:CONFIG.logo})` }}
-                            >
-                                <a href={`${WebIndexUrl}?lg_tk=${token}`}>{ProductName}</a>
-                            </div>
+      <div
+        className={`frame-drag-flag ${
+          this.state.isInitGuide ? "isInitGuide" : ""
+        }  ${this.state.isWorkPlantform ? "in-work-plant-form" : ""}`}
+        {...reset}
+      >
+        {showTop ? (
+          <div className="frame-header-wrapper">
+            <div className={`frame-header-bg ${type ? type : ""}`}>
+              <div className="frame-header-star-bg">{bgAnimateDom}</div>{" "}
+              {/*星星的背景图*/}
+            </div>
+            {beyondAnimateDom}
+            <div className="frame-home-header">
+              <div className="frame-home-header-content">
+                <div
+                  className="frame-home-logo"
+                  style={{
+                    backgroundImage: `url(${logo ? logo : CONFIG.logo})`,
+                  }}
+                >
+                  <a href={`${WebIndexUrl}?lg_tk=${token}`}>{ProductName}</a>
+                </div>
 
                 {!register ? (
                   <div className="frame-home-header-menus">
@@ -3080,43 +3054,33 @@ class Frame extends React.Component {
                         value=""
                       />
 
-                      {
-
-                          Identity.Icon?
-
-                              <i title={Identity.Name?Identity.Name:''} className={"frame-user-identity"} style={{backgroundImage:`url(${Identity.Icon})`}}>{Identity.Name?Identity.Name:''}</i>
-
-                              :null
-
-                      }
+                      {Identity.Icon ? (
+                        <i
+                          title={Identity.Name ? Identity.Name : ""}
+                          className={"frame-user-identity"}
+                          style={{ backgroundImage: `url(${Identity.Icon})` }}
+                        >
+                          {Identity.Name ? Identity.Name : ""}
+                        </i>
+                      ) : null}
 
                       <a
                         href={`${WebRootUrl}/html/personalMgr?lg_tk=${token}`}
                         target="_blank"
                         className="frame-home-username"
-                        title={userInfo &&userInfo.name?userInfo.name : ""}
+                        title={userInfo && userInfo.name ? userInfo.name : ""}
                       >
                         {userInfo && userInfo.name ? userInfo.name : ""}
                       </a>
 
-                        {
-
-                            userInfo&&userInfo.image?
-
-                                <a
-                                    href={`${WebRootUrl}/html/personalMgr?lg_tk=${token}`}
-                                    target="_blank"
-                                    className="frame-home-userpic"
-                                    style={{backgroundImage: `url(${userInfo.image})`,
-                                    }}>
-
-                                </a>
-
-                                :null
-
-                        }
-
-
+                      {userInfo && userInfo.image ? (
+                        <a
+                          href={`${WebRootUrl}/html/personalMgr?lg_tk=${token}`}
+                          target="_blank"
+                          className="frame-home-userpic"
+                          style={{ backgroundImage: `url(${userInfo.image})` }}
+                        ></a>
+                      ) : null}
                     </div>
 
                     {MessageShow ? (
@@ -3136,46 +3100,44 @@ class Frame extends React.Component {
                 )}
               </div>
             </div>
-                    <div
-                      className={`frame-block-wrapper ${
-                        module && module.className ? module.className : ""
-                      }`}
-                      style={{
-                        backgroundImage: `url(${
-                          module && module.image ? module.image : ""
-                        })`,
-                      }}
-                    >
-                      <div className="frame-block-zh-name clearfix">
+            <div
+              className={`frame-block-wrapper ${
+                module && module.className ? module.className : ""
+              }`}
+              style={{
+                backgroundImage: `url(${
+                  module && module.image ? module.image : ""
+                })`,
+              }}
+            >
+              <div className="frame-block-zh-name clearfix">
+                <div className={"frame-block-title"}>
+                  {module && module.cnname ? module.cnname : ""}
+                </div>
 
-                        <div className={"frame-block-title"}>{module && module.cnname ? module.cnname : ""}</div>
-
-                          {
-
-                              module.subtitle?
-
-                                  <div className={"frame-block-subtitle"}>{module.subtitle}</div>
-
-                                  :null
-
-                          }
-
-                      </div>
-                      <div className="frame-block-en-name">
-                        {module && module.enname ? module.enname : ""}
-                      </div>
-
-                      <div className={"frame-top-right-content"}>{topRightContent}</div>
-
-                    </div>
-
+                {module.subtitle ? (
+                  <div className={"frame-block-subtitle"}>
+                    {module.subtitle}
+                  </div>
+                ) : null}
               </div>
-         :
+              <div className="frame-block-en-name">
+                {module && module.enname ? module.enname : ""}
+              </div>
+
+              <div className={"frame-top-right-content"}>{topRightContent}</div>
+            </div>
+          </div>
+        ) : (
           ""
-        }
+        )}
 
         {showBarner ? (
-          <div className={`frame-time-bar ${this.state.isWorkPlantform?'in-work-plant-form':''}`}>
+          <div
+            className={`frame-time-bar ${
+              this.state.isWorkPlantform ? "in-work-plant-form" : ""
+            }`}
+          >
             <div className="frame-nav-content">{timeBarner}</div>
           </div>
         ) : (
@@ -3184,9 +3146,9 @@ class Frame extends React.Component {
         <div
           className={`frame-content-wrapper clearfix ${
             showBarner ? "" : "barnerHide"
-          } ${this.state.isWorkPlantform?'in-work-plant-form':''}
+          } ${this.state.isWorkPlantform ? "in-work-plant-form" : ""}
 
-          ${this.state.isInitGuide?'isInitGuide':''}
+          ${this.state.isInitGuide ? "isInitGuide" : ""}
 
           `}
         >
@@ -3213,15 +3175,13 @@ class Frame extends React.Component {
           )}
         </div>
 
-          {
-
-            showBottom?
-
-                <div className={`frame-bottom ${module.subtitle?'no-title':''}`}>{!module.subtitle?ProVersion:''}</div>
-
-                :''
-
-          }
+        {showBottom ? (
+          <div className={`frame-bottom ${module.subtitle ? "no-title" : ""}`}>
+            {!module.subtitle ? ProVersion : ""}
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     );
   }
@@ -3475,7 +3435,16 @@ class DetailsModal extends React.Component {
                 )}
               </span>
             </div>
-
+            {data.IdentityName ? (
+              <div className="row">
+                <span className="col-left">{"身份"}</span>
+                <span className="col-right" title={data.IdentityName}>
+                  {data.IdentityName}
+                </span>
+              </div>
+            ) : (
+              ""
+            )}
             {/* 用户档案 */}
             <div
               className="row"

@@ -36,9 +36,9 @@
  * @Author: zhuzesen
  * @LastEditors: zhuzesen
  * @Date: 2020-09-17 10:08:21
- * @LastEditTime: 2020-09-25 10:13:01
+ * @LastEditTime: 2020-10-28 18:58:30
  * @Description: 模块接口的post的action
- * @FilePath: \baseplatform-middle\src\userAccessManagement\js\actions\DataAction\PostAction.js
+ * @FilePath: \baseplatform-university\src\userAccessManagement\js\actions\DataAction\PostAction.js
  */
 
 import { postData, getData } from "../util";
@@ -252,7 +252,7 @@ const AddIdentityUser = ({ fn = () => {}, UserID }) => {
     });
   };
 };
-// 删除成员
+// 编辑成员
 const UpdateUserIdentity = ({ fn = () => {}, UserID }) => {
   return (dispatch, getState) => {
     let State = getState();
