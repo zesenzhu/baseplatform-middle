@@ -112,10 +112,9 @@ class App extends Component {
               )
           );
 
-
       dispatch(loginUserUpdate(UserInfoCopy));
 
-      if (UserInfoCopy.UserType===0){
+      if ([0,7,10].includes(UserInfoCopy.UserType)){
 
           this.Frame.getIdentity({ModuleID:'000005'},()=>{
 
@@ -308,65 +307,65 @@ class App extends Component {
       }
 
 
-          this.setState({
-              UserMsg: UserInfo
-          });
+      this.setState({
+          UserMsg: UserInfo
+      });
 
-          if (parseInt(UserType)===2){
+      if (parseInt(UserType)===2){
 
-              this.setState({showBarner:false,showLeftMenu:false});
+          this.setState({showBarner:false,showLeftMenu:false});
 
-          }
+      }
 
-          let route = history.location.pathname;
+      let route = history.location.pathname;
 
-          if(route.split('/')[1]==='statics'){
+      if(route.split('/')[1]==='statics'){
 
-              dispatch(bannerShow());
+          dispatch(bannerShow());
 
-              dispatch(leftMemuShow());
+          dispatch(leftMemuShow());
 
-          }
+      }
 
-          if(route.split('/')[1]==='manage'){
+      if(route.split('/')[1]==='manage'){
 
-              dispatch(bannerShow());
+          dispatch(bannerShow());
 
-              dispatch(leftMemuHide());
+          dispatch(leftMemuHide());
 
-          }
+      }
 
-          if(route.split('/')[1]==='ImportFile'){
+      if(route.split('/')[1]==='ImportFile'){
 
-              dispatch(bannerHide());
+          dispatch(bannerHide());
 
-              dispatch(leftMemuHide());
+          dispatch(leftMemuHide());
 
-              dispatch(appLoadingHide());
+          dispatch(appLoadingHide());
 
-          }
+      }
 
-          if(route.split('/')[1]==='Log'){
+      if(route.split('/')[1]==='Log'){
 
-              dispatch(bannerHide());
+          dispatch(bannerHide());
 
-              dispatch(leftMemuHide());
+          dispatch(leftMemuHide());
 
-          }
+      }
 
-          if(route.split('/')[1]==='Teacher'){
+      if(route.split('/')[1]==='Teacher'){
 
-              dispatch(bannerShow());
+          dispatch(bannerShow());
 
-              dispatch(bannerBtnShow());
+          dispatch(bannerBtnShow());
 
-              dispatch(bannerLogHide());
+          dispatch(bannerLogHide());
 
-              dispatch(bannerTabHide());
+          dispatch(bannerTabHide());
 
-              dispatch(leftMemuHide());
+          dispatch(leftMemuHide());
 
-          }
+      }
 
   }
 
