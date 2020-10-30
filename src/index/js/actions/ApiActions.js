@@ -127,6 +127,41 @@ const GetCurrentTermInfo =  async ({dispatch})=>{
 };
 
 
+
+
+//获取用户身份
+export const GetSelfIdentity = async () => {
+
+    const {UserID} = JSON.parse(sessionStorage.getItem("UserInfo"));
+
+
+    const res = await Method.getGetData(`/UserMgr/PowerMgr/GetIdentityTypeByUserID?UserID=${UserID}`,2);
+
+    if (res.StatusCode===200){
+
+        return res.Data;
+
+    }
+
+};
+
+
+//根据用户身份code获取用户身份详情
+export const GetIdentityTypeByCode = async (IdentityCodes) => {
+
+    const {SchoolID} = JSON.parse(sessionStorage.getItem("UserInfo"));
+
+    const res = await Method.getData(`/UserMgr/PowerMgr/GetIdentityTypeByCode?SchoolID=${SchoolID}&IdentityCodes=${IdentityCodes}`,2);
+
+    if (res.StatusCode===200){
+
+        return res.Data;
+
+    }
+
+};
+
+
 export const removeSlashUrl = (url)=>{
 
     const urlArr = url.split('');
@@ -156,6 +191,10 @@ export default {
 
     GetOnlineStatistics,
 
-    GetCurrentTermInfo
+    GetCurrentTermInfo,
+
+    GetSelfIdentity,
+
+    GetIdentityTypeByCode
 
 }

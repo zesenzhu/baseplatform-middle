@@ -23,8 +23,8 @@ import {productInfoChange} from "../reducers/ProductInfo";
 import apiActions from '../actions/ApiActions';
 
 import dynamicFile from 'dynamic-file';
-import {GetIdentityTypeByCode, GetSelfIdentity} from "../../../userPersona/js/actions/apiActions";
-import {identifyChange} from "../../../userPersona/js/actions/identifyInfoActions";
+
+import {identifyChange} from "../actions/identifyInfoActions";
 
 class App extends Component {
 
@@ -62,7 +62,7 @@ class App extends Component {
 
         if (identifyCode){
 
-            GetIdentityTypeByCode(identifyCode).then(data=>{
+            apiActions.GetIdentityTypeByCode(identifyCode).then(data=>{
 
                 this.nextPageStep(data); //下一步展示界面
 
@@ -70,7 +70,7 @@ class App extends Component {
 
         }else{
 
-            GetSelfIdentity().then(data=>{
+            apiActions.GetSelfIdentity().then(data=>{
 
                 this.nextPageStep(data);
 
