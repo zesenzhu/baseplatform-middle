@@ -139,39 +139,47 @@ class App extends Component{
 
                 }else if (parseInt(UserType)===1) {
 
-                    let GetAdjustPower =  QueryOtherPower({UserType,SchoolID:UserInfo.SchoolID,Power:'Teacher_Schedule_U'});
+                    this.Frame.getIdentity({ModuleID:''},(identify)=>{
 
-                    let GetImportPower = QueryOtherPower({UserType,SchoolID:UserInfo.SchoolID,Power:'Teacher_Schedule_C'});
+                        let GetAdjustPower =  QueryOtherPower({UserType,SchoolID:UserInfo.SchoolID,Power:'Teacher_Schedule_U'});
 
-                    Promise.all([GetAdjustPower,GetImportPower]).then(res=>{
+                        let GetImportPower = QueryOtherPower({UserType,SchoolID:UserInfo.SchoolID,Power:'Teacher_Schedule_C'});
 
-                        dispatch({type:TeacherPowerActions.TEACHER_POWER_CHANGE,data:{Adjust:res[0],AddImport:res[1]}});
+                        Promise.all([GetAdjustPower,GetImportPower]).then(res=>{
 
-                        dispatch(ModuleCommonActions.getCommonInfo());
+                            dispatch({type:TeacherPowerActions.TEACHER_POWER_CHANGE,data:{Adjust:res[0],AddImport:res[1]}});
 
-                        if (Hash.includes('Import')){
+                            dispatch(ModuleCommonActions.getCommonInfo());
 
-                            if (!res[1]){
+                            if (Hash.includes('Import')){
 
-                                window.location.href='/Error.aspx?errcode=E011';
+                                if (!res[1]){
+
+                                    window.location.href='/Error.aspx?errcode=E011';
+
+                                }else{
+
+                                    dispatch({type:RouterSetActions.ROUTER_SET_TO_IMPORT})
+
+                                }
 
                             }else{
 
-                                dispatch({type:RouterSetActions.ROUTER_SET_TO_IMPORT})
+                                dispatch({type:RouterSetActions.ROUTER_SET_TO_DEFAULT})
 
                             }
 
-                        }else{
-
-                            dispatch({type:RouterSetActions.ROUTER_SET_TO_DEFAULT})
-
-                        }
+                        });
 
                     });
 
                 }else{
 
-                    dispatch(ModuleCommonActions.getCommonInfo());
+                    this.Frame.getIdentity({ModuleID:''},(identify)=>{
+
+                        dispatch(ModuleCommonActions.getCommonInfo());
+
+                    });
 
                 }
 

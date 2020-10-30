@@ -86,7 +86,7 @@ class DeskTop extends Component{
 
     render() {
 
-        const { LoginUser,Manager,ProductInfo } = this.props;
+        const { LoginUser,Manager,ProductInfo,identifyInfo } = this.props;
 
         const { HeaderSetting } = Manager;
 
@@ -94,7 +94,7 @@ class DeskTop extends Component{
 
             <div className="manager-desk-top">
 
-                <Header MessageShow={ProductInfo.MessageShow} ProductName={ProductInfo.ProductName} LoginUser={LoginUser} LogOut={this.LogOut.bind(this)}   HeaderSetting={HeaderSetting} HeaderMenuToggle={this.HeaderMenuToggle.bind(this)}></Header>
+                <Header identifyInfo={identifyInfo} MessageShow={ProductInfo.MessageShow} ProductName={ProductInfo.ProductName} LoginUser={LoginUser} LogOut={this.LogOut.bind(this)}   HeaderSetting={HeaderSetting} HeaderMenuToggle={this.HeaderMenuToggle.bind(this)}></Header>
 
                 <ModulesContent></ModulesContent>
 
@@ -110,7 +110,7 @@ class DeskTop extends Component{
 
 const mapStateToProps = (state) => {
 
-    const { LoginUser,Manager,ProductInfo } = state;
+    const { LoginUser,Manager,ProductInfo,identifyInfo } = state;
 
     return {
 
@@ -118,7 +118,9 @@ const mapStateToProps = (state) => {
 
         Manager,
 
-        ProductInfo
+        ProductInfo,
+
+        identifyInfo
 
     }
 

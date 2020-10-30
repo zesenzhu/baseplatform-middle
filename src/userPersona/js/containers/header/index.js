@@ -35,6 +35,8 @@ function Header(props) {
 
     const userInfoLogs = useSelector(state=>state.userInfoLogs);
 
+    const identifyInfo = useSelector(state=>state.identifyInfo);
+
     const {UsedType} = pageUsedType;
 
     const dispatch = useDispatch();
@@ -165,6 +167,16 @@ function Header(props) {
                             <i className={"header-icon"} onClick={seePersonalMgr} style={{backgroundImage:`url(${PhotoPath})`}}></i>
 
                             <div className={"user-name"} onClick={seePersonalMgr}>{loginUser.UserName}</div>
+
+                            {
+
+                                identifyInfo.length>0?
+
+                                    <i className={"identify-icon"} style={{backgroundImage:`url(${identifyInfo[0].IconUrl})`}}>{!identifyInfo[0].IsPreset?identifyInfo[0].IdentityName:''}</i>
+
+                                    :null
+
+                            }
 
                             <i className={"log-out"} onClick={logout}></i>
 

@@ -22,6 +22,8 @@ import userInfoLogs from './userInfoLogs';
 
 import userStatus from './userStatus';
 
+import identifyInfo from './identifyInfo';
+
 
 let rootReducers = combineReducers({
 
@@ -45,7 +47,9 @@ let rootReducers = combineReducers({
 
     userInfoLogs,
 
-    userStatus
+    userStatus,
+
+    identifyInfo
 
 });
 

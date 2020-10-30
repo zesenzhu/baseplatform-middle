@@ -8,7 +8,7 @@ import LinkBtn from '../linkBtn';
 
 import {btnQueryAlertShow,successAlertShow} from "../../actions/appAlertActions";
 
-import {ResetPwd,GetIdentify} from "../../actions/apiActions";
+import {ResetPwd,GetUserIdentify} from "../../actions/apiActions";
 
 import {Modal, Table,Tips} from "../../../../common";
 
@@ -70,7 +70,7 @@ function Account(props) {
 
         }
 
-        GetIdentify({UserID,dispatch}).then(data=>{
+        GetUserIdentify({UserID}).then(data=>{
 
             if (data&&data.length>0){
 

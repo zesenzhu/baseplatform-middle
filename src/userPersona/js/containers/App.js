@@ -10,11 +10,9 @@ import {Alert,Loading} from "../../../common";
 
 import {useSelector,useDispatch} from 'react-redux';
 
-import {firstPageLoad} from "../../../common/js/disconnect";
+import {firstPageLoad,getQueryVariable} from "../../../common/js/disconnect";
 
-import config from '../actions/config';
-
-
+import {GetSelfIdentity,GetIdentityTypeByCode} from '../actions/apiActions';
 
 import {
     GetBaseInfoForPages,
@@ -32,8 +30,6 @@ import  DoucumentTitle from 'react-document-title'
 
 import dynamicFile from 'dynamic-file';
 
-import {getQueryVariable} from "../../../common/js/disconnect";
-
 import {targetUserInfoUpdate} from '../actions/targetUserActions';
 
 import {pageUsedChange} from '../actions/pageUsedTypeActions';
@@ -49,6 +45,8 @@ import {userArchivesUpdate} from "../actions/userArchivesActions";
 import {userStatusUpdate,userStatusReady,userStatusReceiveData} from "../actions/userStatusActions";
 
 import {userInfoLosUpdate} from "../actions/userInfoLogsActions";
+
+import {identifyChange} from "../actions/identifyInfoActions";
 
 import "../../../common/scss/public.scss";
 
@@ -67,6 +65,7 @@ function App(props) {
     //铃铛是否显示
     const [bellShow,setBellShow] = useState(false);
 
+
     //appAlert
     const { appAlert,appSuccessAlert } = useSelector(state=>state.appAlert);
 
@@ -75,6 +74,7 @@ function App(props) {
 
     //系统的地址
     const  {Urls,ModuleRely}  = useSelector(state=>state.systemUrl);
+
 
     const dispatch = useDispatch();
 
@@ -106,6 +106,37 @@ function App(props) {
 
     const firstLoad = () =>{
 
+        const identifyCode  = getQueryVariable('lg_ic');
+
+        if (identifyCode){
+
+            GetIdentityTypeByCode(identifyCode).then(data=>{
+
+                nextPageStep(data); //下一步展示界面
+
+            });
+
+        }else{
+
+            GetSelfIdentity().then(data=>{
+
+                nextPageStep(data);
+
+            })
+
+        }
+    };
+
+
+    //下一步展示界面的函数
+    const nextPageStep = (identifyList) =>{
+
+        if (identifyList&&identifyList.length>0){
+
+            dispatch(identifyChange(identifyList));
+
+        }
+
         const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
 
         const CopyUserInfo = UserInfo;
@@ -120,127 +151,127 @@ function App(props) {
 
         if (targetUserID&&targetUserType&&([1,2].includes(targetUserType))) {
 
-           const {WebRootUrl} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+            const {WebRootUrl} = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
-           const token = sessionStorage.getItem('token');
+            const token = sessionStorage.getItem('token');
 
-           const sysIDs = Object.keys(Urls).join(',');
+            const sysIDs = Object.keys(Urls).join(',');
 
-           const getTerm = GetCurrentTermInfo({SchoolID:CopyUserInfo.SchoolID,dispatch});
+            const getTerm = GetCurrentTermInfo({SchoolID:CopyUserInfo.SchoolID,dispatch});
 
-           const getSys =  GetSubSystemsMainServerBySubjectID({sysIDs,dispatch});
+            const getSys =  GetSubSystemsMainServerBySubjectID({sysIDs,dispatch});
 
-           const getUserInfo = GetUserDetailForHX({UserID:targetUserID,UserType:targetUserType,proxy,dispatch});
+            const getUserInfo = GetUserDetailForHX({UserID:targetUserID,UserType:targetUserType,proxy,dispatch});
 
-           const getUserLog = GetUserLogForHX({UserID:targetUserID,UserType:targetUserType,proxy,dispatch});
+            const getUserLog = GetUserLogForHX({UserID:targetUserID,UserType:targetUserType,proxy,dispatch});
 
-           Promise.all([getTerm,getSys,getUserInfo,getUserLog]).then(res=>{
+            Promise.all([getTerm,getSys,getUserInfo,getUserLog]).then(res=>{
 
-               if (res[0]){
+                if (res[0]){
 
-                   const data = res[0];
+                    const data = res[0];
 
                     dispatch(termInfoUpdate(data));
 
-               }
+                }
 
-               if (res[1]){
+                if (res[1]){
 
-                   const data = res[1];
+                    const data = res[1];
 
-                   const AssistUrl = data.find(i=>i.SysID==='200')?data.find(i=>i.SysID==='200').WebSvrAddr:'';
+                    const AssistUrl = data.find(i=>i.SysID==='200')?data.find(i=>i.SysID==='200').WebSvrAddr:'';
 
-                   if (!(CopyUserInfo.UserType === 0 && CopyUserInfo === 2) && (CopyUserInfo.UserType !== 6)&&AssistUrl) {
+                    if (!(CopyUserInfo.UserType === 0 && CopyUserInfo === 2) && (CopyUserInfo.UserType !== 6)&&AssistUrl) {
 
-                       let PsnMgrLgAssistantAddr = AssistUrl;
+                        let PsnMgrLgAssistantAddr = AssistUrl;
 
-                       sessionStorage.setItem('PsnMgrToken', token);//用户Token
+                        sessionStorage.setItem('PsnMgrToken', token);//用户Token
 
-                       sessionStorage.setItem('PsnMgrMainServerAddr', WebRootUrl); //基础平台IP地址和端口号 形如：http://192.168.129.1:30103/
+                        sessionStorage.setItem('PsnMgrMainServerAddr', WebRootUrl); //基础平台IP地址和端口号 形如：http://192.168.129.1:30103/
 
-                       sessionStorage.setItem('PsnMgrLgAssistantAddr', PsnMgrLgAssistantAddr);
+                        sessionStorage.setItem('PsnMgrLgAssistantAddr', PsnMgrLgAssistantAddr);
 
-                       dynamicFile([
+                        dynamicFile([
 
-                           `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/css/lancoo.cp.assistantInfoCenter.css`,
+                            `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/css/lancoo.cp.assistantInfoCenter.css`,
 
-                           `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/jquery-1.7.2.min.js`
+                            `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/jquery-1.7.2.min.js`
 
-                       ]).then(() => {
+                        ]).then(() => {
 
-                           dynamicFile([
+                            dynamicFile([
 
-                               `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/assets/jquery.pagination.js`,
+                                `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/assets/jquery.pagination.js`,
 
-                               `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/lancoo.cp.assistantInfoCenter.js`
+                                `${PsnMgrLgAssistantAddr}/PsnMgr/LgAssistant/js/lancoo.cp.assistantInfoCenter.js`
 
-                           ])
+                            ])
 
-                       });
+                        });
 
-                       setBellShow(true);
+                        setBellShow(true);
 
-                   } else {
+                    } else {
 
-                       setBellShow(false);
+                        setBellShow(false);
 
-                   }
+                    }
 
-                   let urlObj = {...Urls};
+                    let urlObj = {...Urls};
 
-                   data.map(i=>{
+                    data.map(i=>{
 
-                       urlObj[i.SysID] = { WebUrl:i.WebSvrAddr,WsUrl:i.WsSvrAddr };
+                        urlObj[i.SysID] = { WebUrl:i.WebSvrAddr,WsUrl:i.WsSvrAddr };
 
-                   });
+                    });
 
-                   dispatch(systemUrlUpdate(urlObj));
+                    dispatch(systemUrlUpdate(urlObj));
 
-                   if (urlObj['E34'].WebUrl){
+                    if (urlObj['E34'].WebUrl){
 
-                       const getDetail = targetUserType===1?
+                        const getDetail = targetUserType===1?
 
-                           getTeacherDetailIntroduction({teacherId:targetUserID,proxy:urlObj['E34'].WebUrl,dispatch}):
+                            getTeacherDetailIntroduction({teacherId:targetUserID,proxy:urlObj['E34'].WebUrl,dispatch}):
 
-                           getDetailStuStatus({userId:targetUserID,proxy:urlObj['E34'].WebUrl,dispatch});
+                            getDetailStuStatus({userId:targetUserID,proxy:urlObj['E34'].WebUrl,dispatch});
 
-                       getDetail.then(data=>{
+                        getDetail.then(data=>{
 
-                           if (data){
+                            if (data){
 
-                               dispatch(userStatusUpdate(data));
+                                dispatch(userStatusUpdate(data));
 
-                               dispatch(userStatusReceiveData(true));
+                                dispatch(userStatusReceiveData(true));
 
-                           }else{
+                            }else{
 
-                               dispatch(userStatusReceiveData(false));
+                                dispatch(userStatusReceiveData(false));
 
-                           }
+                            }
 
-                           dispatch(userStatusReady());
+                            dispatch(userStatusReady());
 
-                       });
+                        });
 
-                   }else{
+                    }else{
 
-                       dispatch(userStatusReady());
+                        dispatch(userStatusReady());
 
-                       dispatch(userStatusReceiveData(false));
+                        dispatch(userStatusReceiveData(false));
 
-                   }
+                    }
 
-               }
+                }
 
-               if (res[2]){
+                if (res[2]){
 
-                   let docTitle = targetUserType===2?'学生档案详情':'教师档案详情';
+                    let docTitle = targetUserType===2?'学生档案详情':'教师档案详情';
 
-                   dispatch(targetUserInfoUpdate({UserID: targetUserID, UserType: targetUserType}));
+                    dispatch(targetUserInfoUpdate({UserID: targetUserID, UserType: targetUserType}));
 
-                   const { LockerVersion } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
+                    const { LockerVersion } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
-                   if (parseInt(LockerVersion)===1){
+                    if (parseInt(LockerVersion)===1){
 
                         if (targetUserType===1){
 
@@ -252,121 +283,121 @@ function App(props) {
 
                         }
 
-                   }else{
+                    }else{
 
-                       switch (`${CopyUserInfo['UserType']}${targetUserType}`) {
+                        switch (`${CopyUserInfo['UserType']}${targetUserType}`) {
 
-                           case '02':
+                            case '02':
 
-                               dispatch(pageUsedChange({user:'Adm',targetUser:'Stu',usedType:'AdmToStu'}));
+                                dispatch(pageUsedChange({user:'Adm',targetUser:'Stu',usedType:'AdmToStu'}));
 
-                               break;
+                                break;
 
-                           case '72':
+                            case '72':
 
-                           case '102':
+                            case '102':
 
-                               dispatch(pageUsedChange({user:'Leader',targetUser:'Stu',usedType:'LeaderToStu'}));
+                                dispatch(pageUsedChange({user:'Leader',targetUser:'Stu',usedType:'LeaderToStu'}));
 
-                               break;
+                                break;
 
-                           case '32':
+                            case '32':
 
-                               if (res[2].IsMyChild){
+                                if (res[2].IsMyChild){
 
-                                   dispatch(pageUsedChange({user:'Parents',targetUser:'Stu',usedType:'ParentsToStu'}));
+                                    dispatch(pageUsedChange({user:'Parents',targetUser:'Stu',usedType:'ParentsToStu'}));
 
-                               }else{
+                                }else{
 
-                                   dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
+                                    dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
 
-                               }
+                                }
 
-                               docTitle = '子女档案详情';
+                                docTitle = '子女档案详情';
 
-                               break;
+                                break;
 
-                           case '12':
+                            case '12':
 
-                               if (res[2].IsMyStudent){
+                                if (res[2].IsMyStudent){
 
-                                   dispatch(pageUsedChange({user:'HeaderTeacher',targetUser:'Stu',usedType:'HeaderTeacherToStu'}));
+                                    dispatch(pageUsedChange({user:'HeaderTeacher',targetUser:'Stu',usedType:'HeaderTeacherToStu'}));
 
-                               }else{
+                                }else{
 
-                                   dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
+                                    dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
 
-                               }
+                                }
 
-                               break;
+                                break;
 
-                           case '22':
+                            case '22':
 
-                               if (CopyUserInfo['UserID']===targetUserID){
+                                if (CopyUserInfo['UserID']===targetUserID){
 
-                                   dispatch(pageUsedChange({user:'Stu',targetUser:'Stu',usedType:'StuToStu'}));
+                                    dispatch(pageUsedChange({user:'Stu',targetUser:'Stu',usedType:'StuToStu'}));
 
-                                   docTitle = '我的档案';
+                                    docTitle = '我的档案';
 
-                               }else{
+                                }else{
 
-                                   dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
+                                    dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
 
-                               }
+                                }
 
-                               break;
+                                break;
 
-                           case '01':
+                            case '01':
 
-                               dispatch(pageUsedChange({user:'Adm',targetUser:'Teacher',usedType:'AdmToTeacher'}));
+                                dispatch(pageUsedChange({user:'Adm',targetUser:'Teacher',usedType:'AdmToTeacher'}));
 
-                               break;
+                                break;
 
-                           case '101':
+                            case '101':
 
-                           case '71':
+                            case '71':
 
-                               dispatch(pageUsedChange({user:'Leader',targetUser:'Teacher',usedType:'LeaderToTeacher'}));
+                                dispatch(pageUsedChange({user:'Leader',targetUser:'Teacher',usedType:'LeaderToTeacher'}));
 
-                               break;
+                                break;
 
-                           case '11':
+                            case '11':
 
-                               if (CopyUserInfo['UserID']===targetUserID){
+                                if (CopyUserInfo['UserID']===targetUserID){
 
-                                   dispatch(pageUsedChange({user:'Teacher',targetUser:'Teacher',usedType:'TeacherToTeacher'}));
+                                    dispatch(pageUsedChange({user:'Teacher',targetUser:'Teacher',usedType:'TeacherToTeacher'}));
 
-                                   docTitle = '我的档案';
+                                    docTitle = '我的档案';
 
-                               }else{
+                                }else{
 
-                                   dispatch(pageUsedChange({user:'Other',targetUser:'Teacher',usedType:'OtherToTeacher'}));
+                                    dispatch(pageUsedChange({user:'Other',targetUser:'Teacher',usedType:'OtherToTeacher'}));
 
-                               }
+                                }
 
-                               break;
+                                break;
 
-                           default:
+                            default:
 
-                               if (targetUserType===1){
+                                if (targetUserType===1){
 
-                                   dispatch(pageUsedChange({user:'Other',targetUser:'Teacher',usedType:'OtherToTeacher'}));
+                                    dispatch(pageUsedChange({user:'Other',targetUser:'Teacher',usedType:'OtherToTeacher'}));
 
-                               }else if (targetUserType===2) {
+                                }else if (targetUserType===2) {
 
-                                   dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
+                                    dispatch(pageUsedChange({user:'Other',targetUser:'Stu',usedType:'OtherToStu'}));
 
-                               }
+                                }
 
-                       }
+                        }
 
-                   }
+                    }
 
-                   setDomTitle(docTitle);
+                    setDomTitle(docTitle);
 
                     dispatch(userArchivesUpdate(res[2]));
 
-               }
+                }
 
                 if (res[3]){
 
@@ -374,9 +405,9 @@ function App(props) {
 
                 }
 
-               dispatch(appLoadingHide());
+                dispatch(appLoadingHide());
 
-           });
+            });
 
         }else{
 
@@ -388,7 +419,6 @@ function App(props) {
 
 
 
-
     return(
 
         <DoucumentTitle title={domTitle}>
@@ -397,7 +427,7 @@ function App(props) {
 
                 <div className={"app"}>
 
-                    <Header  bellShow={bellShow} tabTitle={domTitle}></Header>
+                    <Header bellShow={bellShow} tabTitle={domTitle}></Header>
 
                     {/*<AppRoutes></AppRoutes>*/}
 

@@ -397,6 +397,8 @@ class FrameContainer extends Component{
 
         if (ModuleID){
 
+            console.log(ModuleID);
+
             const promiseList  =  IdentityList.map(async (i)=>{
 
                 const res =  await this.ValidateIdentity(i.IdentityCode,ModuleID);
@@ -435,7 +437,7 @@ class FrameContainer extends Component{
 
                 }else{
 
-                    window.location.href = CONFIG.ErrorProxy + "/Error.aspx?errcode=E011";
+                    // window.location.href = CONFIG.ErrorProxy + "/Error.aspx?errcode=E011";
 
                 }
 

@@ -423,6 +423,19 @@ $img_url:'./images/frame';
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 82px;
+
+  &.no-click{
+
+    cursor: default;
+
+    &:hover{
+
+      opacity:1;
+
+    }
+
+  }
+
   &:hover{
     opacity:0.8;
     color:rgba(255,255,255,0.72);
@@ -457,6 +470,13 @@ $img_url:'./images/frame';
   border-radius: 50%;
   cursor: pointer;
   border: 1px solid #1c409c;
+
+  &.no-click{
+
+    cursor: default;
+
+  }
+
 }
 .frame-home-msg-menu{
   position: relative;
