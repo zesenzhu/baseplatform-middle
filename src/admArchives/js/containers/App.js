@@ -84,20 +84,26 @@ class App extends Component {
     const { dispatch, DataState, PublicState } = this.props;
     // if (!PublicState.LoginMsg.isLogin) {
     // console.log(this.Frame.getIdentity)
+    let route = history.location.pathname.slice(1);
+    // console.log(history, route);
+    let pathArr = route.split("/");
+    // console.log(pathArr)
     if (JSON.parse(sessionStorage.getItem("UserInfo"))) {
-      let userMsg = 
-        JSON.parse(sessionStorage.getItem("UserInfo"))
-       
-     
+      let userMsg = JSON.parse(sessionStorage.getItem("UserInfo"));
 
       if (!userMsg.SchoolID) {
         //做字段排除，不存在就不能进界面
         return;
       }
       let ModuleID = "000012";
-      if (userMsg.UserType === "1") {
+      if (
+        userMsg.UserType === "1" &&
+        ((pathArr[0] === "ImportFile" && pathArr[1] === "Student") ||
+          pathArr[0] === "RegisterExamine")
+      ) {
         ModuleID = "000014";
       }
+      // return;
       // 数据请求前的处理
       this.SetRoleLeader(); //权限升级身份后没有领导
       this.SetRoleCollege();
@@ -107,7 +113,7 @@ class App extends Component {
       dispatch(MainAction.GetUnreadLogCount({}));
       this.Frame.getIdentity({ ModuleID }, (identify) => {
         // console.log(identify)
-        userMsg = this.setRole(userMsg,identify)
+        userMsg = this.setRole(userMsg, identify);
         dispatch(
           PublicAction.getLoginUser(
             // ...JSON.parse(sessionStorage.getItem("UserInfo")),
@@ -590,7 +596,7 @@ class App extends Component {
           InitStudentParams,
         },
         MainData: {
-          StudentTree: { CollegeList, MajorList,GradeList },
+          StudentTree: { CollegeList, MajorList, GradeList },
         },
       },
     } = this.props;
@@ -659,7 +665,8 @@ class App extends Component {
           InitTeacherParams,
         },
         MainData: {
-          TeacherTree: { CollegeList, GroupList },SubjectList
+          TeacherTree: { CollegeList, GroupList },
+          SubjectList,
         },
       },
     } = this.props;
@@ -749,7 +756,7 @@ class App extends Component {
     }
   };
   // 设置用户角色,模块角色统一在这处理
-  setRole = (LoginMsg,identity) => {
+  setRole = (LoginMsg, identity) => {
     // let {
     //   dispatch,
     //   DataState,
@@ -757,7 +764,7 @@ class App extends Component {
     //     LoginMsg: { UserType, UserClass },
     //   },
     // } = this.props;
-    console.log(identity)
+    console.log(identity);
     let { UserType, UserClass } = LoginMsg;
     let Role = "";
     UserType = parseInt(UserType);

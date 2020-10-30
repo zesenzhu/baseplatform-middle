@@ -52,7 +52,7 @@ class TeacherBtnBanner extends Component {
               color="blue"
               className="import-teacher"
               onClick={(e) => {
-                let url = config.HashPrevProxy + '/html/admArchives'+ window.location.search ;
+                let url = config.HashPrevProxy + '/html/admArchives#/RegisterExamine/RegisterWillExamine'+ window.location.search ;
 
                 // console.log(url);
                 checkUrlAndPostMsg({ btnName:'学生注册审核', url });
