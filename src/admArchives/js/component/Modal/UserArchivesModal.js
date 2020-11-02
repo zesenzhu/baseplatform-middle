@@ -363,11 +363,11 @@ class UserArchivesModal extends Component {
     const { dispatch } = this.props;
     dispatch(
       CommonAction.SetEditUserArchivesData({
-        UserID: e.target.value.trim(),
+        UserID: e.target.value,
       })
     );
     // this.setState({
-    //   Telephone: e.target.value.trim()
+    //   Telephone: e.target.value
     // });
   };
   onEditIDBlur = (e) => {
@@ -386,11 +386,11 @@ class UserArchivesModal extends Component {
     const { dispatch } = this.props;
     dispatch(
       CommonAction.SetEditUserArchivesData({
-        UserName: e.target.value.trim(),
+        UserName: e.target.value,
       })
     );
     // this.setState({
-    //   Telephone: e.target.value.trim()
+    //   Telephone: e.target.value
     // });
   };
   onEditNameBlur = (e) => {
@@ -555,7 +555,7 @@ class UserArchivesModal extends Component {
     const { dispatch } = this.props;
     dispatch(
       CommonAction.SetEditUserArchivesData({
-        IDCardNo: e.target.value.trim(),
+        IDCardNo: e.target.value,
       })
     );
   };
@@ -576,7 +576,7 @@ class UserArchivesModal extends Component {
     const { dispatch } = this.props;
     dispatch(
       CommonAction.SetEditUserArchivesData({
-        Telephone: e.target.value.trim(),
+        Telephone: e.target.value,
       })
     );
   };
@@ -597,7 +597,7 @@ class UserArchivesModal extends Component {
     const { dispatch } = this.props;
     dispatch(
       CommonAction.SetEditUserArchivesData({
-        Email: e.target.value.trim(),
+        Email: e.target.value,
       })
     );
   };
@@ -618,7 +618,7 @@ class UserArchivesModal extends Component {
     const { dispatch } = this.props;
     dispatch(
       CommonAction.SetEditUserArchivesData({
-        HomeAddress: e.target.value.trim(),
+        HomeAddress: e.target.value,
       })
     );
   };

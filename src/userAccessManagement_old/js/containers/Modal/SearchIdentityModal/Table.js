@@ -270,7 +270,18 @@ class Left extends Component {
   }
   // 确认
   onConfirmClick = (data) => {
-    let { dispatch } = this.props;
+    let { dispatch,HandleState: {
+      ParamsData: {
+        SearchIdentity: { IdentityIDsList, UserID },
+      },
+    }, } = this.props;
+     if(IdentityIDsList.length<1){
+       dispatch(PublicAction.showErrorAlert({
+         type:'warn',
+         title:'身份最少选择1个'
+       }))
+       return
+     }
     dispatch(
       DataAction.UpdateUserIdentity({
         fn: () => {
@@ -313,6 +324,8 @@ class Left extends Component {
   onIdentityIDsListChange = (e) => {
     let { dispatch } = this.props;
     // console.log(e)
+    if(e.length<1)
+    return
     dispatch(
       HandleAction.ParamsSetSearchIdentity({
         IdentityIDsList: e,
@@ -329,7 +342,6 @@ class Left extends Component {
       },
     } = this.props;
     let key = props["data-row-key"];
-    console.log(index, EditIndex, props, key);
     return (
       <tr
         className={`${className} TableRow ${

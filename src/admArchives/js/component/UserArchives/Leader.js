@@ -349,7 +349,7 @@ class Leader extends Component {
     let { dispatch } = this.props;
     dispatch(
       CommonAction.SetLeaderParams({
-        searchValue: e.target.value.trim(),
+        searchValue: e.target.value,
       })
     );
   };
@@ -378,7 +378,7 @@ class Leader extends Component {
     } = this.props;
     dispatch(
       CommonAction.SetLeaderParams({
-        keyword: e.value,
+        keyword: e.value.trim(),
         searchValue: e.value,
         cancelBtnShow: "y",
         pageIndex: 0,

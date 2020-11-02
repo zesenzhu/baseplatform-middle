@@ -544,7 +544,7 @@ class Leader extends React.Component {
             DataState.SchoolLeaderPreview.newList[this.state.onClickKey].Others
               .UserID,
           userType: 7,
-          newPwd: md5(this.state.defaultPwd),
+          newPwd: md5(this.state.defaultPwd.trim()),
         },
         2
       )
@@ -601,7 +601,7 @@ class Leader extends React.Component {
         {
           userID: userIDs.join(),
           userType: 7,
-          newPwd: md5(this.state.defaultPwd),
+          newPwd: md5(this.state.defaultPwd.trim()),
         },
         2
       )
@@ -698,7 +698,7 @@ class Leader extends React.Component {
     const { dispatch } = this.props;
     //  console.log(e.target.value)
     this.setState({
-      defaultPwd: e.target.value.trim(),
+      defaultPwd: e.target.value,
     });
   };
   onAllPwdBlur = (e) => {

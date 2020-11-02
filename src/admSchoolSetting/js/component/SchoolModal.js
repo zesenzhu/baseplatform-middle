@@ -1,7 +1,7 @@
 /*
  * @Author: zhuzesen
  * @Date: 2020-09-15 22:07:05
- * @LastEditTime: 2020-10-26 10:08:52
+ * @LastEditTime: 2020-11-02 17:05:25
  * @LastEditors: zhuzesen
  * @Description: 学校信息编辑
  * @FilePath: \baseplatform-middle\src\admSchoolSetting\js\component\SchoolModal.js
@@ -81,7 +81,7 @@ class SchoolModal extends React.Component {
   //   网站名称修改
   onWebNameChange = (e) => {
     this.setState({
-      WebName: e.target.value.trim(),
+      WebName: e.target.value,
     });
   };
   // 网站名称修改失去焦点
@@ -106,7 +106,7 @@ class SchoolModal extends React.Component {
   //   网站地址修改
   onWebAddressChange = (e) => {
     this.setState({
-      WebAddress: e.target.value.trim(),
+      WebAddress: e.target.value,
     });
   };
   // 网站地址修改失去焦点
@@ -282,7 +282,7 @@ class SchoolModal extends React.Component {
     const { dispatch, DataState } = this.props;
     dispatch(
       UpDataState.SetSchoolModalData({
-        SchoolName: e.target.value.trim(),
+        SchoolName: e.target.value,
       })
     );
   };
@@ -295,7 +295,7 @@ class SchoolModal extends React.Component {
     );
     // dispatch(
     //   UpDataState.SetSchoolModalData({
-    //     SchoolName: e.target.value.trim(),
+    //     SchoolName: e.target.value,
     //   })
     // );
   };
@@ -307,7 +307,7 @@ class SchoolModal extends React.Component {
     }
     dispatch(
       UpDataState.SetSchoolModalData({
-        SchoolCode: e.target.value.trim(),
+        SchoolCode: e.target.value,
       })
     );
   };
@@ -323,7 +323,7 @@ class SchoolModal extends React.Component {
     );
     // dispatch(
     //   UpDataState.SetSchoolModalData({
-    //     SchoolCode: e.target.value.trim(),
+    //     SchoolCode: e.target.value,
     //   })
     // );
   };
@@ -353,7 +353,7 @@ class SchoolModal extends React.Component {
     const { dispatch, DataState } = this.props;
     dispatch(
       UpDataState.SetSchoolModalData({
-        SchoolTel: e.target.value.trim(),
+        SchoolTel: e.target.value,
       })
     );
   };
@@ -366,7 +366,7 @@ class SchoolModal extends React.Component {
     );
     // dispatch(
     //   UpDataState.SetSchoolModalData({
-    //     SchoolCode: e.target.value.trim(),
+    //     SchoolCode: e.target.value,
     //   })
     // );
   };
@@ -375,7 +375,7 @@ class SchoolModal extends React.Component {
     const { dispatch, DataState } = this.props;
     dispatch(
       UpDataState.SetSchoolModalData({
-        SchoolLinkman: e.target.value.trim(),
+        SchoolLinkman: e.target.value,
       })
     );
   };
@@ -388,7 +388,7 @@ class SchoolModal extends React.Component {
     );
     // dispatch(
     //   UpDataState.SetSchoolModalData({
-    //     SchoolCode: e.target.value.trim(),
+    //     SchoolCode: e.target.value,
     //   })
     // );
   };

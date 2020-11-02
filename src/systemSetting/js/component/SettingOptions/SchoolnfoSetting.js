@@ -232,8 +232,8 @@ class SchoolnfoSetting extends Component {
             ApiActions.postMethod("/SysMgr/Setting/EditSchoolInfo", {
               UserID: UserID,
               SchoolID: SchoolID,
-              SchoolName: SchoolName,
-              SchoolCode: SchoolCode,
+              SchoolName: SchoolName.trim(),
+              SchoolCode: SchoolCode.trim(),
               SchoolTel: SchoolTel,
               SchoolLinkman: SchoolLinkman,
               SchoolType: SchoolType,
@@ -380,8 +380,8 @@ class SchoolnfoSetting extends Component {
       ...schoolInfo,
       SchoolCode:
         e.target.value.length > 20
-          ? valueableCode.trim()
-          : e.target.value.trim(),
+          ? valueableCode
+          : e.target.value,
     };
 
     dispatch({
@@ -447,8 +447,8 @@ class SchoolnfoSetting extends Component {
       ...schoolInfo,
       SchoolName:
         e.target.value.length > 20
-          ? valueableLength.trim()
-          : e.target.value.trim(),
+          ? valueableLength
+          : e.target.value,
     };
 
     dispatch({

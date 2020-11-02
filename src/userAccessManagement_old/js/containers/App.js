@@ -73,6 +73,7 @@ class App extends Component {
       // 获取是否开启家长功能
       dispatch(DataAction.GetConfig({}));
       let ModuleID = "000008";
+      // return;
       this.Frame.getIdentity({ ModuleID }, (identity) => {
         this.RouteListening({ isFirst: true });
         dispatch(

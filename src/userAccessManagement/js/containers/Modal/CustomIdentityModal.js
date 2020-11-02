@@ -53,7 +53,7 @@ class CustomIdentityModal extends Component {
     let { dispatch } = this.props;
     dispatch(
       HandleAction.ParamsSetCustomIdentity({
-        IdentityName: e.target.value.trim(),
+        IdentityName: e.target.value ,
       })
     );
   };
@@ -61,11 +61,11 @@ class CustomIdentityModal extends Component {
     let { dispatch } = this.props;
     dispatch(
       HandleAction.checkIndentityName({
-        value: e.target.value.trim(),
+        value: e.target.value ,
         success: () => {
           dispatch(
             HandleAction.ParamsSetCustomIdentity({
-              IdentityName: e.target.value.trim(),
+              IdentityName: e.target.value ,
             })
           );
         },
@@ -77,7 +77,7 @@ class CustomIdentityModal extends Component {
     let { dispatch } = this.props;
     dispatch(
       HandleAction.ParamsSetCustomIdentity({
-        Description: e.target.value.trim(),
+        Description: e.target.value,
       })
     );
   };
@@ -85,11 +85,11 @@ class CustomIdentityModal extends Component {
     let { dispatch } = this.props;
     dispatch(
       HandleAction.checkDescription({
-        value: e.target.value.trim(),
+        value: e.target.value,
         success: () => {
           dispatch(
             HandleAction.ParamsSetCustomIdentity({
-              Description: e.target.value.trim(),
+              Description: e.target.value,
             })
           );
         },

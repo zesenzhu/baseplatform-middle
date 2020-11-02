@@ -44,7 +44,7 @@ class StudentContent extends Component {
     // console.log(e);
 
     onGetStudentPageClick({
-      Keyword: e.value,
+      Keyword: e.value.trim(),
       CancelBtnShow: "y",
       PageIndex: 0,
       CheckAll: false,

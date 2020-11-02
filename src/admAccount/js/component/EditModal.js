@@ -417,7 +417,7 @@ class EditModal extends React.Component {
   onEditIDChange = (e) => {
     const { dispatch } = this.props;
     this.setState({
-      UserIDChange: e.target.value.trim(),
+      UserIDChange: e.target.value,
     });
   };
   onEditIDBlur = (e) => {
@@ -433,7 +433,7 @@ class EditModal extends React.Component {
       dispatch(
         actions.UpDataState.setAdminPreview({
           isChange: true,
-          UserID: e.target.value,
+          UserID: e.target.value.trim(),
         })
       );
       dispatch(actions.UpUIState.UserIDTipsVisibleClose());
@@ -443,7 +443,7 @@ class EditModal extends React.Component {
     const { dispatch } = this.props;
 
     this.setState({
-      defaultUserName: e.target.value.trim(),
+      defaultUserName: e.target.value,
     });
   };
   onEditNameBlur = (e) => {
@@ -461,7 +461,7 @@ class EditModal extends React.Component {
       dispatch(
         actions.UpDataState.setAdminPreview({
           isChange: true,
-          UserName: value,
+          UserName: value.trim(),
         })
       );
       dispatch(actions.UpUIState.UserNameTipsVisibleClose());
@@ -471,7 +471,7 @@ class EditModal extends React.Component {
     const { dispatch } = this.props;
 
     this.setState({
-      defaultTelephone: e.target.value.trim(),
+      defaultTelephone: e.target.value,
     });
   };
   onEditTelBlur = (e) => {
@@ -487,7 +487,7 @@ class EditModal extends React.Component {
       dispatch(
         actions.UpDataState.setAdminPreview({
           isChange: true,
-          Telephone: value,
+          Telephone: value.trim(),
         })
       );
       dispatch(
@@ -499,7 +499,7 @@ class EditModal extends React.Component {
     const { dispatch } = this.props;
 
     this.setState({
-      defaultQQ: e.target.value.trim(),
+      defaultQQ: e.target.value,
     });
   };
   onEditQQBlur = (e) => {
@@ -515,7 +515,7 @@ class EditModal extends React.Component {
       dispatch(
         actions.UpDataState.setAdminPreview({
           isChange: true,
-          QQ: value,
+          QQ: value.trim(),
         })
       );
       dispatch(actions.UpUIState.SetTipsVisible({ QQTipsVisible: false }));
@@ -525,7 +525,7 @@ class EditModal extends React.Component {
     const { dispatch } = this.props;
 
     this.setState({
-      defaultWeixin: e.target.value.trim(),
+      defaultWeixin: e.target.value,
     });
   };
   onEditWeixinBlur = (e) => {
@@ -547,7 +547,7 @@ class EditModal extends React.Component {
       dispatch(
         actions.UpDataState.setAdminPreview({
           isChange: true,
-          Weixin: value,
+          Weixin: value.trim(),
         })
       );
       dispatch(actions.UpUIState.SetTipsVisible({ WeixinTipsVisible: false }));
@@ -557,7 +557,7 @@ class EditModal extends React.Component {
     const { dispatch } = this.props;
 
     this.setState({
-      defaultWeibo: e.target.value.trim(),
+      defaultWeibo: e.target.value,
     });
   };
   onEditWeiboBlur = (e) => {
@@ -580,7 +580,7 @@ class EditModal extends React.Component {
       dispatch(
         actions.UpDataState.setAdminPreview({
           isChange: true,
-          Weibo: value,
+          Weibo: value.trim(),
         })
       );
       dispatch(actions.UpUIState.SetTipsVisible({ WeiboTipsVisible: false }));
