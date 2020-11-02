@@ -172,7 +172,7 @@ export const GetStudentStudyInfo =  async ({schoolID,userID,termID='',dispatch})
 
 //获取目标角色的用户身份
 
-export const GetIdentify =  async ({UserID,dispatch})=>{
+export const GetUserIdentify =  async ({UserID})=>{
 
     const res = await getGetData(`/UserMgr/PowerMgr/GetIdentityTypeByUserID?UserID=${UserID}`,2);
 
@@ -183,6 +183,41 @@ export const GetIdentify =  async ({UserID,dispatch})=>{
     }
 
 };
+
+//获取用户身份
+export const GetSelfIdentity = async () => {
+
+    const {UserID} = JSON.parse(sessionStorage.getItem("UserInfo"));
+
+    const res = await getGetData(`/UserMgr/PowerMgr/GetIdentityTypeByUserID?UserID=${UserID}`,2);
+
+    if (res.StatusCode===200){
+
+        return res.Data;
+
+    }
+
+};
+
+
+//根据用户身份code获取用户身份详情
+export const GetIdentityTypeByCode = async (IdentityCodes) => {
+
+    const {SchoolID} = JSON.parse(sessionStorage.getItem("UserInfo"));
+
+    const res = await getGetData(`/UserMgr/PowerMgr/GetIdentityTypeByCode?SchoolID=${SchoolID}&IdentityCodes=${IdentityCodes}`,2);
+
+    if (res.StatusCode===200){
+
+        return res.Data;
+
+    }
+
+};
+
+
+
+
 
 
 
@@ -419,6 +454,10 @@ const dormitoryGetData =  (url) =>{
     })
 
 };
+
+
+
+
 
 
 

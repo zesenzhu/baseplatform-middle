@@ -134,7 +134,7 @@ class Header extends Component{
 
     render() {
 
-        const { HeaderSetting,LoginUser,HeaderMenuToggle,LogOut,ProductName,MessageShow } = this.props;
+        const { identifyInfo,HeaderSetting,LoginUser,HeaderMenuToggle,LogOut,ProductName,MessageShow } = this.props;
 
         const { WebRootUrl='',ProductLogoUrl='' } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
 
@@ -154,9 +154,21 @@ class Header extends Component{
 
                             <div className="frame-home-header-menu clearfix">
 
+
+
                                 <div className="down-menu clearfix" id="header-down-menu" onClick={e=>{HeaderMenuToggle(e)}}>
 
                                     <span className={`arrow ${HeaderSetting.MenuShow?'up':''}`}></span>
+
+                                    {
+
+                                        identifyInfo.length>0?
+
+                                            <i className={"identify-icon"} style={{backgroundImage:`url(${identifyInfo[0].IconUrl})`}}>{!identifyInfo[0].IsPreset?identifyInfo[0].IdentityName:''}</i>
+
+                                            :null
+
+                                    }
 
                                     <span className="frame-home-username" title={LoginUser.UserName}>{LoginUser.UserName}</span>
 
@@ -174,6 +186,8 @@ class Header extends Component{
 
                             </div>
 
+
+
                             {
 
                                 MessageShow?
@@ -187,6 +201,8 @@ class Header extends Component{
                                     :''
 
                             }
+
+
 
 
 

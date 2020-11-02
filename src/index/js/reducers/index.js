@@ -12,6 +12,8 @@ import BsToCs from './BsToCs';
 
 import ProductInfo from './ProductInfo';
 
+import identifyInfo from './identifyInfo';
+
 
 
 const Index = combineReducers({
@@ -26,7 +28,9 @@ const Index = combineReducers({
 
     BsToCs,
 
-    ProductInfo
+    ProductInfo,
+
+    identifyInfo
 
 });
 

@@ -2899,8 +2899,11 @@ class Frame extends React.Component {
   }*/
 
   UNSAFE_componentWillReceiveProps() {
+
     if (window.AppRightContentChange) {
+
       window.AppRightContentChange(this.RightContent.clientHeight);
+
     }
 
     if (getQueryVariable("isWorkPlantform")) {
@@ -3064,23 +3067,38 @@ class Frame extends React.Component {
                         </i>
                       ) : null}
 
-                      <a
-                        href={`${WebRootUrl}/html/personalMgr?lg_tk=${token}`}
-                        target="_blank"
-                        className="frame-home-username"
-                        title={userInfo && userInfo.name ? userInfo.name : ""}
-                      >
-                        {userInfo && userInfo.name ? userInfo.name : ""}
-                      </a>
+                        {
 
-                      {userInfo && userInfo.image ? (
-                        <a
-                          href={`${WebRootUrl}/html/personalMgr?lg_tk=${token}`}
-                          target="_blank"
-                          className="frame-home-userpic"
-                          style={{ backgroundImage: `url(${userInfo.image})` }}
-                        ></a>
-                      ) : null}
+                            userInfo && userInfo.name?
+
+                                userInfo.noClick?
+
+                                    <a className="frame-home-username no-click" title={userInfo.name}>{userInfo.name}</a>
+
+                                    :
+
+                                    <a href={`${WebRootUrl}/html/personalMgr?lg_tk=${token}`} target="_blank" className="frame-home-username" title={userInfo.name}>{userInfo.name}</a>
+
+                                :null
+
+                        }
+
+
+                      {
+                        userInfo && userInfo.image?
+
+                            userInfo.noClick?
+
+                                <a className="frame-home-userpic no-click" style={{ backgroundImage: `url(${userInfo.image})` }}></a>
+
+                                :
+
+                                <a href={`${WebRootUrl}/html/personalMgr?lg_tk=${token}`} target="_blank" className="frame-home-userpic" style={{ backgroundImage: `url(${userInfo.image})` }}></a>
+
+                            : null
+
+                      }
+
                     </div>
 
                     {MessageShow ? (

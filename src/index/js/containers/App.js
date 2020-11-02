@@ -4,7 +4,7 @@ import { Loading,Alert } from "../../../common";
 
 import publicJS from '../../../common/js/public';
 
-import {TokenCheck_Connect,LogOut,firstPageLoad} from "../../../common/js/disconnect";
+import {TokenCheck_Connect, LogOut, firstPageLoad, getQueryVariable} from "../../../common/js/disconnect";
 
 import LoginUserActions from '../actions/LoginUserActions';
 
@@ -24,6 +24,8 @@ import apiActions from '../actions/ApiActions';
 
 import dynamicFile from 'dynamic-file';
 
+import {identifyChange} from "../actions/identifyInfoActions";
+
 class App extends Component {
 
     constructor(props){
@@ -35,19 +37,7 @@ class App extends Component {
 
     componentDidMount(){
 
-        if(publicJS.IEVersion()){
-
-            if (sessionStorage.getItem("LgBasePlatformInfo")){
-
-                firstPageLoad(()=>{
-
-                    this.pageInit();
-
-                });
-
-            }else{
-
-                this.GetProduct().then(data=>{
+        this.GetProduct().then(data=>{
 
                     if (data){
 
@@ -63,18 +53,43 @@ class App extends Component {
 
                 });
 
-            }
+    }
+
+
+    pageInit(){
+
+        const identifyCode  = getQueryVariable('lg_ic');
+
+        if (identifyCode){
+
+            apiActions.GetIdentityTypeByCode(identifyCode).then(data=>{
+
+                this.nextPageStep(data); //下一步展示界面
+
+            });
+
+        }else{
+
+            apiActions.GetSelfIdentity().then(data=>{
+
+                this.nextPageStep(data);
+
+            })
 
         }
 
     }
 
 
-    pageInit(){
+    nextPageStep(identifyList){
 
         const { dispatch } = this.props;
 
-        const that = this;
+        if (identifyList&&identifyList.length>0){
+
+            dispatch(identifyChange(identifyList));
+
+        }
 
         const UserInfo = JSON.parse(sessionStorage.getItem('UserInfo'));
 
@@ -151,6 +166,7 @@ class App extends Component {
             dispatch(AppAlertActions.alertTips({title:'目前只对管理员和教师以及学生开放，其他用户敬请期待',cancel:()=>{ return this.Logout }}));
 
         }
+
 
     }
 
