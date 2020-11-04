@@ -14,6 +14,7 @@ import init from "./init";
 import blue from "./images/shadow-blue.png";
 import green from "./images/shadow-green.png";
 import orange from "./images/shadow-orange.png";
+import purple from "./images/shadow-purple.png";
 function WaveRound(props, ref) {
   let { className,type, name,data, id, width, height, ...other } = props;//type:blue,green,orange
   let CanvasRef = useRef();
@@ -43,6 +44,8 @@ function WaveRound(props, ref) {
         <img alt="green" src={green} id="green" />
         <img alt="blue" src={blue} id="blue" />
         <img alt="orange" src={orange} id="orange" />
+        <img alt="purple" src={purple} id="purple" />
+        
       </canvas>
       {name?<p className={"round-name"} title={name}>
         {name}

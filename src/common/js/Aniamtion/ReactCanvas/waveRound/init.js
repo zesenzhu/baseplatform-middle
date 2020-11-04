@@ -11,24 +11,22 @@ function init(canvas, { text, type }) {
   var Green = document.getElementById("green");
   var Blue = document.getElementById("blue");
   var Orange = document.getElementById("orange");
+  var Purple = document.getElementById("purple");
   let data = {
     angle: 90,
-    angleSpeed: -0.05,
+    angleSpeed: -0.04,
   };
   // 绘画波浪
   // angle:角度
-  function drawWave(
- 
-    {
-      xOffset = -10,
-      yOffset = undefined,
-      xSpeed = 0.2,
-      ySpeed = 0.02,
-      angle = 0,
-      range = 10,
-      color = "#ffffff",
-    }
-  ) {
+  function drawWave({
+    xOffset = -10,
+    yOffset = undefined,
+    xSpeed = 0.2,
+    ySpeed = 0.02,
+    angle = 0,
+    range = 10,
+    color = "#ffffff",
+  }) {
     //   let { xOffset, yOffset, xSpeed, angle, range, ySpeed } = params;
     let boxWidth = canvas.width;
     let boxHeight = canvas.height;
@@ -66,7 +64,7 @@ function init(canvas, { text, type }) {
     ctx.restore();
   }
   // 渲染背景
-  function drawBG(  { color = "#1c86d1" }) {
+  function drawBG({ color = "#1c86d1" }) {
     let boxWidth = canvas.width;
     let boxHeight = canvas.height;
     //   ctx.save();
@@ -79,7 +77,7 @@ function init(canvas, { text, type }) {
     //   ctx.restore();
   }
   // x渲染外圈
-  function drawCircle(  { color = "#1c86d1" }) {
+  function drawCircle({ color = "#1c86d1" }) {
     let boxWidth = canvas.width;
     let boxHeight = canvas.height;
     ctx.beginPath();
@@ -90,7 +88,7 @@ function init(canvas, { text, type }) {
     //   ctx.restore();
   }
   // 渲染内圈
-  function drawClipCircle(  { color = "#1c86d1" }) {
+  function drawClipCircle({ color = "#1c86d1" }) {
     let boxWidth = canvas.width;
     let boxHeight = canvas.height;
     ctx.save();
@@ -101,7 +99,7 @@ function init(canvas, { text, type }) {
     //   ctx.restore();
   }
   // 渲染阴影
-  function drawImageShadow(  { color = "#1790e5" }) {
+  function drawImageShadow({ color = "#1790e5" }) {
     let boxWidth = canvas.width;
     // let imgUrl = ''
     // green: "#1ca222",
@@ -115,13 +113,15 @@ function init(canvas, { text, type }) {
       img = Orange;
     } else if (color === "#1790e5") {
       img = Blue;
+    } else if (color === "#9179fc") {
+      img = Purple;
     } else {
       return;
     }
     ctx.drawImage(img, 0, boxWidth / 2 + 5);
   }
   // 绘画字体
-  function drawText(  { color = "#1790e5", text = "测试" }) {
+  function drawText({ color = "#1790e5", text = "测试" }) {
     let boxWidth = canvas.width;
     let r = boxWidth / 2;
     if (text === false) {
@@ -139,7 +139,7 @@ function init(canvas, { text, type }) {
     ctx.fillText(txt, r, r + 10);
   }
   // 渲染
-  function render(  { type, text }) {
+  function render({ type, text }) {
     let color = "#1790e5";
     switch (type) {
       case "green":
@@ -151,32 +151,36 @@ function init(canvas, { text, type }) {
       case "orange":
         color = "#ff7e00";
         break;
+      case "purple":
+        color = "#9179fc";
+        break;
+
       default:
         color = "#1790e5";
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    drawBG(  { color });
-    drawCircle(  { color });
+    drawBG({ color });
+    drawCircle({ color });
 
-    drawClipCircle(  { color });
-    drawWave(  { angle: data.angle });
-    drawWave(  { angle: data.angle + 85 });
-    drawImageShadow(  { color });
-    drawText(  { text });
+    drawClipCircle({ color });
+    drawWave({ angle: data.angle });
+    drawWave({ angle: data.angle + 85 });
+    drawImageShadow({ color });
+    drawText({ text });
     data.angle += data.angleSpeed;
     //   console.log(ctx)
   }
   function draw() {
     requestAnimationFrame(draw, canvas);
-    render(  { type, text });
+    render({ type, text });
   }
   if (canvas.getContext) {
     ctx = canvas.getContext("2d");
     //   console.log(CanvasRef.current, ctx);
 
     draw();
-    drawImageShadow(  {});
+    drawImageShadow({});
   }
   return cancelAnimationFrame.bind(window, draw, canvas);
 }

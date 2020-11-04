@@ -49,6 +49,7 @@ class App extends Component {
         <WaveRound name={'测试'} type={'blue'} data={115}></WaveRound>
         <WaveRound name={'测试'} type={'green'} data={115}></WaveRound>
         <WaveRound name={'测试'} type={'orange'} data={115}></WaveRound>
+        <WaveRound name={'测试'} type={'purple'} data={115}></WaveRound>
       </div>
     );
   }
