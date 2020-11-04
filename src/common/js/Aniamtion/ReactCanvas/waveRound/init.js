@@ -33,7 +33,7 @@ function init(canvas, { text, type }) {
     //   console.log(xOffset, angle);
     //   let range = 30; //幅度
     let lineColor = "#1c86d1"; //波浪颜色
-    if (yOffset == undefined) {
+    if (yOffset === undefined) {
       yOffset = boxWidth / 2;
     }
 
