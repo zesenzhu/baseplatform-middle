@@ -1,7 +1,8 @@
-import WaveRound from './WaveRound';
-
+import WaveRound from "./WaveRound.js";
+import waveRound from "./waveRound/index.js";
 
 let ReactTransition = {
-    WaveRound
-}
+  WaveRound,
+  waveRound,
+};
 export default ReactTransition;

@@ -224,17 +224,22 @@ const ModalInit = () =>{
         }else{
 
             if (Class.length>1){
-
+                let { ActiveClassID } = getState().Teacher.ClassCharge;
+                let ClassName = "";
                 const Classes = Class.map(item=>{
-
+                    if (item.ClassID === ActiveClassID) {
+                        ClassName = item.ClassName;
+                      }
                     return { value:item.ClassID,title:item.ClassName };
 
                 });
 
                 dispatch({type:TEACHER_STUDENT_INFO_MODAL_CLASS_DROP_SHOW});
 
-                dispatch({type:TEACHER_STUDENT_INFO_MODAL_CLASS_DROP_CHANGE,data:{value:Class[0].ClassID,title:Class[0].ClassName}});
-
+                dispatch({
+                    type: TEACHER_STUDENT_INFO_MODAL_CLASS_DROP_CHANGE,
+                    data: { value: ActiveClassID, title: ClassName },
+                  });
                 dispatch({type:TEACHER_STUDENT_INFO_MODAL_CLASS_LIST_UPDATE,data:Classes});
 
 

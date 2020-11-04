@@ -17,7 +17,7 @@ class ClassTab extends Component{
 
                         ClassList.map((item,key) => {
 
-                            return  <div key={key} className={`tab-item ${ActiveID===item.ClassID?'active':''}`}  title={item.ClassName} onClick={e=>ClassChange(item.ClassID)}>{item.ClassName}</div>
+                            return  <div key={key} className={`tab-item ${ActiveID===item.ClassID?'active':''}`}  title={item.ClassName} onClick={e=>ClassChange(item.ClassID,item)}>{item.ClassName}</div>
 
                         })
 

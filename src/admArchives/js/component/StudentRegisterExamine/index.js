@@ -925,7 +925,7 @@ class RegisterExamine extends Component {
           <span className="top-tips">
             <span className="tips menu39 ">学生注册审核</span>
           </span>
-          <RegisterModel></RegisterModel>
+          {!IsTeacher?<RegisterModel></RegisterModel>:''}
         </div>
         <div className="Content-hr"></div>
         <div className="Content-handle clearfix">
