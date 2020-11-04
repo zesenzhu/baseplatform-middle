@@ -226,7 +226,7 @@ export let containsPoint = function (rect, x, y) {
  * @param {object}  rectB Object with properties: x, y, width, height.
  * @return {boolean}
  */
-intersects = function (rectA, rectB) {
+export let intersects = function (rectA, rectB) {
   return !(
     rectA.x + rectA.width < rectB.x ||
     rectB.x + rectB.width < rectA.x ||

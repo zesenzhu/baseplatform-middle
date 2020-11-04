@@ -1,0 +1,19 @@
+.waveRound {
+    display: inline-block;
+    background-color: transparent;
+    canvas {
+        // box-shadow: 5px 5px 10px #ff6600;
+        background-color: transparent;
+    }
+    .round-name {
+        line-height: 16px;
+        font-family: MicrosoftYaHei;
+        font-size: 16px;
+        color: #333333;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: center;
+        margin: -10px 0 0 0;
+    }
+}

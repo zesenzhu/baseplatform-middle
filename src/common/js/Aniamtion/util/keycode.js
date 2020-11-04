@@ -31,7 +31,7 @@
  * @FilePath: \baseplatform-middle\src\common\js\Aniamtion\util\keycode.js
  */
 
-export default keycode = {
+export default   {
   BACKSPACE: 8,
   TAB: 9,
   ENTER: 13,
