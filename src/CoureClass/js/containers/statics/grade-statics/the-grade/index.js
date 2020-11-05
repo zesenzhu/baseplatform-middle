@@ -29,13 +29,13 @@ function TheCollege(props) {
     //统计
     const [statics,setStatics] = useState([
 
-        {title:'学科数量',value:0,id:'subject'},
+        {title:'学科数量',value:-1,id:'subject'},
 
-        {title:'教学班数量',value:0,id:'courseClass'},
+        {title:'教学班数量',value:-1,id:'courseClass'},
 
-        {title:'任课教师数量',value:0,id:'teacher'},
+        {title:'任课教师数量',value:-1,id:'teacher'},
 
-        {title:'学生人数',value:0,id:'student'}
+        {title:'学生人数',value:-1,id:'student'}
 
     ]);
 

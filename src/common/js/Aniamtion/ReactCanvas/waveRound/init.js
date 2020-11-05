@@ -182,7 +182,7 @@ function init(canvas, { text, type }) {
     draw();
     drawImageShadow({});
   }
-  return cancelAnimationFrame.bind(window, draw, canvas);
+  return cancelAnimationFrame.bind(window,draw, canvas);
 }
 
 export default init;

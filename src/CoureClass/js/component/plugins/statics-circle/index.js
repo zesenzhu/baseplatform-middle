@@ -2,7 +2,7 @@ import React,{useEffect,useMemo,useState,memo} from 'react';
 
 import './index.scss';
 
-import Aniamtion from "../../../../../common/js/Aniamtion";
+import WaveRound from "../../../../../common/js/Aniamtion/ReactCanvas/waveRound/index";
 
 
 function StaticsCircle(props) {
@@ -97,11 +97,17 @@ function StaticsCircle(props) {
 
                       <div key={i.id} className={"circle-item"}>
 
-                          {/*<Aniamtion.WaveRound background={color} num={i.value}>
+                          {
 
-                          </Aniamtion.WaveRound>*/}
+	                          i.value!==-1?
 
-                          <div className={`circle-bg ${color}`}>{i.value}</div>
+	                          <WaveRound type={color} data={i.value}></WaveRound>
+
+                              :null
+
+                          }
+
+                          {/*<div className={`circle-bg ${color}`}>{i.value}</div>*/}
 
                           <div className="title">{i.title}</div>
 
