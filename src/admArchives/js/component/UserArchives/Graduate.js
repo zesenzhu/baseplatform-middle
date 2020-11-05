@@ -168,7 +168,7 @@ class Graduate extends Component {
           render: (data) => {
             return data.HasTrack ? (
               <div className="JobType-box">
-                <span
+                {data.JobType?<span
                   title={data.JobType}
                   className="JobType"
                   style={{
@@ -176,10 +176,10 @@ class Graduate extends Component {
                   }}
                 >
                   {data.JobType}
-                </span>
-                <span title={data.Discription} className="Discription">
+                </span>:''}
+                {data.Discription?<span title={data.Discription} className="Discription">
                   {data.Discription}
-                </span>
+                </span>:''}
               </div>
             ) : (
               <span title={"不详"} className="HasTrack">

@@ -230,7 +230,7 @@ const EditClass = ({
     postData(
       ClassProxy + "/EditClass",
       {
-        ClassName,
+        ClassName:ClassName.trim(),
         ClassID,
       },
       2
@@ -275,7 +275,7 @@ const AddClass = ({
     postData(
       ClassProxy + "/AddClass",
       {
-        ClassName,
+        ClassName:ClassName.trim(),
         GradeID,
       },
       2

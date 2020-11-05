@@ -316,11 +316,11 @@ class WaveRound extends React.Component {
      * sHex为传入的十六进制的色值
      * alpha为rgba的透明度
      */
-    function colorRgba(sHex, alpha) {
+    function colorRgba(sHex='#1790e5', alpha) {
       // 十六进制颜色值的正则表达式
       var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
       /* 16进制颜色转为RGB格式 */
-      let sColor = sHex.toLowerCase();
+      let sColor =typeof sHex === 'string'&& sHex.toLowerCase();
       if (sColor && reg.test(sColor)) {
         if (sColor.length === 4) {
           var sColorNew = "#";

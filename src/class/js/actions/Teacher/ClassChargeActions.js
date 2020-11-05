@@ -2,320 +2,334 @@
 
 import ApiActions from "../ApiActions";
 
-import AppLoadingActions from '../AppLoadingActions';
+import AppLoadingActions from "../AppLoadingActions";
 
-import ModuleActions from '../ModuleActions';
+import ModuleActions from "../ModuleActions";
 
-import TeacherLogo from '../../../images/teacher-logo.png';
+import TeacherLogo from "../../../images/teacher-logo.png";
 
 import AppAlertActions from "../AppAlertActions";
 
-import AASActions from '../AppAlertSuccess';
+import SIMActions from "./StudentInfoModalActions";
+import AASActions from "../AppAlertSuccess";
 
-import utils from '../utils';
+import utils from "../utils";
+import {
+    matchParamfromArray,
+    matchTypeAdd,
+  } from "../../../../common/js/public";
+const TEACHER_CLASS_CHARGE_PAGE_INIT = "TEACHER_CLASS_CHARGE_PAGE_INIT";
 
-const  TEACHER_CLASS_CHARGE_PAGE_INIT = 'TEACHER_CLASS_CHARGE_PAGE_INIT';
+const TEACHER_CLASS_CHARGE_CLASS_ACTIVE = "TEACHER_CLASS_CHARGE_CLASS_ACTIVE";
 
-const  TEACHER_CLASS_CHARGE_CLASS_ACTIVE = 'TEACHER_CLASS_CHARGE_CLASS_ACTIVE';
+const TEACHER_CLASS_CHARGE_ACTIVE_CLASS_INFO_INIT =
+  "TEACHER_CLASS_CHARGE_ACTIVE_CLASS_INFO_INIT";
 
-const  TEACHER_CLASS_CHARGE_ACTIVE_CLASS_INFO_INIT = 'TEACHER_CLASS_CHARGE_ACTIVE_CLASS_INFO_INIT';
+const TEACHER_CLASS_CHARGE_LOADING_SHOW = "TEACHER_CLASS_CHARGE_LOADING_SHOW";
 
-const  TEACHER_CLASS_CHARGE_LOADING_SHOW = 'TEACHER_CLASS_CHARGE_LOADING_SHOW';
-
-const  TEACHER_CLASS_CHARGE_LOADING_HIDE = 'TEACHER_CLASS_CHARGE_LOADING_HIDE';
-
+const TEACHER_CLASS_CHARGE_LOADING_HIDE = "TEACHER_CLASS_CHARGE_LOADING_HIDE";
 
 //教师
 
-const TEACHER_CLASS_CHARGE_TEACHER_LOADING_SHOW = 'TEACHER_CLASS_CHARGE_TEACHER_LOADING_SHOW';
+const TEACHER_CLASS_CHARGE_TEACHER_LOADING_SHOW =
+  "TEACHER_CLASS_CHARGE_TEACHER_LOADING_SHOW";
 
-const TEACHER_CLASS_CHARGE_TEACHER_LOADING_HIDE = 'TEACHER_CLASS_CHARGE_TEACHER_LOADING_HIDE';
+const TEACHER_CLASS_CHARGE_TEACHER_LOADING_HIDE =
+  "TEACHER_CLASS_CHARGE_TEACHER_LOADING_HIDE";
 
-const TEACHER_CLASS_CHARGE_TEACHER_LIST_UPDATE = 'TEACHER_CLASS_CHARGE_TEACHER_LIST_UPDATE';
-
+const TEACHER_CLASS_CHARGE_TEACHER_LIST_UPDATE =
+  "TEACHER_CLASS_CHARGE_TEACHER_LIST_UPDATE";
 
 //学生变化
 
-const TEACHER_CLASS_CHARGE_STUDENT_LIST_UPDATE = 'TEACHER_CLASS_CHARGE_STUDENT_LIST_UPDATE';
+const TEACHER_CLASS_CHARGE_STUDENT_LIST_UPDATE =
+  "TEACHER_CLASS_CHARGE_STUDENT_LIST_UPDATE";
 
-const TEACHER_CLASS_CHARGE_STUDENT_SEARCH_VALUE_CHANGE = 'TEACHER_CLASS_CHARGE_STUDENT_SEARCH_VALUE_CHANGE';
+const TEACHER_CLASS_CHARGE_STUDENT_SEARCH_VALUE_CHANGE =
+  "TEACHER_CLASS_CHARGE_STUDENT_SEARCH_VALUE_CHANGE";
 
-const TEACHER_CLASS_CHARGE_STUDENT_PAGE_INDEX_UPDATE = 'TEACHER_CLASS_CHARGE_STUDENT_PAGE_INDEX_UPDATE';
+const TEACHER_CLASS_CHARGE_STUDENT_PAGE_INDEX_UPDATE =
+  "TEACHER_CLASS_CHARGE_STUDENT_PAGE_INDEX_UPDATE";
 
-const TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_SHOW = 'TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_SHOW';
+const TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_SHOW =
+  "TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_SHOW";
 
-const TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_HIDE = 'TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_HIDE';
+const TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_HIDE =
+  "TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_HIDE";
 
+const TEACHER_CLASS_CHARGE_STUDENT_SEARCH_CANCEL_SHOW =
+  "TEACHER_CLASS_CHARGE_STUDENT_SEARCH_CANCEL_SHOW";
 
-const TEACHER_CLASS_CHARGE_STUDENT_SEARCH_CANCEL_SHOW = 'TEACHER_CLASS_CHARGE_STUDENT_SEARCH_CANCEL_SHOW';
+const TEACHER_CLASS_CHARGE_STUDENT_SEARCH_CANCEL_HIDE =
+  "TEACHER_CLASS_CHARGE_STUDENT_SEARCH_CANCEL_HIDE";
 
-const TEACHER_CLASS_CHARGE_STUDENT_SEARCH_CANCEL_HIDE = 'TEACHER_CLASS_CHARGE_STUDENT_SEARCH_CANCEL_HIDE';
+const TEACHER_CLASS_CHARGE_STUDENT_LOADING_SHOW =
+  "TEACHER_CLASS_CHARGE_STUDENT_LOADING_SHOW";
 
-const TEACHER_CLASS_CHARGE_STUDENT_LOADING_SHOW = 'TEACHER_CLASS_CHARGE_STUDENT_LOADING_SHOW';
+const TEACHER_CLASS_CHARGE_STUDENT_LOADING_HIDE =
+  "TEACHER_CLASS_CHARGE_STUDENT_LOADING_HIDE";
 
-const TEACHER_CLASS_CHARGE_STUDENT_LOADING_HIDE = 'TEACHER_CLASS_CHARGE_STUDENT_LOADING_HIDE';
+const TEACHER_CLASS_CHARGE_STUDENT_CHECK_CHANGE =
+  "TEACHER_CLASS_CHARGE_STUDENT_CHECK_CHANGE";
 
-const TEACHER_CLASS_CHARGE_STUDENT_CHECK_CHANGE = 'TEACHER_CLASS_CHARGE_STUDENT_CHECK_CHANGE';
+const TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_FALSE =
+  "TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_FALSE";
 
-const TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_FALSE = 'TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_FALSE';
+const TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_TRUE =
+  "TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_TRUE";
 
-const TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_TRUE = 'TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_TRUE';
-
-const TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_KEY_CHANGE = 'TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_KEY_CHANGE';
-
-
+const TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_KEY_CHANGE =
+  "TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_KEY_CHANGE";
 
 //界面初始化
-const PageInit = () =>{
+const PageInit = () => {
+  return (dispatch, getState) => {
+    const { UserID } = getState().DataState.LoginUser;
 
-    return (dispatch,getState)=>{
+    ApiActions.GetClassAndPower({ UserID, dispatch }).then((data) => {
+      if (data) {
+        let ActiveClassID = data.Class[0].ClassID;
 
-        const { UserID } = getState().DataState.LoginUser;
+        let StudentPower = false;
 
-        ApiActions.GetClassAndPower({UserID,dispatch}).then(data=>{
+        let TeacherPower = false;
 
-            if (data){
-
-                const ActiveClassID = data.Class[0].ClassID;
-
-                let StudentPower = false;
-
-                let TeacherPower = false;
-
-                data.Power.map((item,key)=>{
-
-                    if (item.PowerID==='Ganger_Student_CURD'){
-
-                        if (item.Status===1){
-
-                            StudentPower = true;
-
-                        }
-
-                    }
-
-                    if (item.PowerID==='Ganger_CourseClassTeacher_CURD'){
-
-                        if (item.Status===1){
-
-                            TeacherPower = true;
-
-                        }
-
-                    }
-
-                });
-
-                if (!StudentPower&&!TeacherPower){
-
-                    dispatch({type:ModuleActions.MODULE_SETTING_INFO_UPDATE,data:{
-
-                            ShowLeftMenu:false,
-
-                            ShowBarner:false,
-
-                            ModuleInfo:{
-
-                                cnname:'班级管理',
-
-                                enname:"Class management",
-
-                                image:TeacherLogo,
-
-                                subtitle:'班级详情'
-
-                            }
-
-                        }});
-
-                }
-
-                dispatch({type:TEACHER_CLASS_CHARGE_PAGE_INIT,data:{...data,StudentPower,TeacherPower}});
-
-                dispatch({type:TEACHER_CLASS_CHARGE_CLASS_ACTIVE,data:ActiveClassID});
-
-                dispatch(ClassInfoUpdate(ActiveClassID));
-
-
+        data.Power.map((item, key) => {
+          if (item.PowerID === "Ganger_Student_CURD") {
+            if (item.Status === 1) {
+              StudentPower = true;
             }
+          }
 
-        })
+          if (item.PowerID === "Ganger_CourseClassTeacher_CURD") {
+            if (item.Status === 1) {
+              TeacherPower = true;
+            }
+          }
+        });
 
-    }
+        if (!StudentPower && !TeacherPower) {
+          dispatch({
+            type: ModuleActions.MODULE_SETTING_INFO_UPDATE,
+            data: {
+              ShowLeftMenu: false,
 
+              ShowBarner: false,
+
+              ModuleInfo: {
+                cnname: "班级管理",
+
+                enname: "Class management",
+
+                image: TeacherLogo,
+
+                subtitle: "班级详情",
+              },
+            },
+          });
+        }
+
+        dispatch({
+          type: TEACHER_CLASS_CHARGE_PAGE_INIT,
+          data: { ...data, StudentPower, TeacherPower },
+        });
+        let ClassList =
+          data.Class instanceof Array
+            ? data.Class.map((child) => {
+                return { value: child.ClassID, title: child.ClassName };
+              })
+            : [];
+        matchParamfromArray({ array: ClassList }, (res) => {
+          console.log(res, ClassList);
+
+          if (res) {
+            ActiveClassID = res.value;
+          }
+          dispatch({
+            type: TEACHER_CLASS_CHARGE_CLASS_ACTIVE,
+            data: ActiveClassID,
+          });
+
+          dispatch(ClassInfoUpdate(ActiveClassID));
+
+          matchTypeAdd({}, (type) => {
+            console.log(type);
+            if (type) {
+              dispatch({
+                type: SIMActions.TEACHER_STUDENT_INFO_MODAL_CLASS_DROP_CHANGE,
+                data: res,
+              });
+              dispatch({ type: SIMActions.TEACHER_STUDENT_INFO_MODAL_SHOW });
+            }
+          });
+        });
+        // dispatch({type:TEACHER_CLASS_CHARGE_CLASS_ACTIVE,data:ActiveClassID});
+
+        // dispatch(ClassInfoUpdate(ActiveClassID));
+      }
+    });
+  };
 };
-
 
 //整个班级界面更新
 
-const ClassInfoUpdate  = (ClassID) =>{
+const ClassInfoUpdate = (ClassID) => {
+  return (dispatch) => {
+    dispatch({ type: TEACHER_CLASS_CHARGE_LOADING_SHOW });
 
-    return dispatch=>{
+    const GetClassTeacher = ApiActions.GetClassTeacher({ ClassID, dispatch });
 
-        dispatch({type:TEACHER_CLASS_CHARGE_LOADING_SHOW});
+    const GetStudentToPage = ApiActions.GetStudentToPage({
+      ClassID,
+      Keyword: "",
+      PageIndex: 0,
+      PageSize: 20,
+      dispatch,
+    });
 
-        const GetClassTeacher = ApiActions.GetClassTeacher({ClassID,dispatch});
+    Promise.all([GetClassTeacher, GetStudentToPage]).then((res) => {
+      const json1 = res[0];
 
-        const GetStudentToPage = ApiActions.GetStudentToPage({ClassID,Keyword:'',PageIndex:0,PageSize:20,dispatch});
+      const json2 = res[1];
 
-        Promise.all([GetClassTeacher,GetStudentToPage]).then(res=>{
+      let Teacher,
+        Student = {};
 
-            const json1 = res[0];
+      let StudentPlainOptions = [];
 
-            const json2 = res[1];
+      if (json1) {
+        Teacher = json1;
+      }
 
-            let Teacher,Student = {};
+      if (json2) {
+        Student = json2;
 
-            let StudentPlainOptions = [];
-
-            if (json1){
-
-                Teacher = json1;
-
-            }
-
-            if (json2){
-
-                Student = json2;
-
-                StudentPlainOptions = Student.List.map(item=>{
-
-                   return item.UserID
-
-                });
-
-            }
-
-
-
-            dispatch({type:TEACHER_CLASS_CHARGE_ACTIVE_CLASS_INFO_INIT,data:{Teacher,Student,StudentPlainOptions}});
-
-            dispatch({type:TEACHER_CLASS_CHARGE_LOADING_HIDE});
-
-            dispatch(AppLoadingActions.hide());
-
+        StudentPlainOptions = Student.List.map((item) => {
+          return item.UserID;
         });
+      }
 
-    }
+      dispatch({
+        type: TEACHER_CLASS_CHARGE_ACTIVE_CLASS_INFO_INIT,
+        data: { Teacher, Student, StudentPlainOptions },
+      });
 
+      dispatch({ type: TEACHER_CLASS_CHARGE_LOADING_HIDE });
+
+      dispatch(AppLoadingActions.hide());
+    });
+  };
 };
-
 
 //教师更新
 
-const TeacherUpdate = () =>{
+const TeacherUpdate = () => {
+  return (dispatch, getState) => {
+    dispatch({ type: TEACHER_CLASS_CHARGE_TEACHER_LOADING_SHOW });
 
-    return (dispatch,getState)=>{
+    const { ActiveClassID } = getState().Teacher.ClassCharge;
 
-        dispatch({type:TEACHER_CLASS_CHARGE_TEACHER_LOADING_SHOW});
+    ApiActions.GetClassTeacher({ ClassID: ActiveClassID, dispatch }).then(
+      (data) => {
+        if (data) {
+          dispatch({
+            type: TEACHER_CLASS_CHARGE_TEACHER_LIST_UPDATE,
+            data: data,
+          });
+        }
 
-        const { ActiveClassID } = getState().Teacher.ClassCharge;
-
-        ApiActions.GetClassTeacher({ClassID:ActiveClassID,dispatch}).then(data=>{
-
-            if (data){
-
-                dispatch({type:TEACHER_CLASS_CHARGE_TEACHER_LIST_UPDATE,data:data});
-
-            }
-
-            dispatch({type:TEACHER_CLASS_CHARGE_TEACHER_LOADING_HIDE});
-
-        })
-
-    }
-
+        dispatch({ type: TEACHER_CLASS_CHARGE_TEACHER_LOADING_HIDE });
+      }
+    );
+  };
 };
 
 //学生更新
 
-const StudentUpdate = (PageIndex,IsResetPageIndex=false) =>{
+const StudentUpdate = (PageIndex, IsResetPageIndex = false) => {
+  return (dispatch, getState) => {
+    //const FrontEndPageIndex = getState().Teacher.ClassCharge.Student.PageIndex;
 
-    return (dispatch,getState)=>{
+    dispatch({ type: TEACHER_CLASS_CHARGE_STUDENT_LOADING_SHOW });
 
-        //const FrontEndPageIndex = getState().Teacher.ClassCharge.Student.PageIndex;
+    const {
+      ActiveClassID,
+      StudentPage,
+      StudentSearchOpen,
+      StudentSearchValue,
+    } = getState().Teacher.ClassCharge;
 
-        dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_LOADING_SHOW});
+    let Keyword = StudentSearchOpen ? StudentSearchValue : "";
 
-        const { ActiveClassID,StudentPage,StudentSearchOpen,StudentSearchValue } = getState().Teacher.ClassCharge;
+    ApiActions.GetStudentToPage({
+      ClassID: ActiveClassID,
+      Keyword,
+      PageIndex,
+      PageSize: 20,
+      dispatch,
+    }).then((data) => {
+      if (data) {
+        const { List } = data;
 
-        let Keyword = StudentSearchOpen?StudentSearchValue:'';
+        const BackEndPageIndex = data.PageIndex;
 
-        ApiActions.GetStudentToPage({ClassID:ActiveClassID,Keyword,PageIndex,PageSize:20,dispatch}).then(data=>{
+        const StudentPlainOptions = List.map((item) => {
+          return item.UserID;
+        });
 
-            if (data){
+        if (IsResetPageIndex) {
+          dispatch({
+            type: TEACHER_CLASS_CHARGE_STUDENT_PAGE_INDEX_UPDATE,
+            data: BackEndPageIndex + 1,
+          });
+        } else {
+          dispatch({
+            type: TEACHER_CLASS_CHARGE_STUDENT_PAGE_INDEX_UPDATE,
+            data: PageIndex + 1,
+          });
+        }
 
-                const { List } = data;
+        dispatch({
+          type: TEACHER_CLASS_CHARGE_STUDENT_LIST_UPDATE,
+          data: { Student: data, StudentPlainOptions },
+        });
+      }
 
-                const BackEndPageIndex = data.PageIndex;
-
-                const StudentPlainOptions = List.map(item=>{
-
-                    return item.UserID
-
-                });
-
-                if (IsResetPageIndex){
-
-                    dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_PAGE_INDEX_UPDATE,data:BackEndPageIndex+1});
-
-                }else{
-
-                    dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_PAGE_INDEX_UPDATE,data:PageIndex+1});
-
-                }
-
-                dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_LIST_UPDATE,data:{Student:data,StudentPlainOptions}});
-
-            }
-
-            dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_LOADING_HIDE});
-
-        })
-
-    }
-
+      dispatch({ type: TEACHER_CLASS_CHARGE_STUDENT_LOADING_HIDE });
+    });
+  };
 };
-
 
 //班级变化
 
-const ClassChange = (ClassID) =>{
+const ClassChange = (ClassID) => {
+  return (dispatch, getState) => {
+    dispatch({ type: TEACHER_CLASS_CHARGE_CLASS_ACTIVE, data: ClassID });
 
-    return (dispatch,getState)=>{
-
-        dispatch({type:TEACHER_CLASS_CHARGE_CLASS_ACTIVE,data:ClassID});
-
-        dispatch(ClassInfoUpdate(ClassID));
-
-    }
-
+    dispatch(ClassInfoUpdate(ClassID));
+  };
 };
 
-
-
 //设置取消班长
-const SetMonitor = ({UserID,isMonitor}) =>{
+const SetMonitor = ({ UserID, isMonitor }) => {
+  return (dispatch, getState) => {
+    let MonitorID = "";
 
-    return (dispatch,getState) => {
+    const { List, Total } = getState().Teacher.ClassCharge.Student;
 
-        let MonitorID = '';
+    const { ActiveClassID } = getState().Teacher.ClassCharge;
 
-        const { List,Total } = getState().Teacher.ClassCharge.Student;
+    if (!isMonitor) {
+      MonitorID = UserID;
+    }
 
-        const { ActiveClassID } = getState().Teacher.ClassCharge;
-
-        if (!isMonitor){
-
-            MonitorID = UserID;
-
-        }
-
-        ApiActions.SetMonitor({UserID:MonitorID,ClassID:ActiveClassID,dispatch}).then(data=>{
-
-            if (data===0){
-
-               /* let StudentList = List.map(item=>{
+    ApiActions.SetMonitor({
+      UserID: MonitorID,
+      ClassID: ActiveClassID,
+      dispatch,
+    }).then((data) => {
+      if (data === 0) {
+        /* let StudentList = List.map(item=>{
 
                     if (item.UserID === UserID){
 
@@ -347,268 +361,240 @@ const SetMonitor = ({UserID,isMonitor}) =>{
 
                 dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_LIST_UPDATE,data:Student});*/
 
-               /* dispatch(AppAlertActions.alertSuccess({title:`成功${isMonitor?'取消':'设置'}班长`}));
-*/
-               dispatch(AASActions.AlertSuccess({title:`成功${isMonitor?'取消':'设置'}班长`}));
+        /* dispatch(AppAlertActions.alertSuccess({title:`成功${isMonitor?'取消':'设置'}班长`}));
+         */
+        dispatch(
+          AASActions.AlertSuccess({
+            title: `成功${isMonitor ? "取消" : "设置"}班长`,
+          })
+        );
 
-                dispatch(StudentUpdate(0));
-
-            }
-
-        });
-
-    }
-
+        dispatch(StudentUpdate(0));
+      }
+    });
+  };
 };
-
 
 //搜索学生
 
-const StuSearchClick = ()=>{
+const StuSearchClick = () => {
+  return (dispatch, getState) => {
+    const {
+      ActiveClassID,
+      StudentPage,
+      StudentSearchValue,
+    } = getState().Teacher.ClassCharge;
 
-    return (dispatch,getState)=>{
+    let Keyword = StudentSearchValue.trim();
 
-        const { ActiveClassID,StudentPage,StudentSearchValue } = getState().Teacher.ClassCharge;
+    if (Keyword !== "") {
+      let RegResult = utils.SearchReg({
+        type: 1,
+        ErrorTips: "您输入的姓名或学号格式不正确!",
+        dispatch,
+        key: Keyword,
+      });
 
-        let Keyword = StudentSearchValue.trim();
+      if (RegResult) {
+        dispatch({ type: TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_SHOW });
 
-        if (Keyword!==''){
+        dispatch({ type: TEACHER_CLASS_CHARGE_STUDENT_SEARCH_CANCEL_SHOW });
 
-            let RegResult = utils.SearchReg({type:1,ErrorTips:"您输入的姓名或学号格式不正确!",dispatch,key:Keyword});
+        dispatch(StudentUpdate(0));
 
-            if (RegResult){
-
-                dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_SHOW});
-
-                dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_SEARCH_CANCEL_SHOW});
-
-                dispatch(StudentUpdate(0));
-
-                dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_KEY_CHANGE});
-
-            }
-
-
-        }else{
-
-            dispatch(AppAlertActions.alertWarn({title:"搜索不能为空！"}));
-
-        }
-
+        dispatch({
+          type: TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_KEY_CHANGE,
+        });
+      }
+    } else {
+      dispatch(AppAlertActions.alertWarn({ title: "搜索不能为空！" }));
     }
-
+  };
 };
 
 //学生取消搜索
 
 const StuCancelSearch = () => {
+  return (dispatch, getState) => {
+    dispatch({ type: TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_HIDE });
 
-    return (dispatch,getState)=>{
+    dispatch({ type: TEACHER_CLASS_CHARGE_STUDENT_SEARCH_CANCEL_HIDE });
 
-        dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_HIDE});
+    dispatch({
+      type: TEACHER_CLASS_CHARGE_STUDENT_SEARCH_VALUE_CHANGE,
+      data: "",
+    });
 
-        dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_SEARCH_CANCEL_HIDE});
-
-        dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_SEARCH_VALUE_CHANGE,data:''});
-
-        dispatch(StudentUpdate(0));
-
-    }
-
+    dispatch(StudentUpdate(0));
+  };
 };
-
-
 
 //学生页码发生变化
 
 const StudentPageChange = (PageIndex) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: TEACHER_CLASS_CHARGE_STUDENT_PAGE_INDEX_UPDATE,
+      data: PageIndex,
+    });
 
-    return (dispatch,getState)=>{
-
-        dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_PAGE_INDEX_UPDATE,data:PageIndex});
-
-        dispatch(StudentUpdate(PageIndex-1));
-
-    }
-
+    dispatch(StudentUpdate(PageIndex - 1));
+  };
 };
-
 
 //点击学生选择
 
-const StuCheckedChange = (e)=>{
+const StuCheckedChange = (e) => {
+  return (dispatch, getState) => {
+    dispatch({ type: TEACHER_CLASS_CHARGE_STUDENT_CHECK_CHANGE, data: e });
 
-    return (dispatch,getState)=>{
+    let {
+      StudentPlainOptions,
+      StudentCheckList,
+    } = getState().Teacher.ClassCharge;
 
-        dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_CHECK_CHANGE,data:e});
-
-        let { StudentPlainOptions,StudentCheckList } = getState().Teacher.ClassCharge;
-
-        if (StudentPlainOptions.length===StudentCheckList.length){
-
-            dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_TRUE});
-
-        }else{
-
-            dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_FALSE});
-
-        }
-
+    if (StudentPlainOptions.length === StudentCheckList.length) {
+      dispatch({ type: TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_TRUE });
+    } else {
+      dispatch({ type: TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_FALSE });
     }
-
+  };
 };
 
 //学生全选或者全不选\
-const StudentCheckAll = (CheckAll)=>{
+const StudentCheckAll = (CheckAll) => {
+  return (dispatch, getState) => {
+    let { StudentPlainOptions } = getState().Teacher.ClassCharge;
 
-    return (dispatch,getState)=>{
+    let StudentCheckList = [];
 
-        let { StudentPlainOptions } = getState().Teacher.ClassCharge;
+    if (CheckAll) {
+      dispatch({ type: TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_FALSE });
+    } else {
+      StudentCheckList = StudentPlainOptions;
 
-        let StudentCheckList = [];
-
-        if (CheckAll){
-
-            dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_FALSE});
-
-        }else{
-
-            StudentCheckList = StudentPlainOptions;
-
-            dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_TRUE});
-
-        }
-
-        dispatch({type:TEACHER_CLASS_CHARGE_STUDENT_CHECK_CHANGE,data:StudentCheckList});
-
-
+      dispatch({ type: TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_TRUE });
     }
 
+    dispatch({
+      type: TEACHER_CLASS_CHARGE_STUDENT_CHECK_CHANGE,
+      data: StudentCheckList,
+    });
+  };
 };
 
-
-
 //删除学生
-const DelStudent = ()=>{
+const DelStudent = () => {
+  return (dispatch, getState) => {
+    const { StudentCheckList, StudentPage } = getState().Teacher.ClassCharge;
 
-    return (dispatch,getState)=>{
+    const { SchoolID } = getState().DataState.LoginUser;
 
-        const { StudentCheckList,StudentPage } = getState().Teacher.ClassCharge;
+    if (StudentCheckList.length > 0) {
+      const UserIDs = StudentCheckList.join(",");
 
-
-
-        const { SchoolID } = getState().DataState.LoginUser;
-
-        if (StudentCheckList.length>0){
-
-            const UserIDs = StudentCheckList.join(',');
-
-            dispatch(AppAlertActions.alertQuery({title:"确定要删除这些学生吗？",ok:()=>{
-
-                   return ()=>DelStudentOk({PageIndex:StudentPage-1,UserIDs,SchoolID,dispatch});
-
-                }}));
-
-
-        }else{
-
-            dispatch(AppAlertActions.alertWarn({title:"请先勾选学生"}));
-
-        }
-
+      dispatch(
+        AppAlertActions.alertQuery({
+          title: "确定要删除这些学生吗？",
+          ok: () => {
+            return () =>
+              DelStudentOk({
+                PageIndex: StudentPage - 1,
+                UserIDs,
+                SchoolID,
+                dispatch,
+              });
+          },
+        })
+      );
+    } else {
+      dispatch(AppAlertActions.alertWarn({ title: "请先勾选学生" }));
     }
-
+  };
 };
 
 //确定删除学生
 
-const DelStudentOk = ({PageIndex,SchoolID,UserIDs,dispatch})=>{
+const DelStudentOk = ({ PageIndex, SchoolID, UserIDs, dispatch }) => {
+  return ApiActions.DeleteStudent({ SchoolID, UserIDs, dispatch }).then(
+    (data) => {
+      if (data === 0) {
+        dispatch({ type: AppAlertActions.CLOSE_ERROR_ALERT });
 
-    return ApiActions.DeleteStudent({SchoolID,UserIDs,dispatch}).then(data=>{
+        /*dispatch(AppAlertActions.alertSuccess({title:"删除成功！"}));*/
 
-        if (data===0){
+        /*dispatch(AASActions.AlertSuccess({title:'删除成功！'}));*/
 
-            dispatch({type:AppAlertActions.CLOSE_ERROR_ALERT});
+        dispatch(AASActions.AlertSuccess({ title: `删除成功！` }));
 
-            /*dispatch(AppAlertActions.alertSuccess({title:"删除成功！"}));*/
-
-            /*dispatch(AASActions.AlertSuccess({title:'删除成功！'}));*/
-
-            dispatch(AASActions.AlertSuccess({title:`删除成功！`}));
-
-            dispatch(StudentUpdate(PageIndex,true));
-
-        }
-
-    });
-
+        dispatch(StudentUpdate(PageIndex, true));
+      }
+    }
+  );
 };
 
-
 export default {
+  TEACHER_CLASS_CHARGE_PAGE_INIT,
 
-    TEACHER_CLASS_CHARGE_PAGE_INIT,
+  TEACHER_CLASS_CHARGE_CLASS_ACTIVE,
 
-    TEACHER_CLASS_CHARGE_CLASS_ACTIVE,
+  TEACHER_CLASS_CHARGE_ACTIVE_CLASS_INFO_INIT,
 
-    TEACHER_CLASS_CHARGE_ACTIVE_CLASS_INFO_INIT,
+  TEACHER_CLASS_CHARGE_LOADING_SHOW,
 
-    TEACHER_CLASS_CHARGE_LOADING_SHOW,
+  TEACHER_CLASS_CHARGE_LOADING_HIDE,
 
-    TEACHER_CLASS_CHARGE_LOADING_HIDE,
+  TEACHER_CLASS_CHARGE_STUDENT_LIST_UPDATE,
 
-    TEACHER_CLASS_CHARGE_STUDENT_LIST_UPDATE,
+  TEACHER_CLASS_CHARGE_STUDENT_SEARCH_VALUE_CHANGE,
 
-    TEACHER_CLASS_CHARGE_STUDENT_SEARCH_VALUE_CHANGE,
+  TEACHER_CLASS_CHARGE_STUDENT_PAGE_INDEX_UPDATE,
 
-    TEACHER_CLASS_CHARGE_STUDENT_PAGE_INDEX_UPDATE,
+  TEACHER_CLASS_CHARGE_STUDENT_SEARCH_CANCEL_SHOW,
 
-    TEACHER_CLASS_CHARGE_STUDENT_SEARCH_CANCEL_SHOW,
+  TEACHER_CLASS_CHARGE_STUDENT_SEARCH_CANCEL_HIDE,
 
-    TEACHER_CLASS_CHARGE_STUDENT_SEARCH_CANCEL_HIDE,
+  TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_SHOW,
 
-    TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_SHOW,
+  TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_HIDE,
 
-    TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_HIDE,
+  TEACHER_CLASS_CHARGE_STUDENT_LOADING_SHOW,
 
-    TEACHER_CLASS_CHARGE_STUDENT_LOADING_SHOW,
+  TEACHER_CLASS_CHARGE_STUDENT_LOADING_HIDE,
 
-    TEACHER_CLASS_CHARGE_STUDENT_LOADING_HIDE,
+  TEACHER_CLASS_CHARGE_TEACHER_LIST_UPDATE,
 
-    TEACHER_CLASS_CHARGE_TEACHER_LIST_UPDATE,
+  TEACHER_CLASS_CHARGE_TEACHER_LOADING_SHOW,
 
-    TEACHER_CLASS_CHARGE_TEACHER_LOADING_SHOW,
+  TEACHER_CLASS_CHARGE_TEACHER_LOADING_HIDE,
 
-    TEACHER_CLASS_CHARGE_TEACHER_LOADING_HIDE,
+  TEACHER_CLASS_CHARGE_STUDENT_CHECK_CHANGE,
 
-    TEACHER_CLASS_CHARGE_STUDENT_CHECK_CHANGE,
+  TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_TRUE,
 
-    TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_TRUE,
+  TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_FALSE,
 
-    TEACHER_CLASS_CHARGE_STUDENT_CHECK_ALL_FALSE,
+  TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_KEY_CHANGE,
 
-    TEACHER_CLASS_CHARGE_STUDENT_SEARCH_RESULT_KEY_CHANGE,
+  PageInit,
 
-    PageInit,
+  ClassChange,
 
-    ClassChange,
+  SetMonitor,
 
-    SetMonitor,
+  StuSearchClick,
 
-    StuSearchClick,
+  StuCancelSearch,
 
-    StuCancelSearch,
+  StudentPageChange,
 
-    StudentPageChange,
+  TeacherUpdate,
 
-    TeacherUpdate,
+  StuCheckedChange,
 
-    StuCheckedChange,
+  StudentCheckAll,
 
-    StudentCheckAll,
+  DelStudent,
 
-    DelStudent,
-
-    StudentUpdate
-
-}
+  StudentUpdate,
+};

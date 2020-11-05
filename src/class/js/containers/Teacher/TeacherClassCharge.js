@@ -7,6 +7,7 @@ import CCActions from '../../actions/Teacher/ClassChargeActions';
 import ClassTab from '../../component/Teacher/ClassTab';
 
 import TeacherWrapper from './TeacherWrapper';
+import SIMActions from "../../actions/Teacher/StudentInfoModalActions";
 
 import StudentWrapper from './StudentWrapper';
 
@@ -34,12 +35,15 @@ class TeacherClassCharge extends Component{
     }
 
     //班级变化
-    ClassChange(ClassID){
+    ClassChange(ClassID,item){
 
         const { dispatch } = this.props;
 
         dispatch(CCActions.ClassChange(ClassID));
-
+        dispatch({
+            type: SIMActions.TEACHER_STUDENT_INFO_MODAL_CLASS_CHANGE,
+            data: {value:item.ClassID,title:item.ClassName},
+          });
     }
 
     //删除教师

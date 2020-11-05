@@ -247,54 +247,58 @@ const UrlGetIcon = (url) => {
     return urlArr;
   }
 };
-const requestNextAnimationFrame = (function () {
-  var originalWebkitMethod,
-    wrapper = undefined,
-    callback = undefined,
-    geckoVersion = 0,
-    userAgent = navigator.userAgent,
-    index = 0,
-    self = this;
-  if (window.webkitRequestAnimationFrame) {
-    wrapper = function (time) {
-      if (time === undefined) {
-        time += new Date();
-      }
-      self.callback(time);
-    };
-    originalWebkitMethod = window.webkitRequestAnimationFrame;
-    window.webkitRequestAnimationFrame = function (callback, element) {
-      self.callback = callback;
-      originalWebkitMethod(wrapper, element);
-    };
-  }
-  if (window.mozRequestAnimationFrame) {
-    index = userAgent.indexOf("rv:");
-    if (userAgent.indexOf("Gecko") !== -1) {
-      geckoVersion = userAgent.substr(index + 3, 3);
-      if (geckoVersion === "2.0") {
-        window.mozRequestAnimationFrame = undefined;
-      }
-    }
-  }
+// const requestNextAnimationFrame = (function () {
+//   var originalWebkitMethod,
+//     wrapper = undefined,
+//     callback = undefined,
+//     geckoVersion = 0,
+//     userAgent = navigator.userAgent,
+//     index = 0,
+//     self = this;
+//   if (window.webkitRequestAnimationFrame) {
+//     wrapper = function (time) {
+//       if (time === undefined) {
+//         time += new Date();
+//       }
+//       self.callback(time);
+//     };
+//     originalWebkitMethod = window.webkitRequestAnimationFrame;
+//     window.webkitRequestAnimationFrame = function (callback=()=>{}, element) {
+//       if(!self ){
+//         self = this;
+//       }
+//       console.log(self,this ,callback)
+//       self.callback = callback;
+//       originalWebkitMethod(wrapper, element);
+//     };
+//   }
+//   if (window.mozRequestAnimationFrame) {
+//     index = userAgent.indexOf("rv:");
+//     if (userAgent.indexOf("Gecko") !== -1) {
+//       geckoVersion = userAgent.substr(index + 3, 3);
+//       if (geckoVersion === "2.0") {
+//         window.mozRequestAnimationFrame = undefined;
+//       }
+//     }
+//   }
 
-  return (
-    window.requestNextAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.oRequestAnimationFrame ||
-    window.msRequestAnimationFrame ||
-    function (callback, element) {
-      var start, finish;
-      window.setTimeout(function () {
-        start = +new Date();
-        callback(start);
-        finish = +new Date();
-        self.timeout = 1000 / 60 - (finish - start);
-      }, self.timeout);
-    }
-  );
-})();
+//   return (
+//     window.requestNextAnimationFrame ||
+//     window.webkitRequestAnimationFrame ||
+//     window.mozRequestAnimationFrame ||
+//     window.oRequestAnimationFrame ||
+//     window.msRequestAnimationFrame ||
+//     function (callback, element) {
+//       var start, finish;
+//       window.setTimeout(function () {
+//         start = +new Date();
+//         callback(start);
+//         finish = +new Date();
+//         self.timeout = 1000 / 60 - (finish - start);
+//       }, self.timeout);
+//     }
+//   );
+// })();
 
 const IEVersion = () => {
   let userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
@@ -332,7 +336,7 @@ const IEVersion = () => {
 };
 // 给教务系统，处理url，改变布局，设置跳转逻辑
 export function checkUrlAndPostMsg(
-   { sysid= "000", btnName= "", url= "" },
+  { sysid = "000", btnName = "", url = "" },
   useDefault = true,
   func = () => {}
 ) {
@@ -345,10 +349,10 @@ export function checkUrlAndPostMsg(
 
     window.parent.postMessage({ sysid, btnName, url }, "*");
   } else if (useDefault) {
-    window.open(url)
+    window.open(url);
   }
-  if(typeof arguments[arguments.length-1] === 'function'){
-    arguments[arguments.length-1](isIFrame);
+  if (typeof arguments[arguments.length - 1] === "function") {
+    arguments[arguments.length - 1](isIFrame);
   }
   // (isIFrame);
   return isIFrame;
@@ -437,6 +441,43 @@ const ArrayNoRepeat = (Arr1, Arr2) => {
   });
   return end;
 };
+
+// 适配工作平台跳转到对应班级
+//array:[classid,classid]
+export function matchParamfromArray(
+  { param = "classid", array = [] },
+
+  fn = () => {}
+) {
+  let Param = getQueryVariable(param);
+  let Class = false;
+  if (Param && array instanceof Array) {
+    array.some((child) => {
+      let isTrue = child.value === Param;
+      if (isTrue) {
+        Class = child;
+      }
+      return isTrue;
+    });
+  }
+  fn(Class);
+  return Class;
+}
+// 适配工作平台跳转到对应班级
+//array:[classid,classid]
+export function matchTypeAdd(
+  { param = "type" },
+
+  fn = () => {}
+) {
+  let Param = getQueryVariable(param);
+  let isAdd = false;
+  if (Param === "add") {
+    isAdd = true;
+  }
+  fn(isAdd);
+  return isAdd;
+}
 export default {
   deepCompare,
   getQueryVariable,
@@ -445,8 +486,11 @@ export default {
   getLg_tk,
   UrlGetIcon,
   IEVersion,
-  requestNextAnimationFrame,
+  // requestNextAnimationFrame,
   checkUrlAndPostMsg,
   setRole,
-  noRepeat,ArrayNoRepeat
+  noRepeat,
+  ArrayNoRepeat,
+  matchTypeAdd,
+  matchParamfromArray,
 };

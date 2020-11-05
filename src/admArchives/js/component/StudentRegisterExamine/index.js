@@ -375,7 +375,7 @@ class RegisterExamine extends Component {
     let { dispatch } = this.props;
     dispatch(
       CommonAction.SetRegisterExamineParams({
-        searchValue: e.target.value.trim(),
+        searchValue: e.target.value,
       })
     );
   };
@@ -404,7 +404,7 @@ class RegisterExamine extends Component {
     } = this.props;
     dispatch(
       CommonAction.SetRegisterExamineParams({
-        keyword: e.value,
+        keyword: e.value.trim(),
         searchValue: e.value,
         cancelBtnShow: "y",
         pageIndex: 0,
@@ -925,7 +925,7 @@ class RegisterExamine extends Component {
           <span className="top-tips">
             <span className="tips menu39 ">学生注册审核</span>
           </span>
-          <RegisterModel></RegisterModel>
+          {!IsTeacher?<RegisterModel></RegisterModel>:''}
         </div>
         <div className="Content-hr"></div>
         <div className="Content-handle clearfix">

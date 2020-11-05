@@ -60,7 +60,7 @@ class SubsystemAccessSetting extends Component {
         DataChange.getCurrentSbusystemInfo({
           IsOpened: this.state.AccessDropValue,
           UserType: this.state.UserDropValue,
-          keyword: e.value,
+          keyword: e.value.trim(),
         })
       );
     }

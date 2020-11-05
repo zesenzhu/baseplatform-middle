@@ -85,11 +85,11 @@ class GraduateContact extends Component {
     const { dispatch } = this.props;
     dispatch(
       CommonAction.SetGraduateEditParams({
-        Telephone: e.target.value.trim(),
+        Telephone: e.target.value,
       })
     );
     // this.setState({
-    //   Telephone: e.target.value.trim()
+    //   Telephone: e.target.value
     // });
   };
   onTelephoneBlur = (e) => {
@@ -108,11 +108,11 @@ class GraduateContact extends Component {
     const { dispatch } = this.props;
     dispatch(
       CommonAction.SetGraduateEditParams({
-        Email: e.target.value.trim(),
+        Email: e.target.value,
       })
     );
     // this.setState({
-    //   Telephone: e.target.value.trim()
+    //   Telephone: e.target.value
     // });
   };
   onEmailBlur = (e) => {
@@ -131,11 +131,11 @@ class GraduateContact extends Component {
     const { dispatch } = this.props;
     dispatch(
       CommonAction.SetGraduateEditParams({
-        HomeAddress: e.target.value.trim(),
+        HomeAddress: e.target.value,
       })
     );
     // this.setState({
-    //   Telephone: e.target.value.trim()
+    //   Telephone: e.target.value
     // });
   };
   onHomeAddressBlur = (e) => {

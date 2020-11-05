@@ -98,11 +98,11 @@ class GraduateJobType extends Component {
     const { dispatch } = this.props;
     dispatch(
       CommonAction.SetGraduateEditParams({
-        Discription: e.target.value.trim(),
+        Discription: e.target.value,
       })
     );
     // this.setState({
-    //   Telephone: e.target.value.trim()
+    //   Telephone: e.target.value
     // });
   };
   onDiscriptionBlur = (e) => {

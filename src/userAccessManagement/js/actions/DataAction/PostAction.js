@@ -65,7 +65,11 @@ const AddIdentityType = ({ fn = () => {}, schoolID }) => {
     let url = UserAccessProxy + "AddIdentityType";
     postData({
       url,
-      params: { IdentityName, Description, UserType: UserType.join(",") },
+      params: {
+        IdentityName: IdentityName.trim(),
+        Description: Description.trim(),
+        UserType: UserType.join(","),
+      },
     }).then(({ res }) => {
       if (res) {
         fn();
@@ -76,7 +80,6 @@ const AddIdentityType = ({ fn = () => {}, schoolID }) => {
         dispatch(DataAction.GetIdentityTypeList({}));
       }
       dispatch(PublicAction.ModalLoadingClose());
-
     });
   };
 };
@@ -98,8 +101,8 @@ const EditIdentityType = ({ fn = () => {}, schoolID }) => {
     postData({
       url,
       params: {
-        IdentityName,
-        Description,
+        IdentityName: IdentityName.trim(),
+        Description: Description.trim(),
         UserType: UserType.join(","),
         IdentityID,
       },
@@ -113,7 +116,6 @@ const EditIdentityType = ({ fn = () => {}, schoolID }) => {
         dispatch(DataAction.GetIdentityTypeList({}));
       }
       dispatch(PublicAction.ModalLoadingClose());
-
     });
   };
 };
@@ -174,14 +176,12 @@ const EditIdentityModule = ({ fn = () => {}, schoolID }) => {
         dispatch(DataAction.GetIdentityTypeList({}));
       }
       dispatch(PublicAction.ModalLoadingClose());
-
     });
   };
 };
 // 删除成员
 const DeleteIdentityUser = ({ fn = () => {}, UserID }) => {
   return (dispatch, getState) => {
-
     let State = getState();
     let {
       HandleState: {

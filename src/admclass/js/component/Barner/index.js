@@ -149,20 +149,20 @@ class TimeBanner extends React.Component {
   //
   onEditNameChange = (e) => {
     let { dispatch } = this.props;
-    this.checkName(e.target.value.trim());
+    this.checkName(e.target.value);
     dispatch(
       UpDataState.SetAddClassParams({
-        ClassName: e.target.value.trim(),
+        ClassName: e.target.value,
       })
     );
   };
   onEditNameBlur = (e) => {
     let { dispatch } = this.props;
-    this.checkName(e.target.value.trim());
+    this.checkName(e.target.value);
 
     // dispatch(
     //   UpDataState.SetGradeData({
-    //     GradeName: e.target.value.trim(),
+    //     GradeName: e.target.value,
     //   })
     // );
   };

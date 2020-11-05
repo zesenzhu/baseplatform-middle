@@ -21,7 +21,7 @@
  * @Author: zhuzesen
  * @LastEditors: zhuzesen
  * @Date: 2020-09-17 10:35:48
- * @LastEditTime: 2020-10-21 15:23:06
+ * @LastEditTime: 2020-11-02 11:23:28
  * @Description: 模块接口的get的action
  * @FilePath: \baseplatform-university\src\userAccessManagement\js\actions\DataAction\GetAction.js
  */
@@ -257,7 +257,7 @@ const GetIdentityUser = ({ fn = () => {}, identityID }) => {
       url,
       params: { IdentityID: identityID, IdentityCode, PageIndex, PageSize },
     }).then(({ res }) => {
-      let Data = res;
+      let Data = {};
       if (res) {
         //   "Data": {
         //     "PageIndex":6,
@@ -315,7 +315,7 @@ const GetTree = ({ fn = () => {}, SelectRole }) => {
         //  RoleList.find(child=>child.value===parseInt(SelectRole)).code
       },
     }).then(({ res }) => {
-      let Data = res;
+      let Data = [];
       if (res) {
         //   "Data": {
         // "NodeType": 2,    //节点类型，0管理员，1教师，2学生，3家长
@@ -384,7 +384,7 @@ const GetUser = ({ fn = () => {}, SelectRole, NodeID }) => {
         nodeID: NodeID,
       },
     }).then(({ res }) => {
-      let Data = res;
+      let Data = [];
       if (res) {
         //   "Data": {
         // "NodeType": 2,    //节点类型，0管理员，1教师，2学生，3家长
@@ -449,7 +449,11 @@ const SearchIdentityUser = ({ fn = () => {}, identityID }) => {
         PageSize,
       },
     }).then(({ res }) => {
-      let Data = res;
+      let Data = {
+        PageIndex,
+        Total: 0,
+        List: [],
+      };
       if (res) {
         //   "Data": "PageIndex":10,
         // "Total":""
@@ -519,7 +523,7 @@ const GetIdentityTypeForAccredit = ({ userID, fn = () => {}, identityID }) => {
         SchoolID,
       },
     }).then(({ res }) => {
-      let Data = res;
+      let Data = [];
       if (res) {
         //   "Data": "PageIndex":10,
         // "Total":""
@@ -584,7 +588,7 @@ const SearchUser = ({ userID, fn = () => {}, identityID }) => {
         SchoolID,
       },
     }).then(({ res }) => {
-      let Data = res;
+      let Data = { Total: 0, PageIndex: 0, List: [] };
       if (res) {
         //   "Data": "PageIndex":10,
         // "Total":""

@@ -511,7 +511,7 @@ class Parents extends React.Component {
         "/GetParentsToPage?SchoolID=" +
           this.state.userMsg.SchoolID +
           "&PageIndex=0&PageSize="+this.state.pageSize+ "&keyword=" +
-          e.value +
+          e.value.trim() +
           (this.state.firstSelect.value
             ? "&gradeID=" + this.state.firstSelect.value
             : "") +
@@ -525,7 +525,7 @@ class Parents extends React.Component {
     this.setState({
       checkedList: [],
       checkAll: false,
-      keyword: e.value,
+      keyword: e.value.trim(),
       CancelBtnShow: "y"
     });
   };
@@ -533,7 +533,7 @@ class Parents extends React.Component {
   //搜索change
   onChangeSearch = e => {
     this.setState({
-      searchValue: e.target.value.trim()
+      searchValue: e.target.value 
     });
   };
   // 取消搜索
@@ -796,7 +796,7 @@ class Parents extends React.Component {
             DataState.ParentsPreview.newList[this.state.onClickKey].Others
               .UserID,
           userType: 3,
-          newPwd: md5(this.state.defaultPwd)
+          newPwd: md5(this.state.defaultPwd.trim())
         },
         2
       )
@@ -861,7 +861,7 @@ class Parents extends React.Component {
         {
           userID: userIDs.join(),
           userType: 3,
-          newPwd: md5(this.state.defaultPwd)
+          newPwd: md5(this.state.defaultPwd.trim())
         },
         2
       )
@@ -940,14 +940,14 @@ class Parents extends React.Component {
   onPwdchange = e => {
     const { dispatch } = this.props;
     this.setState({
-      defaultPwd: e.target.value.trim()
+      defaultPwd: e.target.value 
     });
   };
   // 批量change
   onAllPwdchange = e => {
     const { dispatch } = this.props;
     this.setState({
-      defaultPwd: e.target.value.trim()
+      defaultPwd: e.target.value 
     });
   };
   onAlertWarnClose = () => {

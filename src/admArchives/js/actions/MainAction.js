@@ -1164,9 +1164,9 @@ const EditGraduateContact = ({ fn = () => {} }) => {
     postData(
       UserInfoProxy + url,
       {
-        Telephone,
-        Email,
-        HomeAddress,
+        Telephone: Telephone.trim(),
+        Email: Email.trim(),
+        HomeAddress: HomeAddress.trim(),
         UserID,
       },
       2
@@ -1202,8 +1202,8 @@ const EditGraduateTrack = ({ fn = () => {} }) => {
     postData(
       UserInfoProxy + url,
       {
-        JobType,
-        Discription,
+        JobType: JobType.trim(),
+        Discription: Discription.trim(),
         UserID,
       },
       2
@@ -1307,15 +1307,15 @@ const AddStudent = ({ fn = () => {} }) => {
     postData(
       UserInfoProxy + url,
       {
-        UserID,
-        UserName,
+        UserID: UserID.trim(),
+        UserName: UserName.trim(),
         PhotoPath: ImgPath,
         Gender,
         classID: ClassID,
-        IDCardNo,
-        Telephone,
-        Email,
-        HomeAddress,
+        IDCardNo: UserName.trim(),
+        Telephone: UserName.trim(),
+        Email: UserName.trim(),
+        HomeAddress: UserName.trim(),
       },
       2
     )
@@ -1361,14 +1361,14 @@ const EditStudent = ({ fn = () => {} }) => {
       UserInfoProxy + url,
       {
         UserID,
-        UserName,
+        UserName: UserName.trim(),
         PhotoPath: ImgPath,
         Gender,
         classID: ClassID,
-        IDCardNo,
-        Telephone,
-        Email,
-        HomeAddress,
+        IDCardNo: UserName.trim(),
+        Telephone: UserName.trim(),
+        Email: UserName.trim(),
+        HomeAddress: UserName.trim(),
         PhotoEdit,
       },
       2
@@ -1416,18 +1416,19 @@ const AddTeacher = ({ fn = () => {} }) => {
     postData(
       UserInfoProxy + url,
       {
-        UserID,
-        UserName,
+        UserID: UserID.trim(),
+        UserName: UserName.trim(),
         CollegeID,
         PhotoPath: ImgPath,
         Gender,
         GroupID,
         TitleID,
-        IDCardNo,
-        Telephone,
         SubjectIDs: SubjectIDs.join(","),
-        Email,
-        HomeAddress,
+
+        IDCardNo: UserName.trim(),
+        Telephone: UserName.trim(),
+        Email: UserName.trim(),
+        HomeAddress: UserName.trim(),
       },
       2
     )
@@ -1476,17 +1477,18 @@ const EditTeacher = ({ fn = () => {} }) => {
       UserInfoProxy + url,
       {
         UserID,
-        UserName,
+        UserName: UserName.trim(),
         CollegeID,
         PhotoPath: ImgPath,
         Gender,
         GroupID,
         TitleID,
-        IDCardNo,
-        Telephone,
         SubjectIDs: SubjectIDs.join(","),
-        Email,
-        HomeAddress,
+
+        IDCardNo: UserName.trim(),
+        Telephone: UserName.trim(),
+        Email: UserName.trim(),
+        HomeAddress: UserName.trim(),
         PhotoEdit,
       },
       2
@@ -1533,17 +1535,17 @@ const AddSchoolLeader = ({ fn = () => {} }) => {
     postData(
       UserInfoProxy + url,
       {
-        UserID,
+        UserID: UserID.trim(),
         Position,
         UserType,
-        UserName,
+        UserName: UserName.trim(),
         CollegeID,
         PhotoPath: ImgPath,
         Gender,
-        IDCardNo,
-        Telephone,
-        Email,
-        HomeAddress,
+        IDCardNo: UserName.trim(),
+        Telephone: UserName.trim(),
+        Email: UserName.trim(),
+        HomeAddress: UserName.trim(),
       },
       2
     )
@@ -1593,14 +1595,14 @@ const EditSchoolLeader = ({ fn = () => {} }) => {
         UserID,
         Position,
         UserType,
-        UserName,
+        UserName: UserName.trim(),
         CollegeID,
         PhotoPath: ImgPath,
         Gender,
-        IDCardNo,
-        Telephone,
-        Email,
-        HomeAddress,
+        IDCardNo: UserName.trim(),
+        Telephone: UserName.trim(),
+        Email: UserName.trim(),
+        HomeAddress: UserName.trim(),
         PhotoEdit,
       },
       2

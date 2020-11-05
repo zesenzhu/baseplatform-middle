@@ -526,7 +526,7 @@ class Student extends React.Component {
           "&PageIndex=0&PageSize=" +
           this.state.pageSize +
           "&keyword=" +
-          e.value +
+          e.value.trim() +
           (this.state.firstSelect.value
             ? "&gradeID=" + this.state.firstSelect.value
             : "") +
@@ -540,7 +540,7 @@ class Student extends React.Component {
     this.setState({
       checkedList: [],
       checkAll: false,
-      keyword: e.value,
+      keyword: e.value.trim(),
       CancelBtnShow: "y",
     });
   };
@@ -548,7 +548,7 @@ class Student extends React.Component {
   //搜索change
   onChangeSearch = (e) => {
     this.setState({
-      searchValue: e.target.value.trim(),
+      searchValue: e.target.value ,
     });
   };
   // 取消搜索
@@ -815,7 +815,7 @@ class Student extends React.Component {
             DataState.GradeStudentPreview.newList[this.state.onClickKey].Others
               .UserID,
           userType: 2,
-          newPwd: md5(this.state.defaultPwd),
+          newPwd: md5(this.state.defaultPwd.trim()),
         },
         2
       )
@@ -882,7 +882,7 @@ class Student extends React.Component {
         {
           userID: userIDs.join(),
           userType: 2,
-          newPwd: md5(this.state.defaultPwd),
+          newPwd: md5(this.state.defaultPwd.trim()),
         },
         2
       )
@@ -963,14 +963,14 @@ class Student extends React.Component {
   onPwdchange = (e) => {
     const { dispatch } = this.props;
     this.setState({
-      defaultPwd: e.target.value.trim(),
+      defaultPwd: e.target.value ,
     });
   };
   // 批量change
   onAllPwdchange = (e) => {
     const { dispatch } = this.props;
     this.setState({
-      defaultPwd: e.target.value.trim(),
+      defaultPwd: e.target.value ,
     });
   };
   onAlertWarnClose = () => {

@@ -51,7 +51,7 @@ import TeacherLogo from "../../images/Frame/teacher-logo.png";
 import logo from "../../images/Frame/icon-logo.png";
 
 const { Bs2CsProxy } = CONFIG;
-let { getQueryVariable } = Public;
+let { getQueryVariable, matchParamfromArray } = Public;
 const { MainAction, CommonAction, PublicAction } = actions;
 class App extends Component {
   constructor(props) {
@@ -104,6 +104,13 @@ class App extends Component {
         ModuleID = "000014";
       }
       // return;
+      userMsg = this.setRole(userMsg);
+      dispatch(
+        PublicAction.getLoginUser(
+          // ...JSON.parse(sessionStorage.getItem("UserInfo")),
+          userMsg
+        )
+      );
       // 数据请求前的处理
       this.SetRoleLeader(); //权限升级身份后没有领导
       this.SetRoleCollege();
@@ -132,6 +139,42 @@ class App extends Component {
     // }
 
     // console.log(userMsg.UserType,userMsg.UserClass,userMsg.UserType !== "6" || userMsg.UserClass !== "2")
+  };
+  // 工作平台班级选择
+  MatchParam = (fn) => {
+    let {
+      DataState: {
+        MainData: {
+          StudentTree: { CollegeList },
+          TeacherClassList,
+        },
+        CommonData: {
+          RolePower: { IsTeacher },
+        },
+      },
+      dispatch,
+    } = this.props;
+    // 适配工作平台跳转到对应班级
+    if (IsTeacher) {
+      matchParamfromArray({ array: TeacherClassList }, (res) => {
+        if (res) {
+          dispatch(
+            CommonAction.SetRegisterExamineParams({
+              classID: res.value,
+              className: res.title,
+
+              keyword: "",
+              pageIndex: 0,
+              checkedList: [],
+              checkAll: false,
+            })
+          );
+          dispatch(MainAction.GetSignUpLogToPage({}));
+        } else {
+          fn();
+        }
+      });
+    }
   };
   // 路由监听
   RouteListening = ({ isFirst = false, fn = () => {} }) => {
@@ -320,30 +363,32 @@ class App extends Component {
                   },
                   PublicState,
                 } = State;
-                if (SecondRoute === "RegisterWillExamine") {
-                  dispatch(
-                    CommonAction.SetRegisterExamineParams({
-                      ...RegisterParams,
-                      classID: TeacherClassList[0].value,
-                      className: TeacherClassList[0].title,
-                      status: 0,
-                    })
-                  );
-                  dispatch(MainAction.GetSignUpLogToPage({}));
-                } else if (SecondRoute === "RegisterDidExamine") {
-                  dispatch(
-                    CommonAction.SetRegisterExamineParams({
-                      ...RegisterParams,
+                this.MatchParam(() => {
+                  if (SecondRoute === "RegisterWillExamine") {
+                    dispatch(
+                      CommonAction.SetRegisterExamineParams({
+                        ...RegisterParams,
+                        classID: TeacherClassList[0].value,
+                        className: TeacherClassList[0].title,
+                        status: 0,
+                      })
+                    );
+                    dispatch(MainAction.GetSignUpLogToPage({}));
+                  } else if (SecondRoute === "RegisterDidExamine") {
+                    dispatch(
+                      CommonAction.SetRegisterExamineParams({
+                        ...RegisterParams,
 
-                      classID: TeacherClassList[0].value,
-                      className: TeacherClassList[0].title,
-                      status: 1,
-                    })
-                  );
-                  dispatch(MainAction.GetSignUpLogToPage({}));
-                } else {
-                  this.SetRegisterExamineDefaultRoute();
-                }
+                        classID: TeacherClassList[0].value,
+                        className: TeacherClassList[0].title,
+                        status: 1,
+                      })
+                    );
+                    dispatch(MainAction.GetSignUpLogToPage({}));
+                  } else {
+                    this.SetRegisterExamineDefaultRoute();
+                  }
+                });
               },
             })
           );
