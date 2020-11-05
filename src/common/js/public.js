@@ -1,4 +1,5 @@
 import { func } from "prop-types";
+
 import config from "./config";
 
 //对象深度对比

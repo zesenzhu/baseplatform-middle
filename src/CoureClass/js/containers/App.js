@@ -66,8 +66,6 @@ import {appLoadingHide} from "../reducers/AppLoading";
 
 import {getQueryVariable} from "../../../common/js/disconnect";
 
-import editCoureClassModal from "../reducers/editCourseClassModal";
-
 import {teacherPowerChange} from "../reducers/teacherManagePower";
 
 

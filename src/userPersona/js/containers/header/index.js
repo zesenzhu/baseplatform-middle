@@ -234,8 +234,6 @@ function Header(props) {
 
                 }
 
-
-
             </div>
 
             <ArchivesLogModal closeArchivesLog={closeArchivesLog} show={archivesModal}></ArchivesLogModal>
