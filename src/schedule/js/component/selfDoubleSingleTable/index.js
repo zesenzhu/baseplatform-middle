@@ -105,6 +105,24 @@ function SelfDoubleSingleTable(props,ref){
 
     },[]);
 
+	/*const tableScroll = useCallback((e)=>{
+
+		const {scrollTop,scrollLeft,top} = e;
+
+		$('#double-single-table1').css({left:`0px`,top:`0px`});
+
+		$('#double-single-table2').css({top:`0px`,left:`${-scrollLeft}px`});
+
+		$('#double-single-table3').css({left:`0px`,top:`${-scrollTop}px`});
+
+		if (top===1){
+
+			scrollToBottom();
+
+		}
+
+	},[]);*/
+
     useImperativeHandle(ref,()=>({
 
         scrollToTop:()=>{
@@ -123,9 +141,211 @@ function SelfDoubleSingleTable(props,ref){
 
     }),[]);
 
+	/*useImperativeHandle(ref,()=>({
+
+		scrollToTop:()=>{
+
+			ScrollRef.current.scrollToTop();
+
+			$('#double-single-table1').css({top:`0px`});
+
+			$('#double-single-table2').css({top:`0px`});
+
+			$('#double-single-table3').css({top:`0px`});
+
+		},
+
+		getScrollTop:ScrollRef.current.getScrollTop,
+
+		scrollTop:ScrollRef.current.scrollTop
+
+	}),[]);*/
+
+
+
+	{/*<div ref={ref} className={"self-double-single-table-wrapper"} style={{position:'relative',overflow:'hidden'}}>
+
+		<table id={"double-single-table1"} border="0">
+
+			<thead>
+
+			<tr>
+
+				<th className={"col1 row1"}>
+
+					<div className="blank" style={{width:colWidth}}></div>
+
+				</th>
+
+			</tr>
+
+			</thead>
+
+		</table>
+
+		<table id={"double-single-table2"} border="0">
+
+			<thead>
+
+			<tr>
+
+				<th className={"col1 row1"}>
+
+					<div className={"blank"} style={{width:colWidth}}></div>
+
+				</th>
+
+				{
+
+					ItemClassHour.map((i,k)=>{
+
+						return <th key={i.ClassHourNO} className={`col${k+2} row1`}>
+
+							<div className={"class-hour-wrapper"} style={{width:colWidth}}>
+
+								<div className={"class-hour-name"}>{i.ClassHourName}</div>
+
+								<div className={"time"}>{i.StartTime}-{i.EndTime}</div>
+
+							</div>
+
+						</th>
+
+					})
+
+				}
+
+			</tr>
+
+			</thead>
+
+		</table>
+
+		<table id={"double-single-table3"} border="0">
+
+			<tbody>
+
+			<tr>
+
+				<td className={"row1 col1"}>
+
+					<div className={"blank"} style={{width:colWidth}}></div>
+
+				</td>
+
+			</tr>
+
+			{
+
+				schedule.map((i,k)=>{
+
+					return(
+
+						<tr key={i.id}>
+
+							<td className={`row${k+2} col1`}>
+
+								<div style={{width:colWidth}} className={"row-name"} title={i.name}>{i.name}</div>
+
+							</td>
+
+						</tr>
+
+					)
+
+				})
+
+			}
+
+			</tbody>
+
+		</table>
+
+		<Scrollbars ref={ScrollRef} style={{width:`calc(100% - ${colWidth+2}px)`,marginTop:64,marginLeft:colWidth+2,height:schedule.length>6?540:schedule.length*91}} onScrollFrame={tableScroll}>
+
+			<table id={"double-single-table4"}>
+
+				<tbody>
+
+				{
+
+					schedule.map((i,k)=>{
+
+						return(
+
+							<tr key={i.id}>
+
+								{
+
+									ItemClassHour.map((item,key)=>{
+
+										const findItem = i.list.find(i=>i.ClassHourNO===item.ClassHourNO);
+
+										let scheduleDom = '--';
+
+										if (findItem){
+
+											scheduleDom = <>
+
+												<div className={`title ${findItem.type!==1?'unend':''}`} onClick={e=>openScheduleDetail({Event:e,Params:findItem})} title={findItem.title}>{findItem.title}</div>
+
+												<div className={"second-title"} title={findItem.secondTitle}>{findItem.secondTitle}</div>
+
+												<div className={"third-title"} title={findItem.thirdTitle}>{findItem.thirdTitle}</div>
+
+												{
+
+													findItem.ScheduleType!==1?
+
+														findItem.IsOver&&(parseInt(findItem.IsOver)===1)?
+
+															<div className="stoped-flag">已停课</div>
+
+															:
+
+															null
+
+														:''
+
+												}
+
+                                            </>
+
+										}
+
+										return(
+
+											<td key={item.ClassHourNO} className={`row${k+2} col${key+2}`}>
+
+												<div className={`schedule-wrapper`} style={{width:colWidth}}>{scheduleDom}</div>
+
+											</td>
+
+										)
+
+									})
+
+								}
+
+							</tr>
+
+						)
+
+					})
+
+				}
+
+				</tbody>
+
+			</table>
+
+		</Scrollbars>
+
+	</div>*/}
+
     return (
 
-        <div ref={ref} className={"self-double-single-table-wrapper"}>
+	     <div ref={ref} className={"self-double-single-table-wrapper"}>
 
             <Scrollbars ref={ScrollRef} style={{height:schedule.length>6?600:schedule.length*91+65}} onScrollFrame={tableScroll}>
 
@@ -296,9 +516,9 @@ function SelfDoubleSingleTable(props,ref){
 
                     </table>
 
-                </div>*/}
+                </div>
 
-                {/*<div className={"table-scroll-wrapper"}>
+                <div className={"table-scroll-wrapper"}>
 
                     <div className={"table"} id={"double-single-table1"} style={{width:100/(ItemClassHour.length+1)+'%'}}>
 

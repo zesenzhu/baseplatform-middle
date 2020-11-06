@@ -59,6 +59,12 @@ class ClassTotal extends Component{
 
         $('#tb').find('div.ant-table-body').scrollTop(0);
 
+	    if (this.tableRef){
+
+		    this.tableRef.scrollToTop();
+
+	    }
+
         dispatch(CTActions.ClassTotalPageUpdate());
 
     }

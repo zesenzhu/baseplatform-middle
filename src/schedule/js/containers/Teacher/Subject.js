@@ -126,6 +126,12 @@ class Subject extends Component{
 
         dispatch({type:STSAction.TEACHER_STS_SUBJECT_DROP_CHANGE,data:e});
 
+	    if (this.tableRef){
+
+		    this.tableRef.scrollToTop();
+
+	    }
+
         dispatch(STSAction.STSPageUpdate())
 
     }

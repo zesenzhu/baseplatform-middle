@@ -1163,6 +1163,7 @@ class Search extends React.Component {
  * 下拉 start
  * */
 class DropComponent extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -1664,7 +1665,7 @@ class DropComponent extends React.Component {
           style={{ width: width, overflow: "initial" }}
         >
           <Loading opacity={false} spinning={dropLoadingShow}>
-            {dropList && dropList.length > 12 ? (
+            { dropList&&dropList.length > 12&&dropSimpleSearch ? (
               <li className={"dropdown_select_search"}>
                 <AntdInput
                   value={this.state.simpleSearchValue}
@@ -3681,7 +3682,7 @@ DropDown.defaultProps = {
   width: 120,
   dropLoadingShow: false,
 
-  dropSimpleSearch: false,
+  dropSimpleSearch:true,
 
   //simpleSearchChange:()=>{}
 };

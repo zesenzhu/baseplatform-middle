@@ -541,7 +541,8 @@ class Subject extends React.Component {
       // return;
     }
     let Test = /^[,_\->/()（）A-Za-z0-9\u4e00-\u9fa5]{1,50}$/;
-    if (Test.test(DataState.ChangeSubjectMsg.SubjectName)) {
+
+    if (Test.test(DataState.ChangeSubjectMsg.SubjectName.trim())) {
       dispatch({ type: actions.UpUIState.TIPS_VISIBLE_CLOSE });
 
     } else {
@@ -577,7 +578,7 @@ class Subject extends React.Component {
       {
         schoolID: this.state.UserMsg.SchoolID,
         subjectID: DataState.ChangeSubjectMsg.SubjectID || "",
-        subjectName: DataState.ChangeSubjectMsg.SubjectName,
+        subjectName: DataState.ChangeSubjectMsg.SubjectName.trim(),
         globalGradeIDs: DataState.ChangeSubjectMsg.GlobalGradeIDs,
         userID: this.state.UserMsg.UserID || userMsg.UserID,
         userType: userMsg.UserType

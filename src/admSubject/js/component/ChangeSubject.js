@@ -213,7 +213,7 @@ class ChangeSubject extends React.Component {
     const { dispatch, DataState } = this.props;
 
     this.setState({
-      SubjectInput: e.target.value.trim()
+      SubjectInput: e.target.value
     });
   };
   onSubjectInputBlur = e => {
