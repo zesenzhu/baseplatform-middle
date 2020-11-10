@@ -16,19 +16,23 @@ import green from "./images/shadow-green.png";
 import orange from "./images/shadow-orange.png";
 import purple from "./images/shadow-purple.png";
 function WaveRound(props, ref) {
+
   let { className,type, name,data, id, width, height, ...other } = props;//type:blue,green,orange
-  let CanvasRef = useRef();
+	let CanvasRef = useRef();
+	let ClearRef = useRef();
 
   useEffect(() => {
     let canvas = CanvasRef.current;
-    let Re = null;
+
+    let Re = ()=>{};
+
     try {
       Re = init(canvas,{type,text:data});
     } catch (e) {
-      console.log(e);
-    }
 
-    return Re;
+    }
+	ClearRef.current =Re
+
   }, [data,type]);
   return (
     <div

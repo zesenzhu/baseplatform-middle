@@ -66,8 +66,6 @@ import {appLoadingHide} from "../reducers/AppLoading";
 
 import {getQueryVariable} from "../../../common/js/disconnect";
 
-import editCoureClassModal from "../reducers/editCourseClassModal";
-
 import {teacherPowerChange} from "../reducers/teacherManagePower";
 
 
@@ -105,6 +103,7 @@ class App extends Component {
 
       const UserInfoCopy = {...UserInfo,UserType:parseInt(UserInfo.UserType),UserClass:UserInfo.UserClass};
 
+	  let route = history.location.pathname;
 
       dispatch(
               actions.UpDataState.getLoginUser(
@@ -317,7 +316,7 @@ class App extends Component {
 
       }
 
-      let route = history.location.pathname;
+
 
       if(route.split('/')[1]==='statics'){
 

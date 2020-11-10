@@ -199,6 +199,7 @@ class App extends Component {
 
         );
     }
+
 }
 const mapStateToProps = (state) => {
     let { UIState, DataState } = state;
@@ -207,4 +208,5 @@ const mapStateToProps = (state) => {
         DataState
     }
 };
+
 export default connect(mapStateToProps)(App);

@@ -195,7 +195,7 @@ function WeekDayPick(props) {
 
                            TitleShow={false}
 
-                           style={{zIndex:10}}>
+                           style={{zIndex:10}} dropSimpleSearch={false}>
 
             </DropDown>周
 

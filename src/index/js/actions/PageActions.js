@@ -105,9 +105,9 @@ const PageInit = () => {
 
                                     color:'rgba(12,81,255,0.42)',
 
-                                    shadowBlur:10,
+                                  /*  shadowBlur:10,
 
-                                    shadowColor:'#b7e1ff'
+                                    shadowColor:'#b7e1ff'*/
 
                                 }
 
@@ -777,9 +777,9 @@ const PageInit = () => {
 
                                     color: 'rgba(36,151,33,0.5)',
 
-                                    shadowBlur:10,
+                                  /*  shadowBlur:10,
 
-                                    shadowColor:'#bbd6ca'
+                                    shadowColor:'#bbd6ca'*/
 
                                 }
 

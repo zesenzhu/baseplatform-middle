@@ -11,8 +11,6 @@ import editCourseClassModal from './editCourseClassModal';
 
 import teacherManagePower from './teacherManagePower';
 
-
-
 export let initialState = {};
 
 let rootReducers = combineReducers({

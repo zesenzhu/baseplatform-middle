@@ -2,9 +2,7 @@ import React,{Component} from 'react';
 
 import { Loading,Alert } from "../../../common";
 
-import publicJS from '../../../common/js/public';
-
-import {TokenCheck_Connect, LogOut, firstPageLoad, getQueryVariable} from "../../../common/js/disconnect";
+import {LogOut, firstPageLoad, getQueryVariable} from "../../../common/js/disconnect";
 
 import LoginUserActions from '../actions/LoginUserActions';
 

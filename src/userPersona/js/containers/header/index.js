@@ -226,15 +226,13 @@ function Header(props) {
 
                 {
 
-                    ['AdmToStu','LeaderToStu','HeaderTeacherToStu'].includes(UsedType)?
+                    ['AdmToStu','LeaderToStu','HeaderTeacherToStu','AdmToTeacher','LeaderToTeacher'].includes(UsedType)?
 
                         <a className={"log"} onClick={showArchivesLog}>{userInfoLogs[0]?userInfoLogs[0].LogTime:''}  {userInfoLogs[0]?userInfoLogs[0].Content:''}</a>
 
                         :null
 
                 }
-
-
 
             </div>
 

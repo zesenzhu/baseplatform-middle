@@ -33,13 +33,13 @@ function SubjectTotal(props) {
     //统计的列表
     const [staticsList,setStaticsList] = useState([
 
-        {id:'subject',value:0,title:'学科数量'},
+        {id:'subject',value:-1,title:'学科数量'},
 
-        {id:'courseClass',value:0,title:'教学班数量'},
+        {id:'courseClass',value:-1,title:'教学班数量'},
 
-        {id:'teacher',value:0,title:'教师数量'},
+        {id:'teacher',value:-1,title:'教师数量'},
 
-        {id:'student',value:0,title:'学生数量'}
+        {id:'student',value:-1,title:'学生数量'}
 
     ]);
 
