@@ -2,11 +2,15 @@ import React from "react";
 import { connect } from "react-redux";
 import actions from "../actions";
 import "../../scss/CourseClassDetails.scss";
-import history from "../containers/history";
+
+
 import { Table, Button, DetailsModal, Empty } from "../../../common";
 import { Scrollbars } from "react-custom-scrollbars";
 
+import {getQueryVariable} from "../../../common/js/disconnect";
+
 class CourseClassDetails extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -99,7 +103,9 @@ class CourseClassDetails extends React.Component {
 
       const token = sessionStorage.getItem("token");
 
-      window.open(`/html/userPersona/index.html?userID=${id}&userType=1&lg_tk=${token}`);
+      const lg_ic = getQueryVariable('lg_ic');
+
+      window.open(`/html/userPersona/index.html?userID=${id}&userType=1&lg_tk=${token}&lg_ic=${lg_ic}`);
 
 
       // dispatch(actions.UpDataState.getTeacherMsg("/GetUserDetail?userID=" + id));

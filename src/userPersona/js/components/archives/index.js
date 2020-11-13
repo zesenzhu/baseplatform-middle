@@ -16,6 +16,8 @@ import {removeSlashUrl} from "../../actions/utils";
 
 import ModuleLoading from '../moduleLoading';
 
+import {getQueryVariable} from "../../../../common/js/disconnect";
+
 import './index.scss';
 
 function Archives(props) {
@@ -37,6 +39,8 @@ function Archives(props) {
     const {UsedType} = useSelector(state=>state.pageUsedType);
 
     const userStatus = useSelector(state=>state.userStatus);
+
+	const identifyInfo = useSelector(state=>state.identifyInfo);
 
     const { UserID,UserType } = useSelector(state=>state.targetUser);
 
@@ -91,19 +95,21 @@ function Archives(props) {
 
             const url = Urls['E34'].WebUrl;
 
+            const lg_ic = getQueryVariable('lg_ic')?getQueryVariable("lg_ic"):identifyInfo[0].IdentityCode;
+
             if (UserType===2){
 
-                window.open(`${removeSlashUrl(url)}/index_user.html?lg_tk=${token}&stuId=${UserID}#3|1|0`)
+                window.open(`${removeSlashUrl(url)}/index_user.html?lg_tk=${token}&stuId=${UserID}&lg_ic=${lg_ic}#3|1|0`)
 
             }else{
 
                 if (['AdmToTeacher','LeaderToTeacher'].includes(UsedType)){
 
-                    window.open(`${removeSlashUrl(url)}/index_user.html?lg_tk=${token}&tName=${tName}&tId=${UserID}#1|4|0`)
+                    window.open(`${removeSlashUrl(url)}/index_user.html?lg_tk=${token}&tName=${tName}&tId=${UserID}&lg_ic=${lg_ic}#1|4|0`)
 
                 }else{
 
-                    window.open(`${removeSlashUrl(url)}/index_user.html?lg_tk=${token}#5|3|0`)
+                    window.open(`${removeSlashUrl(url)}/index_user.html?lg_tk=${token}&lg_ic=${lg_ic}#5|3|0`)
 
                 }
 
