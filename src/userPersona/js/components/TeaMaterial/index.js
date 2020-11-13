@@ -229,7 +229,9 @@ class TeaMaterial extends Component {
         renderer: "svg",
       });
       mychart.resize();
-
+      that.setState({
+        firstAllScore: UploadAllScale,
+      });
       if (
         UploadSubjectScale instanceof Array &&
         UploadSubjectScale.length > 0
@@ -245,13 +247,11 @@ class TeaMaterial extends Component {
               SubjectScale: child.SubjectScale,
             };
             that.setState({
-              firstAllScore: UploadAllScale,
               firstSubjectScore: child.SubjectScale,
             });
             that.SetEChart(data, mychart, "first");
             that.ResVeiwInterval = setInterval(() => {
               that.setState({
-                firstAllScore: UploadAllScale,
                 firstSubjectScore: child.SubjectScale,
               });
               that.SetEChart(data, mychart, "first");
@@ -301,7 +301,10 @@ class TeaMaterial extends Component {
         renderer: "svg",
       });
       mychart.resize();
-
+      that.setState({
+        secondAllScore: UploadAllScale,
+         
+      });
       if (
         UploadSubjectScale instanceof Array &&
         UploadSubjectScale.length > 0
@@ -316,7 +319,6 @@ class TeaMaterial extends Component {
               SubjectScale: child.SubjectScale,
             };
             that.setState({
-              secondAllScore: UploadAllScale,
               secondSubjectID: child.SubjectID,
 
               secondSubjectScore: child.SubjectScale,
@@ -325,7 +327,6 @@ class TeaMaterial extends Component {
             that.TeachPlanInterval = setInterval(() => {
               that.setState({
                 secondSubjectID: child.SubjectID,
-                secondAllScore: UploadAllScale,
                 secondSubjectScore: child.SubjectScale,
               });
               that.SetEChart(data, mychart, "second");
@@ -385,7 +386,9 @@ class TeaMaterial extends Component {
         }
       );
       mychart.resize();
-
+      that.setState({
+        thirdAllScore: UploadAllScale,
+      });
       if (
         UploadSubjectScale instanceof Array &&
         UploadSubjectScale.length > 0
@@ -403,13 +406,11 @@ class TeaMaterial extends Component {
               SubjectScale: subjectScale,
             };
             that.setState({
-              thirdAllScore: UploadAllScale,
               thirdSubjectScore: subjectScale,
             });
             that.SetEChart(data, mychart, "third");
             that.TeachPercentInterval = setInterval(() => {
               that.setState({
-                thirdAllScore: UploadAllScale,
                 thirdSubjectScore: subjectScale,
               });
               that.SetEChart(data, mychart, "third");
