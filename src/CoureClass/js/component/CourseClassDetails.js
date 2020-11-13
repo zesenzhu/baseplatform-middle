@@ -2,7 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import actions from "../actions";
 import "../../scss/CourseClassDetails.scss";
-import history from "../containers/history";
+
+
 import { Table, Button, DetailsModal, Empty } from "../../../common";
 import { Scrollbars } from "react-custom-scrollbars";
 

@@ -51,6 +51,8 @@ function Account(props) {
 
     const userArchives = useSelector(state=>state.userArchives);
 
+	const identifyInfo = useSelector(state=>state.identifyInfo);
+
     const userStatus = useSelector(state=>state.userStatus);
 
     const { UserID,UserType,SchoolID } = useSelector(state=>state.targetUser);
@@ -106,7 +108,7 @@ function Account(props) {
 
     const btnClick = useCallback(()=>{
 
-        const lg_ic = getQueryVariable('lg_ic');
+	    const lg_ic = getQueryVariable('lg_ic')?getQueryVariable("lg_ic"):identifyInfo[0].IdentityCode;
 
         if (['AdmToStu','LeaderToStu','AdmToTeacher','LeaderToTeacher'].includes(UsedType)){
 
