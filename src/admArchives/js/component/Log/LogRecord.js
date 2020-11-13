@@ -261,7 +261,13 @@ class LogRecord extends Component {
   };
   // 显示用户详情
   onUserNameClick = (data) => {
-    const { DataState, dispatch } = this.props;
+    const {
+      DataState,
+      dispatch,
+      PublicState: {
+        LoginMsg: { identify },
+      },
+    } = this.props;
     let userInfo = data;
     this.setState({
       UserType: userInfo.UserType,
@@ -276,7 +282,10 @@ class LogRecord extends Component {
             "&userID=" +
             userInfo.UserID +
             "&lg_tk=" +
-            token
+            token +
+            (identify && identify instanceof Array && identify.length > 0
+              ? "&lg_ic=" + identify[0].IdentityCode
+              : "")
         );
       } else {
         dispatch(MainAction.GetUserDetail({ UserID: userInfo.UserID }));

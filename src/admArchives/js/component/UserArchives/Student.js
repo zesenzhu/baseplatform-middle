@@ -326,11 +326,12 @@ class Student extends Component {
   };
   // 点击姓名头像
   onUserNameClick = (UserID) => {
-    // const {
-    //   DataState: {
-    //     // GradeStudentPreview: { pensonalList },
-    //   },
-    // } = this.props;
+    let {
+      dispatch,
+      PublicState: {
+        LoginMsg: { identify },
+      },
+    } = this.props;
     // console.log(UserID);
     // if (pensonalList[key]) {
     let token = sessionStorage.getItem("token");
@@ -340,7 +341,10 @@ class Student extends Component {
         "&userID=" +
         UserID +
         "&lg_tk=" +
-        token
+        token +
+        (identify && identify instanceof Array && identify.length > 0
+          ? "&lg_ic=" + identify[0].IdentityCode
+          : "")
     );
     // }
     // const { DataState } = this.props;

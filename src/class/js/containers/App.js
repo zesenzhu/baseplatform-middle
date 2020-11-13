@@ -148,7 +148,7 @@ class App extends Component {
       //判断是否是教师账号
 
       if (parseInt(UserType) === 1 && UserClass[2] === "1") {
-        this.Frame.getIdentity({ ModuleID: "000014" }, () => {
+        this.Frame.getIdentity({ ModuleID: "000014" }, (identify) => {
           if (hash.includes("Import")) {
             //导入界面
 
@@ -188,6 +188,11 @@ class App extends Component {
                   image: logo3,
                 },
               },
+            });
+
+            dispatch({
+              type: UpDataState.GET_LOGIN_USER_INFO,
+              data: { ...UserInfo, identify },
             });
           }
         });
