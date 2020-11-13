@@ -14,6 +14,8 @@ import {Modal, Table,Tips} from "../../../../common";
 
 import {Input} from "antd";
 
+import {getQueryVariable} from "../../../../common/js/disconnect";
+
 import {UserComm_PwdStrong,UserComm_ValidatePwd} from '../../actions/utils';
 
 import md5 from 'md5';
@@ -104,6 +106,8 @@ function Account(props) {
 
     const btnClick = useCallback(()=>{
 
+        const lg_ic = getQueryVariable('lg_ic');
+
         if (['AdmToStu','LeaderToStu','AdmToTeacher','LeaderToTeacher'].includes(UsedType)){
 
             dispatch(btnQueryAlertShow({
@@ -126,7 +130,7 @@ function Account(props) {
 
             const token = sessionStorage.getItem("token");
 
-            window.open(`/html/personalMgr?lg_tk=${token}`);
+            window.open(`/html/personalMgr?lg_tk=${token}&lg_ic=${lg_ic}`);
 
         }
 
