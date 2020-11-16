@@ -425,6 +425,8 @@ class FrameContainer extends Component{
 
                     },()=>{
 
+                        sessionStorage.setItem("LgBaseIdentifyInfo",JSON.stringify(IdentityItem));
+
                         if (callBack){
 
                             callBack([IdentityItem]);
@@ -452,6 +454,8 @@ class FrameContainer extends Component{
                     Name:IdentityList[0].IsPreset?'':IdentityList[0].IdentityName
 
                 }},()=>{
+
+	            sessionStorage.setItem("LgBaseIdentifyInfo",JSON.stringify(IdentityList[0]));
 
                 callBack(IdentityList);
 
