@@ -139,7 +139,10 @@ class Admin extends Component {
     }
   };
   onDetailModalShow = (role, UserID,UserType) => {
-    let { dispatch } = this.props;
+    let { dispatch,
+      PublicState: {
+        LoginMsg: { identify },
+      }, } = this.props;
     let token = sessionStorage.getItem("token");
         window.open(
           "/html/userPersona/index.html?userType=" +
@@ -147,7 +150,10 @@ class Admin extends Component {
             "&userID=" +
              UserID +
             "&lg_tk=" +
-            token
+            token+
+            (identify && identify instanceof Array && identify.length > 0
+              ? "&lg_ic=" + identify[0].IdentityCode
+              : "")
         );
     // dispatch(UpDataState.SetDetailsModalRole(role));
     // dispatch(UpDataState.GetUserDetail({ UserID }));

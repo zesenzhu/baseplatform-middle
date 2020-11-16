@@ -94,24 +94,24 @@ class App extends Component {
       //教师直接跳到旧的班级管理
       ModuleID = "000014";
       window.location.href = "/html/class#/";
-      return
+      return;
       // window.open("/html/class#/");
     }
     // havePower.then((res) => {
     //   if (res) {
-      this.UserPower({
-        UserType: userMsg.UserType,
-        UserClass: userMsg.UserClass,
-        dispatch,
+    this.UserPower({
+      UserType: userMsg.UserType,
+      UserClass: userMsg.UserClass,
+      dispatch,
+    });
+    this.Frame.getIdentity({ ModuleID }, (identify) => {
+      dispatch(PublicAction.getLoginUser({ ...userMsg, identify }));
+      this.ListenRoute({ isFirst: true });
+      history.listen(() => {
+        this.ListenRoute({});
       });
-      this.Frame.getIdentity({ ModuleID }, (identify) => {
-       
-        this.ListenRoute({ isFirst: true });
-        history.listen(() => {
-          this.ListenRoute({});
-        });
-        dispatch(PublicAction.AppLoadingClose());
-      })
+      dispatch(PublicAction.AppLoadingClose());
+    });
     //   }
     // });
 

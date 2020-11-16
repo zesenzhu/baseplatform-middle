@@ -1084,7 +1084,10 @@ class Teacher extends React.Component {
     );
   };
   onUserNameClick = (UserID) => {
-    const { dispatch } = this.props;
+    const { dispatch,
+      DataState: {
+        LoginUser: { identify },
+      }, } = this.props;
     let token = sessionStorage.getItem("token");
     window.open(
       "/html/userPersona/index.html?userType=" +
@@ -1092,7 +1095,10 @@ class Teacher extends React.Component {
         "&userID=" +
         UserID +
         "&lg_tk=" +
-        token
+        token+
+        (identify && identify instanceof Array && identify.length > 0
+          ? "&lg_ic=" + identify[0].IdentityCode
+          : "")
     );
     // dispatch(
     //   actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID, () => {

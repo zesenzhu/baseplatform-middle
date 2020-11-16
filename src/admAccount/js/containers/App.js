@@ -1,4 +1,4 @@
-import React, { Component,createRef } from "react";
+import React, { Component, createRef } from "react";
 import { Menu, Loading, Alert } from "../../../common";
 import { connect } from "react-redux";
 import Introduce from "../component/Introduce";
@@ -93,7 +93,7 @@ class App extends Component {
     // TokenCheck()
     //判断token是否存在
     let that = this;
-    this.Frame = createRef()
+    this.Frame = createRef();
 
     // TokenCheck_Connect(false, () => {
     //   let token = sessionStorage.getItem("token");
@@ -233,97 +233,97 @@ class App extends Component {
     // });
     // havePower.then((res) => {
     //   if (res) {
-        dispatch(
-          actions.UpDataState.GetConfig({
-            func: (State) => {
-              let { DataState } = State;
-              // if (route === "/") {
-              //   //dispatch(actions.UpDataState.getAllUserPreview('/ArchivesAll'));
-              //   dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
-              // } else
-              console.log(DataState.ParentsPreview.canBeUse.ParentsShow, List);
-              if (DataState.ParentsPreview.canBeUse.ParentsShow !== 1) {
-                let Menu = List;
-                // let List = [];
-                List = [];
-                if (Menu instanceof Array) {
-                  Menu.forEach((child) => {
-                    if (child.value !== "Parents") {
-                      List.push(child);
-                    }
-                  });
-                } else {
-                  List = Menu;
+    dispatch(
+      actions.UpDataState.GetConfig({
+        func: (State) => {
+          let { DataState } = State;
+          // if (route === "/") {
+          //   //dispatch(actions.UpDataState.getAllUserPreview('/ArchivesAll'));
+          //   dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
+          // } else
+          console.log(DataState.ParentsPreview.canBeUse.ParentsShow, List);
+          if (DataState.ParentsPreview.canBeUse.ParentsShow !== 1) {
+            let Menu = List;
+            // let List = [];
+            List = [];
+            if (Menu instanceof Array) {
+              Menu.forEach((child) => {
+                if (child.value !== "Parents") {
+                  List.push(child);
                 }
-                // let children = Menu.children;
-                // if(children[children.length-1].key==='Admin'){
-                //   children.pop();
-
-                // }
-                // Menu.children = children;
-                // this.setState({
-                //   MenuParams: Menu
-                // });
-                // AdminPower = false;
-              }
-              this.setState({
-                List,
               });
-              if (handleRoute === "Student") {
-                //dispatch(actions.UpDataState.getAllUserPreview('/Archives' + handleRoute));
-                dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
-                // if (!this.props.DataState.GradeClassMsg.returnData.grades)
-                dispatch(
-                  actions.UpDataState.getGradeClassMsg(
-                    "/GetGradeClassTree?SchoolID=" + userMsg.SchoolID
-                  )
-                );
-                dispatch(
-                  actions.UpDataState.getGradeStudentPreview(
-                    "/GetStudentToPage?SchoolID=" +
-                      userMsg.SchoolID +
-                      "&PageIndex=0&PageSize=10"
-                  )
-                );
-              } else if (
-                handleRoute === "Parents" &&
-                DataState.ParentsPreview.canBeUse.ParentsShow === 1
-              ) {
-                //dispatch(actions.UpDataState.getAllUserPreview('/Archives' + handleRoute));
-                // dispatch(actions.UpDataState.GetConfig())
-                if (DataState.ParentsPreview.canBeUse.ParentsShow === 1) {
-                  dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
-                  // if (!this.props.DataState.GradeClassMsg.returnData.grades)
-                  dispatch(
-                    actions.UpDataState.getGradeClassMsg(
-                      "/GetGradeClassTree?SchoolID=" + userMsg.SchoolID
-                    )
-                  );
-                  dispatch(
-                    actions.UpDataState.getParentsPreview(
-                      "/GetParentsToPage?SchoolID=" +
-                        userMsg.SchoolID +
-                        "&PageIndex=0&PageSize=10"
-                    )
-                  );
-                }
-              } else if (handleRoute === "Teacher") {
-                dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
-                // if (!this.props.DataState.SubjectTeacherMsg.returnData)
-                dispatch(
-                  actions.UpDataState.getSubjectTeacherMsg(
-                    "/GetSubject?SchoolID=" + userMsg.SchoolID
-                  )
-                );
-                dispatch(
-                  actions.UpDataState.getSubjectTeacherPreview(
-                    "/GetTeacherToPage?SchoolID=" +
-                      userMsg.SchoolID +
-                      "&PageIndex=0&PageSize=10"
-                  )
-                );
-              } else if (handleRoute === "Leader") {
-                 // 身份在ProductType为3出来
+            } else {
+              List = Menu;
+            }
+            // let children = Menu.children;
+            // if(children[children.length-1].key==='Admin'){
+            //   children.pop();
+
+            // }
+            // Menu.children = children;
+            // this.setState({
+            //   MenuParams: Menu
+            // });
+            // AdminPower = false;
+          }
+          this.setState({
+            List,
+          });
+          if (handleRoute === "Student") {
+            //dispatch(actions.UpDataState.getAllUserPreview('/Archives' + handleRoute));
+            dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
+            // if (!this.props.DataState.GradeClassMsg.returnData.grades)
+            dispatch(
+              actions.UpDataState.getGradeClassMsg(
+                "/GetGradeClassTree?SchoolID=" + userMsg.SchoolID
+              )
+            );
+            dispatch(
+              actions.UpDataState.getGradeStudentPreview(
+                "/GetStudentToPage?SchoolID=" +
+                  userMsg.SchoolID +
+                  "&PageIndex=0&PageSize=10"
+              )
+            );
+          } else if (
+            handleRoute === "Parents" &&
+            DataState.ParentsPreview.canBeUse.ParentsShow === 1
+          ) {
+            //dispatch(actions.UpDataState.getAllUserPreview('/Archives' + handleRoute));
+            // dispatch(actions.UpDataState.GetConfig())
+            if (DataState.ParentsPreview.canBeUse.ParentsShow === 1) {
+              dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
+              // if (!this.props.DataState.GradeClassMsg.returnData.grades)
+              dispatch(
+                actions.UpDataState.getGradeClassMsg(
+                  "/GetGradeClassTree?SchoolID=" + userMsg.SchoolID
+                )
+              );
+              dispatch(
+                actions.UpDataState.getParentsPreview(
+                  "/GetParentsToPage?SchoolID=" +
+                    userMsg.SchoolID +
+                    "&PageIndex=0&PageSize=10"
+                )
+              );
+            }
+          } else if (handleRoute === "Teacher") {
+            dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
+            // if (!this.props.DataState.SubjectTeacherMsg.returnData)
+            dispatch(
+              actions.UpDataState.getSubjectTeacherMsg(
+                "/GetSubject?SchoolID=" + userMsg.SchoolID
+              )
+            );
+            dispatch(
+              actions.UpDataState.getSubjectTeacherPreview(
+                "/GetTeacherToPage?SchoolID=" +
+                  userMsg.SchoolID +
+                  "&PageIndex=0&PageSize=10"
+              )
+            );
+          } else if (handleRoute === "Leader") {
+            // 身份在ProductType为3出来
             const { ProductType, ResHttpRootUrl } = sessionStorage.getItem(
               "LgBasePlatformInfo"
             )
@@ -334,31 +334,31 @@ class App extends Component {
               history.push("/Student");
               return;
             }
-                dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
-                dispatch(
-                  actions.UpDataState.getSchoolLeaderPreview(
-                    "/GetSchoolLeader?SchoolID=" + userMsg.SchoolID
-                  )
-                );
-              } else if (handleRoute === "Admin") {
-                if (!AdminPower) {
-                  history.push("/Student");
-                  return;
-                }
-                dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
-                dispatch(
-                  actions.UpDataState.getAdminPreview(
-                    "/GetAdminToPage?SchoolID=" +
-                      userMsg.SchoolID +
-                      "&PageIndex=0&PageSize=10"
-                  )
-                );
-              } else {
-                history.push("/Student");
-              }
-            },
-          })
-        );
+            dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
+            dispatch(
+              actions.UpDataState.getSchoolLeaderPreview(
+                "/GetSchoolLeader?SchoolID=" + userMsg.SchoolID
+              )
+            );
+          } else if (handleRoute === "Admin") {
+            if (!AdminPower) {
+              history.push("/Student");
+              return;
+            }
+            dispatch({ type: actions.UpUIState.APP_LOADING_CLOSE });
+            dispatch(
+              actions.UpDataState.getAdminPreview(
+                "/GetAdminToPage?SchoolID=" +
+                  userMsg.SchoolID +
+                  "&PageIndex=0&PageSize=10"
+              )
+            );
+          } else {
+            history.push("/Student");
+          }
+        },
+      })
+    );
     //   }
     // });
   };
@@ -461,13 +461,19 @@ class App extends Component {
                 )
               );
               this.Frame.getIdentity({ ModuleID }, (identify) => {
+                dispatch(
+                  actions.UpDataState.getLoginUser({
+                    ...JSON.parse(sessionStorage.getItem("UserInfo")),
+                    identify,
+                  })
+                );
                 this.requestData(route);
               });
             }}
             onRef={this.onRef.bind(this)}
           >
             <div ref="frame-time-barner">
-              <TimeBanner List={ List} />
+              <TimeBanner List={List} />
             </div>
             {/* <div ref="frame-left-menu">
               <Menu params={this.state.MenuParams}></Menu>

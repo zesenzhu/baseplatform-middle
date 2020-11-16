@@ -801,7 +801,7 @@ class App extends Component {
     }
   };
   // 设置用户角色,模块角色统一在这处理
-  setRole = (LoginMsg, identity) => {
+  setRole = (LoginMsg, identify) => {
     // let {
     //   dispatch,
     //   DataState,
@@ -809,7 +809,7 @@ class App extends Component {
     //     LoginMsg: { UserType, UserClass },
     //   },
     // } = this.props;
-    console.log(identity);
+    // console.log(identity);
     let { UserType, UserClass } = LoginMsg;
     let Role = "";
     UserType = parseInt(UserType);
@@ -853,7 +853,7 @@ class App extends Component {
 
       Role = "Leader-Education";
     }
-    return { ...LoginMsg, Role };
+    return { ...LoginMsg, Role,identify };
   };
   // 设置banner的选择列表
   SetBannerList = () => {
