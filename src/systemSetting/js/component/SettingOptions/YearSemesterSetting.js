@@ -517,7 +517,7 @@ class YearSemesterSetting extends Component {
                 }
                 onChange={this.getPainDate}
                 disabledDate={(e) =>
-                  this.disabledDate(e, semesterInfo.TermStartDate, "start")
+                  this.disabledDate(e, semesterInfo.NextTermStartDate, "start")
                 }
                 showToday={false}
                 suffixIcon={<i className="calender-logo"></i>}
@@ -538,7 +538,7 @@ class YearSemesterSetting extends Component {
                 }
                 format="YYYY-MM-DD"
                 disabledDate={(e) =>
-                  this.disabledDate(e, semesterInfo.TermEndDate, "end")
+                  this.disabledDate(e, semesterInfo.NextTermEndDate, "end")
                 }
                 showToday={false}
                 suffixIcon={<i className="calender-logo"></i>}
