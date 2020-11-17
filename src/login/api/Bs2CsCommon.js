@@ -1,5 +1,4 @@
-﻿/*
-//initFunc为初始化后的回调函数，成功返回操作对象;失败返回false，表明基础插件不存在
+﻿//initFunc为初始化后的回调函数，成功返回操作对象;失败返回false，表明基础插件不存在
 //操作对象可以调用start(proName, moduleName, url, exeName, exeParam)方法，启动exe
 //操作对象在谷歌火狐及ie10以上浏览器可调用sendmessage(proName, moduleName, msgData)方法，向指定模块发送消息；
 //也可在谷歌火狐及ie10以上浏览器实现reciveExeMessageFunc(msg)函数接收消息
@@ -249,22 +248,22 @@ function createActivexObj(clsid, objID, evtArr, width, height) {
 
 
 
-*/
 
 
 
 
+/*
 //initFunc为初始化后的回调函数，成功返回操作对象;失败返回false，表明基础插件不存在
 //操作对象可以调用start(proName, moduleName, url, exeName, exeParam)方法，启动exe
 //操作对象在谷歌火狐及ie10以上浏览器可调用sendmessage(proName, moduleName, msgData)方法，向指定模块发送消息；
 //也可在谷歌火狐及ie10以上浏览器实现reciveExeMessageFunc(msg)函数接收消息
 //当websocket被断开时，将触发reConnectFunc回调函数，此时，可重新建立对象并连接
 
-/**
+/!**
  ***2019-6-19
  ***修复reConnectFunc函数触发逻辑
  ***hsy
- **/
+ **!/
 
 export default  function BsToCsFunc(initFunc, reciveExeMessageFunc, reConnectFunc){
     this.checkBase = false;
@@ -544,4 +543,4 @@ function createActivexObj(clsid, objID, evtArr, width, height) {
         return res;
     }
 }
-//---------------------浏览器兼容End-----------------------------//
+//---------------------浏览器兼容End-----------------------------//*/
