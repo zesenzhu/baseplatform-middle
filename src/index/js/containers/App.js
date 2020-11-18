@@ -85,6 +85,8 @@ class App extends Component {
 
         if (identifyList&&identifyList.length>0){
 
+            sessionStorage.setItem('LgBaseIdentifyInfo',JSON.stringify(identifyList[0]));
+
             dispatch(identifyChange(identifyList));
 
         }
