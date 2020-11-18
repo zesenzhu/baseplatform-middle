@@ -510,7 +510,7 @@ const getTeacherToPage = async ({
     pageSize +
     (sortFiled !== "" ? "&sortFiled=" + sortFiled : "") +
     (sortType !== "" ? "&sortType=" + sortType : "") +
-    (subjectID !== "" ? "&subjectID=" + subjectID : "");
+    (subjectID !== "" ? "&subjectIDs=" + subjectID : "");
   let data = "";
   let res = await getData(url, 2);
   let json = await res.json();
@@ -2167,7 +2167,7 @@ const GetTeacherSignUpLogToPage = ({
   pageIndex,
   pageSize,
   sortFiled,
-  sortType,
+  sortType,subjectID,
   isLoading = true,
 }) => {
   return (dispatch, getState) => {
@@ -2212,11 +2212,15 @@ const GetTeacherSignUpLogToPage = ({
     if (status === undefined) {
       status = RegisterExamineParams.status;
     }
+    if (subjectID === undefined) {
+      subjectID = RegisterExamineParams.subjectID;
+    }
+    
     getTeacherSignUpLogToPage({
       collegeID,
       schoolID,
       groupID,
-
+      subjectID,
       keyword,
       pageIndex,
       pageSize,
@@ -2275,7 +2279,7 @@ const getTeacherSignUpLogToPage = async ({
   collegeID = "",
   schoolID = "",
   groupID = "",
-
+  subjectID='',
   keyword = "",
   pageIndex = "",
   pageSize = "",
@@ -2296,6 +2300,8 @@ const getTeacherSignUpLogToPage = async ({
     pageIndex +
     "&pageSize=" +
     pageSize +
+    (subjectID !== "" ? "&subjectIDs=" + subjectID : "")+
+
     (sortFiled !== "" ? "&sortFiled=" + sortFiled : "") +
     (sortType !== "" ? "&sortType=" + sortType : "");
 
