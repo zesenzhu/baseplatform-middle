@@ -54,6 +54,8 @@ const STOP_SCHEDULE_ERROR_TIPS_HIDE = 'STOP_SCHEDULE_ERROR_TIPS_HIDE';
 //找人代课
 
 
+const REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_CHANGE = 'REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_CHANGE';
+
 const REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_SHOW = 'REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_SHOW';
 
 const REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_HIDE = 'REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_HIDE';
@@ -637,6 +639,7 @@ const TSChange = (e) => {
 
     return (dispatch,getState)=>{
 
+
         const SubjectID = e.value;
 
         const { teacherList } = getState().Manager.AdjustByTeacherModal;
@@ -693,7 +696,9 @@ const TSChange = (e) => {
 
         }
 
-        dispatch({type:REPLACE_SHCEDULE_REPLACE_TEACHER_DROP_CHANGE,data:{value:"none",title:"请选择教师"}});
+	    dispatch({type:REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_CHANGE,data:e});
+
+	    dispatch({type:REPLACE_SHCEDULE_REPLACE_TEACHER_DROP_CHANGE,data:{value:"none",title:"请选择教师"}});
 
         dispatch({type:REPLACE_SHCEDULE_CLASS_LIST_UPDATE,data:{classList}});
 
@@ -4578,6 +4583,8 @@ export default {
     MANAGER_ADJUST_BY_TEACHER_MODAL_INIT,
 
     ADJUST_BY_TEACHER_CLASS_ROOM_TYPE_LIST_UPDATE,
+
+	REPLACE_SHCEDULE_TEACHER_SSUBJECT_DROP_CHANGE,
 
     AdjustByTeacherModalInit,
 
