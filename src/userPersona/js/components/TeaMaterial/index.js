@@ -303,7 +303,6 @@ class TeaMaterial extends Component {
       mychart.resize();
       that.setState({
         secondAllScore: UploadAllScale,
-         
       });
       if (
         UploadSubjectScale instanceof Array &&
@@ -555,6 +554,7 @@ class TeaMaterial extends Component {
       systemUrl: { Urls },
       targetUser: { UserID },
       loginUser,
+      identifyInfo
     } = this.props;
     if (loginUser.UserID !== UserID) {
       //如果不是本人，就退出
@@ -571,7 +571,9 @@ class TeaMaterial extends Component {
       Urls["C10"].WebUrl &&
       type === "first"
     ) {
-      window.open(Urls["C10"].WebUrl + "/Manage/Personal.aspx");
+      window.open(
+        Urls["C10"].WebUrl + "/Manage/Personal.aspx?lg_ic=" + IdentityCode
+      );
     } else if (
       seriesName !== "同学科" &&
       Urls["300"] &&
@@ -584,7 +586,9 @@ class TeaMaterial extends Component {
           "html/TeachingPlan/?subjectid=" +
           SubjectID +
           "&lg_tk=" +
-          token
+          token +
+          "&lg_ic=" +
+          IdentityCode
       );
     } else if (
       seriesName !== "同学科" &&
@@ -592,7 +596,13 @@ class TeaMaterial extends Component {
       Urls["D21"].WebUrl &&
       type === "third"
     ) {
-      window.open(Urls["D21"].WebUrl + "#/record/course?lg_tk=" + token);
+      window.open(
+        Urls["D21"].WebUrl +
+          "#/record/course?lg_tk=" +
+          token +
+          "&lg_ic=" +
+          IdentityCode
+      );
     }
     // console.log(params, SubjectID, type);
   };

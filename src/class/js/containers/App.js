@@ -79,7 +79,7 @@ class App extends Component {
       // QueryPower({ UserInfo: UserInfo, ModuleID: "000-2-0-06" }).then(
       //   (data) => {
       //     if (data) {
-      this.Frame.getIdentity({ ModuleID: "000014" }, () => {
+      this.Frame.getIdentity({ ModuleID: "000010" }, () => {
         if (hash.includes("Import")) {
           //导入界面
           if (hash.includes("Student")) {
