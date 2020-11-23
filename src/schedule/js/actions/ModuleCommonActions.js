@@ -18,6 +18,8 @@ const getCommonInfo = () => {
 
             let {SchoolID,UserID,UserType} = UserInfo;
 
+            const UserInfoCopy = UserInfo;
+
             if (parseInt(UserType)===0||parseInt(UserType)===7||parseInt(UserType)===10){
 
                 //获取智能排课的URL
@@ -54,6 +56,8 @@ const getCommonInfo = () => {
 
                 case 2:
 
+                case 3:
+
                     dispatch({type:ModuleSettingActions.UPDATE_STUDENT_MODULE_SETTING});
 
                     if (getQueryVariable('isWorkPlantform')||getQueryVariable('iFrame')){
@@ -70,12 +74,24 @@ const getCommonInfo = () => {
 
             }
 
+            if(parseInt(UserType)===3){
+
+                UserType = 2;
+
+                UserID = UserID.substring(3);
+
+                UserInfoCopy['UserID'] = UserID;
+
+                UserInfoCopy['UserType'] = UserType;
+
+            }
+
             //如果是导入界面
             const Hash = location.hash;
 
             if (Hash.includes('Import')||Hash.includes('adjustlog')||Hash.includes('scheduleSetting')){
 
-                dispatch({type:LoginUserActions.UPDATE_LOGIN_USER,data:UserInfo});
+                dispatch({type:LoginUserActions.UPDATE_LOGIN_USER,data:UserInfoCopy});
 
             }else{
 
@@ -86,9 +102,9 @@ const getCommonInfo = () => {
                     if (data){
 
 
-                        if ( parseInt(UserType) === 1 ){
+                        if (parseInt(UserType) === 1){
 
-                            if ( data.ItemPeriod.length  <= 1 ){
+                            if ( data.ItemPeriod.length<= 1){
 
                                 dispatch({type:ModuleSettingActions.TIME_BARNER_HIDE});
 
@@ -195,7 +211,7 @@ const getCommonInfo = () => {
 
                         dispatch({type:PeriodWeekTermActions.UPDATE_PERIOD_TERM_WEEK,data:data});
 
-                        dispatch({type:LoginUserActions.UPDATE_LOGIN_USER,data:UserInfo});
+                        dispatch({type:LoginUserActions.UPDATE_LOGIN_USER,data:UserInfoCopy});
 
                     }
 

@@ -24,8 +24,6 @@ class ChangeSchedule extends Component{
     //点击选择原始的教师
     originTeacherDropChange(info){
 
-        console.log(info,123);
-
         const { dispatch } = this.props;
 
         dispatch(ABTActions.originTeacherDropChange(info));

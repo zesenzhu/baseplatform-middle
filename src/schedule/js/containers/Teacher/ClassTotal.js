@@ -21,6 +21,7 @@ import SDActions from "../../actions/ScheduleDetailActions";
 
 class ClassTotal extends Component{
 
+
     constructor(props){
 
         super(props);
@@ -30,7 +31,6 @@ class ClassTotal extends Component{
         dispatch(ComPageRefresh.ComPageInit(TeacherIndexActions.ClassTotalInit()));
 
     }
-
 
     //班级下拉改变
 
@@ -133,11 +133,6 @@ class ClassTotal extends Component{
 
 
     }
-
-
-
-
-
 
 
     render(){

@@ -117,7 +117,7 @@ class App extends Component{
 
         if(parseInt(ProductType)===3){
 
-            if (parseInt(UserType)===0||parseInt(UserType)===1||parseInt(UserType)===2){
+            if ([0,1,2,3].includes(parseInt(UserType))){
 
                 if (parseInt(UserType)===0){//判断管理员权限
 
@@ -192,7 +192,7 @@ class App extends Component{
         }else{
 
             //判断权限
-            if (parseInt(UserType)===0||parseInt(UserType)===1||parseInt(UserType)===2||parseInt(UserType)===7||parseInt(UserType)===10){
+            if ([0,1,2,3,7,10].includes(parseInt(UserType))){
 
                 if (parseInt(UserType)===0){//判断管理员权限
 

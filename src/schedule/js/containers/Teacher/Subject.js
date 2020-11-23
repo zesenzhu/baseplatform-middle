@@ -75,7 +75,7 @@ class Subject extends Component{
 
             const top = this.tableRef.getScrollTop();
 
-            // this.tableRef.scrollTop(top-1);
+            this.tableRef.scrollTop(top-1);
 
         }
 
