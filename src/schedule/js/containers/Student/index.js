@@ -33,7 +33,9 @@ class Index extends Component{
 
         const { LoginUser,dispatch } = nextProps;
 
-        const { UserID,StudyLevel,SchoolID,UserType } = LoginUser;
+        let { UserID,StudyLevel,SchoolID,UserType } = LoginUser;
+
+        console.log(UserType,UserID);
 
         if (UserID&&this.state.firstLoad){
 
@@ -67,15 +69,23 @@ class Index extends Component{
 
         if (Object.keys(LoginUser).length>0){
 
-            if (UserType==='2'){
+            if (UserType==='2'||UserType===2){
 
-                HeaderLinkList = [
+                HeaderLinkList = UserType==='2'?[
 
                     {link:"/student/mine",name:"我的课表",logo:"mine"},
 
                     {link:"/student/class",name:"班级课表",logo:"class"}
 
-                ];
+                ]:
+
+                [
+
+		                {link:"/student/mine",name:"学生课表",logo:"mine"},
+
+		                {link:"/student/class",name:"班级课表",logo:"class"}
+
+	            ];
 
             }else {
 

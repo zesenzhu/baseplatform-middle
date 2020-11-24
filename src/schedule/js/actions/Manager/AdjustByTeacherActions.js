@@ -1257,7 +1257,7 @@ const originTeacherDropChange = (info) => {
                     
                     if (data.length>0){
 
-                        let list = data.map(item => {
+                        let list = data.filter(i=>i.ScheduleType!==1).map(item => {
 
                             let noon = '';
 
@@ -1401,8 +1401,6 @@ const originDateChecked = (date) => {
 
             let { originDropSelectd } = getState().Manager.AdjustByTeacherModal.changeSchedule;
 
-
-
             if (originDropSelectd.value!=='none'){
 
                 let TeacherID = originDropSelectd.value;
@@ -1415,7 +1413,7 @@ const originDateChecked = (date) => {
 
                        if (data.length>0){
 
-                           let list = data.map(item => {
+                           let list = data.filter(i=>i.ScheduleType!==1).map(item => {
 
                                let noon = '';
 

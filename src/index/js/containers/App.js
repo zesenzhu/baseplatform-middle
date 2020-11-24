@@ -167,7 +167,6 @@ class App extends Component {
 
         }
 
-
     }
 
     async GetProduct() {
