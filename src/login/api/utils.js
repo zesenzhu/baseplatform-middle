@@ -68,27 +68,27 @@ const getPostData = async (url,data,level,api='',content_type='urlencoded',arr=f
 //拼接URL，有jointParam，返回拼接jointParam之后的URL，没有jointParam的话返回删除过?lg_tl的URL
 export const getNewTkUrl = ({preUrl,jointParam}) => {
 
-  const dcodeUrl = decodeURIComponent(preUrl);
+  const decodeUrl = decodeURIComponent(preUrl);
 
   let newUrl = '';
 
-  if (dcodeUrl.includes('?lg_tk')){
+  if (decodeUrl.includes('?lg_tk')){
 
       let nexType = 0;
 
-      const queryIndex = dcodeUrl.indexOf('?');
+      const queryIndex = decodeUrl.indexOf('?');
 
-      const andIndex = dcodeUrl.indexOf('&');
+      const andIndex = decodeUrl.indexOf('&');
 
       if (andIndex===-1){
 
-          newUrl = jointParam?dcodeUrl.replace(dcodeUrl.substring(queryIndex),jointParam):dcodeUrl.replace(dcodeUrl.substring(queryIndex),'');
+          newUrl = jointParam?dcodeUrl.replace(decodeUrl.substring(queryIndex),jointParam):decodeUrl.replace(decodeUrl.substring(queryIndex),'');
 
           nexType = 1;
 
       }else{
 
-          newUrl = jointParam?dcodeUrl.replace(dcodeUrl.substring(queryIndex,andIndex),jointParam):dcodeUrl.replace(dcodeUrl.substring(queryIndex,andIndex+1),'?');
+          newUrl = jointParam?decodeUrl.replace(decodeUrl.substring(queryIndex,andIndex),jointParam):decodeUrl.replace(decodeUrl.substring(queryIndex,andIndex+1),'?');
 
           nexType = 2;
 
@@ -96,13 +96,13 @@ export const getNewTkUrl = ({preUrl,jointParam}) => {
 
       return { type:1,newUrl,nexType };
 
-  }else if (dcodeUrl.includes('?')){
+  }else if (decodeUrl.includes('?')){
 
-        return { type:2,newUrl:dcodeUrl};
+        return { type:2,newUrl:decodeUrl};
 
   }else {
 
-      return { type:3,newUrl:dcodeUrl };
+      return { type:3,newUrl:decodeUrl };
 
   }
 
@@ -124,7 +124,7 @@ export const goToNextPage = ({dispatch,loadingHide}) =>{
     
     if (parseInt(UserType)===6){
 
-        window.location.href= '/html/admSchoolSetting/';
+        window.location.href= '/html/admSchoolSetting/index.html';
 
     }else if(SchoolID){
 
@@ -151,6 +151,9 @@ export const goToNextPage = ({dispatch,loadingHide}) =>{
                 break;
 
         }
+
+
+        console.log(nexUrl);
         
         if (parseInt(UserType)===0){
 

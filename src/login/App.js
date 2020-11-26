@@ -80,6 +80,8 @@ function App(props){
 
         }
 
+        console.log(nexUrl);
+
         window.top._goUrl = GetCharCodes(nexUrl);
 
     },[WebIndexUrl]);
