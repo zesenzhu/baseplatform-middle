@@ -383,7 +383,9 @@ const GetScheduleByUserID = async ({SchoolID,PeriodID,UserType,UserID,WeekNO=0,d
 
 const GetCourseClassInfo = async ({ClassID,WeekNO,WeekDayNO,ClassHourNO,dispatch}) => {
 
-    let res = await Method.getGetData(`/Schedule/api/GetCourseClassInfo?ClassID=${ClassID}&WeekNO=${WeekNO}&WeekDayNO=${WeekDayNO}&ClassHourNO=${ClassHourNO}`,
+	const {SchoolID} = JSON.parse(sessionStorage.getItem("UserInfo"));
+
+    let res = await Method.getGetData(`/Schedule/api/GetCourseClassInfo?ClassID=${ClassID}&WeekNO=${WeekNO}&WeekDayNO=${WeekDayNO}&ClassHourNO=${ClassHourNO}&SchoolID=${SchoolID}`,
 
         2,
 

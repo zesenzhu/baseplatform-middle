@@ -113,11 +113,13 @@ class App extends Component {
 
       dispatch(loginUserUpdate(UserInfoCopy));
 
+      let ModuleID = '';
+
       if ([0,7,10].includes(UserInfoCopy.UserType)){
 
-          this.Frame.getIdentity({ModuleID:'000005'},()=>{
+       /*   this.Frame.getIdentity({ModuleID:'000005'},()=>{
 
-              this.requestData(route);
+            /!*  this.requestData(route);
 
               history.listen(() => {
                   //路由监听
@@ -171,77 +173,29 @@ class App extends Component {
 
                   this.requestData(route);
 
-              });
+              });*!/
 
-          });
+	          this.routerInit();
+
+          });*/
+
+       ModuleID = '000005';
 
       }else if (UserInfoCopy.UserType===1) {
 
-          this.Frame.getIdentity({ModuleID:'000013'},()=>{
+         /* this.Frame.getIdentity({ModuleID:'000013'},()=>{
 
-              this.requestData(route);
+             this.routerInit();
 
-              history.listen(() => {
-                  //路由监听
-                  let route = history.location.pathname;
+          })*/
 
-                  if(route.split('/')[1]==='statics'){
-
-                      dispatch(bannerShow());
-
-                      dispatch(leftMemuShow());
-
-                  }
-
-                  if(route.split('/')[1]==='manage'){
-
-                      dispatch(bannerShow());
-
-                      dispatch(leftMemuHide());
-
-                  }
-
-                  if(route.split('/')[1]==='ImportFile'){
-
-                      dispatch(bannerHide());
-
-                      dispatch(leftMemuHide());
-
-                  }
-
-                  if(route.split('/')[1]==='Log'){
-
-                      dispatch(bannerHide());
-
-                      dispatch(leftMemuHide());
-
-                  }
-
-                  if(route.split('/')[1]==='Teacher'){
-
-                      dispatch(bannerShow());
-
-                      dispatch(bannerBtnShow());
-
-                      dispatch(bannerLogHide());
-
-                      dispatch(bannerTabHide());
-
-                      dispatch(leftMemuHide());
-
-                  }
-
-                  this.requestData(route);
-
-              });
-
-          })
+	      ModuleID = '000013';
 
       }else if (UserInfoCopy.UserType===2){
 
-          this.Frame.getIdentity({ModuleID:'000015'},()=>{
+          /*this.Frame.getIdentity({ModuleID:'000015'},()=>{
 
-              this.requestData(route);
+             /!* this.requestData(route);
 
               history.listen(() => {
                   //路由监听
@@ -295,9 +249,13 @@ class App extends Component {
 
                   this.requestData(route);
 
-              });
+              });*!/
 
-          });
+	          this.routerInit();
+
+          });*/
+
+	      ModuleID = '000015';
 
       }else{
 
@@ -305,6 +263,11 @@ class App extends Component {
 
       }
 
+      this.Frame.getIdentity({ModuleID},()=>{
+
+      	this.routerInit();
+
+      });
 
       this.setState({
           UserMsg: UserInfo
@@ -315,7 +278,6 @@ class App extends Component {
           this.setState({showBarner:false,showLeftMenu:false});
 
       }
-
 
 
       if(route.split('/')[1]==='statics'){
@@ -368,23 +330,200 @@ class App extends Component {
 
   }
 
+  routerInit(){
+
+	  const { history,dispatch } = this.props;
+
+	  let route = history.location.pathname;
+
+	  this.requestData(route);
+
+	  history.listen(() => {
+		  //路由监听
+		  let route = history.location.pathname;
+
+		  if(route.split('/')[1]==='statics'){
+
+			  dispatch(bannerShow());
+
+			  dispatch(leftMemuShow());
+
+		  }
+
+		  if(route.split('/')[1]==='manage'){
+
+			  dispatch(bannerShow());
+
+			  dispatch(leftMemuHide());
+
+		  }
+
+		  if(route.split('/')[1]==='ImportFile'){
+
+			  dispatch(bannerHide());
+
+			  dispatch(leftMemuHide());
+
+		  }
+
+		  if(route.split('/')[1]==='Log'){
+
+			  dispatch(bannerHide());
+
+			  dispatch(leftMemuHide());
+
+		  }
+
+		  if(route.split('/')[1]==='Teacher'){
+
+			  dispatch(bannerShow());
+
+			  dispatch(bannerBtnShow());
+
+			  dispatch(bannerLogHide());
+
+			  dispatch(bannerTabHide());
+
+			  dispatch(leftMemuHide());
+
+		  }
+
+		  this.requestData(route);
+
+	  });
+
+  }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
 
-      const { history,dispatch } = nextProps;
+	  if (this.state.firstLoad){
 
-        this.setState({
+		  const {history,dispatch} = nextProps;
 
-          MenuParams: nextProps.DataState.GetCoureClassAllMsg.MenuParams
+		  const route = history.location.pathname;
 
-        });
+		  this.setState({
+
+			  firstLoad:false
+
+		  },()=>{
+
+			  if(route.split('/')[1]==='statics'){
+
+				  dispatch(bannerShow());
+
+				  dispatch(leftMemuShow());
+
+			  }
+
+			  if(route.split('/')[1]==='manage'){
+
+				  dispatch(bannerShow());
+
+				  dispatch(leftMemuHide());
+
+			  }
 
 
-    if (getQueryVariable("iFrame")){
+			  if(route.split('/')[1]==='ImportFile'){
 
-     this.setState({isFrame:true});
+				  dispatch(bannerHide());
 
-    }
+				  dispatch(leftMemuHide());
+
+			  }
+
+			  if(route.split('/')[1]==='Log'){
+
+				  dispatch(bannerHide());
+
+				  dispatch(leftMemuHide());
+
+			  }
+
+			  if(route.split('/')[1]==='Teacher'){
+
+				  dispatch(bannerShow());
+
+				  dispatch(bannerLogHide());
+
+				  dispatch(bannerTabHide());
+
+				  dispatch(bannerBtnShow());
+
+				  dispatch(leftMemuHide());
+
+			  }
+
+		  });
+
+	  }
+
+	  if (getQueryVariable("iFrame")){
+
+	     this.setState({isFrame:true});
+
+	  }
+
+  }
+
+  componentDidMount(){
+
+  	  const {history,dispatch} = this.props;
+
+	  history.listen(() => {
+		  //路由监听
+		  let route = history.location.pathname;
+
+		  if(route.split('/')[1]==='statics'){
+
+			  dispatch(bannerShow());
+
+			  dispatch(leftMemuShow());
+
+		  }
+
+		  if(route.split('/')[1]==='manage'){
+
+			  dispatch(bannerShow());
+
+			  dispatch(leftMemuHide());
+
+		  }
+
+		  if(route.split('/')[1]==='ImportFile'){
+
+			  dispatch(bannerHide());
+
+			  dispatch(leftMemuHide());
+
+		  }
+
+		  if(route.split('/')[1]==='Log'){
+
+			  dispatch(bannerHide());
+
+			  dispatch(leftMemuHide());
+
+		  }
+
+		  if(route.split('/')[1]==='Teacher'){
+
+			  dispatch(bannerShow());
+
+			  dispatch(bannerBtnShow());
+
+			  dispatch(bannerLogHide());
+
+			  dispatch(bannerTabHide());
+
+			  dispatch(leftMemuHide());
+
+		  }
+
+
+	  });
+
   }
 
   onAppAlertOK() {
@@ -609,8 +748,6 @@ class App extends Component {
             });
 
         }else if (parseInt(UserMsg.UserType)===1) {
-
-            console.log(handleRoute);
 
             QueryOtherPower({
                 SchoolID:UserMsg.SchoolID,
