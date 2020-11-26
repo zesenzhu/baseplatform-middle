@@ -4,6 +4,8 @@ import $ from "jquery";
 
 import Public from "../public";
 
+import dynamicFile from 'dynamic-file';
+
 export function TokenCheck(IsDesk = false, SysID = "000",fun=()=>{},isFirst=false) {
   // console.log(fun)
   let session_token = sessionStorage.getItem("token");
@@ -1029,9 +1031,21 @@ export const firstPageLoad = (func=()=>{}) => {
 
                             updateUserInfo();
 
-                            checkTokenRepeat();
+                            /*checkTokenRepeat();
 
-                            checkIsOnline();
+                            checkIsOnline();*/
+
+	                        dynamicFile([
+
+	                            `${WebRootUrl}/UserMgr/Login/JS/CheckIsOnline2.js`
+
+                            ]).then(data=>{
+
+                                console.log(_LgBase_initCheck);
+
+		                        _LgBase_initCheck(WebRootUrl,token,'000');
+
+                            });
 
                             func();
 
