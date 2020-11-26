@@ -58,6 +58,10 @@ function Import(props) {
 
         const urlObj = preUri?getNewTkUrl({preUrl:preUri,jointParam:`?lg_tk=${token}`}):getNewTkUrl({preUrl:WebIndexUrl,jointParam:`?lg_tk=${token}`});
 
+	    const uriMain = urlObj.newUrl.split('#/')[0];
+
+	    const uriHash = urlObj.newUrl.split('#/')[1]?'#/'+urlObj.newUrl.split('#/')[1]:'';
+
         switch (urlObj.type) {
 
             case 1:
@@ -68,13 +72,13 @@ function Import(props) {
 
             case 2:
 
-                nexUrl = urlObj.newUrl + '&lg_tk=' + token;
+	            nexUrl = uriMain + '&lg_tk=' + token+uriHash;
 
                 break;
 
             case 3:
 
-                nexUrl = urlObj.newUrl + '?lg_tk=' + token;
+	            nexUrl = uriMain + '?lg_tk=' + token+uriHash;
 
                 break;
 

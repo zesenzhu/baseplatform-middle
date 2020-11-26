@@ -130,6 +130,10 @@ export const goToNextPage = ({dispatch,loadingHide}) =>{
 
         const urlObj = preUri?getNewTkUrl({preUrl:preUri,jointParam:`?lg_tk=${token}`}):getNewTkUrl({preUrl:WebIndexUrl,jointParam:`?lg_tk=${token}`});
 
+        const uriMain = urlObj.newUrl.split('#/')[0];
+
+        const uriHash = urlObj.newUrl.split('#/')[1]?'#/'+urlObj.newUrl.split('#/')[1]:'';
+
         switch (urlObj.type) {
 
             case 1:
@@ -140,21 +144,18 @@ export const goToNextPage = ({dispatch,loadingHide}) =>{
 
             case 2:
 
-                nexUrl = urlObj.newUrl + '&lg_tk=' + token;
+                nexUrl = uriMain + '&lg_tk=' + token+uriHash;
 
                 break;
 
             case 3:
 
-                nexUrl = urlObj.newUrl + '?lg_tk=' + token;
+                nexUrl = uriMain + '?lg_tk=' + token+uriHash;
 
                 break;
 
         }
 
-
-        console.log(nexUrl);
-        
         if (parseInt(UserType)===0){
 
             GetSchoolInitStatus({SchoolId:SchoolID}).then(data=>{
