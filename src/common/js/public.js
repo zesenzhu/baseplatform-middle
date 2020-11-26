@@ -225,7 +225,7 @@ function getLg_tk(url) {
     lg_tk = Url.split("lg_tk=")[1].split("#")[0].split("&")[0];
   }
 
-  lg_tk = Url.includes("?lg_tk=") ? "?lg_tk=" + lg_tk : "&lg_tk=" + lg_tk;
+  lg_tk = "lg_tk=" + lg_tk;
 
   return Url.replace(lg_tk, "");
 }
