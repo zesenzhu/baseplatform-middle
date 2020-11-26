@@ -106,7 +106,7 @@ class Register extends Component {
   // 用户id change
   onUserIDChange = (e) => {
     this.setState({
-      UserID: e.target.value ,
+      UserID: e.target.value,
     });
   };
   // 用户id blur
@@ -136,7 +136,7 @@ class Register extends Component {
   // 用户姓名 change
   onUserNameChange = (e) => {
     this.setState({
-      UserName: e.target.value ,
+      UserName: e.target.value,
     });
   };
   // 用户姓名 blur
@@ -168,7 +168,7 @@ class Register extends Component {
   // 用户别名 change
   onShortNameChange = (e) => {
     this.setState({
-      ShortName: e.target.value ,
+      ShortName: e.target.value,
     });
   };
   // 用户别名 blur
@@ -200,7 +200,7 @@ class Register extends Component {
   // 验证码 change
   onTestCodeChange = (e) => {
     this.setState({
-      TestCode: e.target.value ,
+      TestCode: e.target.value,
     });
   };
   // 验证码 blur
@@ -442,14 +442,24 @@ class Register extends Component {
     const { dispatch, DataState } = this.props;
     this.setState({
       SchoolSelect: e,
+      GradeSelect: { value: 0, title: "请选择年级" },
+      ClassSelect: { value: 0, title: "请选择班级" },
     });
     dispatch(
       actions.UpUIState.AppTipsVisible({
+        GradeIDTipsVisible: false,
+        ClassIDTipsVisible: false,
         SchoolIDTipsVisible: false,
       })
     );
     //改变reduce学生中转数据
-    dispatch(actions.UpDataState.setUserMsg({ SchoolID: e.value }));
+    dispatch(
+      actions.UpDataState.setUserMsg({
+        SchoolID: e.value,
+        GradeID: 0,
+        ClassID: 0,
+      })
+    );
 
     dispatch(
       actions.UpDataState.getSubjectData({
@@ -769,7 +779,7 @@ class Register extends Component {
   render() {
     const { DataState, UIState } = this.props;
     // console.log(this.props.role);
-    console.log(this.state.code);
+    // console.log(this.state.code);
     return (
       <div id="Register" className="Register">
         {/* <p className="top-tips">账号注册</p> */}
@@ -1070,12 +1080,40 @@ class Register extends Component {
                 ></DropDown>
                 <DropDown
                   style={{ zIndex: 1, marginLeft: "10px" }}
-                  disabled={this.state.GradeSelect.value === 0 ? true : false}
-                  dropSelectd={this.state.ClassSelect}
+                  disabled={
+                    !(
+                      DataState.getReisterData.ClassList[
+                        this.state.GradeSelect.value
+                      ] instanceof Array &&
+                      DataState.getReisterData.ClassList[
+                        this.state.GradeSelect.value
+                      ].length > 0
+                    ) || this.state.GradeSelect.value === 0
+                      ? true
+                      : false
+                  }
+                  dropSelectd={
+                    !this.state.GradeSelect.value ||
+                    (DataState.getReisterData.ClassList[
+                      this.state.GradeSelect.value
+                    ] instanceof Array &&
+                      DataState.getReisterData.ClassList[
+                        this.state.GradeSelect.value
+                      ].length > 0)
+                      ? this.state.ClassSelect
+                      : { value: 0, title: "暂无班级" }
+                  }
                   dropList={
                     DataState.getReisterData.ClassList[
                       this.state.GradeSelect.value
-                    ]
+                    ] instanceof Array &&
+                    DataState.getReisterData.ClassList[
+                      this.state.GradeSelect.value
+                    ].length > 0
+                      ? DataState.getReisterData.ClassList[
+                          this.state.GradeSelect.value
+                        ]
+                      : [{ value: 0, title: "暂无班级" }]
                   }
                   width={144}
                   height={96}
