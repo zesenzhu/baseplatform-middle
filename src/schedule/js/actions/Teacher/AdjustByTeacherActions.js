@@ -2821,7 +2821,9 @@ const ModalCommit = ({changeTimeModal,changeRoomModal}) => {
 
                       dispatch(AppAlertActions.alertSuccess({title:"找人代课成功！"}));
 
-                      ComPageRefresh.ComPageUpdate(dispatch);
+                      // ComPageRefresh.ComPageUpdate(dispatch);
+
+	                  dispatch(ComPageRefresh.ComPageScheduleBetterUpdate());
 
                   }
 
@@ -2924,7 +2926,9 @@ const ModalCommit = ({changeTimeModal,changeRoomModal}) => {
 
                      dispatch(AppAlertActions.alertSuccess({title:"与人换课成功！"}));
 
-                     ComPageRefresh.ComPageUpdate(dispatch);
+                     // ComPageRefresh.ComPageUpdate(dispatch);
+
+	                 dispatch(ComPageRefresh.ComPageScheduleBetterUpdate());
 
                  }
 
@@ -3009,7 +3013,9 @@ const ModalCommit = ({changeTimeModal,changeRoomModal}) => {
 
                      dispatch(AppAlertActions.alertSuccess({title:"调整时间成功！"}));
 
-                     ComPageRefresh.ComPageUpdate(dispatch);
+                     // ComPageRefresh.ComPageUpdate(dispatch);
+
+	                 dispatch(ComPageRefresh.ComPageScheduleBetterUpdate());
 
                  }
 
@@ -3115,7 +3121,9 @@ const ModalCommit = ({changeTimeModal,changeRoomModal}) => {
 
                       dispatch(AppAlertActions.alertSuccess({title:"调整教室成功！"}));
 
-                      ComPageRefresh.ComPageUpdate(dispatch);
+                      // ComPageRefresh.ComPageUpdate(dispatch);
+
+	                  dispatch(ComPageRefresh.ComPageScheduleBetterUpdate());
 
                   }
 
@@ -3185,7 +3193,9 @@ const ModalCommit = ({changeTimeModal,changeRoomModal}) => {
 
                       dispatch(AppAlertActions.alertSuccess({title:"停课成功！"}));
 
-                      ComPageRefresh.ComPageUpdate(dispatch);
+                      // ComPageRefresh.ComPageUpdate(dispatch);
+
+	                  dispatch(ComPageRefresh.ComPageScheduleBetterUpdate());
 
                   }
 
