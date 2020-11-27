@@ -437,7 +437,13 @@ class BaseSetting extends Component {
 
       Position,
     } = BaseSetting;
-
+    //  当ProductType不为3的时候不出现身份
+    const { ProductType, ResHttpRootUrl } = sessionStorage.getItem(
+      "LgBasePlatformInfo"
+    )
+      ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
+      : {};
+    let ProductType_3 = `${ProductType}` === "3";
     return (
       <Loading spinning={loadingShow}>
         <div className="base-setting-wrapper">
@@ -525,7 +531,7 @@ class BaseSetting extends Component {
               ) : (
                 ""
               )}
-              {UserType === 0 || UserType === 1 || UserType === 7 ? (
+              {ProductType_3&&(UserType === 0 || UserType === 1 || UserType === 7) ? (
                 <div
                   className="role-wrapper clearfix"
                   style={{ zIndex: this.state.zIndex }}
