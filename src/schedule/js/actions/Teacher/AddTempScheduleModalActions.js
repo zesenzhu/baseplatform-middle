@@ -700,7 +700,9 @@ const commitInfo = ({ModalInit,SubjectID,SubjectName,ClassID,CourseClassName,Cla
 
                 dispatch(AppAlertActions.alertSuccess({title:"添加临时课程成功!"}));
 
-                ComPageRefresh.ComPageUpdate(dispatch);
+                // ComPageRefresh.ComPageUpdate(dispatch);
+
+	            dispatch(ComPageRefresh.ComPageScheduleBetterUpdate());
 
                 ModalInit();
 

@@ -1102,7 +1102,9 @@ const ModalCommit = () => {
 
                       dispatch(AppAlertActions.alertSuccess({title:"调整教室成功！"}));
 
-                      ComPageRefresh.ComPageUpdate(dispatch);
+                      // ComPageRefresh.ComPageUpdate(dispatch);
+
+	                  dispatch(ComPageRefresh.ComPageScheduleBetterUpdate());
 
                   }
 

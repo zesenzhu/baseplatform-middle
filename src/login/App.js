@@ -58,27 +58,42 @@ function App(props){
 
         let nexUrl = '';
 
-        switch (urlObj.type) {
+	    const uriMain  = urlObj.newUrl.split('#/')[0];
+
+	    const hashUri = urlObj.newUrl.split('#/')[1]?'#/'+urlObj.newUrl.split('#/')[1]:'';
+
+	    switch (urlObj.type) {
 
             case 1:
 
-                nexUrl = urlObj.nexType===1?urlObj.newUrl+'?lg_tk=':urlObj.newUrl+'&lg_tk=';
+                if(urlObj.nexType===1){
+
+                    nexUrl = uriMain + '?lg_tk=' + hashUri;
+
+                }else{
+
+	                nexUrl = uriMain + '&lg_tk=' + hashUri;
+
+                }
+
 
                 break;
 
             case 2:
 
-                nexUrl = urlObj.newUrl+'&lg_tk=';
+	            nexUrl = uriMain + '&lg_tk=' + hashUri;
 
                 break;
 
             case 3:
 
-                nexUrl = urlObj.newUrl+'?lg_tk=';
+	            nexUrl = uriMain + '?lg_tk=' + hashUri;
 
                 break;
 
         }
+
+        console.log(nexUrl);
 
         window.top._goUrl = GetCharCodes(nexUrl);
 

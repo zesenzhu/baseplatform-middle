@@ -213,7 +213,7 @@ function comparisonObject(sourceObj, compareObj) {
   return true;
 }
 // 处理链接，获取lg_tk
-function getLg_tk(url) {
+/*function getLg_tk(url) {
   let Url = decodeURIComponent(url);
   if (Url.indexOf("lg_tk") === -1) {
     return Url;
@@ -225,10 +225,38 @@ function getLg_tk(url) {
     lg_tk = Url.split("lg_tk=")[1].split("#")[0].split("&")[0];
   }
 
-  lg_tk = "lg_tk=" + lg_tk;
+  lg_tk = Url.includes("&lg_tk=") ? "&lg_tk=" + lg_tk : "lg_tk=" + lg_tk;
 
   return Url.replace(lg_tk, "");
+}*/
+
+function getLg_tk(url) {
+
+	let ohref = window.location.href;
+	let rpar = "";//跟着lg_tk的路由
+	let hrefpars = ohref.split('?');
+	if (hrefpars.length == 2) {
+		let urlpars = hrefpars[1].split('&');
+		for (let i = 0; i < urlpars.length; i++) {
+			if (urlpars[i].indexOf('lg_tk=') == 0) {
+				if (urlpars[i].indexOf('#') > -1) { rpar = urlpars[i].substring(urlpars[i].indexOf('#')); }
+				urlpars.splice(i, 1);
+			}
+		}
+		if (urlpars.length > 0) {
+			hrefpars[1] = urlpars.join('&');
+			ohref = hrefpars.join('?');
+		}
+		else {
+			ohref = hrefpars[0];
+		}
+	}
+	ohref  += rpar;
+
+	return ohref;
+
 }
+
 // 处理url适合获取icon
 const UrlGetIcon = (url) => {
   let urlArr = "";
