@@ -166,7 +166,7 @@ class TeaMaterial extends Component {
     let { firstTime, firstShow, secondShow, thirdShow } = this.state;
 
     let selectWeek = ItemWeek.find((child) => {
-      return child.WeekNO === NowWeekSelect.value;
+      return child.WeekNO === value.value;
     });
     let StartTime = "";
     let EndTime = "";
