@@ -909,7 +909,8 @@ class Search extends React.Component {
       $(this.refs.search_select_ul).slideToggle("fast");
     });
   } //切换下拉状态为slideDown和slideUp
-  changeSelect(e) {
+
+    changeSelect(e) {
     const { selectChange } = this.props;
 
     this.setState({ selectdValue: { value: e.value, title: e.title } });
@@ -919,7 +920,8 @@ class Search extends React.Component {
       selectChange(e);
     });
   } //改变选项
-  outSpanClickHandler(e) {
+
+    outSpanClickHandler(e) {
     const { target, ulDom, that, spanDom } = e;
     if (spanDom && !spanDom.contains(target)) {
       that.setState({ selectShow: false }, () => {
@@ -927,7 +929,8 @@ class Search extends React.Component {
       });
     }
   } //点击其他地方将下拉收起
-  onInputFocus() {
+
+    onInputFocus() {
     this.setState({ inputFocus: true });
   } //input focus事件
 
