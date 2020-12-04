@@ -250,19 +250,33 @@ const GetStuNearExam = ({
     if (XH === undefined) {
       XH = StuResultParams.XH;
     }
-    getStuNearExam({ Term, ClassID, GradeID, SchoolID, Proxy, XH }).then(
-      (res) => {
-        if (res) {
-          dispatch({ type: MAIN_GET_STU_NEAR_EXAM, data: res.data });
-          func(getState());
-          dispatch(
-            CommonActions.SetStuResultParams({
-              TabLoadingVisible: false,
-            })
-          );
-        }
+    const timeout = setTimeout(() => {
+      console.log("请求超时了");
+      dispatch(
+        CommonActions.SetStuResultParams({
+          TabLoadingVisible: false,
+        })
+      );
+    }, 10000);
+    let StuNearExam = getStuNearExam({
+      Term,
+      ClassID,
+      GradeID,
+      SchoolID,
+      Proxy,
+      XH,
+    }).then((res) => {
+      if (res) {
+        dispatch({ type: MAIN_GET_STU_NEAR_EXAM, data: res.data });
+        func(getState());
+        dispatch(
+          CommonActions.SetStuResultParams({
+            TabLoadingVisible: false,
+          })
+        );
       }
-    );
+    });
+    Promise.race([StuNearExam, timeout]);
   };
 };
 const getStuNearExam = async ({

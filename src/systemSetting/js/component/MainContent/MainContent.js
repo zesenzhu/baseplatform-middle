@@ -190,7 +190,7 @@ class MainContent extends Component {
     //   history.push("/MainContent/Semester");
     // }
     let path = key ? key : history.location.pathname.split("/")[2];
-    console.log(path);
+    // console.log(path);
     let param = this.state.MenuParams;
     let len = param.children.length;
 
