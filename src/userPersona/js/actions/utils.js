@@ -62,7 +62,7 @@ export const getPostData = async (url,data,level,api=config.UserPersonaProxy,con
 
 };
 
-
+//去除url路径中的最后一个/
 export const removeSlashUrl = (url)=>{
 
     const urlArr = url.split('');
@@ -79,6 +79,7 @@ export const removeSlashUrl = (url)=>{
 
 };
 
+//下载文件，传递链接url进行下载
 export const downLoadFile = (url)=>{
 
     const oldIframe = document.getElementById("down_load_iframe");
@@ -102,12 +103,14 @@ export const downLoadFile = (url)=>{
 };
 
 
+//学校代码正则
 export const schoolCodeReg = (str) =>{
 
     return /^([a-zA-Z0-9]{1,24})$/.test(str.trim());
 
 };
 
+//学校名称正则
 export const schoolNameReg = (str) =>{
 
     return /^[0-9a-zA-Z()（）\u4E00-\u9FA5\uF900-\uFA2D-]{1,20}$/.test(str.trim());
