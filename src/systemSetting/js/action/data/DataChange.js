@@ -325,6 +325,7 @@ const getCurrentSbusystemInfo = ({ UserType, IsOpened, keyword }) => {
             .replace("0", "管理员")
             .replace("1", "教师")
             .replace("2", "学生")
+            .replace("3", "家长")
             .replace("7", ";领导");
 
           tempitem = {
