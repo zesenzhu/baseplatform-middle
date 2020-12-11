@@ -556,7 +556,7 @@ class LogDynamic extends Component {
           StudentRegisterData,
         },
         CommonData: {
-          RolePower: { LockerVersion_1, IsCollege },
+          RolePower: { LockerVersion_1, IsCollege, NoLeader },
           LogParams: {
             CollegeID,
             CollegeName,
@@ -578,7 +578,15 @@ class LogDynamic extends Component {
         Loading: { TableLoading },
       },
     } = this.props;
-
+    if (NoLeader) {
+      let List = UserTypeList;
+      UserTypeList = [];
+      List.forEach((child) => {
+        if (child.value !== 7) {
+          UserTypeList.push(child);
+        }
+      });
+    }
     let College = [{ value: "", title: "全部学院" }].concat(CollegeList);
 
     return (

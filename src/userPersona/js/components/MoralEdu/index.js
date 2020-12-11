@@ -60,11 +60,11 @@ class MoralEdu extends Component {
       );
     }
   }
-  onShowAllClick = () => {
+  onShowAllClick = (ShowAll) => {
     let { dispatch } = this.props;
     dispatch(
       CommonActions.SetClassMoralEduInfoByCriteriasParams({
-        ShowAll: true,
+        ShowAll ,
         // SelectBar: "NearExam",
       })
     );
@@ -96,19 +96,25 @@ class MoralEdu extends Component {
         >
           <div className="MoralEdu">
             <div className="SR-top">
-              <span className="SRt-left">
-                德育总分:
-                <span title={totalScore || totalScore === 0 ? totalScore : ""}>
-                  {totalScore || totalScore === 0 ? totalScore : "--"}
+              {totalScore !== undefined ? (
+                <span className="SRt-left">
+                  德育总分:
+                  <span
+                    title={totalScore || totalScore === 0 ? totalScore : ""}
+                  >
+                    {totalScore || totalScore === 0 ? totalScore : "--"}
+                  </span>
                 </span>
-              </span>
+              ) : (
+                ""
+              )}
               {data instanceof Array && data.length > 2 ? (
                 <LinkBtn
-                  onClick={this.onShowAllClick}
+                  onClick={this.onShowAllClick.bind(this, !ShowAll)}
                   type="all"
                   className="SRt-go"
                 >
-                  查看全部
+                  {ShowAll ? "收起" : "查看全部"}
                 </LinkBtn>
               ) : (
                 ""

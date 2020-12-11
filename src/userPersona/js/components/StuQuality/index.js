@@ -42,8 +42,7 @@ class StuQuality extends Component {
       });
       dispatch(
         CommonActions.SetStuQualityParams({
-          Proxy:  
-          Urls["810"].WsUrl,
+          Proxy: Urls["810"].WsUrl,
 
           Term,
 
@@ -68,7 +67,7 @@ class StuQuality extends Component {
       systemUrl: {
         Urls: { E34 },
       },
-      identifyInfo
+      identifyInfo,
     } = this.props;
     let { firstTime } = this.state;
     let List = [];
@@ -101,13 +100,20 @@ class StuQuality extends Component {
           <div className="StuQuality">
             <div className="SR-top">
               {E34 && E34.WebUrl ? (
-                <LinkBtn type="comment" className="SRt-go"
-                onClick={() => {
-                  let token = sessionStorage.getItem("token");
-                  window.open(
-                    E34.WebUrl + "/index_user.html?lg_tk=" + token + "#6|3|0&lg_ic="+identifyInfo[0].IdentityCode
-                  );
-                }}
+                <LinkBtn
+                  type="comment"
+                  className="SRt-go"
+                  onClick={() => {
+                    let token = sessionStorage.getItem("token");
+                    window.open(
+                      E34.WebUrl +
+                        "/index_user.html?lg_tk=" +
+                        token +
+                        "&lg_ic=" +
+                        identifyInfo[0].IdentityCode +
+                        "#6|3|0"
+                    );
+                  }}
                 >
                   综合素养查询
                 </LinkBtn>

@@ -423,7 +423,7 @@ function App(props){
 
         },(macObj)=>{
 
-            const macId = JSON.parse(macObj)['LocalMacIDs'][0];
+            const macId = JSON.parse(macObj)['LocalMacIDs'].join(',');
 
             //存储MacID
             localStorage.setItem('LgBaseMacID',macId);
@@ -606,7 +606,7 @@ function App(props){
 
             },(macObj)=>{
 
-                const macId = JSON.parse(macObj)['LocalMacIDs'][0];
+                const macId = JSON.parse(macObj)['LocalMacIDs'].join(',');
 
                 //存储MacID
                 localStorage.setItem('LgBaseMacID',macId);
