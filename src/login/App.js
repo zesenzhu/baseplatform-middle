@@ -424,7 +424,29 @@ function App(props){
         },(macObj)=>{
 
             const macId = JSON.parse(macObj)['LocalMacIDs'].join(',');
-
+            try {
+                let LgBasePlatformInfo = JSON.parse(
+                  sessionStorage.getItem("LgBasePlatformInfo")
+                );
+                if (LgBasePlatformInfo !== null && macId) {
+                  let OpenSetInfo = [];
+                  LgBasePlatformInfo.OpenSetInfo instanceof Array &&
+                    LgBasePlatformInfo.OpenSetInfo.forEach((child, index) => {
+                      let { OpenUrl } = child;
+                      if (typeof OpenUrl === "string") {
+                        let OpenUrlArray = OpenUrl.split("&Target=");
+                        OpenUrlArray[0] += GetCharCodes(macId);
+                        OpenSetInfo.push({
+                          ...child,
+                          OpenUrl: OpenUrlArray.join("&Target="),
+                        });
+                      }
+                    });
+                  LgBasePlatformInfo.OpenSetInfo = OpenSetInfo;
+                }
+      
+                dispatch(changeSetting({OpenSetInfo:LgBasePlatformInfo.OpenSetInfo}));
+              } catch (e) {}
             //存储MacID
             localStorage.setItem('LgBaseMacID',macId);
 
