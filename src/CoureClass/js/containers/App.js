@@ -1397,6 +1397,7 @@ class App extends Component {
             UIState.SetCourseClassDetailsModalShow
               .setCourseClassDetailsMadalShow
           }
+          footer={null}
           onOk={this.CourseClassDetailsModalOk}
           onCancel={this.CourseClassDetailsModalCancel}
         >
