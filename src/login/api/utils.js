@@ -135,26 +135,32 @@ export const goToNextPage = ({dispatch,loadingHide}) =>{
         const uriHash = urlObj.newUrl.split('#/')[1]?'#/'+urlObj.newUrl.split('#/')[1]:'';
 
         switch (urlObj.type) {
-
             case 1:
-
-                nexUrl = urlObj.newUrl;
-
-                break;
-
+              nexUrl = urlObj.newUrl;
+      
+              break;
             case 2:
-
-                nexUrl = uriMain + '&lg_tk=' + token+uriHash;
-
-                break;
-
             case 3:
-
-                nexUrl = uriMain + '?lg_tk=' + token+uriHash;
-
-                break;
-
-        }
+              nexUrl =
+                uriMain +
+                (uriMain.includes("?") ? "&lg_tk=" : "?lg_tk=") +
+                token +
+                uriHash;
+              break;
+            // case 2:
+      
+            //     nexUrl = uriMain + '&lg_tk=' + token+uriHash;
+      
+            //     break;
+      
+            // case 3:
+      
+            //     nexUrl = uriMain + '?lg_tk=' + token+uriHash;
+      
+            //     break;
+            default:
+              break;
+          }
 
         if (parseInt(UserType)===0){
 
