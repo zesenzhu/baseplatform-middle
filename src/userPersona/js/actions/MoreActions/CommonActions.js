@@ -57,7 +57,20 @@ const SetTeaMaterialParams = (data) => {
     });
   };
 };
+// 存基础信息
+const COMMON_SET_BASE_DATA = "COMMON_SET_BASE_DATA";
+const SetBaseData = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: COMMON_SET_BASE_DATA,
+      data: data,
+    });
+  };
+};
 const CommonActions = {
+  COMMON_SET_BASE_DATA,
+  SetBaseData,
+  
   COMMON_SET_TEA_MATERIAL_PARAMS,
   SetTeaMaterialParams,
 

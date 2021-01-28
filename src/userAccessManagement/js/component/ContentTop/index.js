@@ -87,16 +87,20 @@ class ContentTop extends Component {
         },
         LoginMsg: { UserName, PhotoPath },
       },
+      topType
     } = this.props;
 
     return (
       <div className="ContentTop" id="ContentTop">
-        <span className="CT-title">各类身份权限设置</span>
+        {(!topType||topType==='all')&&<><span className="CT-title CT-title-all">各类身份权限设置</span>
         <span className="CT-handle">
           <span onClick={this.onAddClick} className="CTh-add">
             添加自定义身份
           </span>
-        </span>
+        </span></>}
+        {
+          topType==='more'&&<span className="CT-title CT-title-more">高级权限设置</span>
+        }
       </div>
     );
   }

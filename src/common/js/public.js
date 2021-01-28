@@ -506,7 +506,111 @@ export function matchTypeAdd(
   fn(isAdd);
   return isAdd;
 }
-export default {
+// 解决js数字失精问题
+// 0.7*100=7.0000000000001
+// 0.1+0.2=0.30000000000004
+export function correctNumber(number=0) {
+  return parseFloat(number.toPrecision(12));
+}
+/**
+ * @description: 存数据到storage,sessionStorage,localStorage
+ * @param {*key:键,value:值，haveLocalStorage:是否存到localStorage}
+ * @return {*boolean:是否存成功}
+ */
+export const setDataStorage = (
+  key = "error",
+  value = "key is undefined",
+  haveLocalStorage = false
+) => {
+  value = value instanceof Object ? JSON.stringify(value) : value;
+  sessionStorage.setItem(key, value);
+  haveLocalStorage && localStorage.setItem(key, value);
+};
+
+/**
+ * @description: 获取storage的数据
+ * @param {*key:键，haveLocalStorage:是否取localStorage}
+ * @return {*value:不存在返回null}
+ */
+export const getDataStorage = (key, haveLocalStorage = false) => {
+  if (key === undefined) {
+    console.log("Storage key is not undefined");
+    return null;
+  }
+  let value = "";
+  if (haveLocalStorage) {
+    value = localStorage.getItem(key);
+  } else {
+    value = sessionStorage.getItem(key);
+  }
+  if (value === null) {
+    console.log(key + " Storage is not exist");
+
+    return null;
+  }
+
+  try {
+    value = JSON.parse(value);
+  } catch (e) {}
+  return value;
+};
+/**
+ * @description: 判断是大学还是中小学
+ * @param {*} ProductUseRange // baseMsg.ProductUseRange:学校场景
+    // 1：单个专业英语院校，
+    // 2：单个普通大学，
+    // 3：单个中小学校，
+    // 4：多个中小学，
+    // 5：单个中职学校，
+    // 6：单个高职学校，
+    // 7：多个大学，
+    // 8：多个中职学校，
+    // 9：多个高职学校。
+    10：单个幼儿园(扩展)，
+11：多个幼儿园(扩展)，
+12：培训机构(扩展，待定)。
+ * @return {*}
+ */
+export const checkProduct = (ProductUseRange) => {
+  if (ProductUseRange === undefined) {
+    let LgBasePlatformInfo = getDataStorage("LgBasePlatformInfo") || {}; //获取平台版本，看是大学还是中小学
+
+    ProductUseRange = LgBasePlatformInfo.ProductUseRange;
+  }
+
+  ProductUseRange = parseInt(ProductUseRange);
+  // 根据身份和产品类型判断显示的版本
+  let version = "middle";
+  switch (ProductUseRange) {
+    // 1，2，6：单个大学，为高校版本学校端
+    case 1:
+    case 2:
+    case 7:
+    case 6:
+    case 9:
+      version = "university";
+
+      break;
+    // 3,5:单个中小学，为教育局版本学校端
+    case 3:
+    case 4:
+    case 8:
+    case 5:
+    case 10:
+    case 11:
+    case 12:
+      // if (IdentityCode.includes("IC000")) {
+      //学校
+      version = "middle";
+      break;
+    // 4,8:多个中小学，为教育局版本教育局端
+
+    default:
+      version = "middle";
+  }
+  return version;
+};
+export default {checkProduct,
   deepCompare,
   getQueryVariable,
   getUrlQueryVariable,

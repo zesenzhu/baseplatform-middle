@@ -82,7 +82,7 @@ export const getNewTkUrl = ({preUrl,jointParam}) => {
 
       if (andIndex===-1){
 
-          newUrl = jointParam?dcodeUrl.replace(decodeUrl.substring(queryIndex),jointParam):decodeUrl.replace(decodeUrl.substring(queryIndex),'');
+          newUrl = jointParam?decodeUrl.replace(decodeUrl.substring(queryIndex),jointParam):decodeUrl.replace(decodeUrl.substring(queryIndex),'');
 
           nexType = 1;
 

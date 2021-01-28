@@ -1,225 +1,192 @@
-import BaseActions from '../actions/BaseActions';
+import BaseActions from "../actions/BaseActions";
 
-const BaseSetting = (state={
+const BaseSetting = (
+  state = {
+    loadingShow: true,
 
-    loadingShow:true,
+    editorStatus: false,
 
-    editorStatus:false,
+    ShortNameValue: "",
 
-    ShortNameValue:'',
+    ShortNameTipsShow: false,
 
-    ShortNameTipsShow:false,
+    QQValue: "",
 
-    QQValue:'',
+    QQTipsShow: false,
 
-    QQTipsShow:false,
+    WeixinValue: "",
 
-    WeixinValue:'',
+    WeixinTipsShow: false,
 
-    WeixinTipsShow:false,
+    WeiboValue: "",
 
-    WeiboValue:'',
+    WeiboTipsShow: false,
 
-    WeiboTipsShow:false,
+    TelephoneValue: "",
 
-    TelephoneValue:'',
+    TelephoneTipsShow: false,
 
-    TelephoneTipsShow:false,
+    SignValue: "",
 
-    SignValue:'',
+    ManagerModuleShow: false,
 
-    ManagerModuleShow:false,
-
-    TeacherRoalDetails:[
-
-        {
-
-            show:false
-
-        },
-        {
-
-            show:false
-
-        },
-        {
-
-            show:false
-
-        }
-
+    TeacherRoalDetails: [
+      {
+        show: false,
+      },
+      {
+        show: false,
+      },
+      {
+        show: false,
+      },
     ],
 
-    PicUploader:{
+    PicUploader: {
+      token: "",
 
-        token:'',
+      resWebUrl: "http://192.168.129.1:30101/lgftp/", //资源站点地址
 
-        resWebUrl: "http://192.168.129.1:30101/lgftp/", //资源站点地址
+      userType: "Admin", //用户类型，可选值Admin、Student、Teacher、SchoolLeader
 
-        userType:'Admin',   //用户类型，可选值Admin、Student、Teacher、SchoolLeader
+      userID: "", //新增时传空字符串、编辑时传相应UserID
 
-        userID:'', //新增时传空字符串、编辑时传相应UserID
+      curImgPath: "", //用户当前头像，新增时可不传
 
-        curImgPath:'', //用户当前头像，新增时可不传
+      size: "small",
+    },
+    SysUrl: [],
+  },
+  actions
+) => {
+  switch (actions.type) {
+    case BaseActions.MAIN_GET_SUB_SYSTEMS_MAIN_SERVER:
+      return {
+        ...state,
 
-        size:"small"
+        SysUrl: actions.data,
+      };
 
-    }
+    case BaseActions.BASE_INFO_UPDATE:
+      return {
+        ...state,
 
-},actions) => {
+        editorStatus: false,
 
-    switch (actions.type) {
+        ShortNameTipsShow: false,
 
-        case BaseActions.BASE_INFO_UPDATE:
+        QQTipsShow: false,
 
-            return {
+        WeixinTipsShow: false,
 
-                ...state,
+        WeiboTipsShow: false,
 
-                editorStatus:false,
+        TelephoneTipsShow: false,
 
-                ShortNameTipsShow:false,
+        ...actions.data,
+      };
 
-                QQTipsShow:false,
+    case BaseActions.BASE_SETTING_EDITOR_OPEN:
+      return {
+        ...state,
 
-                WeixinTipsShow:false,
+        editorStatus: true,
 
-                WeiboTipsShow:false,
+        ShortNameValue: state.ShortName,
 
-                TelephoneTipsShow:false,
+        QQValue: state.QQ,
 
-                ...actions.data
+        WeixinValue: state.Weixin,
 
-            };
+        WeiboValue: state.Weibo,
 
-        case BaseActions.BASE_SETTING_EDITOR_OPEN:
+        TelephoneValue: state.Telephone,
 
-            return {
+        SignValue: state.Sign,
+      };
 
-                ...state,
+    case BaseActions.BASE_SETTING_EDITOR_CLOSE:
+      return { ...state, editorStatus: false };
 
-                editorStatus:true,
+    case BaseActions.BASE_SETTING_QQ_CHANGE:
+      return { ...state, QQValue: actions.data };
 
-                ShortNameValue:state.ShortName,
+    case BaseActions.BASE_SETTING_WEIXIN_CHANGE:
+      return { ...state, WeixinValue: actions.data };
 
-                QQValue:state.QQ,
+    case BaseActions.BASE_SETTING_WEIBO_CHANGE:
+      return { ...state, WeiboValue: actions.data };
 
-                WeixinValue:state.Weixin,
+    case BaseActions.BASE_SETTING_SHORT_NAME_CHANGE:
+      return { ...state, ShortNameValue: actions.data };
 
-                WeiboValue:state.Weibo,
+    case BaseActions.BASE_SETTING_TEL_CHANGE:
+      return { ...state, TelephoneValue: actions.data };
 
-                TelephoneValue:state.Telephone,
+    case BaseActions.BASE_SETTING_SIGN_CHANGE:
+      return { ...state, SignValue: actions.data };
 
-                SignValue:state.Sign
+    case BaseActions.BASE_SETTING_SHORT_NAME_TIPS_SHOW:
+      return { ...state, ShortNameTipsShow: true };
 
-            };
+    case BaseActions.BASE_SETTING_SHORT_NAME_TIPS_HIDE:
+      return { ...state, ShortNameTipsShow: false };
 
-        case BaseActions.BASE_SETTING_EDITOR_CLOSE:
+    case BaseActions.BASE_SETTING_QQ_TIPS_SHOW:
+      return { ...state, QQTipsShow: true };
 
-            return{...state,editorStatus:false};
+    case BaseActions.BASE_SETTING_QQ_TIPS_HIDE:
+      return { ...state, QQTipsShow: false };
 
-        case BaseActions.BASE_SETTING_QQ_CHANGE:
+    case BaseActions.BASE_SETTING_WEIXIN_TIPS_SHOW:
+      return { ...state, WeixinTipsShow: true };
 
-            return {...state, QQValue:actions.data};
+    case BaseActions.BASE_SETTING_WEIXIN_TIPS_HIDE:
+      return { ...state, WeixinTipsShow: false };
 
-        case BaseActions.BASE_SETTING_WEIXIN_CHANGE:
+    case BaseActions.BASE_SETTING_WEIBO_TIPS_SHOW:
+      return { ...state, WeiboTipsShow: true };
 
-            return {...state, WeixinValue:actions.data};
+    case BaseActions.BASE_SETTING_WEIBO_TIPS_HIDE:
+      return { ...state, WeiboTipsShow: false };
 
-        case BaseActions.BASE_SETTING_WEIBO_CHANGE:
+    case BaseActions.BASE_SETTING_TEL_TIPS_SHOW:
+      return { ...state, TelephoneTipsShow: true };
 
-            return {...state,WeiboValue:actions.data};
+    case BaseActions.BASE_SETTING_TEL_TIPS_HIDE:
+      return { ...state, TelephoneTipsShow: false };
 
-        case BaseActions.BASE_SETTING_SHORT_NAME_CHANGE:
+    case BaseActions.BASE_SETTING_MANAGER_MODULES_SHOW:
+      return { ...state, ManagerModuleShow: true };
 
-            return {...state,ShortNameValue:actions.data};
+    case BaseActions.BASE_SETTING_MANAGER_MODULES_HIDE:
+      return { ...state, ManagerModuleShow: false };
 
-        case BaseActions.BASE_SETTING_TEL_CHANGE:
+    case BaseActions.BASE_SETTING_TEACHER_ROAL_DETAILS_STATUS_SHOW:
+      state.TeacherRoalDetails[actions.data]["show"] = true;
 
-            return {...state, TelephoneValue:actions.data};
+      return { ...state, TeacherRoalDetails: { ...state.TeacherRoalDetails } };
 
-        case BaseActions.BASE_SETTING_SIGN_CHANGE:
+    case BaseActions.BASE_SETTING_TEACHER_ROAL_DETAILS_STATUS_HIDE:
+      state.TeacherRoalDetails[actions.data]["show"] = false;
 
-            return {...state,SignValue:actions.data};
+      return { ...state, TeacherRoalDetails: { ...state.TeacherRoalDetails } };
 
-        case BaseActions.BASE_SETTING_SHORT_NAME_TIPS_SHOW:
+    case BaseActions.BASE_SETTING_LOADING_SHOW:
+      return { ...state, loadingShow: true };
 
-            return {...state,ShortNameTipsShow:true};
+    case BaseActions.BASE_SETTING_LOADING_HIDE:
+      return { ...state, loadingShow: false };
 
-        case BaseActions.BASE_SETTING_SHORT_NAME_TIPS_HIDE:
+    case BaseActions.PICUPLOADER_OPTIONS_UPDATE:
+      return {
+        ...state,
+        PicUploader: { ...state.PicUploader, ...actions.data },
+      };
 
-            return {...state, ShortNameTipsShow:false};
-
-        case BaseActions.BASE_SETTING_QQ_TIPS_SHOW:
-
-            return {...state,QQTipsShow:true};
-
-        case BaseActions.BASE_SETTING_QQ_TIPS_HIDE:
-
-            return {...state, QQTipsShow:false};
-
-        case BaseActions.BASE_SETTING_WEIXIN_TIPS_SHOW:
-
-            return {...state, WeixinTipsShow:true};
-
-        case BaseActions.BASE_SETTING_WEIXIN_TIPS_HIDE:
-
-            return {...state, WeixinTipsShow:false};
-
-        case BaseActions.BASE_SETTING_WEIBO_TIPS_SHOW:
-
-            return {...state, WeiboTipsShow:true};
-
-        case BaseActions.BASE_SETTING_WEIBO_TIPS_HIDE:
-
-            return {...state, WeiboTipsShow:false};
-
-        case BaseActions.BASE_SETTING_TEL_TIPS_SHOW:
-
-            return {...state, TelephoneTipsShow:true};
-
-        case BaseActions.BASE_SETTING_TEL_TIPS_HIDE:
-
-            return {...state, TelephoneTipsShow:false};
-
-        case BaseActions.BASE_SETTING_MANAGER_MODULES_SHOW:
-
-            return {...state, ManagerModuleShow:true};
-
-        case BaseActions.BASE_SETTING_MANAGER_MODULES_HIDE:
-
-            return {...state, ManagerModuleShow:false};
-
-        case BaseActions.BASE_SETTING_TEACHER_ROAL_DETAILS_STATUS_SHOW:
-
-            state.TeacherRoalDetails[actions.data]['show']=true;
-
-            return {...state,TeacherRoalDetails:{...state.TeacherRoalDetails}};
-
-        case BaseActions.BASE_SETTING_TEACHER_ROAL_DETAILS_STATUS_HIDE:
-
-            state.TeacherRoalDetails[actions.data]['show']=false;
-
-            return {...state, TeacherRoalDetails:{...state.TeacherRoalDetails}};
-
-        case BaseActions.BASE_SETTING_LOADING_SHOW:
-
-            return { ...state,loadingShow:true };
-
-        case BaseActions.BASE_SETTING_LOADING_HIDE:
-
-            return { ...state,loadingShow:false };
-
-        case BaseActions.PICUPLOADER_OPTIONS_UPDATE:
-
-            return { ...state,PicUploader:{ ...state.PicUploader,...actions.data} };
-
-        default:
-
-            return state;
-
-    }
-
+    default:
+      return state;
+  }
 };
 
-export default BaseSetting
+export default BaseSetting;

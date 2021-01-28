@@ -365,7 +365,7 @@ function SelectStudent(props,ref){
                 <Search
                     className="top-search"
                     placeHolder="请输入学号或姓名进行搜索..."
-                    width="280"
+                    width={245}
                     Value={search.value}
                     onChange={e=>{e.persist();setSearch(d=>({...d,value:e.target.value}))}}
                     onCancelSearch={onCancelSearch}

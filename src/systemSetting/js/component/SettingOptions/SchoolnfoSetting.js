@@ -637,12 +637,13 @@ class SchoolnfoSetting extends Component {
         schoolSys = "学制获取失败";
     }
     // 多学校：当ProductType为3的时候不出现长条校徽
-    const { ProductType, ResHttpRootUrl } = sessionStorage.getItem(
+    let { ProductType, ResHttpRootUrl,LockerMsg } = sessionStorage.getItem(
       "LgBasePlatformInfo"
     )
       ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
       : {};
     let isMoreSchool = true;
+    LockerMsg ='125544'
     // parseInt(ProductType) === 3;
     return (
       <Loading spinning={semesterloading} opacity={false} tip="请稍候...">
@@ -698,12 +699,22 @@ class SchoolnfoSetting extends Component {
             </div>
             {CountyID ? (
               <div className="school-type">
-                学校区域:
+                所在区域:
                 <span>{ProvinceName + ">" + CityName + ">" + CountyName}</span>
               </div>
             ) : (
               ""
             )}
+            {LockerMsg ? (
+                  <div className="school-type">
+                    使用期限:
+                    <span style={{color:'red'}}>
+                      {LockerMsg}前
+                    </span>
+                  </div>
+                ) : (
+                  ""
+                )}
           </div>
           <Modal
             type="1"

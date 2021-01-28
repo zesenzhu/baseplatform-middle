@@ -158,7 +158,7 @@ function SelectStudent(props){
               <Search
                 className="top-search"
                 placeHolder="请输入学号或姓名进行搜索..."
-                width="280"
+                width={245}
               /*  Value={this.state.searchValue}
                 onChange={this.onChangeSearch.bind(this)}
                 onCancelSearch={this.onCancelSearch}

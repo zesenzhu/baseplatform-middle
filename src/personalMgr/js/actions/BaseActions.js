@@ -5,6 +5,7 @@ import AppAlertActions from "./AppAlertActions";
 import AppLoadingActions from "./AppLoadingActions";
 
 import CONFIG from "../../../common/js/config";
+import { postData, getData } from "../../../common/js/fetch";
 
 import "../../../common/js/PicUpload/Cropper/cropper.css";
 
@@ -75,6 +76,7 @@ const PICUPLOADER_OPTIONS_UPDATE = "PICUPLOADER_OPTIONS_UPDATE";
 const BASE_SETTING_LOADING_HIDE = "BASE_SETTING_LOADING_HIDE";
 
 const BASE_SETTING_LOADING_SHOW = "BASE_SETTING_LOADING_SHOW";
+const { BasicProxy, UserInfoProxy, ClassProxy } = CONFIG;
 
 //界面初始化函数
 const Init = () => {
@@ -477,7 +479,24 @@ const hideAlert = (dispatch) => {
     dispatch({ type: AppAlertActions.APP_ALERT_HIDE });
   };
 };
-
+//获取子系统的服务器地址信息
+let MAIN_GET_SUB_SYSTEMS_MAIN_SERVER = "MAIN_GET_SUB_SYSTEMS_MAIN_SERVER";
+const GetSubSystemsMainServerBySubjectID = ({ fn = () => {} }) => {
+  return (dispatch, getState) => {
+    let url =
+      "/BaseApi/Global/GetSubSystemsMainServerBySubjectID?appid=000&access_token=4d39af1bff534514e24948568b750f6c&sysIDs=E27&subjectID=";
+    getData(BasicProxy + url, 2)
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        if (json.StatusCode === 200) {
+          dispatch({ type: MAIN_GET_SUB_SYSTEMS_MAIN_SERVER, data: json.Data });
+        }
+        fn(getState());
+      });
+  };
+};
 export default {
   BASE_INFO_UPDATE,
 
@@ -534,4 +553,8 @@ export default {
   Init,
 
   Commit,
+
+  
+  GetSubSystemsMainServerBySubjectID,
+  MAIN_GET_SUB_SYSTEMS_MAIN_SERVER,
 };

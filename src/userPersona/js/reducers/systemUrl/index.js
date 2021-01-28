@@ -34,7 +34,8 @@ const defaultState = {
 // 教学方案
    "300":{SysID:'300',WebUrl:'',WsUrl:''},
 
-
+  //师资发展
+  L10: { SysID: "L10", WebUrl: "", WsUrl: "" },
   },
 
   ModuleRely: {

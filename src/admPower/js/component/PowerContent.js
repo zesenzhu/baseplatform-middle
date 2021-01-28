@@ -341,7 +341,8 @@ class PowerContent extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="content-row clearfix">
+              {/* 不要班主任设置 */}
+              {/* <div className="content-row clearfix">
                 <div className="left">
                   <img width={108} height={116} alt="master" src={master} />
                 </div>
@@ -389,8 +390,8 @@ class PowerContent extends React.Component {
                     }
                   </div>
                 </div>
-              </div>
-              {/* <div className="content-row clearfix">
+              </div>*/}
+              {/* <div className="content-row clearfix"> 
                 <div className="left">
                   <img width={108} height={116} alt="director" src={director} />
                 </div>

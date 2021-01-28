@@ -77,7 +77,8 @@ class App extends Component {
       ):{};
       if (LockerVersion === "1") {
         window.location.href =
-          config.ErrorProxy + "/LockerMgr/ErrorTips.aspx?ErrorCode=-3";
+        CONFIG.ErrorProxy + "/LockerMgr/ErrorTips.aspx?ErrorCode=-3";
+        return ;
       }
       // sessionStorage.setItem('UserInfo', '')
       if (sessionStorage.getItem("UserInfo")) {

@@ -6,7 +6,8 @@ import { postData, getData } from "../../../common/js/fetch";
 import CONFIG from "../../../common/js/config";
 import ChangeSubject from "./ChangeSubject.js";
 import SetSubjectTeacher from "./SetSubjectTeacher.js";
-import {getQueryVariable} from "../../../common/js/disconnect";
+import { getQueryVariable } from "../../../common/js/disconnect";
+import { checkUrlAndPostMsg, getDataStorage } from "../../../common/js/public";
 
 import {
   Search,
@@ -15,7 +16,7 @@ import {
   Table,
   DetailsModal,
   PagiNation,
-  Modal
+  Modal,
 } from "../../../common";
 class Subject extends React.Component {
   constructor(props) {
@@ -26,9 +27,9 @@ class Subject extends React.Component {
           title: "学科名称",
           align: "left",
           key: "SubjectName",
-          width:270,
+          width: 270,
           dataIndex: "SubjectName",
-          render: arr => {
+          render: (arr) => {
             return (
               <div className="SubjectName-content">
                 <img
@@ -43,15 +44,15 @@ class Subject extends React.Component {
                 </span>
               </div>
             );
-          }
+          },
         },
         {
           title: "开课年级",
           align: "left",
-          width:340,
+          width: 340,
           dataIndex: "Grades",
           key: "Grades",
-          render: Grades => {
+          render: (Grades) => {
             return (
               <React.Fragment>
                 <span
@@ -80,15 +81,15 @@ class Subject extends React.Component {
                 </span>
               </React.Fragment>
             );
-          }
+          },
         },
         {
           title: "教研组长",
           align: "left",
-          width:196,
+          width: 196,
           dataIndex: "Teacher",
           key: "Teacher",
-          render: Teacher => {
+          render: (Teacher) => {
             return Teacher.map((child, index) => {
               let GradeName = "";
               if (child.Grade === "P1") {
@@ -118,15 +119,15 @@ class Subject extends React.Component {
                 </React.Fragment>
               );
             });
-          }
+          },
         },
         {
           title: "操作",
           align: "center",
-          width:290,
+          width: 290,
           key: "handle",
           dataIndex: "key",
-          render: key => {
+          render: (key) => {
             return (
               <div className="handle-content">
                 <Button
@@ -155,131 +156,131 @@ class Subject extends React.Component {
                 </Button>
               </div>
             );
-          }
-        }
+          },
+        },
       ],
       SubjectSelect: { value: "", title: "全部学段" },
       UserMsg: props.DataState.LoginUser,
       pagination: 1,
-      isInitGuide:false
+      isInitGuide: false,
+      isAIProduct: false,
     };
   }
   // 钩子
   componentWillMount() {
+    if (getQueryVariable("isInitGuide")) {
+      this.setState({ isInitGuide: true });
 
-      if (getQueryVariable('isInitGuide')){
-
-          this.setState({isInitGuide:true});
-
-          this.setState({
-
-              columns:[ {
-                  title: "学科名称",
-                  align: "left",
-                  key: "SubjectName",
-                  width:300,
-                  dataIndex: "SubjectName",
-                  render: arr => {
-                      return (
-                          <div className="SubjectName-content">
-                              <img
-                                  className="SubjectName-img"
-                                  alt={arr.SubjectName}
-                                  src={arr.SubjectImg}
-                                  width={80}
-                                  height={50}
-                              />
-                              <span title={arr.SubjectName} className="SubjectName-name">
-                  {arr.SubjectName}
-                </span>
-                          </div>
-                      );
-                  }
-              },
-                  {
-                      title: "开课年级",
-                      align: "left",
-                      width:480,
-                      dataIndex: "Grades",
-                      key: "Grades",
-                      render: Grades => {
-                          return (
-                              <React.Fragment>
-                <span
+      this.setState({
+        columns: [
+          {
+            title: "学科名称",
+            align: "left",
+            key: "SubjectName",
+            width: 300,
+            dataIndex: "SubjectName",
+            render: (arr) => {
+              return (
+                <div className="SubjectName-content">
+                  <img
+                    className="SubjectName-img"
+                    alt={arr.SubjectName}
+                    src={arr.SubjectImg}
+                    width={80}
+                    height={50}
+                  />
+                  <span title={arr.SubjectName} className="SubjectName-name">
+                    {arr.SubjectName}
+                  </span>
+                </div>
+              );
+            },
+          },
+          {
+            title: "开课年级",
+            align: "left",
+            width: 480,
+            dataIndex: "Grades",
+            key: "Grades",
+            render: (Grades) => {
+              return (
+                <React.Fragment>
+                  <span
                     title={Grades.P1Grades}
                     style={{ display: Grades.P1Grades ? "block" : "none" }}
                     className="Grades P1Grades"
-                >
-                  <span className="grades-tips">小学：</span>
+                  >
+                    <span className="grades-tips">小学：</span>
                     {Grades.P1Grades}
-                </span>
-                                  <span
-                                      title={Grades.P2Grades}
-                                      style={{ display: Grades.P2Grades ? "block" : "none" }}
-                                      className="Grades P2Grades"
-                                  >
-                  <span className="grades-tips">初中：</span>
-                                      {Grades.P2Grades}
-                </span>
-                                  <span
-                                      title={Grades.P3Grades}
-                                      style={{ display: Grades.P3Grades ? "block" : "none" }}
-                                      className="Grades P3Grades"
-                                  >
-                  <span className="grades-tips">高中：</span>
-                                      {Grades.P3Grades}
-                </span>
-                              </React.Fragment>
-                          );
-                      }
-                  },
-                  {
-                      title: "操作",
-                      align: "center",
-                      width:240,
-                      key: "handle",
-                      dataIndex: "key",
-                      render: key => {
-                          return (
-                              <div className="handle-content">
-                                  <Button
-                                      color="blue"
-                                      type="default"
-                                      onClick={this.onHandleClick.bind(this, key)}
-                                      className="handle-btn edit init-guide"
-                                  >
-                                      编辑
-                                  </Button>
-                                  <Button
-                                      color="blue"
-                                      type="default"
-                                      onClick={this.onDeleteSubjectClick.bind(this, key)}
-                                      className="handle-btn del init-guide"
-                                  >
-                                      删除
-                                  </Button>
-                              </div>
-                          );
-                      }
-                  }]
-
-          });
-      }
-
-  }
-    UNSAFE_componentWillReceiveProps(nextProps) {
-    if(nextProps.DataState.SubjectMsg.pageIndex && nextProps.DataState.SubjectMsg.pageIndex!==this.state.pagination){
-      this.setState({
-        pagination: nextProps.DataState.SubjectMsg.pageIndex
+                  </span>
+                  <span
+                    title={Grades.P2Grades}
+                    style={{ display: Grades.P2Grades ? "block" : "none" }}
+                    className="Grades P2Grades"
+                  >
+                    <span className="grades-tips">初中：</span>
+                    {Grades.P2Grades}
+                  </span>
+                  <span
+                    title={Grades.P3Grades}
+                    style={{ display: Grades.P3Grades ? "block" : "none" }}
+                    className="Grades P3Grades"
+                  >
+                    <span className="grades-tips">高中：</span>
+                    {Grades.P3Grades}
+                  </span>
+                </React.Fragment>
+              );
+            },
+          },
+          {
+            title: "操作",
+            align: "center",
+            width: 240,
+            key: "handle",
+            dataIndex: "key",
+            render: (key) => {
+              return (
+                <div className="handle-content">
+                  <Button
+                    color="blue"
+                    type="default"
+                    onClick={this.onHandleClick.bind(this, key)}
+                    className="handle-btn edit init-guide"
+                  >
+                    编辑
+                  </Button>
+                  <Button
+                    color="blue"
+                    type="default"
+                    onClick={this.onDeleteSubjectClick.bind(this, key)}
+                    className="handle-btn del init-guide"
+                  >
+                    删除
+                  </Button>
+                </div>
+              );
+            },
+          },
+        ],
       });
     }
-
+  }
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.DataState.SubjectMsg.pageIndex &&
+      nextProps.DataState.SubjectMsg.pageIndex !== this.state.pagination
+    ) {
+      this.setState({
+        pagination: nextProps.DataState.SubjectMsg.pageIndex,
+      });
+    }
   }
 
   //事件
 
   //编辑学科
-  onHandleClick = key => {
+  onHandleClick = (key) => {
     const { dispatch, DataState } = this.props;
     dispatch(
       actions.UpDataState.changeSubjectModalMsg(
@@ -304,27 +305,27 @@ class Subject extends React.Component {
     //   获取可添加学科
     dispatch(
       actions.UpDataState.getSubjectModalMsg(
-        "/GetSubjectInfoForAddBySchool?schoolID=" +  this.state.UserMsg.SchoolID
+        "/GetSubjectInfoForAddBySchool?schoolID=" + this.state.UserMsg.SchoolID
       )
     );
 
     dispatch(actions.UpDataState.addSubjectModalMsg([]));
     dispatch(actions.UpUIState.addSubjectModalOpen());
   };
-  onClickTeacherName = id => {
+  onClickTeacherName = (id) => {
+    const { dispatch } = this.props;
 
-      const { dispatch } = this.props;
+    // dispatch(actions.UpDataState.getTeacherMsg("/GetUserDetail?userID=" + id));
 
-      // dispatch(actions.UpDataState.getTeacherMsg("/GetUserDetail?userID=" + id));
+    const token = sessionStorage.getItem("token");
 
-      const token = sessionStorage.getItem("token");
-
-      window.open(`/html/userPersona/index.html?userID=${id}&userType=1&lg_tk=${token}`);
-
+    window.open(
+      `/html/userPersona/index.html?userID=${id}&userType=1&lg_tk=${token}`
+    );
   };
   onClickTeacherNameNo = () => {};
   //操作分页
-  onPagiNationChange = value => {
+  onPagiNationChange = (value) => {
     const { dispatch } = this.props;
     // this.setState({
     //   pagination: value
@@ -349,7 +350,7 @@ class Subject extends React.Component {
     dispatch({ type: actions.UpUIState.SUBJECT_DETAILS_MODAL_CLOSE });
   };
   //操作下拉菜单，选择学段
-  AdmDropMenu = value => {
+  AdmDropMenu = (value) => {
     const { dispatch } = this.props;
     let periodID = "";
     this.setState({
@@ -371,7 +372,7 @@ class Subject extends React.Component {
   };
 
   //删除
-  onDeleteSubjectClick = key => {
+  onDeleteSubjectClick = (key) => {
     const { dispatch } = this.props;
     // console.log(key)
     dispatch(
@@ -380,7 +381,7 @@ class Subject extends React.Component {
         title: "删除学科将删除相关的教学班、课表等数据",
         ok: this.onAlertWarnOk.bind(this, key),
         cancel: this.onAlertWarnClose.bind(this),
-        close: this.onAlertWarnClose.bind(this)
+        close: this.onAlertWarnClose.bind(this),
       })
     );
   };
@@ -391,11 +392,11 @@ class Subject extends React.Component {
     dispatch(actions.UpUIState.hideErrorAlert());
   };
 
-  onAlertWarnOk = key => {
+  onAlertWarnOk = (key) => {
     const { dispatch, DataState, UIState } = this.props;
     let url = "/DeleteSubjectForSchoolOne";
     let userMsg = DataState.LoginUser;
-    let pagination = this.state.pagination
+    let pagination = this.state.pagination;
     // console.log(userMsg)
     dispatch(actions.UpUIState.hideErrorAlert());
     postData(
@@ -404,15 +405,15 @@ class Subject extends React.Component {
         schoolID: this.state.UserMsg.SchoolID,
         subjectID: DataState.SubjectMsg.SubjectItem[key].SubjectName.SubjectID,
         userID: this.state.UserMsg.UserID || userMsg.UserID,
-        userType: userMsg.UserType
+        userType: userMsg.UserType,
       },
       2,
       "json"
     )
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         if (json.StatusCode === 200) {
           // this.setState({
           //   pagination: 1
@@ -431,14 +432,15 @@ class Subject extends React.Component {
                 (this.state.SubjectSelect.value
                   ? this.state.SubjectSelect.value
                   : "") +
-                "&pageSize=8&pageIndex="+pagination
+                "&pageSize=8&pageIndex=" +
+                pagination
             )
           );
           dispatch(
             actions.UpUIState.showErrorAlert({
               type: "success",
               title: "成功",
-              onHide: this.onAlertWarnHide.bind(this)
+              onHide: this.onAlertWarnHide.bind(this),
             })
           );
         }
@@ -466,10 +468,10 @@ class Subject extends React.Component {
     //   );
     //   return;
     // }
-    if (DataState.ChangeSubjectMsg.GlobalGradeIDs=== '') {
+    if (DataState.ChangeSubjectMsg.GlobalGradeIDs === "") {
       dispatch({ type: actions.UpUIState.TIPS_VISIBLE_GRADE_OPEN });
       return;
-    }else{
+    } else {
       dispatch({ type: actions.UpUIState.TIPS_VISIBLE_GRADE_CLOSE });
     }
     dispatch({ type: actions.UpUIState.MODAL_LOADING_OPEN });
@@ -481,16 +483,16 @@ class Subject extends React.Component {
         globalGradeIDs: DataState.ChangeSubjectMsg.GlobalGradeIDs,
         userID: this.state.UserMsg.UserID || userMsg.UserID,
         subjectName: DataState.ChangeSubjectMsg.SubjectName || "",
-        userType: userMsg.UserType
+        userType: userMsg.UserType,
       },
       2,
       "json"
     )
-      .then(res => {
+      .then((res) => {
         dispatch({ type: actions.UpUIState.MODAL_LOADING_CLOSE });
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         // if (json.StatusCode === 400) {
         //     dispatch(actions.UpUIState.showErrorAlert({
         //         type: 'error',
@@ -517,7 +519,7 @@ class Subject extends React.Component {
             actions.UpUIState.showErrorAlert({
               type: "success",
               title: "成功",
-              onHide: this.onAlertWarnHide.bind(this)
+              onHide: this.onAlertWarnHide.bind(this),
             })
           );
         }
@@ -532,22 +534,21 @@ class Subject extends React.Component {
   };
   //添加弹窗操作
   AddSubjectModalOk = () => {
-    const { dispatch, DataState,UIState } = this.props;
+    const { dispatch, DataState, UIState } = this.props;
     let url = "/InsertSubjectForSchoolOne";
     let userMsg = DataState.LoginUser;
-    let isFalse = false
+    let isFalse = false;
     if (UIState.AppTips.SubjectNameTips) {
-      isFalse = true
+      isFalse = true;
       // return;
     }
     let Test = /^[,_\->/()（）A-Za-z0-9\u4e00-\u9fa5]{1,50}$/;
 
     if (Test.test(DataState.ChangeSubjectMsg.SubjectName.trim())) {
       dispatch({ type: actions.UpUIState.TIPS_VISIBLE_CLOSE });
-
     } else {
       dispatch({ type: actions.UpUIState.TIPS_VISIBLE_OPEN });
-      isFalse = true
+      isFalse = true;
       // return;
     }
     // if (!DataState.ChangeSubjectMsg.SubjectName) {
@@ -562,15 +563,15 @@ class Subject extends React.Component {
     //   );
     //   return;
     // }
-    if (DataState.ChangeSubjectMsg.GlobalGradeIDs=== '') {
+    if (DataState.ChangeSubjectMsg.GlobalGradeIDs === "") {
       dispatch({ type: actions.UpUIState.TIPS_VISIBLE_GRADE_OPEN });
-      isFalse = true
+      isFalse = true;
       // return;
-    }else{
+    } else {
       dispatch({ type: actions.UpUIState.TIPS_VISIBLE_GRADE_CLOSE });
     }
-    if(isFalse){
-      return
+    if (isFalse) {
+      return;
     }
     dispatch({ type: actions.UpUIState.MODAL_LOADING_OPEN });
     postData(
@@ -581,16 +582,16 @@ class Subject extends React.Component {
         subjectName: DataState.ChangeSubjectMsg.SubjectName.trim(),
         globalGradeIDs: DataState.ChangeSubjectMsg.GlobalGradeIDs,
         userID: this.state.UserMsg.UserID || userMsg.UserID,
-        userType: userMsg.UserType
+        userType: userMsg.UserType,
       },
       2,
       "json"
     )
-      .then(res => {
+      .then((res) => {
         dispatch({ type: actions.UpUIState.MODAL_LOADING_CLOSE });
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         // if (json.StatusCode === 400) {
         //     dispatch(actions.UpUIState.showErrorAlert({
         //         type: 'error',
@@ -620,7 +621,7 @@ class Subject extends React.Component {
             actions.UpUIState.showErrorAlert({
               type: "success",
               title: "成功",
-              onHide: this.onAlertWarnHide.bind(this)
+              onHide: this.onAlertWarnHide.bind(this),
             })
           );
         }
@@ -649,13 +650,13 @@ class Subject extends React.Component {
   }
 
   //设置学科教研组长
-  onSetTeacherClick = key => {
+  onSetTeacherClick = (key) => {
     const { dispatch, DataState } = this.props;
     let subjectTeacherMsg = DataState.SubjectMsg.oldData.SubjectItem[key];
     dispatch(
       actions.UpDataState.setSubjectTeacherMsg({
         isChange: false,
-        ...subjectTeacherMsg
+        ...subjectTeacherMsg,
       })
     );
     dispatch(actions.UpUIState.setSubjectTeacherModalOpen());
@@ -672,7 +673,7 @@ class Subject extends React.Component {
           title: "您还没有改变教研组长哦~",
           ok: this.onAppAlertOK.bind(this),
           cancel: this.onAppAlertCancel.bind(this),
-          close: this.onAppAlertClose.bind(this)
+          close: this.onAppAlertClose.bind(this),
         })
       );
       return;
@@ -681,7 +682,7 @@ class Subject extends React.Component {
     let newTeacher = DataState.SetSubjectTeacherMsg.SubjectTeacherMsg.Teachers.split(
       ","
     )
-      .map(child => {
+      .map((child) => {
         let loca = child.lastIndexOf("/");
         return child.slice(0, loca);
       })
@@ -694,16 +695,16 @@ class Subject extends React.Component {
         schoolID: this.state.UserMsg.SchoolID || DataState.LoginUser.SchoolID,
         subjectID: DataState.SetSubjectTeacherMsg.SubjectTeacherMsg.SubjectID,
         teacher: newTeacher,
-        userID: this.state.UserMsg.UserID || DataState.LoginUser.UserID
+        userID: this.state.UserMsg.UserID || DataState.LoginUser.UserID,
       },
       2,
       "json"
     )
-      .then(res => {
+      .then((res) => {
         dispatch({ type: actions.UpUIState.MODAL_LOADING_CLOSE });
         return res.json();
       })
-      .then(json => {
+      .then((json) => {
         // if (json.StatusCode === 400) {
         //     dispatch(actions.UpUIState.showErrorAlert({
         //         type: 'error',
@@ -730,7 +731,7 @@ class Subject extends React.Component {
             actions.UpUIState.showErrorAlert({
               type: "success",
               title: "成功",
-              onHide: this.onAlertWarnHide.bind(this)
+              onHide: this.onAlertWarnHide.bind(this),
             })
           );
         }
@@ -740,128 +741,167 @@ class Subject extends React.Component {
     const { dispatch, DataState } = this.props;
     dispatch(actions.UpUIState.setSubjectTeacherModalClose());
   };
+  onLinkClick = (btnName, route) => {
+    let url = window.location.href.split(window.location.hash).join(route);
+
+    // console.log(url);
+    checkUrlAndPostMsg({ btnName, url });
+  };
   render() {
     const { DataState, UIState } = this.props;
-
+    let { ProductType } = getDataStorage("LgBasePlatformInfo"); //获取平台版本，看是大学还是中小学
+    ProductType = parseInt(ProductType);
+    let isAI = false;
+    if (ProductType === 2) {
+      isAI = true;
+    }
     return (
       <React.Fragment>
         <div className="Adm ">
           <div className="Adm-box">
-
-              {
-
-                  !this.state.isInitGuide?
-
-                      <>
-
-                          <div className="Adm-top">
-              <span className="top-tips">
-                <span className="tips tips-location">学科管理</span>
-              </span>
-                              <Button
+            {!this.state.isInitGuide ? (
+              <>
+                <div className="Adm-top">
+                  <span className="top-tips">
+                    <span className="tips tips-location">学科管理</span>
+                  </span>
+                  {/*    <Button
                                   onClick={this.onAddSubjectClick.bind(this)}
                                   className="top-btn"
                                   color="blue"
                                   shape="round"
                               >
                                   +添加学科
-                              </Button>
-                          </div>
-                          <div className="Adm-hr" ></div>
-
-                      </>
-
-                      :null
-
-              }
-
-
+                              </Button> */}
+                  {!isAI ? (
+                    <>
+                      <span
+                        className="link"
+                        style={{ cursor: "pointer" }}
+                        onClick={this.onAddSubjectClick.bind(this)}
+                      >
+                        <span className="add">添加学科</span>
+                      </span>
+                      <span className="divide">|</span>
+                      <a className="link">
+                        <span
+                          onClick={this.onLinkClick.bind(
+                            this,
+                            "导入学科",
+                            "#/ImportFile/subject"
+                          )}
+                          className="ImportFile"
+                        >
+                          导入学科
+                        </span>
+                      </a>
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="Adm-hr"></div>
+              </>
+            ) : null}
 
             <div className="Adm-content">
               <div className="content-top clearfix">
-
-                  {
-
-                      DataState.PeriodMsg&&DataState.PeriodMsg.value.length>1?
-
-                          <DropDown
-                              ref="dropMenuFirst"
-                              onChange={this.AdmDropMenu.bind(this)}
-                              width={120}
-                              dropSelectd={this.state.SubjectSelect}
-                              dropList={
-                                  DataState.PeriodMsg
-                                      ? DataState.PeriodMsg.value
-                                      : [{ value: 0, title: "全部学段" }]
-                              }
-                          ></DropDown>
-
-                          :null
-
-                  }
-
-
-
+                {DataState.PeriodMsg && DataState.PeriodMsg.value.length > 1 ? (
+                  <DropDown
+                    ref="dropMenuFirst"
+                    onChange={this.AdmDropMenu.bind(this)}
+                    width={120}
+                    dropSelectd={this.state.SubjectSelect}
+                    dropList={
+                      DataState.PeriodMsg
+                        ? DataState.PeriodMsg.value
+                        : [{ value: 0, title: "全部学段" }]
+                    }
+                  ></DropDown>
+                ) : null}
               </div>
 
-                {
+              {this.state.isInitGuide ? (
+                <div className={"init-guide-title clearfix"}>
+                  <div className={"tips"}>
+                    当前共有
+                    <span style={{ color: "#ff0000" }}>
+                      {DataState.SubjectMsg.Total}
+                    </span>
+                    个学科
+                  </div>
 
-                    this.state.isInitGuide?
-
-                        <div className={"init-guide-title clearfix"}>
-
-                            <div className={"tips"}>当前共有<span style={{color:'#ff0000'}}>{DataState.SubjectMsg.Total}</span>个学科</div>
-
-                            <Button
+                  {/* <Button
                                 onClick={this.onAddSubjectClick.bind(this)}
                                 className="top-btn init-guide"
                                 color="blue"
                                 shape="round"
                             >
                                 +添加学科
-                            </Button>
+                            </Button> */}
+                  {!isAI ? (
+                    <>
+                      {" "}
+                      <span
+                        className="link"
+                        style={{ cursor: "pointer" }}
+                        onClick={this.onAddSubjectClick.bind(this)}
+                      >
+                        <span className="add">添加学科</span>
+                      </span>
+                      <span className="divide">|</span>
+                      <a className="link">
+                        <span
+                          onClick={this.onLinkClick.bind(
+                            this,
+                            "导入学科",
+                            "#/ImportFile/subject"
+                          )}
+                          className="ImportFile"
+                        >
+                          导入学科
+                        </span>
+                      </a>
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              ) : null}
 
-                        </div>
+              <div
+                className={`content-render ${
+                  this.state.isInitGuide ? "init-guide" : ""
+                }`}
+              >
+                {DataState.SubjectMsg.Total &&
+                DataState.SubjectMsg.Total > 0 ? (
+                  <>
+                    <Table
+                      className={`table ${
+                        this.state.isInitGuide ? "init-guide" : ""
+                      }`}
+                      loading={UIState.SubjectTableLoading.TableLoading}
+                      columns={this.state.columns}
+                      pagination={false}
+                      dataSource={
+                        DataState.SubjectMsg
+                          ? DataState.SubjectMsg.SubjectItem
+                          : []
+                      }
+                    ></Table>
 
-                        :null
-
-                }
-
-              <div className={`content-render ${this.state.isInitGuide?'init-guide':''}`}>
-
-
-                  {
-
-                      DataState.SubjectMsg.Total&&DataState.SubjectMsg.Total>0?
-
-                          <>
-
-                              <Table
-                                  className={`table ${this.state.isInitGuide?'init-guide':''}`}
-                                  loading={UIState.SubjectTableLoading.TableLoading}
-                                  columns={this.state.columns}
-                                  pagination={false}
-                                  dataSource={
-                                      DataState.SubjectMsg ? DataState.SubjectMsg.SubjectItem : []
-                                  }
-                              ></Table>
-
-                              <PagiNation
-                                  showQuickJumper
-                                  // defaultCurrent={DataState.SubjectMsg ? DataState.SubjectMsg.PageIndex : 1}
-                                  pageSize={8}
-                                  current={this.state.pagination}
-                                  hideOnSinglepage={true}
-                                  total={DataState.SubjectMsg.Total}
-                                  onChange={this.onPagiNationChange.bind(this)}
-                              ></PagiNation>
-
-                          </>
-
-                          :null
-
-                  }
-
+                    <PagiNation
+                      showQuickJumper
+                      // defaultCurrent={DataState.SubjectMsg ? DataState.SubjectMsg.PageIndex : 1}
+                      pageSize={8}
+                      current={this.state.pagination}
+                      hideOnSinglepage={true}
+                      total={DataState.SubjectMsg.Total}
+                      onChange={this.onPagiNationChange.bind(this)}
+                    ></PagiNation>
+                  </>
+                ) : null}
               </div>
             </div>
           </div>
@@ -910,7 +950,7 @@ class Subject extends React.Component {
         </Modal>
         <Modal
           ref="addTeacherMadal"
-          bodyStyle={{height: 276 + "px", padding: 0 }}
+          bodyStyle={{ height: 276 + "px", padding: 0 }}
           type="1"
           width={580}
           title={"设置教研组长"}
@@ -930,11 +970,11 @@ class Subject extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   let { UIState, DataState } = state;
   return {
     UIState,
-    DataState
+    DataState,
   };
 };
 export default connect(mapStateToProps)(Subject);

@@ -11,7 +11,7 @@ import history from "../../containers/history";
 import { QueryPower } from "../../../../common/js/power";
 import versionChenck from "../../../../common/js/public";
 import UpDataState from "../../action/data/UpDataState";
-import TextBookSetting from "../TextBookSetting";
+// import TextBookSetting from "../TextBookSetting";
 import TimeBanner from "../newEdition/TimeBanner";
 
 import { connect } from "react-redux";
@@ -52,12 +52,12 @@ class MainContent extends Component {
             icon: "menu44",
             onTitleClick: this.handleClick.bind(this.key),
           },
-          {
-            key: "TextBookSetting",
-            title: "教材设置",
-            icon: "menu41",
-            onTitleClick: this.handleClick.bind(this.key),
-          },
+          // {
+          //   key: "TextBookSetting",
+          //   title: "教材设置",
+          //   icon: "menu41",
+          //   onTitleClick: this.handleClick.bind(this.key),
+          // },
           {
             key: "Subsystem",
             title: "子系统访问设置",
@@ -70,12 +70,13 @@ class MainContent extends Component {
       List: [
         { value: "School", title: "学校基础资料设置", icon: "School" },
         { value: "Semester", title: "学年学期设置", icon: "Semester" },
-        {
-          value: "TextBookSetting",
-          title: "教材设置",
-          icon: "TextBookSetting",
-        },
+        // {
+        //   value: "TextBookSetting",
+        //   title: "教材设置",
+        //   icon: "TextBookSetting",
+        // },
         { value: "Subsystem", title: "子系统访问设置", icon: "Subsystem" },
+        // { value: "Face", title: "我的人脸", icon: "Face" },
       ],
       havePower: false,
     };
@@ -181,9 +182,57 @@ class MainContent extends Component {
   //   // }
   // }
   // }
-  componentWillMount() {
-    // this.requestData();
-  }
+  // componentWillMount() {
+  //   const { dispatch, DataState } = this.props;
+
+  //   // 获取人脸库地址
+  //   dispatch(
+  //     UpDataState.GetSubSystemsMainServerBySubjectID({
+  //       fn: () => {
+  //         //   this.SetBannerList(); //获取到后再次进行列表更新
+  //       },
+  //     })
+  //   );
+  // }
+  // 设置banner的选择列表
+  SetBannerList = () => {
+    let {
+      dispatch,
+      DataState: {
+        OtherData: { SysUrl },
+      },
+      PublicState: {
+        LoginMsg: { UserType, UserClass, Role },
+      },
+    } = this.props;
+    let BannerList = [];
+    let BannerInitList = this.state.List;
+    // Role为领导的时候不能显示领导，
+    // ProductType===6,3，适配人工智能实训室，不要领导
+    // LockerVersion===1 ，校园基础信息管理 XG5.2-免费版,1为基础版，不要毕业生
+    BannerInitList instanceof Array &&
+      BannerInitList.forEach((child, index) => {
+        if (child.value === "Face") {
+          if (
+            SysUrl instanceof Array &&
+            SysUrl.length > 0 &&
+            Role.includes("Admin")
+          ) {
+            let token = sessionStorage.getItem("token");
+            BannerList.push({
+              url: SysUrl[0].WebSvrAddr + "/MyFace.html?type=1&lg_tk=" + token,
+              ...child,
+            });
+          }
+        } else {
+          BannerList.push(child);
+        }
+      });
+    this.setState({
+      List: BannerList,
+    });
+    // dispatch(CommonAction.SetBannerParams(BannerList));
+  };
   //操作左侧菜单，响应路由变化
   handleMenu = (key) => {
     // if (history.location.pathname === "/MainContent") {
@@ -217,9 +266,6 @@ class MainContent extends Component {
     // this.handleMenu();
   };
   RequestData = (key) => {
-
-    console.log(1111);
-
     const { dispatch } = this.props;
     let route = history.location.pathname;
     const { SchoolID, UserType } = JSON.parse(
@@ -239,7 +285,7 @@ class MainContent extends Component {
     } else if (
       Params === "School" ||
       Params === "Subsystem" ||
-      Params === "TextBookSetting" ||
+      // Params === "TextBookSetting" ||
       Params === "Semester"
     ) {
       history.push("/MainContent/" + Params);
@@ -270,20 +316,16 @@ class MainContent extends Component {
     let PhotoPath = "";
     let UserID = "";
 
-
-
     //获取用户信息，并渲染到骨架上
     if (sessionStorage.getItem("UserInfo")) {
       const UserInfo = JSON.parse(sessionStorage.getItem("UserInfo"));
       UserName = UserInfo.UserName;
       PhotoPath = UserInfo.PhotoPath;
       UserID = UserInfo.UserID;
-    } 
+    }
     // else {
     //   return <div></div>;
     // }
-
-
 
     // console.log(this.props)
     let path = history.location.pathname.split("/")[2];
@@ -295,8 +337,9 @@ class MainContent extends Component {
     if (
       path !== "Semester" &&
       path !== "School" &&
-      path !== "Subsystem" &&
-      path !== "TextBookSetting"
+      path !== "Subsystem"
+      // &&
+      // path !== "TextBookSetting"
     ) {
       history.push("/MainContent/School");
     }
@@ -346,12 +389,12 @@ class MainContent extends Component {
                 history={history}
                 component={Subsystem}
               ></Route>
-              <Route
+              {/* <Route
                 path="/MainContent/TextBookSetting"
                 exact
                 history={history}
                 component={TextBookSetting}
-              ></Route>
+              ></Route> */}
               {/* <Redirect path="/*" to="/MainContent/Semester"></Redirect> */}
             </Router>
           </div>

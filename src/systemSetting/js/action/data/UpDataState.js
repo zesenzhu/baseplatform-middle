@@ -2,7 +2,7 @@ import Api from "../data/Api";
 import { getData, postData } from "../../../../common/js/fetch";
 
 import config from "../../../../common/js/config";
-let { TextBookProxy, TextBookProxy_2 } = config;
+let { TextBookProxy, TextBookProxy_2,BasicProxy } = config;
 let { getMethod, postMethod } = Api;
 //获取登录用户信息
 const GET_LOGIN_USER_INFO = "GET_LOGIN_USER_INFO";
@@ -357,7 +357,28 @@ const GetTextBookList = ({
       });
   };
 };
+// 人脸库
+let MAIN_GET_SUB_SYSTEMS_MAIN_SERVER = "MAIN_GET_SUB_SYSTEMS_MAIN_SERVER";
+const GetSubSystemsMainServerBySubjectID = ({ fn = () => {} }) => {
+  return (dispatch, getState) => {
+    let url =
+      "/BaseApi/Global/GetSubSystemsMainServerBySubjectID?appid=000&access_token=4d39af1bff534514e24948568b750f6c&sysIDs=E27&subjectID=";
+    getData(BasicProxy + url, 2)
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        if (json.StatusCode === 200) {
+          dispatch({ type: MAIN_GET_SUB_SYSTEMS_MAIN_SERVER, data: json.Data });
+        }
+        fn(getState());
+      });
+  };
+};
 export default {
+  GetSubSystemsMainServerBySubjectID,
+  MAIN_GET_SUB_SYSTEMS_MAIN_SERVER,
+
   GET_TEXT_BOOK_LIST_DATA,
   GetTextBookList,
   SetTextBookModalParams,

@@ -1,407 +1,247 @@
 @import "../../../scss/base";
-
-.archives-wrapper{
-
-  padding-bottom: 28px;
-
-  .btn-wrapper{
-
-    padding: 38px 0 34px 0;
-
-    .archives{
-
-      float: right;
-
-      margin-right: -20px;
-
+.archives-wrapper {
+    padding-bottom: 28px;
+    .btn-wrapper {
+        padding: 38px 0 34px 0;
+        .archives,
+        .details {
+            float: right;
+            margin-right: -20px;
+        }
     }
-
-  }
-
-  table{
-
-    border:1px solid #dedede;
-
-    margin-bottom: 12px;
-
-    td,th{
-
-      font-size: 14px;
-
-      width: 150px;
-
-      height: 32px;
-
-      text-align: center;
-
-      color: #333333;
-
-      border-color: #dedede;
-
-      &.props{
-
-        background-color: #f5f5f5;
-
-        color: #999999;
-
-        text-align: center;
-
-      }
-
+    table {
+        border: 1px solid #dedede;
+        margin-bottom: 12px;
+        td,
+        th {
+            font-size: 14px;
+            width: 150px;
+            height: 32px;
+            text-align: center;
+            color: #333333;
+            border-color: #dedede;
+            &.props {
+                background-color: #f5f5f5;
+                color: #999999;
+                text-align: center;
+            }
+        }
     }
-
-  }
-
-  .archives-table{
-
-    .user-photo{
-
-      width: 130px;
-
-      height: 164px;
-
-      background-repeat: no-repeat;
-
-      background-position: center;
-
-      background-size: cover;
-
-      margin: 0 auto;
-
-    }
-
-    &.stu{
-
-      .tb1{
-
-        .col6{
-
-          width: 190px;
-
-        }
-
-        .col7{
-
-          width: 154px;
-
-        }
-
-        .user-name,.former-name,.stu-no,.class-name,
-        .native-space,.country,.census-place,
-        .home-address{
-
-          @include textOverflow;
-
-          width: 146px;
-
-          margin: 0 auto;
-
-          padding: 0 6px;
-
-        }
-
-        .stu-no,.class-name{
-
-          width: 296px;
-
-          margin: 0 auto;
-
-        }
-
-        .genger{
-
-          width: 332px;
-
-          margin: 0 auto;
-
-          text-align: center;
-
-          .genger-btn{
-
-            max-width: 330px;
-
-            @include textOverflow;
-
-          }
-
-        }
-
-        .home-address{
-
-          width: 640px;
-
-          margin:0 auto;
-
-        }
-
-      }
-
-      .tb2{
-
-        .col1{
-
-          width: 143px;
-
-        }
-
-        .col4{
-
-          width:297px;
-
-        }
-
-        .col5,.col6{
-
-          width: 114px;
-
-        }
-
-        .col7{
-
-          width: 118px;
-
-        }
-
-        .school-name{
-
-          width: 294px;
-
-          margin: 0 auto;
-
-          @include textOverflow;
-
-        }
-
-        .learn-content,.certifier,.duty{
-
-          width: 112px;
-
-          margin: 0 auto;
-
-          @include textOverflow;
-
-        }
-
-      }
-
-      .tb3{
-
-        .col1{
-
-          width: 144px;
-
-        }
-
-        .col2{
-
-          width: 149px;
-
-        }
-
-        .col4{
-
-          width: 410px;
-
-        }
-
-        .col5{
-
-          width: 230px;
-
-        }
-
-        .serviceUnit{
-
-          width:410px;
-
-          @include textOverflow;
-
-        }
-
-        .name{
-
-          width:146px;
-
-          margin: 0 auto;
-
-          @include textOverflow;
-
-        }
-
-        .tel{
-
-          width:230px;
-
-          @include textOverflow;
-
-        }
-
-      }
-
-    }
-
-    &.teacher{
-
-      .col6{
-
-        width: 190px;
-
-      }
-
-      .tb1{
-
-        .user-name,.user-id,.subject,.home-address,.native-space{
-
-          width:150px;
-
-          @include textOverflow;
-
-          padding: 0 6px;
-
-        }
-
-        .subject{
-
-          width: 190px;
-
-        }
-
-        .home-address{
-
-          width:786px;
-
-        }
-
-        .native-space{
-
-          width:300px;
-
-        }
-
-      }
-
-      .education-background,.work-experience,.award-item{
-
-        padding:4px 10px;
-
-        word-break: break-word;
-
-      }
-
-      .education-background,.work-experience,.award{
-
-        min-height: 60px;
-
-        .empty{
-
-          height: 60px;
-
-          line-height: 60px;
-
-        }
-
-      }
-
-    }
-
-  }
-
-  .archives-table{
-
-    &.no-data{
-
-      .tb1{
-
-        table-layout: fixed;
-
-        td{
-
-          height: 38px;
-
-        }
-
-        &.middle{
-
-          td{
-
-            height:48px;
-
-          }
-
-        }
-
-      }
-
-      &.teacher{
-
-        .tb1{
-
-          .user-name,.user-id,.subject,.home-address,
-          .native-space,.subject,.native-space{
-
-              width: inherit;
-
-          }
-
-          .college-name,.id-card,.teaching-room{
-
-            @include textOverflow;
-
-            padding: 0 6px;
-
-          }
-
-          .home-address{
-
-            width: auto;
-
-          }
-
-        }
-
-      }
-
-      &.stu{
-
-        .tb1{
-
-          .user-name,.user-id,.subject,.home-address,.native-space,
-          .subject,.native-space,.class-name,.grade-name,.genger{
-
-            width: inherit;
-
-          }
-
-          .college-name,.id-card,.teaching-room,
-
-          .user-id,.grade-name,.ganger,.major-name,.genger{
-
-            @include textOverflow;
-
-            padding: 0 6px;
-
-          }
-
-          .college-name,.major-name{
-
-            width:330px;
-
+    .archives-table {
+        .user-photo {
+            width: 130px;
+            height: 164px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
             margin: 0 auto;
-
-          }
-
-          .home-address{
-
-            width: 330px;
-
-          }
-
         }
-
-      }
-
+        &.stu {
+            .tb1 {
+                .col6 {
+                    width: 190px;
+                }
+                .col7 {
+                    width: 154px;
+                }
+                .user-name,
+                .former-name,
+                .stu-no,
+                .class-name,
+                .native-space,
+                .country,
+                .census-place,
+                .home-address {
+                    @include textOverflow;
+                    width: 146px;
+                    margin: 0 auto;
+                    padding: 0 6px;
+                }
+                .stu-no,
+                .class-name {
+                    width: 296px;
+                    margin: 0 auto;
+                }
+                .genger {
+                    width: 332px;
+                    margin: 0 auto;
+                    text-align: center;
+                    .genger-btn {
+                        max-width: 330px;
+                        @include textOverflow;
+                    }
+                }
+                .home-address {
+                    width: 640px;
+                    margin: 0 auto;
+                }
+            }
+            .tb2 {
+                .col1 {
+                    width: 143px;
+                }
+                .col4 {
+                    width: 297px;
+                }
+                .col5,
+                .col6 {
+                    width: 114px;
+                }
+                .col7 {
+                    width: 118px;
+                }
+                .school-name {
+                    width: 294px;
+                    margin: 0 auto;
+                    @include textOverflow;
+                }
+                .learn-content,
+                .certifier,
+                .duty {
+                    width: 112px;
+                    margin: 0 auto;
+                    @include textOverflow;
+                }
+            }
+            .tb3 {
+                .col1 {
+                    width: 144px;
+                }
+                .col2 {
+                    width: 149px;
+                }
+                .col4 {
+                    width: 410px;
+                }
+                .col5 {
+                    width: 230px;
+                }
+                .serviceUnit {
+                    width: 410px;
+                    @include textOverflow;
+                }
+                .name {
+                    width: 146px;
+                    margin: 0 auto;
+                    @include textOverflow;
+                }
+                .tel {
+                    width: 230px;
+                    @include textOverflow;
+                }
+            }
+        }
+        &.teacher {
+            .col6 {
+                width: 190px;
+            }
+            .tb1 {
+                .user-name,
+                .user-id,
+                .subject,
+                .home-address,
+                .native-space {
+                    width: 150px;
+                    @include textOverflow;
+                    padding: 0 6px;
+                }
+                .subject {
+                    width: 190px;
+                }
+                .home-address {
+                    width: 786px;
+                }
+                .native-space {
+                    width: 300px;
+                }
+            }
+            .education-background,
+            .work-experience,
+            .award-item {
+                padding: 4px 10px;
+                word-break: break-word;
+            }
+            .education-background,
+            .work-experience,
+            .award {
+                min-height: 60px;
+                .empty {
+                    height: 60px;
+                    line-height: 60px;
+                }
+            }
+        }
     }
-
-  }
-
+    .archives-table {
+        &.no-data {
+            .tb1 {
+                table-layout: fixed;
+                td {
+                    height: 38px;
+                }
+                &.middle {
+                    td {
+                        height: 48px;
+                    }
+                }
+            }
+            &.teacher {
+                .tb1 {
+                    .user-name,
+                    .user-id,
+                    .subject,
+                    .home-address,
+                    .native-space,
+                    .subject,
+                    .native-space {
+                        width: inherit;
+                    }
+                    .college-name,
+                    .id-card,
+                    .teaching-room {
+                        @include textOverflow;
+                        padding: 0 6px;
+                    }
+                    .home-address {
+                        width: auto;
+                    }
+                }
+            }
+            &.stu {
+                .tb1 {
+                    .user-name,
+                    .user-id,
+                    .subject,
+                    .home-address,
+                    .native-space,
+                    .subject,
+                    .native-space,
+                    .class-name,
+                    .grade-name,
+                    .genger {
+                        width: inherit;
+                    }
+                    .college-name,
+                    .id-card,
+                    .teaching-room,
+                    .user-id,
+                    .grade-name,
+                    .ganger,
+                    .major-name,
+                    .genger {
+                        @include textOverflow;
+                        padding: 0 6px;
+                    }
+                    .college-name,
+                    .major-name {
+                        width: 330px;
+                        margin: 0 auto;
+                    }
+                    .home-address {
+                        width: 330px;
+                    }
+                }
+            }
+        }
+    }
 }

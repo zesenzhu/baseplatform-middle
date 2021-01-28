@@ -91,7 +91,7 @@ class Main extends Component {
         <IdentityPowerModal></IdentityPowerModal>
         <CheckMemberModal></CheckMemberModal>
         <AddMemberModal></AddMemberModal>
-        <SearchIdentityModal></SearchIdentityModal>
+        {/* <SearchIdentityModal></SearchIdentityModal> */}
       </div>
     );
   }

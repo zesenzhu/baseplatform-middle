@@ -1,11 +1,7 @@
 .myFrame {
-
     .frame-block-wrapper {
-
         padding-left: 90px;
-
-        background-position:20px 36px;
-
+        background-position: 20px 36px;
     }
 }
 
@@ -15,4 +11,45 @@ body {
 
 .frame-block-wrapper {
     padding-left: 90px!important;
+}
+
+.link {
+    float: right;
+    margin-right: 20px;
+    color: #0099ff;
+    font-size: 14px;
+    line-height: 37px;
+    text-decoration: underline;
+    &:hover {
+        color: #ff6600;
+        .add {
+            background: url("../images/icon-add-active.png") no-repeat left center;
+            background-size: 12px 12px;
+        }
+        .ImportFile {
+            background: url("../images/icon-import-active.png") no-repeat left center;
+            background-size: 16px 16px;
+        }
+    }
+    .add {
+        padding-left: 16px;
+        background: url("../images/icon-add.png") no-repeat left center;
+        background-size: 12px 12px;
+    }
+    .ImportFile {
+        padding-left: 20px;
+        background: url("../images/icon-import.png") no-repeat left center;
+        background-size: 16px 16px;
+    }
+    span {
+        text-decoration: underline;
+    }
+}
+
+.divide {
+    position: relative;
+    font-size: 14px;
+    color: #c9e1f0;
+    top: -1px;
+    margin: 0 12px;
 }

@@ -61,9 +61,10 @@ import {
 import { userInfoLosUpdate } from "../actions/userInfoLogsActions";
 
 import { identifyChange } from "../actions/identifyInfoActions";
+import CommonActions from "../actions/MoreActions/CommonActions";
 
 import "../../../common/scss/public.scss";
-
+let {SetBaseData} = CommonActions
 function App(props) {
   //documenttitle
 
@@ -93,11 +94,11 @@ function App(props) {
     GetBaseInfoForPages({ dispatch }).then((data) => {
       if (data) {
         sessionStorage.setItem("LgBasePlatformInfo", JSON.stringify(data));
-
+        dispatch(SetBaseData(data));
         setFooterTitle(data.ProVersion);
         // 可以提前设置头部类型
         const headerType = getQueryVariable("headerType");
-        console.log(headerType)
+        // console.log(headerType)
         if (headerType === "develop") {
           setHeaderType(headerType);
         }

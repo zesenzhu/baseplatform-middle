@@ -44,6 +44,7 @@ function Content(props){
   const userArchives = useSelector((state) => state.userArchives);
 
   const targetUser = useSelector(state=>state.targetUser);
+  const BaseData = useSelector((state) => state.MoreData.CommonData.BaseData);
 
   //模块列表
   const moduleList = useMemo(() => {
@@ -58,7 +59,10 @@ function Content(props){
           break;
         }
       }
-
+      if (BaseData.ProductType === 3&&Urls['L10'].WebUrl) {
+        //为3的时候只要档案账号，同时在档案上面加师资发展的个人画像
+        urlGet = false;
+      }
       if (urlGet) {
 
         const initList = [

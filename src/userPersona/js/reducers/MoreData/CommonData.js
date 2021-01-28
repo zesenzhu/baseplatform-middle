@@ -46,12 +46,16 @@ const CommonData = (
       ThirdProxy:'',
       Token:'',
       SelectWeek:{}
-    }
+    },BaseData: {},
   },
   actions
 ) => {
   let communicationData = {};
   switch (actions.type) {
+    case CommonActions.COMMON_SET_BASE_DATA:
+      return Object.assign({}, state, {
+        BaseData: actions.data,
+      });
     case CommonActions.COMMON_SET_TEA_MATERIAL_PARAMS:
       return Object.assign({}, state, {
         TeaMaterialParams: {
