@@ -643,7 +643,7 @@ class SchoolnfoSetting extends Component {
       ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
       : {};
     let isMoreSchool = true;
-    LockerMsg ='125544'
+    // LockerMsg ='125544'
     // parseInt(ProductType) === 3;
     return (
       <Loading spinning={semesterloading} opacity={false} tip="请稍候...">

@@ -75,6 +75,7 @@ class App extends Component {
         fn: () => {
           this.SetBannerList(); //获取到后再次进行列表更新
         },
+        sysID: "E27,E34",
       })
     );
   }
@@ -853,7 +854,7 @@ class App extends Component {
 
       Role = "Leader-Education";
     }
-    return { ...LoginMsg, Role,identify };
+    return { ...LoginMsg, Role, identify };
   };
   // 设置banner的选择列表
   SetBannerList = () => {
@@ -888,13 +889,13 @@ class App extends Component {
           }
         } else if (child.value === "Face") {
           if (
-            SysUrl instanceof Array &&
-            SysUrl.length > 0 &&
+            SysUrl["E27"] &&
+            SysUrl["E27"].WebSvrAddr &&
             Role.includes("Admin")
           ) {
             let token = sessionStorage.getItem("token");
             BannerList.push({
-              url: SysUrl[0].WebSvrAddr + "?lg_tk=" + token,
+              url: SysUrl["E27"].WebSvrAddr + "?lg_tk=" + token,
               ...child,
             });
           }

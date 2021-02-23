@@ -742,7 +742,7 @@ class Subject extends React.Component {
     dispatch(actions.UpUIState.setSubjectTeacherModalClose());
   };
   onLinkClick = (btnName, route) => {
-    let url = window.location.href.split(window.location.hash).join(route);
+    let url = window.location.href.split(window.location.hash).join('').split(window.location.search).join(route);
 
     // console.log(url);
     checkUrlAndPostMsg({ btnName, url });
@@ -774,15 +774,7 @@ class Subject extends React.Component {
                                   +添加学科
                               </Button> */}
                   {!isAI ? (
-                    <>
-                      <span
-                        className="link"
-                        style={{ cursor: "pointer" }}
-                        onClick={this.onAddSubjectClick.bind(this)}
-                      >
-                        <span className="add">添加学科</span>
-                      </span>
-                      <span className="divide">|</span>
+                    <div style={{ float: "right" }}>
                       <a className="link">
                         <span
                           onClick={this.onLinkClick.bind(
@@ -795,7 +787,15 @@ class Subject extends React.Component {
                           导入学科
                         </span>
                       </a>
-                    </>
+                      <span className="divide">|</span>
+                      <span
+                        className="link"
+                        style={{ cursor: "pointer" }}
+                        onClick={this.onAddSubjectClick.bind(this)}
+                      >
+                        <span className="add">添加学科</span>
+                      </span>
+                    </div>
                   ) : (
                     ""
                   )}
@@ -840,16 +840,8 @@ class Subject extends React.Component {
                                 +添加学科
                             </Button> */}
                   {!isAI ? (
-                    <>
+                    <div style={{ float: "right" }}>
                       {" "}
-                      <span
-                        className="link"
-                        style={{ cursor: "pointer" }}
-                        onClick={this.onAddSubjectClick.bind(this)}
-                      >
-                        <span className="add">添加学科</span>
-                      </span>
-                      <span className="divide">|</span>
                       <a className="link">
                         <span
                           onClick={this.onLinkClick.bind(
@@ -862,7 +854,15 @@ class Subject extends React.Component {
                           导入学科
                         </span>
                       </a>
-                    </>
+                      <span className="divide">|</span>
+                      <span
+                        className="link"
+                        style={{ cursor: "pointer" }}
+                        onClick={this.onAddSubjectClick.bind(this)}
+                      >
+                        <span className="add">添加学科</span>
+                      </span>
+                    </div>
                   ) : (
                     ""
                   )}

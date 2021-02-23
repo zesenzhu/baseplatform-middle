@@ -29,7 +29,6 @@ class TopMenu extends React.Component {
     //   }
     //   history.push("/UserArchives/" + key + "/all");
     // } else {
-      console.log(key,history)
       history.push("/MainContent/" + key);
     // }
     // history.push('/'+key)

@@ -9,17 +9,26 @@ import PublicAction from "./PublicAction";
 const { BasicProxy, UserInfoProxy, ClassProxy } = CONFIG;
 //获取子系统的服务器地址信息
 let MAIN_GET_SUB_SYSTEMS_MAIN_SERVER = "MAIN_GET_SUB_SYSTEMS_MAIN_SERVER";
-const GetSubSystemsMainServerBySubjectID = ({ fn = () => {} }) => {
+const GetSubSystemsMainServerBySubjectID = ({
+  fn = () => {},
+  sysID = "E27",
+}) => {
   return (dispatch, getState) => {
     let url =
-      "/BaseApi/Global/GetSubSystemsMainServerBySubjectID?appid=000&access_token=4d39af1bff534514e24948568b750f6c&sysIDs=E27&subjectID=";
+      "/BaseApi/Global/GetSubSystemsMainServerBySubjectID?appid=000&access_token=4d39af1bff534514e24948568b750f6c&sysIDs=" +
+      sysID +
+      "&subjectID=";
     getData(BasicProxy + url, 2)
       .then((res) => {
         return res.json();
       })
       .then((json) => {
-        if (json.StatusCode === 200) {
-          dispatch({ type: MAIN_GET_SUB_SYSTEMS_MAIN_SERVER, data: json.Data });
+        if (json.StatusCode === 200&&json.Data instanceof Array) {
+          let data = {}
+          json.Data.forEach((c,i)=>{
+            data[c.SysID] = c
+          })
+          dispatch({ type: MAIN_GET_SUB_SYSTEMS_MAIN_SERVER, data: data });
         }
         fn(getState());
       });

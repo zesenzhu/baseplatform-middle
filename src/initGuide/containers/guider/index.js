@@ -74,7 +74,7 @@ function Guider(props) {
 
                         value:6,
 
-                        title:'设置角色权限'
+                        title:'设置用户权限'
 
                     },
 
@@ -176,7 +176,7 @@ function Guider(props) {
 
                                 value:5,
 
-                                title:'设置角色权限'
+                                title:'设置用户权限'
 
                             },
 
@@ -293,7 +293,7 @@ function Guider(props) {
 
                         value:5,
 
-                        title:'设置角色权限'
+                        title:'设置用户权限'
 
                     },
 

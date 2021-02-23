@@ -1,4 +1,14 @@
-import React, { memo } from "react";
+import React, {   useState,
+  useEffect,
+  useRef,
+  useMemo,
+  memo,
+  useReducer,
+  forwardRef,
+  useCallback,
+  useContext,
+  createContext,
+  useImperativeHandle,} from "react";
 
 import "es6-shim";
 
@@ -1994,7 +2004,20 @@ class AppAlert extends React.Component {
   }
 
   componentDidMount() {
-    const { show } = this.props;
+    const { show, type, onHide } = this.props;
+
+    if (show) {
+      if (
+        type === "success" ||
+        type === "error" ||
+        type === "tips" ||
+        type === "warn"
+      ) {
+        if (onHide) {
+          setTimeout(onHide, 1000);
+        }
+      }
+    }
 
     /* if(this.AlertBody&&show&&!this.state.readyShow){
 
@@ -3653,7 +3676,211 @@ class Tips extends React.Component {
     );
   }
 }
+/**
+ * @description: 封装的错误提醒
+ * @param {*}
+ * @return {*component}
+ */
+export class ErrorAlert extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: props.show,
+      autoHide: props.autoHide ? props.autoHide : false,
+      type: props.type ? props.type : props.autoHide ? "warn" : "btn-error",
+    };
+  }
+  // componentWillReceiveProps(nextProps){
+  //   this.setState({
+  //     // show: nextProps.show,
+  //     autoHide:nextProps.autoHide?nextProps.autoHide:false,
+  //     type:nextProps.autoHide?'warn':nextProps.type?nextProps.type:'btn-error',
+  //   })
+  // }
+  onOk = () => {
+    let { onOk } = this.props;
+    typeof onOk === "function" && onOk();
+    this.setState({
+      show: false,
+    });
+  };
 
+  onCancel = () => {
+    let { onCancel } = this.props;
+    typeof onCancel === "function" && onCancel();
+    this.setState({
+      show: false,
+    });
+  };
+  onClose = () => {
+    let { onClose } = this.props;
+    typeof onClose === "function" && onClose();
+    this.setState({
+      show: false,
+    });
+  };
+  onHide = () => {
+    typeof this.state.autoHide === "function" && this.state.autoHide();
+    this.state.autoHide && this.onClose();
+  };
+  render() {
+    // console.log(this.state.show)
+    return (
+      <Alert
+        show={this.state.show}
+        type={this.state.type}
+        title={this.props.title}
+        onOk={this.onOk}
+        onCancel={this.onCancel}
+        onClose={this.onClose}
+        cancelShow={this.props.cancelShow ? "y" : "n"}
+        onHide={this.onHide}
+      ></Alert>
+    );
+  }
+}
+function LgAppModal(props, ref) {
+  let {
+    className,
+    centered,
+    type,
+    footer,
+    cancelText,
+    onCancel,
+    okText,
+    onOk,
+    width,
+    bodyStyle,
+    height,
+    children,
+    destroyOnClose,
+    visible,
+    ...reset
+  } = props;
+  const [Footer, setFooter] = useState(footer);
+  const [Width, setWidth] = useState(width);
+  const [Height, setHeight] = useState(height);
+  const [ModalClassName, setModalClassName] = useState("");
+  const [Visible, setVisible] = useState(false);
+  useEffect(() => {
+    setVisible(!!visible);
+  }, [visible]);
+  useEffect(() => {
+    setHeight(height);
+  }, [height]);
+  useEffect(() => {
+    setWidth(width);
+  }, [width]);
+  useEffect(() => {
+    let Type = Number(type);
+    let width = 810;
+    let height = 456;
+    let ModalStyle = "Modal-1";
+    switch (Type) {
+      case 1:
+        width = 810;
+        height = 456;
+        ModalStyle = "Modal-1";
+        break;
+      case 2:
+        width = 810;
+        height = 411;
+        ModalStyle = "Modal-2";
+        setFooter(null);
+
+        break;
+      case 3:
+        width = 588;
+        height = 293;
+        ModalStyle = "Modal-3";
+        break;
+      default:
+        width = 810;
+        height = 456;
+        ModalStyle = "Modal-1";
+    }
+    setWidth(Width || width);
+    setHeight(Height || height);
+    setModalClassName(ModalStyle);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type]);
+
+  const OnOk = useCallback(() => {
+    if (typeof onOk === "function") {
+      onOk();
+    } else {
+      setVisible(false);
+    }
+  }, [onOk]);
+  const OnCancel = useCallback(() => {
+    if (typeof onCancel === "function") {
+      onCancel();
+    } else {
+      setVisible(false);
+    }
+  }, [onCancel]);
+  const openModal = useCallback(() => {
+    setVisible(true);
+  }, []);
+
+  useImperativeHandle(ref, () => ({
+    openModal,
+  }));
+  return (
+    <AntdModal
+      className={`initModel ${ModalClassName} ${className || ""}`}
+      visible={Visible}
+      closeIcon={
+        ModalClassName === "Modal-1" ? (
+          <i className={"modal-close-icon"}></i>
+        ) : null
+      }
+      width={Width}
+      bodyStyle={Object.assign(
+        {},
+        Height ? { height: Height } : {},
+        bodyStyle || {}
+      )}
+      onOk={OnOk}
+      onCancel={OnCancel}
+      destroyOnClose={destroyOnClose || true}
+      // height={Height}
+      footer={
+        Footer === null
+          ? null
+          : Footer
+          ? Footer
+          : [
+              onOk !== null ? (
+                <Button
+                  key="onOk"
+                  type="primary"
+                  size="small"
+                  color="green"
+                  onClick={OnOk}
+                >
+                  {okText || "确定"}
+                </Button>
+              ) : null,
+              onCancel !== null ? (
+                <Button
+                  key="onCancel"
+                  size="small"
+                  color="blue"
+                  onClick={OnCancel}
+                >
+                  {cancelText || "取消"}
+                </Button>
+              ) : null,
+            ]
+      }
+      {...reset}
+    >
+      {children}
+    </AntdModal>
+  );
+}
 const LeftMenu = withRouter(MenuLeft);
 
 const PagiNation = memo(PageComponent);
@@ -3661,6 +3888,7 @@ const PagiNation = memo(PageComponent);
 const Alert = memo(AppAlert);
 
 const DropDown = memo(DropComponent);
+const LgModal = memo(forwardRef(LgAppModal));
 
 PagiNation.defaultProps = {
   showQuickJumper: true,
@@ -3710,5 +3938,5 @@ export {
   LeftMenu,
   DetailsModal,
   Tips,
-  MenuLeftNoLink,
+  MenuLeftNoLink,LgModal
 };

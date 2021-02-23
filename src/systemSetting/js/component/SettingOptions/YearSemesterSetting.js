@@ -119,7 +119,6 @@ class YearSemesterSetting extends Component {
                 AppAlertAction.alertSuccess({ title: "成功启用新学年!" })
               );
               dispatch(DataChange.getCurrentSemester(SchoolID));
-              console.log("success");
             } else {
               dispatch({
                 type: DataChange.SEMESTER_LOADING_HIDE,
@@ -249,7 +248,18 @@ class YearSemesterSetting extends Component {
       data: semesterInfo,
     });
   };
-
+  getNextPainDate = (value, datastring) => {
+    // console.log(datastring)
+    let { dispatch, semesterInfo } = this.props;
+    semesterInfo = {
+      ...semesterInfo,
+      NextTermStartDate: datastring,
+    };
+    dispatch({
+      type: DataChange.REFRESH_SEMESTER_INFO,
+      data: semesterInfo,
+    });
+  };
   /* 监听调整学期期限中放假时间输入框中值的变化
        param 1 所选日期的Moment对象
        param 2　所有日期的字符串格式
@@ -260,6 +270,17 @@ class YearSemesterSetting extends Component {
     semesterInfo = {
       ...semesterInfo,
       TermEndDate: datastring,
+    };
+    dispatch({
+      type: DataChange.REFRESH_SEMESTER_INFO,
+      data: semesterInfo,
+    });
+  };
+  getNextOffDate = (value, datastring) => {
+    let { dispatch, semesterInfo } = this.props;
+    semesterInfo = {
+      ...semesterInfo,
+      NextTermEndDate: datastring,
     };
     dispatch({
       type: DataChange.REFRESH_SEMESTER_INFO,
@@ -489,7 +510,7 @@ class YearSemesterSetting extends Component {
         </div>
         <Modal
           type="1"
-          title="启用新学年"
+          title="启用新学期"
           visible={this.state.visible_create}
           onOk={this.handUpComfirm}
           onCancel={this.modalCancel}
@@ -525,7 +546,7 @@ class YearSemesterSetting extends Component {
                     ? null
                     : moment(NextTermStartDate)
                 }
-                onChange={this.getPainDate}
+                onChange={this.getNextPainDate}
                 disabledDate={(e) => {
                   // 不允许选择结束日期之后
                   return (
@@ -543,7 +564,7 @@ class YearSemesterSetting extends Component {
               结束时间:
               <DatePicker
                 allowClear={false}
-                onChange={this.getOffDate}
+                onChange={this.getNextOffDate}
                 placeholder="请选择日期"
                 value={
                   NextTermEndDate === undefined || NextTermEndDate === ""

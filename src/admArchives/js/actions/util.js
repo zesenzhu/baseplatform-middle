@@ -436,8 +436,10 @@ const checkSubjectID = ({
   success = () => {},
 }) => {
   return (dispatch, getState) => {
-    console.log(value);
-    if (value instanceof Array && value.length > 0) {
+    // console.log(value);
+    if (value instanceof Array 
+      // && value.length > 0
+      ) {
       dispatch(
         CommonAction.SetTipsVisibleParams({ SubjectTipsVisible: false })
       );

@@ -92,10 +92,14 @@ if (process.env.NODE_ENV === "development") {
     UserAccessProxy: "http://192.168.129.1:30103/UserMgr/PowerMgr/",
 
     SelectObjectProxy: "http://192.168.129.1:30103/UserMgr/SelectObject/",
+
+    SubSystemProxy: "http://192.168.129.1:30103/SysMgr/Setting/SubSystem/",
+    ModuleProxy: "http://192.168.129.1:30103/SysMgr/Setting/Module/",
   };
 }
 
 if (process.env.NODE_ENV === "production") {
+  console.log = ()=>{}
   config = {
     name: "中小学一体化学科教育云",
     logo: logo,
@@ -147,6 +151,9 @@ if (process.env.NODE_ENV === "production") {
     UserAccessProxy: "/UserMgr/PowerMgr/",
 
     SelectObjectProxy: "/UserMgr/SelectObject/",
+
+    SubSystemProxy: "/SysMgr/Setting/SubSystem/",
+    ModuleProxy: "/SysMgr/Setting/Module/",
   };
 }
 

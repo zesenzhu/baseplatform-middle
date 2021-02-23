@@ -254,7 +254,7 @@ function Content(props){
 
 
 
-
+console.log(moduleList,UsedType)
   return (
     <>
       <ul className={"app-content-wrapper"}>

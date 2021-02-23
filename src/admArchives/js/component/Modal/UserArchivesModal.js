@@ -115,7 +115,7 @@ class UserArchivesModal extends Component {
         gender = "1";
         break;
       default:
-        gender = "-1";
+        gender = "0";
         break;
     }
     // 图片上传
@@ -235,7 +235,7 @@ class UserArchivesModal extends Component {
             dispatch(
               PublicAction.showErrorAlert({
                 type: "warn",
-                title:  "信息没有发生改变",
+                title: "信息没有发生改变",
               })
             );
             console.log("重复");
@@ -639,9 +639,10 @@ class UserArchivesModal extends Component {
   // 学科
   changeCheckBox = (e) => {
     const { dispatch } = this.props;
-    if (e.length === 0) {
-      return;
-    }
+    // 新版运行不选学科
+    // if (e.length === 0) {
+    //   return;
+    // }
 
     dispatch(
       util.checkSubjectID({
@@ -783,11 +784,11 @@ class UserArchivesModal extends Component {
   render() {
     let {
       DataState: {
-        MainData: { StudentTree, TeacherTree, TitleList },
+        MainData: { StudentTree, TeacherTree, TitleList,SysUrl },
         CommonData: {
           ModalVisible: { UserArchivesModalVisible },
           UserArchivesParams: { UserArchivesModalType, UserArchivesModalRole },
-          RolePower: { IsCollege,ProductType_6 },
+          RolePower: { IsCollege, ProductType_6 },
 
           TipsVisible: {
             UserIDTipsVisible,
@@ -901,10 +902,10 @@ class UserArchivesModal extends Component {
         value: "女",
         title: "女",
       },
-      {
-        value: "保密",
-        title: "保密",
-      },
+      // {
+      //   value: "保密",
+      //   title: "保密",
+      // },
     ];
     let bodyHeight = "456px";
     switch (UserArchivesModalRole) {
@@ -924,7 +925,7 @@ class UserArchivesModal extends Component {
         //   });
         // CollegeID &&
         //   MajorID &&
-          GradeID &&
+        GradeID &&
           StudentTree.ClassList instanceof Array &&
           StudentTree.ClassList.forEach((child) => {
             if (
@@ -1271,8 +1272,7 @@ class UserArchivesModal extends Component {
                       visible={
                         // CollegeID &&
                         // MajorID &&
-                        GradeID &&
-                        ClassList.length !== 0
+                        GradeID && ClassList.length !== 0
                           ? ClassTipsVisible
                           : false
                       }
@@ -1284,18 +1284,17 @@ class UserArchivesModal extends Component {
                         disabled={
                           ClassList.length === 0 ||
                           // !MajorID ||
-                          !GradeID 
-                          // ||
-                          // !CollegeID
-                            ? true
+                          !GradeID
+                            ? // ||
+                              // !CollegeID
+                              true
                             : false
                         }
                         // disabled={this.state.ClassChange.value===-1?false:true}
                         dropSelectd={
                           // !CollegeID ||
                           // !MajorID ||
-                          !GradeID ||
-                          ClassList.length > 0
+                          !GradeID || ClassList.length > 0
                             ? {
                                 value: ClassID,
                                 title: ClassID ? ClassName : "请选择班级",
@@ -1335,27 +1334,33 @@ class UserArchivesModal extends Component {
                       getPopupContainer={(e) => e.parentNode}
                       title={TitleTipsTitle}
                     >
-                      <DropDown
-                        style={{ zIndex: 1 }}
-                        dropSelectd={{
-                          value: TitleID,
-                          title: TitleID ? TitleName : "请选择职称",
-                        }}
-                        dropList={TitleList}
-                        width={200}
-                        height={96}
-                        onChange={this.onEditTitleChange}
-                      ></DropDown>
+                      {/* 教务系统的职称不允许编辑 */}
+                      {UserArchivesModalType !== "add" && SysUrl["E34"] ? (
+                        <span className="UserID-text">{TitleName}</span>
+                      ) : (
+                        <DropDown
+                          style={{ zIndex: 1 }}
+                          dropSelectd={{
+                            value: TitleID,
+                            title: TitleID ? TitleName : "请选择职称",
+                          }}
+                          dropList={TitleList}
+                          width={200}
+                          height={96}
+                          onChange={this.onEditTitleChange}
+                        ></DropDown>
+                      )}
                     </Tips>
                   </div>
                 </div>
               ) : (
                 ""
               )}
-              {!ProductType_6&&UserArchivesModalRole === "Teacher" ? (
+              {!ProductType_6 && UserArchivesModalRole === "Teacher" ? (
                 <div className="row clearfix row-subject">
                   <span className="culonm-1 Subject">
-                    <span className="must-icon">*</span>所教学科：
+                    {/* <span className="must-icon">*</span> */}
+                    所教学科：
                   </span>
                   <div className="culonm-2">
                     {

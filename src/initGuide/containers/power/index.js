@@ -152,7 +152,7 @@ function Power(props) {
 
         <Loading spinning={loading} tip={"加载中,请稍候..."}>
 
-            <GuideTitle title={"设置角色权限"} step={step} tips={"(后续可通过“角色权限管理”模块进行管理)"}></GuideTitle>
+            <GuideTitle title={"设置用户权限"} step={step} tips={"(后续可通过“用户权限管理”模块进行管理)"}></GuideTitle>
 
             <iframe id={'powerIframe'} onLoad={iframeLoad} src={url} frameBorder="0"  style={{width:'100%',height:iframeHeight}}></iframe>
 

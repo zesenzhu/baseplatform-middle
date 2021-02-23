@@ -1,7 +1,10 @@
 import { func } from "prop-types";
 
 import config from "./config";
-
+import {ErrorAlert} from '../index';
+import $ from "jquery";
+import ReactDOM from 'react-dom';
+import React from 'react';
 //对象深度对比
 const deepCompare = (x, y) => {
   var i, l, leftChain, rightChain;
@@ -609,6 +612,45 @@ export const checkProduct = (ProductUseRange) => {
       version = "middle";
   }
   return version;
+};
+/**
+ * @description: 获取alert节点
+ * @param {*}
+ * @return {*}
+ */
+export function getAlertDom() {
+  let AlertDom = document.getElementById("alert");
+  if (!AlertDom) {
+    //alert节点不存在，创建一个
+    let body = document.getElementsByTagName("body")[0];
+    let alert = document.createElement("div");
+    alert.setAttribute("id", "alert");
+    body.appendChild(alert);
+    AlertDom = document.getElementById("alert");
+  }
+  return AlertDom;
+}
+/**
+ * @description: 打开提示框，自动挂载
+ * @param {*}
+ * @return {*}
+ */
+export const autoAlert = ({ title, type, autoHide, ...other }) => {
+  title = title || "服务器出现未知异常，请重试或联系管理员";
+
+  let AlertDom = getAlertDom();
+  ReactDOM.render(
+    // eslint-disable-next-line react/react-in-jsx-scope
+    <ErrorAlert
+      key={"alert-400-" + Math.round(Math.random() * 10000)}
+      show={true}
+      title={title}
+      type={type}
+      autoHide={autoHide}
+      {...other}
+    />,
+    AlertDom
+  );
 };
 export default {checkProduct,
   deepCompare,

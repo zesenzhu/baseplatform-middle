@@ -64,10 +64,10 @@ class Register extends Component {
           value: "女",
           title: "女",
         },
-        {
-          value: "保密",
-          title: "保密",
-        },
+        // {
+        //   value: "保密",
+        //   title: "保密",
+        // },
       ],
       Agreement: false,
       Read: false,
@@ -572,7 +572,6 @@ class Register extends Component {
       );
       return;
     }
-    console.log(this.state.TestCode);
     let VisibleIsFalse = false;
     // for (let child in UIState.AppTipsVisible) {
     //   // console.log(UIState.AppTipsVisible[child]);
@@ -655,9 +654,10 @@ class Register extends Component {
             VisibleIsFalse = true;
           }
         }
+        // console.log(child,DataState.RegisterMsg[child])
         if (
-          (DataState.RegisterMsg[child] === "" && child !== "ShortName") ||
-          (DataState.RegisterMsg[child] instanceof Array &&
+          (DataState.RegisterMsg[child] === "" && child !=='SubjectIDs' && child !== "ShortName") ||
+          (DataState.RegisterMsg[child] instanceof Array&&child !=='SubjectIDs' && 
             DataState.RegisterMsg[child].length === 0) ||
           (child === "SchoolID" && DataState.RegisterMsg[child] === 0)
         ) {
@@ -733,9 +733,9 @@ class Register extends Component {
   onCheckBoxGroupChange = (value) => {
     const { dispatch } = this.props;
 
-    if (value.length === 0) {
-      return;
-    }
+    // if (value.length === 0) {
+    //   return;
+    // }
     this.setState({
       SubjectSelect: value,
     });
@@ -997,7 +997,7 @@ class Register extends Component {
                   name={"gender"}
                   className="radio-box"
                 >
-                  <Radio value={"保密"}>保密</Radio>
+                  {/* <Radio value={"保密"}>保密</Radio> */}
                   <Radio value={"男"}>男</Radio>
                   <Radio value={"女"}>女</Radio>
                 </RadioGroup>
@@ -1163,7 +1163,7 @@ class Register extends Component {
             }}
           >
             <span className="left">
-              <span className="must">*</span>
+              {/* <span className="must">*</span> */}
               {"所教学科"}：
             </span>
             <span className="right subject-right">
