@@ -3747,6 +3747,7 @@ function LgAppModal(props, ref) {
     footer,
     cancelText,
     onCancel,
+    maskClosable,
     okText,
     onOk,
     width,
@@ -3829,7 +3830,7 @@ function LgAppModal(props, ref) {
   }));
   return (
     <AntdModal
-      className={`initModel ${ModalClassName} ${className || ""}`}
+      className={`initModel Lg-Modal ${ModalClassName} ${className || ""}`}
       visible={Visible}
       closeIcon={
         ModalClassName === "Modal-1" ? (
@@ -3842,6 +3843,8 @@ function LgAppModal(props, ref) {
         Height ? { height: Height } : {},
         bodyStyle || {}
       )}
+      centered={centered===undefined?true:centered}
+      maskClosable={!!maskClosable}
       onOk={OnOk}
       onCancel={OnCancel}
       destroyOnClose={destroyOnClose || true}

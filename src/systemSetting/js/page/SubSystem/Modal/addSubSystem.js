@@ -36,6 +36,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 import { autoAlert } from "../../../../../common/js/public";
 import { ImgUrlProxy } from "../../../../../common/js/config";
 function AddSubSystem(props, ref) {
+  let {onDetail} =props
   const [TabList] = useState([
     { value: "old", title: "选择已有应用" },
     { value: "new", title: "录入新的应用" },
@@ -77,7 +78,7 @@ function AddSubSystem(props, ref) {
       <Scrollbars autoHeight autoHeightMin={539}>
         <div className="AddSubSystem-center">
           {TabSelect === TabList[0].value && (
-            <OldSystem ref={OldRef}></OldSystem>
+            <OldSystem onDetail={onDetail} ref={OldRef}></OldSystem>
           )}
           {TabSelect === TabList[1].value && (
             <NewSystem ref={NewRef}></NewSystem>
@@ -91,7 +92,7 @@ function AddSubSystem(props, ref) {
 // 选择已有应用
 
 function OldSubSystem(props, ref) {
-  let { getCardSelect } = props;
+  let { getCardSelect,onDetail } = props;
   const { state } = useContext(Context);
   const { SysTypeData, UserTypeData, SysStateData } = state;
   const [Query, setQuery] = useState({});
@@ -137,6 +138,7 @@ function OldSubSystem(props, ref) {
                   UserTypesList.push(UserTypeData[c]);
                 });
               child.UserTypesName = UserTypesList.join(",");
+              child.onClickDetails = onDetail
               return (
                 <Card
                   type={"old"}
@@ -205,7 +207,10 @@ function NewSubSystem(props, ref) {
     return SysTypeList.filter((c) => c.value !== 0);
   });
   const SysTypeForKey = useMemo(() => {
-    let list = {};
+    let list = { "": {
+      value: "",
+      title: <span style={{ color: "#bac7d9" }}>请选择分类</span>,
+    },};
     SysType.forEach((c) => {
       list[c.value] = c;
     });
@@ -245,7 +250,8 @@ function NewSubSystem(props, ref) {
             },
             introduction: {
               key: "introduction",
-              reg: /^[0-9a-zA-Z()（）,，。;""“”’‘'':\/\.@#=\u4E00-\u9FA5\uF900-\uFA2D-]{1,100}$/,
+              // reg: /^[0-9a-zA-Z()（）,，。;""“”’‘'':\/\.@#=\u4E00-\u9FA5\uF900-\uFA2D-]{1,100}$/,
+              reg:true,
               defaultValue: "",
             },
             sysLogoUrl: {
@@ -256,7 +262,7 @@ function NewSubSystem(props, ref) {
             sysType: {
               key: "sysType",
               reg: true,
-              defaultValue: SysType[0].value,
+              defaultValue: '',
             },
             sysCallbackAddr: {
               key: "sysCallbackAddr",
@@ -710,6 +716,9 @@ function NewSubSystem(props, ref) {
                   onUpdata("sysType", e.value, TableRuleList["sysType"].reg);
                 }}
               ></DropDown>
+               {DataTipsVisible[TableRuleList["sysType"].TipsVisible] && (
+                <p className="td-tips">请选择应用分类</p>
+              )}
             </td>
           </tr>
           <tr className={"table-tr-1  "}>
@@ -867,7 +876,7 @@ export function Detail(props) {
               </span>
             </td>
           </tr>
-          <tr className={"table-tr-1  "}>
+          <tr className={"table-tr-1 introduction "}>
             <td className=" top">应用简介:</td>
             <td className="top">
               <p ref={TitleRef} title={Data["introduction"]}>

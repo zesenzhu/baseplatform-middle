@@ -1,102 +1,95 @@
-$imgUrl :'../../images/';
-
-/* 水平居中 */
-
-@mixin Hcenter {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-
-/* 垂直居中 */
-
-@mixin Vcenter {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-}
-
-
-/* 垂直水平居中 */
-
-@mixin Center {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-// 省略
-@mixin TextOverflow {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-
-/* 相对垂直居中 */
-
-@mixin Re_Vcenter {
-    position: relative;
-    top: 50%;
-    // left: 0;
-    transform: translateY(-50%);
-}
-
-.System-content,
-.Module-content {
-    padding: 18px 32px;
-    .System-content-top,
-    .Module-content-top {
-        position: relative;
-        line-height: 42px;
-        margin-left: 22px;
-        width: calc(100% - 22px);
-        font-size: 16px;
-        text-align: left;
-        //  padding-left: 9px;
-        color: #333333;
-        border-bottom: dashed 1px #cccccc;
-    }
-    .btn-add-sub {
-        position: absolute;
-        right: 0;
-        top: 3px;
-        cursor: pointer;
-        opacity: 0.9;
-        height: 26px;
-        font-size: 14px;
-        line-height: 26px;
-        text-align: center;
-        padding: 0 16px;
-        color: #fff;
-        border-radius: 13px;
-        background-image: linear-gradient(90deg, #0fc1fc 0%, #1da4fe 100%), linear-gradient(#ffffff, #ffffff);
-        -webkit-border-radius: 13px;
-        -moz-border-radius: 13px;
-        -ms-border-radius: 13px;
-        -o-border-radius: 13px;
-        box-shadow: 0 10px 15px -10px #0fc1fc;
-        &:hover {
-            opacity: 1;
-        }
-        &::before {
-            content: "";
-            display: inline-block;
-            vertical-align: middle;
-            width: 12px;
-            height: 12px;
-            margin-right: 4px;
-            background: url($imgUrl+'icon-add.png') no-repeat center center / contain;
-        }
-    }
-}
-
-.system-modal {
-    .ant-modal-body {
-        padding: 0;
-    }
-}
+ $imgUrl :'../../images/';
+ /* 水平居中 */
+ 
+ @mixin Hcenter {
+     position: absolute;
+     top: 0;
+     left: 50%;
+     transform: translateX(-50%);
+ }
+ /* 垂直居中 */
+ 
+ @mixin Vcenter {
+     position: absolute;
+     top: 50%;
+     left: 0;
+     transform: translateY(-50%);
+ }
+ /* 垂直水平居中 */
+ 
+ @mixin Center {
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     transform: translate(-50%, -50%);
+ }
+ 
+ // 省略
+ @mixin TextOverflow {
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+ }
+ /* 相对垂直居中 */
+ 
+ @mixin Re_Vcenter {
+     position: relative;
+     top: 50%;
+     // left: 0;
+     transform: translateY(-50%);
+ }
+ 
+ .System-content,
+ .Module-content {
+     padding: 18px 32px;
+     .System-content-top,
+     .Module-content-top {
+         position: relative;
+         line-height: 42px;
+         margin-left: 22px;
+         width: calc(100% - 22px);
+         font-size: 16px;
+         text-align: left;
+         //  padding-left: 9px;
+         color: #333333;
+         border-bottom: dashed 1px #cccccc;
+     }
+     .btn-add-sub {
+         position: absolute;
+         right: 0;
+         top: 3px;
+         cursor: pointer;
+         opacity: 0.9;
+         height: 26px;
+         font-size: 14px;
+         line-height: 26px;
+         text-align: center;
+         padding: 0 16px;
+         color: #fff;
+         border-radius: 13px;
+         background-image: linear-gradient(90deg, #0fc1fc 0%, #1da4fe 100%), linear-gradient(#ffffff, #ffffff);
+         -webkit-border-radius: 13px;
+         -moz-border-radius: 13px;
+         -ms-border-radius: 13px;
+         -o-border-radius: 13px;
+         box-shadow: 0 10px 15px -10px #0fc1fc;
+         &:hover {
+             opacity: 1;
+         }
+         &::before {
+             content: "";
+             display: inline-block;
+             vertical-align: middle;
+             width: 12px;
+             height: 12px;
+             margin-right: 4px;
+             background: url($imgUrl+'icon-add.png') no-repeat center center / contain;
+         }
+     }
+ }
+ 
+ .system-modal {
+     .ant-modal-body {
+         padding: 0;
+     }
+ }

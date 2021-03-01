@@ -182,7 +182,11 @@ function SubSystem(props, ref) {
         onOk: () => {
           DeleteSubSystemFromSchool({ sysID }).then((res) => {
             if (res.StatusCode === 200) {
-              autoAlert({ type: "success",autoHide:()=>{}, title: "操作成功" });
+              autoAlert({
+                type: "success",
+                autoHide: () => {},
+                title: "操作成功",
+              });
             }
             reloadList();
           });
@@ -247,7 +251,7 @@ function SubSystem(props, ref) {
               title={"访问状态:"}
               dropSelectd={SysState}
               dropList={SysStateList}
-              height={120}
+              height={144}
               style={{ zIndex: 400 }}
               onChange={(value) => {
                 setSysState(value);
@@ -275,7 +279,7 @@ function SubSystem(props, ref) {
               title={"应用分类:"}
               dropSelectd={SysType}
               dropList={SysTypeList}
-              height={120}
+              height={144}
               style={{ zIndex: 400 }}
               onChange={(value) => {
                 setSysType(value);
@@ -385,16 +389,20 @@ function SubSystem(props, ref) {
       </div>
       <LgModal
         type="1"
+        className={"system-modal"}
         title="添加应用"
         onOk={onAddModalOk}
         onCancel={onModalCancel.bind(this, setAddModalVisible)}
         width={"1160px"}
         height={560}
+        getContainer={false}
+
         visible={AddModalVisible}
         okText="保存"
       >
         <Loading spinning={AddModalLoadingShow} opacity={0.5} tip="请稍候...">
           <AddSubSystem
+            onDetail={Detail}
             ref={AddSystemRef}
             visible={AddModalVisible}
           ></AddSubSystem>
@@ -402,9 +410,11 @@ function SubSystem(props, ref) {
       </LgModal>
       <LgModal
         type="1"
-        className={'system-modal'}
+        className={"system-modal"}
         title="编辑应用"
         onOk={onEditModalOk}
+        getContainer={false}
+
         onCancel={onModalCancel.bind(this, setEditModalVisible)}
         width={"1160px"}
         height={500}
@@ -420,13 +430,15 @@ function SubSystem(props, ref) {
         </Loading>
       </LgModal>
       <LgModal
-        className={'system-modal'}
         type="1"
         title="查看应用详情"
         onCancel={onModalCancel.bind(this, setDetailModalVisible)}
         width={"1040px"}
         height={380}
         footer={null}
+        getContainer={false}
+        style={{zIndex:2003}}
+        // maskStyle={{zIndex:'2001!important'}}
         visible={DetailModalVisible}
       >
         <Loading

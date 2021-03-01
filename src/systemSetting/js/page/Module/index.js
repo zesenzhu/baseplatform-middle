@@ -237,11 +237,13 @@ function SubSystem(props, ref) {
         align: "center",
         render: (data) => {
           let { UserType } = data;
-          let name =UserType && UserType.split(",")
-            .map((c) => {
-              return UserTypeData[c];
-            })
-            .join("、");
+          let name =
+            UserType &&
+            UserType.split(",")
+              .map((c) => {
+                return UserTypeData[c];
+              })
+              .join("、");
           return (
             <p className="UserType" title={name}>
               {name || "--"}
@@ -265,10 +267,10 @@ function SubSystem(props, ref) {
           //     )
           //   );
           // });
-          let name2 =IdentityNames&& IdentityNames.split(",").join("、");
+          let name2 = IdentityNames && IdentityNames.split(",").join("、");
           return (
             <p className="IdentityNames" title={name2}>
-              {name2||'--'}
+              {name2 || "--"}
             </p>
           );
         },
@@ -334,7 +336,7 @@ function SubSystem(props, ref) {
                         i.substring(0, 1).toLowerCase() + i.substring(1);
                       // 账号类型和身份要数组
                       if (i === "UserType" || i === "IdentityCodes") {
-                        editData[key] = data[i].split(",");
+                        editData[key] = data[i] ? data[i].split(","):[];
                       } else {
                         editData[key] = data[i];
                       }
@@ -381,7 +383,7 @@ function SubSystem(props, ref) {
       }
       setAddModalLoadingShow(true);
       let promise = "";
-      if (HandleType === "add") {
+      if (HandleType === "add" || !HandleType) {
         promise = AddSubSystemInfo({ ...data });
       } else if (HandleType === "edit") {
         promise = EditModuleInfo({ ...data });
@@ -393,14 +395,20 @@ function SubSystem(props, ref) {
         let { StatusCode, Data } = res;
         if (StatusCode === 200) {
           onModalCancel(setAddModalVisible);
-          
+
           if (Data instanceof Array) {
-            Data =  Data.map(c=>{c.OrderNo='新增';return c})
-          let TotalCount=  ++ListData.TotalCount;
-           let List = Data.concat(ListData.List);
-            setData({TotalCount,List});
+            Data = Data.map((c) => {
+              c.OrderNo = "新增";
+              return c;
+            });
+            let TotalCount = ++ListData.TotalCount;
+            let List = Data.concat(ListData.List);
+            setData({ TotalCount, List });
           }
           // 当新增成功，前端自动给插入新数据
+          if(HandleType === "edit"){
+            reloadList({});
+          }
         }
         // reloadList({});
         setAddModalLoadingShow(false);
@@ -455,15 +463,16 @@ function SubSystem(props, ref) {
         let more = {};
         res.Data.map((c) => {
           let { UserType, IdentityCode, IdentityName } = c;
-          UserType.split(",").forEach((u) => {
-            more[u] = more[u] || [];
-            more[u].push({
-              value: IdentityCode,
-              title: IdentityName,
-              userTypes: UserType,
-              userType: u,
+          typeof UserType === "string" &&
+            UserType.split(",").forEach((u) => {
+              more[u] = more[u] || [];
+              more[u].push({
+                value: IdentityCode,
+                title: IdentityName,
+                userTypes: UserType,
+                userType: u,
+              });
             });
-          });
         });
         Dispatch({ type: "identityTypeList", data: more });
       }
