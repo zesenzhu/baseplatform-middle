@@ -1,244 +1,124 @@
-.school-setting{
-
-  position: relative;
-
-  margin-top: 36px;
-
-  z-index: 1;
-
-  td{
-
-    padding-bottom: 16px;
-
-  }
-
-  .col1{
-
-    font-size: 14px;
-
-    color: #333333;
-
-    padding-right:12px;
-
-    text-align: right;
-
-    width:160px;
-
-  }
-
-
-  .school-code{
-
-    width: 200px;
-
-  }
-
-  .school-name{
-
-    width: 320px;
-
-  }
-
-  .school-logo-wrapper{
-
+.school-setting {
     position: relative;
-
-    width: 658px;
-
-    height: 132px;
-
-    background-color: #f5f5f5;
-
-    border-radius: 5px;
-
-    .btn-wrapper{
-
-      float: left;
-
-      margin-top: 28px;
-
-      .upload{
-
-        margin-bottom: 4px;
-
-      }
-
+    margin-top: 36px;
+    z-index: 1;
+    td {
+        padding-bottom: 16px;
     }
-
-  }
-
-  .upload,.reset{
-
-    display: block;
-
-    width: 92px;
-
-    height: 28px;
-
-    background-color: #77a5d8;
-
-    border-radius: 3px;
-
-    font-size: 14px;
-
-    color: #ffffff;
-
-    border: 0;
-
-    outline: none;
-
-    margin-bottom: 12px;
-
-  }
-
-  .tips{
-
-    font-size: 14px;
-
-    color: #b8b8b8;
-
-  }
-
-  .tab{
-
-    position: absolute;
-
-    width: 72px;
-
-    height: 24px;
-
-    line-height: 24px;
-
-    right: 0;
-
-    top: 12px;
-
-    background-color: #e6e6e6;
-
-    border-radius: 12px 0 0 12px;
-
-    text-align: center;
-
-    font-size: 14px;
-
-    color: #999999;
-
-  }
-
-  .logo-img{
-
-    float:left;
-
-    width:108px;
-
-    height: 108px;
-
-    border-radius: 3px;
-
-    margin: 12px;
-
-  }
-
-  .school-badge-wrapper{
-
-    position: relative;
-
-    margin-top: 8px;
-
-    background-color: #f5f5f5;
-
-    .logo-img{
-
-      float: none;
-
-      width:280px;
-
-      height: 40px;
-
+    .col1 {
+        font-size: 14px;
+        color: #333333;
+        padding-right: 12px;
+        text-align: right;
+        width: 160px;
     }
-
-    .upload,.reset{
-
-      position: relative;
-
-      float: none;
-
-      display: inline-block;
-
-      margin-left: 12px;
-
+    .school-code {
+        width: 200px;
     }
-
-    .upload-file{
-
-      position: absolute;
-
-      width: 100px;
-
-      height: 100%;
-
-      left:0;
-
-      top:0;
-
-      opacity: 0;
-
-      cursor:pointer;
-
+    .school-name {
+        width: 320px;
     }
-
-    .reset{
-
-      margin-left: 8px;
-
+    .school-logo-wrapper {
+        position: relative;
+        width: 658px;
+        height: 132px;
+        background-color: #f5f5f5;
+        border-radius: 5px;
+        .btn-wrapper {
+            float: left;
+            margin-top: 28px;
+            .upload {
+                margin-bottom: 4px;
+            }
+        }
     }
-
-    .tips{
-
-      display:inline-block;
-
-      margin-left: 12px;
-
+    .upload,
+    .reset {
+        display: block;
+        width: 92px;
+        height: 28px;
+        background-color: #77a5d8;
+        border-radius: 3px;
+        font-size: 14px;
+        color: #ffffff;
+        border: 0;
+        outline: none;
+        margin-bottom: 12px;
     }
-
-    .tab{
-
-      width: 84px;
-
+    .tips {
+        font-size: 14px;
+        color: #b8b8b8;
     }
-
-  }
-
-  .school-sign{
-
-    vertical-align: top;
-
-    padding-top: 60px;
-
-  }
-
-  .img-tmp-file{
-
-    position: absolute;
-
-    left: 0;
-
-    top: 0;
-
-    display: none;
-
-  }
-
-  .guide-footer{
-
-    margin-top: 68px;
-
-  }
-
-  .dropdown_container{
-
-    z-index: 2;
-
-  }
-
+    .tab {
+        position: absolute;
+        width: 72px;
+        height: 24px;
+        line-height: 24px;
+        right: 0;
+        top: 12px;
+        background-color: #e6e6e6;
+        border-radius: 12px 0 0 12px;
+        text-align: center;
+        font-size: 14px;
+        color: #999999;
+    }
+    .logo-img {
+        float: left;
+        width: 108px;
+        height: 108px;
+        border-radius: 3px;
+        margin: 12px;
+    }
+    .school-badge-wrapper {
+        position: relative;
+        margin-top: 8px;
+        background-color: #f5f5f5;
+        .logo-img {
+            float: none;
+            width: 164px;
+            height: 40px;
+        }
+        .upload,
+        .reset {
+            position: relative;
+            float: none;
+            display: inline-block;
+            margin-left: 12px;
+        }
+        .upload-file {
+            position: absolute;
+            width: 100px;
+            height: 100%;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .reset {
+            margin-left: 8px;
+        }
+        .tips {
+            display: inline-block;
+            margin-left: 12px;
+        }
+        .tab {
+            width: 84px;
+        }
+    }
+    .school-sign {
+        vertical-align: top;
+        padding-top: 60px;
+    }
+    .img-tmp-file {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: none;
+    }
+    .guide-footer {
+        margin-top: 68px;
+    }
+    .dropdown_container {
+        z-index: 2;
+    }
 }

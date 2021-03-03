@@ -12,6 +12,8 @@ import React, {
   useLayoutEffect,
   useImperativeHandle,
 } from "react";
+import ImgDefault from "../images/img-default.png";
+
 import {
   Loading,
   Empty,
@@ -28,7 +30,7 @@ import {
   UploadHandler,
 } from "../api";
 import clamp from "clamp-js";
-import moment from 'moment';
+import moment from "moment";
 import Card from "../component/card";
 import { Input } from "antd";
 import { Context } from "../context";
@@ -36,7 +38,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 import { autoAlert } from "../../../../../common/js/public";
 import { ImgUrlProxy } from "../../../../../common/js/config";
 function AddSubSystem(props, ref) {
-  let {onDetail} =props
+  let { onDetail } = props;
   const [TabList] = useState([
     { value: "old", title: "选择已有应用" },
     { value: "new", title: "录入新的应用" },
@@ -92,7 +94,7 @@ function AddSubSystem(props, ref) {
 // 选择已有应用
 
 function OldSubSystem(props, ref) {
-  let { getCardSelect,onDetail } = props;
+  let { getCardSelect, onDetail } = props;
   const { state } = useContext(Context);
   const { SysTypeData, UserTypeData, SysStateData } = state;
   const [Query, setQuery] = useState({});
@@ -138,7 +140,7 @@ function OldSubSystem(props, ref) {
                   UserTypesList.push(UserTypeData[c]);
                 });
               child.UserTypesName = UserTypesList.join(",");
-              child.onClickDetails = onDetail
+              child.onClickDetails = onDetail;
               return (
                 <Card
                   type={"old"}
@@ -207,15 +209,17 @@ function NewSubSystem(props, ref) {
     return SysTypeList.filter((c) => c.value !== 0);
   });
   const SysTypeForKey = useMemo(() => {
-    let list = { "": {
-      value: "",
-      title: <span style={{ color: "#bac7d9" }}>请选择分类</span>,
-    },};
+    let list = {
+      "": {
+        value: "",
+        title: <span style={{ color: "#bac7d9" }}>请选择分类</span>,
+      },
+    };
     SysType.forEach((c) => {
       list[c.value] = c;
     });
     return list;
-  },[SysType]);
+  }, [SysType]);
   const [Data, setData] = useState({});
   const TableRuleList = useMemo(() => {
     let list =
@@ -251,7 +255,7 @@ function NewSubSystem(props, ref) {
             introduction: {
               key: "introduction",
               // reg: /^[0-9a-zA-Z()（）,，。;""“”’‘'':\/\.@#=\u4E00-\u9FA5\uF900-\uFA2D-]{1,100}$/,
-              reg:true,
+              reg: true,
               defaultValue: "",
             },
             sysLogoUrl: {
@@ -262,7 +266,7 @@ function NewSubSystem(props, ref) {
             sysType: {
               key: "sysType",
               reg: true,
-              defaultValue: '',
+              defaultValue: "",
             },
             sysCallbackAddr: {
               key: "sysCallbackAddr",
@@ -339,8 +343,8 @@ function NewSubSystem(props, ref) {
    */
   const onUpdata = useCallback(
     (key, value, reg, callback = () => {}) => {
-      // 可能后台会返回null，转换为kong 
-      value = value||''
+      // 可能后台会返回null，转换为kong
+      value = value || "";
       // reg===true,表示不能为空
       let Test = !reg || (reg === true ? value !== "" : reg.test(value));
       key = key instanceof Array ? key : [key];
@@ -375,7 +379,7 @@ function NewSubSystem(props, ref) {
   useImperativeHandle(ref, () => ({
     onSubmit,
   }));
- 
+
   const GetID = useCallback(
     (can, data) => {
       if (!GotID && can) {
@@ -716,7 +720,7 @@ function NewSubSystem(props, ref) {
                   onUpdata("sysType", e.value, TableRuleList["sysType"].reg);
                 }}
               ></DropDown>
-               {DataTipsVisible[TableRuleList["sysType"].TipsVisible] && (
+              {DataTipsVisible[TableRuleList["sysType"].TipsVisible] && (
                 <p className="td-tips">请选择应用分类</p>
               )}
             </td>
@@ -724,7 +728,7 @@ function NewSubSystem(props, ref) {
           <tr className={"table-tr-1  "}>
             <td>授权回调地址:</td>
             <td colSpan={3}>
-            <Input
+              <Input
                 className="add-input add-input-1"
                 maxLength={100}
                 defaultValue={Data["sysCallbackAddr"] || ""}
@@ -745,7 +749,7 @@ function NewSubSystem(props, ref) {
               <span className="input-tips">
                 应用提供接口给平台调用访问时的根路径，如http://www.123.com
               </span>
-              
+
               {DataTipsVisible[TableRuleList["sysUrl"].TipsVisible] && (
                 <p className="td-tips">输入的授权回调地址有误</p>
               )}
@@ -783,7 +787,7 @@ function NewSubSystem(props, ref) {
           <tr className={"table-tr-1  "}>
             <td>接口服务地址:</td>
             <td colSpan={3}>
-            <Input
+              <Input
                 className="add-input add-input-1"
                 maxLength={100}
                 defaultValue={Data["sysUrl"] || ""}
@@ -820,15 +824,22 @@ export function Detail(props) {
     state: { SysStateData, SysTypeData },
   } = useContext(Context);
   const TitleRef = useRef(null);
+  const [HandleImg, setHandleImg] = useState("");
+
   useLayoutEffect(() => {
     clamp(TitleRef.current, { clamp: 4 });
   }, [Data]);
   const CreateTime = useMemo(() => {
-    return Data['createTime']?moment(Data['createTime']).format('YYYY-MM-DD HH:mm'):''
-  }, [Data])
+    return Data["createTime"]
+      ? moment(Data["createTime"]).format("YYYY-MM-DD HH:mm")
+      : "";
+  }, [Data]);
   const SysState = useMemo(() => {
-    return Data["sysState"] ?SysStateData[Data["sysState"]] :''
-  }, [Data,SysStateData])
+    return Data["sysState"] ? SysStateData[Data["sysState"]] : "";
+  }, [Data, SysStateData]);
+  useEffect(() => {
+    setHandleImg(Data.sysLogoUrl);
+  }, [Data.sysLogoUrl]);
   return (
     <div className={`SubSystemDetails`}>
       <table>
@@ -859,7 +870,10 @@ export function Detail(props) {
 
             <td>运行状态:</td>
             <td>
-              <span className={`sysState sysState-${Data["sysState"]}`} title={SysState}>
+              <span
+                className={`sysState sysState-${Data["sysState"]}`}
+                title={SysState}
+              >
                 {SysState || "--"}
               </span>
             </td>
@@ -887,7 +901,16 @@ export function Detail(props) {
             <td className="top">应用图标:</td>
             <td>
               <div className="upload-img">
-                <i
+                <img
+                  className="default-upload"
+                  src={HandleImg}
+                  alt={Data["sysLogoUrl"]}
+                  onError={() => {
+                    setHandleImg(ImgDefault);
+                  }}
+                  title={Data["sysName"]}
+                />
+                {/* <i
                   className="default-upload"
                   style={Object.assign(
                     {},
@@ -897,7 +920,7 @@ export function Detail(props) {
                         }
                       : {}
                   )}
-                ></i>
+                ></i> */}
               </div>
             </td>
           </tr>
@@ -905,7 +928,9 @@ export function Detail(props) {
             <td>授权回调地址:</td>
             <td>
               <span title={Data["sysCallbackAddr"]}>
-                {Data["sysCallbackAddr"] || <span className="default">[未填写]</span>}
+                {Data["sysCallbackAddr"] || (
+                  <span className="default">[未填写]</span>
+                )}
               </span>
             </td>
             <td>应用分类:</td>
@@ -925,9 +950,7 @@ export function Detail(props) {
             <td>接口服务地址:</td>
             <td>
               <span title={Data["sysUrl"]}>
-                {Data["sysUrl"] || (
-                  <span className="default">[未填写]</span>
-                )}
+                {Data["sysUrl"] || <span className="default">[未填写]</span>}
               </span>
             </td>
           </tr>

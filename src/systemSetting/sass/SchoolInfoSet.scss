@@ -9,6 +9,7 @@
     //   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.03);
     border-radius: 12px;
     background: url("../images/school_bg.jpg") no-repeat;
+    background-position: bottom;
     background-size: cover;
     box-sizing: border-box;
     .edite-info {
@@ -99,7 +100,7 @@
         .SchoolLogoUrl_Long {
             display: inline-block;
             vertical-align: top;
-            width: 280px;
+            width: 164px;
             height: 40px;
             margin-left: 12px;
             // background-color: #ffffff;

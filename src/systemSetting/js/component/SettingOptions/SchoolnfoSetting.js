@@ -636,7 +636,7 @@ class SchoolnfoSetting extends Component {
       default:
         schoolSys = "学制获取失败";
     }
-    // 多学校：当ProductType为3的时候不出现长条校徽
+    // 多学校：当ProductType为3的时候出现长条徽章
     let { ProductType, ResHttpRootUrl,LockerMsg } = sessionStorage.getItem(
       "LgBasePlatformInfo"
     )
@@ -644,7 +644,8 @@ class SchoolnfoSetting extends Component {
       : {};
     let isMoreSchool = true;
     // LockerMsg ='125544'
-    // parseInt(ProductType) === 3;
+       // 要与初始化一起修改
+    isMoreSchool =  parseInt(ProductType) !== 3;
     return (
       <Loading spinning={semesterloading} opacity={false} tip="请稍候...">
         <div className="school-InfoSetting">
@@ -672,11 +673,11 @@ class SchoolnfoSetting extends Component {
           <div className="school-info">
             {!isMoreSchool ? (
               <div className="school-badge">
-                长条校徽:
+                长条徽章:
                 <i
                   className="SchoolLogoUrl_Long"
                   style={{
-                    background: `url(${schoolInfo.SchoolLogoUrl_Long}) no-repeat center center/280px 40px`,
+                    background: `url(${schoolInfo.SchoolLogoUrl_Long}) no-repeat center center/164px 40px`,
                   }}
                 ></i>
               </div>
@@ -786,7 +787,7 @@ class SchoolnfoSetting extends Component {
                 </div>
                 {!isMoreSchool ? (
                   <div className={"row clearfix row-SchoolBadge"}>
-                    <span className="left">长条校徽:</span>
+                    <span className="left">长条徽章:</span>
                     <span className="right">
                       <SchoolBadge
                         schoolBadge={

@@ -1,0 +1,26 @@
+.lg-Img {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    .initImg {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+    .defaultImg,
+    .errorImg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: url(./images/Img/默认应用_80@2x.png)no-repeat center center /100% 100%;
+    }
+}

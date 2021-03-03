@@ -1,4 +1,5 @@
-import React, {   useState,
+import React, {
+  useState,
   useEffect,
   useRef,
   useMemo,
@@ -8,7 +9,8 @@ import React, {   useState,
   useCallback,
   useContext,
   createContext,
-  useImperativeHandle,} from "react";
+  useImperativeHandle,
+} from "react";
 
 import "es6-shim";
 
@@ -16,6 +18,8 @@ import "antd/dist/antd.min.css";
 import "./index.scss";
 import "./scss/_left_menu.scss";
 import { HashRouter as Router, NavLink, withRouter } from "react-router-dom";
+import defaultImg from "./images/Img/默认应用_80@2x.png";
+import errorImg from "./images/Img/默认应用_80@2x.png";
 
 import "./js/leftMenu";
 import {
@@ -920,7 +924,7 @@ class Search extends React.Component {
     });
   } //切换下拉状态为slideDown和slideUp
 
-    changeSelect(e) {
+  changeSelect(e) {
     const { selectChange } = this.props;
 
     this.setState({ selectdValue: { value: e.value, title: e.title } });
@@ -931,7 +935,7 @@ class Search extends React.Component {
     });
   } //改变选项
 
-    outSpanClickHandler(e) {
+  outSpanClickHandler(e) {
     const { target, ulDom, that, spanDom } = e;
     if (spanDom && !spanDom.contains(target)) {
       that.setState({ selectShow: false }, () => {
@@ -940,7 +944,7 @@ class Search extends React.Component {
     }
   } //点击其他地方将下拉收起
 
-    onInputFocus() {
+  onInputFocus() {
     this.setState({ inputFocus: true });
   } //input focus事件
 
@@ -1176,7 +1180,6 @@ class Search extends React.Component {
  * 下拉 start
  * */
 class DropComponent extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -1678,7 +1681,7 @@ class DropComponent extends React.Component {
           style={{ width: width, overflow: "initial" }}
         >
           <Loading opacity={false} spinning={dropLoadingShow}>
-            { dropList&&dropList.length > 12&&dropSimpleSearch ? (
+            {dropList && dropList.length > 12 && dropSimpleSearch ? (
               <li className={"dropdown_select_search"}>
                 <AntdInput
                   value={this.state.simpleSearchValue}
@@ -2926,11 +2929,8 @@ class Frame extends React.Component {
   }*/
 
   UNSAFE_componentWillReceiveProps() {
-
     if (window.AppRightContentChange) {
-
       window.AppRightContentChange(this.RightContent.clientHeight);
-
     }
 
     if (getQueryVariable("isWorkPlantform")) {
@@ -3094,38 +3094,45 @@ class Frame extends React.Component {
                         </i>
                       ) : null}
 
-                        {
+                      {userInfo && userInfo.name ? (
+                        userInfo.noClick ? (
+                          <a
+                            className="frame-home-username no-click"
+                            title={userInfo.name}
+                          >
+                            {userInfo.name}
+                          </a>
+                        ) : (
+                          <a
+                            href={`${WebRootUrl}/html/personalMgr?lg_tk=${token}`}
+                            target="_blank"
+                            className="frame-home-username"
+                            title={userInfo.name}
+                          >
+                            {userInfo.name}
+                          </a>
+                        )
+                      ) : null}
 
-                            userInfo && userInfo.name?
-
-                                userInfo.noClick?
-
-                                    <a className="frame-home-username no-click" title={userInfo.name}>{userInfo.name}</a>
-
-                                    :
-
-                                    <a href={`${WebRootUrl}/html/personalMgr?lg_tk=${token}`} target="_blank" className="frame-home-username" title={userInfo.name}>{userInfo.name}</a>
-
-                                :null
-
-                        }
-
-
-                      {
-                        userInfo && userInfo.image?
-
-                            userInfo.noClick?
-
-                                <a className="frame-home-userpic no-click" style={{ backgroundImage: `url(${userInfo.image})` }}></a>
-
-                                :
-
-                                <a href={`${WebRootUrl}/html/personalMgr?lg_tk=${token}`} target="_blank" className="frame-home-userpic" style={{ backgroundImage: `url(${userInfo.image})` }}></a>
-
-                            : null
-
-                      }
-
+                      {userInfo && userInfo.image ? (
+                        userInfo.noClick ? (
+                          <a
+                            className="frame-home-userpic no-click"
+                            style={{
+                              backgroundImage: `url(${userInfo.image})`,
+                            }}
+                          ></a>
+                        ) : (
+                          <a
+                            href={`${WebRootUrl}/html/personalMgr?lg_tk=${token}`}
+                            target="_blank"
+                            className="frame-home-userpic"
+                            style={{
+                              backgroundImage: `url(${userInfo.image})`,
+                            }}
+                          ></a>
+                        )
+                      ) : null}
                     </div>
 
                     {MessageShow ? (
@@ -3843,7 +3850,7 @@ function LgAppModal(props, ref) {
         Height ? { height: Height } : {},
         bodyStyle || {}
       )}
-      centered={centered===undefined?true:centered}
+      centered={centered === undefined ? true : centered}
       maskClosable={!!maskClosable}
       onOk={OnOk}
       onCancel={OnCancel}
@@ -3884,6 +3891,101 @@ function LgAppModal(props, ref) {
     </AntdModal>
   );
 }
+// 有问题
+class Img extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoad: false,
+      isError: false,
+    };
+  }
+  onLoad = () => {
+    this.props.onLoad();
+    console.log(1)
+    this.setState({
+      isError: false,
+      isLoad: true,
+    });
+  };
+  onError = () => {
+    this.props.onError();
+    console.log(1)
+
+    this.setState({
+      isLoad: true,
+      isError: true,
+    });
+  };
+  render() {
+    const {
+      className,
+      defaultImg,
+      errorImg,
+      height,
+      src,
+      width,
+      alt,
+      ...params
+    } = this.props;
+    // console.log(params)
+    return (
+      <div
+        style={{ height: height + "px", width: width + "px" }}
+        className={`lg-Img ${className}`}
+      >
+        <img
+          alt={alt}
+          src={src}
+          className="initImg"
+          height={height}
+
+          style={{
+            height: height + "px",
+            width: width + "px",
+            display: this.state.isError ? 'none' : 'inline-block',
+            opacity: !this.state.isLoad   ? 0 : 1,
+          }}
+          width={width}
+          // style={{opacity: (!this.state.isLoad||this.state.isError)?0:1}}
+          onLoad={this.onLoad}
+          onError={this.onError}
+          {...params}
+        ></img>
+        {!this.state.isLoad ? (
+          <i
+            alt={alt}
+            className="defaultImg"
+            style={{ height: height + "px", width: width + "px" }}
+          ></i>
+        ) : (
+          ""
+        )}
+        {this.state.isError ? (
+          <i
+            alt={alt}
+            style={{ height: height + "px", width: width + "px" }}
+            className="errorImg"
+          ></i>
+        ) : (
+          ""
+        )}
+      </div>
+    );
+  }
+}
+
+Img.defaultProps = {
+  className: "",
+  defaultImg: defaultImg,
+  alt: "lg-Img",
+  src: "",
+  errorImg: errorImg,
+  width: 80,
+  height: 80,
+  onError: () => {},
+  onLoad: () => {},
+};
 const LeftMenu = withRouter(MenuLeft);
 
 const PagiNation = memo(PageComponent);
@@ -3916,7 +4018,7 @@ DropDown.defaultProps = {
   width: 120,
   dropLoadingShow: false,
 
-  dropSimpleSearch:true,
+  dropSimpleSearch: true,
 
   //simpleSearchChange:()=>{}
 };
@@ -3941,5 +4043,7 @@ export {
   LeftMenu,
   DetailsModal,
   Tips,
-  MenuLeftNoLink,LgModal
+  MenuLeftNoLink,
+  LgModal,
+  Img,
 };

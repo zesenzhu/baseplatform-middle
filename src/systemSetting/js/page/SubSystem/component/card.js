@@ -7,7 +7,8 @@ import React, {
   forwardRef,
   useCallback,
 } from "react";
-
+// import { Img } from "../../../../../common";
+import ImgDefault from "../images/img-default.png";
 function Card(props, ref) {
   let {
     type,
@@ -38,19 +39,39 @@ function Card(props, ref) {
   } = data;
   const [Status, setStatus] = useState(false);
   const [StatusChange, setStatusChange] = useState(false);
+  const [HandleImg, setHandleImg] = useState("");
   const isOld = useMemo(() => {
     return type === "old";
   }, [type]);
   const canDelete = useMemo(() => {
     let canDelete = false;
-    if((IsClosable&&(SysState===1||SysState===2||SysState===3))||IsThirdParty){
-      canDelete = true
+    if (
+      (IsClosable && (SysState === 1 || SysState === 2 || SysState === 3)) ||
+      IsThirdParty
+    ) {
+      canDelete = true;
     }
-    return canDelete
-  }, [SysState,IsClosable,IsThirdParty]);
+    return canDelete;
+  }, [SysState, IsClosable, IsThirdParty]);
   useEffect(() => {
-    setStatus(SysState === 5)
+    setStatus(SysState === 5);
   }, [SysState]);
+  useEffect(() => {
+    setHandleImg(SysLogoUrl);
+  }, [SysLogoUrl]);
+  const onImg = useCallback((el, Failed) => {
+    //       在IE中,onerror事件不会触发无效的链接URL,但是onload事件会触发.
+    // 在Chrome中,情况恰恰相反：onload事件不会触发无效的链接URL,但是onerror事件会触发.
+    // ie是两个都出发
+    // let u = navigator.userAgent.toLowerCase();
+    // console.log(u.indexOf("trident"), Failed);
+    // if (u.indexOf("trident") === -1 && Failed) {
+      //Failed!
+      setHandleImg(ImgDefault);
+    // } else {
+    //   //Success!
+    // }
+  }, []);
   return (
     <div
       className={`MainAccessCard ${isOld ? "OldAccessCard" : ""} ${
@@ -70,7 +91,15 @@ function Card(props, ref) {
         )}
         <div className="content-msg-box">
           <div className="pic-bg">
-            <img src={SysLogoUrl} alt="图片丢失" title={SysName} />
+            {!!HandleImg && (
+              <img
+                src={HandleImg}
+                alt={SysLogoUrl}
+                onError={(el) => onImg(el, true)}
+                // onLoad={(el) => onImg(el)}
+                title={SysName}
+              />
+            )}
           </div>
           <div className="msg-tilte-box">
             <p title={SysName} className="msg-app-name">
@@ -170,17 +199,25 @@ function Card(props, ref) {
               详情
             </span>
             <span
-              className={`bar-btn bar-btn-edit ${IsThirdParty?'canEdit':''}`}
+              className={`bar-btn bar-btn-edit ${
+                IsThirdParty ? "canEdit" : ""
+              }`}
               onClick={() => {
-                IsThirdParty&& typeof onClickEdit === "function" && onClickEdit(SysID);
+                IsThirdParty &&
+                  typeof onClickEdit === "function" &&
+                  onClickEdit(SysID);
               }}
             >
               修改
             </span>
             <span
-              className={`bar-btn bar-btn-delete ${canDelete?'canDelete':''}`}
+              className={`bar-btn bar-btn-delete ${
+                canDelete ? "canDelete" : ""
+              }`}
               onClick={() => {
-                canDelete&& typeof onClickDelete === "function" && onClickDelete(SysID);
+                canDelete &&
+                  typeof onClickDelete === "function" &&
+                  onClickDelete(SysID);
               }}
             >
               删除

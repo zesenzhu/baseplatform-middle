@@ -13,11 +13,11 @@ import ReactDOM from "react-dom";
 import "./index.scss";
 import { ErrorAlert } from "../../../../common/js/fetch/util";
 import { postData } from "../../../../common/js/fetch";
-
-let DefaultBadge = "/SysSetting/Attach/default_280_40.png";
+import {autoAlert} from '../../../../common/js/public'
+let DefaultBadge = "/SysSetting/Attach/default_164_40.png";
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024;
-const IMG_WIDTH = 280;
+const IMG_WIDTH = 164;
 const IMG_HEIGHT = 40;
 // const Url = `SubjectRes_UploadHandler.ashx?method=doUpload_WholeFile&userid=${UserID}`;
 // 校徽-长方形
@@ -27,9 +27,8 @@ function SchoolBadge(props, ref) {
   let [Badge, setBadge] = useState(schoolBadge ? schoolBadge : DefaultBadge);
   let [ResHttpRootUrl, setResHttpRootUrl] = useState("");
   let [Url, setUrl] = useState("");
-  useEffect(() => {
-    // console.log(schoolBadge);
 
+  useEffect(() => {
     let { ResHttpRootUrl } = JSON.parse(
       sessionStorage.getItem("LgBasePlatformInfo")
     )
@@ -44,45 +43,76 @@ function SchoolBadge(props, ref) {
   }, []);
 
   const onSelectBadgeChange = (e) => {
+    let input = e.target
     let files = e.target.files;
+    const error=(title)=> {
+      autoAlert({title,type:'btn-error'})
+      // uploadError(title)
+      // input.value=''
+
+    }
+    // const error = (function (e) {
+    //   return function (title){
+    //     uploadError(title)
+    //   console.log(e.target,e,input)
+    //   // e.target.value=''
+    //   }
+    // }(e))
     if (files && files[0]) {
       let file = files[0];
       if (file.size <= MAX_FILE_SIZE) {
-        checkImgSize(file, PostBadgeData);
+        checkImgSize(file, PostBadgeData,error);
       } else {
-        ReactDOM.render(
-          // eslint-disable-next-line react/react-in-jsx-scope
-          <ErrorAlert
-            //   key={"alert" + "400-" + Math.round(Math.random() * 10000)}
-            show={true}
-            title={"文件过大"}
-          />,
-          document.getElementById("alert")
-        );
-
+        error("文件过大")
+        // ReactDOM.render(
+        //   // eslint-disable-next-line react/react-in-jsx-scope
+        //   <ErrorAlert
+        //     //   key={"alert" + "400-" + Math.round(Math.random() * 10000)}
+        //     show={true}
+        //     title={"文件过大"}
+        //   />,
+        //   document.getElementById("alert")
+        // );
         //   this.props.onCheck("overSize")
         // console.log("文件过大");
       }
+      input.value=''
     }
   };
-  const checkImgSize = (file, fn = () => {}) => {
+  const uploadError = useCallback(
+    (title='') => {
+      ReactDOM.render(
+        // eslint-disable-next-line react/react-in-jsx-scope
+        <ErrorAlert
+          //   key={"alert" + "400-" + Math.round(Math.random() * 10000)}
+          show={true}
+          title={title}
+        />,
+        document.getElementById("alert")
+      );
+    },
+    [],
+  )
+  const checkImgSize = (file, fn = () => {},error=()=>{}) => {
     let Img = URL.createObjectURL(file);
     let img = new Image();
     img.src = Img;
     let isError = false;
     img.onload = () => {
-      if (img.width !== 280 || img.height !== 40) {
-        ReactDOM.render(
-          <ErrorAlert show={true} title={"文件像素必须为280*40"} />,
-          document.getElementById("alert")
-        );
+      if (img.width !== 164 || img.height !== 40) {
+        error("文件像素必须为164*40")
+        // ReactDOM.render(
+        //   <ErrorAlert show={true} title={"文件像素必须为164*40"} />,
+        //   document.getElementById("alert")
+        // );
+        // e.target.value=''
         isError = true;
       } else {
-        fn(file);
+        fn(file,error);
       }
     };
   };
-  const PostBadgeData = (file) => {
+  const PostBadgeData = (file,error=()=>{}) => {
     let formData = new FormData();
     formData.append("file", file);
     fetch(ResHttpRootUrl + Url, { method: "POST", body: formData })
@@ -103,11 +133,13 @@ function SchoolBadge(props, ref) {
         }
       })
       .catch((e) => {
-        //获取错误信息并弹出
-        ReactDOM.render(
-          <ErrorAlert show={true} title={e.message} />,
-          document.getElementById("alert")
-        );
+        error(e.message)
+        // //获取错误信息并弹出
+        // ReactDOM.render(
+        //   <ErrorAlert show={true} title={e.message} />,
+        //   document.getElementById("alert")
+        // );
+        // e.target.value=''
       });
   };
   const onSelectDefaultImg = () => {
@@ -124,10 +156,12 @@ function SchoolBadge(props, ref) {
           style={{
             background: `url(${
               ResHttpRootUrl + Badge
-            }) no-repeat center center/280px 40px`,
+            }) no-repeat center center/164px 40px`,
           }}
         ></i>
-        <span className="SBC-Title">(可用于登录界面显示)</span>
+        {/* <span className="SBC-Title">(可用于登录界面显示)</span> */}
+        <span className="SBC-Title">(可用于智慧校园信息数据指挥中心首界面显示)</span>
+        
       </div>
       <div className="SB-Handle">
         <label>
@@ -146,7 +180,7 @@ function SchoolBadge(props, ref) {
         <span className="SBH-btn  SBH-DefaultImg" onClick={onSelectDefaultImg}>
           默认图片
         </span>
-        <span className="SBH-Title">上传要求:大小不能超过2MB,像素为280*40</span>
+        <span className="SBH-Title">上传要求:大小不能超过2MB,像素为164*40</span>
       </div>
     </div>
   );
