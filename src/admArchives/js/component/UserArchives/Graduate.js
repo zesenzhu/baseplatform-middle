@@ -76,7 +76,7 @@ class Graduate extends Component {
                     width: "37.5px",
                     height: "47px",
                     display: "inline-block",
-                    background: `url(${arr.PhotoPath}) no-repeat center center / 100% auto`,
+                    background: `url(${arr.PhotoPath_NoCache}) no-repeat center center / 100% auto`,
                   }}
                 ></i>
               </div>

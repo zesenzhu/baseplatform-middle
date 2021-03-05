@@ -29,6 +29,7 @@ import ModuleLoading from "../moduleLoading";
 
 import { getQueryVariable } from "../../../../common/js/disconnect";
 
+import moment from 'moment';
 import "./index.scss";
 
 function Archives(props) {
@@ -55,7 +56,9 @@ function Archives(props) {
   const BaseData = useSelector((state) => state.MoreData.CommonData.BaseData);
 
   const dispatch = useDispatch();
-
+  const IsTeacher = useMemo(() => {
+    return UserType === 1;
+  }, [UserType]);
   useEffect(() => {
     if (userStatus.ready) {
       if (UserType === 2) {
@@ -63,18 +66,19 @@ function Archives(props) {
 
         setTabName("学籍档案信息");
       } else {
-        getScientificCaseDetail({
-          proxy: Urls["E34"].WebUrl,
-          userId: UserID,
-          scientificType: 0,
-          dispatch,
-        }).then((data) => {
-          if (data && data.length > 0) {
-            setAwards(data);
-          }
+        // getScientificCaseDetail({
+        //   proxy: Urls["E34"].WebUrl,
+        //   userId: UserID,
+        //   scientificType: 0,
+        //   dispatch,
+        // }).then((data) => {
+        //   if (data && data.length > 0) {
+        //     setAwards(data);
+        //   }
 
-          setLoading(false);
-        });
+        //   setLoading(false);
+        // });
+        setLoading(false);
 
         setTabName("档案信息");
       }
@@ -636,7 +640,7 @@ function Archives(props) {
                     <td className={"col1 props"}>教育背景</td>
 
                     <td className={"col2"} colSpan={6}>
-                      {userStatus.educationBackgroundDetail ? (
+                      {/* {userStatus.educationBackgroundDetail ? (
                         <div
                           className={"education-background"}
                           dangerouslySetInnerHTML={{
@@ -647,15 +651,60 @@ function Archives(props) {
                         <div className={"education-background"}>
                           <div className="empty">--</div>
                         </div>
+                      )} */}
+                       {userStatus.educationBackgroundDetailData instanceof
+                        Array &&
+                      userStatus.educationBackgroundDetailData.length > 0 ? (
+                        <div
+                          className={"education-background"}
+                          // dangerouslySetInnerHTML={{
+                          //   __html: userStatus.educationBackgroundDetail,
+                          // }}
+                        >
+                          {userStatus.educationBackgroundDetailData.map(
+                            (c, i) => {
+                              const eduStageList = {
+                                1: "大专",
+                                2: "本科",
+                                3: "硕士",
+                                4: "博士",
+                                5: "其他",
+                              };
+                              let {
+                                startTime,
+                                endTime,
+                                currentSchool,
+                                eduStage,
+                              } = c;
+                              return (
+                                <p key={i} className="detaile-title">
+                                  {moment(startTime).format("YYYY.MM") +
+                                    "~" +
+                                    moment(endTime).format("YYYY.MM")}
+                                  <span className="cc-span-2">
+                                    {currentSchool ? currentSchool : ""}
+                                    {eduStage && eduStageList[eduStage]
+                                      ? "，" + eduStageList[eduStage]
+                                      : ""}
+                                  </span>
+                                </p>
+                              );
+                            }
+                          )}
+                        </div>
+                      ) : (
+                        <div className={"education-background"}>
+                          <div className="empty">--</div>
+                        </div>
                       )}
                     </td>
                   </tr>
 
                   <tr>
-                    <td className={"col1 props"}>工作经历</td>
+                    <td className={"col1 props"}>执教经历</td>
 
                     <td className={"col2"} colSpan={6}>
-                      {userStatus.workExperience ? (
+                      {/* {userStatus.workExperience ? (
                         <div
                           className={"work-experience"}
                           dangerouslySetInnerHTML={{
@@ -666,6 +715,40 @@ function Archives(props) {
                         <div className={"work-experience"}>
                           <div className="empty">--</div>
                         </div>
+                      )} */}
+                       {userStatus.workExperienceData instanceof Array &&
+                      userStatus.workExperienceData.length > 0 ? (
+                        <div
+                          className={"education-background"}
+                          // dangerouslySetInnerHTML={{
+                          //   __html: userStatus.educationBackgroundDetail,
+                          // }}
+                        >
+                          {userStatus.workExperienceData.map((c, i) => {
+                            let {
+                              startTime,
+                              endTime,
+                              currentSchool,
+                              eduStage,
+                              title,
+                            } = c;
+                            return (
+                              <p key={i} className="detaile-title">
+                                {moment(startTime).format("YYYY.MM") +
+                                  "~" +
+                                  moment(endTime).format("YYYY.MM")}
+                                <span className="cc-span-2">
+                                  {currentSchool ? currentSchool : ""}
+                                  {title ? "，" + title : ""}
+                                </span>
+                              </p>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <div className={"education-background"}>
+                          <div className="empty">--</div>
+                        </div>
                       )}
                     </td>
                   </tr>
@@ -674,8 +757,8 @@ function Archives(props) {
                     <td className={"col1 props"}>科研及获奖</td>
 
                     <td className={"col2"} colSpan={6}>
-                      <div className={"award"}>
-                        {awards && awards.length > 0 ? (
+                      {/* <div className={"award"}> */}
+                        {/* {awards && awards.length > 0 ? (
                           awards.map((i, k) => {
                             return (
                               <p key={k} className={"award-item"}>
@@ -685,8 +768,39 @@ function Archives(props) {
                           })
                         ) : (
                           <div className="empty">--</div>
-                        )}
-                      </div>
+                        )} */}
+
+{
+                      // awards instanceof Array && awards.length > 0
+                      userStatus.honorData instanceof Array &&
+                      userStatus.honorData.length > 0
+                       ? (
+                        <div
+                          className={"education-background"}
+                          // dangerouslySetInnerHTML={{
+                          //   __html: userStatus.educationBackgroundDetail,
+                          // }}
+                        >
+                          {userStatus.honorData.map((c, i) => {
+                            let { gainTime,honorName ,remark} = c;
+                            let title =moment(gainTime).format('YYYY-MM-DD')+'获得'+honorName+remark
+                            return (
+                              <p key={i} className="detaile-title">
+                                {i + 1}、
+                                <span title={title}>
+                                  {/* {moment(gainTime).format("YYYY-MM-DD")} */}
+                                  {title}
+                                </span>
+                              </p>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <div className={"education-background"}>
+                          <div className="empty">--</div>
+                        </div>
+                      )}
+                      {/* </div> */}
                     </td>
                   </tr>
                 </tbody>
@@ -1018,7 +1132,7 @@ function Archives(props) {
     <ContentItem type={"archives"} tabName={tabName}>
       <div className={"archives-wrapper"}>
         <div className={"btn-wrapper clearfix"}>
-          {BaseData.ProductType === 3 && Urls["L10"].WebUrl ? (
+          {BaseData.ProductType === 3 && Urls["L10"].WebUrl && IsTeacher ? (
             <LinkBtn onClick={(e) => toGrow()} type={"details"}>
               查看智能画像
             </LinkBtn>

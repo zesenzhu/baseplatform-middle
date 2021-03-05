@@ -77,7 +77,7 @@ class Teacher extends Component {
                     width: "37.5px",
                     height: "47px",
                     display: "inline-block",
-                    background: `url(${arr.PhotoPath}) no-repeat center center / 100% auto`,
+                    background: `url(${arr.PhotoPath_NoCache}) no-repeat center center / 100% auto`,
                   }}
                 ></i>
               </div>
@@ -841,7 +841,7 @@ class Teacher extends Component {
             ></DropDown>
             <div className="Search">
               <Search
-                placeHolder="请输入学号或姓名进行搜索..."
+                placeHolder="请输入工号或姓名进行搜索..."
                 onClickSearch={this.onTeacherSearch}
                 height={30}
                 width={250}

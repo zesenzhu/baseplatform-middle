@@ -59,7 +59,10 @@ function Content(props){
           break;
         }
       }
-      if (BaseData.ProductType === 3&&Urls['L10'].WebUrl) {
+      // console.log(BaseData);
+      if (BaseData.ProductType === 3&&targetUser.UserType===1//教师才去掉，后面等学生智能画像搞好也去掉
+        // &&Urls['L10'].WebUrl
+        ) {
         //为3的时候只要档案账号，同时在档案上面加师资发展的个人画像
         urlGet = false;
       }
