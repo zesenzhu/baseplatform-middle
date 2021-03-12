@@ -1,0 +1,67 @@
+.ChangePwdModal {
+    .ant-modal-body {
+        padding: 0;
+        .CPB-tip {
+            text-align: center;
+            line-height: 60px;
+            color: red;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .tr {
+            .td {
+                display: inline-block;
+                line-height: 30px;
+                height: 54px;
+                vertical-align: top;
+            }
+            .td-1 {
+                width: 30%;
+                text-align: right;
+            }
+        }
+        .pwd-input {
+            width: 200px;
+        }
+    }
+}
+
+.PwdStrong {
+    line-height: 18px;
+    font-size: 12px;
+    .text {
+        color: #999999;
+        font-size: 12px;
+        vertical-align: middle;
+    }
+    .strong-type {
+        display: inline-block;
+        width: 132px;
+        height: 12px;
+        margin: 0 4px;
+        vertical-align: middle;
+        background-position: left center;
+        background-repeat: no-repeat;
+        &.weak {
+            background-image: url("./images/strong-lettle.png");
+        }
+        &.middle {
+            background-image: url("./images/strong-middle.png");
+        }
+        &.strong {
+            background-image: url("./images/strong-big.png");
+        }
+    }
+    .strong-name {
+        vertical-align: middle;
+        &.weak {
+            color: rgb(255, 0, 0);
+        }
+        &.middle {
+            color: rgb(255, 168, 0);
+        }
+        &.strong {
+            color: rgb(0, 255, 54);
+        }
+    }
+}

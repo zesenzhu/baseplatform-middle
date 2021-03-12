@@ -747,7 +747,7 @@ function NewSubSystem(props, ref) {
                 }}
               ></Input>
               <span className="input-tips">
-                应用提供接口给平台调用访问时的根路径，如http://www.123.com
+                如需进行OAuth2.0单点登录授权，必须填写登录后的回调地址
               </span>
 
               {DataTipsVisible[TableRuleList["sysUrl"].TipsVisible] && (
@@ -804,7 +804,7 @@ function NewSubSystem(props, ref) {
                 }}
               ></Input>
               <span className="input-tips">
-                如需进行OAuth2.0单点登录授权，必须填写登录后的回调地址
+                应用提供接口给平台调用访问时的根路径，如http://www.123.com
               </span>
               {DataTipsVisible[
                 TableRuleList["sysCallbackAddr"].TipsVisible

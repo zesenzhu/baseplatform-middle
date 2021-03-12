@@ -13,6 +13,7 @@ import dynamicFile from 'dynamic-file';
 import {firstPageLoad} from '../common/js/disconnect/index';
 
 import publicJS from '../common/js/public';
+import listenAppDurationTime from "./js/listen_app_duration_time";
 
 class FrameContainer extends Component{
 
@@ -296,7 +297,27 @@ class FrameContainer extends Component{
         }
 
     }
-
+//智慧校园大数据采集需求
+SetDataDeliver(moduleID, userID) {
+    if(!moduleID){
+        return 
+    }
+    const result = getData(
+      CONFIG.Import + "/Base/GetSingleSubsystemServer?SysID=850&SubjectID=",
+      1
+    )
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.StatusCode === 200) {
+          try {
+            listenAppDurationTime(json.Data.WebSvrAddr, "000", moduleID, userID);
+          } catch (e) {
+              console.log(e)
+          }
+          // return res.Data;
+        }
+      });
+  }
 
     //根据用户身份code获取用户身份详情
     async GetIdentityTypeByCode(IdentityCodes){
@@ -338,12 +359,19 @@ class FrameContainer extends Component{
 
 
     ///获取身份和对应的模块ID
-    getIdentity({ModuleID},callBack){
+    getIdentity({ModuleID},callBack1){
 
         let identity = getQueryVariable('lg_ic');
 
         const { ProductType } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
-
+        let that = this
+        let userMsg = JSON.parse(sessionStorage.getItem("UserInfo"));
+        
+        function callBack(...arg) {
+          callBack1(...arg);
+          // 大数据统计
+          that.SetDataDeliver(ModuleID, userMsg.UserID);
+        }
         if (parseInt(ProductType)===3){
 
             if (identity){

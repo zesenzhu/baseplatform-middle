@@ -274,7 +274,7 @@
                 position: relative;
                 width: calc(100% - 90px);
                 input {
-                    left: -73%;
+                    // left: -73%;
                 }
                 .img-btn {
                     display: block;
@@ -296,6 +296,13 @@
                     &:nth-of-type(2) {
                         display: inline-block;
                         vertical-align: top;
+                    }
+                }
+                .select-local {
+                    // position: unset;
+                    input {
+                        width: 200%;
+                        left: -100%;
                     }
                 }
                 .upload-tips {

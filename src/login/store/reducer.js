@@ -1,23 +1,23 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from "redux";
 
-import commSetting from './commSetting';
+import commSetting from "./commSetting";
 
-import introduce from './introduce';
+import introduce from "./introduce";
 
-import slider from './slider';
+import slider from "./slider";
 
-import appAlert from './appAlert';
+import appAlert from "./appAlert";
+import changePwd from "./changePwd";
 
 const reducer = combineReducers({
+  commSetting,
 
-    commSetting,
+  introduce,
 
-    introduce,
+  slider,
 
-    slider,
-
-    appAlert
-
+  appAlert,
+  changePwd,
 });
 
-export  default  reducer;
+export default reducer;

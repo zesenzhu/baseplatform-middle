@@ -1,4 +1,4 @@
-const APP_ALERT_SHOW = 'APP_ALERT_SHOW';
+export const APP_ALERT_SHOW = 'APP_ALERT_SHOW';
 
 const APP_ALERT_HIDE = 'APP_ALERT_HIDE';
 

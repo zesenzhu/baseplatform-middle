@@ -1,204 +1,212 @@
-import {getData,postData} from "../../common/js/fetch";
+import { getData, postData } from "../../common/js/fetch";
 
-import {getQueryVariable,LogOut} from "../../common/js/disconnect";
+import { getQueryVariable, LogOut } from "../../common/js/disconnect";
 
-import {hideAlert, showErrorAlert} from "../store/appAlert";
+import { hideAlert, showErrorAlert } from "../store/appAlert";
 
-import {GetSchoolInitStatus} from './index';
-
+import { GetSchoolInitStatus } from "./index";
+import { ChangePwdParams } from "../store/changePwd";
 
 //获取数据以及封装数据格式
-const getGetData =  async (url,level,api='',mode='cors',arr=false) =>{
+const getGetData = async (url, level, api = "", mode = "cors", arr = false) => {
+  try {
+    let fetchAsync = "";
 
     try {
-
-        let fetchAsync = '';
-
-        try {
-
-            fetchAsync = await getData(api+url,level,mode,false,arr);
-
-        }
-        catch (e) {
-
-            return  e;
-
-        }
-
-        let json = await fetchAsync.json();
-
-        return json;
-
+      fetchAsync = await getData(api + url, level, mode, false, arr);
+    } catch (e) {
+      return e;
     }
-    catch (e) {
 
-        return e;
+    let json = await fetchAsync.json();
 
-    }
+    return json;
+  } catch (e) {
+    return e;
+  }
 };
 //调用post接口
-const getPostData = async (url,data,level,api='',content_type='urlencoded',arr=false) =>{
+const getPostData = async (
+  url,
+  data,
+  level,
+  api = "",
+  content_type = "urlencoded",
+  arr = false
+) => {
+  try {
+    let fetchAsync = "";
 
     try {
-        let fetchAsync = '';
-
-        try {
-
-            fetchAsync = await postData(api+url,data,level,content_type,false,arr);
-
-        }
-        catch (e) {
-            return  e;
-        }
-
-        let json = await fetchAsync.json();
-
-        return  json;
-
-    }
-    catch (e) {
-
-        return e;
-
+      fetchAsync = await postData(
+        api + url,
+        data,
+        level,
+        content_type,
+        false,
+        arr
+      );
+    } catch (e) {
+      return e;
     }
 
+    let json = await fetchAsync.json();
+
+    return json;
+  } catch (e) {
+    return e;
+  }
 };
-
 
 //拼接URL，有jointParam，返回拼接jointParam之后的URL，没有jointParam的话返回删除过?lg_tl的URL
-export const getNewTkUrl = ({preUrl,jointParam}) => {
-
+export const getNewTkUrl = ({ preUrl, jointParam }) => {
   const decodeUrl = decodeURIComponent(preUrl);
 
-  let newUrl = '';
+  let newUrl = "";
 
-  if (decodeUrl.includes('?lg_tk')){
+  if (decodeUrl.includes("?lg_tk")) {
+    let nexType = 0;
 
-      let nexType = 0;
+    const queryIndex = decodeUrl.indexOf("?");
 
-      const queryIndex = decodeUrl.indexOf('?');
+    const andIndex = decodeUrl.indexOf("&");
 
-      const andIndex = decodeUrl.indexOf('&');
+    if (andIndex === -1) {
+      newUrl = jointParam
+        ? decodeUrl.replace(decodeUrl.substring(queryIndex), jointParam)
+        : decodeUrl.replace(decodeUrl.substring(queryIndex), "");
 
-      if (andIndex===-1){
+      nexType = 1;
+    } else {
+      newUrl = jointParam
+        ? decodeUrl.replace(
+            decodeUrl.substring(queryIndex, andIndex),
+            jointParam
+          )
+        : decodeUrl.replace(decodeUrl.substring(queryIndex, andIndex + 1), "?");
 
-          newUrl = jointParam?decodeUrl.replace(decodeUrl.substring(queryIndex),jointParam):decodeUrl.replace(decodeUrl.substring(queryIndex),'');
-
-          nexType = 1;
-
-      }else{
-
-          newUrl = jointParam?decodeUrl.replace(decodeUrl.substring(queryIndex,andIndex),jointParam):decodeUrl.replace(decodeUrl.substring(queryIndex,andIndex+1),'?');
-
-          nexType = 2;
-
-      }
-
-      return { type:1,newUrl,nexType };
-
-  }else if (decodeUrl.includes('?')){
-
-        return { type:2,newUrl:decodeUrl};
-
-  }else {
-
-      return { type:3,newUrl:decodeUrl };
-
-  }
-
-};
-
-
-//判断跳转
-export const goToNextPage = ({dispatch,loadingHide}) =>{
-
-    const {UserType,SchoolID} = JSON.parse(sessionStorage.getItem("UserInfo"));
-
-    const { WebIndexUrl } = JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"));
-
-    const token = sessionStorage.getItem("token");
-
-    const preUri = getQueryVariable('lg_preurl');
-
-    let nexUrl = '';
-    
-    if (parseInt(UserType)===6){
-
-        window.location.href= '/html/admSchoolSetting/index.html';
-
-    }else if(SchoolID){
-
-        const urlObj = preUri?getNewTkUrl({preUrl:preUri,jointParam:`?lg_tk=${token}`}):getNewTkUrl({preUrl:WebIndexUrl,jointParam:`?lg_tk=${token}`});
-
-        const uriMain = urlObj.newUrl.split('#/')[0];
-
-        const uriHash = urlObj.newUrl.split('#/')[1]?'#/'+urlObj.newUrl.split('#/')[1]:'';
-
-        switch (urlObj.type) {
-            case 1:
-              nexUrl = urlObj.newUrl;
-      
-              break;
-            case 2:
-            case 3:
-              nexUrl =
-                uriMain +
-                (uriMain.includes("?") ? "&lg_tk=" : "?lg_tk=") +
-                token +
-                uriHash;
-              break;
-            // case 2:
-      
-            //     nexUrl = uriMain + '&lg_tk=' + token+uriHash;
-      
-            //     break;
-      
-            // case 3:
-      
-            //     nexUrl = uriMain + '?lg_tk=' + token+uriHash;
-      
-            //     break;
-            default:
-              break;
-          }
-
-        if (parseInt(UserType)===0){
-
-            GetSchoolInitStatus({SchoolId:SchoolID}).then(data=>{
-
-                if (data){
-
-                    window.location.href = nexUrl;
-
-                }else{
-
-                    window.location.href = `/html/initGuide?lg_tk=${token}${preUri?'&lg_preurl='+preUri:''}`;
-
-                }
-
-            })
-
-        }else{
-
-            window.location.href = nexUrl;
-
-        }
-
-    }else if(parseInt(UserType)===0){
-
-        nexUrl = `/html/initGuide?lg_tk=${token}${preUri?'&lg_preurl='+preUri:''}`;
-
-        window.location.href= nexUrl;
-
-    }else{
-
-        dispatch(showErrorAlert({title:"登录异常,登录失败",cancelShow:'n',cancel:e=>logErr(dispatch),close:e=>logErr(dispatch),ok:e=>logErr(dispatch)}));
-
-        loadingHide(false);
-
+      nexType = 2;
     }
 
-    /*if (parseInt(UserType)===6){
+    return { type: 1, newUrl, nexType };
+  } else if (decodeUrl.includes("?")) {
+    return { type: 2, newUrl: decodeUrl };
+  } else {
+    return { type: 3, newUrl: decodeUrl };
+  }
+};
+
+//判断跳转
+export const goToNextPage = ({ dispatch, loadingHide,oldPwd }) => {
+  const { UserType, SchoolID, UserID, LoginInfo } = JSON.parse(
+    sessionStorage.getItem("UserInfo")
+  );
+
+  const { WebIndexUrl } = JSON.parse(
+    sessionStorage.getItem("LgBasePlatformInfo")
+  );
+
+  const token = sessionStorage.getItem("token");
+
+  const preUri = getQueryVariable("lg_preurl");
+  // 为1才是第一次登陆
+  let isFirstLogin =
+    typeof LoginInfo === "string" && LoginInfo.split("|")[3] === "1";
+  let nexUrl = "";
+  function success() {
+    if (parseInt(UserType) === 6) {
+      window.location.href = "/html/admSchoolSetting/index.html";
+    } else if (SchoolID) {
+      const urlObj = preUri
+        ? getNewTkUrl({ preUrl: preUri, jointParam: `?lg_tk=${token}` })
+        : getNewTkUrl({ preUrl: WebIndexUrl, jointParam: `?lg_tk=${token}` });
+
+      const uriMain = urlObj.newUrl.split("#/")[0];
+
+      const uriHash = urlObj.newUrl.split("#/")[1]
+        ? "#/" + urlObj.newUrl.split("#/")[1]
+        : "";
+
+      switch (urlObj.type) {
+        case 1:
+          nexUrl = urlObj.newUrl;
+
+          break;
+        case 2:
+        case 3:
+          nexUrl =
+            uriMain +
+            (uriMain.includes("?") ? "&lg_tk=" : "?lg_tk=") +
+            token +
+            uriHash;
+          break;
+        // case 2:
+
+        //     nexUrl = uriMain + '&lg_tk=' + token+uriHash;
+
+        //     break;
+
+        // case 3:
+
+        //     nexUrl = uriMain + '?lg_tk=' + token+uriHash;
+
+        //     break;
+        default:
+          break;
+      }
+
+      if (parseInt(UserType) === 0) {
+        GetSchoolInitStatus({ SchoolId: SchoolID }).then((data) => {
+          if (data) {
+            window.location.href = nexUrl;
+          } else {
+            window.location.href = `/html/initGuide?lg_tk=${token}${
+              preUri ? "&lg_preurl=" + preUri : ""
+            }`;
+          }
+        });
+      } else {
+        window.location.href = nexUrl;
+      }
+    } else if (parseInt(UserType) === 0) {
+      nexUrl = `/html/initGuide?lg_tk=${token}${
+        preUri ? "&lg_preurl=" + preUri : ""
+      }`;
+
+      window.location.href = nexUrl;
+    } else {
+      dispatch(
+        showErrorAlert({
+          title: "登录异常,登录失败",
+          cancelShow: "n",
+          cancel: (e) => logErr(dispatch),
+          close: (e) => logErr(dispatch),
+          ok: (e) => logErr(dispatch),
+        })
+      );
+
+      loadingHide(false);
+    }
+  }
+  if (isFirstLogin && oldPwd) {
+    // console.log(PreLoginTime);
+    dispatch(
+      ChangePwdParams({
+        visible: true,
+        oldPwd,
+        onOk: () => {
+          success();
+        },
+        onCancel: () => {
+          success();
+        },
+      })
+    );
+  } else {
+    success();
+  }
+
+  /*if (parseInt(UserType)===6){
 
             window.location.href= `/html/admSchoolSetting/index.html?lg_tk=${token}`;
 
@@ -237,68 +245,49 @@ export const goToNextPage = ({dispatch,loadingHide}) =>{
             loadingHide(false);
 
     }*/
-
 };
 
+const logErr = (dispatch) => {
+  LogOut();
 
-
-const logErr = (dispatch)=>{
-
-    LogOut();
-
-    dispatch(hideAlert(dispatch));
-
+  dispatch(hideAlert(dispatch));
 };
-
 
 //将对象值解码后返回
 export const decodeObjValue = (obj) => {
+  let UserInfo = {};
 
-    let UserInfo = {};
+  for (let [key, value] of Object.entries(obj)) {
+    if (key === "PhotoPath") {
+      let date = new Date();
 
-    for (let [key, value] of Object.entries(obj)) {
+      let time = date.getTime();
 
-        if (key === "PhotoPath") {
-
-            let date = new Date();
-
-            let time = date.getTime();
-
-            value = value + "?T=" + time;
-        }
-
-        UserInfo[key] = decodeURIComponent(value);
-
+      value = value + "?T=" + time;
     }
 
-    UserInfo.isLogin = true;
-
-    // console.log(JSON.stringify(UserInfo))
-
-    return UserInfo;
-
-};
-
-
-export const removeSlashUrl = (url)=>{
-
-  const urlArr = url.split('');
-
-  if (urlArr[urlArr.length-1]==='/'){
-
-      return url.substr(0,urlArr.length-1);
-
-  }else{
-
-      return url;
-
+    UserInfo[key] = decodeURIComponent(value);
   }
 
+  UserInfo.isLogin = true;
+
+  // console.log(JSON.stringify(UserInfo))
+
+  return UserInfo;
 };
 
-export const downLoadFile = (url)=>{
+export const removeSlashUrl = (url) => {
+  const urlArr = url.split("");
 
-   /* const form = document.createElement('form');
+  if (urlArr[urlArr.length - 1] === "/") {
+    return url.substr(0, urlArr.length - 1);
+  } else {
+    return url;
+  }
+};
+
+export const downLoadFile = (url) => {
+  /* const form = document.createElement('form');
     form.setAttribute('action', url);
     form.setAttribute('method', 'get');
     form.setAttribute('target', '');
@@ -307,53 +296,36 @@ export const downLoadFile = (url)=>{
     form.submit();
     document.body.removeChild(form);*/
 
-    const oldIframe = document.getElementById("down_load_iframe");
+  const oldIframe = document.getElementById("down_load_iframe");
 
-    if (oldIframe){
+  if (oldIframe) {
+    document.body.removeChild(oldIframe);
+  }
 
-        document.body.removeChild(oldIframe);
+  const iframe = document.createElement("iframe");
 
-    }
+  iframe.setAttribute("id", "down_load_iframe");
 
-    const iframe = document.createElement("iframe");
+  iframe.src = url;
 
-    iframe.setAttribute("id","down_load_iframe");
+  iframe.style.display = "none";
 
-    iframe.src = url;
-
-    iframe.style.display = 'none';
-
-    document.body.appendChild(iframe);
-
+  document.body.appendChild(iframe);
 };
 
-
 //清除sessionStorage 保留一些元素。
-export const clearSessionStorage = (save)=>{
+export const clearSessionStorage = (save) => {
+  const saveList = save.split(",");
 
-  const saveList = save.split(',');
-
-  const saveItemList = saveList.map(i=>{
-
-      return { key:i,value:sessionStorage.getItem(i)};
-
+  const saveItemList = saveList.map((i) => {
+    return { key: i, value: sessionStorage.getItem(i) };
   });
 
   sessionStorage.clear();
 
-  saveItemList.map(i=>{
-
-      sessionStorage.setItem(i.key,i.value);
-
-  })
-
+  saveItemList.map((i) => {
+    sessionStorage.setItem(i.key, i.value);
+  });
 };
 
-
-export {
-
-    getPostData,
-
-    getGetData
-
-}
+export { getPostData, getGetData };
