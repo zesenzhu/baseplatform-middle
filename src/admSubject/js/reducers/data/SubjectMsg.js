@@ -30,7 +30,7 @@ const SubjectMsg = (state = { Total: 0 }, actions) => {
       return Object.assign({}, state, {
         ...data,
         SubjectItem: newData,
-        oldData: oldData
+        oldData: oldData,
       });
     case UpDataState.GET_SUBJECT_MODAL_MSG:
       let addSubjectMsg = handleAddSubjectMsg(actions.data.ItemSubject);
@@ -53,7 +53,7 @@ function handleAddSubjectMsg(data = []) {
       return {
         value: value,
         title: title,
-        GlabalGrades: child.Grades instanceof String?child.Grades:''
+        GlabalGrades: child.Grades instanceof String ? child.Grades : "",
       };
     });
   let newData = initData.concat(endData);
@@ -81,18 +81,31 @@ function handleData(data) {
       //     SubjectName:child.SubjectName,
       //     SubjectImg:SubjectImg
       // };
+      let P1Grades = handleGrade(child.P1Grade);
+      let P2Grades = handleGrade(child.P2Grade);
+      let P3Grades = handleGrade(child.P3Grade);
+      let MGrades = handleGrade(child.MGrade);
+      let OGrades = handleGrade(child.OGrade);
+      let KGrades = handleGrade(child.KGrade);
       let Grades = {
-        P1Grades: handleGrade(child.P1Grade),
-        P2Grades: handleGrade(child.P2Grade),
-        P3Grades: handleGrade(child.P3Grade)
+        P1Grades: P1Grades,
+        P2Grades: P2Grades,
+        P3Grades: P3Grades,
+        MGrades: MGrades,
+        OGrades: OGrades,
+        KGrades: KGrades,
       };
+      // let newGrades = {
+      //   M:{value:'M',}
+      // };
+
       let Teacher = handleTeacher(child.Teachers);
       let key = index;
       return {
         SubjectName: SubjectName,
         Grades: Grades,
         Teacher: Teacher,
-        key: key
+        key: key,
       };
     });
   return newData;
@@ -127,12 +140,12 @@ function handleSubjectName(Subject) {
   return {
     SubjectImg: SubjectLogo,
     SubjectName: Subject.SubjectName,
-    SubjectID: Subject.SubjectID
+    SubjectID: Subject.SubjectID,
   };
 }
 
-function handleTeacher(teacher='') {
-  let teacherArr = teacher?teacher.split(","):[];
+function handleTeacher(teacher = "") {
+  let teacherArr = teacher ? teacher.split(",") : [];
   let allTeacherArr =
     teacherArr instanceof Array &&
     teacherArr.map((child, index) => {
@@ -148,14 +161,14 @@ function handleTeacher(teacher='') {
       return {
         Grade: Grade,
         TeacherID: TeacherID,
-        TeacherName: TeacherName
+        TeacherName: TeacherName,
       };
     });
   return allTeacherArr;
 }
 
 function handleGrade(grade) {
-  if (grade === "") return "";
+  if (!grade ) return "";
   let GradeArr = grade.split(",");
   // console.log(grade, GradeArr)
   let sort = [];

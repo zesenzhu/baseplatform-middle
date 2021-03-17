@@ -30,6 +30,15 @@ class Main extends Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
+    let { ProductUseRange } = sessionStorage.getItem("LgBasePlatformInfo")
+      ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
+      : {};
+    ProductUseRange = parseInt(ProductUseRange);
+    let isUniv =
+      ProductUseRange === 5 ||
+      ProductUseRange === 8 ||
+      ProductUseRange === 10 ||
+      ProductUseRange === 11;
     this.state = {
       columns: [
         {
@@ -154,7 +163,7 @@ class Main extends Component {
         //   },
         // },
         {
-          title: "学校类型",
+          title: isUniv ? "学制" : "学校类型",
           align: "center",
           width: 100,
           dataIndex: "SchoolSessionType",
@@ -444,14 +453,26 @@ class Main extends Component {
       showCountyTip,
       hideCountyTip,
     } = this.AreaCheck.current;
-    let {
-      CheckSchoolType,
-      SchoolSessionType,
-      SchoolType,
-    } = this.SchoolType.current;
-    if (CheckSchoolType()) {
-      return;
+    let data = {};
+    if (this.SchoolType.current) {
+      let {
+        CheckSchoolType,
+        SchoolSessionType,
+        SchoolType,
+      } = this.SchoolType.current;
+      if (CheckSchoolType()) {
+        return;
+      }
+      data = { SchoolSessionType, SchoolType };
+      // data.SchoolSessionType =SchoolSessionType
+      // data.SchoolType =SchoolType
+    } else {
+      data = {
+        SchoolLevel: 1,
+        SchoolType: 1,
+      };
     }
+
     // console.log(this.AreaCheck.current);
     dispatch(
       UpDataState.checkAllData(() => {
@@ -489,7 +510,7 @@ class Main extends Component {
               this.ModalDataInit();
               dispatch(UpDataState.QuerySchoolInfo({}));
             },
-            { CountyID: countyID, SchoolType, SchoolSessionType }
+            { CountyID: countyID, ...data }
           )
         );
       })
@@ -523,13 +544,35 @@ class Main extends Component {
       showCountyTip,
       hideCountyTip,
     } = this.AreaCheck.current;
-    let {
-      CheckSchoolType,
-      SchoolSessionType,
-      SchoolType,
-    } = this.SchoolType.current;
-    if (CheckSchoolType()) {
-      return;
+    // let {
+    //   CheckSchoolType,
+    //   SchoolSessionType,
+    //   SchoolType,
+    // } = this.SchoolType.current;
+    // if (CheckSchoolType()) {
+    //   return;
+    // }
+
+    let data = {};
+    let isUniv = false
+    if (this.SchoolType.current) {
+      let {
+        CheckSchoolType,
+        SchoolSessionType,
+        SchoolType,
+      } = this.SchoolType.current;
+      if (CheckSchoolType()) {
+        return;
+      }
+      data = { SchoolSessionType, SchoolType };
+      // data.SchoolSessionType =SchoolSessionType
+      // data.SchoolType =SchoolType
+    } else {
+      data = {
+        SchoolLevel: 1,
+        SchoolType: 1,
+      };
+      isUniv=true
     }
     // console.log(this.AreaCheck.current);
 
@@ -569,7 +612,7 @@ class Main extends Component {
               this.ModalDataInit();
               dispatch(UpDataState.QuerySchoolInfo({}));
             },
-            { CountyID: countyID, SchoolType, SchoolSessionType }
+            { CountyID: countyID, ...data,isUniv }
           )
         );
       })
@@ -790,6 +833,17 @@ class Main extends Component {
       CancelBtnShow,
       pageSize,
     } = CommonData.QuerySchoolParams;
+    // 加中职和幼儿园,当做大学处理ProductUseRange为5，8，10，11
+    let { ProductUseRange } = sessionStorage.getItem("LgBasePlatformInfo")
+      ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
+      : {};
+    ProductUseRange = parseInt(ProductUseRange);
+    let isUniv =
+      ProductUseRange === 5 ||
+      ProductUseRange === 8 ||
+      ProductUseRange === 10 ||
+      ProductUseRange === 11;
+    let isMiddle = ProductUseRange === 5 || ProductUseRange === 8; //中职
     return (
       <div id="Main" className="Main Content">
         <div className="Main-top">
@@ -896,7 +950,7 @@ class Main extends Component {
         </div>
         {/* 模态框 */}
         <Modal
-          bodyStyle={{ padding: 0, height: "420px" }}
+          bodyStyle={{ padding: 0, height: isUniv ? "340px" : "420px" }}
           type="1"
           title={"创建学校"}
           width={700}
@@ -915,6 +969,8 @@ class Main extends Component {
               SchoolType={this.SchoolType}
               ref={(ref) => (this.AreaCheckRef = ref)}
               type="add"
+              isUniv={isUniv}
+              isMiddle={isMiddle}
             ></SchoolModal>
           ) : (
             ""
@@ -922,7 +978,7 @@ class Main extends Component {
           {/* </Loading> */}
         </Modal>
         <Modal
-          bodyStyle={{ padding: 0, height: "420px" }}
+          bodyStyle={{ padding: 0,height: isUniv ? "340px" : "420px" }}
           type="1"
           title={"编辑学校"}
           width={700}
@@ -940,6 +996,8 @@ class Main extends Component {
               // ref={this.AreaCheck}
               AreaCheck={this.AreaCheck}
               SchoolType={this.SchoolType}
+              isUniv={isUniv}
+              isMiddle={isMiddle}
               type="edit"
             ></SchoolModal>
           ) : (

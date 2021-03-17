@@ -105,6 +105,9 @@ const CommonData = (
         SchoolSessionType: { value: 3, title: "三年制" }, //学校学制
         SchoolTel: "", //学校联系电话
         SchoolLinkman: "", //学校联系人,
+        CityID: "",
+        CountyID: "",
+        ProvinceID: "",
         ...actions.data,
       });
       SchoolModalInitData = Object.assign({}, state.SchoolModalInitData, {
@@ -116,6 +119,9 @@ const CommonData = (
         SchoolSessionType: { value: 3, title: "三年制" }, //学校学制
         SchoolTel: "", //学校联系电话
         SchoolLinkman: "", //学校联系人,
+        CityID: "",
+CountyID: "",
+ProvinceID: "",
         ...actions.data,
       });
       return Object.assign({}, state, { SchoolModalData, SchoolModalInitData });

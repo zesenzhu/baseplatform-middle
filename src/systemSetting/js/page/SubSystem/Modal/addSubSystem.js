@@ -244,7 +244,7 @@ function NewSubSystem(props, ref) {
             },
             sysID: {
               key: "sysID",
-              reg: /^([a-zA-Z0-9]{1,24})$/,
+              reg: /^([a-zA-Z0-9]{4,24})$/,
               defaultValue: "",
             },
             sysSecretKey: {
@@ -270,17 +270,17 @@ function NewSubSystem(props, ref) {
             },
             sysCallbackAddr: {
               key: "sysCallbackAddr",
-              reg: /(^$)|(^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\*\+,;=.]+$)/,
+              reg: /(^$)|(((http|https):\/\/)[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\*\+,;=.]+$)/,
               defaultValue: "",
             },
             sysUrl: {
               key: "sysUrl",
-              reg: /(^$)|(^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\*\+,;=.]+$)/,
+              reg: /(^$)|(((http|https):\/\/)[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\*\+,;=.]+$)/,
               defaultValue: "",
             },
             sysApiUrl: {
               key: "sysApiUrl",
-              reg: /(^$)|(^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\*\+,;=.]+$)/,
+              reg: /(^$)|(((http|https):\/\/)[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\*\+,;=.]+$)/,
               defaultValue: "",
             },
           };
@@ -399,7 +399,7 @@ function NewSubSystem(props, ref) {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [Data]
+    [Data, GotID]
   );
   // 判断是否是图片
   const CheckImg = useCallback(
@@ -498,6 +498,9 @@ function NewSubSystem(props, ref) {
                   onUpdata("sysName", e.target.value, false);
                 }}
                 onBlur={(e) => {
+                  // if(e.target.value===Data["sysName"]){
+                  //   return
+                  // }
                   onUpdata(
                     "sysName",
                     e.target.value,
@@ -599,7 +602,7 @@ function NewSubSystem(props, ref) {
             <td>
               {isAdd ? (
                 <Input
-                  placeholder={"请输入8位以内的应用ID..."}
+                  placeholder={"请输入4-8位的应用ID..."}
                   className="add-input add-input-1"
                   maxLength={8}
                   value={Data["sysID"] || ""}
@@ -750,7 +753,7 @@ function NewSubSystem(props, ref) {
                 如需进行OAuth2.0单点登录授权，必须填写登录后的回调地址
               </span>
 
-              {DataTipsVisible[TableRuleList["sysUrl"].TipsVisible] && (
+              {DataTipsVisible[TableRuleList["sysCallbackAddr"].TipsVisible] && (
                 <p className="td-tips">输入的授权回调地址有误</p>
               )}
             </td>
@@ -777,7 +780,7 @@ function NewSubSystem(props, ref) {
                 }}
               ></Input>
               <span className="input-tips">
-                应用访问的网页路径，如http://www.baidu.com
+                应用访问的网页路径，如http(s)://www.baidu.com
               </span>
               {DataTipsVisible[TableRuleList["sysApiUrl"].TipsVisible] && (
                 <p className="td-tips">输入的应用访问地址有误</p>
@@ -804,10 +807,10 @@ function NewSubSystem(props, ref) {
                 }}
               ></Input>
               <span className="input-tips">
-                应用提供接口给平台调用访问时的根路径，如http://www.123.com
+                应用提供接口给平台调用访问时的根路径，如http(s)://www.123.com
               </span>
               {DataTipsVisible[
-                TableRuleList["sysCallbackAddr"].TipsVisible
+                TableRuleList["sysUrl"].TipsVisible
               ] && <p className="td-tips">输入的接口服务地址有误</p>}
             </td>
           </tr>

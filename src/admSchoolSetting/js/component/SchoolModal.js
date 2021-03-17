@@ -1,10 +1,10 @@
 /*
  * @Author: zhuzesen
  * @Date: 2020-09-15 22:07:05
- * @LastEditTime: 2020-11-02 17:05:25
+ * @LastEditTime: 2021-03-16 17:28:02
  * @LastEditors: zhuzesen
  * @Description: 学校信息编辑
- * @FilePath: \baseplatform-middle\src\admSchoolSetting\js\component\SchoolModal.js
+ * @FilePath: \baseplatform-universityd:\祝泽森\开发\项目\baseplatform-middle\baseplatform-middle\src\admSchoolSetting\js\component\SchoolModal.js
  */
 import React, { createRef } from "react";
 import { connect } from "react-redux";
@@ -61,18 +61,19 @@ class SchoolModal extends React.Component {
       SchoolSessionType, //学校学制
       SchoolTel, //学校联系电话
       SchoolLinkman, //学校联系人
-    } =  DataState.CommonData.SchoolModalData;
+    } = DataState.CommonData.SchoolModalData;
     if (this.props.type === "add") {
       dispatch(
         UpDataState.SetSchoolModalData({
           SchoolImgUrl: "SysSetting/Attach/default.png",
         })
       );
-      SchoolImgUrl = "SysSetting/Attach/default.png"
+      SchoolImgUrl =
+        DataState.CommonData.ImgUrlProxy + "SysSetting/Attach/default.png";
     }
-    
+
     this.setState({
-      classResultImgUrl:DataState.CommonData.ImgUrlProxy + SchoolImgUrl,
+      classResultImgUrl: SchoolImgUrl,
     });
   }
   componentDidMount() {
@@ -392,8 +393,17 @@ class SchoolModal extends React.Component {
     //   })
     // );
   };
+  // 学校学制
+  //  onSchoolSessionTypeDropMenuChange = (e) => {
+  //   const { dispatch, DataState } = this.props;
+  //   dispatch(
+  //     UpDataState.SetSchoolModalData({
+  //       SchoolSessionType: e,
+  //     })
+  //   );
+  // };
   render() {
-    const { DataState, UIState, getAreaCheck } = this.props;
+    const { DataState, UIState, getAreaCheck, isMiddle, isUniv } = this.props;
     const { CommonData, SchoolData, LoginUser } = DataState;
     const { ImgUrlProxy } = CommonData;
     const {
@@ -428,6 +438,34 @@ class SchoolModal extends React.Component {
       ProvinceID,
       ProvinceName,
     } = CommonData.SchoolModalData;
+    // 加中职和幼儿园,当做大学处理ProductUseRange为5，8，10，11
+    // let { ProductUseRange } = sessionStorage.getItem("LgBasePlatformInfo")
+    //   ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
+    //   : {};
+    let typeName = "学校类型";
+    // ProductUseRange = parseInt(ProductUseRange);
+    // let {}
+    // let isUniv =
+    //   ProductUseRange === 5 ||
+    //   ProductUseRange === 8 ||
+    //   ProductUseRange === 10 ||
+    //   ProductUseRange === 11;
+    // let isMiddle = ProductUseRange === 5 || ProductUseRange === 8; //中职
+    let dropList = [
+      { value: 3, title: "三年制" },
+      { value: 4, title: "四年制" },
+    ];
+    if (isUniv) {
+      if (isMiddle) {
+        dropList = [
+          { value: 2, title: "二年制" },
+          { value: 3, title: "三年制" },
+          { value: 4, title: "四年制" },
+          { value: 5, title: "五年制" },
+        ];
+      }
+      typeName = "学制类型";
+    }
     // getAreaCheck(this.AreaCheck.current);
     // console.log(this.AreaCheck.current)
     return (
@@ -440,14 +478,13 @@ class SchoolModal extends React.Component {
                 "url(" +
                 (this.state.classResultImgUrl
                   ? this.state.classResultImgUrl
-                  :ImgUrlProxy+ DefaultImg) +
-                ")" 
-                // +
-                // "," +
-                // "url(" +
-                // DefaultImg +
-                // ")"
-                ,
+                  : ImgUrlProxy + DefaultImg) +
+                ")",
+              // +
+              // "," +
+              // "url(" +
+              // DefaultImg +
+              // ")"
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
               backgroundSize: "contain",
@@ -517,21 +554,25 @@ class SchoolModal extends React.Component {
           <div className="row clearfix">
             <span className="culonm-1 left">学校代码:</span>
             <span className="culonm-2 right SchoolCode">
-              <Tips
-                overlayClassName="tips"
-                visible={SchoolCodeTipsVisible}
-                title={SchoolCodeTips}
-              >
-                <Input
-                  className="culonm-input"
-                  placeholder="请输入学校代码..."
-                  maxLength={10}
-                  disabled={this.props.type === "edit" ? true : false}
-                  onChange={this.onSchoolCodeChange.bind(this)}
-                  onBlur={this.onSchoolCodeBlur.bind(this)}
-                  value={SchoolCode}
-                ></Input>
-              </Tips>
+              {this.props.type === "edit" ? (
+                <p style={{ lineHeight: "40px" }}>{SchoolCode}</p>
+              ) : (
+                <Tips
+                  overlayClassName="tips"
+                  visible={SchoolCodeTipsVisible}
+                  title={SchoolCodeTips}
+                >
+                  <Input
+                    className="culonm-input"
+                    placeholder="请输入学校代码..."
+                    maxLength={10}
+                    disabled={this.props.type === "edit" ? true : false}
+                    onChange={this.onSchoolCodeChange.bind(this)}
+                    onBlur={this.onSchoolCodeBlur.bind(this)}
+                    value={SchoolCode}
+                  ></Input>
+                </Tips>
+              )}
             </span>
           </div>
           {/* <div className="row clearfix">
@@ -558,12 +599,33 @@ class SchoolModal extends React.Component {
             </span>
           </div> */}
           <div className="row clearfix">
-            <span className="culonm-1 left">学校学制:</span>
-            <span className="culonm-2 right SchoolSessionType">
-              <SchoolType
-                SchoolSessionType={SchoolSessionType.value}
-                ref={this.props.SchoolType}
-              ></SchoolType>
+            <span className="culonm-1 left">{typeName}:</span>
+            <span
+              className={`culonm-2 right ${isUniv ? "" : "SchoolSessionType"}`}
+            >
+              {isUniv ? (
+                <Tips
+                  overlayClassName="tips"
+                  visible={SchoolSessionTypeTipsVisible}
+                  title={SchoolSessionTypeTips}
+                >
+                  <DropDown
+                    ref="SchoolSessionType-DropMenu"
+                    style={{ zIndex: 11 }}
+                    className=" "
+                    onChange={this.onSchoolSessionTypeDropMenuChange.bind(this)}
+                    width={108}
+                    height={240}
+                    dropSelectd={SchoolSessionType}
+                    dropList={dropList}
+                  ></DropDown>
+                </Tips>
+              ) : (
+                <SchoolType
+                  SchoolSessionType={SchoolSessionType.value}
+                  ref={this.props.SchoolType}
+                ></SchoolType>
+              )}
             </span>
           </div>
           <div className="row clearfix">

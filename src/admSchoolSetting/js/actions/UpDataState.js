@@ -424,6 +424,7 @@ const EditSchoolInfo = (func = () => {},data={}) => {
   return (dispatch, getState) => {
     // console.log(url)
     let url = "/EditSchoolInfo";
+    let url_univ = '/EditSchoolInfo_Univ'
     let { DataState } = getState();
     let {
       SchoolLevel,
@@ -431,8 +432,9 @@ const EditSchoolInfo = (func = () => {},data={}) => {
       SchoolID,SchoolImgUrl_Long,
       ...other
     } = DataState.CommonData.SchoolModalData;
+    let {isUniv,...Data} =data;
     postData(
-      CONFIG.SchoolSettingProxy + url,
+      CONFIG.SchoolSettingProxy + (isUniv?url_univ:url),
       {
         ...other,
         SchoolLevel: 2,
@@ -440,7 +442,7 @@ const EditSchoolInfo = (func = () => {},data={}) => {
         SchoolID,
         SchoolImgUrl_Long:SchoolImgUrl_Long,
         SchoolSessionType: SchoolSessionType.value,
-        ...data
+        ...Data
       },
       2
     )

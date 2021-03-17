@@ -44,7 +44,7 @@ class SetSubjectTeacher extends React.Component {
     this.state = {
       dropSelect: dropSelect,
       searchOpen: false,
-      UserMsg: props.DataState.LoginUser
+      UserMsg: props.DataState.LoginUser,
     };
   }
   componentWillMount() {
@@ -64,7 +64,7 @@ class SetSubjectTeacher extends React.Component {
       }
     );
     this.setState({
-      initDropSelect: dropSelect
+      initDropSelect: dropSelect,
     });
   }
 
@@ -94,12 +94,12 @@ class SetSubjectTeacher extends React.Component {
     if (value.value === 0) {
       this.setState({
         showInput: true,
-        dropSelected: value
+        dropSelected: value,
       });
     } else {
       this.setState({
         showInput: false,
-        dropSelected: value
+        dropSelected: value,
       });
     }
     DataState.SubjectMsg.addSubjectMsg.map((child, index) => {
@@ -108,22 +108,22 @@ class SetSubjectTeacher extends React.Component {
     dispatch(
       actions.UpDataState.handleSubjectNameModalMsg({
         SubjectName: value.title,
-        SubjectID: value.value
+        SubjectID: value.value,
       })
     );
     dispatch(actions.UpDataState.handleSubjectModalMsg(GlabalGrades));
   };
 
-  onSubjectInputChange = e => {
+  onSubjectInputChange = (e) => {
     const { dispatch, DataState } = this.props;
 
     this.setState({
-      SubjectInput: e.target.value
+      SubjectInput: e.target.value,
     });
     dispatch(
       actions.UpDataState.handleSubjectNameModalMsg({
         SubjectName: e.target.value,
-        SubjectID: ""
+        SubjectID: "",
       })
     );
     dispatch(actions.UpDataState.handleSubjectModalMsg(""));
@@ -154,7 +154,7 @@ class SetSubjectTeacher extends React.Component {
           title: "您输入的工号或姓名格式不正确",
           ok: this.onAlertWarnOk.bind(this),
           cancel: this.onAlertWarnClose.bind(this),
-          close: this.onAlertWarnClose.bind(this)
+          close: this.onAlertWarnClose.bind(this),
         })
       );
       return;
@@ -170,7 +170,7 @@ class SetSubjectTeacher extends React.Component {
     dispatch({ type: actions.UpUIState.SEARCH_LOADING_OPEN });
     dispatch(actions.UpDataState.getSubjectTeacherMsg(url, grades));
     this.setState({
-      searchOpen: true
+      searchOpen: true,
     });
   };
   // 取消搜索
@@ -202,7 +202,7 @@ class SetSubjectTeacher extends React.Component {
     dispatch(actions.UpDataState.getSubjectTeacherMsg(url, "All", AllGrades));
 
     this.setState({
-      searchOpen: true
+      searchOpen: true,
     });
   };
   onMultipleChange = (grades, index, value) => {
@@ -213,7 +213,7 @@ class SetSubjectTeacher extends React.Component {
     dropSelect[index] = { title: value.value, value: value.id };
     // console.log(grades, index, value, dropSelect)
     this.setState({
-      dropSelect: dropSelect
+      dropSelect: dropSelect,
     });
     let list = [];
     for (let key in DataState.SetSubjectTeacherMsg.SubjectTeacherList) {
@@ -284,6 +284,12 @@ class SetSubjectTeacher extends React.Component {
                 GradeName = "初中";
               } else if (Grades === "P3") {
                 GradeName = "高中";
+              } else if (Grades === "M") {
+                GradeName = "中职";
+              } else if (Grades === "K") {
+                GradeName = "幼儿园";
+              } else if (Grades === "O") {
+                GradeName = "培训机构";
               }
 
               // console.log(this.state.initDropSelect[index], this.state.dropSelect[index] )
@@ -293,9 +299,14 @@ class SetSubjectTeacher extends React.Component {
                 !DataState.SetSubjectTeacherMsg.SubjectTeacherList[Grades]
               )
                 return;
+
+              let title =
+                DataState.PeriodMsg && DataState.PeriodMsg.value.length > 2
+                  ? GradeName
+                  : "";
               return (
                 <div key={index} className="row clearfix">
-                  <span className="culonm-1">{GradeName}教研组长：</span>
+                  <span className="culonm-1">{title}教研组长：</span>
                   <div className="culonm-2 culonm-3">
                     <DropDown
                       ref="dropMenuSubject"
@@ -332,7 +343,7 @@ class SetSubjectTeacher extends React.Component {
                           this,
                           Grades,
                           index
-                        )
+                        ),
                       }}
                       dropSelectd={this.state.dropSelect[index]}
                     ></DropDown>
@@ -344,7 +355,7 @@ class SetSubjectTeacher extends React.Component {
                           this.state.initDropSelect[index].value !==
                             this.state.dropSelect[index].value
                             ? "inline-block"
-                            : "none"
+                            : "none",
                       }}
                     >
                       {"原教研组长:" + this.state.initDropSelect[index].title}
@@ -358,11 +369,11 @@ class SetSubjectTeacher extends React.Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   let { UIState, DataState } = state;
   return {
     UIState,
-    DataState
+    DataState,
   };
 };
 export default connect(mapStateToProps)(SetSubjectTeacher);

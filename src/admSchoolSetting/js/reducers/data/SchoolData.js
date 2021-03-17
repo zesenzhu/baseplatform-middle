@@ -72,7 +72,7 @@ function handleInitData(initData, pageSize) {
       // }
 
       SchoolList.push({
-        key:index,
+        key: index,
         orderNo: {
           No,
           key: index,
@@ -122,6 +122,16 @@ function handleInitData(initData, pageSize) {
 }
 
 function handleSchoolSessionType(SchoolSessionType) {
+  // 加中职和幼儿园,当做大学处理ProductUseRange为5，8，10，11
+  let { ProductUseRange } = sessionStorage.getItem("LgBasePlatformInfo")
+    ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
+    : {};
+  ProductUseRange = parseInt(ProductUseRange);
+  let isUniv =
+    ProductUseRange === 5 ||
+    ProductUseRange === 8 ||
+    ProductUseRange === 10 ||
+    ProductUseRange === 11;
   let TypeTitle = { value: "0/0/0", title: "--", more: "" };
   let TypeC = {
     0: "",
@@ -138,11 +148,11 @@ function handleSchoolSessionType(SchoolSessionType) {
       All += parseInt(child);
       return parseInt(child);
     });
-    TypeTitle = checkYear(TypeList);
+    TypeTitle = checkYear(TypeList,isUniv);
   }
   return TypeTitle;
 }
-function checkYear(YearList) {
+function checkYear(YearList, isUniv) {
   let SchoolC = ["小学", "初中", "高中"];
   let TypeC = {
     0: "",
@@ -153,6 +163,26 @@ function checkYear(YearList) {
   };
   let List = [];
   let Name = "";
+  if (isUniv) {
+    let SchoolC = ["小学", "初中", "高中"];
+    let TypeC = {
+      2: "二年制",
+      3: "三年制",
+      4: "四年制",
+      5: "五年制",
+      6: "六年制",
+    };
+    let value =YearList.reduce((a,b)=>{
+      a = parseInt(a)
+      return !a ?b:a
+    })
+    return {
+      value: value,
+      title: TypeC[value],
+      more: TypeC[value],
+    };
+  }
+
   YearList.forEach((child, index) => {
     if (child !== 0) {
       List.push(SchoolC[index] + TypeC[child]);

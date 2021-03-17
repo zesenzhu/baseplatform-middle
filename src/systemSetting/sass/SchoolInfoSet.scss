@@ -350,6 +350,9 @@
                 .radio {
                     margin-right: 8px;
                     vertical-align: top;
+                    input {
+                        margin-top: -3px;
+                    }
                 }
                 .dropdown_container {
                     vertical-align: top;

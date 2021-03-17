@@ -80,7 +80,7 @@ function App(props) {
 
             //dispatch(schoolTypeChange('middle'));
 
-        }else if ([3,4,5,8].includes(parseInt(ProductUseRange))){
+        }else if ([3,4,5,8,10,11,12].includes(parseInt(ProductUseRange))){
 
             dispatch(schoolTypeChange('middle'));
 

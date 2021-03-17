@@ -53,6 +53,9 @@ class Subject extends React.Component {
           dataIndex: "Grades",
           key: "Grades",
           render: (Grades) => {
+            let isOne =
+              this.props.DataState.PeriodMsg &&
+              this.props.DataState.PeriodMsg.value.length > 2;
             return (
               <React.Fragment>
                 <span
@@ -60,7 +63,7 @@ class Subject extends React.Component {
                   style={{ display: Grades.P1Grades ? "block" : "none" }}
                   className="Grades P1Grades"
                 >
-                  <span className="grades-tips">小学：</span>
+                  {isOne && <span className="grades-tips">小学：</span>}
                   {Grades.P1Grades}
                 </span>
                 <span
@@ -68,7 +71,7 @@ class Subject extends React.Component {
                   style={{ display: Grades.P2Grades ? "block" : "none" }}
                   className="Grades P2Grades"
                 >
-                  <span className="grades-tips">初中：</span>
+                  {isOne && <span className="grades-tips">初中：</span>}
                   {Grades.P2Grades}
                 </span>
                 <span
@@ -76,8 +79,32 @@ class Subject extends React.Component {
                   style={{ display: Grades.P3Grades ? "block" : "none" }}
                   className="Grades P3Grades"
                 >
-                  <span className="grades-tips">高中：</span>
+                  {isOne && <span className="grades-tips">高中：</span>}
                   {Grades.P3Grades}
+                </span>
+                <span
+                  title={Grades.MGrades}
+                  style={{ display: Grades.MGrades ? "block" : "none" }}
+                  className="Grades P3Grades"
+                >
+                  {isOne && <span className="grades-tips">中职：</span>}
+                  {Grades.MGrades}
+                </span>
+                <span
+                  title={Grades.OGrades}
+                  style={{ display: Grades.OGrades ? "block" : "none" }}
+                  className="Grades P3Grades"
+                >
+                  {isOne && <span className="grades-tips">幼儿园：</span>}
+                  {Grades.OGrades}
+                </span>
+                <span
+                  title={Grades.KGrades}
+                  style={{ display: Grades.KGrades ? "block" : "none" }}
+                  className="Grades P3Grades"
+                >
+                  {isOne && <span className="grades-tips">培训机构：</span>}
+                  {Grades.KGrades}
                 </span>
               </React.Fragment>
             );
@@ -90,6 +117,9 @@ class Subject extends React.Component {
           dataIndex: "Teacher",
           key: "Teacher",
           render: (Teacher) => {
+            let isOne =
+              this.props.DataState.PeriodMsg &&
+              this.props.DataState.PeriodMsg.value.length > 2;
             return Teacher.map((child, index) => {
               let GradeName = "";
               if (child.Grade === "P1") {
@@ -98,12 +128,18 @@ class Subject extends React.Component {
                 GradeName = "初中：";
               } else if (child.Grade === "P3") {
                 GradeName = "高中：";
+              } else if (child.Grade === "M") {
+                GradeName = "中职：";
+              }else if (child.Grade === "O") {
+                GradeName = "培训机构：";
+              }else if (child.Grade === "K") {
+                GradeName = "幼儿园：";
               }
 
               return (
                 <React.Fragment key={index}>
                   <span className="Teacher" title={child.TeacherName}>
-                    <span className="Teacher-tips">{GradeName}</span>
+                    {isOne && <span className="Teacher-tips">{GradeName}</span>}
                     <span
                       onClick={
                         child.TeacherName
@@ -203,6 +239,9 @@ class Subject extends React.Component {
             dataIndex: "Grades",
             key: "Grades",
             render: (Grades) => {
+              let isOne =
+                this.props.DataState.PeriodMsg &&
+                this.props.DataState.PeriodMsg.value.length > 2;
               return (
                 <React.Fragment>
                   <span
@@ -210,7 +249,7 @@ class Subject extends React.Component {
                     style={{ display: Grades.P1Grades ? "block" : "none" }}
                     className="Grades P1Grades"
                   >
-                    <span className="grades-tips">小学：</span>
+                    {isOne && <span className="grades-tips">小学：</span>}
                     {Grades.P1Grades}
                   </span>
                   <span
@@ -218,7 +257,7 @@ class Subject extends React.Component {
                     style={{ display: Grades.P2Grades ? "block" : "none" }}
                     className="Grades P2Grades"
                   >
-                    <span className="grades-tips">初中：</span>
+                    {isOne && <span className="grades-tips">初中：</span>}
                     {Grades.P2Grades}
                   </span>
                   <span
@@ -226,8 +265,16 @@ class Subject extends React.Component {
                     style={{ display: Grades.P3Grades ? "block" : "none" }}
                     className="Grades P3Grades"
                   >
-                    <span className="grades-tips">高中：</span>
+                    {isOne && <span className="grades-tips">高中：</span>}
                     {Grades.P3Grades}
+                  </span>
+                  <span
+                    title={Grades.MGrades}
+                    style={{ display: Grades.MGrades ? "block" : "none" }}
+                    className="Grades P3Grades"
+                  >
+                    {isOne && <span className="grades-tips">中职：</span>}
+                    {Grades.MGrades}
                   </span>
                 </React.Fragment>
               );
@@ -742,7 +789,11 @@ class Subject extends React.Component {
     dispatch(actions.UpUIState.setSubjectTeacherModalClose());
   };
   onLinkClick = (btnName, route) => {
-    let url = window.location.href.split(window.location.hash).join('').split(window.location.search).join(route);
+    let url = window.location.href
+      .split(window.location.hash)
+      .join("")
+      .split(window.location.search)
+      .join(route);
 
     // console.log(url);
     checkUrlAndPostMsg({ btnName, url });
@@ -804,9 +855,9 @@ class Subject extends React.Component {
               </>
             ) : null}
 
-            <div className="Adm-content">
-              <div className="content-top clearfix">
-                {DataState.PeriodMsg && DataState.PeriodMsg.value.length > 1 ? (
+            <div className="Adm-content" style={{ overflow: "auto" }}>
+              {DataState.PeriodMsg && DataState.PeriodMsg.value.length > 2 ? (
+                <div className="content-top clearfix">
                   <DropDown
                     ref="dropMenuFirst"
                     onChange={this.AdmDropMenu.bind(this)}
@@ -818,8 +869,8 @@ class Subject extends React.Component {
                         : [{ value: 0, title: "全部学段" }]
                     }
                   ></DropDown>
-                ) : null}
-              </div>
+                </div>
+              ) : null}
 
               {this.state.isInitGuide ? (
                 <div className={"init-guide-title clearfix"}>

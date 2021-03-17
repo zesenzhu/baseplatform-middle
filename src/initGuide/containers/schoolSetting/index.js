@@ -135,8 +135,32 @@ function SchoolSetting(props) {
   const LoginUser = useSelector((state) => state.LoginUser);
 
   const { UserType, UserID, UserClass, SchoolID } = LoginUser;
-
-  const schoolType = useSelector((state) => state.schoolType);
+  const isUniv = useMemo(() => {
+    // 加中职和幼儿园,当做大学处理ProductUseRange为5，8，10，11
+    let { ProductUseRange } = sessionStorage.getItem("LgBasePlatformInfo")
+      ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
+      : {};
+    ProductUseRange = parseInt(ProductUseRange);
+    return (
+      ProductUseRange === 5 ||
+      ProductUseRange === 8 ||
+      ProductUseRange === 10 ||
+      ProductUseRange === 11
+    );
+  }, []);
+  const isMiddle = useMemo(() => {
+    // 加中职和幼儿园,当做大学处理ProductUseRange为5，8为中职
+    let { ProductUseRange } = sessionStorage.getItem("LgBasePlatformInfo")
+      ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
+      : {};
+    ProductUseRange = parseInt(ProductUseRange);
+    return (
+      ProductUseRange === 5 || ProductUseRange === 8 //中职
+    );
+  }, []);
+  const schoolType = useSelector((state) => {
+    return state.schoolType;
+  });
 
   const appLoading = useSelector((state) => state.appLoading);
 
@@ -203,7 +227,7 @@ function SchoolSetting(props) {
                 SchoolSessionType,
               } = data;
 
-              if (schoolType === "middle") {
+              if (schoolType === "middle"&&!isUniv) {
                 //中小学的时候判断学段信息
 
                 const list = SchoolSessionType.split("/");
@@ -903,19 +927,19 @@ function SchoolSetting(props) {
       return { ...d, show: false };
     });
   }, []);
- // 存sessionStorage.getItem("LgBasePlatformInfo")
- const BaseInfo = useMemo(() => {
-  return sessionStorage.getItem("LgBasePlatformInfo")
-    ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
-    : {};
-}, []);
-// 当产品类型为3的时候，长条校徽出现
-const HaveMoreSchool = useMemo(() => {
-  let {ProductType} = sessionStorage.getItem("LgBasePlatformInfo")
-  ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
-  : {}
-  return parseInt(ProductType) === 3
-}, [])
+  // 存sessionStorage.getItem("LgBasePlatformInfo")
+  const BaseInfo = useMemo(() => {
+    return sessionStorage.getItem("LgBasePlatformInfo")
+      ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
+      : {};
+  }, []);
+  // 当产品类型为3的时候，长条校徽出现
+  const HaveMoreSchool = useMemo(() => {
+    let { ProductType } = sessionStorage.getItem("LgBasePlatformInfo")
+      ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
+      : {};
+    return parseInt(ProductType) === 3;
+  }, []);
   //提交学校logo事件
   const schoolLogoCommit = useCallback((blob, filePath) => {
     const { ResHttpRootUrl } = JSON.parse(
@@ -1171,7 +1195,7 @@ const HaveMoreSchool = useMemo(() => {
 
     //判断是大学还是中小学,设置学段和学制问题
 
-    if (schoolTypeRef.current === "middle") {
+    if (schoolTypeRef.current === "middle"&&!isUniv) {
       if (
         periodRef.current.primary.disabled &&
         periodRef.current.middle.disabled &&
@@ -1250,7 +1274,7 @@ const HaveMoreSchool = useMemo(() => {
 
     //在这里请求接口,成功后跳转到下一页
 
-    if (schoolTypeRef.current === "middle") {
+    if (schoolTypeRef.current === "middle"&&!isUniv) {
       //如果是中小学
 
       if (
@@ -1421,7 +1445,6 @@ const HaveMoreSchool = useMemo(() => {
         SchoolImgUrl_Long = schoolLogoRef.current.badgeUrl;
 
         CountyID = countyID;
-
         if (loginUserRef.current.SchoolID) {
           EditSchoolInfo_Univ({
             dispatch,
@@ -1476,11 +1499,11 @@ const HaveMoreSchool = useMemo(() => {
         }
       }
     }
-  }, []);
+  }, [isUniv]);
 
   //跳转到下一项
   const toNextPage = () => {
-    if (schoolTypeRef.current === "middle") {
+    if (schoolTypeRef.current === "middle" || isUniv) {
       history.push("/yearAndTerm");
     } else {
       history.push("/college");
@@ -1529,32 +1552,50 @@ const HaveMoreSchool = useMemo(() => {
                   <div className={"tab"}>圆形徽章</div>
                 </div>
 
-               { HaveMoreSchool&&<><div className={"school-badge-wrapper clearfix"}>
+                {HaveMoreSchool && (
+                  <>
+                    <div className={"school-badge-wrapper clearfix"}>
+                      <img
+                        alt={"图片"}
+                        width={164}
+                        height={40}
+                        src={schoolLogo.badgeUrl}
+                        onError={badgeLoadErr}
+                        className={"logo-img"}
+                      />
 
-                                <img alt={"图片"} width={164} height={40} src={schoolLogo.badgeUrl} onError={badgeLoadErr}  className={"logo-img"} />
+                      <div className={"btn-wrapper"}>
+                        <Button className={"upload"}>
+                          上传图片
+                          <input
+                            ref={fileRef}
+                            className={"upload-file"}
+                            type={"file"}
+                            accept={"image/png,image/svg"}
+                            onChange={fileChange}
+                          />
+                        </Button>
 
-                                <div className={"btn-wrapper"}>
+                        <Button className={"reset"} onClick={schoolBadgeReset}>
+                          使用默认
+                        </Button>
 
-                                    <Button className={"upload"}>
+                        <div className={"tips"}>
+                          上传要求:大小不能超过2MB,像素为164*40的png/svg，
+                        </div>
+                      </div>
 
-                                        上传图片
+                      <div className={"tab"}>长方形徽章</div>
+                    </div>
 
-                                        <input ref={fileRef} className={"upload-file"} type={"file"} accept={"image/png,image/svg"} onChange={fileChange}/>
-
-                                    </Button>
-
-                                    <Button className={"reset"} onClick={schoolBadgeReset}>使用默认</Button>
-
-                                    <div className={"tips"}>上传要求:大小不能超过2MB,像素为164*40的png/svg，</div>
-
-                                </div>
-
-                                <div className={"tab"}>长方形徽章</div>
-
-                            </div>
-
-                            <img className={"img-tmp-file"} onLoad={tmpImgLoad} ref={uploadImgRef} alt=""/></>}
-
+                    <img
+                      className={"img-tmp-file"}
+                      onLoad={tmpImgLoad}
+                      ref={uploadImgRef}
+                      alt=""
+                    />
+                  </>
+                )}
               </td>
             </tr>
 
@@ -1596,11 +1637,11 @@ const HaveMoreSchool = useMemo(() => {
 
             <tr>
               <td className={"col1"}>
-                {schoolType === "middle" ? "学校类型:" : "学校学制:"}
+                {schoolType === "middle" && !isUniv ? "学校类型:" : "学制类型:"}
               </td>
 
               <td className={"col2"}>
-                {schoolType === "middle" ? (
+                {schoolType === "middle" && !isUniv ? (
                   <div className={"school-type"}>
                     <Tips visible={period.tip} title={"请选择学校类型"}>
                       <SchoolTypeCheck
@@ -1612,10 +1653,11 @@ const HaveMoreSchool = useMemo(() => {
                   </div>
                 ) : (
                   <div className={"school-system"}>
-                    <Tips visible={system.tip} title={"请选择学校学制"}>
+                    <Tips visible={system.tip} title={"请选择学制类型"}>
                       <SchoolSystemCheck
                         systemChange={systemChange}
                         checked={system.checked}
+                        sysTemType={isUniv ? "middle" : isMiddle ? "kid" : ""}
                       ></SchoolSystemCheck>
                     </Tips>
                   </div>

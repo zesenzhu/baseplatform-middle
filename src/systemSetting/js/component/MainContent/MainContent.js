@@ -4,8 +4,8 @@ import { TokenCheck_Connect } from "../../../../common/js/disconnect";
 import Semester from "../SettingOptions/YearSemesterSetting";
 import School from "../SettingOptions/SchoolnfoSetting";
 import SubsystemForBase from "../SettingOptions/SubsystemAccessSetting";
-import Subsystem from '../../page/SubSystem'
-import Module from '../../page/Module';
+import Subsystem from "../../page/SubSystem";
+import Module from "../../page/Module";
 import setting from "../../../images/setting_logo.png";
 import { Menu } from "../../../../common";
 import config from "../../../../common/js/config";
@@ -66,7 +66,6 @@ class MainContent extends Component {
             icon: "menu43",
             onTitleClick: this.handleClick.bind(this.key),
           },
-         
         ],
       },
       route: false,
@@ -84,8 +83,7 @@ class MainContent extends Component {
         // { value: "Face", title: "我的人脸", icon: "Face" },
       ],
       havePower: false,
-      path:'School'
-
+      path: "School",
     };
     const { dispatch } = props;
     const Hash = location.hash;
@@ -205,10 +203,10 @@ class MainContent extends Component {
   componentDidMount() {
     let that = this;
     // that.handleMenu();
-        history.listen((location)=>{
-        let path =  location.pathname.split("/")[2];
-        this.setState({path:path})
-        })
+    history.listen((location) => {
+      let path = location.pathname.split("/")[2];
+      this.setState({ path: path });
+    });
   }
   // 设置banner的选择列表
   SetBannerList = () => {
@@ -342,25 +340,28 @@ class MainContent extends Component {
     // else {
     //   return <div></div>;
     // }
- // 当不是智慧校园的时候，使用基础的应用管理
- let { ProductType } = sessionStorage.getItem("LgBasePlatformInfo")
- ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
- : {};
-ProductType = ProductType && Number(ProductType);
-let List = [];
-let SubSystemConponent = Subsystem;
-let isBase = ProductType !== 3
-if (isBase) {
- SubSystemConponent = SubsystemForBase;
- this.state.List.forEach((c) => {
-   // 不要module,同时在下面的route上修改子应用组件
-   if (c.value !== "Module") {
-     List.push(c);
-   }
- });
-} else {
- List = this.state.List;
-}
+    // 当不是智慧校园的时候，使用基础的应用管理
+    let { ProductType, LockerVersion } = sessionStorage.getItem(
+      "LgBasePlatformInfo"
+    )
+      ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
+      : {};
+    ProductType = ProductType && Number(ProductType);
+    LockerVersion = LockerVersion && Number(LockerVersion);
+    let List = [];
+    let SubSystemConponent = Subsystem;
+    let isBase = ProductType !== 3 || LockerVersion === 1;
+    if (isBase) {
+      SubSystemConponent = SubsystemForBase;
+      this.state.List.forEach((c) => {
+        // 不要module,同时在下面的route上修改子应用组件
+        if (c.value !== "Module") {
+          List.push(c);
+        }
+      });
+    } else {
+      List = this.state.List;
+    }
     // console.log(this.props)
     let path = history.location.pathname.split("/")[2];
     let isImport = false;
@@ -371,8 +372,7 @@ if (isBase) {
     if (
       path !== "Semester" &&
       path !== "School" &&
-      (path !== "Module"||isBase) &&
-
+      (path !== "Module" || isBase) &&
       path !== "Subsystem"
       // &&
       // path !== "TextBookSetting"
@@ -425,12 +425,12 @@ if (isBase) {
                 history={history}
                 component={SubSystemConponent}
               ></Route>
-               <Route
-                  path="/MainContent/Module*"
-                  exact
-                  history={history}
-                  component={Module}
-                ></Route>
+              <Route
+                path="/MainContent/Module*"
+                exact
+                history={history}
+                component={Module}
+              ></Route>
               {/* <Route
                 path="/MainContent/TextBookSetting"
                 exact
