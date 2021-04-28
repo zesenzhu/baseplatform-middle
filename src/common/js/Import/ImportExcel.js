@@ -587,7 +587,7 @@ class Import extends Component{
 
                                                             :
 
-                                                            `"模版${ModulesLink.length>1?key+1:''}"`
+                                                            `"模板${ModulesLink.length>1?key+1:''}"`
 
                                                     }
 

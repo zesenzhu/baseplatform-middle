@@ -12,7 +12,12 @@
         text-align: left;
         font-size: 16px;
         color: #333333;
-        background: url(./images/icon-location-small.png) no-repeat 8px center / 14px 19px;
+    }
+    .CT-title-more {
+        background: url(./images/icon-more-hover.png) no-repeat 7px center / 16px 18px;
+    }
+    .CT-title-all {
+        background: url(./images/icon-all-hover.png) no-repeat 6px center / 18px 18px;
     }
     .CT-handle {
         float: right;

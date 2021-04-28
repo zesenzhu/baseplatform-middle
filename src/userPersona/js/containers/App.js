@@ -11,7 +11,6 @@ import Header from "./header";
 
 import HeaderForDevelop from "./headerForDevelop";
 
-
 import Content from "./content";
 
 import Footer from "./footer";
@@ -64,7 +63,7 @@ import { identifyChange } from "../actions/identifyInfoActions";
 import CommonActions from "../actions/MoreActions/CommonActions";
 
 import "../../../common/scss/public.scss";
-let {SetBaseData} = CommonActions
+let { SetBaseData } = CommonActions;
 function App(props) {
   //documenttitle
 
@@ -147,8 +146,17 @@ function App(props) {
     const targetUserID = getQueryVariable("userID");
 
     const targetUserType = parseInt(getQueryVariable("userType"));
-
-    if (targetUserID && targetUserType && [1, 2].includes(targetUserType)) {
+    // 增加管理员，领导，家长账号
+    // 管理员：0，领导：7，10，家长：3
+    //新增的只显示账号
+    // 在content/index还有个一样的判断
+    let accountTypeList = [0, 3, 7];
+    let onlyAccount = accountTypeList.includes(targetUserType);
+    if (
+      targetUserID &&
+      `${targetUserType}` &&
+      [0, 1, 2, 3, 7].includes(targetUserType)
+    ) {
       const { WebRootUrl } = JSON.parse(
         sessionStorage.getItem("LgBasePlatformInfo")
       );
@@ -157,12 +165,16 @@ function App(props) {
 
       const sysIDs = Object.keys(Urls).join(",");
 
-      const getTerm = GetCurrentTermInfo({
-        SchoolID: CopyUserInfo.SchoolID,
-        dispatch,
-      });
+      const getTerm = onlyAccount
+        ? null
+        : GetCurrentTermInfo({
+            SchoolID: CopyUserInfo.SchoolID,
+            dispatch,
+          });
 
-      const getSys = GetSubSystemsMainServerBySubjectID({ sysIDs, dispatch });
+      const getSys = onlyAccount
+        ? null
+        : GetSubSystemsMainServerBySubjectID({ sysIDs, dispatch });
 
       const getUserInfo = GetUserDetailForHX({
         UserID: targetUserID,
@@ -171,12 +183,14 @@ function App(props) {
         dispatch,
       });
 
-      const getUserLog = GetUserLogForHX({
-        UserID: targetUserID,
-        UserType: targetUserType,
-        proxy,
-        dispatch,
-      });
+      const getUserLog = onlyAccount
+        ? null
+        : GetUserLogForHX({
+            UserID: targetUserID,
+            UserType: targetUserType,
+            proxy,
+            dispatch,
+          });
 
       Promise.all([getTerm, getSys, getUserInfo, getUserLog]).then((res) => {
         if (res[0]) {
@@ -266,12 +280,33 @@ function App(props) {
         }
 
         if (res[2]) {
-          let docTitle = targetUserType === 2 ? "学生档案详情" : "教师档案详情";
+          let docTitle = "";
+
+          switch (targetUserType) {
+            case 0:
+              docTitle = "管理员账号详情";
+              break;
+            case 1:
+              docTitle = "教师档案详情";
+              break;
+            case 2:
+              docTitle = "学生档案详情";
+              break;
+            case 3:
+              docTitle = "家长账号详情";
+              break;
+            case 7:
+              docTitle = "领导账号详情";
+              break;
+            default:
+              docTitle = "账号详情";
+          }
 
           dispatch(
             targetUserInfoUpdate({
               UserID: targetUserID,
               UserType: targetUserType,
+              OnlyAccount: onlyAccount,
             })
           );
 
@@ -298,6 +333,7 @@ function App(props) {
               );
             }
           } else {
+            let UserClass = CopyUserInfo["UserClass"];
             switch (`${CopyUserInfo["UserType"]}${targetUserType}`) {
               case "02":
                 dispatch(
@@ -309,7 +345,29 @@ function App(props) {
                 );
 
                 break;
+              case "03":
+              case "07":
+              case "00":
+                if(UserClass==='2'){//超级管理员可以修改密码
+                  dispatch(
+                    pageUsedChange({
+                      user: "Adm",
+                      targetUser: "Other",
+                      usedType: "SuperToOther",
+                    })
+                  );
+                }else{
+                  dispatch(
+                    pageUsedChange({
+                      user: "Other",
+                      targetUser: "Other",
+                      usedType: "OtherToOther",
+                    })
+                  );
+                }
+                
 
+                break;
               case "72":
 
               case "102":
@@ -454,6 +512,14 @@ function App(props) {
                       usedType: "OtherToStu",
                     })
                   );
+                }else if(targetUserType === 0||targetUserType === 3||targetUserType === 7){
+                  dispatch(
+                    pageUsedChange({
+                      user: "Other",
+                      targetUser: "Other",
+                      usedType: "OtherToOther",
+                    })
+                  );
                 }
             }
           }
@@ -478,8 +544,19 @@ function App(props) {
     <DoucumentTitle title={domTitle}>
       <Loading spinning={appLoading} opacity={false} tip={"加载中,请稍候..."}>
         <div className={"app"}>
-          {headerType==='base'?<Header bellShow={bellShow} tabTitle={domTitle}></Header>:''}
-          {headerType==='develop'?<HeaderForDevelop bellShow={bellShow} tabTitle={domTitle}></HeaderForDevelop>:''}
+          {headerType === "base" ? (
+            <Header bellShow={bellShow} tabTitle={domTitle}></Header>
+          ) : (
+            ""
+          )}
+          {headerType === "develop" ? (
+            <HeaderForDevelop
+              bellShow={bellShow}
+              tabTitle={domTitle}
+            ></HeaderForDevelop>
+          ) : (
+            ""
+          )}
 
           {/*<AppRoutes></AppRoutes>*/}
 

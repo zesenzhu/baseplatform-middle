@@ -3197,7 +3197,7 @@ class Frame extends React.Component {
         )}
         <div
           className={`frame-content-wrapper clearfix ${
-            showBarner ? "" : "barnerHide"
+            showBarner ? "" : showTop ? "barnerHide" : ""
           } ${this.state.isWorkPlantform ? "in-work-plant-form" : ""}
 
           ${this.state.isInitGuide ? "isInitGuide" : ""}
@@ -3215,6 +3215,7 @@ class Frame extends React.Component {
           {contentShow ? (
             <div
               ref={(ref) => (this.RightContent = ref)}
+              style={!showTop&&!showBarner?{borderRadius:0}:{}}
               id="frame-content-rightside"
               className={`frame-content-rightside ${
                 showLeftMenu ? "" : "frame-fluid"
@@ -3766,6 +3767,9 @@ function LgAppModal(props, ref) {
     ...reset
   } = props;
   const [Footer, setFooter] = useState(footer);
+  useEffect(() => {
+    setFooter(footer)
+  }, [footer]);
   const [Width, setWidth] = useState(width);
   const [Height, setHeight] = useState(height);
   const [ModalClassName, setModalClassName] = useState("");

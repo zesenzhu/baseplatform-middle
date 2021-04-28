@@ -29,72 +29,74 @@ if (process.env.NODE_ENV === "development") {
     name: "中小学一体化学科教育云",
     logo: logo,
     footer: "蓝鸽科技 版权所有",
-    TokenProxy: "http://192.168.129.1:30103/",
+    TokenProxy: "http://192.168.129.2:30103/",
     // TokenProxy:'http://47.115.20.102:10102',
-    SubjectProxy: "http://192.168.129.1:30103//Subject/api",
-    CourseClassProxy: "http://192.168.129.1:30103//CourseClass/api",
-    CourseClassStuProxy: "http://192.168.129.1:30103//CourseClassStu/api",
+    SubjectProxy: "http://192.168.129.2:30103//Subject/api",
+    CourseClassProxy: "http://192.168.129.2:30103//CourseClass/api",
+    CourseClassStuProxy: "http://192.168.129.2:30103//CourseClassStu/api",
     CourseClassMoniProxy:
       "http://192.168.2.202:7300/mock/5d7726e0ed0ccd1564c8df05/webCloudDev",
-    MyCourseClassProxy: "http://192.168.129.1:30103/",
-    UserAccountProxy: "http://192.168.129.1:30103//UserMgr/UserAccount",
+    MyCourseClassProxy: "http://192.168.129.2:30103/",
+    UserAccountProxy: "http://192.168.129.2:30103//UserMgr/UserAccount",
     TeachingSolutionProxy:
-      "http://192.168.129.1:30103//SubjectResMgr/TeachingSolutionMgr/Teacher",
-    AdmClassProxy: "http://192.168.129.1:30103/",
-    DeskTopProxy: "http://192.168.129.1:30103/",
+      "http://192.168.129.2:30103//SubjectResMgr/TeachingSolutionMgr/Teacher",
+    AdmClassProxy: "http://192.168.129.2:30103/",
+    DeskTopProxy: "http://192.168.129.2:30103/",
     // CustomProxy:"http://192.168.2.114:8090",
-    PicProxy: "http://192.168.129.1:30103/",
+    PicProxy: "http://192.168.129.2:30103/",
 
-    CustomProxy: "http://192.168.129.1:30103/",
+    CustomProxy: "http://192.168.129.2:30103/",
     // WebsiteProxy:"http://192.168.2.114:8090",
-    WebsiteProxy: "http://192.168.129.1:30103/",
-    ScheduleProxy: "http://192.168.129.1:30103/",
+    WebsiteProxy: "http://192.168.129.2:30103/",
+    ScheduleProxy: "http://192.168.129.2:30103/",
     // ScheduleProxy:"http://47.115.20.102:10102",
-    Xproxy: "http://192.168.129.1:30103//UserMgr/UserInfoMgr",
-    PowerProxy: "http://192.168.129.1:30103//UserMgr/PowerMgr",
+    Xproxy: "http://192.168.129.2:30103//UserMgr/UserInfoMgr",
+    PowerProxy: "http://192.168.129.2:30103//UserMgr/PowerMgr",
     // PowerProxy:'http://47.115.20.102:10102/UserMgr/PowerMgr',
-    UserInfoProxy: "http://192.168.129.1:30103//UserMgr/UserInfoMgr",
+    UserInfoProxy: "http://192.168.129.2:30103//UserMgr/UserInfoMgr",
     proxy:
       "http://192.168.2.202:7300/mock/5d7726e0ed0ccd1564c8df05/webCloudDev",
-    BasicProxy: "http://192.168.129.1:30103/",
+    BasicProxy: "http://192.168.129.2:30103/",
     LoginProxy: "http://192.168.129.2:10102",
     MockLoginProxy:
       "http://192.168.2.202:7300/mock/5d7726e0ed0ccd1564c8df05/webCloudDev",
-    PersonalProxy: "http://192.168.129.1:30103/",
-    ErrorProxy: "http://192.168.129.1:30103/",
-    XTestProxy: "http://192.168.129.1:30103//UserMgr/UserInfoMgr",
-    Import: "http://192.168.129.1:30103/",
-    SysSettingProxy: "http://192.168.129.1:30103/",
-    ImgUrlProxy: "http://192.168.129.1:30103/",
+    PersonalProxy: "http://192.168.129.2:30103/",
+    ErrorProxy: "http://192.168.129.2:30103/",
+    XTestProxy: "http://192.168.129.2:30103//UserMgr/UserInfoMgr",
+    Import: "http://192.168.129.2:30103/",
+    SysSettingProxy: "http://192.168.129.2:30103/",
+    ImgUrlProxy: "http://192.168.129.2:30103/",
     // SysSettingProxy:'http://192.168.2.114:8090',
     tempSubsystemProxy:
       "http://192.168.2.202:7300/mock/5db974a3a1aded10689632eb/example",
-    DataCollectorProxy: "http://192.168.129.1:30103/",
-    RegisterProxy: "http://192.168.129.1:30103//UserMgr/UserInfoMgr",
+    DataCollectorProxy: "http://192.168.129.2:30103/",
+    RegisterProxy: "http://192.168.129.2:30103//UserMgr/UserInfoMgr",
     // DataCollectorProxy:"http://192.168.2.114:8090",
-    RegisterNoTokenProxy: "http://192.168.129.1:30103//UserMgr/Mobile",
-    InitSeytemProxy: "http://192.168.129.1:30103//SysMgr/Setting/Init",
-    TextBookProxy: "http://192.168.129.1:30103//SubjectResMgr/TextBookMgr",
+    RegisterNoTokenProxy: "http://192.168.129.2:30103//UserMgr/Mobile",
+    InitSeytemProxy: "http://192.168.129.2:30103//SysMgr/Setting/Init",
+    TextBookProxy: "http://192.168.129.2:30103//SubjectResMgr/TextBookMgr",
     TextBookProxy_2:
       "http://192.168.2.202:7300/mock/5d7726e0ed0ccd1564c8df05/webCloudDev",
-    ClassProxy: "http://192.168.129.1:30103//UserMgr/ClassMgr",
+    ClassProxy: "http://192.168.129.2:30103//UserMgr/ClassMgr",
 
     HashPrevProxy: RootUrl,
 
-    GlobalProxy: "http://192.168.129.1:30103//Global",
+    GlobalProxy: "http://192.168.129.2:30103//Global",
 
-    UserPersonaProxy: "http://192.168.129.1:30103/",
+    UserPersonaProxy: "http://192.168.129.2:30103/",
 
-    UserScheduleProxy: "http://192.168.129.1:30103//Schedule/api/",
+    UserScheduleProxy: "http://192.168.129.2:30103//Schedule/api/",
 
-    SchoolSettingProxy: "http://192.168.129.1:30103//SysMgr/Setting",
+    SchoolSettingProxy: "http://192.168.129.2:30103//SysMgr/Setting",
 
-    UserAccessProxy: "http://192.168.129.1:30103//UserMgr/PowerMgr/",
+    UserAccessProxy: "http://192.168.129.2:30103//UserMgr/PowerMgr/",
 
-    SelectObjectProxy: "http://192.168.129.1:30103//UserMgr/SelectObject/",
+    SelectObjectProxy: "http://192.168.129.2:30103//UserMgr/SelectObject/",
 
-    SubSystemProxy: "http://192.168.129.1:30103//SysMgr/Setting/SubSystem/",
-    ModuleProxy: "http://192.168.129.1:30103//SysMgr/Setting/Module/",
+    SubSystemProxy: "http://192.168.129.2:30103//SysMgr/Setting/SubSystem/",
+    ModuleProxy: "http://192.168.129.2:30103//SysMgr/Setting/Module/",
+    HolidayProxy: "http://192.168.129.2:30103/SysMgr/Setting/Holiday/",
+
   };
 }
 
@@ -154,6 +156,8 @@ if (process.env.NODE_ENV === "production") {
 
     SubSystemProxy: "/SysMgr/Setting/SubSystem/",
     ModuleProxy: "/SysMgr/Setting/Module/",
+    HolidayProxy: "/SysMgr/Setting/Holiday/",
+
   };
 }
 

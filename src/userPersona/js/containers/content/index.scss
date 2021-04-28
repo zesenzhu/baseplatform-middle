@@ -1,9 +1,6 @@
-.app-content-wrapper{
-
-  position:relative;
-
-  margin-top:42px;
-
-  margin-bottom:0;
-
+.app-content-wrapper {
+    position: relative;
+    margin-top: 42px;
+    margin-bottom: 0;
+    min-height: calc(100vh - 266px);
 }

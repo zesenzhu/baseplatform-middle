@@ -39,7 +39,7 @@ const MAIN_GET_SUMMARY_DATA = "MAIN_GET_SUMMARY_DATA";
 // 获取学校总览--大学
 const GetSchoolSummary = ({ fn = () => {}, schoolID }) => {
   return (dispatch, getState) => {
-    dispatch(PublicAction.ContentLoadingOpen());
+    // dispatch(PublicAction.ContentLoadingOpen());
 
     let State = getState();
     let {
@@ -118,7 +118,7 @@ const getSchoolSummary = async ({ schoolID = "" }) => {
 // 获取学院总览--大学
 const GetCollegeSummary = ({ fn = () => {}, collegeID }) => {
   return (dispatch, getState) => {
-    dispatch(PublicAction.ContentLoadingOpen());
+    // dispatch(PublicAction.ContentLoadingOpen());
     let State = getState();
     let {
       PublicState: {

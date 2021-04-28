@@ -621,7 +621,7 @@ class Teacher extends Component {
             collegeID,
             collegeName,
             groupID,
-            groupName,
+            groupName,subjectID,subjectName,
             gradeName,
             gradeID,
             classID,
@@ -654,10 +654,10 @@ class Teacher extends Component {
     let token = sessionStorage.getItem("token");
     let url =
       CONFIG.UserInfoProxy +
-      "/ExportTeacher?collegeID=" +
-      collegeID +
-      "&collegeName=" +
-      collegeName +
+      "/ExportTeacher?subjectID=" +
+      subjectID +
+      "&subjectName=" +
+      subjectName +
       "&groupID=" +
       groupID +
       "&groupName=" +
@@ -666,7 +666,7 @@ class Teacher extends Component {
       keyword +
       "&lg_tk=" +
       token +
-      "&showGroup=1";
+      "&showGroup=0";
 
     window.open(url);
   };

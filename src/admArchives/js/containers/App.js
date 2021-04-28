@@ -1076,8 +1076,8 @@ class App extends Component {
             </div>
             <div ref="frame-right-content">
               <Loading
-                opacity={false}
-                // tip="加载中..."
+                 opacity={0.5}
+                 tip="加载中..."
                 size="small"
                 spinning={ContentLoading}
               >

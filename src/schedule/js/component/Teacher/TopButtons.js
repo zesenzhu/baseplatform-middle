@@ -49,11 +49,11 @@ function TopButtons(props){
 
                             {
 
-                                !isFrame?
+                                // !isFrame?
 
                                     <Button color="blue" className="teacher-btn import-schedule" onClick={()=>Import()}>导入课程安排</Button>
 
-                                    :null
+                                    // :null
 
                             }
 

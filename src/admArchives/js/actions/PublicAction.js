@@ -67,7 +67,11 @@ const ModalLoadingClose = () => {
 };
 //loading
 const TableLoadingOpen = () => {
-  return { type: TABLE_LOADING_OPEN };
+  return (dispatch,getState) => {
+    let state = getState()
+    if(!state.PublicState.Loading.ContentLoading)
+    dispatch({ type: TABLE_LOADING_OPEN });
+  };
 };
 const TableLoadingClose = () => {
   return { type: TABLE_LOADING_CLOSE };

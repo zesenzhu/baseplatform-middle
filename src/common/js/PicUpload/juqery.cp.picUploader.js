@@ -355,7 +355,7 @@
 
       $("#btn_cut").click(function () {
         var cas = $("#crop_img").cropper("getCroppedCanvas", {
-          width: 352,
+          width: 358,
           height: 441,
         });
 
@@ -435,7 +435,7 @@
 
       if (_up_obj.crop) {
         $("#crop_img").cropper({
-          aspectRatio: _up_obj.UploadType === "Avatar" ? 5 / 5 : 4 / 5,
+          aspectRatio: _up_obj.UploadType === "Avatar" ? 5 / 5 : 358 / 441,
           viewMode: 1,
           dragMode: "move",
           wheelZoomRatio: 0.2,

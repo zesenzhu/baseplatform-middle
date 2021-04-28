@@ -17,8 +17,8 @@ import {autoAlert} from '../../../../common/js/public'
 let DefaultBadge = "/SysSetting/Attach/default_164_40.png";
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024;
-const IMG_WIDTH = 164;
-const IMG_HEIGHT = 40;
+const IMG_WIDTH = 98;
+const IMG_HEIGHT = 24;
 // const Url = `SubjectRes_UploadHandler.ashx?method=doUpload_WholeFile&userid=${UserID}`;
 // 校徽-长方形
 function SchoolBadge(props, ref) {
@@ -99,10 +99,10 @@ function SchoolBadge(props, ref) {
     img.src = Img;
     let isError = false;
     img.onload = () => {
-      if (img.width !== 164 || img.height !== 40) {
-        error("文件像素必须为164*40")
+      if (img.width !== 98 || img.height !== 24) {
+        error("文件像素必须为98*24")
         // ReactDOM.render(
-        //   <ErrorAlert show={true} title={"文件像素必须为164*40"} />,
+        //   <ErrorAlert show={true} title={"文件像素必须为98*24"} />,
         //   document.getElementById("alert")
         // );
         // e.target.value=''
@@ -156,7 +156,7 @@ function SchoolBadge(props, ref) {
           style={{
             background: `url(${
               ResHttpRootUrl + Badge
-            }) no-repeat center center/164px 40px`,
+            }) no-repeat center center/100% 100%`,
           }}
         ></i>
         {/* <span className="SBC-Title">(可用于登录界面显示)</span> */}
@@ -180,7 +180,7 @@ function SchoolBadge(props, ref) {
         <span className="SBH-btn  SBH-DefaultImg" onClick={onSelectDefaultImg}>
           默认图片
         </span>
-        <span className="SBH-Title">上传要求:大小不能超过2MB,像素为164*40</span>
+        <span className="SBH-Title">上传要求:大小不能超过2MB,像素为98*24</span>
       </div>
     </div>
   );

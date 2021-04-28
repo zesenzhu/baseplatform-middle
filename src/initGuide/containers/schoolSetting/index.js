@@ -1091,8 +1091,8 @@ function SchoolSetting(props) {
     );
 
     if (
-      uploadImgRef.current.width === 164 &&
-      uploadImgRef.current.height === 40
+      uploadImgRef.current.width === 98 &&
+      uploadImgRef.current.height === 24
     ) {
       //执行上传操作
 
@@ -1581,7 +1581,7 @@ function SchoolSetting(props) {
                         </Button>
 
                         <div className={"tips"}>
-                          上传要求:大小不能超过2MB,像素为164*40的png/svg，
+                          上传要求:大小不能超过2MB,像素为98*24的png/svg，
                         </div>
                       </div>
 

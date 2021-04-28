@@ -123,6 +123,15 @@ class DefaultIndentityUser extends Component {
       );
     } else if (IdentityCode === "IC0012") {
       //班主任
+      const { ProductUseRange } = sessionStorage.getItem("LgBasePlatformInfo")
+        ? JSON.parse(sessionStorage.getItem("LgBasePlatformInfo"))
+        : {};
+      let isUniversity =
+        ProductUseRange === 1 ||
+        ProductUseRange === 2 ||
+        ProductUseRange === 6 ||
+        ProductUseRange === 7 ||
+        ProductUseRange === 9; //大学
       title_3 = "所管班级";
       TopComponent = (
         <p className="TopComponent MainTeacher">
@@ -134,7 +143,7 @@ class DefaultIndentityUser extends Component {
             }}
             className="to"
           >
-            年级班级管理
+            {isUniversity ? "行政班管理" : "年级班级管理"}
           </span>
           进行管理
         </p>
@@ -227,7 +236,7 @@ class DefaultIndentityUser extends Component {
               dataSource={List}
             ></Table>
             <PagiNation
-            className='pagenation'
+              className="pagenation"
               showQuickJumper
               pageSize={PageSize}
               current={PageIndex}

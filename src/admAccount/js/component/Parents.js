@@ -1130,14 +1130,33 @@ class Parents extends React.Component {
     }
   };
   onUserNameClick = UserID => {
-    const { dispatch } = this.props;
-    dispatch(actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID,()=>{
-      this.setState({
-        ParentsDetailsMsgModalVisible: true
-      });
-    }));
+    // const { dispatch } = this.props;
+    // dispatch(actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID,()=>{
+    //   this.setState({
+    //     ParentsDetailsMsgModalVisible: true
+    //   });
+    // }));
 
-    
+    let {
+      dispatch,
+      DataState: {
+        LoginUser: { identify },
+      },
+    } = this.props;
+    // console.log(UserID);
+    // if (pensonalList[key]) {
+    let token = sessionStorage.getItem("token");
+    window.open(
+      "/html/userPersona/index.html?userType=" +
+        3 +
+        "&userID=" +
+        UserID +
+        "&lg_tk=" +
+        token +
+        (identify && identify instanceof Array && identify.length > 0
+          ? "&lg_ic=" + identify[0].IdentityCode
+          : "")
+    );
   };
   ParentsDetailsMsgModalOk = () => {
     this.setState({

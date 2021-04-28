@@ -13,6 +13,9 @@ import history from "../../containers/history";
 import { QueryPower } from "../../../../common/js/power";
 import versionChenck from "../../../../common/js/public";
 import UpDataState from "../../action/data/UpDataState";
+import Holiday from "../../page/Holiday";
+import Public from "../../../../common/js/public";
+
 // import TextBookSetting from "../TextBookSetting";
 import TimeBanner from "../newEdition/TimeBanner";
 
@@ -27,6 +30,7 @@ import {
   BrowserRouter,
   Redirect,
 } from "react-router-dom";
+const { getQueryVariable } = Public;
 
 class MainContent extends Component {
   constructor(props) {
@@ -80,6 +84,7 @@ class MainContent extends Component {
         // { value: "Subsystem", title: "子系统访问设置", icon: "Subsystem" },
         { value: "Subsystem", title: "子系统访问设置", icon: "Subsystem" },
         { value: "Module", title: "应用模块设置", icon: "Module" },
+        { value: "Holiday", title: "节假日设置", icon: "Holiday" },
         // { value: "Face", title: "我的人脸", icon: "Face" },
       ],
       havePower: false,
@@ -299,6 +304,7 @@ class MainContent extends Component {
     } else if (
       Params === "School" ||
       Params === "Subsystem" ||
+      Params === "Holiday" ||
       // Params === "TextBookSetting" ||
       Params === "Semester"
     ) {
@@ -311,7 +317,10 @@ class MainContent extends Component {
       //   return;
     }
     let ModuleID = "000001";
-    this.Frame.getIdentity({ ModuleID }, (identify) => {
+    let noIden =
+      getQueryVariable("showBarner") === "0" &&
+      getQueryVariable("showTop") === "0";
+    if (noIden) {
       this.setState({
         havePower: true,
       });
@@ -319,7 +328,17 @@ class MainContent extends Component {
       //    dispatch(DataChange.getCurrentSchoolInfo(SchoolID));
       //    dispatch(DataChange.getCurrentSbusystemInfo({}));
       dispatch(DataChange.getServerAdd());
-    });
+    } else {
+      this.Frame.getIdentity({ ModuleID }, (identify) => {
+        this.setState({
+          havePower: true,
+        });
+        dispatch(DataChange.getCurrentSemester(SchoolID));
+        //    dispatch(DataChange.getCurrentSchoolInfo(SchoolID));
+        //    dispatch(DataChange.getCurrentSbusystemInfo({}));
+        dispatch(DataChange.getServerAdd());
+      });
+    }
   };
   // 获取frame的ref
   onRef = (ref) => {
@@ -371,6 +390,7 @@ class MainContent extends Component {
     // console.log(path)
     if (
       path !== "Semester" &&
+      path !== "Holiday" &&
       path !== "School" &&
       (path !== "Module" || isBase) &&
       path !== "Subsystem"
@@ -431,6 +451,12 @@ class MainContent extends Component {
                 history={history}
                 component={Module}
               ></Route>
+              <Route
+                  path="/MainContent/Holiday*"
+                  exact
+                  history={history}
+                  component={Holiday}
+                ></Route>
               {/* <Route
                 path="/MainContent/TextBookSetting"
                 exact

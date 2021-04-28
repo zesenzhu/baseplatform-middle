@@ -737,19 +737,39 @@ class Admin extends React.Component {
     );
   };
   onUserNameClick = (UserID) => {
-    const { dispatch } = this.props;
+    // const { dispatch } = this.props;
 
-    dispatch(
-      actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID, () => {
-        this.setState({
-          AdminDetailsMsgModalVisible: true,
-        });
-      })
+    // dispatch(
+    //   actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID, () => {
+    //     this.setState({
+    //       AdminDetailsMsgModalVisible: true,
+    //     });
+    //   })
+    // );
+
+    // this.setState({
+    //   AdminDetailsMsgModalVisible: true,
+    // });
+    let {
+      dispatch,
+      DataState: {
+        LoginUser: { identify },
+      },
+    } = this.props;
+    // console.log(UserID);
+    // if (pensonalList[key]) {
+    let token = sessionStorage.getItem("token");
+    window.open(
+      "/html/userPersona/index.html?userType=" +
+        0 +
+        "&userID=" +
+        UserID +
+        "&lg_tk=" +
+        token +
+        (identify && identify instanceof Array && identify.length > 0
+          ? "&lg_ic=" + identify[0].IdentityCode
+          : "")
     );
-
-    this.setState({
-      AdminDetailsMsgModalVisible: true,
-    });
   };
   AdminDetailsMsgModalOk = () => {
     this.setState({

@@ -238,7 +238,7 @@ function Archives(props) {
 
                     <td className={"col6"} colSpan={2}>
                       <div className={"genger"}>
-                        {userArchives && userArchives.Ganger ? (
+                        {userArchives && userArchives.GangerID ? (
                           <Button
                             onClick={(e) => seeGanger(userArchives.GangerID)}
                             type={"link"}
@@ -897,7 +897,7 @@ function Archives(props) {
 
                     <td className={"col6"}>
                       <div className={"genger"}>
-                        {userArchives && userArchives.Ganger ? (
+                        {userArchives && userArchives.GangerID ? (
                           <Button
                             onClick={(e) => seeGanger(userArchives.GangerID)}
                             type={"link"}

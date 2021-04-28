@@ -1,0 +1,49 @@
+.lg-Timebarner {
+    position: relative;
+    height: 100%;
+    line-height: 50px;
+    .tb-content {
+        position: relative;
+        display: inline-block;
+        padding: 0 20px 0 40px;
+        font-size: 14px;
+        color: #333333;
+        cursor: pointer;
+        &::before {
+            content: "";
+            position: absolute;
+            left: 20px;
+            height: 100%;
+            width: 20px;
+        }
+        &:hover {
+            color: #ff6600;
+        }
+        &.tb-select {
+            color: #ff6600;
+            background: #ffefe5;
+        }
+        &.tb-content-all {
+            &::before {
+                background: url(./images/icon-all.png) no-repeat left center/15px 15px;
+            }
+            &:hover,
+            &.tb-select {
+                &::before {
+                    background: url(./images/icon-all-hover.png) no-repeat left center/15px 15px;
+                }
+            }
+        }
+        &.tb-content-more {
+            &::before {
+                background: url(./images/icon-more.png) no-repeat left center/14px 16px;
+            }
+            &:hover,
+            &.tb-select {
+                &::before {
+                    background: url(./images/icon-more-hover.png) no-repeat left center/14px 16px;
+                }
+            }
+        }
+    }
+}

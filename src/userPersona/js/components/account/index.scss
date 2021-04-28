@@ -1,230 +1,128 @@
 @import "../../../scss/base";
-
-.account-wrapper{
-
-  color: #333333;
-  
-  padding-bottom: 28px;
-
-  .btn-wrapper{
-
-    padding: 32px 0 34px 0;
-
-    .reset,.edit{
-
-      float: right;
-
-      margin-right: -20px;
-
-    }
-
-  }
-
-  .account-table{
-
-    .props{
-
-      color: #999999;
-
-      width: 84px;
-
-      text-align: right;
-
-      padding:6px 16px 6px 0;
-      
-    }
-
-    .col2{
-
-      width: 280px;
-
-    }
-
-    .short-name,.class-name,.subject{
-
-      width:280px;
-
-      @include textOverflow;
-
-    }
-    
-    .more{
-
-      color: #0086e3;
-
-      border: 0;
-
-      outline: none;
-
-      text-decoration: underline;
-
-      font-size: 14px;
-
-      background-color:transparent;
-
-      margin-left: 8px;
-      
-      cursor: pointer;
-      
-      &:hover{
-
-        color: #ff6600;
-        
-      }
-      
-    }
-
-    .ganger{
-
-      border: 0;
-
-      outline: none;
-
-      background-color:transparent;
-
-      color:#0099ff;
-
-      cursor: pointer;
-
-      text-decoration: underline;
-
-      &:hover{
-
-        color: #ff6600;
-
-      }
-
-    }
-
-  }
-
-}
-
-
-.login-history-modal{
-
-  .ant-modal-body{
-
-    padding:0;
-
-  }
-
-
-  .login,
-  .logout{
-
-    color: #666666;
-
-  }
-
-  .method,
-  .device,
-  .ip{
-
+.account-wrapper {
     color: #333333;
-
-  }
-
-  .ant-table-row>td{
-
-    height: 42px;
-
-    padding: 0;
-
-  }
-
+    padding-bottom: 28px;
+    .btn-wrapper {
+        padding: 32px 0 34px 0;
+        .reset,
+        .edit {
+            float: right;
+            margin-right: -20px;
+        }
+    }
+    .account-table {
+        .props {
+            color: #999999;
+            width: 84px;
+            text-align: right;
+            padding: 6px 16px 6px 0;
+            &.identify {
+                vertical-align: top;
+            }
+        }
+        .col2 {
+            width: 280px;
+            &.identify {
+                padding: 6px 0;
+            }
+        }
+        .short-name,
+        .class-name,
+        .subject {
+            width: 280px;
+            @include textOverflow;
+        }
+        .more {
+            color: #0086e3;
+            border: 0;
+            outline: none;
+            text-decoration: underline;
+            font-size: 14px;
+            background-color: transparent;
+            margin-left: 8px;
+            cursor: pointer;
+            &:hover {
+                color: #ff6600;
+            }
+        }
+        .ganger {
+            border: 0;
+            outline: none;
+            background-color: transparent;
+            color: #0099ff;
+            cursor: pointer;
+            text-decoration: underline;
+            &:hover {
+                color: #ff6600;
+            }
+        }
+    }
 }
 
-.alert_dialog_tab{
-
-  .account-title{
-
-    font-size: 16px;
-
-    .user-name,.user-id{
-
-      display: inline-block;
-
-      max-width: 90px;
-
-      @include textOverflow;
-
-      vertical-align: bottom;
-
+.login-history-modal {
+    .ant-modal-body {
+        padding: 0;
     }
-
-  }
-
-  .new-pwd{
-
-    text-align: center;
-
-    margin-top: 10px;
-
-    .pwd-wrapper{
-
-      height: 24px;
-
-      line-height: 24px;
-
+    .login,
+    .logout {
+        color: #666666;
     }
-
-    .new-pwd-input{
-
-      width: 120px;
-
-      height: 24px;
-
-      vertical-align: middle;
-
-      margin-left: 4px;
-
+    .method,
+    .device,
+    .ip {
+        color: #333333;
     }
+    .ant-table-row>td {
+        height: 42px;
+        padding: 0;
+    }
+}
 
-    .strong-wrapper{
-
-      margin-top: 10px;
-
-      .strong-type{
-
-        display: inline-block;
-
+.alert_dialog_tab {
+    .account-title {
+        font-size: 16px;
+        .user-name,
+        .user-id {
+            display: inline-block;
+            max-width: 90px;
+            @include textOverflow;
+            vertical-align: bottom;
+        }
+    }
+    .new-pwd {
         text-align: center;
-
-        width: 132px;
-
-        height: 12px;
-
-        margin: 0 4px;
-
-        vertical-align: middle;
-
-        background-position: left center;
-
-        background-repeat: no-repeat;
-
-        &.weak{
-
-          background-image: url("./images/strong-lettle.png");
-
+        margin-top: 10px;
+        .pwd-wrapper {
+            height: 24px;
+            line-height: 24px;
         }
-
-        &.middle{
-
-          background-image: url("./images/strong-middle.png");
-
+        .new-pwd-input {
+            width: 120px;
+            height: 24px;
+            vertical-align: middle;
+            margin-left: 4px;
         }
-
-        &.strong{
-
-          background-image: url("./images/strong-big.png");
-
+        .strong-wrapper {
+            margin-top: 10px;
+            .strong-type {
+                display: inline-block;
+                text-align: center;
+                width: 132px;
+                height: 12px;
+                margin: 0 4px;
+                vertical-align: middle;
+                background-position: left center;
+                background-repeat: no-repeat;
+                &.weak {
+                    background-image: url("./images/strong-lettle.png");
+                }
+                &.middle {
+                    background-image: url("./images/strong-middle.png");
+                }
+                &.strong {
+                    background-image: url("./images/strong-big.png");
+                }
+            }
         }
-
-      }
-
     }
-
-  }
-
 }

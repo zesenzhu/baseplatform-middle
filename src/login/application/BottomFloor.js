@@ -1,10 +1,10 @@
-import React,{useState,useCallback,memo} from 'react';
+import React,{useState,useCallback,memo,useLayoutEffect} from 'react';
 
 import { Carousel } from 'antd';
 
 import {useSelector,useDispatch} from 'react-redux';
 
-import {introduceChange} from "../store/introduce";
+import {introduceChange,INTRODUCE_CHANGE_FOR_CANVAS} from "../store/introduce";
 
 function BottomFloor (props){
 
@@ -14,11 +14,13 @@ function BottomFloor (props){
 
 
     const dispatch = useDispatch();
-
+    useLayoutEffect(() => {
+        dispatch({ type: INTRODUCE_CHANGE_FOR_CANVAS });
+      }, []);
 
     const slideChange = useCallback((activeIndex) => {
 
-        //ÂÖ²¥±ä»¯Òýµ¼¸Ä±ä
+        //ï¿½Ö²ï¿½ï¿½ä»¯ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½
 
         dispatch(introduceChange({skin,activeIndex}));
 

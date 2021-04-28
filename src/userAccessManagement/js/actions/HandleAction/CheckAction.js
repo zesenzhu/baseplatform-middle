@@ -60,7 +60,7 @@ const checkDescription = ({
 }) => {
   return (dispatch, getState) => {
     let { HandleState } = getState();
-    let Test = /^[?？+-=\.\\/\*()（）A-Za-z0-9\u4e00-\u9fa5]{1,30}$/.test(
+    let Test = /^[?？，。,.+-=\.\\/\*()（）A-Za-z0-9\u4e00-\u9fa5]{1,30}$/.test(
       value
     );
 

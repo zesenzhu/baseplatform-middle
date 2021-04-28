@@ -44,7 +44,7 @@ class Tree extends Component {
     const { dispatch } = props;
     this.state = {};
   }
-  // 面板变化
+  // 面板变化，废弃
   onPanelChange = (e) => {
     console.log(e);
     let {
@@ -67,6 +67,7 @@ class Tree extends Component {
       dispatch(DataAction.GetTree({}));
     }
   };
+  // 选择组织或用户
   onCheckChange = (e) => {
     const {
       HandleState: {
@@ -119,22 +120,25 @@ class Tree extends Component {
             IdentityName,
             UserType,
             IdentityID,
-            MemberList,
+            MemberList, //当前已选择的数据，没有存在后台
             SelectRole,
             NodeType,
             LayoutType,
-            List,
+            List, //当前树结构
           },
         },
       },
       DataState: {
-        GetData: { IdentityUser },
+        GetData: {
+          IdentityUser, //当前身份已存在后台的用户或组织
+        },
       },
       dispatch,
     } = this.props;
-    let UpDataList = []; //没有该结构的数组
+    let UpDataList = []; //更新的
 
     let isHave = true;
+    // 对List 的成员进行对比，看是否已存在，List当前树结构，IdentityUser是当前身份已经选择并保存在后台的了
     if (List instanceof Array && List.length > 0) {
       List.forEach((child) => {
         if (!IdentityUser.List.some((user) => user.UserID === child.NodeID)) {
@@ -148,11 +152,13 @@ class Tree extends Component {
     if (isHave) {
       return;
     }
+    // 当前树结构没有被全选，进行用户列表的排除，先排除当前树结构的成员，即全不选
     MemberList.forEach((member) => {
       if (!List.some((child) => child.NodeID === member.NodeID)) {
         UpDataList.push(member);
       }
     });
+    // 全选
     if (e.target.checked) {
       List.forEach((child) => {
         if (NodeType === "tree") {
@@ -181,6 +187,7 @@ class Tree extends Component {
     } = this.props;
     let FullID = [];
     let FullName = [];
+    // 处理FullName和FullId，逻辑跟Right的回指定节点一样
     RoleList.forEach((child) => {
       if (child.code === SelectRole) {
         FullID.push(child.code);
@@ -198,6 +205,8 @@ class Tree extends Component {
       Pop.pop();
       FullName = FullName.concat(Pop);
     }
+    // end
+    // 是最后一级
     if (data.LastTreeNode) {
       dispatch(
         HandleAction.ParamsSetAddMember({
@@ -210,6 +219,7 @@ class Tree extends Component {
       );
       dispatch(DataAction.GetUser({ fn: () => {} }));
     } else if (data.UserCount) {
+      //不是最后一级且有人
       dispatch(
         HandleAction.ParamsSetAddMember({
           List: data.Children,

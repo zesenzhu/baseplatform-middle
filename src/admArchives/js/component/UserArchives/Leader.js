@@ -288,17 +288,37 @@ class Leader extends Component {
   };
   // 点击姓名头像
   onUserNameClick = (data) => {
-    const { dispatch } = this.props;
-    dispatch(
-      CommonAction.SetUserArchivesParams({
-        DetailsType: "leader",
-        DetailsData: data.DetailsData,
-      })
-    );
-    dispatch(
-      CommonAction.SetModalVisible({
-        DetailsModalVisible: true,
-      })
+    // const { dispatch } = this.props;
+    // dispatch(
+    //   CommonAction.SetUserArchivesParams({
+    //     DetailsType: "leader",
+    //     DetailsData: data.DetailsData,
+    //   })
+    // );
+    // dispatch(
+    //   CommonAction.SetModalVisible({
+    //     DetailsModalVisible: true,
+    //   })
+    // );
+    let {
+      dispatch,
+      PublicState: {
+        LoginMsg: { identify },
+      },
+    } = this.props;
+    // console.log(UserID);
+    // if (pensonalList[key]) {
+    let token = sessionStorage.getItem("token");
+    window.open(
+      "/html/userPersona/index.html?userType=" +
+        7 +
+        "&userID=" +
+        data.UserID +
+        "&lg_tk=" +
+        token +
+        (identify && identify instanceof Array && identify.length > 0
+          ? "&lg_ic=" + identify[0].IdentityCode
+          : "")
     );
     // let token = sessionStorage.getItem("token");
     // window.open(

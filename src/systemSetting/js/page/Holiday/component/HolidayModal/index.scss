@@ -1,0 +1,161 @@
+.HolidayModal {
+    .HolidaySet {
+        padding: 22px 0 0;
+        table {
+            width: 100%;
+        }
+        thead {
+            td {
+                &:first-of-type {
+                    width: 20%;
+                }
+                &:last-of-type {
+                    width: 80%;
+                }
+            }
+        }
+        tbody {
+            tr {
+                line-height: 46px;
+                td {
+                    &:first-of-type {
+                        text-align: right;
+                        padding-right: 5px;
+                    }
+                    &.top {
+                        vertical-align: top;
+                        line-height: 66px;
+                    }
+                    .holidayName {
+                        width: 320px;
+                    }
+                    .holidayDate {
+                        width: 260px;
+                    }
+                    .select-workday-box {
+                        position: relative;
+                        margin-top: 8px;
+                        padding: 7px 0 40px 7px;
+                        width: 460px;
+                        height: 160px;
+                        background-color: #f5f5f5;
+                        .workday-content {
+                            line-height: 30px;
+                            font-size: 14px;
+                            color: #cccccc;
+                            .workday-bar {
+                                width: 217px;
+                                height: 28px;
+                                line-height: 28px;
+                                border-radius: 3px;
+                                border: solid 1px #c4d8ef;
+                                margin: 3px;
+                                padding-left: 8px;
+                                display: inline-block;
+                                vertical-align: top;
+                                padding-right: 24px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                                font-size: 14px;
+                                color: #333333;
+                                position: relative;
+                                span {}
+                                .delete {
+                                    position: absolute;
+                                    right: 8px;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    -webkit-transform: translateY(-50%);
+                                    -moz-transform: translateY(-50%);
+                                    -ms-transform: translateY(-50%);
+                                    -o-transform: translateY(-50%);
+                                    width: 8px;
+                                    height: 8px;
+                                    cursor: pointer;
+                                    // cursor: auto;
+                                    opacity: 0.9;
+                                    background: url(./images/icon-delete.png) no-repeat center center / 100% 100%;
+                                    &:hover {
+                                        opacity: 1;
+                                    }
+                                }
+                            }
+                        }
+                        .workday-handle-box {
+                            position: absolute;
+                            bottom: 0px;
+                            line-height: 40px;
+                            // width: 100%;
+                            right: 0;
+                            padding: 0 10px;
+                            overflow: hidden;
+                            text-align: right;
+                            .btn {
+                                // float: right;
+                                display: inline-block;
+                                height: 24px;
+                                line-height: 24px;
+                                padding: 0 12px;
+                                // background-color: #77a5d8;
+                                border-radius: 3px;
+                                border: 1px solid #77a5d8;
+                                cursor: pointer;
+                                opacity: 0.9;
+                                margin-left: 5px;
+                                &:hover {
+                                    opacity: 1;
+                                }
+                                font-size: 14px;
+                                &.btn-edit-workday {
+                                    background-color: #77a5d8;
+                                    color: #fff;
+                                }
+                                &.btn-clear-workday {
+                                    background-color: #fff;
+                                    color: #77a5d8;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .ant-modal-footer {
+        .my-footer {
+            // padding-right: 12px;
+            .btn {
+                //width: 80px;
+                display: inline-block;
+                height: 30px;
+                line-height: 30px;
+                padding: 0 24px;
+                font-size: 16px;
+                color: #ffffff;
+                // box-shadow: 0px 0px 3px 0px #000000;
+                text-align: center;
+                border-radius: 2px;
+                -webkit-border-radius: 2px;
+                -moz-border-radius: 2px;
+                -ms-border-radius: 2px;
+                -o-border-radius: 2px;
+                margin-left: 16px;
+                opacity: 0.9;
+                cursor: pointer;
+                &:hover {
+                    opacity: 1;
+                }
+                &.btn-modal-delete {
+                    background-image: linear-gradient(90deg, #ff7651 0%, #ff3e3e 100%), linear-gradient(#f2f2f2, #f2f2f2);
+                }
+                &.btn-modal-ok {
+                    background-image: linear-gradient(90deg, #00e566 0%, #12d033 62%, #23ba00 100%), linear-gradient(#f2f2f2, #f2f2f2);
+                }
+                &.btn-modal-cancel {
+                    background-image: linear-gradient(90deg, #0fc1fc 0%, #1da4fe 100%), linear-gradient(#f2f2f2, #f2f2f2);
+                }
+            }
+        }
+    }
+}

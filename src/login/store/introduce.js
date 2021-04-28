@@ -86,13 +86,16 @@ const defaultIntroduce = {
 
         ]
 
-    }
+    },
+  changeForCanvas: false,
+
 
 };
 
 const INTRODUCE_CHANGE = 'INTRODUCE_CHANGE';
 
-
+//给底层canvas做控制,启动获取image url
+export const INTRODUCE_CHANGE_FOR_CANVAS = "INTRODUCE_CHANGE_FOR_CANVAS";
 export const introduceChange = ({skin,activeIndex}) =>{
 
     return { type:'INTRODUCE_CHANGE',data:{skin,activeIndex} };
@@ -132,7 +135,8 @@ const introduce = (state=defaultIntroduce,actions)=>{
                     return state;
 
             }
-
+            case INTRODUCE_CHANGE_FOR_CANVAS:
+                return { ...state, changeForCanvas: true };
         default:
 
             return state;

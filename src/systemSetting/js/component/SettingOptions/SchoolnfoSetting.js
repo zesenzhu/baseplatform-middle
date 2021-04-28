@@ -772,7 +772,7 @@ class SchoolnfoSetting extends Component {
                 <i
                   className="SchoolLogoUrl_Long"
                   style={{
-                    background: `url(${schoolInfo.SchoolLogoUrl_Long}) no-repeat center center/164px 40px`,
+                    background: `url(${schoolInfo.SchoolLogoUrl_Long}) no-repeat center center/100% 100%`,
                   }}
                 ></i>
               </div>

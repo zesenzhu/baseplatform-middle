@@ -1,28 +1,21 @@
-import {TARGET_USER_INFO_UPDATE} from '../../actions/targetUserActions';
+import { TARGET_USER_INFO_UPDATE } from "../../actions/targetUserActions";
 
 //目标用户的用户ID和用户类型
 
 const defaultState = {
+  UserType: "",
 
-  UserType:'',
-
-  UserID:''
-
+  UserID: "",
+  OnlyAccount: false,
 };
 
-const targetUser = (state=defaultState,actions) =>{
-
+const targetUser = (state = defaultState, actions) => {
   switch (actions.type) {
+    case TARGET_USER_INFO_UPDATE:
+      return { ...state, ...actions.data };
 
-      case TARGET_USER_INFO_UPDATE:
-
-        return {...state,...actions.data};
-
-      default:
-
-          return state;
-
+    default:
+      return state;
   }
-
 };
 export default targetUser;

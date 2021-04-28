@@ -56,12 +56,13 @@ class Right extends Component {
         },
       },
     } = this.props;
-
+// 面板开关可控制选择的节点角色
     dispatch(
       HandleAction.ParamsSetAddMember({
         SelectRole: e,
       })
     );
+    // 根据角色的不同请求
     if (e === "admin") {
       dispatch(DataAction.GetUser({}));
     } else {
@@ -86,6 +87,7 @@ class Right extends Component {
         GetData: { TreeList },
       },
     } = this.props;
+    // 查询是否是角色节点
     if (RoleList.some((child) => child.code === NodeID)) {
       //表示是默认的
       dispatch(
@@ -96,22 +98,23 @@ class Right extends Component {
         })
       );
       dispatch(DataAction.GetTree({}));
-    } else {
-      let data = this.MapNode(TreeList, NodeID);
+    } else {//不是角色节点就是组织节点
+      let data = this.MapNode(TreeList, NodeID);//递归查询当前节点的树数据
       let FullID = [];
       let FullName = [];
-      RoleList.forEach((child) => {
+      RoleList.forEach((child) => {//重头开始赋值FullID和FullName
         if (child.code === SelectRole) {
           FullID.push(child.code);
           FullName.push(child.title);
         }
       });
+      // 对id分解为数组，去掉最后一个，与FullID合并
       if (typeof data.FullID === "string") {
         let Pop = data.FullID.split(">");
         Pop.pop();
         FullID = FullID.concat(Pop);
       }
-
+// 同上id操作
       if (typeof data.FullName === "string") {
         let Pop = data.FullName.split(">");
         Pop.pop();

@@ -1,12 +1,13 @@
 .ChangePwdModal {
     .ant-modal-body {
         padding: 0;
+        padding-top: 12px;
         .CPB-tip {
             text-align: center;
             line-height: 60px;
             color: red;
-            font-size: 16px;
-            margin-bottom: 10px;
+            font-size: 14px;
+            margin-bottom: 0;
         }
         .tr {
             .td {
@@ -22,6 +23,9 @@
         }
         .pwd-input {
             width: 200px;
+            line-height: 30px;
+            height: 30px;
+            border-radius: 3px;
         }
     }
 }
@@ -62,6 +66,67 @@
         }
         &.strong {
             color: rgb(0, 255, 54);
+        }
+    }
+}
+
+.ChangePwdModal-dark_tech,
+.ChangePwdModal-cloud_schoolroom,
+.ChangePwdModal-ai_practice {
+    .ant-modal-content {
+        background: url(./images/bg_dark_tech.png) no-repeat center center/100% 100%;
+        box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.3);
+        border-radius: 15px;
+        -webkit-border-radius: 15px;
+        -moz-border-radius: 15px;
+        -ms-border-radius: 15px;
+        -o-border-radius: 15px;
+        &>* {
+            background: transparent;
+        }
+        // .ant-modal-header,.ant-modal-body,.ant-modal-footer{
+        //     background: transparent;
+        // }
+        .ant-modal-footer {
+            border: none;
+            position: relative;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 5%;
+                height: 0;
+                width: 90%;
+                border: dashed 1px #4b7ccc;
+            }
+        }
+        .ant-modal-header {
+            position: relative;
+            border: none;
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 5%;
+                height: 1px;
+                width: 90%;
+                background: #4b7ccc;
+            }
+        }
+        .ant-modal-body {
+            .CPB-tip {
+                color: #ffd06c;
+            }
+            .pwd-input {
+                background: transparent;
+                border: solid 1px #6390e8;
+                color: white
+            }
+            .tr {
+                .td-1 {
+                    color: #cddbf6;
+                }
+            }
         }
     }
 }

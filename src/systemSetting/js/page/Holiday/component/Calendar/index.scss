@@ -1,0 +1,120 @@
+.LgCalendar {
+    position: relative;
+    background-color: #fafafa;
+    border-radius: 5px;
+    display: inline-block;
+    .LgCalendar-header {
+        line-height: 58px;
+        padding-left: 20px;
+        font-size: 20px;
+        color: #333333;
+    }
+    .ant-fullcalendar {
+        border: none;
+    }
+    .ant-fullcalendar-cell {
+        text-align: center;
+        height: 40px;
+    }
+    .ant-fullcalendar-column-header {
+        .ant-fullcalendar-column-header-inner {
+            padding-bottom: 20px;
+            color: #b8b8b8;
+            font-size: 12px;
+        }
+    }
+    .dateCell {
+        display: inline-block;
+        width: 100%;
+        height: 37px;
+        text-align: center;
+        padding: 4px 0;
+        span {
+            display: block;
+        }
+        .day {
+            color: #333333;
+            line-height: 16px;
+            font-size: 14px;
+            // font-weight: bold;
+            font-family: FZZZHONGJW--GB1-0;
+        }
+        .holiday {
+            color: #999999;
+            line-height: 13px;
+            font-size: 12px;
+            &.solarHoliday {}
+            &.customHoliday {
+                text-decoration: underline;
+                opacity: 0.9;
+                cursor: pointer;
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+        &.WeekendCell {
+            cursor: pointer;
+            .Weekend {
+                color: #999999;
+            }
+        }
+        &.customHolidayCell {
+            background-color: #44a444;
+            // opacity: 0.9;
+            cursor: pointer;
+            &:hover {
+                opacity: 0.9;
+            }
+            .day {
+                color: #fff;
+            }
+            .holiday {
+                color: #ffffff;
+                opacity: 0.8;
+            }
+        }
+        &.workDayCell {
+            background-color: #f78c2d;
+            // opacity: 0.9;
+            cursor: pointer;
+            &:hover {
+                opacity: 0.9;
+            }
+            .day {
+                color: #fff;
+            }
+            .holiday {
+                color: #ffffff;
+                opacity: 0.8;
+            }
+        }
+    }
+    .ant-fullcalendar-next-month-btn-day {
+        pointer-events: none;
+        .dateCell {}
+    }
+}
+
+.Calendar-Tooltip {
+    .ant-tooltip-arrow {
+        &::before {
+            background-color: #fff;
+        }
+    }
+    .ant-tooltip-inner {
+        background-color: #fff;
+        color: #000;
+    }
+    .Calendar-Tooltip-box {
+        .TipDayName {
+            font-size: 14px;
+            font-weight: bold;
+            color: #f78c2d;
+            line-height: 20px;
+        }
+        .TipDayDetails {
+            line-height: 16px;
+        }
+    }
+}

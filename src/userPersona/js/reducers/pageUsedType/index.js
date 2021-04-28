@@ -19,7 +19,7 @@ const defaultState = {
 
 //TeacherToTeacher (教师查看教师自己) OtherToTeacher (其他人查看教师)
 
-
+// OtherToOther:所有人查看家长，领导，管理员,SuperToOther:超级管理员查看其它，可以修改密码
 
 //登录的用户和查看用的关系 User ：Adm(管理员),Leader（领导）,HeaderTeacher（班主任）,Student（学生）,Other（其他人）,Teacher（教师）,Parents（家长）
 

@@ -396,7 +396,7 @@ class CustomIdentityModal extends Component {
                           disabled = true;
                         }
                         return (
-                          <>
+                          <React.Fragment key={index}>
                             { child.value === 2 || child.value === 3 ? (
                               <i className="devide"></i>
                             ) : (
@@ -410,7 +410,7 @@ class CustomIdentityModal extends Component {
                             >
                               { child.title }
                             </CheckBox>
-                          </>
+                          </React.Fragment>
                         );
                       })
                       : "" }

@@ -921,7 +921,7 @@ class RegisterExamine extends Component {
           ></DropDown>
           <div className="Search">
             <Search
-              placeHolder="请输入学号或姓名进行搜索..."
+              placeHolder="请输入工号或姓名进行搜索..."
               onClickSearch={this.onTeacherSearch}
               height={30}
               width={250}

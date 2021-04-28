@@ -40,10 +40,12 @@
  }
  
  .System-content,
- .Module-content {
+ .Module-content,
+ .Holiday-content {
      padding: 18px 32px;
      .System-content-top,
-     .Module-content-top {
+     .Module-content-top,
+     .Holiday-content-top {
          position: relative;
          line-height: 42px;
          margin-left: 22px;

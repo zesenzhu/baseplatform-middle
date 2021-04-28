@@ -794,18 +794,38 @@ class Leader extends React.Component {
     //  console.log(e)
   };
   onUserNameClick = (UserID) => {
-    const { dispatch } = this.props;
-    dispatch(
-      actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID, () => {
-        this.setState({
-          LeaderDetailsMsgModalVisible: true,
-        });
-      })
-    );
+    // const { dispatch } = this.props;
+    // dispatch(
+    //   actions.UpDataState.getUserMsg("/GetUserDetail?userid=" + UserID, () => {
+    //     this.setState({
+    //       LeaderDetailsMsgModalVisible: true,
+    //     });
+    //   })
+    // );
 
-    this.setState({
-      LeaderDetailsMsgModalVisible: true,
-    });
+    // this.setState({
+    //   LeaderDetailsMsgModalVisible: true,
+    // });
+    let {
+      dispatch,
+      DataState: {
+        LoginUser: { identify },
+      },
+    } = this.props;
+    // console.log(UserID);
+    // if (pensonalList[key]) {
+    let token = sessionStorage.getItem("token");
+    window.open(
+      "/html/userPersona/index.html?userType=" +
+        7 +
+        "&userID=" +
+        UserID +
+        "&lg_tk=" +
+        token +
+        (identify && identify instanceof Array && identify.length > 0
+          ? "&lg_ic=" + identify[0].IdentityCode
+          : "")
+    );
   };
   LeaderDetailsMsgModalOk = () => {
     this.setState({

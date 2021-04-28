@@ -27,6 +27,9 @@
             &.bar-icon-Module {
                 background: url(../../images/icon-module.png)no-repeat 20px center /14px 16px;
             }
+            &.bar-icon-Holiday {
+                background: url(../../images/menu-holiday.png)no-repeat 20px center /14px 15px;
+            }
         }
         &:last-of-type {
             .bar-content {
@@ -51,6 +54,9 @@
                 }
                 &.bar-icon-Module {
                     background: url(../../images/icon-module-active.png)no-repeat 20px center /14px 16px;
+                }
+                &.bar-icon-Holiday {
+                    background: url(../../images/menu-holiday-active.png)no-repeat 20px center /14px 15px;
                 }
             }
         }
