@@ -321,12 +321,12 @@ function SubSystem(props, ref) {
         width: 133,
         align: "center",
         render: (data) => {
-          let { AccessUrl, IsThirdParty, ModuleID } = data;
+          let { AccessUrl, IsThirdParty, ModuleID,ModuleTag } = data;
 
           return (
-            <div className="handle">
+             <div className="handle">
               {
-                <span
+               ModuleTag!==0? <span
                   className="edit"
                   onClick={() => {
                     // GetSubSystemToAdd()
@@ -347,7 +347,7 @@ function SubSystem(props, ref) {
                   }}
                 >
                   修改
-                </span>
+                </span>:'--'
               }
               {!!IsThirdParty && (
                 <span className="delete" onClick={Delete.bind(this, ModuleID)}>

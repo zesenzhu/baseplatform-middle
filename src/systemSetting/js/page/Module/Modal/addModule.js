@@ -334,11 +334,15 @@ function AddModule(props, ref) {
   // 根据账号类型的选择，控制身份列表
   useEffect(() => {
     let Identity = [];
+    // console.log(IdentityTypeList,Data.userType,Identity)\
+    // 先升序
+    Data.userType.sort((a,b)=>a-b)
     Data.userType.forEach((c) => {
       // 排除重复的
       Identity = Identity.concat(
         IdentityTypeList[c].filter(
-          (i) => !Identity.some((s) => s.value === i.value)
+         // 因为后面要求匹配逻辑是身份被包含才能算真正的列表，所以要在筛选 
+          (i) => !Identity.some((s) => s.value === i.value)&&(i.userTypes===`${c}`||i.userTypes.split(',').sort((a,b)=>a-b).join(',')===Data.userType.join(','))
         )
       );
     });
@@ -346,9 +350,9 @@ function AddModule(props, ref) {
     let IdentitySelect = Data.identityCodes.filter((i) =>
       Identity.some((s) => s.value === i)
     );
-
+ 
     onIdentityChange(IdentitySelect);
-    //  console.log(IdentityTypeList,Data.userType,Identity)
+     console.log(IdentityTypeList,Data.userType,Identity)
     setIdentityList(Identity);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [IdentityTypeList, Data.userType, onIdentityChange]);

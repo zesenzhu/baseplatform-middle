@@ -32,11 +32,19 @@ import {
   DeleteHoliday,
   SyncHoliday,
 } from "./api";
+import { ConfigProvider } from 'antd';
 // import Calendar from './component/Calendar';
 import Calendar from "./component/Calendar";
 import HolidayModal from "./component/HolidayModal";
 import WorkdayModal from "./component/WorkdayModal";
 import "./scss/index.scss";
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+import locale from 'antd/lib/locale/zh_CN';
+
+
+moment.locale('zh-cn');
+
 function Holiday(props, ref) {
   const { dispatch } = props;
   const [state, Dispatch] = useReducer(reducer, initState);
@@ -272,14 +280,14 @@ function Holiday(props, ref) {
   );
   // 同步
   const [SyncDateVisible, setSyncDateVisible] = useState(false);
-  const [SyncDateType, setSyncDateType] = useState(1);
+  const [SyncDateType, setSyncDateType] = useState(2);
   const onSyncDateClose = useCallback(() => {
     setSyncDateVisible(false);
   }, []);
   const onSyncDateOk = useCallback(() => {
     onSyncHolidayClick(SyncDateType);
     onSyncDateClose();
-    setSyncDateType(1);
+    setSyncDateType(2);
   }, [onSyncHolidayClick, onSyncDateClose, SyncDateType]);
 
   // const onSyncDateCancel = useCallback(
@@ -289,6 +297,7 @@ function Holiday(props, ref) {
   //   [],
   // )
   return (
+    <ConfigProvider locale={locale}>
     <Context.Provider value={{ state, Dispatch }}>
       <Loading
         spinning={!HolidayData || ContentLoading}
@@ -359,6 +368,7 @@ function Holiday(props, ref) {
                       key={c}
                       className="Holiday-calendar-box-calendar"
                       month={c}
+                      rangeDay={[TermStartDate,TermEndDate]}
                       holidayForDay={HolidayDataForDay}
                       holiday={HolidayDataForEveryDay}
                       workday={WorkDayData}
@@ -409,7 +419,7 @@ function Holiday(props, ref) {
         title={"是否确定同步法定节假日？"}
         abstract={
           <CheckBox
-            checked={SyncDateType === 2}
+            checked={SyncDateType === 1}
             onChange={() => {
               setSyncDateType(SyncDateType === 2 ? 1 : 2);
             }}
@@ -425,6 +435,7 @@ function Holiday(props, ref) {
         okTitle={"确定同步"}
       ></Alert>
     </Context.Provider>
+    </ConfigProvider>
   );
 }
 

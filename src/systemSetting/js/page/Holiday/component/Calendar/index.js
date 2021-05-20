@@ -25,6 +25,7 @@ function LgCalendar(props, ref) {
     onHolidayClick,
     onWorkdayClick,
     onWeekendClick,
+    rangeDay, //可显示可选范围
   } = props;
   const { FullMonth, Month, MonthStartDay, MonthEndDay } = useMemo(() => {
     // console.log(moment(new Date()).format("YYYY-MM"));
@@ -74,19 +75,16 @@ function LgCalendar(props, ref) {
     return false;
   }, []);
   // 字数省略
-  const moreChar = useCallback(
-    (data) => {
-      if(!data){
-        return  ''
-      }
-      if(data.length<=3){
-        return data
-      }else{
-        return data.substr(0,2)+'...'
-      }
-    },
-    [],
-  )
+  const moreChar = useCallback((data) => {
+    if (!data) {
+      return "";
+    }
+    if (data.length <= 3) {
+      return data;
+    } else {
+      return data.substr(0, 2) + "...";
+    }
+  }, []);
   const dateFullCellRender = useCallback(
     (date) => {
       let Dday = date.format("DD");
@@ -110,8 +108,13 @@ function LgCalendar(props, ref) {
         (customHolidayForDay && customHolidayForDay[0].HolidayName);
       let TipDayName = DayName || (customHoliday && customHoliday.HolidayName);
       // console.log(dday - 0, mmonth - 1, solarHoliday);
-      // 过去的不让操作了
-      let isBefore = moment() > date;
+      // 过去的不让操作了，学期前和后也不让
+      let isBefore = moment() > moment(day);
+      //学期前和后也不让操作，禁用
+      let isOutTerm =
+        rangeDay instanceof Array &&
+        (moment(day) < moment(rangeDay[0]) || moment(day) > moment(rangeDay[1]));
+        // console.log(rangeDay,moment(rangeDay[1]),moment() > moment(rangeDay[1]))
       let CellDom = (
         <div
           className={`dateCell  ${isWeekend ? "WeekendCell" : ""} ${
@@ -126,10 +129,10 @@ function LgCalendar(props, ref) {
                 workDay || firstDay ? "3px" : "0"
               } `,
             },
-            isBefore ? { cursor: "auto" } : {}
+            isOutTerm?{ cursor: "no-drop" }: isBefore ? { cursor: "auto" } : {}
           )}
           onClick={() => {
-            if (isBefore) {
+            if (isBefore||isOutTerm) {
               return;
             }
             // 如果是节假日
@@ -146,7 +149,8 @@ function LgCalendar(props, ref) {
               func({
                 date,
                 customHoliday,
-                customHolidayForDay,workDay
+                customHolidayForDay,
+                workDay,
               });
             // 如果是周末
           }}
@@ -162,7 +166,7 @@ function LgCalendar(props, ref) {
               style={Object.assign(
                 {},
 
-                isBefore ? { cursor: "auto",textDecoration:'none' } : {}
+                isBefore||isOutTerm ? { cursor: "auto", textDecoration: "none" } : {}
               )}
             >
               {moreChar(DayName || solarHoliday)}
@@ -170,7 +174,10 @@ function LgCalendar(props, ref) {
           )}
         </div>
       );
-      let len = customHoliday ? customHoliday.HolidayList.length : 0;
+      let len =
+        customHoliday && customHoliday.HolidayList instanceof Array
+          ? customHoliday.HolidayList.length
+          : 0;
       let hoveToolTip =
         customHoliday || workDay ? (
           <div className="Calendar-Tooltip-box">
@@ -206,7 +213,18 @@ function LgCalendar(props, ref) {
         <></>
       );
     },
-    [SolarHoliday, holiday, holidayForDay, workday, moreChar, Month, onHolidayClick, onWorkdayClick, onWeekendClick]
+    [
+      SolarHoliday,
+      holiday,
+      holidayForDay,
+      workday,
+      moreChar,
+      Month,
+      onHolidayClick,
+      onWorkdayClick,
+      onWeekendClick,
+      rangeDay,
+    ]
   );
 
   return (

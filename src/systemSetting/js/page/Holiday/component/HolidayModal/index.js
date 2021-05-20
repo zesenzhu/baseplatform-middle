@@ -226,12 +226,13 @@ const HolidaySet = memo(
         let day = date.format(format);
         let allow = false;
         //学期内
+
         if (termRange instanceof Array && termRange.length > 0) {
           termRange.forEach((c, i) => {
             if (i === 0) {
-              allow = allow || date < moment(c);
+              allow = allow || moment(day) < moment(c);
             } else if (i === 1) {
-              allow = allow || date > moment(c);
+              allow = allow || moment(day) > moment(c);
             }
           });
         }
@@ -293,20 +294,18 @@ const HolidaySet = memo(
     useImperativeHandle(ref, () => ({
       getDate: (noCheck) => {
         if (onNameBlur({ target: { value: Name } }) && StartDate && EndDate) {
-          let newDate= {}
+          let newDate = {};
           let OldHolidayDiff =
-          moment(StartDate).diff(moment(EndDate), "day") + 1;
-        for (let i = 0; i < OldHolidayDiff; i++) {
-          let Date = moment(StartDate)
-            .add(i, "days")
-            .format("YYYY-MM-DD");
+            moment(StartDate).diff(moment(EndDate), "day") + 1;
+          for (let i = 0; i < OldHolidayDiff; i++) {
+            let Date = moment(StartDate).add(i, "days").format("YYYY-MM-DD");
             newDate[Date] = true;
-        }
+          }
           let workdays = [];
           let holidays = [];
           for (let k in Workday) {
             // 排除是旧的节假日然后在新的中又不存在
-            if (!(oldHoliday[Workday[k]]&&!newDate[Workday[k]])) {
+            if (!(oldHoliday[Workday[k]] && !newDate[Workday[k]])) {
               workdays.push(k);
               holidays.push(Workday[k]);
             }
@@ -375,10 +374,18 @@ const HolidaySet = memo(
                     className={"holidayDate"}
                     locale={locale}
                     onChange={onDateChange}
-                    value={[
-                      StartDate ? moment(StartDate) : null,
-                      EndDate ? moment(EndDate) : null,
+                    defaultPickerValue={[
+                      StartDate ? moment(StartDate) : moment(),
+                      EndDate ? moment(EndDate) : moment().add(1, "month"),
                     ]}
+                    value={
+                      StartDate && EndDate
+                        ? [
+                            StartDate ? moment(StartDate) : null,
+                            EndDate ? moment(EndDate) : null,
+                          ]
+                        : ["", ""]
+                    }
                     disabledDate={disabledDate}
                   ></RangePicker>
                 </Tips>

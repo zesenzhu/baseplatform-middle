@@ -114,8 +114,7 @@ export function GetHolidayOfTerm(payload = {}) {
               !HolidayDataForEveryDay[c.Date].HolidayList
             ) {
               HolidayDataForEveryDay[c.Date].HolidayList = HolidayData[k];
-              HolidayDataForEveryDay[c.Date].StartDate =
-                HolidayData[k][0].Date;
+              HolidayDataForEveryDay[c.Date].StartDate = HolidayData[k][0].Date;
               HolidayDataForEveryDay[c.Date].EndDate =
                 HolidayData[k][HolidayData[k].length - 1].Date;
             }
@@ -134,8 +133,8 @@ export function GetHolidayOfTerm(payload = {}) {
         // 有多少个月
         window.moment = moment;
 
-        let MonthDiff =
-          moment(TermEndDate).diff(moment(TermStartDate), "month") + 1;
+        let MonthDiff =moment(moment(TermEndDate).format('YYYY-MM')).diff(moment(TermStartDate).format('YYYY-MM'), "months") + 1
+          // moment(TermEndDate).month() - moment(TermStartDate).month() + 1;
         let MonthList = [];
         for (let i = 0; i < MonthDiff; i++) {
           MonthList.push(
@@ -237,7 +236,7 @@ export function SetHoliday(payload = {}) {
     });
 }
 
- // 修新增节假日
+// 修新增节假日
 export function DeleteHoliday(payload = {}) {
   // let {  sysIDs  } = payload;
   let url = HolidayProxy + `/DeleteHoliday`;
@@ -261,8 +260,8 @@ export function DeleteHoliday(payload = {}) {
     });
 }
 
- // 修新增节假日
- export function DeleteWorkday(payload = {}) {
+// 修新增节假日
+export function DeleteWorkday(payload = {}) {
   // let {  sysIDs  } = payload;
   let url = HolidayProxy + `/DeleteWorkday`;
 
@@ -285,8 +284,8 @@ export function DeleteHoliday(payload = {}) {
     });
 }
 
- // 同步法定节假日
- export function SyncHoliday(payload = {}) {
+// 同步法定节假日
+export function SyncHoliday(payload = {}) {
   // let {  sysIDs  } = payload;
   let url = HolidayProxy + `/SyncHoliday`;
 
